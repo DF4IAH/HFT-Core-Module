@@ -1,1 +1,0 @@
-# HFT-Core-Module
