@@ -1,6 +1,6 @@
 Configuration	TrueSTUDIO
 STM32CubeMX 	4.24.0
-Date	03/07/2018
+Date	03/08/2018
 MCU	STM32L496ZGTxP
 
 
@@ -75,9 +75,8 @@ SPI3	Full-Duplex Master	SPI3_MOSI	PC12
 SPI3	Full-Duplex Master	SPI3_SCK	PC10
 SPI3	Hardware NSS Output Signal	SPI3_NSS	PA15 (JTDI)
 SWPMI1	Full-Duplex (normal mode)	SWPMI1_IO	PA8
-SYS	Trace Asynchronous Sw	SYS_JTMS-SWDIO	PA13 (JTMS/SWDIO)
-SYS	Trace Asynchronous Sw	SYS_JTCK-SWCLK	PA14 (JTCK/SWCLK)
-SYS	Trace Asynchronous Sw	SYS_JTDO-SWO	PB3 (JTDO/TRACESWO)
+SYS	Serial Wire	SYS_JTCK-SWCLK	PA14 (JTCK/SWCLK)
+SYS	Serial Wire	SYS_JTMS-SWDIO	PA13 (JTMS/SWDIO)
 SYS	Power Voltage Detector In (Internal analog voltage)	SYS_V_PVD_IN	VP_SYS_V_PVD_IN
 SYS	Internal voltage reference	VREFBUF_OUT	VREF+
 SYS	TIM2	SYS_VS_tim2	VP_SYS_VS_tim2
@@ -182,7 +181,6 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 127	PG12	USART1_RTS	
 128	PG13	I2C1_SDA	
 129	PG14	I2C1_SCL	
-132	PB3 (JTDO/TRACESWO)	SYS_JTDO-SWO	
 133	PB4 (NJTRST)	COMP2_INP	
 138	PB8	TIM16_CH1	
 139	PB9	IR_OUT	
@@ -194,7 +192,7 @@ SOFTWARE PROJECT
 
 Project Settings : 
 Project Name : TrueSTUDIO
-Project Folder : \\.psf\Home\nfs_ds_nfs\git\HFT-Core-Module__SW\SW\TrueSTUDIO
+Project Folder : \\Mac\Home\nfs_ds_nfs\git\HFT-Core-Module__SW\SW\TrueSTUDIO
 Toolchain / IDE : TrueSTUDIO
 Firmware Package Name and Version : STM32Cube FW_L4 V1.11.0
 
