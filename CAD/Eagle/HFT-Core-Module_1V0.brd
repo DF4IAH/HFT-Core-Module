@@ -3122,6 +3122,44 @@ Source: http://www3.alps.co.jp/WebObjects/catalog.woa/PDF/E/Switch/Tact/SKHM/SKH
 </package>
 </packages>
 </library>
+<library name="testpad">
+<description>&lt;b&gt;Test Pins/Pads&lt;/b&gt;&lt;p&gt;
+Cream on SMD OFF.&lt;br&gt;
+new: Attribute TP_SIGNAL_NAME&lt;br&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="TP06R">
+<description>&lt;b&gt;TEST PAD&lt;/b&gt;</description>
+<smd name="TP" x="0" y="0" dx="0.6" dy="0.6" layer="1" roundness="100" cream="no"/>
+<text x="-0.3" y="0.4001" size="1.27" layer="25">&gt;NAME</text>
+<text x="-0.254" y="-0.381" size="0.0254" layer="27">&gt;VALUE</text>
+<text x="0" y="-1.905" size="1" layer="37">&gt;TP_SIGNAL_NAME</text>
+</package>
+</packages>
+</library>
+<library name="df4iah_sc-switches">
+<description>Semiconductor switches</description>
+<packages>
+<package name="R-PDSO-G8">
+<description>R-PDSO-G8</description>
+<smd name="1" x="-0.75" y="-1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R90"/>
+<smd name="2" x="-0.25" y="-1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R90"/>
+<smd name="3" x="0.25" y="-1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R90"/>
+<smd name="4" x="0.75" y="-1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R90"/>
+<smd name="5" x="0.75" y="1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R270"/>
+<smd name="6" x="0.25" y="1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R270"/>
+<smd name="7" x="-0.25" y="1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R270"/>
+<smd name="8" x="-0.75" y="1.55" dx="0.75" dy="0.25" layer="1" roundness="10" rot="R270"/>
+<text x="-1.25" y="-1" size="0.3048" layer="25" rot="R90">&gt;NAME</text>
+<text x="1.75" y="-1.25" size="0.3048" layer="27" rot="R90">&gt;VALUE</text>
+<circle x="-1.25" y="-1.5" radius="0.065" width="0.125" layer="21"/>
+<wire x1="-1" y1="-1.15" x2="1" y2="-1.15" width="0.127" layer="21"/>
+<wire x1="1" y1="-1.15" x2="1" y2="1.15" width="0.127" layer="21"/>
+<wire x1="1" y1="1.15" x2="-1" y2="1.15" width="0.127" layer="21"/>
+<wire x1="-1" y1="1.15" x2="-1" y2="-1.15" width="0.127" layer="21"/>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3358,26 +3396,26 @@ Your Eurocircuits Team
 </pass>
 </autorouter>
 <elements>
-<element name="H703" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="5.08" y="5.08" smashed="yes"/>
-<element name="H701" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="5.08" y="91.44"/>
-<element name="H702" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="91.44" y="91.44"/>
-<element name="H704" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="91.44" y="5.08" smashed="yes"/>
+<element name="H1003" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="5.08" y="5.08" smashed="yes"/>
+<element name="H1002" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="5.08" y="91.44"/>
+<element name="H1001" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="91.44" y="91.44"/>
+<element name="H1004" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="91.44" y="5.08" smashed="yes"/>
 <element name="U111" library="stm32l4" package="LQFP144" value="STM32L4Z_144PIN_SMPS" x="66.04" y="62.23" rot="R270"/>
-<element name="C231" library="rcl" package="C0603" value="100nF" x="73.66" y="48.26" rot="MR180"/>
-<element name="C232" library="rcl" package="C0603" value="100nF" x="59.055" y="76.2" rot="MR0"/>
-<element name="C211" library="rcl" package="C0603" value="100n" x="58.42" y="63.5" rot="MR90"/>
-<element name="C212" library="rcl" package="C0603" value="100n" x="59.055" y="53.975" rot="MR0"/>
-<element name="C213" library="rcl" package="C0603" value="100n" x="64.77" y="53.975" rot="MR0"/>
-<element name="C214" library="rcl" package="C0603" value="100n" x="69.85" y="53.975" rot="MR0"/>
-<element name="C215" library="rcl" package="C0603" value="100n" x="74.295" y="54.61" rot="MR90"/>
-<element name="C216" library="rcl" package="C0603" value="100n" x="73.66" y="59.69" rot="MR270"/>
-<element name="C217" library="rcl" package="C0603" value="100n" x="73.66" y="70.485" rot="MR270"/>
-<element name="C218" library="rcl" package="C0603" value="100n" x="68.58" y="71.12" rot="MR180"/>
-<element name="C219" library="rcl" package="C0603" value="100n" x="59.055" y="71.12" rot="MR180"/>
-<element name="L221" library="rcl" package="L2012C" value="10uH" x="59.055" y="57.785" rot="MR180"/>
-<element name="C221" library="rcl" package="C0603" value="100nF" x="59.055" y="55.88" rot="MR180"/>
+<element name="C431" library="rcl" package="C0603" value="100nF" x="73.66" y="48.26" rot="MR180"/>
+<element name="C432" library="rcl" package="C0603" value="100nF" x="59.055" y="76.2" rot="MR0"/>
+<element name="C411" library="rcl" package="C0603" value="100n" x="58.42" y="63.5" rot="MR90"/>
+<element name="C412" library="rcl" package="C0603" value="100n" x="59.055" y="53.975" rot="MR0"/>
+<element name="C413" library="rcl" package="C0603" value="100n" x="64.77" y="53.975" rot="MR0"/>
+<element name="C414" library="rcl" package="C0603" value="100n" x="69.85" y="53.975" rot="MR0"/>
+<element name="C415" library="rcl" package="C0603" value="100n" x="74.295" y="54.61" rot="MR90"/>
+<element name="C416" library="rcl" package="C0603" value="100n" x="73.66" y="59.69" rot="MR270"/>
+<element name="C417" library="rcl" package="C0603" value="100n" x="73.66" y="70.485" rot="MR270"/>
+<element name="C418" library="rcl" package="C0603" value="100n" x="68.58" y="71.12" rot="MR180"/>
+<element name="C419" library="rcl" package="C0603" value="100n" x="59.055" y="71.12" rot="MR180"/>
+<element name="L421" library="rcl" package="L2012C" value="10uH" x="59.055" y="57.785" rot="MR180"/>
+<element name="C421" library="rcl" package="C0603" value="100nF" x="59.055" y="55.88" rot="MR180"/>
 <element name="SJ111" library="df4iah_jumper" package="SJ" value="" x="50.8" y="57.15"/>
-<element name="SJ211" library="df4iah_jumper" package="SJ" value="" x="63.5" y="69.85" rot="MR90"/>
+<element name="SJ411" library="df4iah_jumper" package="SJ" value="" x="63.5" y="69.85" rot="MR90"/>
 <element name="X521" library="df4iah_connector" package="2X20/90_1MM27_HARWIN_M50-3202045" value="2X20/90_1MM27_HARWIN_M50-3202045" x="5.08" y="31.75" rot="R90"/>
 <element name="X511" library="df4iah_connector" package="2X20/90_1MM27_HARWIN_M50-3202045" value="2X20/90_1MM27_HARWIN_M50-3202045" x="64.77" y="5.08" rot="R180"/>
 <element name="X531" library="df4iah_connector" package="2X20/90_1MM27_HARWIN_M50-3202045" value="2X20/90_1MM27_HARWIN_M50-3202045" x="31.75" y="91.44"/>
@@ -3418,22 +3456,21 @@ Your Eurocircuits Team
 <attribute name="OC_NEWARK" value="-" x="-15.24" y="29.21" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
 <element name="R326" library="rcl" package="R0603" value="47R" x="49.53" y="48.895" rot="MR180"/>
-<element name="U1111" library="df4iah_powersupply" package="SOT95P280X145-5N" value="LM2831YMF" x="31.75" y="82.55" rot="MR0">
+<element name="U911" library="df4iah_powersupply" package="SOT95P280X145-5N" value="LM2831YMF" x="31.75" y="82.55" rot="MR0">
 <attribute name="PACKAGE" value="SOT-23-5" x="40.64" y="82.55" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="MPN" value="LM2831YMF/NOPB" x="40.64" y="82.55" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="OC_FARNELL" value="1286714" x="40.64" y="82.55" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="SUPPLIER" value="National Semiconductor" x="40.64" y="82.55" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="OC_NEWARK" value="-" x="40.64" y="82.55" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
-<element name="C1111" library="rcl" package="C0805" value="47uF" x="31.75" y="82.55" rot="R270"/>
-<element name="D1111" library="df4iah_diode" package="SOD80C" value="CRS08" x="34.29" y="82.55" rot="R270"/>
-<element name="L1111" library="rcl" package="L5650M" value="4.7uH" x="38.1" y="82.55" rot="MR0"/>
-<element name="C1112" library="rcl" package="C0603" value="100nF" x="43.815" y="82.55" rot="MR180"/>
-<element name="C1113" library="rcl" package="C0805" value="47uF" x="43.815" y="80.645" rot="MR180"/>
-<element name="R1114" library="rcl" package="R0603" value="15kR" x="32.385" y="80.01" rot="MR180"/>
-<element name="R1115" library="rcl" package="R0603" value="68kR" x="34.29" y="78.74" rot="MR180"/>
-<element name="R1113" library="rcl" package="R0603" value="100kR" x="28.575" y="82.55" rot="MR270"/>
-<element name="D1121" library="df4iah_diode" package="SOD80C" value="CRS08" x="25.4" y="83.82" rot="R180"/>
+<element name="C911" library="rcl" package="C0805" value="47uF" x="31.75" y="82.55" rot="R270"/>
+<element name="D911" library="df4iah_diode" package="SOD80C" value="CRS08" x="34.29" y="82.55" rot="R270"/>
+<element name="L911" library="rcl" package="L5650M" value="4.7uH" x="38.1" y="82.55" rot="MR0"/>
+<element name="C912" library="rcl" package="C0603" value="100nF" x="43.815" y="82.55" rot="MR180"/>
+<element name="C913" library="rcl" package="C0805" value="47uF" x="43.815" y="80.645" rot="MR180"/>
+<element name="R912" library="rcl" package="R0603" value="15kR" x="32.385" y="80.01" rot="MR180"/>
+<element name="R913" library="rcl" package="R0603" value="68kR" x="34.29" y="78.74" rot="MR180"/>
+<element name="R911" library="rcl" package="R0603" value="100kR" x="28.575" y="82.55" rot="MR270"/>
 <element name="U331" library="df4iah_powersupply" package="SOT95P285X120-5N" value="LM4120IM5-3.0" x="45.72" y="55.88" rot="MR270">
 <attribute name="PACKAGE" value="SOT-23-5" x="45.72" y="55.88" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="MPN" value="LM4120IM5-3.0" x="45.72" y="55.88" size="1.778" layer="28" rot="MR270" display="off"/>
@@ -3445,23 +3482,40 @@ Your Eurocircuits Team
 <element name="X231" library="df4iah_connector" package="2X03" value="" x="81.28" y="80.01" rot="R270"/>
 <element name="X211" library="df4iah_connector" package="1X02" value="" x="60.96" y="80.01"/>
 <element name="R211" library="rcl" package="R0603" value="10kR" x="57.15" y="80.01" rot="MR180"/>
-<element name="C2211" library="rcl" package="C0603" value="1nF" x="31.75" y="74.93" rot="R90"/>
+<element name="C221" library="rcl" package="C0603" value="1nF" x="31.75" y="74.93" rot="R90"/>
 <element name="R221" library="rcl" package="R0603" value="10kR" x="42.545" y="69.85" rot="R90"/>
 <element name="C325" library="rcl" package="C0603" value="100nF" x="49.53" y="50.8" rot="MR180"/>
-<element name="R241" library="rcl" package="R0603" value="0R" x="50.8" y="54.61"/>
-<element name="C241" library="rcl" package="C0603" value="100pF" x="50.8" y="52.705"/>
-<element name="D251" library="df4iah_diode" package="SOD923" value="CMAD6001" x="49.53" y="74.93" rot="MR90"/>
-<element name="C251" library="df4iah_rcl" package="W14MM_D8MM_P13MM5" value="330mF_SCMR14G334MRBA0" x="49.53" y="78.74" rot="R90"/>
+<element name="R441" library="rcl" package="R0603" value="0R" x="50.8" y="54.61"/>
+<element name="C441" library="rcl" package="C0603" value="100pF" x="50.8" y="52.705"/>
+<element name="D451" library="df4iah_diode" package="SOD923" value="CMAD6001" x="49.53" y="74.93" rot="MR90"/>
+<element name="C451" library="df4iah_rcl" package="W14MM_D8MM_P13MM5" value="330mF_SCMR14G334MRBA0" x="49.53" y="78.74" rot="R90"/>
 <element name="C311" library="rcl" package="C0603" value="2p7F" x="46.99" y="66.675" rot="R180"/>
 <element name="C312" library="rcl" package="C0603" value="2p7F" x="46.99" y="69.215" rot="R180"/>
-<element name="S1" library="switch" package="SKHMPXE010" value="SKHMPSE010" x="38.1" y="74.93"/>
+<element name="S221" library="switch" package="SKHMPXE010" value="SKHMPSE010" x="38.1" y="74.93"/>
+<element name="C711" library="rcl" package="C0805" value="47uF" x="-13.97" y="-35.56"/>
+<element name="TP_VSOL" library="testpad" package="TP06R" value="PTR1TP06R" x="-26.67" y="-50.8">
+<attribute name="TP_SIGNAL_NAME" value="" x="-26.67" y="-50.8" size="1.778" layer="27" display="off"/>
+</element>
+<element name="TP_+5V0_SOL" library="testpad" package="TP06R" value="PTR1TP06R" x="-26.67" y="-54.61">
+<attribute name="TP_SIGNAL_NAME" value="" x="-26.67" y="-54.61" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D811" library="df4iah_diode" package="SOD923" value="CMAD6001" x="-26.67" y="-77.47"/>
+<element name="C811" library="df4iah_rcl" package="W14MM_D8MM_P13MM5" value="330mF_SCMR14G334MRBA0" x="-13.97" y="-67.31"/>
+<element name="TP_+5V0" library="testpad" package="TP06R" value="PTR1TP06R" x="-15.24" y="-86.36">
+<attribute name="TP_SIGNAL_NAME" value="" x="-26.67" y="-90.17" size="1.778" layer="27" display="off"/>
+</element>
+<element name="D821" library="df4iah_diode" package="SOD80C" value="CRS08" x="-25.4" y="-91.44"/>
+<element name="U921" library="df4iah_sc-switches" package="R-PDSO-G8" value="TS5A23166" x="-31.75" y="-91.44"/>
+<element name="C921" library="rcl" package="C0603" value="100nF" x="-30.48" y="-97.79"/>
+<element name="C922" library="rcl" package="C0603" value="100nF" x="-30.48" y="-102.87"/>
+<element name="U821" library="df4iah_sc-switches" package="R-PDSO-G8" value="TS5A23166" x="-31.75" y="-109.22"/>
 </elements>
 <signals>
 <signal name="GND">
-<contactref element="H703" pad="B2,8"/>
-<contactref element="H701" pad="B2,8"/>
-<contactref element="H704" pad="B2,8"/>
-<contactref element="H702" pad="B2,8"/>
+<contactref element="H1003" pad="B2,8"/>
+<contactref element="H1002" pad="B2,8"/>
+<contactref element="H1004" pad="B2,8"/>
+<contactref element="H1001" pad="B2,8"/>
 <contactref element="U111" pad="143"/>
 <contactref element="U111" pad="130"/>
 <contactref element="U111" pad="120"/>
@@ -3473,19 +3527,51 @@ Your Eurocircuits Team
 <contactref element="U111" pad="51"/>
 <contactref element="U111" pad="38"/>
 <contactref element="U111" pad="16"/>
-<contactref element="C231" pad="2"/>
-<contactref element="C232" pad="2"/>
-<contactref element="C211" pad="2"/>
-<contactref element="C212" pad="2"/>
-<contactref element="C213" pad="2"/>
-<contactref element="C214" pad="2"/>
-<contactref element="C215" pad="2"/>
-<contactref element="C216" pad="2"/>
-<contactref element="C217" pad="2"/>
-<contactref element="C218" pad="2"/>
-<contactref element="C221" pad="2"/>
+<contactref element="C431" pad="2"/>
+<contactref element="C432" pad="2"/>
+<contactref element="C411" pad="2"/>
+<contactref element="C412" pad="2"/>
+<contactref element="C413" pad="2"/>
+<contactref element="C414" pad="2"/>
+<contactref element="C415" pad="2"/>
+<contactref element="C416" pad="2"/>
+<contactref element="C417" pad="2"/>
+<contactref element="C418" pad="2"/>
+<contactref element="C421" pad="2"/>
 <contactref element="SJ111" pad="1"/>
-<contactref element="C219" pad="2"/>
+<contactref element="C419" pad="2"/>
+<contactref element="U321" pad="2"/>
+<contactref element="C322" pad="2"/>
+<contactref element="C321" pad="2"/>
+<contactref element="U322" pad="2"/>
+<contactref element="R323" pad="1"/>
+<contactref element="U323" pad="2"/>
+<contactref element="C911" pad="2"/>
+<contactref element="D911" pad="A"/>
+<contactref element="C912" pad="2"/>
+<contactref element="R912" pad="1"/>
+<contactref element="C913" pad="2"/>
+<contactref element="U911" pad="2"/>
+<contactref element="U331" pad="2"/>
+<contactref element="C331" pad="2"/>
+<contactref element="X231" pad="6"/>
+<contactref element="X211" pad="2"/>
+<contactref element="C221" pad="2"/>
+<contactref element="R441" pad="1"/>
+<contactref element="C441" pad="1"/>
+<contactref element="C451" pad="-"/>
+<contactref element="C311" pad="2"/>
+<contactref element="C312" pad="2"/>
+<contactref element="C323" pad="2"/>
+<contactref element="C324" pad="2"/>
+<contactref element="C325" pad="2"/>
+<contactref element="S221" pad="5"/>
+<contactref element="S221" pad="1"/>
+<contactref element="S221" pad="2"/>
+<contactref element="X511" pad="1"/>
+<contactref element="X511" pad="2"/>
+<contactref element="X511" pad="40"/>
+<contactref element="X511" pad="39"/>
 <contactref element="X521" pad="1"/>
 <contactref element="X521" pad="2"/>
 <contactref element="X521" pad="39"/>
@@ -3494,50 +3580,24 @@ Your Eurocircuits Team
 <contactref element="X531" pad="2"/>
 <contactref element="X531" pad="39"/>
 <contactref element="X531" pad="40"/>
-<contactref element="X511" pad="1"/>
-<contactref element="X511" pad="2"/>
-<contactref element="X511" pad="39"/>
-<contactref element="X511" pad="40"/>
-<contactref element="X532" pad="40"/>
 <contactref element="X512" pad="40"/>
 <contactref element="X512" pad="39"/>
+<contactref element="X522" pad="40"/>
+<contactref element="X532" pad="40"/>
+<contactref element="X522" pad="39"/>
+<contactref element="X532" pad="39"/>
 <contactref element="X512" pad="2"/>
 <contactref element="X512" pad="1"/>
-<contactref element="X522" pad="40"/>
-<contactref element="X522" pad="39"/>
-<contactref element="X522" pad="2"/>
 <contactref element="X522" pad="1"/>
-<contactref element="X532" pad="39"/>
+<contactref element="X522" pad="2"/>
 <contactref element="X532" pad="1"/>
 <contactref element="X532" pad="2"/>
-<contactref element="U321" pad="2"/>
-<contactref element="C322" pad="2"/>
-<contactref element="C321" pad="2"/>
-<contactref element="U322" pad="2"/>
-<contactref element="R323" pad="1"/>
-<contactref element="U323" pad="2"/>
-<contactref element="C1111" pad="2"/>
-<contactref element="D1111" pad="A"/>
-<contactref element="C1112" pad="2"/>
-<contactref element="R1114" pad="1"/>
-<contactref element="C1113" pad="2"/>
-<contactref element="U1111" pad="2"/>
-<contactref element="U331" pad="2"/>
-<contactref element="C331" pad="2"/>
-<contactref element="X231" pad="6"/>
-<contactref element="X211" pad="2"/>
-<contactref element="C2211" pad="2"/>
-<contactref element="R241" pad="1"/>
-<contactref element="C241" pad="1"/>
-<contactref element="C251" pad="-"/>
-<contactref element="C311" pad="2"/>
-<contactref element="C312" pad="2"/>
-<contactref element="C323" pad="2"/>
-<contactref element="C324" pad="2"/>
-<contactref element="C325" pad="2"/>
-<contactref element="S1" pad="5"/>
-<contactref element="S1" pad="1"/>
-<contactref element="S1" pad="2"/>
+<contactref element="C711" pad="2"/>
+<contactref element="C811" pad="-"/>
+<contactref element="U921" pad="4"/>
+<contactref element="C921" pad="2"/>
+<contactref element="C922" pad="2"/>
+<contactref element="U821" pad="4"/>
 <wire x1="77.47" y1="93.98" x2="91.44" y2="91.44" width="0" layer="19" extent="1-1"/>
 <wire x1="77.47" y1="88.9" x2="77.47" y2="93.98" width="0" layer="19" extent="1-1"/>
 <wire x1="82.55" y1="77.47" x2="77.47" y2="88.9" width="0" layer="19" extent="1-1"/>
@@ -3617,37 +3677,49 @@ Your Eurocircuits Team
 <wire x1="77.47" y1="7.62" x2="53.34" y2="7.62" width="0" layer="19" extent="1-1"/>
 <wire x1="77.47" y1="2.54" x2="77.47" y2="7.62" width="0" layer="19" extent="1-1"/>
 <wire x1="91.44" y1="5.08" x2="77.47" y2="7.62" width="0" layer="19" extent="1-1"/>
+<wire x1="-13.02" y1="-35.56" x2="5.08" y2="5.08" width="0" layer="19" extent="1-1"/>
+<wire x1="-7.22" y1="-67.31" x2="-13.02" y2="-35.56" width="0" layer="19" extent="1-1"/>
+<wire x1="-31" y1="-92.99" x2="-7.22" y2="-67.31" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.63" y1="-97.79" x2="-31" y2="-92.99" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.63" y1="-102.87" x2="-29.63" y2="-97.79" width="0" layer="19" extent="1-1"/>
+<wire x1="-31" y1="-110.77" x2="-29.63" y2="-102.87" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="MPU_VSSA">
+<signal name="MCU_VSSA">
 <contactref element="U111" pad="30"/>
 <contactref element="SJ111" pad="2"/>
 <wire x1="51.562" y1="57.15" x2="55.415" y2="56.93" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="VDDIO2">
+<signal name="MCU_VDDIO2">
 <contactref element="U111" pad="131"/>
 <contactref element="U111" pad="95"/>
 <wire x1="63.815" y1="73.355" x2="76.665" y2="64.93" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="VDDUSB">
+<signal name="MCU_VDDUSB">
 <contactref element="U111" pad="106"/>
+<contactref element="U821" pad="1"/>
+<contactref element="U821" pad="5"/>
+<contactref element="U821" pad="8"/>
+<wire x1="-31" y1="-107.67" x2="76.665" y2="70.43" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.5" y1="-107.67" x2="-31" y2="-107.67" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.5" y1="-110.77" x2="-32.5" y2="-107.67" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="VDD12">
+<signal name="MCU_VDD12">
 <contactref element="U111" pad="70"/>
-<contactref element="C232" pad="1"/>
-<contactref element="C231" pad="1"/>
+<contactref element="C432" pad="1"/>
+<contactref element="C431" pad="1"/>
 <contactref element="U111" pad="142"/>
 <wire x1="58.34" y1="73.355" x2="59.905" y2="76.2" width="0" layer="19" extent="1-16"/>
 <wire x1="73.84" y1="51.605" x2="58.34" y2="73.355" width="0" layer="19" extent="1-1"/>
 <wire x1="72.81" y1="48.26" x2="73.84" y2="51.605" width="0" layer="19" extent="1-16"/>
 </signal>
-<signal name="MPU_VREF_P">
+<signal name="MCU_VREF_P">
 <contactref element="U111" pad="32"/>
-<contactref element="C241" pad="2"/>
+<contactref element="C441" pad="2"/>
 <wire x1="51.65" y1="52.705" x2="55.415" y2="55.93" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="MPU_VREF_M">
+<signal name="MCU_VREF_M">
 <contactref element="U111" pad="31"/>
-<contactref element="R241" pad="2"/>
+<contactref element="R441" pad="2"/>
 <wire x1="51.65" y1="54.61" x2="55.415" y2="56.43" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PH3_BOOT0">
@@ -3657,12 +3729,12 @@ Your Eurocircuits Team
 <wire x1="58" y1="80.01" x2="60.96" y2="80.01" width="0" layer="19" extent="16-16"/>
 <wire x1="60.84" y1="73.355" x2="60.96" y2="80.01" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="MPU_NRST">
+<signal name="MCU_NRST">
 <contactref element="U111" pad="25"/>
 <contactref element="R221" pad="2"/>
-<contactref element="C2211" pad="1"/>
-<contactref element="S1" pad="3"/>
-<contactref element="S1" pad="4"/>
+<contactref element="C221" pad="1"/>
+<contactref element="S221" pad="3"/>
+<contactref element="S221" pad="4"/>
 <wire x1="42.545" y1="70.7" x2="55.415" y2="59.43" width="0" layer="19" extent="1-1"/>
 <wire x1="42.3" y1="72.68" x2="42.545" y2="70.7" width="0" layer="19" extent="1-1"/>
 <wire x1="33.9" y1="72.68" x2="42.3" y2="72.68" width="0" layer="19" extent="1-1"/>
@@ -3687,10 +3759,10 @@ Your Eurocircuits Team
 <wire x1="50.8" y1="69.195" x2="55.415" y2="67.93" width="0" layer="19" extent="1-1"/>
 <wire x1="47.84" y1="69.215" x2="50.8" y2="69.195" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="MPU_VBAT">
+<signal name="MCU_VBAT">
 <contactref element="U111" pad="6"/>
-<contactref element="D251" pad="C"/>
-<contactref element="C251" pad="+"/>
+<contactref element="D451" pad="C"/>
+<contactref element="C451" pad="+"/>
 <wire x1="49.53" y1="71.99" x2="55.415" y2="68.93" width="0" layer="19" extent="1-1"/>
 <wire x1="49.53" y1="74.48" x2="49.53" y2="71.99" width="0" layer="19" extent="16-16"/>
 </signal>
@@ -4022,7 +4094,7 @@ Your Eurocircuits Team
 <signal name="PC6">
 <contactref element="U111" pad="96"/>
 </signal>
-<signal name="MPU_VDD">
+<signal name="MCU_VDD">
 <contactref element="U111" pad="17"/>
 <contactref element="U111" pad="39"/>
 <contactref element="U111" pad="52"/>
@@ -4032,17 +4104,17 @@ Your Eurocircuits Team
 <contactref element="U111" pad="108"/>
 <contactref element="U111" pad="121"/>
 <contactref element="U111" pad="144"/>
-<contactref element="L221" pad="2"/>
-<contactref element="C211" pad="1"/>
-<contactref element="C212" pad="1"/>
-<contactref element="C213" pad="1"/>
-<contactref element="C214" pad="1"/>
-<contactref element="C215" pad="1"/>
-<contactref element="C216" pad="1"/>
-<contactref element="C217" pad="1"/>
-<contactref element="C218" pad="1"/>
-<contactref element="C219" pad="1"/>
-<contactref element="SJ211" pad="2"/>
+<contactref element="L421" pad="2"/>
+<contactref element="C411" pad="1"/>
+<contactref element="C412" pad="1"/>
+<contactref element="C413" pad="1"/>
+<contactref element="C414" pad="1"/>
+<contactref element="C415" pad="1"/>
+<contactref element="C416" pad="1"/>
+<contactref element="C417" pad="1"/>
+<contactref element="C418" pad="1"/>
+<contactref element="C419" pad="1"/>
+<contactref element="SJ411" pad="2"/>
 <wire x1="73.66" y1="71.335" x2="76.665" y2="71.43" width="0" layer="19" extent="1-16"/>
 <wire x1="68.765" y1="73.355" x2="73.66" y2="71.335" width="0" layer="19" extent="1-16"/>
 <wire x1="67.73" y1="71.12" x2="68.765" y2="73.355" width="0" layer="19" extent="1-16"/>
@@ -4063,35 +4135,67 @@ Your Eurocircuits Team
 <wire x1="76.665" y1="59.505" x2="74.295" y2="53.76" width="0" layer="19" extent="1-16"/>
 <wire x1="73.66" y1="60.54" x2="76.665" y2="59.505" width="0" layer="19" extent="1-16"/>
 </signal>
-<signal name="MPU_VDDA">
+<signal name="MCU_VDDA">
 <contactref element="U111" pad="33"/>
-<contactref element="L221" pad="1"/>
-<contactref element="C221" pad="1"/>
+<contactref element="L421" pad="1"/>
+<contactref element="C421" pad="1"/>
 <wire x1="58.205" y1="55.88" x2="58.055" y2="57.785" width="0" layer="19" extent="16-16"/>
 <wire x1="55.415" y1="55.43" x2="58.205" y2="55.88" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="+3V3">
-<contactref element="L1111" pad="1"/>
-<contactref element="C1112" pad="1"/>
-<contactref element="C1113" pad="1"/>
-<contactref element="R1115" pad="2"/>
+<contactref element="L911" pad="1"/>
+<contactref element="C912" pad="1"/>
+<contactref element="C913" pad="1"/>
+<contactref element="R913" pad="2"/>
 <contactref element="U331" pad="4"/>
 <contactref element="C331" pad="1"/>
 <contactref element="R211" pad="1"/>
 <contactref element="X231" pad="2"/>
 <contactref element="R221" pad="1"/>
-<contactref element="SJ211" pad="1"/>
-<contactref element="D251" pad="A"/>
-<wire x1="63.5" y1="69.088" x2="82.55" y2="82.55" width="0" layer="19" extent="16-16"/>
-<wire x1="56.3" y1="80.01" x2="63.5" y2="69.088" width="0" layer="19" extent="16-16"/>
+<contactref element="SJ411" pad="1"/>
+<contactref element="D451" pad="A"/>
+<contactref element="X511" pad="3"/>
+<contactref element="X511" pad="4"/>
+<contactref element="X521" pad="3"/>
+<contactref element="X521" pad="4"/>
+<contactref element="X531" pad="3"/>
+<contactref element="X531" pad="4"/>
+<contactref element="X512" pad="38"/>
+<contactref element="X512" pad="37"/>
+<contactref element="X522" pad="38"/>
+<contactref element="X522" pad="37"/>
+<contactref element="X532" pad="38"/>
+<contactref element="X532" pad="37"/>
+<contactref element="U921" pad="1"/>
+<contactref element="U921" pad="5"/>
+<contactref element="U921" pad="8"/>
+<contactref element="C921" pad="1"/>
+<wire x1="76.2" y1="88.9" x2="76.2" y2="93.98" width="0" layer="19" extent="1-1"/>
+<wire x1="82.55" y1="82.55" x2="76.2" y2="88.9" width="0" layer="19" extent="1-1"/>
+<wire x1="56.3" y1="80.01" x2="76.2" y2="88.9" width="0" layer="19" extent="16-16"/>
 <wire x1="49.53" y1="75.38" x2="56.3" y2="80.01" width="0" layer="19" extent="16-16"/>
 <wire x1="42.865" y1="80.645" x2="49.53" y2="75.38" width="0" layer="19" extent="16-16"/>
 <wire x1="42.965" y1="82.55" x2="42.865" y2="80.645" width="0" layer="19" extent="16-16"/>
 <wire x1="40.6" y1="82.55" x2="42.965" y2="82.55" width="0" layer="19" extent="16-16"/>
 <wire x1="35.14" y1="78.74" x2="40.6" y2="82.55" width="0" layer="19" extent="16-16"/>
 <wire x1="42.545" y1="69" x2="49.53" y2="75.38" width="0" layer="19" extent="1-16"/>
+<wire x1="63.5" y1="69.088" x2="56.3" y2="80.01" width="0" layer="19" extent="16-16"/>
 <wire x1="46.6852" y1="54.5846" x2="42.545" y2="69" width="0" layer="19" extent="1-16"/>
 <wire x1="48.895" y1="54.19" x2="46.6852" y2="54.5846" width="0" layer="19" extent="16-16"/>
+<wire x1="20.32" y1="88.9" x2="35.14" y2="78.74" width="0" layer="19" extent="16-16"/>
+<wire x1="20.32" y1="93.98" x2="20.32" y2="88.9" width="0" layer="19" extent="1-1"/>
+<wire x1="7.62" y1="76.2" x2="20.32" y2="88.9" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="76.2" x2="7.62" y2="76.2" width="0" layer="19" extent="1-1"/>
+<wire x1="7.62" y1="20.32" x2="46.6852" y2="54.5846" width="0" layer="19" extent="16-16"/>
+<wire x1="2.54" y1="20.32" x2="7.62" y2="20.32" width="0" layer="19" extent="1-1"/>
+<wire x1="20.32" y1="7.62" x2="7.62" y2="20.32" width="0" layer="19" extent="1-1"/>
+<wire x1="20.32" y1="2.54" x2="20.32" y2="7.62" width="0" layer="19" extent="1-1"/>
+<wire x1="76.2" y1="7.62" x2="48.895" y2="54.19" width="0" layer="19" extent="16-16"/>
+<wire x1="76.2" y1="2.54" x2="76.2" y2="7.62" width="0" layer="19" extent="1-1"/>
+<wire x1="-31" y1="-89.89" x2="20.32" y2="2.54" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.5" y1="-89.89" x2="-31" y2="-89.89" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.5" y1="-92.99" x2="-32.5" y2="-89.89" width="0" layer="19" extent="1-1"/>
+<wire x1="-31.33" y1="-97.79" x2="-32.5" y2="-92.99" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="XO_LP">
 <contactref element="R321" pad="2"/>
@@ -4137,32 +4241,23 @@ Your Eurocircuits Team
 <wire x1="44.7802" y1="52.0954" x2="46.6598" y2="49.5046" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="EN">
-<contactref element="U1111" pad="4"/>
-<contactref element="R1113" pad="2"/>
+<contactref element="U911" pad="4"/>
+<contactref element="R911" pad="2"/>
 <wire x1="28.575" y1="81.7" x2="30.4546" y2="81.6102" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="SW">
-<contactref element="U1111" pad="1"/>
-<contactref element="D1111" pad="C"/>
-<contactref element="L1111" pad="2"/>
+<contactref element="U911" pad="1"/>
+<contactref element="D911" pad="C"/>
+<contactref element="L911" pad="2"/>
 <wire x1="33.0454" y1="83.4898" x2="34.29" y2="84.25" width="0" layer="19" extent="1-16"/>
 <wire x1="35.6" y1="82.55" x2="34.29" y2="84.25" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="FB">
-<contactref element="U1111" pad="3"/>
-<contactref element="R1115" pad="1"/>
-<contactref element="R1114" pad="2"/>
+<contactref element="U911" pad="3"/>
+<contactref element="R913" pad="1"/>
+<contactref element="R912" pad="2"/>
 <wire x1="33.235" y1="80.01" x2="33.0454" y2="81.6102" width="0" layer="19" extent="16-16"/>
 <wire x1="33.44" y1="78.74" x2="33.235" y2="80.01" width="0" layer="19" extent="16-16"/>
-</signal>
-<signal name="VIN1" class="4">
-<contactref element="U1111" pad="5"/>
-<contactref element="R1113" pad="1"/>
-<contactref element="C1111" pad="1"/>
-<contactref element="D1121" pad="C"/>
-<wire x1="30.4546" y1="83.4898" x2="31.75" y2="83.5" width="0" layer="19" extent="1-16"/>
-<wire x1="28.575" y1="83.4" x2="30.4546" y2="83.4898" width="0" layer="19" extent="16-16"/>
-<wire x1="27.1" y1="83.82" x2="28.575" y2="83.4" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="+3V0">
 <contactref element="U331" pad="5"/>
@@ -4177,19 +4272,65 @@ Your Eurocircuits Team
 <contactref element="R324" pad="2"/>
 <contactref element="U323" pad="5"/>
 <contactref element="C325" pad="1"/>
-<wire x1="47.9298" y1="62.2554" x2="49.95" y2="62.23" width="0" layer="19" extent="16-16"/>
+<contactref element="U921" pad="6"/>
+<contactref element="U921" pad="2"/>
+<contactref element="C922" pad="1"/>
+<wire x1="-32" y1="-92.99" x2="-31.33" y2="-102.87" width="0" layer="19" extent="1-1"/>
+<wire x1="-31.5" y1="-89.89" x2="-32" y2="-92.99" width="0" layer="19" extent="1-1"/>
+<wire x1="48.68" y1="50.8" x2="-31.5" y2="-89.89" width="0" layer="19" extent="1-16"/>
+<wire x1="46.6598" y1="52.0954" x2="48.68" y2="50.8" width="0" layer="19" extent="16-16"/>
+<wire x1="47.9298" y1="62.2554" x2="46.6598" y2="52.0954" width="0" layer="19" extent="16-16"/>
 <wire x1="47.84" y1="64.135" x2="47.9298" y2="62.2554" width="0" layer="19" extent="16-16"/>
-<wire x1="46.6598" y1="52.0954" x2="47.9298" y2="62.2554" width="0" layer="19" extent="16-16"/>
-<wire x1="48.68" y1="50.8" x2="46.6598" y2="52.0954" width="0" layer="19" extent="16-16"/>
+<wire x1="49.95" y1="62.23" x2="47.9298" y2="62.2554" width="0" layer="19" extent="16-16"/>
 </signal>
-<signal name="EN_20MHZ">
+<signal name="MCU_20MHZ_EN">
 <contactref element="U331" pad="3"/>
-</signal>
-<signal name="+5V">
-<contactref element="D1121" pad="A"/>
+<contactref element="U921" pad="3"/>
+<contactref element="U921" pad="7"/>
+<wire x1="-32" y1="-89.89" x2="-31.5" y2="-92.99" width="0" layer="19" extent="1-1"/>
+<wire x1="46.6852" y1="57.1754" x2="-32" y2="-89.89" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="XO_PULL_ADC">
 <contactref element="R326" pad="2"/>
+</signal>
+<signal name="+5V0" class="4">
+<contactref element="U911" pad="5"/>
+<contactref element="R911" pad="1"/>
+<contactref element="C911" pad="1"/>
+<contactref element="D811" pad="C"/>
+<contactref element="C811" pad="+"/>
+<contactref element="TP_+5V0" pad="TP"/>
+<contactref element="D821" pad="C"/>
+<wire x1="-15.24" y1="-86.36" x2="-27.1" y2="-91.44" width="0" layer="19" extent="1-1"/>
+<wire x1="-27.12" y1="-77.47" x2="-27.1" y2="-91.44" width="0" layer="19" extent="1-1"/>
+<wire x1="-20.72" y1="-67.31" x2="-27.12" y2="-77.47" width="0" layer="19" extent="1-1"/>
+<wire x1="28.575" y1="83.4" x2="-20.72" y2="-67.31" width="0" layer="19" extent="16-16"/>
+<wire x1="30.4546" y1="83.4898" x2="28.575" y2="83.4" width="0" layer="19" extent="16-16"/>
+<wire x1="31.75" y1="83.5" x2="30.4546" y2="83.4898" width="0" layer="19" extent="1-16"/>
+</signal>
+<signal name="+5V0_SOL">
+<contactref element="TP_+5V0_SOL" pad="TP"/>
+<contactref element="D811" pad="A"/>
+<contactref element="C711" pad="1"/>
+<wire x1="-26.67" y1="-54.61" x2="-26.22" y2="-77.47" width="0" layer="19" extent="1-1"/>
+<wire x1="-14.92" y1="-35.56" x2="-26.67" y2="-54.61" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="VSOL">
+<contactref element="TP_VSOL" pad="TP"/>
+</signal>
+<signal name="VUSB_SW">
+<contactref element="D821" pad="A"/>
+<contactref element="U821" pad="2"/>
+<contactref element="U821" pad="6"/>
+<wire x1="-31.5" y1="-107.67" x2="-32" y2="-110.77" width="0" layer="19" extent="1-1"/>
+<wire x1="-23.7" y1="-91.44" x2="-31.5" y2="-107.67" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="P$8">
+</signal>
+<signal name="MCU_VUSB_EN">
+<contactref element="U821" pad="3"/>
+<contactref element="U821" pad="7"/>
+<wire x1="-32" y1="-107.67" x2="-31.5" y2="-110.77" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 <errors>
