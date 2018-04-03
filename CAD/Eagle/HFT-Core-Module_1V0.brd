@@ -3227,6 +3227,213 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </package>
 </packages>
 </library>
+<library name="df4iah_rf">
+<description>&lt;b&gt;DF4IAH Library - RF: radio communication devices with I²C or SPI interface&lt;/b&gt;&lt;p&gt;</description>
+<packages>
+<package name="QFN20-4X4-0P5-PAD">
+<description>&lt;h3&gt;20-Pin QFN -  4.0 x 4.0 mm - 0.5P - with center pad&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;Reference:&lt;/b&gt;&lt;br/&gt;&lt;a href="http://www.onsemi.com/pub/Collateral/AX5243-D.PDF"&gt;http://www.onsemi.com/pub/Collateral/AX5243-D.PDF&lt;/a&gt;.&lt;/p&gt;</description>
+<wire x1="-1.5" y1="1.5" x2="-1.5" y2="-1.5" width="0.127" layer="51"/>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.6" y="-1.5"/>
+<vertex x="-0.6" y="-1.3" curve="-90"/>
+<vertex x="-0.5" y="-1.2" curve="-90"/>
+<vertex x="-0.4" y="-1.3"/>
+<vertex x="-0.4" y="-1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.1" y="-1.5"/>
+<vertex x="-0.1" y="-1.3" curve="-90"/>
+<vertex x="0" y="-1.2" curve="-90"/>
+<vertex x="0.1" y="-1.3"/>
+<vertex x="0.1" y="-1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.4" y="-1.5"/>
+<vertex x="0.4" y="-1.3" curve="-90"/>
+<vertex x="0.5" y="-1.2" curve="-90"/>
+<vertex x="0.6" y="-1.3"/>
+<vertex x="0.6" y="-1.5"/>
+</polygon>
+<smd name="2" x="-1.85" y="0.5" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R90" stop="no" thermals="no"/>
+<smd name="3" x="-1.85" y="0" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R90" stop="no" thermals="no"/>
+<smd name="4" x="-1.85" y="-0.5" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R90" stop="no" thermals="no"/>
+<smd name="7" x="-0.5" y="-1.85" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="8" x="0" y="-1.85" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="9" x="0.5" y="-1.85" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="12" x="1.85" y="-0.5" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R270" stop="no" thermals="no"/>
+<smd name="13" x="1.85" y="0" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R270" stop="no" thermals="no"/>
+<smd name="14" x="1.85" y="0.5" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R270" stop="no" thermals="no"/>
+<smd name="17" x="0.5" y="1.85" dx="0.35" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="18" x="0" y="1.85" dx="0.35" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="19" x="-0.5" y="1.85" dx="0.35" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
+<polygon width="0.0025" layer="51">
+<vertex x="-0.87" y="0.57"/>
+<vertex x="-0.87" y="-0.75" curve="90"/>
+<vertex x="-0.75" y="-0.87"/>
+<vertex x="0.75" y="-0.87" curve="90"/>
+<vertex x="0.87" y="-0.75"/>
+<vertex x="0.87" y="0.75" curve="90"/>
+<vertex x="0.75" y="0.87"/>
+<vertex x="-0.57" y="0.87"/>
+</polygon>
+<wire x1="1.5" y1="1.5" x2="-1.5" y2="1.5" width="0.127" layer="51"/>
+<wire x1="-1.5" y1="-1.5" x2="1.5" y2="-1.5" width="0.127" layer="51"/>
+<wire x1="1.5" y1="-1.5" x2="1.5" y2="1.5" width="0.127" layer="51"/>
+<wire x1="-1.6" y1="-1.6" x2="-1.4" y2="-1.6" width="0.2032" layer="21"/>
+<wire x1="-1.6" y1="-1.4" x2="-1.6" y2="-1.6" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="-1.6" x2="1.6" y2="-1.6" width="0.2032" layer="21"/>
+<wire x1="1.6" y1="-1.6" x2="1.6" y2="-1.4" width="0.2032" layer="21"/>
+<wire x1="1.6" y1="1.6" x2="1.4" y2="1.6" width="0.2032" layer="21"/>
+<wire x1="1.6" y1="1.4" x2="1.6" y2="1.6" width="0.2032" layer="21"/>
+<wire x1="-1.6" y1="1.4" x2="-1.4" y2="1.6" width="0.2032" layer="21"/>
+<circle x="-1.85" y="1.85" radius="0.254" width="0" layer="21"/>
+<text x="0" y="2.532" size="0.6096" layer="25" font="vector" ratio="10" align="bottom-center">&gt;Name</text>
+<text x="0" y="-2.53" size="0.6096" layer="27" font="vector" align="top-center">&gt;Value</text>
+<smd name="21" x="0" y="0" dx="2.75" dy="2.75" layer="1" thermals="no" cream="no"/>
+<smd name="6" x="-1" y="-1.85" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="10" x="1" y="-1.85" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="11" x="1.85" y="-1" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R270" stop="no" thermals="no"/>
+<smd name="15" x="1.85" y="1" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R270" stop="no" thermals="no"/>
+<smd name="16" x="1" y="1.85" dx="0.35" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="20" x="-1" y="1.85" dx="0.35" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="1" x="-1.85" y="1" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R90" stop="no" thermals="no"/>
+<smd name="5" x="-1.85" y="-1" dx="0.35" dy="0.6" layer="1" roundness="20" rot="R90" stop="no" thermals="no"/>
+<rectangle x1="-2.25" y1="-1.275" x2="-1.5" y2="1.275" layer="29"/>
+<rectangle x1="1.5" y1="-1.275" x2="2.25" y2="1.275" layer="29"/>
+<rectangle x1="-1.275" y1="1.5" x2="1.275" y2="2.25" layer="29"/>
+<rectangle x1="-1.275" y1="-2.25" x2="1.275" y2="-1.5" layer="29"/>
+<rectangle x1="-0.25" y1="-0.25" x2="0.25" y2="0.25" layer="31"/>
+<rectangle x1="0.625" y1="-0.25" x2="1.125" y2="0.25" layer="31"/>
+<rectangle x1="-1.125" y1="-0.25" x2="-0.625" y2="0.25" layer="31"/>
+<rectangle x1="-0.25" y1="0.625" x2="0.25" y2="1.125" layer="31"/>
+<rectangle x1="-0.25" y1="-1.125" x2="0.25" y2="-0.625" layer="31"/>
+<rectangle x1="-1.125" y1="-1.125" x2="-0.625" y2="-0.625" layer="31"/>
+<rectangle x1="0.625" y1="-1.125" x2="1.125" y2="-0.625" layer="31"/>
+<rectangle x1="0.625" y1="0.625" x2="1.125" y2="1.125" layer="31"/>
+<rectangle x1="-1.125" y1="0.625" x2="-0.625" y2="1.125" layer="31"/>
+<polygon width="0.0635" layer="51">
+<vertex x="-1.1" y="-1.5"/>
+<vertex x="-1.1" y="-1.3" curve="-90"/>
+<vertex x="-1" y="-1.2" curve="-90"/>
+<vertex x="-0.9" y="-1.3"/>
+<vertex x="-0.9" y="-1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.9" y="-1.5"/>
+<vertex x="0.9" y="-1.3" curve="-90"/>
+<vertex x="1" y="-1.2" curve="-90"/>
+<vertex x="1.1" y="-1.3"/>
+<vertex x="1.1" y="-1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.6" y="1.5"/>
+<vertex x="0.6" y="1.3" curve="-90"/>
+<vertex x="0.5" y="1.2" curve="-90"/>
+<vertex x="0.4" y="1.3"/>
+<vertex x="0.4" y="1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.1" y="1.5"/>
+<vertex x="0.1" y="1.3" curve="-90"/>
+<vertex x="0" y="1.2" curve="-90"/>
+<vertex x="-0.1" y="1.3"/>
+<vertex x="-0.1" y="1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.4" y="1.5"/>
+<vertex x="-0.4" y="1.3" curve="-90"/>
+<vertex x="-0.5" y="1.2" curve="-90"/>
+<vertex x="-0.6" y="1.3"/>
+<vertex x="-0.6" y="1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="1.1" y="1.5"/>
+<vertex x="1.1" y="1.3" curve="-90"/>
+<vertex x="1" y="1.2" curve="-90"/>
+<vertex x="0.9" y="1.3"/>
+<vertex x="0.9" y="1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.9" y="1.5"/>
+<vertex x="-0.9" y="1.3" curve="-90"/>
+<vertex x="-1" y="1.2" curve="-90"/>
+<vertex x="-1.1" y="1.3"/>
+<vertex x="-1.1" y="1.5"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="1.5" y="-0.6"/>
+<vertex x="1.3" y="-0.6" curve="-90"/>
+<vertex x="1.2" y="-0.5" curve="-90"/>
+<vertex x="1.3" y="-0.4"/>
+<vertex x="1.5" y="-0.4"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="1.5" y="-0.1"/>
+<vertex x="1.3" y="-0.1" curve="-90"/>
+<vertex x="1.2" y="0" curve="-90"/>
+<vertex x="1.3" y="0.1"/>
+<vertex x="1.5" y="0.1"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="1.5" y="0.4"/>
+<vertex x="1.3" y="0.4" curve="-90"/>
+<vertex x="1.2" y="0.5" curve="-90"/>
+<vertex x="1.3" y="0.6"/>
+<vertex x="1.5" y="0.6"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="1.5" y="-1.1"/>
+<vertex x="1.3" y="-1.1" curve="-90"/>
+<vertex x="1.2" y="-1" curve="-90"/>
+<vertex x="1.3" y="-0.9"/>
+<vertex x="1.5" y="-0.9"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="1.5" y="0.9"/>
+<vertex x="1.3" y="0.9" curve="-90"/>
+<vertex x="1.2" y="1" curve="-90"/>
+<vertex x="1.3" y="1.1"/>
+<vertex x="1.5" y="1.1"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-1.5" y="0.6"/>
+<vertex x="-1.3" y="0.6" curve="-90"/>
+<vertex x="-1.2" y="0.5" curve="-90"/>
+<vertex x="-1.3" y="0.4"/>
+<vertex x="-1.5" y="0.4"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-1.5" y="0.1"/>
+<vertex x="-1.3" y="0.1" curve="-90"/>
+<vertex x="-1.2" y="0" curve="-90"/>
+<vertex x="-1.3" y="-0.1"/>
+<vertex x="-1.5" y="-0.1"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-1.5" y="-0.4"/>
+<vertex x="-1.3" y="-0.4" curve="-90"/>
+<vertex x="-1.2" y="-0.5" curve="-90"/>
+<vertex x="-1.3" y="-0.6"/>
+<vertex x="-1.5" y="-0.6"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-1.5" y="1.1"/>
+<vertex x="-1.3" y="1.1" curve="-90"/>
+<vertex x="-1.2" y="1" curve="-90"/>
+<vertex x="-1.3" y="0.9"/>
+<vertex x="-1.5" y="0.9"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-1.5" y="-0.9"/>
+<vertex x="-1.3" y="-0.9" curve="-90"/>
+<vertex x="-1.2" y="-1" curve="-90"/>
+<vertex x="-1.3" y="-1.1"/>
+<vertex x="-1.5" y="-1.1"/>
+</polygon>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3555,15 +3762,14 @@ Your Eurocircuits Team
 <attribute name="MANUFACTURER" value="ABS07-32.768KHZ-1-T" x="-30.48" y="-167.64" size="1.778" layer="27" display="off"/>
 <attribute name="FARNELL" value="2467865" x="-30.48" y="-167.64" size="1.778" layer="27" display="off"/>
 </element>
-<element name="C6" library="rcl" package="C0603" value="2p7F" x="-30.48" y="-173.99"/>
-<element name="C7" library="rcl" package="C0603" value="2p7F" x="-30.48" y="-179.07"/>
+<element name="C6" library="rcl" package="C0603" value="2.7pF" x="-30.48" y="-173.99"/>
+<element name="C7" library="rcl" package="C0603" value="2.7pF" x="-30.48" y="-179.07"/>
 <element name="U4" library="df4iah_sc-switches" package="R-PDSO-G8" value="TS5A23166" x="-31.75" y="-185.42"/>
 <element name="C8" library="rcl" package="C0603" value="100nF" x="-30.48" y="-191.77"/>
 <element name="C9" library="rcl" package="C0603" value="100nF" x="-30.48" y="-196.85"/>
 <element name="U5" library="df4iah_sc-switches" package="R-PDSO-G8" value="TS5A23166" x="-31.75" y="-203.2"/>
 <element name="C10" library="rcl" package="C0603" value="100nF" x="-30.48" y="-209.55"/>
 <element name="C11" library="rcl" package="C0603" value="100nF" x="-30.48" y="-214.63"/>
-<element name="D1" library="df4iah_diode" package="SOD923" value="CMAD6001" x="-31.75" y="-219.71"/>
 <element name="C12" library="df4iah_rcl" package="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N" x="-19.05" y="-229.87"/>
 <element name="TP_+5V0" library="testpad" package="TP06R" value="PTR1TP06R" x="-31.75" y="-240.03">
 <attribute name="TP_SIGNAL_NAME" value="" x="-31.75" y="-240.03" size="1.778" layer="27" display="off"/>
@@ -3573,6 +3779,24 @@ Your Eurocircuits Team
 </element>
 <element name="C13" library="df4iah_rcl" package="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N" x="-19.05" y="-252.73"/>
 <element name="J1" library="df4iah_connector" package="USB-B-MICRO-SMD_MOLEX-105017-0001" value="" x="-22.86" y="-271.78"/>
+<element name="R4" library="rcl" package="R0603" value="0R" x="-31.75" y="-279.4"/>
+<element name="C14" library="rcl" package="C0805" value="10uF" x="-30.48" y="-285.75"/>
+<element name="C15" library="rcl" package="C0603" value="100nF" x="-30.48" y="-292.1"/>
+<element name="C16" library="rcl" package="C0805" value="10uF" x="-30.48" y="-298.45"/>
+<element name="L1" library="rcl" package="R0603" value="2.2uH" x="-30.48" y="-304.8"/>
+<element name="U6" library="df4iah_rf" package="QFN20-4X4-0P5-PAD" value="AX5243" x="-27.94" y="-311.15"/>
+<element name="D1" library="df4iah_diode" package="SOD80C" value="CRS08" x="-30.48" y="-317.5"/>
+<element name="L2" library="rcl" package="R0603" value="33uH" x="-31.75" y="-323.85"/>
+<element name="C17" library="rcl" package="C0603" value="100nF" x="-30.48" y="-336.55"/>
+<element name="C19" library="rcl" package="C0805" value="10uF" x="-30.48" y="-330.2"/>
+<element name="C20" library="rcl" package="C0603" value="100nF" x="-30.48" y="-346.71"/>
+<element name="C21" library="rcl" package="C0805" value="10uF" x="-24.13" y="-330.2"/>
+<element name="R5" library="rcl" package="R0603" value="0R" x="-31.75" y="-351.79"/>
+<element name="R6" library="rcl" package="R0603" value="0R" x="-31.75" y="-356.87"/>
+<element name="R7" library="rcl" package="R0603" value="0R" x="-31.75" y="-361.95"/>
+<element name="C18" library="rcl" package="C0603" value="0nF" x="-30.48" y="-367.03"/>
+<element name="R8" library="rcl" package="R0603" value="310kR" x="-31.75" y="-372.11"/>
+<element name="R9" library="rcl" package="R0603" value="100kR" x="-31.75" y="-377.19"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -3663,6 +3887,16 @@ Your Eurocircuits Team
 <contactref element="C11" pad="2"/>
 <contactref element="C12" pad="-"/>
 <contactref element="C13" pad="-"/>
+<contactref element="C14" pad="2"/>
+<contactref element="C15" pad="2"/>
+<contactref element="C16" pad="2"/>
+<contactref element="U6" pad="21"/>
+<contactref element="U6" pad="2"/>
+<contactref element="R9" pad="1"/>
+<contactref element="C17" pad="2"/>
+<contactref element="C21" pad="2"/>
+<contactref element="C19" pad="2"/>
+<contactref element="C20" pad="2"/>
 <wire x1="-29.63" y1="-209.55" x2="-29.63" y2="-214.63" width="0" layer="19" extent="1-1"/>
 <wire x1="-31" y1="-204.75" x2="-29.63" y2="-209.55" width="0" layer="19" extent="1-1"/>
 <wire x1="-29.63" y1="-196.85" x2="-31" y2="-204.75" width="0" layer="19" extent="1-1"/>
@@ -3681,6 +3915,16 @@ Your Eurocircuits Team
 <wire x1="-11.75" y1="-124.46" x2="-20.74" y2="-134.62" width="0" layer="19" extent="1-1"/>
 <wire x1="-12.3" y1="-229.87" x2="-29.63" y2="-214.63" width="0" layer="19" extent="1-1"/>
 <wire x1="-12.3" y1="-252.73" x2="-12.3" y2="-229.87" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.53" y1="-285.75" x2="-12.3" y2="-252.73" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.63" y1="-292.1" x2="-29.53" y2="-285.75" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.53" y1="-298.45" x2="-29.63" y2="-292.1" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.79" y1="-310.65" x2="-29.53" y2="-298.45" width="0" layer="19" extent="1-1"/>
+<wire x1="-27.94" y1="-311.15" x2="-29.79" y2="-310.65" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.53" y1="-330.2" x2="-27.94" y2="-311.15" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.63" y1="-336.55" x2="-29.53" y2="-330.2" width="0" layer="19" extent="1-1"/>
+<wire x1="-23.18" y1="-330.2" x2="-29.53" y2="-330.2" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.63" y1="-346.71" x2="-29.63" y2="-336.55" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.6" y1="-377.19" x2="-29.63" y2="-346.71" width="0" layer="19" extent="1-1"/>
 <wire x1="-13.02" y1="-35.56" x2="-31" y2="-110.77" width="0" layer="19" extent="1-1"/>
 <wire x1="5.08" y1="5.08" x2="-13.02" y2="-35.56" width="0" layer="19" extent="1-1"/>
 <wire x1="7.62" y1="19.05" x2="5.08" y2="5.08" width="0" layer="19" extent="1-1"/>
@@ -3774,9 +4018,13 @@ Your Eurocircuits Team
 <contactref element="C432" pad="1"/>
 <contactref element="C431" pad="1"/>
 <contactref element="U111" pad="142"/>
+<contactref element="C16" pad="1"/>
+<contactref element="L1" pad="2"/>
 <wire x1="58.34" y1="73.355" x2="59.905" y2="76.2" width="0" layer="19" extent="1-16"/>
 <wire x1="73.84" y1="51.605" x2="58.34" y2="73.355" width="0" layer="19" extent="1-1"/>
 <wire x1="72.81" y1="48.26" x2="73.84" y2="51.605" width="0" layer="19" extent="1-16"/>
+<wire x1="-31.43" y1="-298.45" x2="72.81" y2="48.26" width="0" layer="19" extent="1-16"/>
+<wire x1="-29.63" y1="-304.8" x2="-31.43" y2="-298.45" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="MCU_VREF_P">
 <contactref element="U111" pad="32"/>
@@ -4234,6 +4482,8 @@ Your Eurocircuits Team
 <contactref element="U5" pad="5"/>
 <contactref element="U5" pad="8"/>
 <contactref element="C10" pad="1"/>
+<contactref element="C14" pad="1"/>
+<contactref element="C15" pad="1"/>
 <wire x1="-32.5" y1="-204.75" x2="-31.33" y2="-209.55" width="0" layer="19" extent="1-1"/>
 <wire x1="-32.5" y1="-201.65" x2="-32.5" y2="-204.75" width="0" layer="19" extent="1-1"/>
 <wire x1="-31" y1="-201.65" x2="-32.5" y2="-201.65" width="0" layer="19" extent="1-1"/>
@@ -4243,6 +4493,8 @@ Your Eurocircuits Team
 <wire x1="-31" y1="-183.87" x2="-32.5" y2="-183.87" width="0" layer="19" extent="1-1"/>
 <wire x1="-22.44" y1="-134.62" x2="-31" y2="-183.87" width="0" layer="19" extent="1-1"/>
 <wire x1="-25.3746" y1="-117.8052" x2="-22.44" y2="-134.62" width="0" layer="19" extent="1-1"/>
+<wire x1="-31.43" y1="-285.75" x2="-31.33" y2="-209.55" width="0" layer="19" extent="1-1"/>
+<wire x1="-31.33" y1="-292.1" x2="-31.43" y2="-285.75" width="0" layer="19" extent="1-1"/>
 <wire x1="20.32" y1="2.54" x2="-25.3746" y2="-117.8052" width="0" layer="19" extent="1-1"/>
 <wire x1="20.32" y1="7.62" x2="20.32" y2="2.54" width="0" layer="19" extent="1-1"/>
 <wire x1="7.62" y1="20.32" x2="20.32" y2="7.62" width="0" layer="19" extent="1-1"/>
@@ -4331,26 +4583,38 @@ Your Eurocircuits Team
 <contactref element="U911" pad="5"/>
 <contactref element="R911" pad="1"/>
 <contactref element="D821" pad="C"/>
-<contactref element="D1" pad="C"/>
 <contactref element="C12" pad="+"/>
 <contactref element="TP_+5V0" pad="TP"/>
 <contactref element="C911" pad="1"/>
-<wire x1="-25.8" y1="-229.87" x2="-32.2" y2="-219.71" width="0" layer="19" extent="1-1"/>
+<contactref element="R4" pad="2"/>
+<wire x1="-25.8" y1="-229.87" x2="-27.1" y2="-91.44" width="0" layer="19" extent="1-1"/>
 <wire x1="-31.75" y1="-240.03" x2="-25.8" y2="-229.87" width="0" layer="19" extent="1-1"/>
-<wire x1="-27.1" y1="-91.44" x2="-32.2" y2="-219.71" width="0" layer="19" extent="1-1"/>
+<wire x1="-30.9" y1="-279.4" x2="-31.75" y2="-240.03" width="0" layer="19" extent="1-1"/>
 <wire x1="28.575" y1="83.4" x2="-27.1" y2="-91.44" width="0" layer="19" extent="1-16"/>
 <wire x1="30.4546" y1="83.4898" x2="28.575" y2="83.4" width="0" layer="19" extent="16-16"/>
 <wire x1="31.75" y1="83.5" x2="30.4546" y2="83.4898" width="0" layer="19" extent="1-16"/>
 </signal>
-<signal name="+5V0_SOL">
+<signal name="+5V1_SOL">
 <contactref element="TP_+5V0_SOL" pad="TP"/>
 <contactref element="C711" pad="1"/>
-<contactref element="D1" pad="A"/>
-<wire x1="-26.67" y1="-54.61" x2="-31.3" y2="-219.71" width="0" layer="19" extent="1-1"/>
+<contactref element="R4" pad="1"/>
+<contactref element="R5" pad="2"/>
+<contactref element="R7" pad="2"/>
+<contactref element="R8" pad="2"/>
+<wire x1="-30.9" y1="-361.95" x2="-30.9" y2="-372.11" width="0" layer="19" extent="1-1"/>
+<wire x1="-30.9" y1="-351.79" x2="-30.9" y2="-361.95" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.6" y1="-279.4" x2="-30.9" y2="-351.79" width="0" layer="19" extent="1-1"/>
+<wire x1="-26.67" y1="-54.61" x2="-32.6" y2="-279.4" width="0" layer="19" extent="1-1"/>
 <wire x1="-14.92" y1="-35.56" x2="-26.67" y2="-54.61" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VSOL">
 <contactref element="TP_VSOL" pad="TP"/>
+<contactref element="C19" pad="1"/>
+<contactref element="C20" pad="1"/>
+<contactref element="L2" pad="1"/>
+<wire x1="-31.43" y1="-330.2" x2="-31.33" y2="-346.71" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.6" y1="-323.85" x2="-31.43" y2="-330.2" width="0" layer="19" extent="1-1"/>
+<wire x1="-26.67" y1="-50.8" x2="-32.6" y2="-323.85" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VUSB_SW">
 <contactref element="D821" pad="A"/>
@@ -4403,6 +4667,43 @@ Your Eurocircuits Team
 </signal>
 <signal name="J_VUSB">
 <contactref element="J1" pad="VBUS"/>
+</signal>
+<signal name="VDD12_SW">
+<contactref element="L1" pad="1"/>
+</signal>
+<signal name="VDD_IO">
+<contactref element="U6" pad="16"/>
+</signal>
+<signal name="N$1">
+<contactref element="C17" pad="1"/>
+<contactref element="C21" pad="1"/>
+<contactref element="R5" pad="1"/>
+<contactref element="R6" pad="2"/>
+<contactref element="D1" pad="C"/>
+<wire x1="-32.6" y1="-351.79" x2="-30.9" y2="-356.87" width="0" layer="19" extent="1-1"/>
+<wire x1="-31.33" y1="-336.55" x2="-32.6" y2="-351.79" width="0" layer="19" extent="1-1"/>
+<wire x1="-25.08" y1="-330.2" x2="-31.33" y2="-336.55" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.18" y1="-317.5" x2="-25.08" y2="-330.2" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$2">
+<contactref element="R7" pad="1"/>
+<contactref element="C18" pad="2"/>
+<wire x1="-32.6" y1="-361.95" x2="-29.63" y2="-367.03" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$3">
+<contactref element="R6" pad="1"/>
+<contactref element="C18" pad="1"/>
+<wire x1="-32.6" y1="-356.87" x2="-31.33" y2="-367.03" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$4">
+<contactref element="L2" pad="2"/>
+<contactref element="D1" pad="A"/>
+<wire x1="-28.78" y1="-317.5" x2="-30.9" y2="-323.85" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$5">
+<contactref element="R8" pad="1"/>
+<contactref element="R9" pad="2"/>
+<wire x1="-32.6" y1="-372.11" x2="-30.9" y2="-377.19" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 <errors>
