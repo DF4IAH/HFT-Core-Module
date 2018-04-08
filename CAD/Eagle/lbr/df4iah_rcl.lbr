@@ -12405,6 +12405,46 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 <rectangle x1="0.254" y1="-1.27" x2="0.762" y2="1.27" layer="21"/>
 <wire x1="8.7122" y1="1.3716" x2="8.0518" y2="1.3716" width="0.1524" layer="21"/>
 </package>
+<package name="L_13.5X12.5MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+13.5 mm x 12.5 mm</description>
+<wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
+<wire x1="-6.5" y1="-6.25" x2="6.5" y2="-6.25" width="0.1016" layer="51"/>
+<smd name="1" x="-5.5" y="0" dx="3.1" dy="5" layer="1"/>
+<smd name="2" x="5.5" y="0" dx="3.1" dy="5" layer="1"/>
+<text x="-3.175" y="6.985" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.175" y="-8.255" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-6.1976" y1="-2.3" x2="-4.5" y2="2.3" layer="51"/>
+<wire x1="-6.5" y1="-6.25" x2="-6.5" y2="6.25" width="0.1016" layer="51"/>
+<wire x1="6.5" y1="-6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
+<rectangle x1="4.5" y1="-2.3" x2="6.1976" y2="2.3" layer="51"/>
+<wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.127" layer="21"/>
+<wire x1="-6.5" y1="-6.25" x2="6.5" y2="-6.25" width="0.127" layer="21"/>
+<wire x1="-6.5" y1="-6.25" x2="-6.5" y2="-3.175" width="0.127" layer="21"/>
+<wire x1="-6.5" y1="6.25" x2="-6.5" y2="3.175" width="0.127" layer="21"/>
+<wire x1="6.5" y1="6.25" x2="6.5" y2="3.175" width="0.127" layer="21"/>
+<wire x1="6.5" y1="-6.25" x2="6.5" y2="-3.175" width="0.127" layer="21"/>
+</package>
+<package name="L_6X6MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+6.0 mm x 6.0 mm</description>
+<wire x1="-3" y1="3" x2="3" y2="3" width="0.1016" layer="51"/>
+<wire x1="-3" y1="-3" x2="3" y2="-3" width="0.1016" layer="51"/>
+<smd name="1" x="-2.35" y="0" dx="2" dy="5.7" layer="1"/>
+<smd name="2" x="2.35" y="0" dx="2" dy="5.7" layer="1"/>
+<text x="-3.175" y="3.81" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.175" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-3.0226" y1="-2.3" x2="-1.325" y2="2.3" layer="51"/>
+<wire x1="-3" y1="-3" x2="-3" y2="3" width="0.1016" layer="51"/>
+<wire x1="3" y1="-3" x2="3" y2="3" width="0.1016" layer="51"/>
+<rectangle x1="1.325" y1="-2.3" x2="3.0226" y2="2.3" layer="51"/>
+<wire x1="-3" y1="3" x2="3" y2="3" width="0.127" layer="21"/>
+<wire x1="-3" y1="-3" x2="3" y2="-3" width="0.127" layer="21"/>
+<wire x1="-3" y1="-3" x2="-3" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-3" y1="3" x2="-3" y2="2.5" width="0.127" layer="21"/>
+<wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
+<wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="C-EU">
@@ -14726,6 +14766,24 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 </technologies>
 </device>
 <device name="6000-XXX-RC" package="6000-XXXX-RC">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="13.5X12.5MM" package="L_13.5X12.5MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="6.0X6.0MM" package="L_6X6MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
