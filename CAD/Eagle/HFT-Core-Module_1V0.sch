@@ -24538,7 +24538,7 @@ ADC, 2ch, 125ksps</description>
 <part name="R0751" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
 <part name="C0715" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="C0716" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R0632" library="rcl" deviceset="R-EU_" device="R0603" value="50R"/>
+<part name="R0638" library="rcl" deviceset="R-EU_" device="R0603" value="50R"/>
 <part name="R0639" library="rcl" deviceset="R-EU_" device="R0603" value="50R"/>
 <part name="GND0632" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0703" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
@@ -26806,7 +26806,7 @@ Digikey: 497-17999-ND</text>
 <instance part="R0612" gate="G$1" x="25.4" y="137.16"/>
 <instance part="R0613" gate="G$1" x="25.4" y="152.4"/>
 <instance part="C0611" gate="G$1" x="76.2" y="142.24"/>
-<instance part="R0632" gate="G$1" x="220.98" y="160.02"/>
+<instance part="R0638" gate="G$1" x="220.98" y="160.02"/>
 <instance part="R0639" gate="G$1" x="220.98" y="152.4"/>
 <instance part="GND0632" gate="1" x="213.36" y="147.32"/>
 <instance part="U0611" gate="G$1" x="50.8" y="144.78"/>
@@ -26914,7 +26914,7 @@ Digikey: 497-17999-ND</text>
 <segment>
 <pinref part="U0631" gate="&gt;NAME" pin="OUT"/>
 <wire x1="205.74" y1="160.02" x2="215.9" y2="160.02" width="0.1524" layer="91"/>
-<pinref part="R0632" gate="G$1" pin="1"/>
+<pinref part="R0638" gate="G$1" pin="1"/>
 <label x="205.74" y="165.1" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -27045,7 +27045,7 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="20MHZ_XOP" class="0">
 <segment>
-<pinref part="R0632" gate="G$1" pin="2"/>
+<pinref part="R0638" gate="G$1" pin="2"/>
 <wire x1="226.06" y1="160.02" x2="231.14" y2="160.02" width="0.1524" layer="91"/>
 <label x="231.14" y="160.02" size="1.778" layer="95" xref="yes"/>
 </segment>
