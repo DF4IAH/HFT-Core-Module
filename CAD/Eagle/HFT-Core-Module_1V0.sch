@@ -24170,6 +24170,122 @@ with I2C</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="df4iah_adc">
+<description>&lt;b&gt;DF4IAH Library - ADC: Analog-Digital-Converters&lt;/b&gt;</description>
+<packages>
+<package name="QFN20_P0MM5_CTRPAD">
+<description>&lt;h4&gt;QFN20 - pitch 0.5 mm - with center pad&lt;/h4&gt;</description>
+<smd name="1" x="-1.965" y="1" dx="0.73" dy="0.25" layer="1" roundness="50"/>
+<smd name="2" x="-1.965" y="0.5" dx="0.73" dy="0.25" layer="1" roundness="50"/>
+<smd name="3" x="-1.965" y="0" dx="0.73" dy="0.25" layer="1" roundness="50"/>
+<smd name="4" x="-1.965" y="-0.5" dx="0.73" dy="0.25" layer="1" roundness="50"/>
+<smd name="5" x="-1.965" y="-1" dx="0.73" dy="0.25" layer="1" roundness="50"/>
+<smd name="11" x="1.965" y="-1" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R180"/>
+<smd name="12" x="1.965" y="-0.5" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R180"/>
+<smd name="13" x="1.965" y="0" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R180"/>
+<smd name="14" x="1.965" y="0.5" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R180"/>
+<smd name="15" x="1.965" y="1" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R180"/>
+<smd name="6" x="-1" y="-1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R90"/>
+<smd name="7" x="-0.5" y="-1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R90"/>
+<smd name="8" x="0" y="-1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R90"/>
+<smd name="9" x="0.5" y="-1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R90"/>
+<smd name="10" x="1" y="-1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R90"/>
+<smd name="16" x="1" y="1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R270"/>
+<smd name="17" x="0.5" y="1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R270"/>
+<smd name="18" x="0" y="1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R270"/>
+<smd name="19" x="-0.5" y="1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R270"/>
+<smd name="20" x="-1" y="1.965" dx="0.73" dy="0.25" layer="1" roundness="50" rot="R270"/>
+<text x="-1.75" y="2.75" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.75" y="-4.25" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="27"/>
+<smd name="21" x="0" y="0" dx="2.25" dy="2.25" layer="1"/>
+<wire x1="-2" y1="2" x2="2" y2="2" width="0.3048" layer="51"/>
+<wire x1="2" y1="2" x2="2" y2="-2" width="0.3048" layer="51"/>
+<wire x1="2" y1="-2" x2="-2" y2="-2" width="0.3048" layer="51"/>
+<wire x1="-2" y1="-2" x2="-2" y2="2" width="0.3048" layer="51"/>
+<wire x1="-2" y1="-1.6" x2="-2" y2="-2" width="0.127" layer="21"/>
+<wire x1="2" y1="-1.6" x2="2" y2="-2" width="0.127" layer="21"/>
+<wire x1="-2" y1="2" x2="-1.6" y2="2" width="0.127" layer="21"/>
+<wire x1="-2" y1="-2" x2="-1.6" y2="-2" width="0.127" layer="21"/>
+<wire x1="2" y1="2" x2="2" y2="1.6" width="0.127" layer="21"/>
+<wire x1="1.6" y1="-2" x2="2" y2="-2" width="0.127" layer="21"/>
+<wire x1="1.6" y1="2" x2="2" y2="2" width="0.127" layer="21"/>
+<wire x1="-2" y1="2" x2="-2" y2="1.6" width="0.127" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="MCP3911">
+<description>&lt;h4&gt;Microchip MCP3911&lt;/h4&gt;
+&lt;h5&gt;3.3V Two-Channel Analog Front End&lt;/h5&gt;
+ADC, 2ch, 125ksps</description>
+<pin name="REFINOUT" x="-22.86" y="17.78" length="middle" direction="pas"/>
+<pin name="REFIN-" x="-22.86" y="15.24" length="middle" direction="pas"/>
+<pin name="CH0+" x="-22.86" y="5.08" length="middle" direction="pas"/>
+<pin name="CH0-" x="-22.86" y="2.54" length="middle" direction="pas"/>
+<pin name="CH1+" x="-22.86" y="-7.62" length="middle" direction="pas"/>
+<pin name="CH1-" x="-22.86" y="-10.16" length="middle" direction="pas"/>
+<pin name="OSC1" x="22.86" y="17.78" length="middle" direction="pas" rot="R180"/>
+<pin name="OSC2" x="22.86" y="15.24" length="middle" direction="pas" rot="R180"/>
+<pin name="!DR" x="22.86" y="5.08" length="middle" direction="out" rot="R180"/>
+<pin name="SDO" x="22.86" y="2.54" length="middle" direction="out" rot="R180"/>
+<pin name="!RESET" x="22.86" y="-2.54" length="middle" direction="in" rot="R180"/>
+<pin name="SDI" x="22.86" y="-5.08" length="middle" direction="in" rot="R180"/>
+<pin name="SCK" x="22.86" y="-7.62" length="middle" direction="in" rot="R180"/>
+<pin name="!CS" x="22.86" y="-10.16" length="middle" direction="in" rot="R180"/>
+<pin name="MDAT0" x="22.86" y="-15.24" length="middle" direction="out" rot="R180"/>
+<pin name="MDAT1" x="22.86" y="-17.78" length="middle" direction="out" rot="R180"/>
+<pin name="AVDD" x="-2.54" y="27.94" length="middle" direction="pwr" rot="R270"/>
+<pin name="DVDD" x="2.54" y="27.94" length="middle" direction="pwr" rot="R270"/>
+<pin name="AGND" x="-2.54" y="-27.94" length="middle" direction="pas" rot="R90"/>
+<pin name="DGND" x="2.54" y="-27.94" length="middle" direction="pas" rot="R90"/>
+<wire x1="-17.78" y1="22.86" x2="17.78" y2="22.86" width="0.3048" layer="94"/>
+<wire x1="17.78" y1="22.86" x2="17.78" y2="-22.86" width="0.3048" layer="94"/>
+<wire x1="17.78" y1="-22.86" x2="-17.78" y2="-22.86" width="0.3048" layer="94"/>
+<wire x1="-17.78" y1="-22.86" x2="-17.78" y2="22.86" width="0.3048" layer="94"/>
+<text x="-15.24" y="25.4" size="2.1844" layer="95" ratio="10">&gt;NAME</text>
+<text x="-15.494" y="-26.67" size="2.1844" layer="96" ratio="10">&gt;VALUE</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="MCP3911" prefix="U">
+<description>&lt;h4&gt;Microchip MCP3911&lt;/h4&gt;
+&lt;h5&gt;3.3V Two-Channel Analog Front End&lt;/h5&gt;
+ADC, 2ch, 125ksps</description>
+<gates>
+<gate name="G$1" symbol="MCP3911" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="QFN20_P0MM5_CTRPAD">
+<connects>
+<connect gate="G$1" pin="!CS" pad="14"/>
+<connect gate="G$1" pin="!DR" pad="11"/>
+<connect gate="G$1" pin="!RESET" pad="18"/>
+<connect gate="G$1" pin="AGND" pad="5"/>
+<connect gate="G$1" pin="AVDD" pad="20"/>
+<connect gate="G$1" pin="CH0+" pad="1"/>
+<connect gate="G$1" pin="CH0-" pad="2"/>
+<connect gate="G$1" pin="CH1+" pad="3"/>
+<connect gate="G$1" pin="CH1-" pad="4"/>
+<connect gate="G$1" pin="DGND" pad="8 21"/>
+<connect gate="G$1" pin="DVDD" pad="19"/>
+<connect gate="G$1" pin="MDAT0" pad="10"/>
+<connect gate="G$1" pin="MDAT1" pad="9"/>
+<connect gate="G$1" pin="OSC1" pad="12"/>
+<connect gate="G$1" pin="OSC2" pad="13"/>
+<connect gate="G$1" pin="REFIN-" pad="7"/>
+<connect gate="G$1" pin="REFINOUT" pad="6"/>
+<connect gate="G$1" pin="SCK" pad="15"/>
+<connect gate="G$1" pin="SDI" pad="17"/>
+<connect gate="G$1" pin="SDO" pad="16"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -24482,7 +24598,6 @@ with I2C</description>
 <part name="C_AX2_A2" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
 <part name="C_AX2_A3" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
 <part name="GND1091" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0841" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="GND0801" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0831" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C0811" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
@@ -24573,6 +24688,23 @@ with I2C</description>
 <part name="GND1121" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R1135" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
 <part name="R1145" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
+<part name="GND1101" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="U1101" library="df4iah_adc" deviceset="MCP3911" device="" value="MCP3911A0-E-SS"/>
+<part name="R1106" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1107" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R0003" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R0004" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1108" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1109" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C1101" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="GND0002" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="L1102" library="rcl" deviceset="L-EU" device="L2012C" value="10uH"/>
+<part name="C1102" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1103" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1104" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
+<part name="C1105" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
+<part name="R1104" library="rcl" deviceset="R-EU_" device="R0603" value="22kR"/>
+<part name="R1105" library="rcl" deviceset="R-EU_" device="R0603" value="22kR"/>
 </parts>
 <sheets>
 <sheet>
@@ -25606,12 +25738,15 @@ Digikey: 497-17999-ND</text>
 <sheet>
 <description>MCU Switchboard</description>
 <plain>
-<text x="66.04" y="93.98" size="1.778" layer="96">MCU_AX1_MISO_R</text>
-<text x="66.04" y="88.9" size="1.778" layer="96">MCU_AX1_IRQ_R</text>
-<text x="66.04" y="83.82" size="1.778" layer="96">MCU_AX2_IRQ_R</text>
-<text x="66.04" y="73.66" size="1.778" layer="96">MCU_AX2_GPO1_R</text>
-<text x="66.04" y="78.74" size="1.778" layer="96">MCU_AX1_GPO1_R</text>
+<text x="60.96" y="93.98" size="1.778" layer="96">MCU_AX1_MISO_R</text>
+<text x="60.96" y="88.9" size="1.778" layer="96">MCU_AX1_IRQ_R</text>
+<text x="60.96" y="83.82" size="1.778" layer="96">MCU_AX2_IRQ_R</text>
+<text x="60.96" y="73.66" size="1.778" layer="96">MCU_AX2_GPO1_R</text>
+<text x="60.96" y="78.74" size="1.778" layer="96">MCU_AX1_GPO1_R</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU switchboard</text>
+<text x="175.26" y="116.84" size="1.778" layer="97">MCU_SPI1_AUDIO_ADC_!DR</text>
+<text x="175.26" y="111.76" size="1.778" layer="97">MCU_SPI1_AUDIO_ADC_M0</text>
+<text x="175.26" y="106.68" size="1.778" layer="97">MCU_SPI1_AUDIO_ADC_M1</text>
 </plain>
 <instances>
 <instance part="FRAME22" gate="G$1" x="0" y="0"/>
@@ -25635,14 +25770,16 @@ Digikey: 497-17999-ND</text>
 <instance part="R0242" gate="G$1" x="172.72" y="149.86"/>
 <instance part="R0243" gate="G$1" x="172.72" y="142.24"/>
 <instance part="R0251" gate="G$1" x="172.72" y="129.54"/>
+<instance part="R0003" gate="G$1" x="172.72" y="96.52"/>
+<instance part="R0004" gate="G$1" x="172.72" y="88.9"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="MCU_I2C1_SCL" class="0">
 <segment>
-<wire x1="88.9" y1="170.18" x2="55.88" y2="170.18" width="0.1524" layer="91"/>
-<label x="88.9" y="170.18" size="1.778" layer="95" xref="yes"/>
+<wire x1="83.82" y1="170.18" x2="55.88" y2="170.18" width="0.1524" layer="91"/>
+<label x="83.82" y="170.18" size="1.778" layer="95" xref="yes"/>
 <pinref part="R0201" gate="G$1" pin="2"/>
 </segment>
 </net>
@@ -25655,10 +25792,10 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_I2C1_SDA" class="0">
 <segment>
-<wire x1="88.9" y1="162.56" x2="55.88" y2="162.56" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="162.56" x2="55.88" y2="162.56" width="0.1524" layer="91"/>
 <pinref part="R0202" gate="G$1" pin="2"/>
 <wire x1="55.88" y1="162.56" x2="53.34" y2="162.56" width="0.1524" layer="91"/>
-<label x="88.9" y="162.56" size="1.778" layer="95" xref="yes"/>
+<label x="83.82" y="162.56" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_012" class="0">
@@ -25670,16 +25807,16 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_I2C2_SCL" class="0">
 <segment>
-<wire x1="55.88" y1="149.86" x2="88.9" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="149.86" x2="83.82" y2="149.86" width="0.1524" layer="91"/>
 <pinref part="R0203" gate="G$1" pin="2"/>
-<label x="88.9" y="149.86" size="1.778" layer="95" xref="yes"/>
+<label x="83.82" y="149.86" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_I2C2_SDA" class="0">
 <segment>
-<wire x1="55.88" y1="142.24" x2="88.9" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="142.24" x2="83.82" y2="142.24" width="0.1524" layer="91"/>
 <pinref part="R0204" gate="G$1" pin="2"/>
-<label x="88.9" y="142.24" size="1.778" layer="95" xref="yes"/>
+<label x="83.82" y="142.24" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_013" class="0">
@@ -25696,32 +25833,32 @@ Digikey: 497-17999-ND</text>
 <label x="35.56" y="142.24" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI1_CLK" class="0">
+<net name="MCU_SPI1_SCK" class="0">
 <segment>
-<wire x1="55.88" y1="129.54" x2="88.9" y2="129.54" width="0.1524" layer="91"/>
-<label x="88.9" y="129.54" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="129.54" x2="83.82" y2="129.54" width="0.1524" layer="91"/>
+<label x="83.82" y="129.54" size="1.778" layer="95" xref="yes"/>
 <pinref part="R0211" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="MCU_SPI1_MOSI" class="0">
 <segment>
 <pinref part="R0212" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="121.92" x2="88.9" y2="121.92" width="0.1524" layer="91"/>
-<label x="88.9" y="121.92" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="121.92" x2="83.82" y2="121.92" width="0.1524" layer="91"/>
+<label x="83.82" y="121.92" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI1_AX1_SEL" class="0">
 <segment>
 <pinref part="R0213" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="114.3" x2="88.9" y2="114.3" width="0.1524" layer="91"/>
-<label x="88.9" y="114.3" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="114.3" x2="83.82" y2="114.3" width="0.1524" layer="91"/>
+<label x="83.82" y="114.3" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI1_AX2_SEL" class="0">
 <segment>
 <pinref part="R0214" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="106.68" x2="88.9" y2="106.68" width="0.1524" layer="91"/>
-<label x="88.9" y="106.68" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="106.68" x2="83.82" y2="106.68" width="0.1524" layer="91"/>
+<label x="83.82" y="106.68" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_021" class="0">
@@ -25754,46 +25891,46 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_XXX_025" class="0">
 <segment>
-<wire x1="35.56" y1="93.98" x2="88.9" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="93.98" x2="83.82" y2="93.98" width="0.1524" layer="91"/>
 <label x="35.56" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_026" class="0">
 <segment>
-<wire x1="35.56" y1="88.9" x2="88.9" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="88.9" x2="83.82" y2="88.9" width="0.1524" layer="91"/>
 <label x="35.56" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_027" class="0">
 <segment>
-<wire x1="35.56" y1="83.82" x2="88.9" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="83.82" x2="83.82" y2="83.82" width="0.1524" layer="91"/>
 <label x="35.56" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_028" class="0">
 <segment>
-<wire x1="35.56" y1="78.74" x2="88.9" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="78.74" x2="83.82" y2="78.74" width="0.1524" layer="91"/>
 <label x="35.56" y="78.74" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_029" class="0">
 <segment>
-<wire x1="35.56" y1="73.66" x2="88.9" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="73.66" x2="83.82" y2="73.66" width="0.1524" layer="91"/>
 <label x="35.56" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI2_CLK" class="0">
 <segment>
 <pinref part="R0215" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="60.96" x2="88.9" y2="60.96" width="0.1524" layer="91"/>
-<label x="88.9" y="60.96" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="60.96" x2="83.82" y2="60.96" width="0.1524" layer="91"/>
+<label x="83.82" y="60.96" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI2_MOSI" class="0">
 <segment>
 <pinref part="R0216" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="53.34" x2="88.9" y2="53.34" width="0.1524" layer="91"/>
-<label x="88.9" y="53.34" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="53.34" x2="83.82" y2="53.34" width="0.1524" layer="91"/>
+<label x="83.82" y="53.34" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_033" class="0">
@@ -25820,29 +25957,29 @@ Digikey: 497-17999-ND</text>
 <net name="MCU_SPI2_MISO" class="0">
 <segment>
 <pinref part="R0217" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="45.72" x2="88.9" y2="45.72" width="0.1524" layer="91"/>
-<label x="88.9" y="45.72" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="45.72" x2="83.82" y2="45.72" width="0.1524" layer="91"/>
+<label x="83.82" y="45.72" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_20MHZ_EN" class="0">
 <segment>
 <pinref part="R0221" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="33.02" x2="88.9" y2="33.02" width="0.1524" layer="91"/>
-<label x="88.9" y="33.02" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="33.02" x2="83.82" y2="33.02" width="0.1524" layer="91"/>
+<label x="83.82" y="33.02" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_VUSB_EN" class="0">
 <segment>
 <pinref part="R0222" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="25.4" x2="88.9" y2="25.4" width="0.1524" layer="91"/>
-<label x="88.9" y="25.4" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="25.4" x2="83.82" y2="25.4" width="0.1524" layer="91"/>
+<label x="83.82" y="25.4" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_HICUR_EN" class="0">
 <segment>
 <pinref part="R0223" gate="G$1" pin="2"/>
-<wire x1="55.88" y1="17.78" x2="88.9" y2="17.78" width="0.1524" layer="91"/>
-<label x="88.9" y="17.78" size="1.778" layer="95" xref="yes"/>
+<wire x1="55.88" y1="17.78" x2="83.82" y2="17.78" width="0.1524" layer="91"/>
+<label x="83.82" y="17.78" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_041" class="0">
@@ -25875,9 +26012,9 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_VDD12_EN" class="0">
 <segment>
-<wire x1="55.88" y1="10.16" x2="88.9" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="10.16" x2="83.82" y2="10.16" width="0.1524" layer="91"/>
 <pinref part="R0224" gate="G$1" pin="2"/>
-<label x="88.9" y="10.16" size="1.778" layer="95" xref="yes"/>
+<label x="83.82" y="10.16" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_051" class="0">
@@ -25889,9 +26026,9 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="20MHZ_PULL_ADC" class="0">
 <segment>
-<wire x1="177.8" y1="170.18" x2="210.82" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="170.18" x2="205.74" y2="170.18" width="0.1524" layer="91"/>
 <pinref part="R0231" gate="G$1" pin="2"/>
-<label x="210.82" y="170.18" size="1.778" layer="95" xref="yes"/>
+<label x="205.74" y="170.18" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_061" class="0">
@@ -25903,9 +26040,9 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_HSE" class="0">
 <segment>
-<wire x1="177.8" y1="149.86" x2="210.82" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="149.86" x2="205.74" y2="149.86" width="0.1524" layer="91"/>
 <pinref part="R0242" gate="G$1" pin="2"/>
-<label x="210.82" y="149.86" size="1.778" layer="95" xref="yes"/>
+<label x="205.74" y="149.86" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_062" class="0">
@@ -25917,9 +26054,9 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_MCO" class="0">
 <segment>
-<wire x1="177.8" y1="157.48" x2="210.82" y2="157.48" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="157.48" x2="205.74" y2="157.48" width="0.1524" layer="91"/>
 <pinref part="R0241" gate="G$1" pin="2"/>
-<label x="210.82" y="157.48" size="1.778" layer="95" xref="yes"/>
+<label x="205.74" y="157.48" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_063" class="0">
@@ -25931,9 +26068,9 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_INTR_SI5338" class="0">
 <segment>
-<wire x1="177.8" y1="142.24" x2="210.82" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="142.24" x2="205.74" y2="142.24" width="0.1524" layer="91"/>
 <pinref part="R0243" gate="G$1" pin="2"/>
-<label x="210.82" y="142.24" size="1.778" layer="95" xref="yes"/>
+<label x="205.74" y="142.24" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_XXX_071" class="0">
@@ -25945,9 +26082,55 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_LCD_!RST" class="0">
 <segment>
-<wire x1="177.8" y1="129.54" x2="210.82" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="129.54" x2="205.74" y2="129.54" width="0.1524" layer="91"/>
 <pinref part="R0251" gate="G$1" pin="2"/>
-<label x="210.82" y="129.54" size="1.778" layer="95" xref="yes"/>
+<label x="205.74" y="129.54" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_085" class="0">
+<segment>
+<wire x1="157.48" y1="88.9" x2="167.64" y2="88.9" width="0.1524" layer="91"/>
+<label x="157.48" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0004" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="MCU_XXX_081" class="0">
+<segment>
+<wire x1="157.48" y1="116.84" x2="208.28" y2="116.84" width="0.1524" layer="91"/>
+<label x="157.48" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_084" class="0">
+<segment>
+<wire x1="157.48" y1="96.52" x2="167.64" y2="96.52" width="0.1524" layer="91"/>
+<label x="157.48" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0003" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="MCU_SPI1_AUDIO_ADC_!RESET" class="0">
+<segment>
+<wire x1="177.8" y1="96.52" x2="205.74" y2="96.52" width="0.1524" layer="91"/>
+<label x="205.74" y="96.52" size="1.778" layer="95" xref="yes"/>
+<pinref part="R0003" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="MCU_SPI1_AUDIO_ADC_SEL" class="0">
+<segment>
+<pinref part="R0004" gate="G$1" pin="2"/>
+<wire x1="177.8" y1="88.9" x2="205.74" y2="88.9" width="0.1524" layer="91"/>
+<label x="205.74" y="88.9" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_083" class="0">
+<segment>
+<wire x1="157.48" y1="106.68" x2="208.28" y2="106.68" width="0.1524" layer="91"/>
+<label x="157.48" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_082" class="0">
+<segment>
+<wire x1="157.48" y1="111.76" x2="208.28" y2="111.76" width="0.1524" layer="91"/>
+<label x="157.48" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -26539,7 +26722,7 @@ Digikey: 497-17999-ND</text>
 <attribute name="VALUE" x="180.1114" y="37.338" size="2.0828" layer="96" ratio="10" rot="SR0"/>
 </instance>
 <instance part="GND0641" gate="1" x="160.02" y="27.94"/>
-<instance part="R0642" gate="G$1" x="215.9" y="58.42"/>
+<instance part="R0642" gate="G$1" x="215.9" y="53.34"/>
 <instance part="C0641" gate="G$1" x="149.86" y="43.18"/>
 <instance part="C0632" gate="G$1" x="167.64" y="142.24"/>
 <instance part="GND0612" gate="1" x="88.9" y="124.46"/>
@@ -26636,10 +26819,10 @@ Digikey: 497-17999-ND</text>
 <junction x="116.84" y="157.48"/>
 <pinref part="R0631" gate="G$1" pin="1"/>
 <label x="118.364" y="160.02" size="1.778" layer="95"/>
-<wire x1="139.7" y1="53.34" x2="139.7" y2="157.48" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="55.88" x2="139.7" y2="157.48" width="0.1524" layer="91"/>
 <junction x="139.7" y="157.48"/>
 <pinref part="U0641" gate="G$1" pin="+IN"/>
-<wire x1="139.7" y1="53.34" x2="177.8" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="55.88" x2="177.8" y2="55.88" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="20MHZ_DAC_OUT" class="0">
@@ -26723,21 +26906,21 @@ Digikey: 497-17999-ND</text>
 <wire x1="165.1" y1="33.02" x2="205.74" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="R0642" gate="G$1" pin="1"/>
 <pinref part="U0641" gate="G$1" pin="OUT"/>
-<wire x1="210.82" y1="58.42" x2="205.74" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="205.74" y1="58.42" x2="193.04" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="205.74" y1="58.42" x2="205.74" y2="33.02" width="0.1524" layer="91"/>
-<junction x="205.74" y="58.42"/>
+<wire x1="210.82" y1="53.34" x2="205.74" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="53.34" x2="193.04" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="53.34" x2="205.74" y2="33.02" width="0.1524" layer="91"/>
+<junction x="205.74" y="53.34"/>
 </segment>
 </net>
 <net name="+3V3_20MHZ" class="0">
 <segment>
-<wire x1="149.86" y1="71.12" x2="149.86" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="71.12" x2="149.86" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="U0641" gate="G$1" pin="V+"/>
-<wire x1="149.86" y1="58.42" x2="185.42" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="60.96" x2="185.42" y2="60.96" width="0.1524" layer="91"/>
 <label x="149.86" y="71.12" size="1.778" layer="95" rot="R90" xref="yes"/>
 <pinref part="C0641" gate="G$1" pin="1"/>
-<wire x1="149.86" y1="58.42" x2="149.86" y2="45.72" width="0.1524" layer="91"/>
-<junction x="149.86" y="58.42"/>
+<wire x1="149.86" y1="60.96" x2="149.86" y2="45.72" width="0.1524" layer="91"/>
+<junction x="149.86" y="60.96"/>
 </segment>
 <segment>
 <wire x1="33.02" y1="165.1" x2="40.64" y2="165.1" width="0.1524" layer="91"/>
@@ -26760,8 +26943,8 @@ Digikey: 497-17999-ND</text>
 <net name="20MHZ_PULL_ADC" class="0">
 <segment>
 <pinref part="R0642" gate="G$1" pin="2"/>
-<wire x1="220.98" y1="58.42" x2="223.52" y2="58.42" width="0.1524" layer="91"/>
-<label x="223.52" y="58.42" size="1.778" layer="97" xref="yes"/>
+<wire x1="220.98" y1="53.34" x2="223.52" y2="53.34" width="0.1524" layer="91"/>
+<label x="223.52" y="53.34" size="1.778" layer="97" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_I2C1_SCL" class="0">
@@ -26801,7 +26984,7 @@ Digikey: 497-17999-ND</text>
 <label x="231.14" y="157.48" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="MAX5217_!AUX" class="0">
 <segment>
 <pinref part="R0613" gate="G$1" pin="2"/>
 <pinref part="U0611" gate="G$1" pin="!AUX"/>
@@ -26815,8 +26998,14 @@ Digikey: 497-17999-ND</text>
 <plain>
 <text x="167.64" y="106.68" size="1.778" layer="97">Impedance 100 Ohms</text>
 <text x="167.64" y="76.2" size="1.778" layer="97">Impedance 100 Ohms</text>
-<text x="116.84" y="134.62" size="1.778" layer="97" rot="R90">Impedance 100 Ohms</text>
+<text x="116.84" y="137.16" size="1.778" layer="97" rot="R90">Impedance 100 Ohms</text>
 <text x="27.94" y="167.64" size="2.54" layer="97" ratio="15">Clock distributor</text>
+<text x="116.078" y="29.972" size="1.778" layer="97" rot="R90">10MHz</text>
+<text x="50.8" y="88.9" size="1.778" layer="97">16MHz</text>
+<text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
+<text x="50.8" y="111.76" size="1.778" layer="97">N.C.</text>
+<text x="50.8" y="104.14" size="1.778" layer="97">N.C.</text>
+<text x="50.8" y="96.52" size="1.778" layer="97">10MHz</text>
 </plain>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
@@ -26834,7 +27023,7 @@ Digikey: 497-17999-ND</text>
 <instance part="R0714" gate="G$1" x="73.66" y="88.9"/>
 <instance part="C0701" gate="G$1" x="78.74" y="144.78"/>
 <instance part="C0702" gate="G$1" x="81.28" y="48.26"/>
-<instance part="GND0701" gate="1" x="78.74" y="134.62"/>
+<instance part="GND0701" gate="1" x="78.74" y="132.08"/>
 <instance part="GND0702" gate="1" x="81.28" y="38.1"/>
 <instance part="R0751" gate="G$1" x="53.34" y="76.2" rot="R90"/>
 <instance part="C0715" gate="G$1" x="66.04" y="81.28" rot="R90"/>
@@ -27050,12 +27239,13 @@ Digikey: 497-17999-ND</text>
 <segment>
 <pinref part="GND0701" gate="1" pin="GND"/>
 <pinref part="C0701" gate="G$1" pin="2"/>
-<wire x1="78.74" y1="137.16" x2="78.74" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="134.62" x2="78.74" y2="137.16" width="0.1524" layer="91"/>
 <pinref part="U0701" gate="G$1" pin="RSVD_GND"/>
+<wire x1="78.74" y1="137.16" x2="78.74" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="119.38" x2="106.68" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="121.92" x2="104.14" y2="121.92" width="0.1524" layer="91"/>
-<wire x1="78.74" y1="137.16" x2="104.14" y2="137.16" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="137.16" x2="104.14" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="137.16" x2="104.14" y2="137.16" width="0.1524" layer="91"/>
 <junction x="78.74" y="137.16"/>
 </segment>
 <segment>
@@ -27203,7 +27393,6 @@ Digikey: 497-17999-ND</text>
 </plain>
 <instances>
 <instance part="FRAME13" gate="G$1" x="0" y="0"/>
-<instance part="R0841" gate="G$1" x="208.28" y="116.84"/>
 <instance part="GND0801" gate="1" x="119.38" y="66.04"/>
 <instance part="C0831" gate="G$1" x="114.3" y="83.82"/>
 <instance part="C0811" gate="G$1" x="99.06" y="109.22"/>
@@ -27263,20 +27452,12 @@ Digikey: 497-17999-ND</text>
 <pinref part="U0801" gate="G$1" pin="SCL"/>
 </segment>
 </net>
-<net name="LCD_!RST" class="0">
-<segment>
-<wire x1="134.62" y1="127" x2="134.62" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="116.84" x2="203.2" y2="116.84" width="0.1524" layer="91"/>
-<label x="139.7" y="116.84" size="1.778" layer="95"/>
-<pinref part="R0841" gate="G$1" pin="1"/>
-<pinref part="U0801" gate="G$1" pin="RST"/>
-</segment>
-</net>
 <net name="MCU_LCD_!RST" class="0">
 <segment>
-<pinref part="R0841" gate="G$1" pin="2"/>
-<wire x1="213.36" y1="116.84" x2="218.44" y2="116.84" width="0.1524" layer="91"/>
 <label x="218.44" y="116.84" size="1.778" layer="95" xref="yes"/>
+<wire x1="134.62" y1="127" x2="134.62" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="116.84" x2="218.44" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="U0801" gate="G$1" pin="RST"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -27409,7 +27590,7 @@ channel 1</text>
 <label x="43.18" y="93.98" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="MCU_SPI1_CLK" class="0">
+<net name="MCU_SPI1_SCK" class="0">
 <segment>
 <pinref part="U0901" gate="A" pin="CLK"/>
 <wire x1="60.96" y1="99.06" x2="43.18" y2="99.06" width="0.1524" layer="91"/>
@@ -27776,7 +27957,7 @@ channel 2</text>
 <label x="43.18" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI1_CLK" class="0">
+<net name="MCU_SPI1_SCK" class="0">
 <segment>
 <pinref part="U1001" gate="A" pin="CLK"/>
 <wire x1="60.96" y1="99.06" x2="43.18" y2="99.06" width="0.1524" layer="91"/>
@@ -28082,8 +28263,10 @@ channel 2</text>
 <sheet>
 <description>Audio AD/DA</description>
 <plain>
-<text x="43.18" y="93.98" size="1.778" layer="97">Use ADC MCP3911</text>
 <text x="12.7" y="165.1" size="2.54" layer="97" ratio="15">Audio A/D- and D/A-Converter</text>
+<text x="124.714" y="138.43" size="1.778" layer="97">N.C.</text>
+<text x="181.356" y="141.478" size="1.778" layer="97">Use 12.288 MHz, OSR=64 for 48 ksps</text>
+<text x="147.32" y="142.24" size="1.778" layer="97">10MHz</text>
 </plain>
 <instances>
 <instance part="FRAME16" gate="G$1" x="0" y="0"/>
@@ -28109,20 +28292,37 @@ channel 2</text>
 <instance part="GND1121" gate="1" x="157.48" y="22.86"/>
 <instance part="R1135" gate="G$1" x="165.1" y="53.34" rot="R90"/>
 <instance part="R1145" gate="G$1" x="167.64" y="33.02" rot="R90"/>
+<instance part="GND1101" gate="1" x="101.6" y="88.9"/>
+<instance part="U1101" gate="G$1" x="99.06" y="124.46"/>
+<instance part="R1106" gate="G$1" x="132.08" y="129.54"/>
+<instance part="R1107" gate="G$1" x="144.78" y="127"/>
+<instance part="R1108" gate="G$1" x="132.08" y="109.22"/>
+<instance part="R1109" gate="G$1" x="144.78" y="106.68"/>
+<instance part="C1101" gate="G$1" x="48.26" y="152.4"/>
+<instance part="GND0002" gate="1" x="48.26" y="134.62"/>
+<instance part="L1102" gate="G$1" x="73.66" y="152.4" rot="R270"/>
+<instance part="C1102" gate="G$1" x="60.96" y="144.78" rot="R90"/>
+<instance part="C1103" gate="G$1" x="68.58" y="142.24" rot="R90"/>
+<instance part="C1104" gate="G$1" x="53.34" y="129.54" rot="R90"/>
+<instance part="C1105" gate="G$1" x="53.34" y="116.84" rot="R90"/>
+<instance part="R1104" gate="G$1" x="63.5" y="124.46" rot="R90"/>
+<instance part="R1105" gate="G$1" x="68.58" y="111.76" rot="R90"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="AUDIO_IN_L" class="0">
 <segment>
-<wire x1="43.18" y1="157.48" x2="76.2" y2="157.48" width="0.1524" layer="91"/>
-<label x="43.18" y="157.48" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="43.18" y1="129.54" x2="50.8" y2="129.54" width="0.1524" layer="91"/>
+<label x="43.18" y="129.54" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="C1104" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="AUDIO_IN_R" class="0">
 <segment>
-<wire x1="43.18" y1="144.78" x2="76.2" y2="144.78" width="0.1524" layer="91"/>
-<label x="43.18" y="144.78" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="43.18" y1="116.84" x2="50.8" y2="116.84" width="0.1524" layer="91"/>
+<label x="43.18" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="C1105" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="AUDIO_OUT_L" class="0">
@@ -28182,6 +28382,50 @@ channel 2</text>
 <junction x="167.64" y="27.94"/>
 <junction x="165.1" y="27.94"/>
 </segment>
+<segment>
+<pinref part="GND1101" gate="1" pin="GND"/>
+<pinref part="U1101" gate="G$1" pin="DGND"/>
+<wire x1="101.6" y1="91.44" x2="101.6" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="93.98" x2="101.6" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="93.98" x2="96.52" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="U1101" gate="G$1" pin="AGND"/>
+<wire x1="96.52" y1="93.98" x2="96.52" y2="96.52" width="0.1524" layer="91"/>
+<junction x="101.6" y="93.98"/>
+<wire x1="96.52" y1="93.98" x2="73.66" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="93.98" x2="73.66" y2="114.3" width="0.1524" layer="91"/>
+<pinref part="U1101" gate="G$1" pin="CH0-"/>
+<wire x1="73.66" y1="114.3" x2="73.66" y2="127" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="127" x2="76.2" y2="127" width="0.1524" layer="91"/>
+<pinref part="U1101" gate="G$1" pin="CH1-"/>
+<wire x1="73.66" y1="114.3" x2="76.2" y2="114.3" width="0.1524" layer="91"/>
+<junction x="96.52" y="93.98"/>
+<junction x="73.66" y="114.3"/>
+<wire x1="73.66" y1="93.98" x2="68.58" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="R1104" gate="G$1" pin="1"/>
+<wire x1="68.58" y1="93.98" x2="63.5" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="93.98" x2="63.5" y2="119.38" width="0.1524" layer="91"/>
+<pinref part="R1105" gate="G$1" pin="1"/>
+<wire x1="68.58" y1="93.98" x2="68.58" y2="106.68" width="0.1524" layer="91"/>
+<junction x="68.58" y="93.98"/>
+<junction x="73.66" y="93.98"/>
+</segment>
+<segment>
+<pinref part="GND0002" gate="1" pin="GND"/>
+<pinref part="C1101" gate="G$1" pin="2"/>
+<wire x1="48.26" y1="137.16" x2="48.26" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="C1102" gate="G$1" pin="1"/>
+<wire x1="48.26" y1="139.7" x2="48.26" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="142.24" x2="48.26" y2="144.78" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="144.78" x2="48.26" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="144.78" x2="58.42" y2="144.78" width="0.1524" layer="91"/>
+<junction x="48.26" y="144.78"/>
+<pinref part="C1103" gate="G$1" pin="1"/>
+<wire x1="48.26" y1="142.24" x2="66.04" y2="142.24" width="0.1524" layer="91"/>
+<junction x="48.26" y="142.24"/>
+<pinref part="U1101" gate="G$1" pin="REFIN-"/>
+<wire x1="48.26" y1="139.7" x2="76.2" y2="139.7" width="0.1524" layer="91"/>
+<junction x="48.26" y="139.7"/>
+</segment>
 </net>
 <net name="MAX5136_REF" class="0">
 <segment>
@@ -28231,6 +28475,21 @@ channel 2</text>
 <wire x1="167.64" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
 <junction x="167.64" y="83.82"/>
 </segment>
+<segment>
+<label x="43.18" y="157.48" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="43.18" y1="157.48" x2="48.26" y2="157.48" width="0.1524" layer="91"/>
+<pinref part="U1101" gate="G$1" pin="DVDD"/>
+<wire x1="48.26" y1="157.48" x2="58.42" y2="157.48" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="157.48" x2="101.6" y2="157.48" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="157.48" x2="101.6" y2="152.4" width="0.1524" layer="91"/>
+<pinref part="C1101" gate="G$1" pin="1"/>
+<wire x1="48.26" y1="157.48" x2="48.26" y2="154.94" width="0.1524" layer="91"/>
+<junction x="48.26" y="157.48"/>
+<wire x1="58.42" y1="157.48" x2="58.42" y2="152.4" width="0.1524" layer="91"/>
+<pinref part="L1102" gate="G$1" pin="2"/>
+<wire x1="58.42" y1="152.4" x2="68.58" y2="152.4" width="0.1524" layer="91"/>
+<junction x="58.42" y="157.48"/>
+</segment>
 </net>
 <net name="MAX5136_AVDD" class="0">
 <segment>
@@ -28248,11 +28507,16 @@ channel 2</text>
 <junction x="71.12" y="68.58"/>
 </segment>
 </net>
-<net name="MCU_SPI1_CLK" class="0">
+<net name="MCU_SPI1_SCK" class="0">
 <segment>
 <pinref part="U1111" gate="G$1" pin="SCLK"/>
 <wire x1="73.66" y1="38.1" x2="43.18" y2="38.1" width="0.1524" layer="91"/>
 <label x="43.18" y="38.1" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U1101" gate="G$1" pin="SCK"/>
+<wire x1="121.92" y1="116.84" x2="157.48" y2="116.84" width="0.1524" layer="91"/>
+<label x="157.48" y="116.84" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI1_MOSI" class="0">
@@ -28260,6 +28524,11 @@ channel 2</text>
 <pinref part="U1111" gate="G$1" pin="DIN"/>
 <wire x1="73.66" y1="33.02" x2="43.18" y2="33.02" width="0.1524" layer="91"/>
 <label x="43.18" y="33.02" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U1101" gate="G$1" pin="SDI"/>
+<wire x1="121.92" y1="119.38" x2="210.82" y2="119.38" width="0.1524" layer="91"/>
+<label x="210.82" y="119.38" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI1_AUDIO_DAC_SEL" class="0">
@@ -28384,6 +28653,121 @@ channel 2</text>
 <wire x1="137.16" y1="66.04" x2="139.7" y2="66.04" width="0.1524" layer="91"/>
 <junction x="137.16" y="66.04"/>
 <junction x="172.72" y="73.66"/>
+</segment>
+</net>
+<net name="MCU_SPI1_AUDIO_ADC_!RESET" class="0">
+<segment>
+<pinref part="U1101" gate="G$1" pin="!RESET"/>
+<wire x1="121.92" y1="121.92" x2="157.48" y2="121.92" width="0.1524" layer="91"/>
+<label x="157.48" y="121.92" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_SPI1_AUDIO_ADC_SEL" class="0">
+<segment>
+<pinref part="U1101" gate="G$1" pin="!CS"/>
+<wire x1="121.92" y1="114.3" x2="210.82" y2="114.3" width="0.1524" layer="91"/>
+<label x="210.82" y="114.3" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCP3911_!DR" class="0">
+<segment>
+<pinref part="U1101" gate="G$1" pin="!DR"/>
+<wire x1="121.92" y1="129.54" x2="127" y2="129.54" width="0.1524" layer="91"/>
+<pinref part="R1106" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="MCP3911_SDO" class="0">
+<segment>
+<pinref part="U1101" gate="G$1" pin="SDO"/>
+<wire x1="121.92" y1="127" x2="139.7" y2="127" width="0.1524" layer="91"/>
+<pinref part="R1107" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="MCU_XXX_081" class="0">
+<segment>
+<pinref part="R1106" gate="G$1" pin="2"/>
+<wire x1="137.16" y1="129.54" x2="157.48" y2="129.54" width="0.1524" layer="91"/>
+<label x="157.48" y="129.54" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_025" class="0">
+<segment>
+<pinref part="R1107" gate="G$1" pin="2"/>
+<wire x1="149.86" y1="127" x2="210.82" y2="127" width="0.1524" layer="91"/>
+<label x="210.82" y="127" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCP3911_MDAT0" class="0">
+<segment>
+<pinref part="R1108" gate="G$1" pin="1"/>
+<pinref part="U1101" gate="G$1" pin="MDAT0"/>
+<wire x1="127" y1="109.22" x2="121.92" y2="109.22" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MCP3911_MDAT1" class="0">
+<segment>
+<pinref part="R1109" gate="G$1" pin="1"/>
+<pinref part="U1101" gate="G$1" pin="MDAT1"/>
+<wire x1="139.7" y1="106.68" x2="121.92" y2="106.68" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MCU_XXX_082" class="0">
+<segment>
+<pinref part="R1108" gate="G$1" pin="2"/>
+<wire x1="137.16" y1="109.22" x2="157.48" y2="109.22" width="0.1524" layer="91"/>
+<label x="157.48" y="109.22" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_083" class="0">
+<segment>
+<pinref part="R1109" gate="G$1" pin="2"/>
+<wire x1="149.86" y1="106.68" x2="210.82" y2="106.68" width="0.1524" layer="91"/>
+<label x="210.82" y="106.68" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MVP3911_AVDD" class="0">
+<segment>
+<pinref part="L1102" gate="G$1" pin="1"/>
+<pinref part="U1101" gate="G$1" pin="AVDD"/>
+<wire x1="78.74" y1="152.4" x2="96.52" y2="152.4" width="0.1524" layer="91"/>
+<pinref part="C1102" gate="G$1" pin="2"/>
+<wire x1="66.04" y1="144.78" x2="78.74" y2="144.78" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="144.78" x2="78.74" y2="152.4" width="0.1524" layer="91"/>
+<junction x="78.74" y="152.4"/>
+</segment>
+</net>
+<net name="MCP3911_REFINOUT" class="0">
+<segment>
+<pinref part="U1101" gate="G$1" pin="REFINOUT"/>
+<pinref part="C1103" gate="G$1" pin="2"/>
+<wire x1="76.2" y1="142.24" x2="73.66" y2="142.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MCU_HSE" class="0">
+<segment>
+<pinref part="U1101" gate="G$1" pin="OSC1"/>
+<wire x1="121.92" y1="142.24" x2="157.48" y2="142.24" width="0.1524" layer="91"/>
+<label x="157.48" y="142.24" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MCP3911_CH0+" class="0">
+<segment>
+<pinref part="C1104" gate="G$1" pin="2"/>
+<pinref part="U1101" gate="G$1" pin="CH0+"/>
+<wire x1="58.42" y1="129.54" x2="63.5" y2="129.54" width="0.1524" layer="91"/>
+<pinref part="R1104" gate="G$1" pin="2"/>
+<wire x1="63.5" y1="129.54" x2="76.2" y2="129.54" width="0.1524" layer="91"/>
+<junction x="63.5" y="129.54"/>
+</segment>
+</net>
+<net name="MCP3911_CH1+" class="0">
+<segment>
+<pinref part="C1105" gate="G$1" pin="2"/>
+<pinref part="U1101" gate="G$1" pin="CH1+"/>
+<wire x1="58.42" y1="116.84" x2="68.58" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="R1105" gate="G$1" pin="2"/>
+<wire x1="68.58" y1="116.84" x2="76.2" y2="116.84" width="0.1524" layer="91"/>
+<junction x="68.58" y="116.84"/>
 </segment>
 </net>
 </nets>
@@ -29352,7 +29736,7 @@ USB host (OTG) interface</text>
 <text x="48.26" y="99.06" size="1.778" layer="97">MCU_USB_DM</text>
 <text x="48.26" y="88.9" size="1.778" layer="97">MCU_USB_DP</text>
 <text x="48.26" y="78.74" size="1.778" layer="97">MCU_USB_ID</text>
-<text x="50.8" y="132.08" size="1.778" layer="97">MCU_USB_OTG_FS_VBUS</text>
+<text x="48.26" y="132.08" size="1.778" layer="97">MCU_USB_OTG_FS_VBUS</text>
 <text x="186.182" y="133.096" size="1.778" layer="97" rot="R90">LITTLEFUSE
 1206L050YR</text>
 </plain>
