@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -38,12 +38,12 @@
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
-<layer number="51" name="tDocu" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="6" fill="1" visible="no" active="yes"/>
 <layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
@@ -4230,6 +4230,36 @@ Subminiature Tact Switch for SMT</description>
 <rectangle x1="-3" y1="-0.5" x2="-2.5" y2="0.5" layer="21"/>
 <rectangle x1="2.5" y1="-0.5" x2="3" y2="0.5" layer="21"/>
 </package>
+<package name="TTE_EN11-HSM">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
+<pad name="A" x="-2.5" y="-7.5" drill="1.1" diameter="2" first="yes"/>
+<pad name="C" x="0" y="-7.5" drill="1.1" diameter="2"/>
+<pad name="B" x="2.5" y="-7.5" drill="1.1" diameter="2"/>
+<pad name="D" x="-2.5" y="7" drill="1.1" diameter="2"/>
+<pad name="E" x="2.5" y="7" drill="1.1" diameter="2"/>
+<hole x="0" y="0" drill="3"/>
+<smd name="NC1" x="-4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
+<smd name="NC2" x="4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
+<text x="-3.5" y="-9" size="0.6096" layer="21" ratio="10">A</text>
+<text x="-1" y="-9" size="0.6096" layer="21" ratio="10">C</text>
+<text x="1.5" y="-9" size="0.6096" layer="21" ratio="10">B</text>
+<text x="1.5" y="8" size="0.6096" layer="21" ratio="10">E</text>
+<text x="-3.5" y="8" size="0.6096" layer="21" ratio="10">D</text>
+<wire x1="4.35" y1="7.25" x2="5.85" y2="7.25" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="7.25" x2="-4.35" y2="7.25" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="7.25" x2="5.85" y2="7.25" width="0.3048" layer="51"/>
+<wire x1="5.85" y1="7.25" x2="5.85" y2="-6.5" width="0.3048" layer="51"/>
+<wire x1="5.85" y1="-6.5" x2="-5.85" y2="-6.5" width="0.3048" layer="51"/>
+<wire x1="-5.85" y1="-6.5" x2="-5.85" y2="7.25" width="0.3048" layer="51"/>
+<wire x1="-5.85" y1="7.25" x2="-5.85" y2="5.75" width="0.254" layer="21"/>
+<wire x1="5.85" y1="7.25" x2="5.85" y2="5.75" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="-5" x2="-5.85" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="5.85" y1="-5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="-6.5" x2="-4.35" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="4.35" y1="-6.5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
+<text x="-2" y="9" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
+<text x="7.5" y="-6.5" size="0.8128" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="S">
@@ -6798,6 +6828,9 @@ Subminiature Tact Switch for SMT</description>
 <pin name="O3" x="17.78" y="5.08" visible="pad" length="short" direction="pas" rot="R270"/>
 <wire x1="-5.08" y1="1.651" x2="-4.191" y2="1.651" width="0.254" layer="94"/>
 <wire x1="-5.842" y1="-1.778" x2="-5.08" y2="-1.778" width="0.254" layer="94"/>
+</symbol>
+<symbol name="TTE_EN11-HSM">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
 </symbol>
 </symbols>
 <devicesets>
@@ -9431,6 +9464,18 @@ Subminiature Tact Switch for SMT</description>
 <connect gate="G$1" pin="P" pad="1"/>
 <connect gate="G$1" pin="S" pad="2"/>
 </connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="TTE_EN11-HSM">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
+<gates>
+</gates>
+<devices>
+<device name="" package="TTE_EN11-HSM">
 <technologies>
 <technology name=""/>
 </technologies>
