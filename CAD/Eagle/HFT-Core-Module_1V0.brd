@@ -3648,6 +3648,36 @@ Subminiature Tact Switch for SMT</description>
 <rectangle x1="-3" y1="-0.5" x2="-2.5" y2="0.5" layer="21"/>
 <rectangle x1="2.5" y1="-0.5" x2="3" y2="0.5" layer="21"/>
 </package>
+<package name="TTE_EN11-HSM">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
+<pad name="A" x="-2.5" y="-7.5" drill="1.1" diameter="2" first="yes"/>
+<pad name="C" x="0" y="-7.5" drill="1.1" diameter="2"/>
+<pad name="B" x="2.5" y="-7.5" drill="1.1" diameter="2"/>
+<pad name="D" x="-2.5" y="7" drill="1.1" diameter="2"/>
+<pad name="E" x="2.5" y="7" drill="1.1" diameter="2"/>
+<hole x="0" y="0" drill="3"/>
+<smd name="NC1" x="-4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
+<smd name="NC2" x="4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
+<text x="-3.5" y="-9" size="0.6096" layer="21" ratio="10">A</text>
+<text x="-1" y="-9" size="0.6096" layer="21" ratio="10">C</text>
+<text x="1.5" y="-9" size="0.6096" layer="21" ratio="10">B</text>
+<text x="1.5" y="8" size="0.6096" layer="21" ratio="10">E</text>
+<text x="-3.5" y="8" size="0.6096" layer="21" ratio="10">D</text>
+<wire x1="4.35" y1="7.25" x2="5.85" y2="7.25" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="7.25" x2="-4.35" y2="7.25" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="7.25" x2="5.85" y2="7.25" width="0.3048" layer="51"/>
+<wire x1="5.85" y1="7.25" x2="5.85" y2="-6.5" width="0.3048" layer="51"/>
+<wire x1="5.85" y1="-6.5" x2="-5.85" y2="-6.5" width="0.3048" layer="51"/>
+<wire x1="-5.85" y1="-6.5" x2="-5.85" y2="7.25" width="0.3048" layer="51"/>
+<wire x1="-5.85" y1="7.25" x2="-5.85" y2="5.75" width="0.254" layer="21"/>
+<wire x1="5.85" y1="7.25" x2="5.85" y2="5.75" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="-5" x2="-5.85" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="5.85" y1="-5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="-6.5" x2="-4.35" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="4.35" y1="-6.5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
+<text x="-2" y="9" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
+<text x="7.5" y="-6.5" size="0.8128" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
+</package>
 </packages>
 </library>
 <library name="df4iah_dac">
@@ -4513,6 +4543,14 @@ Your Eurocircuits Team
 <element name="R1902" library="rcl" package="R0603" value="33kR" x="48.895" y="47.625" rot="MR270"/>
 <element name="R2002" library="rcl" package="R0603" value="33kR" x="38.1" y="44.45" rot="MR0"/>
 <element name="R2102" library="rcl" package="R0603" value="33kR" x="57.785" y="38.735" rot="R270"/>
+<element name="U$1" library="df4iah_switch" package="TTE_EN11-HSM" value="TTE_EN11-HSM" x="-72.39" y="-1292.86"/>
+<element name="X0861" library="df4iah_switch" package="TTE_EN11-HSM" value="TTE_EN11-HSM" x="87.63" y="49.53" rot="R270"/>
+<element name="R0861" library="rcl" package="R0603" value="10kR" x="83.185" y="52.07" rot="MR180"/>
+<element name="R0862" library="rcl" package="R0603" value="10kR" x="83.185" y="46.99" rot="MR180"/>
+<element name="R0871" library="rcl" package="R0603" value="10kR" x="92.075" y="46.99" rot="MR0"/>
+<element name="C0861" library="rcl" package="C0603" value="1nF" x="86.36" y="52.07" rot="MR180"/>
+<element name="C0871" library="rcl" package="C0603" value="1nF" x="91.44" y="49.53" rot="MR90"/>
+<element name="C0862" library="rcl" package="C0603" value="1nF" x="86.36" y="46.99" rot="MR180"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -4734,6 +4772,11 @@ Your Eurocircuits Team
 <contactref element="R1902" pad="1"/>
 <contactref element="R2002" pad="1"/>
 <contactref element="R2102" pad="1"/>
+<contactref element="X0861" pad="C"/>
+<contactref element="X0861" pad="D"/>
+<contactref element="C0871" pad="2"/>
+<contactref element="C0862" pad="2"/>
+<contactref element="C0861" pad="2"/>
 <wire x1="93.7025" y1="87.6" x2="91.44" y2="91.44" width="0" layer="19" extent="1-1"/>
 <wire x1="93.56" y1="85.725" x2="93.7025" y2="87.6" width="0" layer="19" extent="16-16"/>
 <wire x1="94.7025" y1="83.45" x2="93.56" y2="85.725" width="0" layer="19" extent="16-16"/>
@@ -4853,6 +4896,7 @@ Your Eurocircuits Team
 <wire x1="31.23" y1="51.08" x2="34.09" y2="52.016" width="0" layer="19" extent="16-16"/>
 <wire x1="46.99" y1="56.3" x2="49.295" y2="50.8" width="0" layer="19" extent="1-1"/>
 <wire x1="50.038" y1="57.15" x2="46.99" y2="56.3" width="0" layer="19" extent="1-1"/>
+<wire x1="80.13" y1="49.53" x2="74.34" y2="51.605" width="0" layer="19" extent="1-1"/>
 <wire x1="47.41" y1="71.12" x2="51.435" y2="76.025" width="0" layer="19" extent="1-1"/>
 <wire x1="46.99" y1="67" x2="47.41" y2="71.12" width="0" layer="19" extent="1-1"/>
 <wire x1="29.21" y1="44.87" x2="31.23" y2="51.08" width="0" layer="19" extent="16-16"/>
@@ -4867,6 +4911,9 @@ Your Eurocircuits Team
 <wire x1="58.42" y1="64.35" x2="59.905" y2="71.12" width="0" layer="19" extent="16-16"/>
 <wire x1="55.415" y1="63.93" x2="58.42" y2="64.35" width="0" layer="19" extent="1-16"/>
 <wire x1="40.005" y1="70.25" x2="47.41" y2="71.12" width="0" layer="19" extent="1-1"/>
+<wire x1="87.21" y1="52.07" x2="80.13" y2="49.53" width="0" layer="19" extent="16-16"/>
+<wire x1="87.21" y1="46.99" x2="87.21" y2="52.07" width="0" layer="19" extent="16-16"/>
+<wire x1="94.63" y1="52.03" x2="87.21" y2="52.07" width="0" layer="19" extent="16-16"/>
 <wire x1="19.05" y1="45.4" x2="25.72" y2="41.91" width="0" layer="19" extent="16-16"/>
 <wire x1="12.7" y1="39.05" x2="20.0775" y2="34.88" width="0" layer="19" extent="16-16"/>
 <wire x1="7.62" y1="45.72" x2="12.7" y2="39.05" width="0" layer="19" extent="16-16"/>
@@ -4950,7 +4997,8 @@ Your Eurocircuits Team
 <wire x1="21.59" y1="93.98" x2="21.59" y2="88.9" width="0" layer="19" extent="1-1"/>
 <wire x1="5.08" y1="91.44" x2="7.62" y2="74.93" width="0" layer="19" extent="1-1"/>
 <wire x1="5.08" y1="5.08" x2="7.62" y2="21.59" width="0" layer="19" extent="1-1"/>
-<wire x1="-29.63" y1="-1043.94" x2="91.44" y2="91.44" width="0" layer="19" extent="1-1"/>
+<wire x1="91.44" y1="50.38" x2="91.44" y2="91.44" width="0" layer="19" extent="1-1"/>
+<wire x1="-29.63" y1="-1043.94" x2="91.44" y2="50.38" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="MCU_VSSA">
 <contactref element="U0111" pad="30"/>
@@ -6790,6 +6838,36 @@ Your Eurocircuits Team
 <contactref element="R1105" pad="2"/>
 <wire x1="85.09" y1="83.4" x2="86.36" y2="84.875" width="0" layer="19" extent="16-16"/>
 <wire x1="79.435" y1="83.82" x2="85.09" y2="83.4" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="ROTENC_A">
+<contactref element="X0861" pad="A"/>
+<contactref element="C0861" pad="1"/>
+<contactref element="R0861" pad="1"/>
+<wire x1="82.335" y1="52.07" x2="85.51" y2="52.07" width="0" layer="19" extent="16-16"/>
+<wire x1="80.13" y1="52.03" x2="82.335" y2="52.07" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="ROTENC_B">
+<contactref element="X0861" pad="B"/>
+<contactref element="C0862" pad="1"/>
+<contactref element="R0862" pad="1"/>
+<wire x1="82.335" y1="46.99" x2="85.51" y2="46.99" width="0" layer="19" extent="16-16"/>
+<wire x1="80.13" y1="47.03" x2="82.335" y2="46.99" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="ROTENC_E">
+<contactref element="X0861" pad="E"/>
+<contactref element="C0871" pad="1"/>
+<contactref element="R0871" pad="1"/>
+<wire x1="94.63" y1="47.03" x2="91.44" y2="48.68" width="0" layer="19" extent="1-1"/>
+<wire x1="92.925" y1="46.99" x2="94.63" y2="47.03" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="MCU_XXX_091">
+<contactref element="R0861" pad="2"/>
+</signal>
+<signal name="MCU_XXX_092">
+<contactref element="R0862" pad="2"/>
+</signal>
+<signal name="MCU_XXX_093">
+<contactref element="R0871" pad="2"/>
 </signal>
 </signals>
 <errors>

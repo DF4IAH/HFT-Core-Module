@@ -23809,6 +23809,36 @@ Subminiature Tact Switch for SMT</description>
 <rectangle x1="-3" y1="-0.5" x2="-2.5" y2="0.5" layer="21"/>
 <rectangle x1="2.5" y1="-0.5" x2="3" y2="0.5" layer="21"/>
 </package>
+<package name="TTE_EN11-HSM">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
+<pad name="A" x="-2.5" y="-7.5" drill="1.1" diameter="2" first="yes"/>
+<pad name="C" x="0" y="-7.5" drill="1.1" diameter="2"/>
+<pad name="B" x="2.5" y="-7.5" drill="1.1" diameter="2"/>
+<pad name="D" x="-2.5" y="7" drill="1.1" diameter="2"/>
+<pad name="E" x="2.5" y="7" drill="1.1" diameter="2"/>
+<hole x="0" y="0" drill="3"/>
+<smd name="NC1" x="-4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
+<smd name="NC2" x="4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
+<text x="-3.5" y="-9" size="0.6096" layer="21" ratio="10">A</text>
+<text x="-1" y="-9" size="0.6096" layer="21" ratio="10">C</text>
+<text x="1.5" y="-9" size="0.6096" layer="21" ratio="10">B</text>
+<text x="1.5" y="8" size="0.6096" layer="21" ratio="10">E</text>
+<text x="-3.5" y="8" size="0.6096" layer="21" ratio="10">D</text>
+<wire x1="4.35" y1="7.25" x2="5.85" y2="7.25" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="7.25" x2="-4.35" y2="7.25" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="7.25" x2="5.85" y2="7.25" width="0.3048" layer="51"/>
+<wire x1="5.85" y1="7.25" x2="5.85" y2="-6.5" width="0.3048" layer="51"/>
+<wire x1="5.85" y1="-6.5" x2="-5.85" y2="-6.5" width="0.3048" layer="51"/>
+<wire x1="-5.85" y1="-6.5" x2="-5.85" y2="7.25" width="0.3048" layer="51"/>
+<wire x1="-5.85" y1="7.25" x2="-5.85" y2="5.75" width="0.254" layer="21"/>
+<wire x1="5.85" y1="7.25" x2="5.85" y2="5.75" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="-5" x2="-5.85" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="5.85" y1="-5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="-5.85" y1="-6.5" x2="-4.35" y2="-6.5" width="0.254" layer="21"/>
+<wire x1="4.35" y1="-6.5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
+<text x="-2" y="9" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
+<text x="7.5" y="-6.5" size="0.8128" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="S">
@@ -23819,6 +23849,54 @@ Subminiature Tact Switch for SMT</description>
 <text x="3.81" y="-3.81" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
 <pin name="P" x="0" y="-5.08" visible="pad" length="short" direction="pas" rot="R90"/>
 <pin name="S" x="0" y="5.08" visible="pad" length="short" direction="pas" rot="R270"/>
+</symbol>
+<symbol name="TTE_EN11-HSM">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
+<pin name="D" x="-17.78" y="-15.24" length="middle" direction="pas"/>
+<pin name="E" x="17.78" y="-15.24" length="middle" direction="pas" rot="R180"/>
+<pin name="C" x="-17.78" y="5.08" length="middle" direction="pas"/>
+<pin name="A" x="17.78" y="7.62" length="middle" direction="pas" rot="R180"/>
+<pin name="B" x="17.78" y="2.54" length="middle" direction="pas" rot="R180"/>
+<circle x="0" y="5.08" radius="3.5921" width="0.254" layer="94"/>
+<circle x="0" y="5.08" radius="5.6796125" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="12.7" x2="0" y2="12.7" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="12.7" x2="-12.7" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="-2.54" x2="0" y2="-2.54" width="0.254" layer="94"/>
+<circle x="2.54" y="7.62" radius="0.762" width="1.524" layer="94"/>
+<wire x1="-12.7" y1="-15.24" x2="-2.54" y2="-15.24" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="-15.24" x2="-2.54" y2="-12.7" width="0.4064" layer="94"/>
+<wire x1="2.54" y1="-12.7" x2="2.54" y2="-15.24" width="0.4064" layer="94"/>
+<wire x1="2.54" y1="-15.24" x2="12.7" y2="-15.24" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="-10.16" x2="0" y2="-10.16" width="0.4064" layer="94"/>
+<wire x1="0" y1="-10.16" x2="2.54" y2="-10.16" width="0.4064" layer="94"/>
+<wire x1="0" y1="-10.16" x2="0" y2="-7.62" width="0.127" layer="94"/>
+<wire x1="0" y1="-7.62" x2="-1.016" y2="-7.62" width="0.127" layer="94"/>
+<wire x1="0" y1="-7.62" x2="1.016" y2="-7.62" width="0.127" layer="94"/>
+<wire x1="7.874" y1="7.62" x2="12.7" y2="7.62" width="0.254" layer="94"/>
+<wire x1="7.874" y1="2.54" x2="12.7" y2="2.54" width="0.254" layer="94"/>
+<wire x1="7.62" y1="7.62" x2="7.874" y2="7.62" width="0.254" layer="94"/>
+<wire x1="7.874" y1="7.62" x2="7.874" y2="10.668" width="0.4064" layer="94"/>
+<wire x1="7.874" y1="10.668" x2="7.874" y2="13.716" width="0.4064" layer="94"/>
+<wire x1="7.62" y1="2.54" x2="7.874" y2="2.54" width="0.254" layer="94"/>
+<wire x1="7.874" y1="2.54" x2="7.874" y2="-1.27" width="0.4064" layer="94"/>
+<wire x1="7.874" y1="-1.27" x2="7.874" y2="-3.556" width="0.4064" layer="94"/>
+<wire x1="2.54" y1="6.604" x2="7.874" y2="10.668" width="0.127" layer="94" style="shortdash"/>
+<wire x1="4.064" y1="1.27" x2="7.874" y2="-1.27" width="0.127" layer="94" style="shortdash"/>
+<wire x1="5.08" y1="12.7" x2="0" y2="12.7" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="-2.54" x2="0" y2="-2.54" width="0.4064" layer="94"/>
+<wire x1="-15.24" y1="-20.32" x2="-15.24" y2="17.78" width="0.3048" layer="94"/>
+<wire x1="-15.24" y1="17.78" x2="15.24" y2="17.78" width="0.3048" layer="94"/>
+<wire x1="15.24" y1="17.78" x2="15.24" y2="-20.32" width="0.3048" layer="94"/>
+<wire x1="15.24" y1="-20.32" x2="-15.24" y2="-20.32" width="0.3048" layer="94"/>
+<circle x="3.81" y="1.524" radius="0.762" width="1.524" layer="94"/>
+<circle x="0" y="5.08" radius="1.79605" width="0.4064" layer="94"/>
+<wire x1="-1.778" y1="5.08" x2="-0.762" y2="5.588" width="0.3048" layer="94"/>
+<wire x1="-1.778" y1="5.08" x2="-0.762" y2="4.572" width="0.3048" layer="94"/>
+<wire x1="-0.762" y1="4.572" x2="-0.762" y2="5.08" width="0.3048" layer="94"/>
+<wire x1="-0.762" y1="5.08" x2="-0.762" y2="5.588" width="0.3048" layer="94"/>
+<wire x1="-0.762" y1="5.08" x2="0" y2="5.08" width="0.3048" layer="94"/>
+<text x="-5.08" y="17.78" size="2.1844" layer="95" ratio="10">&gt;NAME</text>
+<text x="-10.16" y="-22.86" size="2.1844" layer="96" ratio="10">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -23834,6 +23912,26 @@ Subminiature Tact Switch for SMT</description>
 <connects>
 <connect gate="G$1" pin="P" pad="1"/>
 <connect gate="G$1" pin="S" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="TTE_EN11-HSM" prefix="X">
+<description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
+<gates>
+<gate name="G$1" symbol="TTE_EN11-HSM" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TTE_EN11-HSM">
+<connects>
+<connect gate="G$1" pin="A" pad="A"/>
+<connect gate="G$1" pin="B" pad="B"/>
+<connect gate="G$1" pin="C" pad="C"/>
+<connect gate="G$1" pin="D" pad="D"/>
+<connect gate="G$1" pin="E" pad="E"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -24787,6 +24885,15 @@ ADC, 2ch, 125ksps</description>
 <part name="R1902" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
 <part name="R2002" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
 <part name="R2102" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
+<part name="U$1" library="df4iah_switch" deviceset="TTE_EN11-HSM" device=""/>
+<part name="X0861" library="df4iah_switch" deviceset="TTE_EN11-HSM" device=""/>
+<part name="GND0003" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="R0861" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
+<part name="R0862" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
+<part name="R0871" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
+<part name="C0861" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="C0871" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="C0862" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 </parts>
 <sheets>
 <sheet>
@@ -25829,6 +25936,9 @@ Digikey: 497-17999-ND</text>
 <text x="175.26" y="116.84" size="1.778" layer="97">MCU_SPI1_AUDIO_ADC_!DR</text>
 <text x="175.26" y="111.76" size="1.778" layer="97">MCU_SPI1_AUDIO_ADC_M0</text>
 <text x="175.26" y="106.68" size="1.778" layer="97">MCU_SPI1_AUDIO_ADC_M1</text>
+<text x="193.04" y="76.2" size="1.778" layer="97">MCU_RE_I</text>
+<text x="193.04" y="71.12" size="1.778" layer="97">MCU_RE_Q</text>
+<text x="193.04" y="66.04" size="1.778" layer="97">MCU_RE_P</text>
 </plain>
 <instances>
 <instance part="FRAME22" gate="G$1" x="0" y="0"/>
@@ -26213,6 +26323,24 @@ Digikey: 497-17999-ND</text>
 <segment>
 <wire x1="157.48" y1="111.76" x2="208.28" y2="111.76" width="0.1524" layer="91"/>
 <label x="157.48" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_091" class="0">
+<segment>
+<wire x1="157.48" y1="76.2" x2="205.74" y2="76.2" width="0.1524" layer="91"/>
+<label x="157.48" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_092" class="0">
+<segment>
+<wire x1="157.48" y1="71.12" x2="205.74" y2="71.12" width="0.1524" layer="91"/>
+<label x="157.48" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_XXX_093" class="0">
+<segment>
+<wire x1="157.48" y1="66.04" x2="205.74" y2="66.04" width="0.1524" layer="91"/>
+<label x="157.48" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -27482,6 +27610,14 @@ Digikey: 497-17999-ND</text>
 <instance part="C0821" gate="G$1" x="109.22" y="114.3"/>
 <instance part="U0801" gate="G$1" x="116.84" y="142.24"/>
 <instance part="R0841" gate="G$1" x="134.62" y="93.98" rot="R90"/>
+<instance part="X0861" gate="G$1" x="116.84" y="50.8"/>
+<instance part="GND0003" gate="1" x="96.52" y="7.62"/>
+<instance part="R0861" gate="G$1" x="172.72" y="58.42"/>
+<instance part="R0862" gate="G$1" x="185.42" y="53.34"/>
+<instance part="R0871" gate="G$1" x="172.72" y="35.56"/>
+<instance part="C0861" gate="G$1" x="137.16" y="27.94"/>
+<instance part="C0871" gate="G$1" x="152.4" y="27.94"/>
+<instance part="C0862" gate="G$1" x="144.78" y="20.32"/>
 </instances>
 <busses>
 </busses>
@@ -27564,6 +27700,83 @@ Digikey: 497-17999-ND</text>
 <wire x1="119.38" y1="86.36" x2="134.62" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="R0841" gate="G$1" pin="1"/>
 <wire x1="134.62" y1="86.36" x2="134.62" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND0003" gate="1" pin="GND"/>
+<wire x1="96.52" y1="10.16" x2="96.52" y2="12.7" width="0.1524" layer="91"/>
+<pinref part="X0861" gate="G$1" pin="C"/>
+<wire x1="96.52" y1="12.7" x2="96.52" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="35.56" x2="96.52" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="55.88" x2="99.06" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="X0861" gate="G$1" pin="D"/>
+<wire x1="96.52" y1="35.56" x2="99.06" y2="35.56" width="0.1524" layer="91"/>
+<junction x="96.52" y="35.56"/>
+<wire x1="96.52" y1="12.7" x2="137.16" y2="12.7" width="0.1524" layer="91"/>
+<pinref part="C0871" gate="G$1" pin="2"/>
+<wire x1="137.16" y1="12.7" x2="144.78" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="12.7" x2="152.4" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="12.7" x2="152.4" y2="22.86" width="0.1524" layer="91"/>
+<pinref part="C0862" gate="G$1" pin="2"/>
+<wire x1="144.78" y1="12.7" x2="144.78" y2="15.24" width="0.1524" layer="91"/>
+<pinref part="C0861" gate="G$1" pin="2"/>
+<wire x1="137.16" y1="12.7" x2="137.16" y2="22.86" width="0.1524" layer="91"/>
+<junction x="144.78" y="12.7"/>
+<junction x="137.16" y="12.7"/>
+<junction x="96.52" y="12.7"/>
+</segment>
+</net>
+<net name="MCU_XXX_091" class="0">
+<segment>
+<wire x1="177.8" y1="58.42" x2="218.44" y2="58.42" width="0.1524" layer="91"/>
+<label x="218.44" y="58.42" size="1.778" layer="95" xref="yes"/>
+<pinref part="R0861" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="MCU_XXX_092" class="0">
+<segment>
+<wire x1="190.5" y1="53.34" x2="218.44" y2="53.34" width="0.1524" layer="91"/>
+<label x="218.44" y="53.34" size="1.778" layer="95" xref="yes"/>
+<pinref part="R0862" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="MCU_XXX_093" class="0">
+<segment>
+<wire x1="177.8" y1="35.56" x2="218.44" y2="35.56" width="0.1524" layer="91"/>
+<label x="218.44" y="35.56" size="1.778" layer="95" xref="yes"/>
+<pinref part="R0871" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="ROTENC_A" class="0">
+<segment>
+<pinref part="X0861" gate="G$1" pin="A"/>
+<wire x1="134.62" y1="58.42" x2="137.16" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="C0861" gate="G$1" pin="1"/>
+<wire x1="137.16" y1="58.42" x2="167.64" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="30.48" x2="137.16" y2="58.42" width="0.1524" layer="91"/>
+<junction x="137.16" y="58.42"/>
+<pinref part="R0861" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="ROTENC_B" class="0">
+<segment>
+<pinref part="X0861" gate="G$1" pin="B"/>
+<wire x1="134.62" y1="53.34" x2="144.78" y2="53.34" width="0.1524" layer="91"/>
+<pinref part="C0862" gate="G$1" pin="1"/>
+<wire x1="144.78" y1="53.34" x2="180.34" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="53.34" x2="144.78" y2="22.86" width="0.1524" layer="91"/>
+<junction x="144.78" y="53.34"/>
+<pinref part="R0862" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="ROTENC_E" class="0">
+<segment>
+<pinref part="X0861" gate="G$1" pin="E"/>
+<wire x1="134.62" y1="35.56" x2="152.4" y2="35.56" width="0.1524" layer="91"/>
+<pinref part="C0871" gate="G$1" pin="1"/>
+<wire x1="152.4" y1="35.56" x2="167.64" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="35.56" x2="152.4" y2="30.48" width="0.1524" layer="91"/>
+<junction x="152.4" y="35.56"/>
+<pinref part="R0871" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>
