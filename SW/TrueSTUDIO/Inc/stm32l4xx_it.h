@@ -55,7 +55,8 @@ void UsageFault_Handler(void);
 void DebugMon_Handler(void);
 void SysTick_Handler(void);
 void TIM2_IRQHandler(void);
-void OTG_FS_IRQHandler(void);
+void DFSDM1_FLT0_IRQHandler(void);
+void DFSDM1_FLT1_IRQHandler(void);
 
 #ifdef __cplusplus
 }
