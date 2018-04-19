@@ -24505,7 +24505,7 @@ ADC, 2ch, 125ksps</description>
 <part name="C0409" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
 <part name="GND0401" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="L0411" library="rcl" deviceset="L-EU" device="L2012C" value="10uH"/>
-<part name="C0412" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0412" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="GND0411" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="SJ0121" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="SJ0401" library="df4iah_jumper" deviceset="SJ" device=""/>
@@ -24528,7 +24528,7 @@ ADC, 2ch, 125ksps</description>
 <part name="FRAME8" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="GND0441" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R0441" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="C0441" library="rcl" deviceset="C-EU" device="C0603" value="100pF"/>
+<part name="C0441" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="D0451" library="df4iah_diode" deviceset="D_SOD923" device="" value="CMAD6001"/>
 <part name="C0451" library="df4iah_rcl" deviceset="CPOL-EU" device="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N"/>
 <part name="GND0451" library="df4iah_supply" deviceset="GND" device=""/>
@@ -24890,6 +24890,11 @@ ADC, 2ch, 125ksps</description>
 <part name="R0294" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0295" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0296" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C0410" library="rcl" deviceset="C-EU" device="C0805" value="4.7uF"/>
+<part name="C0423" library="rcl" deviceset="C-EU" device="C0805" value="4.7uF"/>
+<part name="GND0423" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0413" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
+<part name="C0442" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 </parts>
 <sheets>
 <sheet>
@@ -26817,6 +26822,11 @@ Digikey: 497-17999-ND</text>
 <instance part="U0431" gate="G$1" x="58.42" y="33.02"/>
 <instance part="TP_+1V2" gate="G$1" x="106.68" y="50.8" rot="R180"/>
 <instance part="TP_VBAT" gate="G$1" x="210.82" y="91.44" rot="R90"/>
+<instance part="C0410" gate="G$1" x="144.78" y="129.54" rot="R90"/>
+<instance part="C0423" gate="G$1" x="12.7" y="111.76"/>
+<instance part="GND0423" gate="1" x="12.7" y="101.6"/>
+<instance part="C0413" gate="G$1" x="215.9" y="111.76"/>
+<instance part="C0442" gate="G$1" x="210.82" y="55.88" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -26837,9 +26847,14 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="MCU_VREF_P" class="0">
 <segment>
-<wire x1="228.6" y1="45.72" x2="215.9" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="45.72" x2="220.98" y2="45.72" width="0.1524" layer="91"/>
 <label x="228.6" y="45.72" size="1.778" layer="95" xref="yes"/>
 <pinref part="C0441" gate="G$1" pin="2"/>
+<wire x1="220.98" y1="45.72" x2="215.9" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="220.98" y1="45.72" x2="220.98" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="C0442" gate="G$1" pin="2"/>
+<wire x1="220.98" y1="55.88" x2="215.9" y2="55.88" width="0.1524" layer="91"/>
+<junction x="220.98" y="45.72"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -26885,11 +26900,18 @@ Digikey: 497-17999-ND</text>
 <wire x1="215.9" y1="139.7" x2="215.9" y2="142.24" width="0.1524" layer="91"/>
 <junction x="215.9" y="139.7"/>
 <pinref part="C0409" gate="G$1" pin="2"/>
+<pinref part="C0410" gate="G$1" pin="2"/>
+<wire x1="149.86" y1="129.54" x2="154.94" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="129.54" x2="154.94" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C0412" gate="G$1" pin="2"/>
 <pinref part="GND0411" gate="1" pin="GND"/>
 <wire x1="200.66" y1="106.68" x2="200.66" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="200.66" y1="104.14" x2="215.9" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="C0413" gate="G$1" pin="2"/>
+<wire x1="215.9" y1="104.14" x2="215.9" y2="106.68" width="0.1524" layer="91"/>
+<junction x="200.66" y="104.14"/>
 </segment>
 <segment>
 <pinref part="GND0441" gate="1" pin="GND"/>
@@ -26900,6 +26922,10 @@ Digikey: 497-17999-ND</text>
 <junction x="200.66" y="38.1"/>
 <pinref part="C0441" gate="G$1" pin="1"/>
 <wire x1="200.66" y1="45.72" x2="208.28" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="200.66" y1="45.72" x2="200.66" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="C0442" gate="G$1" pin="1"/>
+<wire x1="200.66" y1="55.88" x2="208.28" y2="55.88" width="0.1524" layer="91"/>
+<junction x="200.66" y="45.72"/>
 </segment>
 <segment>
 <pinref part="GND0451" gate="1" pin="GND"/>
@@ -26932,6 +26958,11 @@ Digikey: 497-17999-ND</text>
 <pinref part="GND0422" gate="1" pin="GND"/>
 <pinref part="C0422" gate="G$1" pin="2"/>
 <wire x1="86.36" y1="104.14" x2="86.36" y2="106.68" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND0423" gate="1" pin="GND"/>
+<pinref part="C0423" gate="G$1" pin="2"/>
+<wire x1="12.7" y1="104.14" x2="12.7" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MCU_VDD" class="0">
@@ -26979,10 +27010,11 @@ Digikey: 497-17999-ND</text>
 <wire x1="134.62" y1="170.18" x2="134.62" y2="172.72" width="0.1524" layer="91"/>
 <junction x="134.62" y="170.18"/>
 <wire x1="180.34" y1="121.92" x2="134.62" y2="121.92" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="121.92" x2="134.62" y2="152.4" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="121.92" x2="134.62" y2="129.54" width="0.1524" layer="91"/>
 <pinref part="L0411" gate="G$1" pin="2"/>
 <junction x="134.62" y="152.4"/>
 <pinref part="C0401" gate="G$1" pin="1"/>
+<wire x1="134.62" y1="129.54" x2="134.62" y2="152.4" width="0.1524" layer="91"/>
 <wire x1="144.78" y1="152.4" x2="144.78" y2="149.86" width="0.1524" layer="91"/>
 <junction x="144.78" y="152.4"/>
 <pinref part="C0402" gate="G$1" pin="1"/>
@@ -27011,17 +27043,24 @@ Digikey: 497-17999-ND</text>
 <junction x="226.06" y="172.72"/>
 <pinref part="SJ0401" gate="1" pin="2"/>
 <wire x1="134.62" y1="170.18" x2="132.08" y2="170.18" width="0.1524" layer="91"/>
+<pinref part="C0410" gate="G$1" pin="1"/>
+<wire x1="134.62" y1="129.54" x2="142.24" y2="129.54" width="0.1524" layer="91"/>
+<junction x="134.62" y="129.54"/>
 </segment>
 </net>
 <net name="MCU_VDDA" class="0">
 <segment>
 <pinref part="L0411" gate="G$1" pin="1"/>
-<wire x1="231.14" y1="121.92" x2="200.66" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="121.92" x2="215.9" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="C0412" gate="G$1" pin="1"/>
+<wire x1="215.9" y1="121.92" x2="200.66" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="200.66" y1="121.92" x2="190.5" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="200.66" y1="121.92" x2="200.66" y2="114.3" width="0.1524" layer="91"/>
 <junction x="200.66" y="121.92"/>
 <label x="231.14" y="121.92" size="1.778" layer="95" xref="yes"/>
+<pinref part="C0413" gate="G$1" pin="1"/>
+<wire x1="215.9" y1="121.92" x2="215.9" y2="114.3" width="0.1524" layer="91"/>
+<junction x="215.9" y="121.92"/>
 </segment>
 </net>
 <net name="MCU_VREF_M" class="0">
@@ -27112,6 +27151,10 @@ Digikey: 497-17999-ND</text>
 <pinref part="SJ0424" gate="1" pin="1"/>
 <wire x1="35.56" y1="121.92" x2="35.56" y2="127" width="0.1524" layer="91"/>
 <junction x="45.72" y="121.92"/>
+<wire x1="35.56" y1="121.92" x2="12.7" y2="121.92" width="0.1524" layer="91"/>
+<pinref part="C0423" gate="G$1" pin="1"/>
+<wire x1="12.7" y1="121.92" x2="12.7" y2="114.3" width="0.1524" layer="91"/>
+<junction x="35.56" y="121.92"/>
 </segment>
 </net>
 <net name="+1V8_UNUSED" class="0">
