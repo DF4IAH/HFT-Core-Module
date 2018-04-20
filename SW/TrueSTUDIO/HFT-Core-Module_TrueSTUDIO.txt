@@ -1,6 +1,6 @@
-Configuration	TrueSTUDIO
+Configuration	HFT-Core-Module_TrueSTUDIO
 STM32CubeMX 	4.24.0
-Date	04/19/2018
+Date	04/20/2018
 MCU	STM32L496ZGTxP
 
 
@@ -178,8 +178,8 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 SOFTWARE PROJECT
 
 Project Settings : 
-Project Name : TrueSTUDIO
-Project Folder : \\Mac\Home\nfs_ds_nfs\git\HFT-Core-Module__SW\SW\TrueSTUDIO
+Project Name : HFT-Core-Module_TrueSTUDIO
+Project Folder : C:\Users\habel\git\HFT-Core-Module__SW\SW\TrueSTUDIO
 Toolchain / IDE : TrueSTUDIO
 Firmware Package Name and Version : STM32Cube FW_L4 V1.11.0
 

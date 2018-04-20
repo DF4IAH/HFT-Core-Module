@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TrueSTUDIO</name>
+	<name>HFT-Core-Module_TrueSTUDIO</name>
 	<comment />
 	<projects>
 	</projects>
@@ -96,5 +96,5 @@
 			
 			<type>2</type>
 			
-		</link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><name>Middlewares/FreeRTOS</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Drivers</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Drivers/CMSIS</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Middlewares</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Application</name><type>2</type><locationURI>virtual:/virtual</locationURI></link></linkedResources>
+		</link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><type>2</type></link><link><name>Drivers</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Middlewares</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Application</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Drivers/CMSIS</name><type>2</type><locationURI>virtual:/virtual</locationURI></link><link><name>Middlewares/FreeRTOS</name><type>2</type><locationURI>virtual:/virtual</locationURI></link></linkedResources>
 </projectDescription>
