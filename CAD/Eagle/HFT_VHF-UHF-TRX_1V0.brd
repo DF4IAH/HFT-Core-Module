@@ -46,9 +46,9 @@
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
-<layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
-<layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
@@ -172,6 +172,10 @@ Institut fuer Hochfrequenztechnik</text>
 <text x="32" y="70.485" size="1.8" layer="21" rot="R90">Ch. 2</text>
 <text x="51.435" y="70.485" size="1.8" layer="21" rot="R90">Ch. 3</text>
 <text x="59.965" y="70.485" size="1.8" layer="21" rot="R90">Ch. 4</text>
+<rectangle x1="53.34" y1="37.465" x2="53.8" y2="38.1" layer="41"/>
+<rectangle x1="39.37" y1="37.465" x2="39.83" y2="38.1" layer="41"/>
+<rectangle x1="26.67" y1="37.465" x2="27.13" y2="38.1" layer="41"/>
+<rectangle x1="13.97" y1="37.465" x2="14.43" y2="38.1" layer="41"/>
 </plain>
 <libraries>
 <library name="rcl">
@@ -1297,7 +1301,7 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <smd name="17" x="0.5" y="1.85" dx="0.3" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
 <smd name="18" x="0" y="1.85" dx="0.3" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
 <smd name="19" x="-0.5" y="1.85" dx="0.3" dy="0.6" layer="1" roundness="20" stop="no" thermals="no"/>
-<polygon width="0.0025" layer="51">
+<polygon width="0.1" layer="51">
 <vertex x="-0.87" y="0.57"/>
 <vertex x="-0.87" y="-0.75" curve="90"/>
 <vertex x="-0.75" y="-0.87"/>
@@ -1740,8 +1744,8 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <packages>
 <package name="B1,27">
 <description>&lt;b&gt;TEST PAD&lt;/b&gt;</description>
-<wire x1="-0.635" y1="0" x2="0.635" y2="0" width="0.0024" layer="37"/>
-<wire x1="0" y1="0.635" x2="0" y2="-0.635" width="0.0024" layer="37"/>
+<wire x1="-0.635" y1="0" x2="0.635" y2="0" width="0.1" layer="37"/>
+<wire x1="0" y1="0.635" x2="0" y2="-0.635" width="0.1" layer="37"/>
 <smd name="TP" x="0" y="0" dx="1.27" dy="1.27" layer="1" roundness="100" cream="no"/>
 <text x="-0.635" y="1.016" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-0.635" y="-0.762" size="0.0254" layer="27">&gt;VALUE</text>
@@ -3894,32 +3898,6 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="N$1">
 <via x="59.69" y="27.305" extent="1-16" drill="0.6"/>
-</signal>
-<signal name="N$2">
-<polygon width="0.05" layer="1" spacing="0.254" pour="cutout" isolate="0.254">
-<vertex x="54.11" y="38.235"/>
-<vertex x="53.305" y="38.235"/>
-<vertex x="53.305" y="37.465"/>
-<vertex x="54.11" y="37.465"/>
-</polygon>
-<polygon width="0.05" layer="1" spacing="0.254" pour="cutout" isolate="0.254">
-<vertex x="40.14" y="38.235"/>
-<vertex x="39.335" y="38.235"/>
-<vertex x="39.335" y="37.465"/>
-<vertex x="40.14" y="37.465"/>
-</polygon>
-<polygon width="0.05" layer="1" spacing="0.254" pour="cutout" isolate="0.254">
-<vertex x="27.44" y="38.235"/>
-<vertex x="26.635" y="38.235"/>
-<vertex x="26.635" y="37.465"/>
-<vertex x="27.44" y="37.465"/>
-</polygon>
-<polygon width="0.05" layer="1" spacing="0.254" pour="cutout" isolate="0.254">
-<vertex x="14.74" y="38.235"/>
-<vertex x="13.935" y="38.235"/>
-<vertex x="13.935" y="37.465"/>
-<vertex x="14.74" y="37.465"/>
-</polygon>
 </signal>
 </signals>
 <errors>
