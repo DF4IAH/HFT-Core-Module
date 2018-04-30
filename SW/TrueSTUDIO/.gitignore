@@ -1,1 +1,7 @@
-.metadata/
+/.settings/
+/.metadata/
+/mx.scratch
+**/*.su
+
+
+/Debug/
