@@ -24453,6 +24453,67 @@ ADC, 2ch, 125ksps</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="transistor">
+<description>&lt;b&gt;Transistors&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="SOT23">
+<description>&lt;b&gt;SOT-23&lt;/b&gt;</description>
+<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="1.4224" y1="-0.6604" x2="-1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="-0.6604" x2="-1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<smd name="3" x="0" y="1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="2" x="0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="1" x="-0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<text x="-1.905" y="1.905" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.905" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-0.2286" y1="0.7112" x2="0.2286" y2="1.2954" layer="51"/>
+<rectangle x1="0.7112" y1="-1.2954" x2="1.1684" y2="-0.7112" layer="51"/>
+<rectangle x1="-1.1684" y1="-1.2954" x2="-0.7112" y2="-0.7112" layer="51"/>
+</package>
+</packages>
+<symbols>
+<symbol name="NPN">
+<wire x1="2.54" y1="2.54" x2="0.508" y2="1.524" width="0.1524" layer="94"/>
+<wire x1="1.778" y1="-1.524" x2="2.54" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-2.54" x2="1.27" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="1.27" y1="-2.54" x2="1.778" y2="-1.524" width="0.1524" layer="94"/>
+<wire x1="1.54" y1="-2.04" x2="0.308" y2="-1.424" width="0.1524" layer="94"/>
+<wire x1="1.524" y1="-2.413" x2="2.286" y2="-2.413" width="0.254" layer="94"/>
+<wire x1="2.286" y1="-2.413" x2="1.778" y2="-1.778" width="0.254" layer="94"/>
+<wire x1="1.778" y1="-1.778" x2="1.524" y2="-2.286" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-2.286" x2="1.905" y2="-2.286" width="0.254" layer="94"/>
+<wire x1="1.905" y1="-2.286" x2="1.778" y2="-2.032" width="0.254" layer="94"/>
+<text x="-10.16" y="7.62" size="1.778" layer="95">&gt;NAME</text>
+<text x="-10.16" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
+<rectangle x1="-0.254" y1="-2.54" x2="0.508" y2="2.54" layer="94"/>
+<pin name="B" x="-2.54" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
+<pin name="E" x="2.54" y="-5.08" visible="off" length="short" direction="pas" swaplevel="3" rot="R90"/>
+<pin name="C" x="2.54" y="5.08" visible="off" length="short" direction="pas" swaplevel="2" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="BC846" prefix="T">
+<description>&lt;b&gt;NPN TRANSISTOR&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="NPN" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT23">
+<connects>
+<connect gate="G$1" pin="B" pad="1"/>
+<connect gate="G$1" pin="C" pad="3"/>
+<connect gate="G$1" pin="E" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -24895,6 +24956,19 @@ ADC, 2ch, 125ksps</description>
 <part name="GND0423" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0413" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 <part name="C0442" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
+<part name="T0801" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
+<part name="T0802" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
+<part name="T0803" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
+<part name="R0809" library="rcl" deviceset="R-EU_" device="R0805" value="10R"/>
+<part name="R0808" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
+<part name="R0807" library="rcl" deviceset="R-EU_" device="R0603" value="2.2kR"/>
+<part name="R0806" library="rcl" deviceset="R-EU_" device="R0805" value="10R"/>
+<part name="R0803" library="rcl" deviceset="R-EU_" device="R0805" value="68R"/>
+<part name="R0805" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
+<part name="R0802" library="rcl" deviceset="R-EU_" device="R0603" value="5.2kR"/>
+<part name="R0804" library="rcl" deviceset="R-EU_" device="R0603" value="2.2kR"/>
+<part name="R0801" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
+<part name="FRAME23" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 </parts>
 <sheets>
 <sheet>
@@ -25944,6 +26018,9 @@ Digikey: 497-17999-ND</text>
 <text x="162.56" y="111.76" size="1.778" layer="97">MCU_HSE</text>
 <text x="162.56" y="106.68" size="1.778" layer="97">MCU_INTR_SI5338</text>
 <text x="162.56" y="27.94" size="1.778" layer="97">MCU_SPI3_AUDIO_DAC_!RDY</text>
+<text x="231.14" y="111.76" size="1.778" layer="97">MCU_LED_R</text>
+<text x="231.14" y="106.68" size="1.778" layer="97">MCU_LED_G</text>
+<text x="231.14" y="101.6" size="1.778" layer="97">MCU_LED_B</text>
 </plain>
 <instances>
 <instance part="FRAME22" gate="G$1" x="0" y="0"/>
@@ -26654,6 +26731,24 @@ Digikey: 497-17999-ND</text>
 <pinref part="R0296" gate="G$1" pin="1"/>
 <wire x1="99.06" y1="48.26" x2="96.52" y2="48.26" width="0.1524" layer="91"/>
 <label x="96.52" y="48.26" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PB0" class="0">
+<segment>
+<wire x1="228.6" y1="101.6" x2="254" y2="101.6" width="0.1524" layer="91"/>
+<label x="228.6" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PC6" class="0">
+<segment>
+<wire x1="228.6" y1="111.76" x2="254" y2="111.76" width="0.1524" layer="91"/>
+<label x="228.6" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PA7" class="0">
+<segment>
+<wire x1="228.6" y1="106.68" x2="254" y2="106.68" width="0.1524" layer="91"/>
+<label x="228.6" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -27965,6 +28060,9 @@ I2C addr: 0xE0/0xE1</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LC-Display
 I2C addr: 0x7C/0x7D</text>
 <text x="10.16" y="71.12" size="2.54" layer="97" ratio="15">Rotary Encoder with Pushbutton</text>
+<text x="17.78" y="132.08" size="1.778" layer="97" rot="R90">MCU_LED_R</text>
+<text x="38.1" y="132.08" size="1.778" layer="97" rot="R90">MCU_LED_G</text>
+<text x="58.42" y="132.08" size="1.778" layer="97" rot="R90">MCU_LED_B</text>
 </plain>
 <instances>
 <instance part="FRAME13" gate="G$1" x="0" y="0"/>
@@ -27982,6 +28080,18 @@ I2C addr: 0x7C/0x7D</text>
 <instance part="C0861" gate="G$1" x="137.16" y="27.94"/>
 <instance part="C0871" gate="G$1" x="152.4" y="27.94"/>
 <instance part="C0862" gate="G$1" x="144.78" y="20.32"/>
+<instance part="T0801" gate="G$1" x="22.86" y="109.22"/>
+<instance part="T0802" gate="G$1" x="43.18" y="109.22"/>
+<instance part="T0803" gate="G$1" x="63.5" y="109.22"/>
+<instance part="R0809" gate="G$1" x="66.04" y="93.98" rot="R90"/>
+<instance part="R0808" gate="G$1" x="58.42" y="93.98" rot="R90"/>
+<instance part="R0807" gate="G$1" x="58.42" y="127" rot="R90"/>
+<instance part="R0806" gate="G$1" x="45.72" y="93.98" rot="R90"/>
+<instance part="R0803" gate="G$1" x="25.4" y="93.98" rot="R90"/>
+<instance part="R0805" gate="G$1" x="38.1" y="93.98" rot="R90"/>
+<instance part="R0802" gate="G$1" x="17.78" y="93.98" rot="R90"/>
+<instance part="R0804" gate="G$1" x="38.1" y="127" rot="R90"/>
+<instance part="R0801" gate="G$1" x="17.78" y="127" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -28018,6 +28128,10 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="114.3" y1="104.14" x2="114.3" y2="99.06" width="0.1524" layer="91"/>
 <junction x="114.3" y="104.14"/>
 <pinref part="U0801" gate="G$1" pin="VDD"/>
+<wire x1="114.3" y1="104.14" x2="71.12" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="104.14" x2="71.12" y2="134.62" width="0.1524" layer="91"/>
+<pinref part="U0801" gate="G$1" pin="A"/>
+<wire x1="71.12" y1="134.62" x2="73.66" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MCU_I2C4_SDA" class="0">
@@ -28064,6 +28178,30 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="119.38" y1="86.36" x2="134.62" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="R0841" gate="G$1" pin="1"/>
 <wire x1="134.62" y1="86.36" x2="134.62" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="R0803" gate="G$1" pin="1"/>
+<wire x1="109.22" y1="86.36" x2="66.04" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="86.36" x2="58.42" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="86.36" x2="45.72" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="86.36" x2="38.1" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="86.36" x2="25.4" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="86.36" x2="25.4" y2="88.9" width="0.1524" layer="91"/>
+<junction x="109.22" y="86.36"/>
+<pinref part="R0806" gate="G$1" pin="1"/>
+<wire x1="45.72" y1="86.36" x2="45.72" y2="88.9" width="0.1524" layer="91"/>
+<junction x="45.72" y="86.36"/>
+<pinref part="R0808" gate="G$1" pin="1"/>
+<wire x1="58.42" y1="86.36" x2="58.42" y2="88.9" width="0.1524" layer="91"/>
+<junction x="58.42" y="86.36"/>
+<pinref part="R0809" gate="G$1" pin="1"/>
+<wire x1="66.04" y1="86.36" x2="66.04" y2="88.9" width="0.1524" layer="91"/>
+<junction x="66.04" y="86.36"/>
+<pinref part="R0802" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="86.36" x2="17.78" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="17.78" y1="86.36" x2="17.78" y2="88.9" width="0.1524" layer="91"/>
+<junction x="25.4" y="86.36"/>
+<pinref part="R0805" gate="G$1" pin="1"/>
+<wire x1="38.1" y1="86.36" x2="38.1" y2="88.9" width="0.1524" layer="91"/>
+<junction x="38.1" y="86.36"/>
 </segment>
 <segment>
 <pinref part="GND0003" gate="1" pin="GND"/>
@@ -28141,6 +28279,105 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="152.4" y1="35.56" x2="152.4" y2="30.48" width="0.1524" layer="91"/>
 <junction x="152.4" y="35.56"/>
 <pinref part="R0871" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="LED_R_B" class="0">
+<segment>
+<pinref part="R0802" gate="G$1" pin="2"/>
+<pinref part="R0801" gate="G$1" pin="1"/>
+<wire x1="17.78" y1="99.06" x2="17.78" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="T0801" gate="G$1" pin="B"/>
+<wire x1="17.78" y1="109.22" x2="17.78" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="17.78" y1="109.22" x2="20.32" y2="109.22" width="0.1524" layer="91"/>
+<junction x="17.78" y="109.22"/>
+</segment>
+</net>
+<net name="LED_R_E" class="0">
+<segment>
+<pinref part="R0803" gate="G$1" pin="2"/>
+<pinref part="T0801" gate="G$1" pin="E"/>
+<wire x1="25.4" y1="99.06" x2="25.4" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="LED_G_B" class="0">
+<segment>
+<pinref part="R0805" gate="G$1" pin="2"/>
+<pinref part="R0804" gate="G$1" pin="1"/>
+<wire x1="38.1" y1="99.06" x2="38.1" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="T0802" gate="G$1" pin="B"/>
+<wire x1="38.1" y1="109.22" x2="38.1" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="109.22" x2="40.64" y2="109.22" width="0.1524" layer="91"/>
+<junction x="38.1" y="109.22"/>
+</segment>
+</net>
+<net name="LED_G_E" class="0">
+<segment>
+<pinref part="R0806" gate="G$1" pin="2"/>
+<pinref part="T0802" gate="G$1" pin="E"/>
+<wire x1="45.72" y1="99.06" x2="45.72" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="LED_B_B" class="0">
+<segment>
+<pinref part="R0808" gate="G$1" pin="2"/>
+<pinref part="R0807" gate="G$1" pin="1"/>
+<wire x1="58.42" y1="99.06" x2="58.42" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="T0803" gate="G$1" pin="B"/>
+<wire x1="58.42" y1="109.22" x2="58.42" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="109.22" x2="60.96" y2="109.22" width="0.1524" layer="91"/>
+<junction x="58.42" y="109.22"/>
+</segment>
+</net>
+<net name="LED_B_E" class="0">
+<segment>
+<pinref part="R0809" gate="G$1" pin="2"/>
+<pinref part="T0803" gate="G$1" pin="E"/>
+<wire x1="66.04" y1="99.06" x2="66.04" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="LED_B_K" class="0">
+<segment>
+<pinref part="T0803" gate="G$1" pin="C"/>
+<wire x1="66.04" y1="114.3" x2="66.04" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="U0801" gate="G$1" pin="KB"/>
+<wire x1="66.04" y1="139.7" x2="73.66" y2="139.7" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="LED_G_K" class="0">
+<segment>
+<pinref part="T0802" gate="G$1" pin="C"/>
+<wire x1="45.72" y1="114.3" x2="45.72" y2="144.78" width="0.1524" layer="91"/>
+<pinref part="U0801" gate="G$1" pin="KG"/>
+<wire x1="45.72" y1="144.78" x2="73.66" y2="144.78" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="LED_R_K" class="0">
+<segment>
+<pinref part="T0801" gate="G$1" pin="C"/>
+<pinref part="U0801" gate="G$1" pin="KR"/>
+<wire x1="25.4" y1="114.3" x2="25.4" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="149.86" x2="73.66" y2="149.86" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="PC6" class="0">
+<segment>
+<pinref part="R0801" gate="G$1" pin="2"/>
+<wire x1="17.78" y1="132.08" x2="17.78" y2="147.32" width="0.1524" layer="91"/>
+<label x="17.78" y="147.32" size="1.778" layer="95" rot="R90" xref="yes"/>
+</segment>
+</net>
+<net name="PA7" class="0">
+<segment>
+<pinref part="R0804" gate="G$1" pin="2"/>
+<wire x1="38.1" y1="132.08" x2="38.1" y2="147.32" width="0.1524" layer="91"/>
+<label x="38.1" y="147.32" size="1.778" layer="95" rot="R90" xref="yes"/>
+</segment>
+</net>
+<net name="PB0" class="0">
+<segment>
+<pinref part="R0807" gate="G$1" pin="2"/>
+<wire x1="58.42" y1="132.08" x2="58.42" y2="147.32" width="0.1524" layer="91"/>
+<label x="58.42" y="147.32" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -31105,29 +31342,29 @@ USB host (OTG) interface</text>
 <description>SMA sockets</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">SMA channel 1</text>
-<text x="22.86" y="81.28" size="2.54" layer="97" ratio="15">SMA channel 2</text>
+<text x="22.86" y="106.68" size="2.54" layer="97" ratio="15">SMA channel 2</text>
 </plain>
 <instances>
 <instance part="FRAME15" gate="G$1" x="0" y="0"/>
-<instance part="GND1401" gate="1" x="165.1" y="106.68"/>
-<instance part="GND1411" gate="1" x="165.1" y="45.72"/>
-<instance part="X1401" gate="A" x="167.64" y="124.46"/>
-<instance part="X1411" gate="A" x="167.64" y="63.5"/>
+<instance part="GND1401" gate="1" x="165.1" y="134.62"/>
+<instance part="GND1411" gate="1" x="165.1" y="78.74"/>
+<instance part="X1401" gate="A" x="167.64" y="152.4"/>
+<instance part="X1411" gate="A" x="167.64" y="96.52"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="AX1_ANT" class="0">
 <segment>
-<wire x1="119.38" y1="124.46" x2="157.48" y2="124.46" width="0.1524" layer="91"/>
-<label x="119.38" y="124.46" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="119.38" y1="152.4" x2="157.48" y2="152.4" width="0.1524" layer="91"/>
+<label x="119.38" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="X1401" gate="A" pin="1"/>
 </segment>
 </net>
 <net name="AX2_ANT" class="0">
 <segment>
-<wire x1="119.38" y1="63.5" x2="157.48" y2="63.5" width="0.1524" layer="91"/>
-<label x="119.38" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="119.38" y1="96.52" x2="157.48" y2="96.52" width="0.1524" layer="91"/>
+<label x="119.38" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="X1411" gate="A" pin="1"/>
 </segment>
 </net>
@@ -31135,12 +31372,12 @@ USB host (OTG) interface</text>
 <segment>
 <pinref part="GND1411" gate="1" pin="GND"/>
 <pinref part="X1411" gate="A" pin="2"/>
-<wire x1="165.1" y1="48.26" x2="165.1" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="81.28" x2="165.1" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND1401" gate="1" pin="GND"/>
 <pinref part="X1401" gate="A" pin="2"/>
-<wire x1="165.1" y1="109.22" x2="165.1" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="137.16" x2="165.1" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -32060,6 +32297,20 @@ USB host (OTG) interface</text>
 <wire x1="167.64" y1="147.32" x2="170.18" y2="147.32" width="0.1524" layer="91"/>
 </segment>
 </net>
+</nets>
+</sheet>
+<sheet>
+<description>I2C Sensors</description>
+<plain>
+<text x="27.94" y="160.02" size="2.54" layer="97" ratio="15">Climate sensor: BOSCH BME680</text>
+<text x="30.48" y="81.28" size="2.54" layer="97" ratio="15">9-axis sensor:</text>
+</plain>
+<instances>
+<instance part="FRAME23" gate="G$1" x="0" y="0"/>
+</instances>
+<busses>
+</busses>
+<nets>
 </nets>
 </sheet>
 </sheets>
