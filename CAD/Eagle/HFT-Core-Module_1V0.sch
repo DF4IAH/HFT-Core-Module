@@ -24797,6 +24797,81 @@ ADC, 2ch, 125ksps</description>
 <rectangle x1="-1.2" y1="-1.88" x2="1.2" y2="-1.12" layer="29"/>
 <circle x="-1.7875" y="1.7875" radius="0.1" width="0.2" layer="21"/>
 </package>
+<package name="MS5607-02BA">
+<description>&lt;h3&gt;MS5607-02BA Pressure Sensor&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=MS5607-02BA03&amp;DocType=Data+Sheet&amp;DocLang=English"&gt;Datasheet&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Specifications:
+&lt;ul&gt;
+&lt;li&gt;Pin Count: 8&lt;/li&gt;
+&lt;li&gt;Dimensions: 3.0 x 5.0 x 0.95 mm&lt;/li&gt;
+&lt;li&gt;Pitch: 1.25 mm&lt;/li&gt;
+&lt;/ul&gt;</description>
+<smd name="1" x="-1.1" y="1.875" dx="1.1" dy="0.6" layer="1" roundness="20" thermals="no"/>
+<smd name="2" x="-1.1" y="0.625" dx="1.1" dy="0.6" layer="1" roundness="20" thermals="no"/>
+<smd name="3" x="-1.1" y="-0.625" dx="1.1" dy="0.6" layer="1" roundness="20" thermals="no"/>
+<smd name="6" x="1.1" y="-0.625" dx="1.1" dy="0.67" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="7" x="1.1" y="0.625" dx="1.1" dy="0.6" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="8" x="1.1" y="1.875" dx="1.1" dy="0.6" layer="1" roundness="20" rot="R180" thermals="no"/>
+<wire x1="-1.675" y1="-2.275" x2="1.675" y2="-2.275" width="0.127" layer="51"/>
+<wire x1="1.675" y1="-2.275" x2="1.675" y2="2.275" width="0.127" layer="51"/>
+<wire x1="1.675" y1="2.275" x2="-1.675" y2="2.275" width="0.127" layer="51"/>
+<wire x1="-1.675" y1="2.275" x2="-1.675" y2="-2.275" width="0.127" layer="51"/>
+<text x="0" y="2.9845" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-2.952" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
+<wire x1="1.165" y1="-2.5" x2="1.875" y2="-2.5" width="0.254" layer="21"/>
+<wire x1="1.875" y1="2.5" x2="1.165" y2="2.5" width="0.254" layer="21"/>
+<wire x1="-1.875" y1="-2.5" x2="-1.165" y2="-2.5" width="0.254" layer="21"/>
+<wire x1="-1.04" y1="2.5" x2="-1.625" y2="2.5" width="0.254" layer="21"/>
+<wire x1="-1.625" y1="2.5" x2="-1.875" y2="2.25" width="0.254" layer="21"/>
+<wire x1="-1.875" y1="2.25" x2="-1.875" y2="1.665" width="0.254" layer="21"/>
+<wire x1="1.875" y1="1.665" x2="1.875" y2="2.5" width="0.254" layer="21"/>
+<wire x1="-1.875" y1="-1.665" x2="-1.875" y2="-2.5" width="0.254" layer="21"/>
+<wire x1="1.875" y1="-2.5" x2="1.875" y2="-1.665" width="0.254" layer="21"/>
+<smd name="4" x="-1.1" y="-1.875" dx="1.1" dy="0.6" layer="1" roundness="20" thermals="no"/>
+<smd name="5" x="1.1" y="-1.875" dx="1.1" dy="0.6" layer="1" roundness="20" rot="R180" thermals="no"/>
+<rectangle x1="-1.65" y1="-1.875" x2="1.65" y2="1.875" layer="39"/>
+<circle x="0.65" y="1.65" radius="0.25" width="0" layer="51"/>
+<circle x="-0.65" y="-1.65" radius="0.25" width="0" layer="51"/>
+<wire x1="1.175" y1="2.025" x2="-1.175" y2="2.025" width="0.127" layer="51"/>
+<wire x1="-1.175" y1="-2.025" x2="-1.15" y2="-2.025" width="0.127" layer="51"/>
+<wire x1="-1.15" y1="-2.025" x2="1.25" y2="-2.025" width="0.127" layer="51"/>
+<wire x1="-1.425" y1="1.775" x2="-1.425" y2="-1.775" width="0.127" layer="51"/>
+<wire x1="1.425" y1="-1.775" x2="1.425" y2="1.775" width="0.127" layer="51"/>
+<wire x1="-1.425" y1="1.775" x2="-1.25" y2="2.025" width="0.127" layer="51" curve="-90"/>
+<wire x1="1.175" y1="2.025" x2="1.425" y2="1.775" width="0.127" layer="51" curve="-90"/>
+<wire x1="-1.15" y1="-2.025" x2="-1.425" y2="-1.775" width="0.127" layer="51" curve="-90"/>
+<wire x1="1.425" y1="-1.775" x2="1.25" y2="-2.025" width="0.127" layer="51" curve="-90"/>
+<circle x="-2.105" y="2.74" radius="0.1" width="0.2" layer="21"/>
+</package>
+<package name="DFN8/SHT">
+<description>&lt;b&gt;DFN 8 / SHT3x-DIS package&lt;/b&gt;&lt;p&gt;
+body 2.5x2.5mm, pitch 0.5mm</description>
+<wire x1="1.247590625" y1="1.15281875" x2="1.247590625" y2="1.26521875" width="0.254" layer="21"/>
+<wire x1="1.247590625" y1="1.26521875" x2="-1.127409375" y2="1.26521875" width="0.254" layer="21"/>
+<wire x1="-1.127409375" y1="1.26521875" x2="-1.252409375" y2="1.15281875" width="0.254" layer="21"/>
+<wire x1="1.247590625" y1="-1.23478125" x2="1.247590625" y2="-1.12238125" width="0.254" layer="21"/>
+<wire x1="-1.252409375" y1="-1.23478125" x2="-1.252409375" y2="-1.12238125" width="0.254" layer="21"/>
+<wire x1="1.247590625" y1="-1.23478125" x2="-1.252409375" y2="-1.23478125" width="0.254" layer="21"/>
+<text x="-1.252409375" y="1.51521875" size="0.6096" layer="25" ratio="10">&gt;NAME</text>
+<rectangle x1="-1.522409375" y1="-0.92978125" x2="-0.832409375" y2="0.96021875" layer="29"/>
+<text x="-1.502409375" y="-2.12978125" size="0.6096" layer="27">&gt;VALUE</text>
+<wire x1="-1.252409375" y1="-1.23478125" x2="1.247590625" y2="-1.23478125" width="0.0508" layer="51"/>
+<wire x1="-1.252409375" y1="1.26521875" x2="1.247590625" y2="1.26521875" width="0.0508" layer="51"/>
+<wire x1="-1.252409375" y1="1.26521875" x2="-1.252409375" y2="-1.23478125" width="0.0508" layer="51"/>
+<wire x1="1.247590625" y1="1.26521875" x2="1.247590625" y2="-1.23478125" width="0.0508" layer="51"/>
+<circle x="-0.002409375" y="0.01521875" radius="0.75" width="0.0508" layer="51"/>
+<smd name="4" x="-1.177409375" y="-0.73478125" dx="0.55" dy="0.25" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="3" x="-1.177409375" y="-0.23478125" dx="0.55" dy="0.25" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="2" x="-1.177409375" y="0.26521875" dx="0.55" dy="0.25" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="1" x="-1.177409375" y="0.76521875" dx="0.55" dy="0.25" layer="1" roundness="20" stop="no" thermals="no"/>
+<smd name="5" x="1.172590625" y="-0.73478125" dx="0.55" dy="0.25" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="6" x="1.172590625" y="-0.23478125" dx="0.55" dy="0.25" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="7" x="1.172590625" y="0.26521875" dx="0.55" dy="0.25" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<smd name="8" x="1.172590625" y="0.76521875" dx="0.55" dy="0.25" layer="1" roundness="20" rot="R180" stop="no" thermals="no"/>
+<rectangle x1="0.827590625" y1="-0.92978125" x2="1.517590625" y2="0.96021875" layer="29"/>
+<smd name="9" x="-0.002409375" y="0.01521875" dx="0.9" dy="1.7" layer="1" thermals="no"/>
+<circle x="-1.569909375" y="1.62271875" radius="0.1" width="0.2" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="MPU-9250">
@@ -24820,6 +24895,59 @@ ADC, 2ch, 125ksps</description>
 <pin name="VDDIO" x="-17.78" y="2.54" length="middle" direction="pwr"/>
 <text x="-12.7" y="7.874" size="1.778" layer="95" font="vector">&gt;NAME</text>
 <text x="-12.7" y="-10.414" size="1.778" layer="96" font="vector" align="top-left">&gt;VALUE</text>
+</symbol>
+<symbol name="MS607-02BA">
+<description>&lt;h3&gt;MS5607-02BA Pressure Sensor&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=MS5607-02BA03&amp;DocType=Data+Sheet&amp;DocLang=English"&gt;Datasheet&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Specifications:
+&lt;ul&gt;
+&lt;li&gt;Pin Count: 8&lt;/li&gt;
+&lt;li&gt;Dimensions: 3.0 x 5.0 x 0.95 mm&lt;/li&gt;
+&lt;li&gt;Pitch: 1.25 mm&lt;/li&gt;
+&lt;/ul&gt;</description>
+<wire x1="-12.7" y1="12.7" x2="12.7" y2="12.7" width="0.4064" layer="94"/>
+<wire x1="12.7" y1="12.7" x2="12.7" y2="-12.7" width="0.4064" layer="94"/>
+<wire x1="12.7" y1="-12.7" x2="-12.7" y2="-12.7" width="0.4064" layer="94"/>
+<wire x1="-12.7" y1="-12.7" x2="-12.7" y2="12.7" width="0.4064" layer="94"/>
+<text x="0" y="13.462" size="1.778" layer="95" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-13.462" size="1.778" layer="96" align="top-center">&gt;VALUE</text>
+<pin name="VDD" x="-17.78" y="7.62" length="middle" direction="pwr"/>
+<pin name="SDI_SDA" x="17.78" y="2.54" length="middle" rot="R180"/>
+<pin name="SCL_SCLK" x="17.78" y="7.62" length="middle" direction="in" function="clk" rot="R180"/>
+<pin name="PS" x="-17.78" y="2.54" length="middle" direction="in"/>
+<circle x="5.08" y="10.16" radius="1.135921875" width="0" layer="94"/>
+<pin name="NC" x="17.78" y="-7.62" length="middle" direction="nc" rot="R180"/>
+<pin name="GND" x="-17.78" y="-2.54" length="middle" direction="pas"/>
+<circle x="-10.16" y="10.16" radius="0.508" width="0.254" layer="94"/>
+<circle x="-5.08" y="-10.16" radius="1.135921875" width="0" layer="94"/>
+<pin name="CSB_!ADDR" x="-17.78" y="-7.62" length="middle" direction="in"/>
+<pin name="SDO" x="17.78" y="-2.54" length="middle" direction="out" rot="R180"/>
+</symbol>
+<symbol name="SHT3X-DIS">
+<description>&lt;b&gt;SHT3x-DIS - Humidity and Temperature Sensor&lt;/b&gt;&lt;p&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Variant&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Huminity tolerance&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Temperature tolerance&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHT30-DIS&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;+/- 3.0% RH&lt;/td&gt;&lt;td&gt;+/- 0.3°C @ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;0°C .. 65°C&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHT31-DIS&lt;/td&gt;&lt;td&gt;&amp;nbsp;+/- 2.0% RH&lt;/td&gt;&lt;td&gt;+/- 0.3°C @ -40°C .. 90°C&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHT35-DIS&lt;/td&gt;&lt;td&gt;&amp;nbsp;+/- 1.5% RH&lt;/td&gt;&lt;td&gt;+/- 0.2°C @ -40°C .. 90°C&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</description>
+<wire x1="-10.16" y1="10.16" x2="10.16" y2="10.16" width="0.4064" layer="94"/>
+<wire x1="10.16" y1="10.16" x2="10.16" y2="-10.16" width="0.4064" layer="94"/>
+<wire x1="10.16" y1="-10.16" x2="-10.16" y2="-10.16" width="0.4064" layer="94"/>
+<wire x1="-10.16" y1="-10.16" x2="-10.16" y2="10.16" width="0.4064" layer="94"/>
+<text x="-7.62" y="10.922" size="1.778" layer="95">&gt;NAME</text>
+<text x="0" y="-10.922" size="1.778" layer="96" align="top-center">&gt;VALUE</text>
+<pin name="VDD" x="15.24" y="-7.62" length="middle" direction="pwr" rot="R180"/>
+<pin name="SDA" x="-15.24" y="7.62" length="middle"/>
+<pin name="SCL" x="-15.24" y="-7.62" length="middle" direction="in" function="clk"/>
+<pin name="R" x="15.24" y="2.54" length="middle" direction="pas" rot="R180"/>
+<circle x="0" y="0" radius="3.5921" width="0.254" layer="94"/>
+<pin name="ADDR" x="-15.24" y="2.54" length="middle" direction="in"/>
+<pin name="ALERT" x="-15.24" y="-2.54" length="middle" direction="out"/>
+<pin name="!RESET" x="15.24" y="-2.54" length="middle" direction="pas" function="dot" rot="R180"/>
+<pin name="VSS" x="15.24" y="7.62" length="middle" direction="pas" rot="R180"/>
+<circle x="-8.636" y="8.89" radius="0.254" width="0.254" layer="94"/>
+<pin name="PAD" x="2.54" y="15.24" length="middle" direction="pas" rot="R270"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -24853,6 +24981,68 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 </connects>
 <technologies>
 <technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MS5607-02BA" prefix="U">
+<description>&lt;h3&gt;MS5607-02BA03 Pressure Sensor&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=MS5607-02BA03&amp;DocType=Data+Sheet&amp;DocLang=English"&gt;Datasheet&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Specifications:
+&lt;ul&gt;
+&lt;li&gt;Pin Count: 8&lt;/li&gt;
+&lt;li&gt;Dimensions: 3.0 x 5.0 x 0.95 mm&lt;/li&gt;
+&lt;li&gt;Pitch: 1.25 mm&lt;/li&gt;
+&lt;/ul&gt;</description>
+<gates>
+<gate name="G$1" symbol="MS607-02BA" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MS5607-02BA">
+<connects>
+<connect gate="G$1" pin="CSB_!ADDR" pad="4"/>
+<connect gate="G$1" pin="GND" pad="3"/>
+<connect gate="G$1" pin="NC" pad="5"/>
+<connect gate="G$1" pin="PS" pad="2"/>
+<connect gate="G$1" pin="SCL_SCLK" pad="8"/>
+<connect gate="G$1" pin="SDI_SDA" pad="7"/>
+<connect gate="G$1" pin="SDO" pad="6"/>
+<connect gate="G$1" pin="VDD" pad="1"/>
+</connects>
+<technologies>
+<technology name="03"/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SHT3" prefix="U">
+<description>&lt;b&gt;SHT3x-DIS - Humidity and Temperature Sensor&lt;/b&gt;&lt;p&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Variant&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Huminity tolerance&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Temperature tolerance&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHT30-DIS&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;+/- 3.0% RH&lt;/td&gt;&lt;td&gt;+/- 0.3°C @ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;0°C .. 65°C&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHT31-DIS&lt;/td&gt;&lt;td&gt;&amp;nbsp;+/- 2.0% RH&lt;/td&gt;&lt;td&gt;+/- 0.3°C @ -40°C .. 90°C&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHT35-DIS&lt;/td&gt;&lt;td&gt;&amp;nbsp;+/- 1.5% RH&lt;/td&gt;&lt;td&gt;+/- 0.2°C @ -40°C .. 90°C&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</description>
+<gates>
+<gate name="G$1" symbol="SHT3X-DIS" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="DFN8/SHT">
+<connects>
+<connect gate="G$1" pin="!RESET" pad="6"/>
+<connect gate="G$1" pin="ADDR" pad="2"/>
+<connect gate="G$1" pin="ALERT" pad="3"/>
+<connect gate="G$1" pin="PAD" pad="9"/>
+<connect gate="G$1" pin="R" pad="7"/>
+<connect gate="G$1" pin="SCL" pad="4"/>
+<connect gate="G$1" pin="SDA" pad="1"/>
+<connect gate="G$1" pin="VDD" pad="5"/>
+<connect gate="G$1" pin="VSS" pad="8"/>
+</connects>
+<technologies>
+<technology name="0-DIS"/>
+<technology name="1-DIS"/>
+<technology name="5-DIS"/>
 </technologies>
 </device>
 </devices>
@@ -25322,6 +25512,12 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C2302" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="R2311" library="rcl" deviceset="R-EU_" device="R0603" value="3.9kR"/>
 <part name="R2312" library="rcl" deviceset="R-EU_" device="R0603" value="3.9kR"/>
+<part name="GND0005" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0001" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="U401" library="df4iah_sensors" deviceset="MS5607-02BA" device="" technology="03"/>
+<part name="U501" library="df4iah_sensors" deviceset="SHT3" device="" technology="1-DIS"/>
+<part name="GND501" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C501" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 </parts>
 <sheets>
 <sheet>
@@ -32655,11 +32851,17 @@ USB host (OTG) interface</text>
 <sheet>
 <description>I2C Sensors</description>
 <plain>
-<text x="27.94" y="160.02" size="2.54" layer="97" ratio="15">Climate sensor: BOSCH BME680</text>
-<text x="30.48" y="81.28" size="2.54" layer="97" ratio="15">9-axis sensor: MPU-9250</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Baro sensor: MS5607-02BA03</text>
+<text x="22.86" y="81.28" size="2.54" layer="97" ratio="15">9-axis sensor: MPU-9250</text>
 <text x="116.84" y="66.04" size="1.778" layer="97">NC</text>
 <text x="116.84" y="63.5" size="1.778" layer="97">NC</text>
 <text x="83.82" y="38.1" size="1.778" layer="97">I2C address = 1101000</text>
+<text x="47.752" y="104.902" size="1.778" layer="97">I2C address = 1110110</text>
+<text x="85.598" y="118.364" size="1.778" layer="97">NC</text>
+<text x="85.598" y="123.444" size="1.778" layer="97">NC</text>
+<text x="149.86" y="162.56" size="2.54" layer="97" ratio="15">RH sensor: Sensirion SHT3x</text>
+<text x="160.02" y="93.98" size="1.778" layer="97">I2C address = 1000100</text>
+<text x="195.58" y="81.28" size="2.54" layer="97" ratio="15">I2C4 Termination</text>
 </plain>
 <instances>
 <instance part="FRAME23" gate="G$1" x="0" y="0"/>
@@ -32670,10 +32872,22 @@ USB host (OTG) interface</text>
 <instance part="GND0004" gate="1" x="30.48" y="40.64"/>
 <instance part="C2301" gate="G$1" x="30.48" y="55.88"/>
 <instance part="C2303" gate="G$1" x="63.5" y="53.34"/>
-<instance part="R2301" gate="G$1" x="78.74" y="25.4"/>
+<instance part="R2301" gate="G$1" x="96.52" y="25.4"/>
 <instance part="C2302" gate="G$1" x="48.26" y="55.88"/>
-<instance part="R2311" gate="G$1" x="195.58" y="68.58" rot="R90"/>
-<instance part="R2312" gate="G$1" x="205.74" y="68.58" rot="R90"/>
+<instance part="R2311" gate="G$1" x="195.58" y="60.96" rot="R90"/>
+<instance part="R2312" gate="G$1" x="205.74" y="60.96" rot="R90"/>
+<instance part="GND0005" gate="1" x="30.48" y="114.3" rot="MR0"/>
+<instance part="C0001" gate="G$1" x="30.48" y="129.54" rot="MR0"/>
+<instance part="U401" gate="G$1" x="63.5" y="127" smashed="yes">
+<attribute name="NAME" x="54.864" y="140.716" size="2.1844" layer="95" ratio="10" align="bottom-center"/>
+<attribute name="VALUE" x="63.5" y="113.538" size="1.778" layer="96" align="top-center"/>
+</instance>
+<instance part="U501" gate="G$1" x="175.26" y="114.3" smashed="yes">
+<attribute name="NAME" x="165.354" y="125.476" size="2.1844" layer="95" ratio="10"/>
+<attribute name="VALUE" x="175.26" y="103.378" size="1.778" layer="96" align="top-center"/>
+</instance>
+<instance part="GND501" gate="1" x="218.44" y="127"/>
+<instance part="C501" gate="G$1" x="208.28" y="116.84" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -32707,6 +32921,39 @@ USB host (OTG) interface</text>
 <wire x1="48.26" y1="45.72" x2="48.26" y2="50.8" width="0.1524" layer="91"/>
 <junction x="48.26" y="45.72"/>
 </segment>
+<segment>
+<pinref part="GND0005" gate="1" pin="GND"/>
+<pinref part="C0001" gate="G$1" pin="2"/>
+<wire x1="30.48" y1="116.84" x2="30.48" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="124.46" x2="45.72" y2="124.46" width="0.1524" layer="91"/>
+<junction x="30.48" y="124.46"/>
+<pinref part="U401" gate="G$1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C501" gate="G$1" pin="2"/>
+<wire x1="208.28" y1="134.62" x2="208.28" y2="121.92" width="0.1524" layer="91"/>
+<pinref part="U501" gate="G$1" pin="PAD"/>
+<wire x1="218.44" y1="134.62" x2="208.28" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="134.62" x2="195.58" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="134.62" x2="177.8" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="134.62" x2="177.8" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="134.62" x2="195.58" y2="121.92" width="0.1524" layer="91"/>
+<pinref part="U501" gate="G$1" pin="VSS"/>
+<wire x1="195.58" y1="121.92" x2="190.5" y2="121.92" width="0.1524" layer="91"/>
+<junction x="195.58" y="134.62"/>
+<wire x1="177.8" y1="134.62" x2="152.4" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="134.62" x2="152.4" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="U501" gate="G$1" pin="ADDR"/>
+<wire x1="152.4" y1="116.84" x2="160.02" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="121.92" x2="195.58" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="U501" gate="G$1" pin="R"/>
+<wire x1="195.58" y1="116.84" x2="190.5" y2="116.84" width="0.1524" layer="91"/>
+<junction x="195.58" y="121.92"/>
+<junction x="177.8" y="134.62"/>
+<pinref part="GND501" gate="1" pin="GND"/>
+<wire x1="218.44" y1="129.54" x2="218.44" y2="134.62" width="0.1524" layer="91"/>
+<junction x="208.28" y="134.62"/>
+</segment>
 </net>
 <net name="MPU_REGOUT" class="0">
 <segment>
@@ -32722,10 +32969,20 @@ USB host (OTG) interface</text>
 <label x="142.24" y="58.42" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<wire x1="205.74" y1="58.42" x2="218.44" y2="58.42" width="0.1524" layer="91"/>
-<label x="218.44" y="58.42" size="1.778" layer="95" xref="yes"/>
+<wire x1="205.74" y1="50.8" x2="218.44" y2="50.8" width="0.1524" layer="91"/>
+<label x="218.44" y="50.8" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2312" gate="G$1" pin="1"/>
-<wire x1="205.74" y1="58.42" x2="205.74" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="50.8" x2="205.74" y2="55.88" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U401" gate="G$1" pin="SCL_SCLK"/>
+<wire x1="81.28" y1="134.62" x2="93.98" y2="134.62" width="0.1524" layer="91"/>
+<label x="93.98" y="134.62" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U501" gate="G$1" pin="SCL"/>
+<wire x1="160.02" y1="106.68" x2="142.24" y2="106.68" width="0.1524" layer="91"/>
+<label x="142.24" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_I2C4_SDA" class="0">
@@ -32735,17 +32992,27 @@ USB host (OTG) interface</text>
 <label x="142.24" y="55.88" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<wire x1="195.58" y1="55.88" x2="218.44" y2="55.88" width="0.1524" layer="91"/>
-<label x="218.44" y="55.88" size="1.778" layer="95" xref="yes"/>
+<wire x1="195.58" y1="48.26" x2="218.44" y2="48.26" width="0.1524" layer="91"/>
+<label x="218.44" y="48.26" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2311" gate="G$1" pin="1"/>
-<wire x1="195.58" y1="55.88" x2="195.58" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="48.26" x2="195.58" y2="55.88" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<wire x1="81.28" y1="129.54" x2="93.98" y2="129.54" width="0.1524" layer="91"/>
+<pinref part="U401" gate="G$1" pin="SDI_SDA"/>
+<label x="93.98" y="129.54" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U501" gate="G$1" pin="SDA"/>
+<wire x1="160.02" y1="121.92" x2="142.24" y2="121.92" width="0.1524" layer="91"/>
+<label x="142.24" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="I2C2_INT" class="0">
 <segment>
 <label x="142.24" y="25.4" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2301" gate="G$1" pin="2"/>
-<wire x1="83.82" y1="25.4" x2="142.24" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="25.4" x2="142.24" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MPU_INT" class="0">
@@ -32753,7 +33020,7 @@ USB host (OTG) interface</text>
 <pinref part="U2301" gate="G$1" pin="INT"/>
 <wire x1="78.74" y1="60.96" x2="58.42" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="60.96" x2="58.42" y2="25.4" width="0.1524" layer="91"/>
-<wire x1="58.42" y1="25.4" x2="73.66" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="25.4" x2="91.44" y2="25.4" width="0.1524" layer="91"/>
 <pinref part="R2301" gate="G$1" pin="1"/>
 <label x="60.96" y="25.4" size="1.778" layer="95"/>
 </segment>
@@ -32773,25 +33040,58 @@ USB host (OTG) interface</text>
 <pinref part="C2301" gate="G$1" pin="1"/>
 <wire x1="30.48" y1="66.04" x2="30.48" y2="58.42" width="0.1524" layer="91"/>
 <junction x="30.48" y="66.04"/>
-<wire x1="30.48" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="121.92" y1="73.66" x2="121.92" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="U2301" gate="G$1" pin="!CS"/>
-<wire x1="121.92" y1="60.96" x2="114.3" y2="60.96" width="0.1524" layer="91"/>
-<junction x="30.48" y="73.66"/>
 <pinref part="C2302" gate="G$1" pin="1"/>
 <wire x1="48.26" y1="66.04" x2="48.26" y2="58.42" width="0.1524" layer="91"/>
 <junction x="48.26" y="66.04"/>
 <label x="25.4" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="30.48" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
+<junction x="30.48" y="73.66"/>
+<pinref part="U2301" gate="G$1" pin="!CS"/>
+<wire x1="121.92" y1="60.96" x2="114.3" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="73.66" x2="121.92" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R2311" gate="G$1" pin="2"/>
-<wire x1="195.58" y1="81.28" x2="195.58" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="81.28" x2="205.74" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="73.66" x2="195.58" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="73.66" x2="205.74" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="R2312" gate="G$1" pin="2"/>
-<wire x1="205.74" y1="81.28" x2="218.44" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="205.74" y1="81.28" x2="205.74" y2="73.66" width="0.1524" layer="91"/>
-<junction x="205.74" y="81.28"/>
-<label x="218.44" y="81.28" size="1.778" layer="95" xref="yes"/>
+<wire x1="205.74" y1="73.66" x2="218.44" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="73.66" x2="205.74" y2="66.04" width="0.1524" layer="91"/>
+<junction x="205.74" y="73.66"/>
+<label x="218.44" y="73.66" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="C0001" gate="G$1" pin="1"/>
+<wire x1="30.48" y1="134.62" x2="30.48" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="134.62" x2="40.64" y2="134.62" width="0.1524" layer="91"/>
+<junction x="30.48" y="134.62"/>
+<pinref part="U401" gate="G$1" pin="VDD"/>
+<wire x1="40.64" y1="134.62" x2="45.72" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="134.62" x2="40.64" y2="129.54" width="0.1524" layer="91"/>
+<pinref part="U401" gate="G$1" pin="PS"/>
+<wire x1="40.64" y1="129.54" x2="45.72" y2="129.54" width="0.1524" layer="91"/>
+<junction x="40.64" y="134.62"/>
+<wire x1="40.64" y1="129.54" x2="40.64" y2="119.38" width="0.1524" layer="91"/>
+<pinref part="U401" gate="G$1" pin="CSB_!ADDR"/>
+<wire x1="40.64" y1="119.38" x2="45.72" y2="119.38" width="0.1524" layer="91"/>
+<junction x="40.64" y="129.54"/>
+<wire x1="30.48" y1="152.4" x2="25.4" y2="152.4" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="134.62" x2="30.48" y2="152.4" width="0.1524" layer="91"/>
+<label x="25.4" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="C501" gate="G$1" pin="1"/>
+<wire x1="208.28" y1="106.68" x2="208.28" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="106.68" x2="195.58" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="U501" gate="G$1" pin="VDD"/>
+<wire x1="195.58" y1="106.68" x2="190.5" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="106.68" x2="218.44" y2="106.68" width="0.1524" layer="91"/>
+<junction x="208.28" y="106.68"/>
+<label x="218.44" y="106.68" size="1.778" layer="95" xref="yes"/>
+<wire x1="195.58" y1="106.68" x2="195.58" y2="111.76" width="0.1524" layer="91"/>
+<junction x="195.58" y="106.68"/>
+<pinref part="U501" gate="G$1" pin="!RESET"/>
+<wire x1="195.58" y1="111.76" x2="190.5" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
