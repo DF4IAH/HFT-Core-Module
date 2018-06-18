@@ -25618,7 +25618,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0732" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0731" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0724" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0723" library="rcl" deviceset="R-EU_" device="R0603" value="none"/>
+<part name="R0723" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0743" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0744" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0711" library="rcl" deviceset="R-EU_" device="R0603" value="none"/>
@@ -25935,11 +25935,11 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="L0854" library="rcl" deviceset="R-US_" device="R0603" value="15nH"/>
 <part name="R0801" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
 <part name="R0803" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0805" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0807" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R0805" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
+<part name="R0807" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
 <part name="R0802" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0804" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0806" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R0804" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
+<part name="R0806" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
 <part name="FRAME21" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 </parts>
 <sheets>
@@ -26165,21 +26165,21 @@ Digikey: 497-17999-ND</text>
 <label x="119.38" y="35.56" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
-<net name="PH0_OSC_IN" class="0">
+<net name="PH0" class="0">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PH0_OSC_IN"/>
 <wire x1="111.76" y1="38.1" x2="111.76" y2="35.56" width="0.1524" layer="91"/>
 <label x="111.76" y="35.56" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
-<net name="PC15_OSC32_OUT" class="0">
+<net name="PC15_MCU_OSC32_OUT" class="0">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PC15_OSC32_OUT"/>
 <wire x1="73.66" y1="38.1" x2="73.66" y2="35.56" width="0.1524" layer="91"/>
 <label x="73.66" y="35.56" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
-<net name="PC14_OSC32_IN" class="0">
+<net name="PC14_MCU_OSC32_IN" class="0">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PC14_OSC32_IN"/>
 <wire x1="71.12" y1="38.1" x2="71.12" y2="35.56" width="0.1524" layer="91"/>
@@ -26974,25 +26974,23 @@ Digikey: 497-17999-ND</text>
 <sheet>
 <description>MCU Switchboard</description>
 <plain>
-<text x="162.56" y="76.2" size="1.778" layer="96">MCU_SPI3_MISO</text>
-<text x="162.56" y="71.12" size="1.778" layer="96">MCU_SPI3_AX1_IRQ_R</text>
-<text x="162.56" y="66.04" size="1.778" layer="96">MCU_SPI3_AX2_IRQ_R</text>
-<text x="162.56" y="55.88" size="1.778" layer="96">MCU_SPI3_AX2_GPO1_R</text>
-<text x="162.56" y="60.96" size="1.778" layer="96">MCU_SPI3_AX1_GPO1_R</text>
+<text x="162.56" y="50.8" size="1.778" layer="96">MCU_SPI3_MISO</text>
+<text x="162.56" y="71.12" size="1.778" layer="96">MCU_IN_AX_IRQ</text>
+<text x="162.56" y="66.04" size="1.778" layer="96">MCU_IN_AX_GPIO1</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU switchboard</text>
-<text x="162.56" y="45.72" size="1.778" layer="97">MCU_SPI3_AUDIO_ADC_!DR</text>
-<text x="162.56" y="40.64" size="1.778" layer="97">MCU_SPI3_AUDIO_ADC_M0</text>
-<text x="162.56" y="35.56" size="1.778" layer="97">MCU_SPI3_AUDIO_ADC_M1</text>
-<text x="162.56" y="93.98" size="1.778" layer="97">MCU_RE_I</text>
-<text x="162.56" y="88.9" size="1.778" layer="97">MCU_RE_Q</text>
-<text x="162.56" y="83.82" size="1.778" layer="97">MCU_RE_P</text>
-<text x="162.56" y="101.6" size="1.778" layer="97">20MHZ_PULL_ADC</text>
+<text x="162.56" y="45.72" size="1.778" layer="97">MCU_IN_AUDIO_ADC_NDR</text>
+<text x="162.56" y="40.64" size="1.778" layer="97">MCU_IN_AUDIO_ADC_MDAT0</text>
+<text x="162.56" y="35.56" size="1.778" layer="97">MCU_IN_AUDIO_ADC_MDAT1</text>
+<text x="162.56" y="93.98" size="1.778" layer="97">MCU_IN_RE_I</text>
+<text x="162.56" y="88.9" size="1.778" layer="97">MCU_IN_RE_Q</text>
+<text x="162.56" y="83.82" size="1.778" layer="97">MCU_IN_RE_PB</text>
+<text x="162.56" y="101.6" size="1.778" layer="97">ADC3_IN6_20MHZ_PULL</text>
 <text x="162.56" y="111.76" size="1.778" layer="97">MCU_HSE</text>
-<text x="162.56" y="106.68" size="1.778" layer="97">MCU_INTR_SI5338</text>
-<text x="162.56" y="27.94" size="1.778" layer="97">MCU_SPI3_AUDIO_DAC_!RDY</text>
-<text x="231.14" y="111.76" size="1.778" layer="97">MCU_LED_R</text>
-<text x="231.14" y="106.68" size="1.778" layer="97">MCU_LED_G</text>
-<text x="231.14" y="101.6" size="1.778" layer="97">MCU_LED_B</text>
+<text x="162.56" y="106.68" size="1.778" layer="97">MCU_EXTI7_INTR_SI5338</text>
+<text x="162.56" y="27.94" size="1.778" layer="97">MCU_IN_AUDIO_DAC_NRDY</text>
+<text x="231.14" y="111.76" size="1.778" layer="97">MCU_PWM_LED_R</text>
+<text x="231.14" y="106.68" size="1.778" layer="97">MCU_PWM_LED_G</text>
+<text x="231.14" y="101.6" size="1.778" layer="97">MCU_PWM_LED_B</text>
 </plain>
 <instances>
 <instance part="FRAME22" gate="G$1" x="0" y="0"/>
@@ -27111,7 +27109,7 @@ Digikey: 497-17999-ND</text>
 <label x="43.18" y="66.04" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AX1_SEL" class="0">
+<net name="MCU_OUT_AX_SEL" class="0">
 <segment>
 <pinref part="R0253" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="55.88" x2="43.18" y2="55.88" width="0.1524" layer="91"/>
@@ -27148,8 +27146,8 @@ Digikey: 497-17999-ND</text>
 </net>
 <net name="PC11" class="0">
 <segment>
-<wire x1="160.02" y1="76.2" x2="198.12" y2="76.2" width="0.1524" layer="91"/>
-<label x="160.02" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="160.02" y1="50.8" x2="198.12" y2="50.8" width="0.1524" layer="91"/>
+<label x="160.02" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PE7" class="0">
@@ -27158,22 +27156,10 @@ Digikey: 497-17999-ND</text>
 <label x="160.02" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="PG0" class="0">
+<net name="PG1" class="0">
 <segment>
 <wire x1="160.02" y1="66.04" x2="198.12" y2="66.04" width="0.1524" layer="91"/>
 <label x="160.02" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="PG1" class="0">
-<segment>
-<wire x1="160.02" y1="60.96" x2="198.12" y2="60.96" width="0.1524" layer="91"/>
-<label x="160.02" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="PF13" class="0">
-<segment>
-<wire x1="160.02" y1="55.88" x2="198.12" y2="55.88" width="0.1524" layer="91"/>
-<label x="160.02" y="55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI1_SCK" class="0">
@@ -27218,21 +27204,21 @@ Digikey: 497-17999-ND</text>
 <label x="43.18" y="83.82" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_20MHZ_EN" class="0">
+<net name="MCU_OUT_20MHZ_EN" class="0">
 <segment>
 <pinref part="R0273" gate="G$1" pin="2"/>
 <wire x1="172.72" y1="154.94" x2="175.26" y2="154.94" width="0.1524" layer="91"/>
 <label x="175.26" y="154.94" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_VUSB_EN" class="0">
+<net name="MCU_OUT_VUSB_EN" class="0">
 <segment>
 <pinref part="R0274" gate="G$1" pin="2"/>
 <wire x1="172.72" y1="147.32" x2="175.26" y2="147.32" width="0.1524" layer="91"/>
 <label x="175.26" y="147.32" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_HICUR_EN" class="0">
+<net name="MCU_OUT_HICUR_EN" class="0">
 <segment>
 <pinref part="R0275" gate="G$1" pin="2"/>
 <wire x1="172.72" y1="139.7" x2="175.26" y2="139.7" width="0.1524" layer="91"/>
@@ -27267,7 +27253,7 @@ Digikey: 497-17999-ND</text>
 <label x="160.02" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_VDD12_EN" class="0">
+<net name="MCU_OUT_VDD12_EN" class="0">
 <segment>
 <wire x1="172.72" y1="132.08" x2="175.26" y2="132.08" width="0.1524" layer="91"/>
 <pinref part="R0276" gate="G$1" pin="2"/>
@@ -27281,7 +27267,7 @@ Digikey: 497-17999-ND</text>
 <label x="160.02" y="170.18" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="PH0_OSC_IN" class="0">
+<net name="PH0" class="0">
 <segment>
 <label x="160.02" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
 <wire x1="160.02" y1="111.76" x2="198.12" y2="111.76" width="0.1524" layer="91"/>
@@ -27301,21 +27287,21 @@ Digikey: 497-17999-ND</text>
 <label x="160.02" y="162.56" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_LCD_!RST" class="0">
+<net name="MCU_OUT_LCD_NRST" class="0">
 <segment>
 <wire x1="172.72" y1="162.56" x2="175.26" y2="162.56" width="0.1524" layer="91"/>
 <pinref part="R0272" gate="G$1" pin="2"/>
 <label x="175.26" y="162.56" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AUDIO_ADC_!RESET" class="0">
+<net name="MCU_OUT_AUDIO_ADC_NRESET" class="0">
 <segment>
 <wire x1="40.64" y1="38.1" x2="43.18" y2="38.1" width="0.1524" layer="91"/>
 <label x="43.18" y="38.1" size="1.778" layer="95" xref="yes"/>
 <pinref part="R0261" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AUDIO_ADC_SEL" class="0">
+<net name="MCU_OUT_AUDIO_ADC_SEL" class="0">
 <segment>
 <pinref part="R0262" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="30.48" x2="43.18" y2="30.48" width="0.1524" layer="91"/>
@@ -27402,7 +27388,7 @@ Digikey: 497-17999-ND</text>
 <label x="27.94" y="127" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_SX_SEL" class="0">
+<net name="MCU_OUT_SX_SEL" class="0">
 <segment>
 <pinref part="R0254" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="48.26" x2="43.18" y2="48.26" width="0.1524" layer="91"/>
@@ -27447,7 +27433,7 @@ Digikey: 497-17999-ND</text>
 <label x="160.02" y="35.56" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AUDIO_DAC_SEL" class="0">
+<net name="MCU_OUT_AUDIO_DAC_SEL" class="0">
 <segment>
 <pinref part="R0263" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="22.86" x2="43.18" y2="22.86" width="0.1524" layer="91"/>
@@ -28276,7 +28262,7 @@ Digikey: 497-17999-ND</text>
 <busses>
 </busses>
 <nets>
-<net name="PC14_OSC32_IN" class="0">
+<net name="PC14_MCU_OSC32_IN" class="0">
 <segment>
 <label x="200.66" y="99.06" size="1.778" layer="95" xref="yes"/>
 <pinref part="Q0521" gate="G$1" pin="2"/>
@@ -28287,7 +28273,7 @@ Digikey: 497-17999-ND</text>
 <pinref part="C0531" gate="G$1" pin="E"/>
 </segment>
 </net>
-<net name="PC15_OSC32_OUT" class="0">
+<net name="PC15_MCU_OSC32_OUT" class="0">
 <segment>
 <label x="58.42" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="Q0521" gate="G$1" pin="1"/>
@@ -28327,6 +28313,7 @@ Digikey: 497-17999-ND</text>
 <text x="182.88" y="162.56" size="2.54" layer="97" ratio="15">VCTCXO</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">D/A-Converter:
 I2C addr: 0x38/0x39</text>
+<text x="208.28" y="48.26" size="1.778" layer="97">ADC3_IN6_20MHZ_PULL</text>
 </plain>
 <instances>
 <instance part="FRAME11" gate="G$1" x="0" y="0"/>
@@ -28509,7 +28496,7 @@ I2C addr: 0x38/0x39</text>
 <junction x="101.6" y="137.16"/>
 </segment>
 </net>
-<net name="MCU_20MHZ_EN" class="0">
+<net name="MCU_OUT_20MHZ_EN" class="0">
 <segment>
 <pinref part="U0601" gate="A" pin="EN"/>
 <wire x1="35.56" y1="53.34" x2="27.94" y2="53.34" width="0.1524" layer="91"/>
@@ -28640,12 +28627,15 @@ I2C addr: 0x38/0x39</text>
 <text x="116.84" y="137.16" size="1.778" layer="97" rot="R90">Impedance 100 Ohms</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Clock distributor
 I2C addr: 0xE0/0xE1</text>
-<text x="116.078" y="29.972" size="1.778" layer="97" rot="R90">10MHz</text>
+<text x="118.364" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
 <text x="50.8" y="88.9" size="1.778" layer="97">16MHz</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
 <text x="50.8" y="111.76" size="1.778" layer="97">N.C.</text>
 <text x="50.8" y="104.14" size="1.778" layer="97">N.C.</text>
 <text x="50.8" y="96.52" size="1.778" layer="97">10MHz</text>
+<text x="101.6" y="23.622" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
+<text x="122.936" y="22.098" size="1.778" layer="97" rot="R90">MCU_HSE</text>
+<text x="110.744" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
 </plain>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
@@ -28700,7 +28690,7 @@ I2C addr: 0xE0/0xE1</text>
 <pinref part="R0713" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="AX1_16MHZ" class="0">
+<net name="AX_16MHZ" class="0">
 <segment>
 <wire x1="48.26" y1="88.9" x2="68.58" y2="88.9" width="0.1524" layer="91"/>
 <label x="48.26" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -28956,7 +28946,7 @@ I2C addr: 0xE0/0xE1</text>
 <label x="119.38" y="144.78" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
-<net name="CLK3B" class="0">
+<net name="SI5338_CLK3B_2" class="0">
 <segment>
 <pinref part="R0723" gate="G$1" pin="1"/>
 <wire x1="111.76" y1="45.72" x2="111.76" y2="38.1" width="0.1524" layer="91"/>
@@ -29016,7 +29006,7 @@ I2C addr: 0xE0/0xE1</text>
 <wire x1="83.82" y1="78.74" x2="83.82" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PH0_OSC_IN" class="0">
+<net name="PH0" class="0">
 <segment>
 <pinref part="R0724" gate="G$1" pin="1"/>
 <wire x1="119.38" y1="45.72" x2="119.38" y2="38.1" width="0.1524" layer="91"/>
@@ -29030,6 +29020,18 @@ I2C addr: 0xE0/0xE1</text>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">VHF / UHF  SX1276 - channel 1
 SPI</text>
+<text x="40.64" y="71.12" size="1.778" layer="97">MCU_SPI3_MISO</text>
+<text x="30.48" y="50.8" size="1.778" layer="97">MCU_INOUT_SX_NRESET</text>
+<text x="180.34" y="58.42" size="1.778" layer="97">MCU_EXTI2_SX_DIO0_TXRXDONE</text>
+<text x="180.34" y="53.34" size="1.778" layer="97">MCU_EXTI3_SX_DIO1_RXTO</text>
+<text x="180.34" y="48.26" size="1.778" layer="97">SX_DIO2_2</text>
+<text x="180.34" y="43.18" size="1.778" layer="97">SX_DIO3_2</text>
+<text x="180.34" y="38.1" size="1.778" layer="97">SX_DIO4_2</text>
+<text x="180.34" y="33.02" size="1.778" layer="97">SX_DIO5_2</text>
+<text x="241.3" y="33.02" size="1.778" layer="97">NC</text>
+<text x="241.3" y="38.1" size="1.778" layer="97">NC</text>
+<text x="241.3" y="43.18" size="1.778" layer="97">NC</text>
+<text x="241.3" y="48.26" size="1.778" layer="97">NC</text>
 </plain>
 <instances>
 <instance part="FRAME24" gate="G$1" x="0" y="0"/>
@@ -29274,18 +29276,18 @@ SPI</text>
 <wire x1="172.72" y1="157.48" x2="172.72" y2="154.94" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="SX_!RESET_R" class="0">
+<net name="SX_NRESET" class="0">
 <segment>
 <pinref part="U0801" gate="G$1" pin="!RESET"/>
 <pinref part="R0821" gate="G$1" pin="2"/>
 <wire x1="78.74" y1="50.8" x2="76.2" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="SX_!RESET" class="0">
+<net name="PD8" class="0">
 <segment>
 <pinref part="R0821" gate="G$1" pin="1"/>
-<wire x1="66.04" y1="50.8" x2="35.56" y2="50.8" width="0.1524" layer="91"/>
-<label x="35.56" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="66.04" y1="50.8" x2="20.32" y2="50.8" width="0.1524" layer="91"/>
+<label x="20.32" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -29319,8 +29321,8 @@ SPI</text>
 <net name="MCU_SPI3_SCK" class="0">
 <segment>
 <pinref part="U0801" gate="G$1" pin="SCLK"/>
-<wire x1="78.74" y1="76.2" x2="35.56" y2="76.2" width="0.1524" layer="91"/>
-<label x="35.56" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="78.74" y1="76.2" x2="38.1" y2="76.2" width="0.1524" layer="91"/>
+<label x="38.1" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SX_MISO" class="0">
@@ -29333,22 +29335,22 @@ SPI</text>
 <net name="MCU_SPI3_MOSI" class="0">
 <segment>
 <pinref part="U0801" gate="G$1" pin="MOSI"/>
-<wire x1="78.74" y1="66.04" x2="35.56" y2="66.04" width="0.1524" layer="91"/>
-<label x="35.56" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="78.74" y1="66.04" x2="38.1" y2="66.04" width="0.1524" layer="91"/>
+<label x="38.1" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_SX_SEL" class="0">
+<net name="MCU_OUT_SX_SEL" class="0">
 <segment>
 <pinref part="U0801" gate="G$1" pin="NSS"/>
-<wire x1="78.74" y1="60.96" x2="35.56" y2="60.96" width="0.1524" layer="91"/>
-<label x="35.56" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="78.74" y1="60.96" x2="38.1" y2="60.96" width="0.1524" layer="91"/>
+<label x="38.1" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PC11" class="0">
 <segment>
 <pinref part="R0831" gate="G$1" pin="1"/>
-<wire x1="66.04" y1="71.12" x2="35.56" y2="71.12" width="0.1524" layer="91"/>
-<label x="35.56" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="66.04" y1="71.12" x2="38.1" y2="71.12" width="0.1524" layer="91"/>
+<label x="38.1" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SX_RFI_HF" class="0">
@@ -29633,14 +29635,14 @@ SPI</text>
 <pinref part="R0807" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="SX_DIO0_2" class="0">
+<net name="PG2" class="0">
 <segment>
 <pinref part="R0802" gate="G$1" pin="2"/>
 <wire x1="175.26" y1="58.42" x2="223.52" y2="58.42" width="0.1524" layer="91"/>
 <label x="223.52" y="58.42" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="SX_DIO1_2" class="0">
+<net name="PG3" class="0">
 <segment>
 <pinref part="R0803" gate="G$1" pin="2"/>
 <wire x1="160.02" y1="53.34" x2="223.52" y2="53.34" width="0.1524" layer="91"/>
@@ -29759,7 +29761,7 @@ SPI</text>
 <wire x1="124.46" y1="99.06" x2="121.92" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="AX1_SYSCLK" class="0">
+<net name="AX_SYSCLK" class="0">
 <segment>
 <pinref part="U0901" gate="A" pin="SYSCLK"/>
 <wire x1="106.68" y1="114.3" x2="137.16" y2="114.3" width="0.1524" layer="91"/>
@@ -29767,19 +29769,19 @@ SPI</text>
 <label x="109.22" y="114.3" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="AX1_16MHZ" class="0">
+<net name="AX_16MHZ" class="0">
 <segment>
 <wire x1="147.32" y1="114.3" x2="220.98" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="R0921" gate="G$1" pin="2"/>
 <label x="220.98" y="114.3" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_AX1_IRQ" class="0">
+<net name="AX_IRQ" class="0">
 <segment>
 <pinref part="U0901" gate="A" pin="IRQ"/>
 <wire x1="60.96" y1="78.74" x2="50.8" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="R0951" gate="G$1" pin="2"/>
-<label x="43.18" y="78.74" size="1.778" layer="95"/>
+<label x="45.72" y="78.74" size="1.778" layer="95"/>
 <pinref part="TP_AX1_IRQ" gate="G$1" pin="TP"/>
 <wire x1="50.8" y1="78.74" x2="45.72" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="50.8" y1="78.74" x2="50.8" y2="55.88" width="0.1524" layer="91"/>
@@ -29808,7 +29810,7 @@ SPI</text>
 <label x="43.18" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AX1_SEL" class="0">
+<net name="MCU_OUT_AX_SEL" class="0">
 <segment>
 <pinref part="U0901" gate="A" pin="SEL"/>
 <wire x1="60.96" y1="104.14" x2="43.18" y2="104.14" width="0.1524" layer="91"/>
@@ -29903,12 +29905,12 @@ SPI</text>
 <junction x="208.28" y="63.5"/>
 </segment>
 </net>
-<net name="MCU_AX1_GPO1" class="0">
+<net name="AX_GPIO1" class="0">
 <segment>
 <pinref part="R0961" gate="G$1" pin="2"/>
 <pinref part="U0901" gate="A" pin="TCXO_EN"/>
 <wire x1="45.72" y1="73.66" x2="58.42" y2="73.66" width="0.1524" layer="91"/>
-<label x="43.18" y="73.66" size="1.778" layer="95"/>
+<label x="45.72" y="73.66" size="1.778" layer="95"/>
 <pinref part="TP_AX1_TCXO_EN" gate="G$1" pin="TP"/>
 <wire x1="58.42" y1="73.66" x2="60.96" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="73.66" x2="58.42" y2="55.88" width="0.1524" layer="91"/>
@@ -30065,7 +30067,7 @@ SPI</text>
 <junction x="203.2" y="78.74"/>
 </segment>
 </net>
-<net name="AX1_ANT" class="0">
+<net name="CH2_ANT" class="0">
 <segment>
 <pinref part="L_AX1_F1" gate="G$1" pin="2"/>
 <wire x1="213.36" y1="91.44" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
@@ -30103,6 +30105,11 @@ SPI</text>
 <text x="147.32" y="142.24" size="1.778" layer="97">10MHz</text>
 <text x="22.86" y="86.36" size="2.54" layer="97" ratio="15">Audio stereo D/A-Converter
 SPI</text>
+<text x="17.78" y="17.78" size="1.778" layer="97">MCU_IN_AUDIO_DAC_NRDY</text>
+<text x="157.48" y="109.22" size="1.778" layer="97">MCU_IN_AUDIO_ADC_MDAT0</text>
+<text x="157.48" y="106.68" size="1.778" layer="97">MCU_IN_AUDIO_ADC_MDAT1</text>
+<text x="139.7" y="132.08" size="1.778" layer="97">MCU_IN_AUDIO_ADC_NDR</text>
+<text x="208.28" y="129.54" size="1.778" layer="97">MCU_SPI3_MISO</text>
 </plain>
 <instances>
 <instance part="FRAME16" gate="G$1" x="0" y="0"/>
@@ -30374,7 +30381,7 @@ SPI</text>
 <label x="210.82" y="119.38" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AUDIO_DAC_SEL" class="0">
+<net name="MCU_OUT_AUDIO_DAC_SEL" class="0">
 <segment>
 <pinref part="U1011" gate="G$1" pin="!CS"/>
 <wire x1="73.66" y1="43.18" x2="50.8" y2="43.18" width="0.1524" layer="91"/>
@@ -30498,7 +30505,7 @@ SPI</text>
 <junction x="172.72" y="73.66"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AUDIO_ADC_!RESET" class="0">
+<net name="MCU_OUT_AUDIO_ADC_NRESET" class="0">
 <segment>
 <pinref part="U1001" gate="G$1" pin="!RESET"/>
 <wire x1="121.92" y1="121.92" x2="152.4" y2="121.92" width="0.1524" layer="91"/>
@@ -30509,7 +30516,7 @@ SPI</text>
 <junction x="152.4" y="121.92"/>
 </segment>
 </net>
-<net name="MCU_SPI3_AUDIO_ADC_SEL" class="0">
+<net name="MCU_OUT_AUDIO_ADC_SEL" class="0">
 <segment>
 <pinref part="U1001" gate="G$1" pin="!CS"/>
 <wire x1="121.92" y1="114.3" x2="210.82" y2="114.3" width="0.1524" layer="91"/>
@@ -30554,8 +30561,8 @@ SPI</text>
 <net name="PD1" class="0">
 <segment>
 <pinref part="R1008" gate="G$1" pin="2"/>
-<wire x1="137.16" y1="109.22" x2="157.48" y2="109.22" width="0.1524" layer="91"/>
-<label x="157.48" y="109.22" size="1.778" layer="95" xref="yes"/>
+<wire x1="137.16" y1="109.22" x2="210.82" y2="109.22" width="0.1524" layer="91"/>
+<label x="210.82" y="109.22" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MVP3911_AVDD" class="0">
@@ -30574,13 +30581,6 @@ SPI</text>
 <pinref part="U1001" gate="G$1" pin="REFINOUT"/>
 <pinref part="C1003" gate="G$1" pin="2"/>
 <wire x1="76.2" y1="142.24" x2="73.66" y2="142.24" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="PH0_OSC_IN" class="0">
-<segment>
-<pinref part="U1001" gate="G$1" pin="OSC1"/>
-<wire x1="121.92" y1="142.24" x2="157.48" y2="142.24" width="0.1524" layer="91"/>
-<label x="157.48" y="142.24" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MCP3911_CH0+" class="0">
@@ -30617,6 +30617,13 @@ SPI</text>
 <label x="210.82" y="106.68" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
+<net name="SI5338_CLK3B_2" class="0">
+<segment>
+<pinref part="U1001" gate="G$1" pin="OSC1"/>
+<wire x1="121.92" y1="142.24" x2="157.48" y2="142.24" width="0.1524" layer="91"/>
+<label x="157.48" y="142.24" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -30626,9 +30633,12 @@ SPI</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LC-Display
 I2C addr: 0x7C/0x7D</text>
 <text x="10.16" y="71.12" size="2.54" layer="97" ratio="15">Rotary Encoder with Pushbutton</text>
-<text x="17.78" y="132.08" size="1.778" layer="97" rot="R90">MCU_LED_R</text>
-<text x="38.1" y="132.08" size="1.778" layer="97" rot="R90">MCU_LED_G</text>
-<text x="58.42" y="132.08" size="1.778" layer="97" rot="R90">MCU_LED_B</text>
+<text x="15.24" y="139.7" size="1.778" layer="97" rot="R90">MCU_PWM_LED_R</text>
+<text x="35.56" y="139.7" size="1.778" layer="97" rot="R90">MCU_PWM_LED_G</text>
+<text x="55.88" y="139.7" size="1.778" layer="97" rot="R90">MCU_PWM_LED_B</text>
+<text x="195.58" y="58.42" size="1.778" layer="97">MCU_IN_RE_I</text>
+<text x="195.58" y="53.34" size="1.778" layer="97">MCU_IN_RE_Q</text>
+<text x="195.58" y="35.56" size="1.778" layer="97">MCU_IN_RE_PB</text>
 </plain>
 <instances>
 <instance part="FRAME13" gate="G$1" x="0" y="0"/>
@@ -30716,7 +30726,7 @@ I2C addr: 0x7C/0x7D</text>
 <pinref part="U1101" gate="G$1" pin="SCL"/>
 </segment>
 </net>
-<net name="MCU_LCD_!RST" class="0">
+<net name="MCU_OUT_LCD_NRST" class="0">
 <segment>
 <label x="218.44" y="121.92" size="1.778" layer="95" xref="yes"/>
 <wire x1="134.62" y1="127" x2="134.62" y2="121.92" width="0.1524" layer="91"/>
@@ -31501,7 +31511,7 @@ I2C addr: 0x7C/0x7D</text>
 <junction x="68.58" y="96.52"/>
 </segment>
 </net>
-<net name="MCU_VUSB_EN" class="0">
+<net name="MCU_OUT_VUSB_EN" class="0">
 <segment>
 <wire x1="48.26" y1="86.36" x2="83.82" y2="86.36" width="0.1524" layer="91"/>
 <label x="48.26" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -31716,7 +31726,7 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="160.02" y1="86.36" x2="160.02" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="MCU_HICUR_EN" class="0">
+<net name="MCU_OUT_HICUR_EN" class="0">
 <segment>
 <wire x1="96.52" y1="86.36" x2="88.9" y2="86.36" width="0.1524" layer="91"/>
 <label x="55.88" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -31820,7 +31830,7 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="160.02" y1="86.36" x2="160.02" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="MCU_20MHZ_EN" class="0">
+<net name="MCU_OUT_20MHZ_EN" class="0">
 <segment>
 <wire x1="96.52" y1="86.36" x2="88.9" y2="86.36" width="0.1524" layer="91"/>
 <label x="55.88" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -31952,7 +31962,7 @@ I2C addr: 0x7C/0x7D</text>
 <label x="68.58" y="134.62" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_VDD12_EN" class="0">
+<net name="MCU_OUT_VDD12_EN" class="0">
 <segment>
 <wire x1="96.52" y1="86.36" x2="88.9" y2="86.36" width="0.1524" layer="91"/>
 <label x="55.88" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -32103,14 +32113,7 @@ USB host (OTG) interface</text>
 <busses>
 </busses>
 <nets>
-<net name="AX1_ANT" class="0">
-<segment>
-<wire x1="119.38" y1="152.4" x2="157.48" y2="152.4" width="0.1524" layer="91"/>
-<label x="119.38" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="X2001" gate="A" pin="1"/>
-</segment>
-</net>
-<net name="AX2_ANT" class="0">
+<net name="CH2_ANT" class="0">
 <segment>
 <wire x1="119.38" y1="96.52" x2="157.48" y2="96.52" width="0.1524" layer="91"/>
 <label x="119.38" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -32127,6 +32130,13 @@ USB host (OTG) interface</text>
 <pinref part="GND2001" gate="1" pin="GND"/>
 <pinref part="X2001" gate="A" pin="2"/>
 <wire x1="165.1" y1="137.16" x2="165.1" y2="142.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="CH1_ANT" class="0">
+<segment>
+<wire x1="119.38" y1="152.4" x2="157.48" y2="152.4" width="0.1524" layer="91"/>
+<label x="119.38" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="X2001" gate="A" pin="1"/>
 </segment>
 </net>
 </nets>

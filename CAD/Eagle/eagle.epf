@@ -28,7 +28,7 @@ UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V0/CAD/Eagle/lbr/df4iah_cry
 [Win_1]
 Type="Control Panel"
 Loc="0 0 599 399"
-State=0
+State=2
 Number=0
 
 [Win_2]
@@ -121,9 +121,9 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=91
+Layer=97
 Views=" 1: -5.74385 -4.10556 266.52 182.968 9: -5.74385 -4.10556 266.52 182.968"
-Sheet="9"
+Sheet="1"
 
 [Desktop]
 Screen="1920 1080"
