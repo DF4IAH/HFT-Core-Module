@@ -58,6 +58,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+ADC_HandleTypeDef hadc2;
 ADC_HandleTypeDef hadc3;
 
 CRC_HandleTypeDef hcrc;
@@ -85,6 +86,7 @@ SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
 
 TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim16;
 TIM_HandleTypeDef htim17;
@@ -129,12 +131,13 @@ static void MX_USART3_UART_Init(void);
 static void MX_ADC3_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_DFSDM1_Init(void);
+static void MX_TIM3_Init(void);
+static void MX_ADC2_Init(void);
 void StartDefaultTask(void const * argument);
 void StartUsbToHostTask(void const * argument);
 void StartUsbFromHostTask(void const * argument);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-                                
                                 
 
 /* USER CODE BEGIN PFP */
@@ -197,6 +200,8 @@ int main(void)
   MX_ADC3_Init();
   MX_I2C1_Init();
   MX_DFSDM1_Init();
+  MX_TIM3_Init();
+  MX_ADC2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -232,7 +237,7 @@ int main(void)
 
   /* Create the queue(s) */
   /* definition and creation of usbToHostQueue */
-  osMessageQDef(usbToHostQueue, 64, uint8_t);
+  osMessageQDef(usbToHostQueue, 512, uint8_t);
   usbToHostQueueHandle = osMessageCreate(osMessageQ(usbToHostQueue), NULL);
 
   /* definition and creation of usbFromHostQueue */
@@ -329,20 +334,13 @@ void SystemClock_Config(void)
   PeriphClkInit.I2c2ClockSelection = RCC_I2C2CLKSOURCE_HSI;
   PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_HSI;
   PeriphClkInit.I2c4ClockSelection = RCC_I2C4CLKSOURCE_HSI;
-  PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLLSAI1;
-  PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLSAI1;
-  PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_PLLSAI1;
+  PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLL;
+  PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLL;
+  PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_SYSCLK;
   PeriphClkInit.Dfsdm1ClockSelection = RCC_DFSDM1CLKSOURCE_PCLK;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
   PeriphClkInit.RngClockSelection = RCC_RNGCLKSOURCE_HSI48;
-  PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_HSE;
-  PeriphClkInit.PLLSAI1.PLLSAI1M = 2;
-  PeriphClkInit.PLLSAI1.PLLSAI1N = 16;
-  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV2;
-  PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV2;
-  PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV2;
-  PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_SAI1CLK|RCC_PLLSAI1_ADC1CLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -431,6 +429,50 @@ static void MX_ADC1_Init(void)
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/* ADC2 init function */
+static void MX_ADC2_Init(void)
+{
+
+  ADC_ChannelConfTypeDef sConfig;
+
+    /**Common config 
+    */
+  hadc2.Instance = ADC2;
+  hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc2.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc2.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc2.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc2.Init.LowPowerAutoWait = DISABLE;
+  hadc2.Init.ContinuousConvMode = DISABLE;
+  hadc2.Init.NbrOfConversion = 1;
+  hadc2.Init.DiscontinuousConvMode = DISABLE;
+  hadc2.Init.NbrOfDiscConversion = 1;
+  hadc2.Init.ExternalTrigConv = ADC_EXTERNALTRIG_EXT_IT11;
+  hadc2.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_RISING;
+  hadc2.Init.DMAContinuousRequests = DISABLE;
+  hadc2.Init.Overrun = ADC_OVR_DATA_PRESERVED;
+  hadc2.Init.OversamplingMode = DISABLE;
+  if (HAL_ADC_Init(&hadc2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configure Regular Channel 
+    */
+  sConfig.Channel = ADC_CHANNEL_9;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+  sConfig.Offset = 0;
+  if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -963,6 +1005,66 @@ static void MX_TIM1_Init(void)
 
 }
 
+/* TIM3 init function */
+static void MX_TIM3_Init(void)
+{
+
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+  TIM_OC_InitTypeDef sConfigOC;
+
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 0;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 0;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  HAL_TIM_MspPostInit(&htim3);
+
+}
+
 /* TIM5 init function */
 static void MX_TIM5_Init(void)
 {
@@ -1220,42 +1322,42 @@ static void MX_GPIO_Init(void)
   HAL_PWREx_EnableVddIO2();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3 
-                          |GPIO_PIN_9, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin 
+                          |MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOE, MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3|GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PE2 PE4 PE5 PE7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
+  /*Configure GPIO pins : PE2 PE4 PE5 MCU_IN_AX_IRQ_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5|MCU_IN_AX_IRQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PF2 PF13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_13;
+  /*Configure GPIO pin : PF2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PF10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
+  /*Configure GPIO pin : MCU_EVENTOUT_PF10_Pin */
+  GPIO_InitStruct.Pin = MCU_EVENTOUT_PF10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_EVENTOUT_PF10_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC0 PC1 PC2 PC3 
-                           PC9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3 
-                          |GPIO_PIN_9;
+  /*Configure GPIO pins : MCU_OUT_VDD12_EN_Pin MCU_OUT_HICUR_EN_Pin MCU_OUT_VUSB_EN_Pin MCU_OUT_20MHZ_EN_Pin 
+                           MCU_OUT_AUDIO_DAC_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin 
+                          |MCU_OUT_AUDIO_DAC_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -1267,78 +1369,96 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PF12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  /*Configure GPIO pin : MCU_OUT_LCD_nRST_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_LCD_nRST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_OUT_LCD_nRST_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PG0 PG1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  /*Configure GPIO pin : MCU_IN_AX_GPIO1_Pin */
+  GPIO_InitStruct.Pin = MCU_IN_AX_GPIO1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_IN_AX_GPIO1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PE11 PE12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12;
+  /*Configure GPIO pins : MCU_OUT_AX_SEL_Pin MCU_OUT_SX_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB10 PB12 PB14 PB3 
+  /*Configure GPIO pins : MCU_IN_RE_I_Pin MCU_IN_RE_Q_Pin MCU_IN_RE_PB_Pin PB3 
                            PB5 PB6 PB7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_12|GPIO_PIN_14|GPIO_PIN_3 
+  GPIO_InitStruct.Pin = MCU_IN_RE_I_Pin|MCU_IN_RE_Q_Pin|MCU_IN_RE_PB_Pin|GPIO_PIN_3 
                           |GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : MCU_INOUT_SX_NRESET_Pin */
+  GPIO_InitStruct.Pin = MCU_INOUT_SX_NRESET_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(MCU_INOUT_SX_NRESET_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PD9 PD10 PD14 PD15 
-                           PD0 PD1 PD2 PD7 */
+                           MCU_IN_AUDIO_ADC_MDAT1_Pin MCU_IN_AUDIO_ADC_MDAT0_Pin MCU_IN_AUDIO_ADC_nDR_Pin */
   GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_14|GPIO_PIN_15 
-                          |GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_7;
+                          |MCU_IN_AUDIO_ADC_MDAT1_Pin|MCU_IN_AUDIO_ADC_MDAT0_Pin|MCU_IN_AUDIO_ADC_nDR_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PG4 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  /*Configure GPIO pins : MCU_EXTI2_SX_DIO0_TXRXDONE_Pin MCU_EXTI3_SX_DIO1_RXTO_Pin */
+  GPIO_InitStruct.Pin = MCU_EXTI2_SX_DIO0_TXRXDONE_Pin|MCU_EXTI3_SX_DIO1_RXTO_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : MCU_EVENTOUT_PG4_Pin */
+  GPIO_InitStruct.Pin = MCU_EVENTOUT_PG4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_EVENTOUT_PG4_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PC8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  /*Configure GPIO pin : MCU_IN_AUDIO_DAC_nRDY_Pin */
+  GPIO_InitStruct.Pin = MCU_IN_AUDIO_DAC_nRDY_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_IN_AUDIO_DAC_nRDY_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  /*Configure GPIO pin : MCU_MCO_Pin */
+  GPIO_InitStruct.Pin = MCU_MCO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_MCO_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PD3 PD5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_5;
+  /*Configure GPIO pins : MCU_OUT_AUDIO_ADC_nRESET_Pin MCU_OUT_AUDIO_ADC_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PE0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  /*Configure GPIO pin : MCU_EXTI7_INTR_SI5338_Pin */
+  GPIO_InitStruct.Pin = MCU_EXTI7_INTR_SI5338_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(MCU_EXTI7_INTR_SI5338_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : MCU_EVENTOUT_PE0_Pin */
+  GPIO_InitStruct.Pin = MCU_EVENTOUT_PE0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_Init(MCU_EVENTOUT_PE0_GPIO_Port, &GPIO_InitStruct);
 
 }
 
