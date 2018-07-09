@@ -29471,7 +29471,6 @@ SPI</text>
 <pinref part="L0856" gate="G$1" pin="1"/>
 <pinref part="L0854" gate="G$1" pin="2"/>
 <wire x1="172.72" y1="91.44" x2="175.26" y2="91.44" width="0.1524" layer="91"/>
-<junction x="172.72" y="91.44"/>
 </segment>
 </net>
 <net name="SX_RFO_LF_3" class="0">
