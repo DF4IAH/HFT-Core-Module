@@ -26028,8 +26028,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0863" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
 <part name="C0865" library="rcl" deviceset="C-EU" device="C0603" value="1.8pF"/>
 <part name="GND0862" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0851" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C0852" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0851" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
+<part name="C0852" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
 <part name="GND0851" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0852" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0853" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
@@ -26060,21 +26060,21 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="U0911" library="df4iah_rf" deviceset="PE4259" device=""/>
 <part name="U0921" library="df4iah_rf" deviceset="PE4259" device=""/>
 <part name="U0991" library="df4iah_rf" deviceset="PE4259" device=""/>
-<part name="C0991" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C0992" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C0993" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0991" library="rcl" deviceset="C-EU" device="C0603" value="100pF HiQ"/>
+<part name="C0992" library="rcl" deviceset="C-EU" device="C0603" value="330pF HiQ"/>
+<part name="C0993" library="rcl" deviceset="C-EU" device="C0603" value="330pF HiQ"/>
 <part name="GND0921" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0911" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0991" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0994" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C0996" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="L0995" library="rcl" deviceset="R-US_" device="R0603" value="10nH"/>
+<part name="C0994" library="rcl" deviceset="C-EU" device="C0603" value="0nF HiQ"/>
+<part name="C0996" library="rcl" deviceset="C-EU" device="C0603" value="0nF HiQ"/>
+<part name="L0995" library="rcl" deviceset="R-US_" device="R0603" value="0R"/>
 <part name="GND0992" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0911" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C0921" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0911" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="C0921" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 <part name="GND0912" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0922" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0999" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0999" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 <part name="GND0999" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R0277" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 </parts>
@@ -29837,7 +29837,7 @@ SPI</text>
 <sheet>
 <description>VHF/UHF SX1276 - ch 1 - HF sw</description>
 <plain>
-<text x="50.8" y="22.86" size="1.778" layer="97">HF: high / LF: low</text>
+<text x="50.8" y="25.4" size="1.778" layer="97">HF: high / LF: low</text>
 </plain>
 <instances>
 <instance part="FRAME_09" gate="G$1" x="0" y="0"/>
@@ -30045,9 +30045,9 @@ SPI</text>
 <segment>
 <pinref part="U0991" gate="G$1" pin="CTRL"/>
 <wire x1="165.1" y1="78.74" x2="170.18" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="78.74" x2="170.18" y2="25.4" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="25.4" x2="45.72" y2="25.4" width="0.1524" layer="91"/>
-<label x="45.72" y="25.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="170.18" y1="78.74" x2="170.18" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="27.94" x2="45.72" y2="27.94" width="0.1524" layer="91"/>
+<label x="45.72" y="27.94" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -31333,6 +31333,7 @@ I2C addr: 0x7C/0x7D</text>
 <text x="149.86" y="162.56" size="2.54" layer="97" ratio="15">RH sensor: Sensirion SHT3x</text>
 <text x="160.02" y="93.98" size="1.778" layer="97">I2C address = 1000100</text>
 <text x="195.58" y="81.28" size="2.54" layer="97" ratio="15">I2C4 Termination</text>
+<text x="127" y="25.4" size="1.778" layer="97">I2C2_INT</text>
 </plain>
 <instances>
 <instance part="FRAME_13" gate="G$1" x="0" y="0"/>
@@ -31479,13 +31480,6 @@ I2C addr: 0x7C/0x7D</text>
 <label x="142.24" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="I2C2_INT" class="0">
-<segment>
-<label x="142.24" y="25.4" size="1.778" layer="95" xref="yes"/>
-<pinref part="R1301" gate="G$1" pin="2"/>
-<wire x1="101.6" y1="25.4" x2="142.24" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="MPU_INT" class="0">
 <segment>
 <pinref part="U1301" gate="G$1" pin="INT"/>
@@ -31563,6 +31557,13 @@ I2C addr: 0x7C/0x7D</text>
 <junction x="195.58" y="106.68"/>
 <pinref part="U1321" gate="G$1" pin="!RESET"/>
 <wire x1="195.58" y1="111.76" x2="190.5" y2="111.76" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="PF13" class="0">
+<segment>
+<label x="142.24" y="25.4" size="1.778" layer="95" xref="yes"/>
+<pinref part="R1301" gate="G$1" pin="2"/>
+<wire x1="101.6" y1="25.4" x2="142.24" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -34160,22 +34161,22 @@ USB host (OTG) interface</text>
 <approved hash="102,4,76.2,38.1,SW,VDD12_SW,,,,"/>
 <approved hash="102,6,71.12,58.42,VOUT,+3V0_20MHZ_VCTCXO,,,,"/>
 <approved hash="102,14,119.38,109.22,VOUT,SPV_VOUT,,,,"/>
-<approved hash="104,15,132.08,96.52,U1701,8,VDDUSB,,,"/>
+<approved hash="104,15,132.08,96.52,U1501,8,VDDUSB,,,"/>
 <approved hash="104,6,180.34,149.86,U0631,VCC_3V0,+3V0_20MHZ_VCTCXO,,,"/>
 <approved hash="104,6,35.56,58.42,U0601,VIN,+3V3,,,"/>
 <approved hash="104,6,185.42,60.96,U0641,V+,+3V3_20MHZ,,,"/>
 <approved hash="104,6,185.42,45.72,U0641,V-,GND,,,"/>
-<approved hash="104,18,132.08,96.52,U1901,8,+3V3,,,"/>
-<approved hash="104,17,132.08,96.52,U2001,8,+3V3,,,"/>
-<approved hash="104,20,180.34,99.06,X1301,J_VUSB,PA9,,,"/>
+<approved hash="104,18,132.08,96.52,U1801,8,+3V3,,,"/>
+<approved hash="104,17,132.08,96.52,U1701,8,+3V3,,,"/>
+<approved hash="104,20,180.34,99.06,X2001,J_VUSB,PA9,,,"/>
 <approved hash="104,10,60.96,129.54,U0901,VDD_IO,+3V3,,,"/>
-<approved hash="104,16,96.52,96.52,U1801,VIN,+5V0,,,"/>
-<approved hash="104,14,83.82,93.98,U1602,MPP_SET,VSOL,,,"/>
-<approved hash="104,19,132.08,96.52,U2101,8,+3V3,,,"/>
+<approved hash="104,16,96.52,96.52,U1601,VIN,+5V0,,,"/>
+<approved hash="104,14,83.82,93.98,U1402,MPP_SET,VSOL,,,"/>
+<approved hash="104,19,132.08,96.52,U1901,8,+3V3,,,"/>
 <approved hash="104,4,40.64,38.1,U0431,VIN,+3V3,,,"/>
 <approved hash="104,6,66.04,142.24,U0611,VDD,+3V3_20MHZ,,,"/>
-<approved hash="104,12,119.38,127,U0801,VSS,GND,,,"/>
-<approved hash="104,12,114.3,127,U0801,VDD,+3V3,,,"/>
+<approved hash="104,12,119.38,127,U1201,VSS,GND,,,"/>
+<approved hash="104,12,114.3,127,U1201,VDD,+3V3,,,"/>
 <approved hash="104,7,101.6,63.5,U0701,VDD,+3V3_HICUR,,,"/>
 <approved hash="104,7,121.92,63.5,U0701,VDDO3,+3V3_HICUR,,,"/>
 <approved hash="104,7,142.24,88.9,U0701,VDDO2,+3V3_HICUR,,,"/>
@@ -34191,25 +34192,24 @@ USB host (OTG) interface</text>
 <approved hash="104,11,180.34,27.94,U1141,V-,GND,,,"/>
 <approved hash="104,11,96.52,152.4,U1101,AVDD,MVP3911_AVDD,,,"/>
 <approved hash="104,11,101.6,152.4,U1101,DVDD,+3V3_HICUR,,,"/>
+<approved hash="104,13,78.74,66.04,U1301,VDD,+3V3,,,"/>
+<approved hash="104,13,78.74,63.5,U1301,VDDIO,+3V3,,,"/>
+<approved hash="104,13,45.72,134.62,U1311,VDD,+3V3,,,"/>
+<approved hash="104,13,190.5,106.68,U1321,VDD,+3V3,,,"/>
 <approved hash="106,4,35.56,137.16,+1V5_UNUSED,,,,,"/>
 <approved hash="106,4,45.72,137.16,+1V8_UNUSED,,,,,"/>
 <approved hash="106,4,55.88,137.16,+2V5_UNUSED,,,,,"/>
-<approved hash="106,7,111.76,45.72,CLK3B,,,,,"/>
 <approved hash="106,1,139.7,38.1,PA1,,,,,"/>
 <approved hash="106,1,144.78,38.1,PA3,,,,,"/>
 <approved hash="106,1,149.86,38.1,PA4,,,,,"/>
 <approved hash="106,1,152.4,38.1,PA5,,,,,"/>
-<approved hash="106,1,157.48,38.1,PA7,,,,,"/>
 <approved hash="106,1,144.78,160.02,PA15,,,,,"/>
-<approved hash="106,1,170.18,38.1,PB0,,,,,"/>
 <approved hash="106,1,175.26,38.1,PB2,,,,,"/>
 <approved hash="106,1,78.74,160.02,PB4,,,,,"/>
 <approved hash="106,1,60.96,160.02,PB8,,,,,"/>
 <approved hash="106,1,58.42,160.02,PB9,,,,,"/>
 <approved hash="106,1,228.6,160.02,PB15,,,,,"/>
-<approved hash="106,1,177.8,160.02,PC6,,,,,"/>
 <approved hash="106,1,175.26,160.02,PC7,,,,,"/>
-<approved hash="106,1,223.52,160.02,PD8,,,,,"/>
 <approved hash="106,1,50.8,160.02,PE1,,,,,"/>
 <approved hash="106,1,55.88,38.1,PE6,,,,,"/>
 <approved hash="106,1,88.9,38.1,PF4,,,,,"/>
@@ -34220,17 +34220,19 @@ USB host (OTG) interface</text>
 <approved hash="106,1,104.14,38.1,PF9,,,,,"/>
 <approved hash="106,1,180.34,38.1,PF11,,,,,"/>
 <approved hash="106,1,193.04,38.1,PF15,,,,,"/>
-<approved hash="106,1,198.12,160.02,PG2,,,,,"/>
-<approved hash="106,1,195.58,160.02,PG3,,,,,"/>
 <approved hash="106,1,190.5,160.02,PG5,,,,,"/>
 <approved hash="106,1,187.96,160.02,PG6,,,,,"/>
 <approved hash="106,7,68.58,111.76,SI5338_IN_CLK1,,,,,"/>
 <approved hash="106,7,68.58,104.14,SI5338_IN_CLK2,,,,,"/>
+<approved hash="106,8,175.26,48.26,SX_DIO2_2,,,,,"/>
+<approved hash="106,8,160.02,43.18,SX_DIO3_2,,,,,"/>
+<approved hash="106,8,175.26,38.1,SX_DIO4_2,,,,,"/>
+<approved hash="106,8,160.02,33.02,SX_DIO5_2,,,,,"/>
 <approved hash="113,1,247.404,119.38,SJ0121,,,,,"/>
 <approved hash="113,4,127,171.696,SJ0401,,,,,"/>
 <approved hash="113,3,78.74,65.2187,X0301,,,,,"/>
 <approved hash="113,3,141.915,140.149,X0322,,,,,"/>
-<approved hash="113,20,189.52,95.2288,X1301,,,,,"/>
+<approved hash="113,20,189.52,95.2288,X2001,,,,,"/>
 <approved hash="113,4,64.5245,132.08,SJ0421,,,,,"/>
 <approved hash="113,4,54.3645,132.08,SJ0422,,,,,"/>
 <approved hash="113,4,44.2045,132.08,SJ0423,,,,,"/>

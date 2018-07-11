@@ -5299,8 +5299,8 @@ Your Eurocircuits Team
 <element name="C0864" library="rcl" package="C0603" value="1.2pF" x="79.375" y="23.495" rot="MR180"/>
 <element name="C0863" library="rcl" package="C0603" value="4.7pF" x="78.105" y="27.305" rot="MR90"/>
 <element name="C0865" library="rcl" package="C0603" value="1.8pF" x="80.01" y="27.305" rot="MR90"/>
-<element name="C0851" library="rcl" package="C0603" value="" x="69.85" y="17.145" rot="MR0"/>
-<element name="C0852" library="rcl" package="C0603" value="" x="72.39" y="22.86" rot="MR270"/>
+<element name="C0851" library="rcl" package="C0603" value="47pF" x="69.85" y="17.145" rot="MR0"/>
+<element name="C0852" library="rcl" package="C0603" value="47pF" x="72.39" y="22.86" rot="MR270"/>
 <element name="C0853" library="rcl" package="C0603" value="4.7pF" x="69.85" y="15.875" rot="MR0"/>
 <element name="L0856" library="rcl" package="R0603" value="0R" x="75.565" y="14.605" rot="MR180"/>
 <element name="L0857" library="rcl" package="R0603" value="12nH" x="78.74" y="14.605" rot="MR180"/>
@@ -5327,15 +5327,15 @@ Your Eurocircuits Team
 <element name="U0911" library="df4iah_rf" package="SC-70_6-LEAD_2X1MM25_0P65" value="PE4259" x="-31.75" y="-25.4"/>
 <element name="U0921" library="df4iah_rf" package="SC-70_6-LEAD_2X1MM25_0P65" value="PE4259" x="-36.83" y="-25.4"/>
 <element name="U0991" library="df4iah_rf" package="SC-70_6-LEAD_2X1MM25_0P65" value="PE4259" x="-41.91" y="-25.4"/>
-<element name="C0991" library="rcl" package="C0603" value="" x="-40.64" y="-31.75"/>
-<element name="C0992" library="rcl" package="C0603" value="" x="-40.64" y="-35.56"/>
-<element name="C0993" library="rcl" package="C0603" value="" x="-40.64" y="-39.37"/>
-<element name="C0994" library="rcl" package="C0603" value="" x="-40.64" y="-43.18"/>
-<element name="C0996" library="rcl" package="C0603" value="" x="-40.64" y="-46.99"/>
-<element name="L0995" library="rcl" package="R0603" value="10nH" x="-41.91" y="-50.8"/>
-<element name="C0911" library="rcl" package="C0603" value="" x="-40.64" y="-55.88"/>
-<element name="C0921" library="rcl" package="C0603" value="" x="-40.64" y="-59.69"/>
-<element name="C0999" library="rcl" package="C0603" value="" x="-40.64" y="-63.5"/>
+<element name="C0991" library="rcl" package="C0603" value="100pF HiQ" x="-40.64" y="-31.75"/>
+<element name="C0992" library="rcl" package="C0603" value="330pF HiQ" x="-40.64" y="-35.56"/>
+<element name="C0993" library="rcl" package="C0603" value="330pF HiQ" x="-40.64" y="-39.37"/>
+<element name="C0994" library="rcl" package="C0603" value="0nF HiQ" x="-40.64" y="-43.18"/>
+<element name="C0996" library="rcl" package="C0603" value="0nF HiQ" x="-40.64" y="-46.99"/>
+<element name="L0995" library="rcl" package="R0603" value="0R" x="-41.91" y="-50.8"/>
+<element name="C0911" library="rcl" package="C0603" value="1nF" x="-40.64" y="-55.88"/>
+<element name="C0921" library="rcl" package="C0603" value="1nF" x="-40.64" y="-59.69"/>
+<element name="C0999" library="rcl" package="C0603" value="1nF" x="-40.64" y="-63.5"/>
 <element name="R0277" library="rcl" package="R0603" value="47R" x="-41.91" y="-67.31"/>
 </elements>
 <signals>
@@ -6314,6 +6314,8 @@ Your Eurocircuits Team
 </signal>
 <signal name="PF13">
 <contactref element="U0111" pad="53"/>
+<contactref element="R1301" pad="2"/>
+<wire x1="46.99" y1="18.2" x2="65.34" y2="51.605" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="PF14">
 <contactref element="U0111" pad="54"/>
@@ -8018,9 +8020,6 @@ Your Eurocircuits Team
 <contactref element="U1301" pad="10"/>
 <contactref element="C1303" pad="1"/>
 <wire x1="48.26" y1="19.9" x2="48.06" y2="21.995" width="0" layer="19" extent="16-16"/>
-</signal>
-<signal name="I2C2_INT">
-<contactref element="R1301" pad="2"/>
 </signal>
 <signal name="MPU_INT">
 <contactref element="U1301" pad="12"/>
