@@ -24,6 +24,7 @@ UsedLibrary="lbr/Adafruit-Eagle-Library-master/adafruit.lbr"
 UsedLibrary="lbr/df4iah_bipoltransistor.lbr"
 UsedLibrary="lbr/df4iah_holes.lbr"
 UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V0/CAD/Eagle/lbr/df4iah_crystal.lbr"
+UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V0/CAD/Eagle/lbr/df4iah_c-trimm.lbr"
 
 [Win_1]
 Type="Control Panel"
@@ -37,7 +38,7 @@ Loc="0 0 1919 1017"
 State=1
 Number=2
 File="HFT-Core-Module_1V0.brd"
-View="67.7507 7.6488 86.8184 27.6231"
+View="13.9103 -7.02936 87.4738 70.0321"
 WireWidths=" 0 0.254 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -121,9 +122,9 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=97
-Views=" 1: -5.74385 -4.10556 266.52 182.968 9: -5.74385 -4.10556 266.52 182.968"
-Sheet="1"
+Layer=91
+Views=" 1: -5.74385 -4.10556 266.52 182.968 8: -5.74385 -4.10556 266.52 182.968"
+Sheet="9"
 
 [Desktop]
 Screen="1920 1080"
