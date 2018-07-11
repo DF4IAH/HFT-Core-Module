@@ -23536,6 +23536,64 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <rectangle x1="1.495" y1="1.495" x2="1.995" y2="1.995" layer="31"/>
 <rectangle x1="-1.995" y1="1.495" x2="-1.495" y2="1.995" layer="31"/>
 </package>
+<package name="SC-70_6-LEAD_2X1MM25_0P65">
+<description>&lt;h3&gt;6-lead SC-70 -  2.05 x 1.25 mm - 0.65P&lt;/h3&gt;</description>
+<wire x1="-1" y1="-0.625" x2="1" y2="-0.625" width="0.127" layer="51"/>
+<wire x1="-1" y1="0.625" x2="-1" y2="-0.625" width="0.127" layer="51"/>
+<wire x1="1" y1="-0.625" x2="1" y2="0.625" width="0.127" layer="51"/>
+<wire x1="1" y1="0.625" x2="-1" y2="0.625" width="0.127" layer="51"/>
+<circle x="-0.75" y="-0.35" radius="0.1" width="0.025" layer="21"/>
+<text x="-1.232" y="0.12" size="0.6096" layer="25" font="vector" ratio="10" rot="R90" align="bottom-center">&gt;Name</text>
+<text x="1.23" y="-0.47" size="0.6096" layer="27" font="vector" rot="R90" align="top-center">&gt;Value</text>
+<smd name="2" x="0" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="1" x="-0.65" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="3" x="0.65" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="4" x="0.65" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<smd name="5" x="0" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<smd name="6" x="-0.65" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.75" y="-1.175"/>
+<vertex x="-0.75" y="-0.975" curve="-90"/>
+<vertex x="-0.65" y="-0.875" curve="-90"/>
+<vertex x="-0.55" y="-0.975"/>
+<vertex x="-0.55" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.1" y="-1.175"/>
+<vertex x="-0.1" y="-0.975" curve="-90"/>
+<vertex x="0" y="-0.875" curve="-90"/>
+<vertex x="0.1" y="-0.975"/>
+<vertex x="0.1" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.55" y="-1.175"/>
+<vertex x="0.55" y="-0.975" curve="-90"/>
+<vertex x="0.65" y="-0.875" curve="-90"/>
+<vertex x="0.75" y="-0.975"/>
+<vertex x="0.75" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.55" y="1.175"/>
+<vertex x="-0.55" y="0.975" curve="-90"/>
+<vertex x="-0.65" y="0.875" curve="-90"/>
+<vertex x="-0.75" y="0.975"/>
+<vertex x="-0.75" y="1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.1" y="1.175"/>
+<vertex x="0.1" y="0.975" curve="-90"/>
+<vertex x="0" y="0.875" curve="-90"/>
+<vertex x="-0.1" y="0.975"/>
+<vertex x="-0.1" y="1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.75" y="1.175"/>
+<vertex x="0.75" y="0.975" curve="-90"/>
+<vertex x="0.65" y="0.875" curve="-90"/>
+<vertex x="0.55" y="0.975"/>
+<vertex x="0.55" y="1.175"/>
+</polygon>
+</package>
 </packages>
 <symbols>
 <symbol name="AX5243">
@@ -23616,6 +23674,32 @@ Reference: &lt;a href="https://www.semtech.com/products/wireless-rf/lora-transce
 <pin name="RFO_LF" x="22.86" y="7.62" length="middle" direction="pas" rot="R180"/>
 <pin name="VBAT_DIG" x="-22.86" y="27.94" length="middle" direction="pas"/>
 <pin name="GND@PAD" x="-22.86" y="-5.08" length="middle" direction="pwr"/>
+</symbol>
+<symbol name="PE4259">
+<description>&lt;b&gt;pSemi  PE4259&lt;/b&gt;&lt;p&gt;
+SPDT High Power UltraCMOS®&lt;br/&gt;
+10 MHz–3.0 GHz RF Switch
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Low insertion loss: 0.35 dB @ 1000 MHz, 0.5 dB @ 2000 MHz&lt;/li&gt;
+&lt;li&gt;Isolation of 30 dB @ 1000 MHz&lt;/li&gt;
+&lt;li&gt;Typical input 1 dB compression point of +33.5 dBm&lt;/li&gt;
+&lt;li&gt;6-lead SC-70 package&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Reference: &lt;a href="http://www.psemi.com/products/rf-switches/pe4259"&gt;http://www.psemi.com/products/rf-switches/pe4259&lt;/a&gt;</description>
+<wire x1="-12.7" y1="20.32" x2="-12.7" y2="-20.32" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="-20.32" x2="12.7" y2="-20.32" width="0.254" layer="94"/>
+<wire x1="12.7" y1="-20.32" x2="12.7" y2="20.32" width="0.254" layer="94"/>
+<wire x1="12.7" y1="20.32" x2="-12.7" y2="20.32" width="0.254" layer="94"/>
+<pin name="GND" x="-17.78" y="0" length="middle" direction="pwr"/>
+<text x="0" y="23.114" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-23.114" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
+<pin name="RF1" x="-17.78" y="12.7" length="middle" direction="pas"/>
+<pin name="RF2" x="-17.78" y="-12.7" length="middle" direction="pas"/>
+<pin name="CTRL" x="17.78" y="-12.7" length="middle" direction="in" rot="R180"/>
+<pin name="VDD_!CTRL" x="17.78" y="12.7" length="middle" direction="pas" rot="R180"/>
+<pin name="RFC" x="17.78" y="0" length="middle" direction="pas" rot="R180"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -23703,6 +23787,38 @@ Reference: &lt;a href="https://www.semtech.com/products/wireless-rf/lora-transce
 <connect gate="G$1" pin="VR_PA" pad="25"/>
 <connect gate="G$1" pin="XTA" pad="5"/>
 <connect gate="G$1" pin="XTB" pad="6"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="PE4259" prefix="U">
+<description>&lt;b&gt;pSemi  PE4259&lt;/b&gt;&lt;p&gt;
+SPDT High Power UltraCMOS®&lt;br/&gt;
+10 MHz–3.0 GHz RF Switch
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Low insertion loss: 0.35 dB @ 1000 MHz, 0.5 dB @ 2000 MHz&lt;/li&gt;
+&lt;li&gt;Isolation of 30 dB @ 1000 MHz&lt;/li&gt;
+&lt;li&gt;Typical input 1 dB compression point of +33.5 dBm&lt;/li&gt;
+&lt;li&gt;6-lead SC-70 package&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Reference: &lt;a href="http://www.psemi.com/products/rf-switches/pe4259"&gt;http://www.psemi.com/products/rf-switches/pe4259&lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="PE4259" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SC-70_6-LEAD_2X1MM25_0P65">
+<connects>
+<connect gate="G$1" pin="CTRL" pad="4"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="RF1" pad="1"/>
+<connect gate="G$1" pin="RF2" pad="3"/>
+<connect gate="G$1" pin="RFC" pad="5"/>
+<connect gate="G$1" pin="VDD_!CTRL" pad="6"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -25941,6 +26057,26 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0804" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
 <part name="R0806" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
 <part name="FRAME_09" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
+<part name="U0911" library="df4iah_rf" deviceset="PE4259" device=""/>
+<part name="U0921" library="df4iah_rf" deviceset="PE4259" device=""/>
+<part name="U0991" library="df4iah_rf" deviceset="PE4259" device=""/>
+<part name="C0991" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0992" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0993" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="GND0921" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="GND0911" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="GND0991" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0994" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0996" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="L0995" library="rcl" deviceset="R-US_" device="R0603" value="10nH"/>
+<part name="GND0992" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0911" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C0921" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="GND0912" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="GND0922" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0999" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="GND0999" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="R0277" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 </parts>
 <sheets>
 <sheet>
@@ -27035,6 +27171,7 @@ Digikey: 497-17999-ND</text>
 <instance part="R0294" gate="G$1" x="104.14" y="63.5"/>
 <instance part="R0295" gate="G$1" x="104.14" y="55.88"/>
 <instance part="R0296" gate="G$1" x="104.14" y="48.26"/>
+<instance part="R0277" gate="G$1" x="167.64" y="121.92"/>
 </instances>
 <busses>
 </busses>
@@ -27707,6 +27844,20 @@ Digikey: 497-17999-ND</text>
 <segment>
 <wire x1="228.6" y1="106.68" x2="254" y2="106.68" width="0.1524" layer="91"/>
 <label x="228.6" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PG0" class="0">
+<segment>
+<pinref part="R0277" gate="G$1" pin="1"/>
+<wire x1="162.56" y1="121.92" x2="160.02" y2="121.92" width="0.1524" layer="91"/>
+<label x="160.02" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MCU_SX_TX_RX_CTRL" class="0">
+<segment>
+<pinref part="R0277" gate="G$1" pin="2"/>
+<wire x1="172.72" y1="121.92" x2="175.26" y2="121.92" width="0.1524" layer="91"/>
+<label x="175.26" y="121.92" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -29686,13 +29837,219 @@ SPI</text>
 <sheet>
 <description>VHF/UHF SX1276 - ch 1 - HF sw</description>
 <plain>
+<text x="50.8" y="22.86" size="1.778" layer="97">HF: high / LF: low</text>
 </plain>
 <instances>
 <instance part="FRAME_09" gate="G$1" x="0" y="0"/>
+<instance part="U0911" gate="G$1" x="63.5" y="124.46"/>
+<instance part="U0921" gate="G$1" x="63.5" y="55.88"/>
+<instance part="U0991" gate="G$1" x="147.32" y="91.44"/>
+<instance part="C0991" gate="G$1" x="116.84" y="104.14" rot="R90"/>
+<instance part="C0992" gate="G$1" x="116.84" y="78.74" rot="R90"/>
+<instance part="C0993" gate="G$1" x="175.26" y="91.44" rot="R90"/>
+<instance part="GND0921" gate="1" x="43.18" y="50.8"/>
+<instance part="GND0911" gate="1" x="43.18" y="119.38"/>
+<instance part="GND0991" gate="1" x="127" y="86.36"/>
+<instance part="C0994" gate="G$1" x="187.96" y="83.82"/>
+<instance part="C0996" gate="G$1" x="213.36" y="83.82"/>
+<instance part="L0995" gate="G$1" x="200.66" y="91.44"/>
+<instance part="GND0992" gate="1" x="200.66" y="71.12"/>
+<instance part="C0911" gate="G$1" x="96.52" y="137.16" rot="R90"/>
+<instance part="C0921" gate="G$1" x="96.52" y="68.58" rot="R90"/>
+<instance part="GND0912" gate="1" x="106.68" y="132.08"/>
+<instance part="GND0922" gate="1" x="109.22" y="63.5"/>
+<instance part="C0999" gate="G$1" x="175.26" y="104.14" rot="R90"/>
+<instance part="GND0999" gate="1" x="185.42" y="99.06"/>
 </instances>
 <busses>
 </busses>
 <nets>
+<net name="SX_RFO_HF_4" class="0">
+<segment>
+<pinref part="U0911" gate="G$1" pin="RF1"/>
+<wire x1="45.72" y1="137.16" x2="35.56" y2="137.16" width="0.1524" layer="91"/>
+<label x="35.56" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SX_RFI_HF_5" class="0">
+<segment>
+<pinref part="U0911" gate="G$1" pin="RF2"/>
+<wire x1="45.72" y1="111.76" x2="35.56" y2="111.76" width="0.1524" layer="91"/>
+<label x="35.56" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SX_RFO_LF_5" class="0">
+<segment>
+<pinref part="U0921" gate="G$1" pin="RF1"/>
+<wire x1="45.72" y1="68.58" x2="35.56" y2="68.58" width="0.1524" layer="91"/>
+<label x="35.56" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SX_RFI_LF_5" class="0">
+<segment>
+<pinref part="U0921" gate="G$1" pin="RF2"/>
+<wire x1="45.72" y1="43.18" x2="35.56" y2="43.18" width="0.1524" layer="91"/>
+<label x="35.56" y="43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SX_RXTX_2" class="0">
+<segment>
+<wire x1="35.56" y1="88.9" x2="86.36" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="88.9" x2="86.36" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="U0911" gate="G$1" pin="CTRL"/>
+<wire x1="86.36" y1="111.76" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="88.9" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
+<junction x="86.36" y="88.9"/>
+<pinref part="U0921" gate="G$1" pin="CTRL"/>
+<wire x1="86.36" y1="43.18" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
+<label x="35.56" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SX_HF_2" class="0">
+<segment>
+<pinref part="U0991" gate="G$1" pin="RF1"/>
+<pinref part="C0991" gate="G$1" pin="2"/>
+<wire x1="129.54" y1="104.14" x2="121.92" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SX_LF_2" class="0">
+<segment>
+<pinref part="U0991" gate="G$1" pin="RF2"/>
+<pinref part="C0992" gate="G$1" pin="2"/>
+<wire x1="129.54" y1="78.74" x2="121.92" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SX_HF_1" class="0">
+<segment>
+<pinref part="U0911" gate="G$1" pin="RFC"/>
+<wire x1="81.28" y1="124.46" x2="104.14" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="124.46" x2="104.14" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="C0991" gate="G$1" pin="1"/>
+<wire x1="104.14" y1="104.14" x2="114.3" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SX_LF_1" class="0">
+<segment>
+<pinref part="U0921" gate="G$1" pin="RFC"/>
+<wire x1="81.28" y1="55.88" x2="104.14" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="55.88" x2="104.14" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="C0992" gate="G$1" pin="1"/>
+<wire x1="104.14" y1="78.74" x2="114.3" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SX_ANT_1" class="0">
+<segment>
+<pinref part="U0991" gate="G$1" pin="RFC"/>
+<wire x1="165.1" y1="91.44" x2="172.72" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="C0993" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="SX_ANT_2" class="0">
+<segment>
+<pinref part="C0993" gate="G$1" pin="2"/>
+<pinref part="L0995" gate="G$1" pin="1"/>
+<wire x1="180.34" y1="91.44" x2="187.96" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="C0994" gate="G$1" pin="1"/>
+<wire x1="187.96" y1="91.44" x2="195.58" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="91.44" x2="187.96" y2="86.36" width="0.1524" layer="91"/>
+<junction x="187.96" y="91.44"/>
+</segment>
+</net>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND0911" gate="1" pin="GND"/>
+<wire x1="43.18" y1="121.92" x2="43.18" y2="124.46" width="0.1524" layer="91"/>
+<pinref part="U0911" gate="G$1" pin="GND"/>
+<wire x1="43.18" y1="124.46" x2="45.72" y2="124.46" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND0921" gate="1" pin="GND"/>
+<wire x1="43.18" y1="53.34" x2="43.18" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="U0921" gate="G$1" pin="GND"/>
+<wire x1="43.18" y1="55.88" x2="45.72" y2="55.88" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND0991" gate="1" pin="GND"/>
+<wire x1="127" y1="88.9" x2="127" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="U0991" gate="G$1" pin="GND"/>
+<wire x1="127" y1="91.44" x2="129.54" y2="91.44" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND0992" gate="1" pin="GND"/>
+<wire x1="200.66" y1="73.66" x2="200.66" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="200.66" y1="76.2" x2="187.96" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="C0994" gate="G$1" pin="2"/>
+<wire x1="187.96" y1="76.2" x2="187.96" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="200.66" y1="76.2" x2="213.36" y2="76.2" width="0.1524" layer="91"/>
+<junction x="200.66" y="76.2"/>
+<pinref part="C0996" gate="G$1" pin="2"/>
+<wire x1="213.36" y1="76.2" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="C0911" gate="G$1" pin="2"/>
+<wire x1="101.6" y1="137.16" x2="106.68" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="137.16" x2="106.68" y2="134.62" width="0.1524" layer="91"/>
+<pinref part="GND0912" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C0921" gate="G$1" pin="2"/>
+<wire x1="101.6" y1="68.58" x2="109.22" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="68.58" x2="109.22" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="GND0922" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C0999" gate="G$1" pin="2"/>
+<wire x1="180.34" y1="104.14" x2="185.42" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="104.14" x2="185.42" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="GND0999" gate="1" pin="GND"/>
+</segment>
+</net>
+<net name="CH1_ANT" class="0">
+<segment>
+<pinref part="L0995" gate="G$1" pin="2"/>
+<wire x1="205.74" y1="91.44" x2="213.36" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="C0996" gate="G$1" pin="1"/>
+<wire x1="213.36" y1="91.44" x2="228.6" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="213.36" y1="91.44" x2="213.36" y2="86.36" width="0.1524" layer="91"/>
+<junction x="213.36" y="91.44"/>
+<label x="228.6" y="91.44" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<pinref part="U0911" gate="G$1" pin="VDD_!CTRL"/>
+<wire x1="81.28" y1="137.16" x2="91.44" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="137.16" x2="91.44" y2="149.86" width="0.1524" layer="91"/>
+<label x="91.44" y="149.86" size="1.778" layer="95" rot="R90" xref="yes"/>
+<wire x1="91.44" y1="137.16" x2="91.44" y2="68.58" width="0.1524" layer="91"/>
+<junction x="91.44" y="137.16"/>
+<pinref part="U0921" gate="G$1" pin="VDD_!CTRL"/>
+<wire x1="91.44" y1="68.58" x2="81.28" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="C0921" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="68.58" x2="93.98" y2="68.58" width="0.1524" layer="91"/>
+<junction x="91.44" y="68.58"/>
+<pinref part="C0911" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="137.16" x2="93.98" y2="137.16" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U0991" gate="G$1" pin="VDD_!CTRL"/>
+<wire x1="165.1" y1="104.14" x2="170.18" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="104.14" x2="170.18" y2="149.86" width="0.1524" layer="91"/>
+<label x="170.18" y="149.86" size="1.778" layer="95" rot="R90" xref="yes"/>
+<pinref part="C0999" gate="G$1" pin="1"/>
+<wire x1="170.18" y1="104.14" x2="172.72" y2="104.14" width="0.1524" layer="91"/>
+<junction x="170.18" y="104.14"/>
+</segment>
+</net>
+<net name="MCU_SX_TX_RX_CTRL" class="0">
+<segment>
+<pinref part="U0991" gate="G$1" pin="CTRL"/>
+<wire x1="165.1" y1="78.74" x2="170.18" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="78.74" x2="170.18" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="25.4" x2="45.72" y2="25.4" width="0.1524" layer="91"/>
+<label x="45.72" y="25.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
