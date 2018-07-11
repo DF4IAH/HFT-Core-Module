@@ -3762,6 +3762,64 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <rectangle x1="1.495" y1="1.495" x2="1.995" y2="1.995" layer="31"/>
 <rectangle x1="-1.995" y1="1.495" x2="-1.495" y2="1.995" layer="31"/>
 </package>
+<package name="SC-70_6-LEAD_2X1MM25_0P65">
+<description>&lt;h3&gt;6-lead SC-70 -  2.05 x 1.25 mm - 0.65P&lt;/h3&gt;</description>
+<wire x1="-1" y1="-0.625" x2="1" y2="-0.625" width="0.127" layer="51"/>
+<wire x1="-1" y1="0.625" x2="-1" y2="-0.625" width="0.127" layer="51"/>
+<wire x1="1" y1="-0.625" x2="1" y2="0.625" width="0.127" layer="51"/>
+<wire x1="1" y1="0.625" x2="-1" y2="0.625" width="0.127" layer="51"/>
+<circle x="-0.75" y="-0.35" radius="0.1" width="0.025" layer="21"/>
+<text x="-1.232" y="0.12" size="0.6096" layer="25" font="vector" ratio="10" rot="R90" align="bottom-center">&gt;Name</text>
+<text x="1.23" y="-0.47" size="0.6096" layer="27" font="vector" rot="R90" align="top-center">&gt;Value</text>
+<smd name="2" x="0" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="1" x="-0.65" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="3" x="0.65" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="4" x="0.65" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<smd name="5" x="0" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<smd name="6" x="-0.65" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.75" y="-1.175"/>
+<vertex x="-0.75" y="-0.975" curve="-90"/>
+<vertex x="-0.65" y="-0.875" curve="-90"/>
+<vertex x="-0.55" y="-0.975"/>
+<vertex x="-0.55" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.1" y="-1.175"/>
+<vertex x="-0.1" y="-0.975" curve="-90"/>
+<vertex x="0" y="-0.875" curve="-90"/>
+<vertex x="0.1" y="-0.975"/>
+<vertex x="0.1" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.55" y="-1.175"/>
+<vertex x="0.55" y="-0.975" curve="-90"/>
+<vertex x="0.65" y="-0.875" curve="-90"/>
+<vertex x="0.75" y="-0.975"/>
+<vertex x="0.75" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.55" y="1.175"/>
+<vertex x="-0.55" y="0.975" curve="-90"/>
+<vertex x="-0.65" y="0.875" curve="-90"/>
+<vertex x="-0.75" y="0.975"/>
+<vertex x="-0.75" y="1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.1" y="1.175"/>
+<vertex x="0.1" y="0.975" curve="-90"/>
+<vertex x="0" y="0.875" curve="-90"/>
+<vertex x="-0.1" y="0.975"/>
+<vertex x="-0.1" y="1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.75" y="1.175"/>
+<vertex x="0.75" y="0.975" curve="-90"/>
+<vertex x="0.65" y="0.875" curve="-90"/>
+<vertex x="0.55" y="0.975"/>
+<vertex x="0.55" y="1.175"/>
+</polygon>
+</package>
 </packages>
 </library>
 <library name="df4iah_switch">
@@ -5266,6 +5324,19 @@ Your Eurocircuits Team
 <element name="R0802" library="rcl" package="R0603" value="47R" x="53.34" y="15.24" rot="MR0"/>
 <element name="R0804" library="rcl" package="R0603" value="NC" x="57.15" y="17.78" rot="MR0"/>
 <element name="R0806" library="rcl" package="R0603" value="NC" x="57.15" y="19.685" rot="MR0"/>
+<element name="U0911" library="df4iah_rf" package="SC-70_6-LEAD_2X1MM25_0P65" value="PE4259" x="-31.75" y="-25.4"/>
+<element name="U0921" library="df4iah_rf" package="SC-70_6-LEAD_2X1MM25_0P65" value="PE4259" x="-36.83" y="-25.4"/>
+<element name="U0991" library="df4iah_rf" package="SC-70_6-LEAD_2X1MM25_0P65" value="PE4259" x="-41.91" y="-25.4"/>
+<element name="C0991" library="rcl" package="C0603" value="" x="-40.64" y="-31.75"/>
+<element name="C0992" library="rcl" package="C0603" value="" x="-40.64" y="-35.56"/>
+<element name="C0993" library="rcl" package="C0603" value="" x="-40.64" y="-39.37"/>
+<element name="C0994" library="rcl" package="C0603" value="" x="-40.64" y="-43.18"/>
+<element name="C0996" library="rcl" package="C0603" value="" x="-40.64" y="-46.99"/>
+<element name="L0995" library="rcl" package="R0603" value="10nH" x="-41.91" y="-50.8"/>
+<element name="C0911" library="rcl" package="C0603" value="" x="-40.64" y="-55.88"/>
+<element name="C0921" library="rcl" package="C0603" value="" x="-40.64" y="-59.69"/>
+<element name="C0999" library="rcl" package="C0603" value="" x="-40.64" y="-63.5"/>
+<element name="R0277" library="rcl" package="R0603" value="47R" x="-41.91" y="-67.31"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -5591,6 +5662,14 @@ Your Eurocircuits Team
 <contactref element="C0850" pad="2"/>
 <contactref element="C0872" pad="1"/>
 <contactref element="L0871" pad="2"/>
+<contactref element="U0911" pad="2"/>
+<contactref element="U0921" pad="2"/>
+<contactref element="U0991" pad="2"/>
+<contactref element="C0994" pad="2"/>
+<contactref element="C0996" pad="2"/>
+<contactref element="C0911" pad="2"/>
+<contactref element="C0921" pad="2"/>
+<contactref element="C0999" pad="2"/>
 <wire x1="93.7025" y1="87.6" x2="91.44" y2="91.44" width="0" layer="19" extent="1-1"/>
 <wire x1="93.56" y1="85.725" x2="93.7025" y2="87.6" width="0" layer="19" extent="16-16"/>
 <wire x1="94.7025" y1="83.45" x2="93.56" y2="85.725" width="0" layer="19" extent="16-16"/>
@@ -5912,6 +5991,14 @@ Your Eurocircuits Team
 <wire x1="7.62" y1="74.93" x2="7.62" y2="67.31" width="0" layer="19" extent="1-1"/>
 <wire x1="2.54" y1="74.93" x2="7.62" y2="74.93" width="0" layer="19" extent="1-1"/>
 <wire x1="5.08" y1="91.44" x2="21.59" y2="93.98" width="0" layer="19" extent="1-1"/>
+<wire x1="-31.75" y1="-26.45" x2="5.08" y2="5.08" width="0" layer="19" extent="1-1"/>
+<wire x1="-36.83" y1="-26.45" x2="-31.75" y2="-26.45" width="0" layer="19" extent="1-1"/>
+<wire x1="-41.91" y1="-26.45" x2="-36.83" y2="-26.45" width="0" layer="19" extent="1-1"/>
+<wire x1="-39.79" y1="-43.18" x2="-41.91" y2="-26.45" width="0" layer="19" extent="1-1"/>
+<wire x1="-39.79" y1="-46.99" x2="-39.79" y2="-43.18" width="0" layer="19" extent="1-1"/>
+<wire x1="-39.79" y1="-55.88" x2="-39.79" y2="-46.99" width="0" layer="19" extent="1-1"/>
+<wire x1="-39.79" y1="-59.69" x2="-39.79" y2="-55.88" width="0" layer="19" extent="1-1"/>
+<wire x1="-39.79" y1="-63.5" x2="-39.79" y2="-59.69" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="MCU_VSSA">
 <contactref element="U0111" pad="30"/>
@@ -6238,6 +6325,8 @@ Your Eurocircuits Team
 </signal>
 <signal name="PG0">
 <contactref element="U0111" pad="56"/>
+<contactref element="R0277" pad="1"/>
+<wire x1="-42.76" y1="-67.31" x2="66.84" y2="51.605" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PG1">
 <contactref element="U0111" pad="57"/>
@@ -6645,6 +6734,12 @@ Your Eurocircuits Team
 <contactref element="U0801" pad="3"/>
 <contactref element="C0804" pad="2"/>
 <contactref element="U0801" pad="14"/>
+<contactref element="U0911" pad="6"/>
+<contactref element="U0921" pad="6"/>
+<contactref element="U0991" pad="6"/>
+<contactref element="C0921" pad="1"/>
+<contactref element="C0911" pad="1"/>
+<contactref element="C0999" pad="1"/>
 <wire x1="73.66" y1="88.9" x2="85.09" y2="90.17" width="0" layer="19" extent="1-1"/>
 <wire x1="73.66" y1="93.98" x2="73.66" y2="88.9" width="0" layer="19" extent="1-1"/>
 <wire x1="57.4802" y1="85.1154" x2="73.66" y2="88.9" width="0" layer="19" extent="1-1"/>
@@ -6712,6 +6807,12 @@ Your Eurocircuits Team
 <wire x1="2.54" y1="73.66" x2="7.62" y2="73.66" width="0" layer="19" extent="1-1"/>
 <wire x1="22.86" y1="88.9" x2="7.62" y2="73.66" width="0" layer="19" extent="1-1"/>
 <wire x1="22.86" y1="93.98" x2="22.86" y2="88.9" width="0" layer="19" extent="1-1"/>
+<wire x1="-32.4" y1="-24.35" x2="3.81" y2="9.945" width="0" layer="19" extent="1-1"/>
+<wire x1="-37.48" y1="-24.35" x2="-32.4" y2="-24.35" width="0" layer="19" extent="1-1"/>
+<wire x1="-42.56" y1="-24.35" x2="-37.48" y2="-24.35" width="0" layer="19" extent="1-1"/>
+<wire x1="-41.49" y1="-55.88" x2="-42.56" y2="-24.35" width="0" layer="19" extent="1-1"/>
+<wire x1="-41.49" y1="-59.69" x2="-41.49" y2="-55.88" width="0" layer="19" extent="1-1"/>
+<wire x1="-41.49" y1="-63.5" x2="-41.49" y2="-59.69" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="XO_LP">
 <contactref element="R0621" pad="2"/>
@@ -8034,11 +8135,15 @@ Your Eurocircuits Team
 <contactref element="L0864" pad="2"/>
 <contactref element="C0865" pad="1"/>
 <contactref element="C0864" pad="2"/>
+<contactref element="U0911" pad="1"/>
 <wire x1="80.225" y1="24.765" x2="80.01" y2="26.455" width="0" layer="19" extent="16-16"/>
 <wire x1="80.225" y1="23.495" x2="80.225" y2="24.765" width="0" layer="19" extent="16-16"/>
+<wire x1="-32.4" y1="-26.45" x2="80.225" y2="23.495" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SX_RFI_HF_5">
 <contactref element="C0846" pad="2"/>
+<contactref element="U0911" pad="3"/>
+<wire x1="-31.1" y1="-26.45" x2="86.575" y2="20.955" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SX_RFO_LF">
 <contactref element="L0851" pad="1"/>
@@ -8078,8 +8183,10 @@ Your Eurocircuits Team
 <contactref element="L0858" pad="2"/>
 <contactref element="C0850" pad="1"/>
 <contactref element="C0858" pad="2"/>
+<contactref element="U0921" pad="1"/>
 <wire x1="82.765" y1="14.605" x2="82.55" y2="16.295" width="0" layer="19" extent="16-16"/>
 <wire x1="82.765" y1="13.335" x2="82.765" y2="14.605" width="0" layer="19" extent="16-16"/>
+<wire x1="-37.48" y1="-26.45" x2="82.765" y2="13.335" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SX_RFI_LF">
 <contactref element="U0801" pad="1"/>
@@ -8107,6 +8214,8 @@ Your Eurocircuits Team
 </signal>
 <signal name="SX_RFI_LF_5">
 <contactref element="C0875" pad="2"/>
+<contactref element="U0921" pad="3"/>
+<wire x1="-36.18" y1="-26.45" x2="84.035" y2="10.795" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SX_RXTX">
 <contactref element="U0801" pad="20"/>
@@ -8115,6 +8224,10 @@ Your Eurocircuits Team
 </signal>
 <signal name="SX_RXTX_2">
 <contactref element="R0801" pad="2"/>
+<contactref element="U0911" pad="4"/>
+<contactref element="U0921" pad="4"/>
+<wire x1="-31.1" y1="-24.35" x2="65.62" y2="24.765" width="0" layer="19" extent="1-16"/>
+<wire x1="-36.18" y1="-24.35" x2="-31.1" y2="-24.35" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="SX_DIO0">
 <contactref element="U0801" pad="8"/>
@@ -8160,6 +8273,47 @@ Your Eurocircuits Team
 </signal>
 <signal name="CH1_ANT">
 <contactref element="X2101" pad="1"/>
+<contactref element="L0995" pad="2"/>
+<contactref element="C0996" pad="1"/>
+<wire x1="-41.49" y1="-46.99" x2="91.44" y2="33.02" width="0" layer="19" extent="1-1"/>
+<wire x1="-41.06" y1="-50.8" x2="-41.49" y2="-46.99" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SX_HF_2">
+<contactref element="U0991" pad="1"/>
+<contactref element="C0991" pad="2"/>
+<wire x1="-42.56" y1="-26.45" x2="-39.79" y2="-31.75" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SX_LF_2">
+<contactref element="U0991" pad="3"/>
+<contactref element="C0992" pad="2"/>
+<wire x1="-41.26" y1="-26.45" x2="-39.79" y2="-35.56" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SX_HF_1">
+<contactref element="U0911" pad="5"/>
+<contactref element="C0991" pad="1"/>
+<wire x1="-31.75" y1="-24.35" x2="-41.49" y2="-31.75" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SX_LF_1">
+<contactref element="U0921" pad="5"/>
+<contactref element="C0992" pad="1"/>
+<wire x1="-36.83" y1="-24.35" x2="-41.49" y2="-35.56" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SX_ANT_1">
+<contactref element="U0991" pad="5"/>
+<contactref element="C0993" pad="1"/>
+<wire x1="-41.91" y1="-24.35" x2="-41.49" y2="-39.37" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SX_ANT_2">
+<contactref element="C0993" pad="2"/>
+<contactref element="L0995" pad="1"/>
+<contactref element="C0994" pad="1"/>
+<wire x1="-41.49" y1="-43.18" x2="-42.76" y2="-50.8" width="0" layer="19" extent="1-1"/>
+<wire x1="-39.79" y1="-39.37" x2="-41.49" y2="-43.18" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="MCU_SX_TX_RX_CTRL">
+<contactref element="R0277" pad="2"/>
+<contactref element="U0991" pad="4"/>
+<wire x1="-41.26" y1="-24.35" x2="-41.06" y2="-67.31" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 <errors>

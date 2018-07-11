@@ -13,27 +13,27 @@
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="yes"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="yes"/>
 <layer number="15" name="Route15" color="4" fill="6" visible="no" active="yes"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
-<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="no" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
-<layer number="32" name="bCream" color="7" fill="5" visible="yes" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
 <layer number="33" name="tFinish" color="6" fill="3" visible="yes" active="yes"/>
-<layer number="34" name="bFinish" color="6" fill="6" visible="yes" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="yes" active="yes"/>
-<layer number="36" name="bGlue" color="7" fill="5" visible="yes" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
@@ -41,15 +41,15 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
 <layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
@@ -1181,6 +1181,64 @@
 <vertex x="3.125" y="2.05"/>
 </polygon>
 </package>
+<package name="SC-70_6-LEAD_2X1MM25_0P65">
+<description>&lt;h3&gt;6-lead SC-70 -  2.05 x 1.25 mm - 0.65P&lt;/h3&gt;</description>
+<wire x1="-1" y1="-0.625" x2="1" y2="-0.625" width="0.127" layer="51"/>
+<wire x1="-1" y1="0.625" x2="-1" y2="-0.625" width="0.127" layer="51"/>
+<wire x1="1" y1="-0.625" x2="1" y2="0.625" width="0.127" layer="51"/>
+<wire x1="1" y1="0.625" x2="-1" y2="0.625" width="0.127" layer="51"/>
+<circle x="-0.75" y="-0.35" radius="0.1" width="0.025" layer="21"/>
+<text x="-1.232" y="0.12" size="0.6096" layer="25" font="vector" ratio="10" rot="R90" align="bottom-center">&gt;Name</text>
+<text x="1.23" y="-0.47" size="0.6096" layer="27" font="vector" rot="R90" align="top-center">&gt;Value</text>
+<smd name="2" x="0" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="1" x="-0.65" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="3" x="0.65" y="-1.05" dx="0.4" dy="0.9" layer="1" roundness="20" rot="R180" thermals="no"/>
+<smd name="4" x="0.65" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<smd name="5" x="0" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<smd name="6" x="-0.65" y="1.05" dx="0.4" dy="0.9" layer="1" roundness="20" thermals="no"/>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.75" y="-1.175"/>
+<vertex x="-0.75" y="-0.975" curve="-90"/>
+<vertex x="-0.65" y="-0.875" curve="-90"/>
+<vertex x="-0.55" y="-0.975"/>
+<vertex x="-0.55" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.1" y="-1.175"/>
+<vertex x="-0.1" y="-0.975" curve="-90"/>
+<vertex x="0" y="-0.875" curve="-90"/>
+<vertex x="0.1" y="-0.975"/>
+<vertex x="0.1" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.55" y="-1.175"/>
+<vertex x="0.55" y="-0.975" curve="-90"/>
+<vertex x="0.65" y="-0.875" curve="-90"/>
+<vertex x="0.75" y="-0.975"/>
+<vertex x="0.75" y="-1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="-0.55" y="1.175"/>
+<vertex x="-0.55" y="0.975" curve="-90"/>
+<vertex x="-0.65" y="0.875" curve="-90"/>
+<vertex x="-0.75" y="0.975"/>
+<vertex x="-0.75" y="1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.1" y="1.175"/>
+<vertex x="0.1" y="0.975" curve="-90"/>
+<vertex x="0" y="0.875" curve="-90"/>
+<vertex x="-0.1" y="0.975"/>
+<vertex x="-0.1" y="1.175"/>
+</polygon>
+<polygon width="0.0635" layer="51">
+<vertex x="0.75" y="1.175"/>
+<vertex x="0.75" y="0.975" curve="-90"/>
+<vertex x="0.65" y="0.875" curve="-90"/>
+<vertex x="0.55" y="0.975"/>
+<vertex x="0.55" y="1.175"/>
+</polygon>
+</package>
 </packages>
 <symbols>
 <symbol name="MPU-9250">
@@ -1284,6 +1342,32 @@ Reference: &lt;a href="https://www.semtech.com/products/wireless-rf/lora-transce
 <pin name="VBAT_DIG" x="-22.86" y="27.94" length="middle" direction="pas"/>
 <pin name="GND@PAD" x="-22.86" y="-5.08" length="middle" direction="pwr"/>
 </symbol>
+<symbol name="PE4259">
+<description>&lt;b&gt;pSemi  PE4259&lt;/b&gt;&lt;p&gt;
+SPDT High Power UltraCMOS®&lt;br/&gt;
+10 MHz–3.0 GHz RF Switch
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Low insertion loss: 0.35 dB @ 1000 MHz, 0.5 dB @ 2000 MHz&lt;/li&gt;
+&lt;li&gt;Isolation of 30 dB @ 1000 MHz&lt;/li&gt;
+&lt;li&gt;Typical input 1 dB compression point of +33.5 dBm&lt;/li&gt;
+&lt;li&gt;6-lead SC-70 package&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Reference: &lt;a href="http://www.psemi.com/products/rf-switches/pe4259"&gt;http://www.psemi.com/products/rf-switches/pe4259&lt;/a&gt;</description>
+<wire x1="-12.7" y1="20.32" x2="-12.7" y2="-20.32" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="-20.32" x2="12.7" y2="-20.32" width="0.254" layer="94"/>
+<wire x1="12.7" y1="-20.32" x2="12.7" y2="20.32" width="0.254" layer="94"/>
+<wire x1="12.7" y1="20.32" x2="-12.7" y2="20.32" width="0.254" layer="94"/>
+<pin name="GND" x="-17.78" y="0" length="middle" direction="pwr"/>
+<text x="0" y="23.114" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-23.114" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
+<pin name="RF1" x="-17.78" y="12.7" length="middle" direction="pas"/>
+<pin name="RF2" x="-17.78" y="-12.7" length="middle" direction="pas"/>
+<pin name="CTRL" x="17.78" y="-12.7" length="middle" direction="in" rot="R180"/>
+<pin name="VDD_!CTRL" x="17.78" y="12.7" length="middle" direction="pas" rot="R180"/>
+<pin name="RFC" x="17.78" y="0" length="middle" direction="pas" rot="R180"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="AX5243" prefix="U">
@@ -1370,6 +1454,38 @@ Reference: &lt;a href="https://www.semtech.com/products/wireless-rf/lora-transce
 <connect gate="G$1" pin="VR_PA" pad="25"/>
 <connect gate="G$1" pin="XTA" pad="5"/>
 <connect gate="G$1" pin="XTB" pad="6"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="PE4259" prefix="U">
+<description>&lt;b&gt;pSemi  PE4259&lt;/b&gt;&lt;p&gt;
+SPDT High Power UltraCMOS®&lt;br/&gt;
+10 MHz–3.0 GHz RF Switch
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Low insertion loss: 0.35 dB @ 1000 MHz, 0.5 dB @ 2000 MHz&lt;/li&gt;
+&lt;li&gt;Isolation of 30 dB @ 1000 MHz&lt;/li&gt;
+&lt;li&gt;Typical input 1 dB compression point of +33.5 dBm&lt;/li&gt;
+&lt;li&gt;6-lead SC-70 package&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Reference: &lt;a href="http://www.psemi.com/products/rf-switches/pe4259"&gt;http://www.psemi.com/products/rf-switches/pe4259&lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="PE4259" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SC-70_6-LEAD_2X1MM25_0P65">
+<connects>
+<connect gate="G$1" pin="CTRL" pad="4"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="RF1" pad="1"/>
+<connect gate="G$1" pin="RF2" pad="3"/>
+<connect gate="G$1" pin="RFC" pad="5"/>
+<connect gate="G$1" pin="VDD_!CTRL" pad="6"/>
 </connects>
 <technologies>
 <technology name=""/>
