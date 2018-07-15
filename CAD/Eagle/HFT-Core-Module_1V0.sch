@@ -26077,6 +26077,13 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0999" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 <part name="GND0999" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R0277" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="TP_SX_DIO5" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="TP_SX_DIO4" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="TP_SX_DIO3" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="TP_SX_DIO2" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="TP_SX_DIO1" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="TP_SX_DIO0" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="TP_SX_RXTX" library="testpad" deviceset="PTR1" device="TP06R"/>
 </parts>
 <sheets>
 <sheet>
@@ -29251,6 +29258,13 @@ SPI</text>
 <instance part="R0802" gate="G$1" x="170.18" y="58.42"/>
 <instance part="R0804" gate="G$1" x="170.18" y="48.26"/>
 <instance part="R0806" gate="G$1" x="170.18" y="38.1"/>
+<instance part="TP_SX_DIO5" gate="G$1" x="129.54" y="12.7"/>
+<instance part="TP_SX_DIO4" gate="G$1" x="132.08" y="20.32"/>
+<instance part="TP_SX_DIO3" gate="G$1" x="134.62" y="12.7"/>
+<instance part="TP_SX_DIO2" gate="G$1" x="137.16" y="20.32"/>
+<instance part="TP_SX_DIO1" gate="G$1" x="139.7" y="12.7"/>
+<instance part="TP_SX_DIO0" gate="G$1" x="142.24" y="20.32"/>
+<instance part="TP_SX_RXTX" gate="G$1" x="144.78" y="12.7"/>
 </instances>
 <busses>
 </busses>
@@ -29727,6 +29741,9 @@ SPI</text>
 <wire x1="144.78" y1="78.74" x2="144.78" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="R0801" gate="G$1" pin="1"/>
 <wire x1="144.78" y1="63.5" x2="149.86" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="TP_SX_RXTX" gate="G$1" pin="TP"/>
+<wire x1="144.78" y1="63.5" x2="144.78" y2="15.24" width="0.1524" layer="91"/>
+<junction x="144.78" y="63.5"/>
 </segment>
 </net>
 <net name="SX_RXTX_2" class="0">
@@ -29743,6 +29760,9 @@ SPI</text>
 <wire x1="142.24" y1="76.2" x2="142.24" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="142.24" y1="58.42" x2="165.1" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="R0802" gate="G$1" pin="1"/>
+<pinref part="TP_SX_DIO0" gate="G$1" pin="TP"/>
+<wire x1="142.24" y1="58.42" x2="142.24" y2="22.86" width="0.1524" layer="91"/>
+<junction x="142.24" y="58.42"/>
 </segment>
 </net>
 <net name="SX_DIO1" class="0">
@@ -29752,6 +29772,9 @@ SPI</text>
 <wire x1="139.7" y1="71.12" x2="139.7" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="53.34" x2="149.86" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="R0803" gate="G$1" pin="1"/>
+<pinref part="TP_SX_DIO1" gate="G$1" pin="TP"/>
+<wire x1="139.7" y1="53.34" x2="139.7" y2="15.24" width="0.1524" layer="91"/>
+<junction x="139.7" y="53.34"/>
 </segment>
 </net>
 <net name="SX_DIO2" class="0">
@@ -29761,6 +29784,9 @@ SPI</text>
 <wire x1="137.16" y1="66.04" x2="137.16" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="48.26" x2="165.1" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="R0804" gate="G$1" pin="1"/>
+<pinref part="TP_SX_DIO2" gate="G$1" pin="TP"/>
+<wire x1="137.16" y1="48.26" x2="137.16" y2="22.86" width="0.1524" layer="91"/>
+<junction x="137.16" y="48.26"/>
 </segment>
 </net>
 <net name="SX_DIO3" class="0">
@@ -29770,6 +29796,9 @@ SPI</text>
 <wire x1="134.62" y1="60.96" x2="134.62" y2="43.18" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="43.18" x2="149.86" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="R0805" gate="G$1" pin="1"/>
+<pinref part="TP_SX_DIO3" gate="G$1" pin="TP"/>
+<wire x1="134.62" y1="43.18" x2="134.62" y2="15.24" width="0.1524" layer="91"/>
+<junction x="134.62" y="43.18"/>
 </segment>
 </net>
 <net name="SX_DIO4" class="0">
@@ -29779,6 +29808,9 @@ SPI</text>
 <wire x1="132.08" y1="55.88" x2="132.08" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="132.08" y1="38.1" x2="165.1" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="R0806" gate="G$1" pin="1"/>
+<pinref part="TP_SX_DIO4" gate="G$1" pin="TP"/>
+<wire x1="132.08" y1="38.1" x2="132.08" y2="22.86" width="0.1524" layer="91"/>
+<junction x="132.08" y="38.1"/>
 </segment>
 </net>
 <net name="SX_DIO5" class="0">
@@ -29788,6 +29820,9 @@ SPI</text>
 <wire x1="129.54" y1="50.8" x2="129.54" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="33.02" x2="149.86" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="R0807" gate="G$1" pin="1"/>
+<pinref part="TP_SX_DIO5" gate="G$1" pin="TP"/>
+<wire x1="129.54" y1="33.02" x2="129.54" y2="15.24" width="0.1524" layer="91"/>
+<junction x="129.54" y="33.02"/>
 </segment>
 </net>
 <net name="PG2" class="0">
