@@ -26084,6 +26084,9 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="TP_SX_DIO1" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_SX_DIO0" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_SX_RXTX" library="testpad" deviceset="PTR1" device="TP06R"/>
+<part name="C1129" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="GND1122" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C1128" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 </parts>
 <sheets>
 <sheet>
@@ -26981,14 +26984,14 @@ Digikey: 497-17999-ND</text>
 <wire x1="152.4" y1="170.18" x2="152.4" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PA12" class="0">
+<net name="PA_USB_P" class="0">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PA12"/>
 <wire x1="157.48" y1="172.72" x2="154.94" y2="170.18" width="0.1524" layer="91"/>
 <wire x1="154.94" y1="170.18" x2="154.94" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PA11" class="0">
+<net name="PA_USB_N" class="0">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PA11"/>
 <wire x1="160.02" y1="172.72" x2="157.48" y2="170.18" width="0.1524" layer="91"/>
@@ -29062,42 +29065,42 @@ I2C addr: 0xE0/0xE1</text>
 <wire x1="127" y1="149.86" x2="127" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="CLK1N" class="0">
+<net name="CLK1_N" class="0">
 <segment>
 <pinref part="R0735" gate="G$1" pin="2"/>
 <wire x1="162.56" y1="104.14" x2="177.8" y2="104.14" width="0.1524" layer="91"/>
 <label x="177.8" y="104.14" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="CLK1P" class="0">
+<net name="CLK1_P" class="0">
 <segment>
 <pinref part="R0736" gate="G$1" pin="2"/>
 <wire x1="162.56" y1="111.76" x2="177.8" y2="111.76" width="0.1524" layer="91"/>
 <label x="177.8" y="111.76" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="CLK2P" class="0">
+<net name="CLK2_P" class="0">
 <segment>
 <pinref part="R0732" gate="G$1" pin="2"/>
 <wire x1="162.56" y1="81.28" x2="177.8" y2="81.28" width="0.1524" layer="91"/>
 <label x="177.8" y="81.28" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="CLK2N" class="0">
+<net name="CLK2_N" class="0">
 <segment>
 <pinref part="R0731" gate="G$1" pin="2"/>
 <wire x1="162.56" y1="73.66" x2="177.8" y2="73.66" width="0.1524" layer="91"/>
 <label x="177.8" y="73.66" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="CLK0P" class="0">
+<net name="CLK0_P" class="0">
 <segment>
 <pinref part="R0744" gate="G$1" pin="2"/>
 <wire x1="111.76" y1="137.16" x2="111.76" y2="144.78" width="0.1524" layer="91"/>
 <label x="111.76" y="144.78" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
-<net name="CLK0N" class="0">
+<net name="CLK0_N" class="0">
 <segment>
 <pinref part="R0743" gate="G$1" pin="2"/>
 <wire x1="119.38" y1="137.16" x2="119.38" y2="144.78" width="0.1524" layer="91"/>
@@ -30548,6 +30551,9 @@ SPI</text>
 <instance part="R1105" gate="G$1" x="68.58" y="111.76" rot="R90"/>
 <instance part="R1110" gate="G$1" x="152.4" y="99.06" rot="R90"/>
 <instance part="GND1103" gate="1" x="152.4" y="88.9"/>
+<instance part="C1129" gate="G$1" x="208.28" y="78.74"/>
+<instance part="GND1122" gate="1" x="208.28" y="68.58"/>
+<instance part="C1128" gate="G$1" x="198.12" y="78.74"/>
 </instances>
 <busses>
 </busses>
@@ -30672,6 +30678,15 @@ SPI</text>
 <pinref part="R1110" gate="G$1" pin="1"/>
 <wire x1="152.4" y1="91.44" x2="152.4" y2="93.98" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="C1129" gate="G$1" pin="2"/>
+<wire x1="208.28" y1="73.66" x2="208.28" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="GND1122" gate="1" pin="GND"/>
+<wire x1="208.28" y1="71.12" x2="198.12" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="C1128" gate="G$1" pin="2"/>
+<wire x1="198.12" y1="71.12" x2="198.12" y2="73.66" width="0.1524" layer="91"/>
+<junction x="208.28" y="71.12"/>
+</segment>
 </net>
 <net name="MAX5136_REF" class="0">
 <segment>
@@ -30720,6 +30735,14 @@ SPI</text>
 <pinref part="U1121" gate="G$1" pin="V+"/>
 <wire x1="167.64" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
 <junction x="167.64" y="83.82"/>
+<pinref part="C1129" gate="G$1" pin="1"/>
+<wire x1="180.34" y1="83.82" x2="198.12" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="83.82" x2="208.28" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="83.82" x2="208.28" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="C1128" gate="G$1" pin="1"/>
+<wire x1="198.12" y1="83.82" x2="198.12" y2="81.28" width="0.1524" layer="91"/>
+<junction x="198.12" y="83.82"/>
+<junction x="180.34" y="83.82"/>
 </segment>
 <segment>
 <label x="43.18" y="157.48" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -32432,7 +32455,7 @@ USB host (OTG) interface</text>
 <junction x="172.72" y="58.42"/>
 </segment>
 </net>
-<net name="PA11" class="0">
+<net name="PA_USB_N" class="0">
 <segment>
 <pinref part="X2001" gate="G$1" pin="J_D-"/>
 <wire x1="180.34" y1="96.52" x2="137.16" y2="96.52" width="0.1524" layer="91"/>
@@ -32441,7 +32464,7 @@ USB host (OTG) interface</text>
 <label x="43.18" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="PA12" class="0">
+<net name="PA_USB_P" class="0">
 <segment>
 <pinref part="X2001" gate="G$1" pin="J_D+"/>
 <wire x1="180.34" y1="93.98" x2="137.16" y2="93.98" width="0.1524" layer="91"/>
@@ -33534,7 +33557,7 @@ USB host (OTG) interface</text>
 <pinref part="X2311" gate="G$1" pin="13"/>
 </segment>
 </net>
-<net name="CLK0P" class="0">
+<net name="CLK0_P" class="0">
 <segment>
 <wire x1="139.7" y1="35.56" x2="137.16" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="X2332" gate="G$1" pin="3"/>
@@ -33542,7 +33565,7 @@ USB host (OTG) interface</text>
 <label x="137.16" y="38.1" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="CLK0N" class="0">
+<net name="CLK0_N" class="0">
 <segment>
 <wire x1="142.24" y1="35.56" x2="139.7" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="X2332" gate="G$1" pin="4"/>
@@ -33550,7 +33573,7 @@ USB host (OTG) interface</text>
 <label x="139.7" y="38.1" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="CLK1P" class="0">
+<net name="CLK1_P" class="0">
 <segment>
 <wire x1="139.7" y1="83.82" x2="137.16" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="X2322" gate="G$1" pin="3"/>
@@ -33558,7 +33581,7 @@ USB host (OTG) interface</text>
 <label x="137.16" y="86.36" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="CLK1N" class="0">
+<net name="CLK1_N" class="0">
 <segment>
 <wire x1="142.24" y1="83.82" x2="139.7" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="X2322" gate="G$1" pin="4"/>
@@ -33566,7 +33589,7 @@ USB host (OTG) interface</text>
 <label x="139.7" y="86.36" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="CLK2P" class="0">
+<net name="CLK2_P" class="0">
 <segment>
 <wire x1="139.7" y1="132.08" x2="137.16" y2="134.62" width="0.1524" layer="91"/>
 <pinref part="X2312" gate="G$1" pin="3"/>
@@ -33574,7 +33597,7 @@ USB host (OTG) interface</text>
 <label x="137.16" y="134.62" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="CLK2N" class="0">
+<net name="CLK2_N" class="0">
 <segment>
 <wire x1="142.24" y1="132.08" x2="139.7" y2="134.62" width="0.1524" layer="91"/>
 <pinref part="X2312" gate="G$1" pin="4"/>
