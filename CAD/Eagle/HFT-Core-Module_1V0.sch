@@ -26165,7 +26165,7 @@ Digikey: 497-17999-ND</text>
 <label x="241.3" y="170.18" size="1.778" layer="95"/>
 </segment>
 </bus>
-<bus name="PA[8..15]">
+<bus name="PA[8..10],PA_USB_N,PA_USB_P,PA[13..15]">
 <segment>
 <wire x1="147.32" y1="172.72" x2="238.76" y2="172.72" width="0.762" layer="92"/>
 <label x="241.3" y="172.72" size="1.778" layer="95"/>
@@ -32683,7 +32683,7 @@ USB host (OTG) interface</text>
 <instance part="R2336" gate="G$1" x="190.5" y="45.72" rot="R90"/>
 </instances>
 <busses>
-<bus name="GND,+3V3,+5V0,CLK0P,CLK0N,CLK1P,CLK1N,CLK2P,CLK2N,MCU_WAKEUP,MCU_I2C1_SCL,MCU_I2C1_SDA,MCU_I2C2_SCL,MCU_I2C2_SDA,MCU_I2C3_SCL,MCU_I2C3_SDA,MCU_SPI1_SCK,MCU_SPI1_MOSI,MCU_SPI1_MISO,I2S_SCK_OUT,I2S_SD_OUT,I2S_MCLK_OUT,I2S_FS_OUT,PA[0..15],PB[0..15],PC[0..15],PD[0..15],PE[0..15],PF[0..15],PG[0..15],PH[0..3]">
+<bus name="GND,+3V3,+5V0,CLK0_P,CLK0_N,CLK1_P,CLK1_N,CLK2_P,CLK2_N,MCU_WAKEUP,MCU_I2C1_SCL,MCU_I2C1_SDA,MCU_I2C2_SCL,MCU_I2C2_SDA,MCU_I2C3_SCL,MCU_I2C3_SDA,MCU_SPI1_SCK,MCU_SPI1_MOSI,MCU_SPI1_MISO,I2S_SCK_OUT,I2S_SD_OUT,I2S_MCLK_OUT,I2S_FS_OUT,PA[0..15],PB[0..15],PC[0..15],PD[0..15],PE[0..15],PF[0..15],PG[0..15],PH[0..3]">
 <segment>
 <wire x1="246.38" y1="132.08" x2="246.38" y2="83.82" width="0.762" layer="92"/>
 <wire x1="246.38" y1="83.82" x2="246.38" y2="35.56" width="0.762" layer="92"/>
