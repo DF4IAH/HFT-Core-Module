@@ -200,11 +200,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC1_MspDeInit 0 */
     /* Peripheral clock disable */
-    /* Be sure that all peripheral instances that share the same clock need to be disabled */
-    /**  HAL_RCC_ADC_CLK_ENABLED--;
-    *  if(HAL_RCC_ADC_CLK_ENABLED==0){
-    *    __HAL_RCC_ADC_CLK_DISABLE();
-    **/
+    HAL_RCC_ADC_CLK_ENABLED--;
+    if(HAL_RCC_ADC_CLK_ENABLED==0){
+      __HAL_RCC_ADC_CLK_DISABLE();
+    }
   
     /**ADC1 GPIO Configuration    
     PA3     ------> ADC1_IN8
@@ -222,11 +221,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC2_MspDeInit 0 */
     /* Peripheral clock disable */
-    /* Be sure that all peripheral instances that share the same clock need to be disabled */
-    /**  HAL_RCC_ADC_CLK_ENABLED--;
-    *  if(HAL_RCC_ADC_CLK_ENABLED==0){
-    *    __HAL_RCC_ADC_CLK_DISABLE();
-    **/
+    HAL_RCC_ADC_CLK_ENABLED--;
+    if(HAL_RCC_ADC_CLK_ENABLED==0){
+      __HAL_RCC_ADC_CLK_DISABLE();
+    }
   
     /**ADC2 GPIO Configuration    
     PA3     ------> ADC2_IN8
@@ -244,11 +242,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC3_MspDeInit 0 */
     /* Peripheral clock disable */
-    /* Be sure that all peripheral instances that share the same clock need to be disabled */
-    /**  HAL_RCC_ADC_CLK_ENABLED--;
-    *  if(HAL_RCC_ADC_CLK_ENABLED==0){
-    *    __HAL_RCC_ADC_CLK_DISABLE();
-    **/
+    HAL_RCC_ADC_CLK_ENABLED--;
+    if(HAL_RCC_ADC_CLK_ENABLED==0){
+      __HAL_RCC_ADC_CLK_DISABLE();
+    }
   
     /**ADC3 GPIO Configuration    
     PF3     ------> ADC3_IN6 

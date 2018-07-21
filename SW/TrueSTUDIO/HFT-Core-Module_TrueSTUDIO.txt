@@ -1,6 +1,6 @@
 Configuration	HFT-Core-Module_TrueSTUDIO
-STM32CubeMX 	4.25.0
-Date	06/18/2018
+STM32CubeMX 	4.26.0
+Date	07/21/2018
 MCU	STM32L496ZGTxP
 
 
@@ -158,8 +158,8 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 99	PC9	GPIO_Output	MCU_OUT_AUDIO_DAC_SEL
 100	PA8	RCC_MCO	MCU_MCO
 101	PA9	USB_OTG_FS_VBUS	
-103	PA11	USB_OTG_FS_DM	
-104	PA12	USB_OTG_FS_DP	
+103	PA11	USB_OTG_FS_DM	PA_USB_N
+104	PA12	USB_OTG_FS_DP	PA_USB_P
 105	PA13 (JTMS/SWDIO)	SYS_JTMS-SWDIO	SWDIO
 109	PA14 (JTCK/SWCLK)	SYS_JTCK-SWCLK	SWCLK
 111	PC10	SPI3_SCK	MCU_SPI3_SCK
@@ -193,9 +193,9 @@ SOFTWARE PROJECT
 
 Project Settings : 
 Project Name : HFT-Core-Module_TrueSTUDIO
-Project Folder : C:\Users\habel\git\HFT-Core-Module__SW\SW\TrueSTUDIO
+Project Folder : Z:\nfs_ds_nfs\git\HFT-Core-Module__SW\SW\TrueSTUDIO
 Toolchain / IDE : TrueSTUDIO
-Firmware Package Name and Version : STM32Cube FW_L4 V1.11.0
+Firmware Package Name and Version : STM32Cube FW_L4 V1.12.0
 
 
 Code Generation Settings : 

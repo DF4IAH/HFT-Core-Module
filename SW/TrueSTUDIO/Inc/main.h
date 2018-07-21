@@ -157,6 +157,10 @@
 #define MCU_OUT_AUDIO_DAC_SEL_GPIO_Port GPIOC
 #define MCU_MCO_Pin GPIO_PIN_8
 #define MCU_MCO_GPIO_Port GPIOA
+#define PA_USB_N_Pin GPIO_PIN_11
+#define PA_USB_N_GPIO_Port GPIOA
+#define PA_USB_P_Pin GPIO_PIN_12
+#define PA_USB_P_GPIO_Port GPIOA
 #define SWDIO_Pin GPIO_PIN_13
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14
@@ -203,7 +207,7 @@
   * @brief Uncomment the line below to expanse the "assert_param" macro in the 
   *        HAL drivers code
   */
-#define USE_FULL_ASSERT    1U
+/* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
 
