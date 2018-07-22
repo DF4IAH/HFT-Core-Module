@@ -5181,7 +5181,7 @@ Your Eurocircuits Team
 <attribute name="NAME" x="34.925" y="46.99" size="0.6096" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="37.465" y="45.339" size="0.6096" layer="27" font="vector" ratio="10"/>
 </element>
-<element name="X2001" library="df4iah_connector" package="USB-B-MICRO-SMD_MOLEX-105017-0001" value="" x="95.8088" y="62.23" locked="yes" smashed="yes" rot="R90">
+<element name="X2001" library="df4iah_connector" package="USB-B-MICRO-SMD_MOLEX-105017-0001" value="MOLEX 105017-0001" x="95.8088" y="62.23" locked="yes" smashed="yes" rot="R90">
 <attribute name="NAME" x="90.932" y="56.4896" size="0.8128" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="94.5769" y="67.9196" size="0.6096" layer="27" font="vector" ratio="20" rot="R180" align="top-left"/>
 </element>

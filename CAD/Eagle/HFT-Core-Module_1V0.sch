@@ -25694,7 +25694,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="TP_+5V0_USB_SW" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="C1607" library="df4iah_rcl" deviceset="CPOL-EU" device="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N"/>
 <part name="GND1602" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="X2001" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device=""/>
+<part name="X2001" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device="" value="MOLEX 105017-0001"/>
 <part name="FRAME_10" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="R1409" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="C0431" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
@@ -34258,26 +34258,16 @@ USB host (OTG) interface</text>
 <approved hash="106,4,45.72,137.16,+1V8_UNUSED,,,,,"/>
 <approved hash="106,4,55.88,137.16,+2V5_UNUSED,,,,,"/>
 <approved hash="106,1,139.7,38.1,PA1,,,,,"/>
-<approved hash="106,1,144.78,38.1,PA3,,,,,"/>
-<approved hash="106,1,149.86,38.1,PA4,,,,,"/>
 <approved hash="106,1,152.4,38.1,PA5,,,,,"/>
 <approved hash="106,1,144.78,160.02,PA15,,,,,"/>
 <approved hash="106,1,175.26,38.1,PB2,,,,,"/>
 <approved hash="106,1,78.74,160.02,PB4,,,,,"/>
-<approved hash="106,1,60.96,160.02,PB8,,,,,"/>
 <approved hash="106,1,58.42,160.02,PB9,,,,,"/>
 <approved hash="106,1,228.6,160.02,PB15,,,,,"/>
 <approved hash="106,1,175.26,160.02,PC7,,,,,"/>
-<approved hash="106,1,50.8,160.02,PE1,,,,,"/>
 <approved hash="106,1,55.88,38.1,PE6,,,,,"/>
 <approved hash="106,1,88.9,38.1,PF4,,,,,"/>
 <approved hash="106,1,91.44,38.1,PF5,,,,,"/>
-<approved hash="106,1,96.52,38.1,PF6,,,,,"/>
-<approved hash="106,1,99.06,38.1,PF7,,,,,"/>
-<approved hash="106,1,101.6,38.1,PF8,,,,,"/>
-<approved hash="106,1,104.14,38.1,PF9,,,,,"/>
-<approved hash="106,1,180.34,38.1,PF11,,,,,"/>
-<approved hash="106,1,193.04,38.1,PF15,,,,,"/>
 <approved hash="106,1,190.5,160.02,PG5,,,,,"/>
 <approved hash="106,1,187.96,160.02,PG6,,,,,"/>
 <approved hash="106,7,68.58,111.76,SI5338_IN_CLK1,,,,,"/>
@@ -34290,7 +34280,6 @@ USB host (OTG) interface</text>
 <approved hash="113,4,127,171.696,SJ0401,,,,,"/>
 <approved hash="113,3,78.74,65.2187,X0301,,,,,"/>
 <approved hash="113,3,141.915,140.149,X0322,,,,,"/>
-<approved hash="113,20,189.52,95.2288,X2001,,,,,"/>
 <approved hash="113,4,64.5245,132.08,SJ0421,,,,,"/>
 <approved hash="113,4,54.3645,132.08,SJ0422,,,,,"/>
 <approved hash="113,4,44.2045,132.08,SJ0423,,,,,"/>
