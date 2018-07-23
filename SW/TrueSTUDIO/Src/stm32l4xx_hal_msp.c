@@ -132,7 +132,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     PA3     ------> ADC1_IN8
     PA4     ------> ADC1_IN9 
     */
-    GPIO_InitStruct.Pin = ADC1_IN8_Pin|ADC2_IN9_Pin;
+    GPIO_InitStruct.Pin = MCU_VSOL_ADC1_Pin|ADC2_IN9_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -156,7 +156,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     PA3     ------> ADC2_IN8
     PA4     ------> ADC2_IN9 
     */
-    GPIO_InitStruct.Pin = ADC1_IN8_Pin|ADC2_IN9_Pin;
+    GPIO_InitStruct.Pin = MCU_VSOL_ADC1_Pin|ADC2_IN9_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -209,7 +209,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     PA3     ------> ADC1_IN8
     PA4     ------> ADC1_IN9 
     */
-    HAL_GPIO_DeInit(GPIOA, ADC1_IN8_Pin|ADC2_IN9_Pin);
+    HAL_GPIO_DeInit(GPIOA, MCU_VSOL_ADC1_Pin|ADC2_IN9_Pin);
 
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 
@@ -230,7 +230,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     PA3     ------> ADC2_IN8
     PA4     ------> ADC2_IN9 
     */
-    HAL_GPIO_DeInit(GPIOA, ADC1_IN8_Pin|ADC2_IN9_Pin);
+    HAL_GPIO_DeInit(GPIOA, MCU_VSOL_ADC1_Pin|ADC2_IN9_Pin);
 
   /* USER CODE BEGIN ADC2_MspDeInit 1 */
 
@@ -818,7 +818,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     PF8     ------> TIM5_CH3
     PF9     ------> TIM5_CH4 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+    GPIO_InitStruct.Pin = MCU_TIMCAP_N_Pin|MCU_TIMCAP_W_Pin|MCU_TIMCAP_S_Pin|MCU_VSOL_TIMCAP_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -975,7 +975,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     PF8     ------> TIM5_CH3
     PF9     ------> TIM5_CH4 
     */
-    HAL_GPIO_DeInit(GPIOF, GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9);
+    HAL_GPIO_DeInit(GPIOF, MCU_TIMCAP_N_Pin|MCU_TIMCAP_W_Pin|MCU_TIMCAP_S_Pin|MCU_VSOL_TIMCAP_Pin);
 
   /* USER CODE BEGIN TIM5_MspDeInit 1 */
 
