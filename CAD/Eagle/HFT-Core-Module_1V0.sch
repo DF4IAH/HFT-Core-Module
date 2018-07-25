@@ -25694,7 +25694,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="TP_+5V0_USB_SW" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="C1607" library="df4iah_rcl" deviceset="CPOL-EU" device="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N"/>
 <part name="GND1602" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="X2001" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device=""/>
+<part name="X2001" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device="" value="MOLEX 105017-0001"/>
 <part name="FRAME_10" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="R1409" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="C0431" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
@@ -25867,7 +25867,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="GND2211" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2201" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2202" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="U1011" library="df4iah_dac" deviceset="MAX5136" device="" value="MAX5136AGTG+"/>
+<part name="U1111" library="df4iah_dac" deviceset="MAX5136" device="" value="MAX5136AGTG+"/>
 <part name="GND1112" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1113" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
 <part name="C1111" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
@@ -26087,6 +26087,11 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1129" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="GND1122" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1128" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R2318" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R2328" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R2338" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1411" library="rcl" deviceset="R-EU_" device="R0603" value="1kR"/>
+<part name="R1412" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 </parts>
 <sheets>
 <sheet>
@@ -30512,7 +30517,7 @@ SPI</text>
 </plain>
 <instances>
 <instance part="FRAME_11" gate="G$1" x="0" y="0"/>
-<instance part="U1011" gate="G$1" x="99.06" y="43.18"/>
+<instance part="U1111" gate="G$1" x="99.06" y="43.18"/>
 <instance part="GND1112" gate="1" x="124.46" y="63.5"/>
 <instance part="C1113" gate="G$1" x="116.84" y="68.58" rot="R90"/>
 <instance part="C1111" gate="G$1" x="48.26" y="76.2"/>
@@ -30590,7 +30595,7 @@ SPI</text>
 <segment>
 <pinref part="GND1112" gate="1" pin="GND"/>
 <wire x1="124.46" y1="66.04" x2="124.46" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="U1011" gate="G$1" pin="GND"/>
+<pinref part="U1111" gate="G$1" pin="GND"/>
 <wire x1="124.46" y1="68.58" x2="124.46" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="124.46" y1="73.66" x2="99.06" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="99.06" y1="73.66" x2="99.06" y2="68.58" width="0.1524" layer="91"/>
@@ -30690,9 +30695,9 @@ SPI</text>
 </net>
 <net name="MAX5136_REF" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="REFI"/>
+<pinref part="U1111" gate="G$1" pin="REFI"/>
 <wire x1="106.68" y1="68.58" x2="111.76" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="U1011" gate="G$1" pin="REFO"/>
+<pinref part="U1111" gate="G$1" pin="REFO"/>
 <wire x1="111.76" y1="68.58" x2="114.3" y2="68.58" width="0.1524" layer="91"/>
 <junction x="111.76" y="68.58"/>
 <pinref part="C1113" gate="G$1" pin="1"/>
@@ -30703,7 +30708,7 @@ SPI</text>
 </net>
 <net name="+3V3_HICUR" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="DVDD"/>
+<pinref part="U1111" gate="G$1" pin="DVDD"/>
 <wire x1="91.44" y1="68.58" x2="91.44" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="83.82" x2="71.12" y2="83.82" width="0.1524" layer="91"/>
 <label x="43.18" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -30717,7 +30722,7 @@ SPI</text>
 <wire x1="71.12" y1="76.2" x2="71.12" y2="83.82" width="0.1524" layer="91"/>
 <junction x="71.12" y="83.82"/>
 <wire x1="91.44" y1="83.82" x2="129.54" y2="83.82" width="0.1524" layer="91"/>
-<pinref part="U1011" gate="G$1" pin="!LDAC"/>
+<pinref part="U1111" gate="G$1" pin="!LDAC"/>
 <wire x1="129.54" y1="83.82" x2="129.54" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="15.24" x2="106.68" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="15.24" x2="106.68" y2="17.78" width="0.1524" layer="91"/>
@@ -30764,12 +30769,12 @@ SPI</text>
 <segment>
 <pinref part="L1112" gate="G$1" pin="1"/>
 <wire x1="83.82" y1="76.2" x2="86.36" y2="76.2" width="0.1524" layer="91"/>
-<pinref part="U1011" gate="G$1" pin="AVDD"/>
+<pinref part="U1111" gate="G$1" pin="AVDD"/>
 <wire x1="86.36" y1="76.2" x2="86.36" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="68.58" x2="71.12" y2="68.58" width="0.1524" layer="91"/>
 <pinref part="C1112" gate="G$1" pin="2"/>
 <junction x="86.36" y="68.58"/>
-<pinref part="U1011" gate="G$1" pin="M/!Z"/>
+<pinref part="U1111" gate="G$1" pin="M/!Z"/>
 <wire x1="71.12" y1="68.58" x2="68.58" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="53.34" x2="71.12" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="53.34" x2="71.12" y2="68.58" width="0.1524" layer="91"/>
@@ -30778,7 +30783,7 @@ SPI</text>
 </net>
 <net name="MCU_SPI3_SCK" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="SCLK"/>
+<pinref part="U1111" gate="G$1" pin="SCLK"/>
 <wire x1="73.66" y1="38.1" x2="50.8" y2="38.1" width="0.1524" layer="91"/>
 <label x="50.8" y="38.1" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -30790,7 +30795,7 @@ SPI</text>
 </net>
 <net name="MCU_SPI3_MOSI" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="DIN"/>
+<pinref part="U1111" gate="G$1" pin="DIN"/>
 <wire x1="73.66" y1="33.02" x2="50.8" y2="33.02" width="0.1524" layer="91"/>
 <label x="50.8" y="33.02" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -30802,14 +30807,14 @@ SPI</text>
 </net>
 <net name="MCU_OUT_AUDIO_DAC_SEL" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="!CS"/>
+<pinref part="U1111" gate="G$1" pin="!CS"/>
 <wire x1="73.66" y1="43.18" x2="50.8" y2="43.18" width="0.1524" layer="91"/>
 <label x="50.8" y="43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MAX5136_!READY" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="!READY"/>
+<pinref part="U1111" gate="G$1" pin="!READY"/>
 <wire x1="86.36" y1="17.78" x2="86.36" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="15.24" x2="81.28" y2="15.24" width="0.1524" layer="91"/>
 <pinref part="R1114" gate="G$1" pin="2"/>
@@ -30824,14 +30829,14 @@ SPI</text>
 </net>
 <net name="MAX5136_OUT1" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="OUT1"/>
+<pinref part="U1111" gate="G$1" pin="OUT1"/>
 <wire x1="124.46" y1="38.1" x2="139.7" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="R1141" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="MAX5136_OUT0" class="0">
 <segment>
-<pinref part="U1011" gate="G$1" pin="OUT0"/>
+<pinref part="U1111" gate="G$1" pin="OUT0"/>
 <wire x1="124.46" y1="43.18" x2="134.62" y2="43.18" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="43.18" x2="134.62" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="R1131" gate="G$1" pin="1"/>
@@ -31635,6 +31640,8 @@ I2C addr: 0x7C/0x7D</text>
 <text x="81.28" y="134.62" size="2.54" layer="97" ratio="15">DC/DC boost converter</text>
 <text x="147.32" y="116.84" size="1.778" layer="97">Imax disabled</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Solar power converter</text>
+<text x="5.08" y="127.254" size="1.778" layer="97">MCU_VSOL_ADC1</text>
+<text x="30.48" y="139.7" size="1.778" layer="97">MCU_VSOL_TIMCAP</text>
 </plain>
 <instances>
 <instance part="FRAME_14" gate="G$1" x="0" y="0"/>
@@ -31661,6 +31668,8 @@ I2C addr: 0x7C/0x7D</text>
 <attribute name="NAME" x="14.224" y="94.234" size="2.1844" layer="95" ratio="10"/>
 <attribute name="VALUE" x="11.938" y="38.608" size="2.1844" layer="96" ratio="12"/>
 </instance>
+<instance part="R1411" gate="G$1" x="27.94" y="119.38" rot="R90"/>
+<instance part="R1412" gate="G$1" x="71.12" y="124.46"/>
 </instances>
 <busses>
 </busses>
@@ -31750,11 +31759,15 @@ I2C addr: 0x7C/0x7D</text>
 <junction x="60.96" y="104.14"/>
 <pinref part="L1403" gate="G$1" pin="2"/>
 <wire x1="60.96" y1="109.22" x2="66.04" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="109.22" x2="7.62" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="109.22" x2="27.94" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="109.22" x2="7.62" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="7.62" y1="109.22" x2="7.62" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="7.62" y1="58.42" x2="15.24" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="58.42" x2="15.24" y2="68.326" width="0.1524" layer="91"/>
 <pinref part="U1401" gate="G$1" pin="+VSOL"/>
+<pinref part="R1411" gate="G$1" pin="1"/>
+<wire x1="27.94" y1="109.22" x2="27.94" y2="114.3" width="0.1524" layer="91"/>
+<junction x="27.94" y="109.22"/>
 </segment>
 </net>
 <net name="+5V0" class="4">
@@ -31804,6 +31817,9 @@ I2C addr: 0x7C/0x7D</text>
 <label x="81.28" y="124.46" size="1.778" layer="95"/>
 <pinref part="L1403" gate="G$1" pin="1"/>
 <wire x1="81.28" y1="109.22" x2="76.2" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="R1412" gate="G$1" pin="2"/>
+<wire x1="81.28" y1="124.46" x2="76.2" y2="124.46" width="0.1524" layer="91"/>
+<junction x="81.28" y="124.46"/>
 </segment>
 </net>
 <net name="SPV_VCTRL" class="0">
@@ -31841,6 +31857,23 @@ I2C addr: 0x7C/0x7D</text>
 <pinref part="U1402" gate="G$1" pin="VOUT"/>
 <wire x1="121.92" y1="109.22" x2="119.38" y2="109.22" width="0.1524" layer="91"/>
 <label x="124.46" y="109.22" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="PA3" class="0">
+<segment>
+<pinref part="R1411" gate="G$1" pin="2"/>
+<wire x1="27.94" y1="124.46" x2="27.94" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="132.08" x2="22.86" y2="132.08" width="0.1524" layer="91"/>
+<label x="22.86" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PF9" class="0">
+<segment>
+<wire x1="22.86" y1="139.7" x2="60.96" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="R1412" gate="G$1" pin="1"/>
+<wire x1="66.04" y1="124.46" x2="60.96" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="124.46" x2="60.96" y2="139.7" width="0.1524" layer="91"/>
+<label x="22.86" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -32681,6 +32714,9 @@ USB host (OTG) interface</text>
 <instance part="R2326" gate="G$1" x="190.5" y="93.98" rot="R90"/>
 <instance part="R2335" gate="G$1" x="187.96" y="45.72" rot="R90"/>
 <instance part="R2336" gate="G$1" x="190.5" y="45.72" rot="R90"/>
+<instance part="R2318" gate="G$1" x="91.44" y="142.24" rot="R90"/>
+<instance part="R2328" gate="G$1" x="91.44" y="93.98" rot="R90"/>
+<instance part="R2338" gate="G$1" x="91.44" y="45.72" rot="R90"/>
 </instances>
 <busses>
 <bus name="GND,+3V3,+5V0,CLK0_P,CLK0_N,CLK1_P,CLK1_N,CLK2_P,CLK2_N,MCU_WAKEUP,MCU_I2C1_SCL,MCU_I2C1_SDA,MCU_I2C2_SCL,MCU_I2C2_SDA,MCU_I2C3_SCL,MCU_I2C3_SDA,MCU_SPI1_SCK,MCU_SPI1_MOSI,MCU_SPI1_MISO,I2S_SCK_OUT,I2S_SD_OUT,I2S_MCLK_OUT,I2S_FS_OUT,PA[0..15],PB[0..15],PC[0..15],PD[0..15],PE[0..15],PF[0..15],PG[0..15],PH[0..3]">
@@ -33109,12 +33145,6 @@ USB host (OTG) interface</text>
 <label x="93.98" y="134.62" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
-<wire x1="93.98" y1="132.08" x2="91.44" y2="134.62" width="0.1524" layer="91"/>
-<pinref part="X2311" gate="G$1" pin="31"/>
-<wire x1="91.44" y1="134.62" x2="91.44" y2="157.48" width="0.1524" layer="91"/>
-<label x="91.44" y="134.62" size="1.778" layer="95" rot="R90"/>
-</segment>
-<segment>
 <wire x1="106.68" y1="83.82" x2="104.14" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="X2321" gate="G$1" pin="36"/>
 <wire x1="104.14" y1="86.36" x2="104.14" y2="109.22" width="0.1524" layer="91"/>
@@ -33161,18 +33191,6 @@ USB host (OTG) interface</text>
 <pinref part="X2331" gate="G$1" pin="32"/>
 <wire x1="93.98" y1="38.1" x2="93.98" y2="60.96" width="0.1524" layer="91"/>
 <label x="93.98" y="38.1" size="1.778" layer="95" rot="R90"/>
-</segment>
-<segment>
-<wire x1="93.98" y1="83.82" x2="91.44" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="X2321" gate="G$1" pin="31"/>
-<wire x1="91.44" y1="86.36" x2="91.44" y2="109.22" width="0.1524" layer="91"/>
-<label x="91.44" y="86.36" size="1.778" layer="95" rot="R90"/>
-</segment>
-<segment>
-<wire x1="93.98" y1="35.56" x2="91.44" y2="38.1" width="0.1524" layer="91"/>
-<pinref part="X2331" gate="G$1" pin="31"/>
-<wire x1="91.44" y1="38.1" x2="91.44" y2="60.96" width="0.1524" layer="91"/>
-<label x="91.44" y="38.1" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
 <wire x1="91.44" y1="132.08" x2="88.9" y2="134.62" width="0.1524" layer="91"/>
@@ -34161,6 +34179,54 @@ USB host (OTG) interface</text>
 <wire x1="86.36" y1="86.36" x2="86.36" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
+<net name="TIMCAP_N" class="0">
+<segment>
+<pinref part="R2318" gate="G$1" pin="2"/>
+<pinref part="X2311" gate="G$1" pin="31"/>
+<wire x1="91.44" y1="147.32" x2="91.44" y2="157.48" width="0.1524" layer="91"/>
+<label x="91.44" y="147.32" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="TIMCAP_W" class="0">
+<segment>
+<pinref part="R2328" gate="G$1" pin="2"/>
+<pinref part="X2321" gate="G$1" pin="31"/>
+<wire x1="91.44" y1="99.06" x2="91.44" y2="109.22" width="0.1524" layer="91"/>
+<label x="91.44" y="99.06" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="TIMCAP_S" class="0">
+<segment>
+<pinref part="R2338" gate="G$1" pin="2"/>
+<pinref part="X2331" gate="G$1" pin="31"/>
+<wire x1="91.44" y1="50.8" x2="91.44" y2="60.96" width="0.1524" layer="91"/>
+<label x="91.44" y="50.8" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="PF6" class="0">
+<segment>
+<wire x1="91.44" y1="134.62" x2="93.98" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="R2318" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="134.62" x2="91.44" y2="137.16" width="0.1524" layer="91"/>
+<label x="91.44" y="134.62" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="PF7" class="0">
+<segment>
+<wire x1="91.44" y1="86.36" x2="93.98" y2="83.82" width="0.1524" layer="91"/>
+<pinref part="R2328" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="86.36" x2="91.44" y2="88.9" width="0.1524" layer="91"/>
+<label x="91.44" y="86.36" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="PF8" class="0">
+<segment>
+<wire x1="91.44" y1="38.1" x2="93.98" y2="35.56" width="0.1524" layer="91"/>
+<pinref part="R2338" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="38.1" x2="91.44" y2="40.64" width="0.1524" layer="91"/>
+<label x="91.44" y="38.1" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -34258,26 +34324,16 @@ USB host (OTG) interface</text>
 <approved hash="106,4,45.72,137.16,+1V8_UNUSED,,,,,"/>
 <approved hash="106,4,55.88,137.16,+2V5_UNUSED,,,,,"/>
 <approved hash="106,1,139.7,38.1,PA1,,,,,"/>
-<approved hash="106,1,144.78,38.1,PA3,,,,,"/>
-<approved hash="106,1,149.86,38.1,PA4,,,,,"/>
 <approved hash="106,1,152.4,38.1,PA5,,,,,"/>
 <approved hash="106,1,144.78,160.02,PA15,,,,,"/>
 <approved hash="106,1,175.26,38.1,PB2,,,,,"/>
 <approved hash="106,1,78.74,160.02,PB4,,,,,"/>
-<approved hash="106,1,60.96,160.02,PB8,,,,,"/>
 <approved hash="106,1,58.42,160.02,PB9,,,,,"/>
 <approved hash="106,1,228.6,160.02,PB15,,,,,"/>
 <approved hash="106,1,175.26,160.02,PC7,,,,,"/>
-<approved hash="106,1,50.8,160.02,PE1,,,,,"/>
 <approved hash="106,1,55.88,38.1,PE6,,,,,"/>
 <approved hash="106,1,88.9,38.1,PF4,,,,,"/>
 <approved hash="106,1,91.44,38.1,PF5,,,,,"/>
-<approved hash="106,1,96.52,38.1,PF6,,,,,"/>
-<approved hash="106,1,99.06,38.1,PF7,,,,,"/>
-<approved hash="106,1,101.6,38.1,PF8,,,,,"/>
-<approved hash="106,1,104.14,38.1,PF9,,,,,"/>
-<approved hash="106,1,180.34,38.1,PF11,,,,,"/>
-<approved hash="106,1,193.04,38.1,PF15,,,,,"/>
 <approved hash="106,1,190.5,160.02,PG5,,,,,"/>
 <approved hash="106,1,187.96,160.02,PG6,,,,,"/>
 <approved hash="106,7,68.58,111.76,SI5338_IN_CLK1,,,,,"/>
@@ -34290,7 +34346,6 @@ USB host (OTG) interface</text>
 <approved hash="113,4,127,171.696,SJ0401,,,,,"/>
 <approved hash="113,3,78.74,65.2187,X0301,,,,,"/>
 <approved hash="113,3,141.915,140.149,X0322,,,,,"/>
-<approved hash="113,20,189.52,95.2288,X2001,,,,,"/>
 <approved hash="113,4,64.5245,132.08,SJ0421,,,,,"/>
 <approved hash="113,4,54.3645,132.08,SJ0422,,,,,"/>
 <approved hash="113,4,44.2045,132.08,SJ0423,,,,,"/>
