@@ -1,6 +1,6 @@
 Configuration	HFT-Core-Module_TrueSTUDIO
 STM32CubeMX 	4.26.0
-Date	07/23/2018
+Date	07/25/2018
 MCU	STM32L496ZGTxP
 
 
