@@ -25636,7 +25636,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="X2311" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="X2331" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="C1602" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
-<part name="L1604" library="rcl" deviceset="L-EU" device="L5650M" value="4.7uH"/>
+<part name="L1604" library="rcl" deviceset="L-EU" device="L5650M" value="1.0uH 33mR"/>
 <part name="C1605" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C1606" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
 <part name="X0301" library="df4iah_connector" deviceset="HEADER-2X3" device=""/>
@@ -25712,7 +25712,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0432" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="GND0431" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0444" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
-<part name="L0433" library="df4iah_rcl" deviceset="L-EU" device="6.0X6.0MM" value="2.2uH"/>
+<part name="L0433" library="df4iah_rcl" deviceset="L-EU" device="6.0X6.0MM" value="2.2uH 14mR"/>
 <part name="U0901" library="df4iah_rf" deviceset="AX5243" device=""/>
 <part name="D1403" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="L1403" library="df4iah_rcl" deviceset="L-EU" device="13.5X12.5MM" value="33uH"/>
@@ -25841,7 +25841,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="X2322" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="X2332" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="S0312" library="df4iah_switch" deviceset="KSR223G_SMD_1POL" device="" value="KSR223G"/>
-<part name="U1601" library="df4iah_powersupply" deviceset="PAM2305" device="" value="PAM2305AAB330"/>
+<part name="U1601" library="df4iah_powersupply" deviceset="PAM2305" device="" value="SC189ZSKTRT"/>
 <part name="U1402" library="df4iah_powersupply" deviceset="SPV1040" device="" value="SPV1040T"/>
 <part name="R2002" library="rcl" deviceset="R-EU_" device="R0603" value="330kR"/>
 <part name="C2003" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1nF"/>
@@ -25917,8 +25917,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1105" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
 <part name="R1104" library="rcl" deviceset="R-EU_" device="R0603" value="22kR"/>
 <part name="R1105" library="rcl" deviceset="R-EU_" device="R0603" value="22kR"/>
-<part name="X2101" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device=""/>
-<part name="X2111" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device=""/>
+<part name="X2101" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
+<part name="X2111" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
 <part name="TP_AX_TCXO_EN" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_AX_IRQ" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="R1241" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
@@ -28019,6 +28019,7 @@ Digikey: 497-17999-ND</text>
 <text x="165.1" y="38.1" size="2.54" layer="97" ratio="15">MCU VREF</text>
 <text x="165.1" y="73.66" size="2.54" layer="97" ratio="15">MCU VBAT</text>
 <text x="180.34" y="78.74" size="1.778" layer="97">not needed!</text>
+<text x="48.26" y="15.24" size="1.778" layer="97">(1.0A out, 1.5MHz fixed)</text>
 </plain>
 <instances>
 <instance part="FRAME_04" gate="G$1" x="0" y="0"/>
@@ -32006,6 +32007,8 @@ I2C addr: 0x7C/0x7D</text>
 <text x="139.7" y="104.14" size="1.778" layer="96">5mm x 5mm</text>
 <text x="104.14" y="111.76" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5V --&gt; 3.3V</text>
+<text x="104.14" y="73.66" size="1.778" layer="97">(1.5A out, 1.5MHz fixed)</text>
+<text x="104.14" y="68.58" size="1.778" layer="97">(replaces PAM2305)</text>
 </plain>
 <instances>
 <instance part="C1602" gate="G$1" x="73.66" y="78.74"/>
