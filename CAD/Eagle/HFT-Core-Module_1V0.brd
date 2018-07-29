@@ -9,7 +9,7 @@
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="3.125" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="Route2" color="1" fill="3" visible="yes" active="yes"/>
+<layer number="2" name="Layer_2" color="1" fill="3" visible="yes" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
 <layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
@@ -22,7 +22,7 @@
 <layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Route15" color="4" fill="6" visible="yes" active="yes"/>
+<layer number="15" name="Layer_15" color="4" fill="6" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
@@ -51,8 +51,8 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="13" fill="1" visible="yes" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
@@ -5067,7 +5067,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="OC_FARNELL" value="1207050" x="45.72" y="81.28" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="OC_NEWARK" value="-" x="45.72" y="81.28" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="PACKAGE" value="SOT-23-5" x="45.72" y="81.28" size="1.778" layer="28" rot="MR0" display="off"/>
-<attribute name="NAME" x="49.2125" y="82.5119" size="0.6096" layer="26" font="vector" ratio="10" rot="SMR270"/>
+<attribute name="NAME" x="48.5775" y="80.0481" size="0.6096" layer="26" font="vector" ratio="10" rot="SMR90"/>
 <attribute name="VALUE" x="49.1744" y="76.835" size="0.6096" layer="28" font="vector" ratio="10" rot="SMR0"/>
 </element>
 <element name="R0642" library="rcl" package="R0603" value="47R" x="45.085" y="78.74" smashed="yes" rot="MR180">
@@ -5209,11 +5209,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="15.24" y="29.845" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="SJ0421" library="df4iah_jumper" package="SJ" value="" x="62.309375" y="65.008125" smashed="yes" rot="MR270">
-<attribute name="NAME" x="63.134875" y="61.134625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
+<attribute name="NAME" x="63.293625" y="63.4365" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="62.309375" y="64.608025" size="0.02" layer="28" rot="MR270"/>
 </element>
 <element name="SJ0422" library="df4iah_jumper" package="SJ" value="" x="64.849375" y="65.008125" smashed="yes" rot="MR270">
-<attribute name="NAME" x="65.674875" y="61.134625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
+<attribute name="NAME" x="65.833625" y="63.4365" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="64.849375" y="64.608025" size="0.02" layer="28" rot="MR270"/>
 </element>
 <element name="C0422" library="rcl" package="C0603" value="100nF" x="73.66" y="64.77" smashed="yes" rot="MR270">
@@ -5225,11 +5225,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="64.849375" y="68.818125" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
 <element name="SJ0423" library="df4iah_jumper" package="SJ" value="" x="67.389375" y="65.008125" smashed="yes" rot="MR270">
-<attribute name="NAME" x="68.214875" y="61.134625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
+<attribute name="NAME" x="68.373625" y="63.4365" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="67.389375" y="64.608025" size="0.02" layer="28" rot="MR270"/>
 </element>
 <element name="SJ0424" library="df4iah_jumper" package="SJ" value="" x="69.929375" y="65.008125" smashed="yes" rot="MR270">
-<attribute name="NAME" x="70.754875" y="61.134625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
+<attribute name="NAME" x="70.913625" y="63.4365" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="69.929375" y="64.608025" size="0.02" layer="28" rot="MR270"/>
 </element>
 <element name="C0612" library="rcl" package="C0603" value="100nF" x="43.815" y="84.455" smashed="yes" rot="MR90">
@@ -5633,7 +5633,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="52.07" y="61.595" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
 <element name="R0276" library="rcl" package="R0603" value="47R" x="51.435" y="60.325" smashed="yes" rot="MR0">
-<attribute name="NAME" x="54.61" y="60.96" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
+<attribute name="NAME" x="55.88" y="60.086875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="52.07" y="58.42" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
 <element name="R0271" library="rcl" package="R0603" value="47R" x="80.01" y="68.58" smashed="yes" rot="R90">
@@ -5758,7 +5758,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="OC_NEWARK" value="-" x="87.63" y="68.58" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="SUPPLIER" value="Texas Instruments" x="87.63" y="68.58" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="MPN" value="OPA354AIDBVT" x="87.63" y="68.58" size="1.778" layer="28" rot="MR0" display="off"/>
-<attribute name="NAME" x="93.9419" y="68.8975" size="0.6096" layer="26" font="vector" ratio="10" rot="SMR0"/>
+<attribute name="NAME" x="94.5769" y="70.723125" size="0.6096" layer="26" font="vector" ratio="10" rot="SMR0"/>
 <attribute name="VALUE" x="91.0844" y="64.135" size="0.6096" layer="28" font="vector" ratio="10" rot="SMR0"/>
 </element>
 <element name="C1142" library="df4iah_rcl" package="C0805" value="100uF" x="89.535" y="71.12" smashed="yes" rot="MR0">
@@ -5818,7 +5818,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="76.2" y="89.535" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="L1102" library="rcl" package="L2012C" value="10uH" x="79.375" y="87.63" smashed="yes" rot="MR0">
-<attribute name="NAME" x="81.5975" y="88.5825" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
+<attribute name="NAME" x="81.5975" y="89.138125" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="81.28" y="85.09" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
 <element name="C1102" library="rcl" package="C0603" value="100nF" x="82.55" y="87.63" smashed="yes" rot="MR0">
@@ -5996,11 +5996,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="70.485" y="48.26" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
 <element name="R2315" library="rcl" package="R0603" value="47R" x="63.5" y="91.44" smashed="yes" rot="MR90">
-<attribute name="NAME" x="62.23" y="90.17" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
+<attribute name="NAME" x="61.991875" y="90.090625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="61.595" y="90.805" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="R2316" library="rcl" package="R0603" value="47R" x="64.77" y="91.44" smashed="yes" rot="MR90">
-<attribute name="NAME" x="66.04" y="87.3125" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
+<attribute name="NAME" x="66.119375" y="88.10625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="62.865" y="90.805" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
 <element name="R2325" library="rcl" package="R0603" value="47R" x="5.08" y="63.5" smashed="yes" rot="MR0">
@@ -6424,7 +6424,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="93.345" y="22.225" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
 <element name="L0995" library="rcl" package="R0603" value="0R" x="91.44" y="21.59" smashed="yes" rot="MR270">
-<attribute name="NAME" x="91.1225" y="17.4625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
+<attribute name="NAME" x="91.7575" y="17.30375" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="93.345" y="22.225" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
 <element name="C0911" library="rcl" package="C0603" value="1nF" x="84.455" y="26.67" smashed="yes" rot="MR180">
@@ -6491,7 +6491,10 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="68.6675" y="62.16625" size="0.8128" layer="25"/>
 <attribute name="VALUE" x="68.19125" y="58.595" size="0.8128" layer="27"/>
 </element>
-<element name="R2318" library="rcl" package="R0603" value="47R" x="39.84625" y="90.32875" rot="MR180"/>
+<element name="R2318" library="rcl" package="R0603" value="47R" x="39.84625" y="90.32875" smashed="yes" rot="MR180">
+<attribute name="NAME" x="41.036875" y="91.28125" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
+<attribute name="VALUE" x="39.21125" y="92.23375" size="1.27" layer="28" rot="MR180"/>
+</element>
 <element name="R2328" library="rcl" package="R0603" value="47R" x="6.19125" y="39.21125" smashed="yes" rot="MR90">
 <attribute name="NAME" x="5.635625" y="34.925" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="4.28625" y="38.57625" size="1.27" layer="28" rot="MR90"/>
@@ -6501,7 +6504,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="53.975" y="4.445" size="1.27" layer="28" rot="MR90"/>
 </element>
 <element name="R1411" library="rcl" package="R0603" value="1kR" x="19.20875" y="49.37125" smashed="yes" rot="MR180">
-<attribute name="NAME" x="18.57375" y="48.73625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR180"/>
+<attribute name="NAME" x="20.47875" y="50.244375" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="18.57375" y="51.27625" size="1.27" layer="28" rot="MR180"/>
 </element>
 <element name="R1412" library="rcl" package="R0603" value="100kR" x="27.6225" y="52.149375" smashed="yes" rot="MR0">
@@ -15568,6 +15571,56 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="5,16,e4672467aac08c69"/>
 <approved hash="5,16,d4619700211f6bc8"/>
 <approved hash="5,16,b34252eb35dcf98b"/>
+<approved hash="18,30,653e5ca4afc47061"/>
+<approved hash="18,30,05873bbd9b8c65ec"/>
+<approved hash="18,30,ac9ddd9b1ab6c25d"/>
+<approved hash="18,30,638e9c05bc610011"/>
+<approved hash="18,30,2438023a01c827ca"/>
+<approved hash="18,30,7672720ce6ece1ce"/>
+<approved hash="18,30,07006421993b2e54"/>
+<approved hash="18,30,da51c5558f548e7e"/>
+<approved hash="18,30,96dbbce3c736bc6f"/>
+<approved hash="18,30,7389d7afecfe28ae"/>
+<approved hash="18,30,3c3c4e92eece3fca"/>
+<approved hash="18,30,b5f27ea8bd2c15ea"/>
+<approved hash="18,30,aa0d35bfcbaf57fd"/>
+<approved hash="18,30,1d8a8bbc1a8c2de2"/>
+<approved hash="18,30,fe1527f80b001fe3"/>
+<approved hash="18,30,ea2059229105e879"/>
+<approved hash="18,30,f4382a3629c5f7cb"/>
+<approved hash="18,30,2b831d040c63181d"/>
+<approved hash="18,30,6f508a49a2ed2e00"/>
+<approved hash="18,30,5c0be305e2aa5da4"/>
+<approved hash="18,30,96fd9726e08cd791"/>
+<approved hash="18,30,9611b3e408dc513f"/>
+<approved hash="18,30,21737c292230587c"/>
+<approved hash="18,30,e2dacb9b8ea3a973"/>
+<approved hash="18,30,73805594918b7267"/>
+<approved hash="18,30,39b47c33173c2d42"/>
+<approved hash="18,30,465c3943f6f19ba4"/>
+<approved hash="18,30,76454800688a2eb0"/>
+<approved hash="18,30,eb97b0d3ab82634c"/>
+<approved hash="18,30,1431295493c2d4c0"/>
+<approved hash="18,30,1297f0d3e7822738"/>
+<approved hash="18,30,02313f2074b633c0"/>
+<approved hash="18,30,5a66765b95e6f107"/>
+<approved hash="18,30,57ee2bc222704e0e"/>
+<approved hash="18,30,40685c1f2da65181"/>
+<approved hash="18,30,2b5a6dbe5a371db1"/>
+<approved hash="18,30,b997b0d3b7824735"/>
+<approved hash="18,30,209770d363824321"/>
+<approved hash="18,30,606d5694d97487a8"/>
+<approved hash="18,30,d42c4fe44fcad402"/>
+<approved hash="18,30,b67736763e96666f"/>
+<approved hash="18,30,ea36184e189beae3"/>
+<approved hash="18,30,01e4002400ce010e"/>
+<approved hash="18,30,0673ce21ee626622"/>
+<approved hash="18,30,82320452048782e7"/>
+<approved hash="18,30,3f3d232a545e1fce"/>
+<approved hash="18,30,fa5800c000c0fa58"/>
+<approved hash="18,30,1c00320832e21cea"/>
+<approved hash="18,30,0d09ebf6da0e2506"/>
+<approved hash="18,30,1238f400f4001238"/>
 <approved hash="3,16,cd32c33ec322cf2c"/>
 <approved hash="3,16,3d4f3f433d433d4d"/>
 <approved hash="3,16,354f3f433d43354d"/>
@@ -15723,55 +15776,28 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="18,30,d253406fdcb7bec4"/>
 <approved hash="18,30,d66b43dadb04bac4"/>
 <approved hash="18,30,d24b458dd951bec4"/>
-<approved hash="18,30,653e5ca4afc47061"/>
-<approved hash="18,30,05873bbd9b8c65ec"/>
-<approved hash="18,30,ac9ddd9b1ab6c25d"/>
-<approved hash="18,30,638e9c05bc610011"/>
-<approved hash="18,30,2438023a01c827ca"/>
-<approved hash="18,30,7672720ce6ece1ce"/>
-<approved hash="18,30,af3444aaa7e2b80d"/>
-<approved hash="18,30,a8f04fccab5cbfc1"/>
-<approved hash="18,30,abf242dfa551bc2f"/>
 <approved hash="18,30,ab2a473da077bc2f"/>
-<approved hash="18,30,07006421993b2e54"/>
-<approved hash="18,30,da51c5558f548e7e"/>
-<approved hash="18,30,96dbbce3c736bc6f"/>
-<approved hash="18,30,7389d7afecfe28ae"/>
-<approved hash="18,30,3c3c4e92eece3fca"/>
-<approved hash="18,30,b5f27ea8bd2c15ea"/>
-<approved hash="18,30,aa0d35bfcbaf57fd"/>
-<approved hash="18,30,1d8a8bbc1a8c2de2"/>
-<approved hash="18,30,fe1527f80b001fe3"/>
-<approved hash="18,30,ea2059229105e879"/>
-<approved hash="18,30,f4382a3629c5f7cb"/>
-<approved hash="18,30,2b831d040c63181d"/>
-<approved hash="18,30,6f508a49a2ed2e00"/>
-<approved hash="18,30,5c0be305e2aa5da4"/>
-<approved hash="18,30,96fd9726e08cd791"/>
-<approved hash="18,30,9611b3e408dc513f"/>
-<approved hash="18,30,21737c292230587c"/>
+<approved hash="18,30,af3444aaa7e2b80d"/>
+<approved hash="18,30,abf242dfa551bc2f"/>
+<approved hash="18,30,a8f04fccab5cbfc1"/>
 <approved hash="18,30,3253a002efda8dc4"/>
-<approved hash="18,30,31aba89de4d38e44"/>
-<approved hash="18,30,324ba5e0ea3c8dc4"/>
 <approved hash="18,30,366ba3b7e86989c4"/>
-<approved hash="18,30,e2dacb9b8ea3a973"/>
-<approved hash="18,30,73805594918b7267"/>
-<approved hash="18,30,39b47c33173c2d42"/>
-<approved hash="18,30,465c3943f6f19ba4"/>
+<approved hash="18,30,324ba5e0ea3c8dc4"/>
+<approved hash="18,30,31aba89de4d38e44"/>
 <approved hash="18,30,d72a3b67192d052f"/>
-<approved hash="18,30,d7f23e851c0b052f"/>
 <approved hash="18,30,d33438f01eb8010d"/>
 <approved hash="18,30,d4f03396120606c1"/>
+<approved hash="18,30,d7f23e851c0b052f"/>
 <approved hash="18,30,e2b08a2b76c9f9cf"/>
 <approved hash="18,30,c04495cb69d1c43b"/>
 <approved hash="18,30,887dc14bca1164ba"/>
 <approved hash="18,30,aa09c12bd58946ce"/>
+<approved hash="18,30,12ea59baeca5d704"/>
 <approved hash="18,30,6e445ecfe8b0ab9c"/>
 <approved hash="18,30,17c85a61ea4ed204"/>
 <approved hash="18,30,12aa5c90e91fd784"/>
-<approved hash="18,30,12ea59baeca5d704"/>
-<approved hash="18,30,150a59fa0e903e81"/>
 <approved hash="18,30,656a587a0ed04ee1"/>
+<approved hash="18,30,150a59fa0e903e81"/>
 <approved hash="18,30,6e312156686f5be9"/>
 <approved hash="18,30,1f512116692f2a49"/>
 <approved hash="18,30,09ccabb6547fc447"/>
@@ -15779,18 +15805,18 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="18,30,544339548908443e"/>
 <approved hash="18,30,5a9be90d6d14f82a"/>
 <approved hash="18,30,280b10f31d191ff9"/>
+<approved hash="18,30,a47014925e439e00"/>
+<approved hash="18,30,a17212835d729b60"/>
 <approved hash="18,30,d8b216315fc0e2e4"/>
 <approved hash="18,30,a43411745bfd9e4c"/>
-<approved hash="18,30,a17212835d729b60"/>
-<approved hash="18,30,a47014925e439e00"/>
 <approved hash="18,30,2549f340a82e862a"/>
 <approved hash="18,30,de92905310545e95"/>
 <approved hash="18,30,52488418d3f0fdd1"/>
 <approved hash="18,30,280c5ff95e7bf579"/>
-<approved hash="18,30,7807fba97361106a"/>
-<approved hash="18,30,58438a945d01115d"/>
 <approved hash="18,30,12899fefa864b2a4"/>
 <approved hash="18,30,bf12e2000640b0d2"/>
+<approved hash="18,30,58438a945d01115d"/>
+<approved hash="18,30,7807fba97361106a"/>
 <approved hash="18,30,d11169b4d4763c02"/>
 <approved hash="18,30,b99abc73dd8898fc"/>
 <approved hash="18,30,d60caabb08ebe64d"/>
@@ -15800,13 +15826,18 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="18,30,2eab9389bb95bcce"/>
 <approved hash="18,30,9a5922e9dd635a43"/>
 <approved hash="18,30,30bf9fb5b7b2b5c0"/>
-<approved hash="18,30,76454800688a2eb0"/>
-<approved hash="18,30,eb97b0d3ab82634c"/>
-<approved hash="18,30,1431295493c2d4c0"/>
 <approved hash="18,30,8d483345ea317580"/>
-<approved hash="18,30,1297f0d3e7822738"/>
-<approved hash="18,30,02313f2074b633c0"/>
-<approved hash="18,30,5a66765b95e6f107"/>
+<approved hash="18,30,a84070826a667c5f"/>
+<approved hash="18,30,5e89ef15bdd9cf9e"/>
+<approved hash="18,30,ee26cc06cc3fee1f"/>
+<approved hash="18,30,24d9e1f0c2203de8"/>
+<approved hash="18,30,06e78aabba1a291e"/>
+<approved hash="18,30,1220122013fe13fe"/>
+<approved hash="18,30,26972afe5c383640"/>
+<approved hash="18,30,bf3db8096b5560c6"/>
+<approved hash="18,30,050cb0087757ca6b"/>
+<approved hash="18,30,214431e4303a209a"/>
+<approved hash="18,30,62c219f18c17dd2c"/>
 <approved hash="18,30,0b330da7726498bc"/>
 <approved hash="18,30,5d1d57c14e1b5cf1"/>
 <approved hash="18,30,9c9297484fe55dd5"/>
@@ -15815,12 +15846,6 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="18,30,a856ab0654156d53"/>
 <approved hash="18,30,a856ab063e239988"/>
 <approved hash="18,30,049d3f5d3e222afd"/>
-<approved hash="18,30,57ee2bc222704e0e"/>
-<approved hash="18,30,40685c1f2da65181"/>
-<approved hash="18,30,2b5a6dbe5a371db1"/>
-<approved hash="18,30,b997b0d3b7824735"/>
-<approved hash="18,30,209770d363824321"/>
-<approved hash="18,30,606d5694d97487a8"/>
 <approved hash="18,30,e3c04683a167e3fe"/>
 <approved hash="18,30,c7dbbd306265c714"/>
 <approved hash="18,30,6a0a3872387a6a02"/>
@@ -15917,6 +15942,14 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="18,30,27df04066df82660"/>
 <approved hash="18,30,1c95a63f54a7836d"/>
 <approved hash="18,30,e3cf2bc32a321f87"/>
+<approved hash="18,30,6c712fc0fe2d51d7"/>
+<approved hash="18,30,08226d1b0a280029"/>
+<approved hash="18,30,0e9c45ca3019d8cf"/>
+<approved hash="18,30,422031b83192420a"/>
+<approved hash="18,30,1e43e1e2d1e10668"/>
+<approved hash="18,30,c012aa440eb981e4"/>
+<approved hash="18,30,200e02ce87c94ae6"/>
+<approved hash="18,30,822e122e1c460236"/>
 <approved hash="18,30,aff42ebfaebd2ff6"/>
 <approved hash="18,30,ad45200ca00e2d47"/>
 <approved hash="18,30,aa162bd9abdb2a14"/>
@@ -15970,17 +16003,12 @@ Diameter = 1mm, Clearance = 3R</description>
 <approved hash="18,30,054f5ad5dd5b9179"/>
 <approved hash="18,30,054f5ad232537f69"/>
 <approved hash="18,30,1a704ded0d5b7f6e"/>
-<approved hash="18,30,d42c4fe44fcad402"/>
-<approved hash="18,30,b67736763e96666f"/>
-<approved hash="18,30,ea36184e189beae3"/>
-<approved hash="18,30,01e4002400ce010e"/>
-<approved hash="18,30,0673ce21ee626622"/>
-<approved hash="18,30,82320452048782e7"/>
-<approved hash="18,30,3f3d232a545e1fce"/>
-<approved hash="18,30,fa5800c000c0fa58"/>
-<approved hash="18,30,1c00320832e21cea"/>
-<approved hash="18,30,0d09ebf6da0e2506"/>
-<approved hash="18,30,1238f400f4001238"/>
+<approved hash="18,30,5ef4244c24aa5e12"/>
+<approved hash="18,30,7ed6387e380b7ea3"/>
+<approved hash="18,30,7e2f12091cee064e"/>
+<approved hash="18,30,16484000405a1612"/>
+<approved hash="18,30,e211e7e9e79ce264"/>
+<approved hash="18,30,5ff916011749e7f9"/>
 <approved hash="5,1,fb2eaaf71bbd0e61"/>
 <approved hash="5,1,8e689a3ca771f720"/>
 <approved hash="5,1,235f1c100eec26bb"/>
