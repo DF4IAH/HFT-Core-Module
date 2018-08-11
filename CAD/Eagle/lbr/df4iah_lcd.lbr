@@ -96,10 +96,10 @@ with I2C</description>
 <dimension x1="-32.5" y1="16" x2="32.5" y2="16" x3="0" y3="20" textsize="1.27" textratio="10" layer="47" dtype="diameter"/>
 <wire x1="34.75" y1="-17" x2="34.75" y2="-14" width="0.127" layer="51"/>
 <wire x1="-34.75" y1="-17" x2="-34.75" y2="-14" width="0.127" layer="51"/>
-<pad name="9" x="-38.55" y="4.05" drill="1.6" diameter="2" shape="octagon"/>
-<pad name="10" x="-38.55" y="1.05" drill="1.6" diameter="2" shape="octagon"/>
-<pad name="11" x="-38.55" y="-1.95" drill="1.6" diameter="2" shape="octagon"/>
-<pad name="12" x="-38.55" y="-4.95" drill="1.6" diameter="2" shape="octagon"/>
+<pad name="9" x="-38.55" y="7.325" drill="1.6" diameter="2.1844" shape="octagon"/>
+<pad name="10" x="-38.55" y="4.325" drill="1.6" diameter="2.1844" shape="octagon"/>
+<pad name="11" x="-38.55" y="1.325" drill="1.6" diameter="2.1844" shape="octagon"/>
+<pad name="12" x="-38.55" y="-1.675" drill="1.6" diameter="2.1844" shape="octagon"/>
 <text x="-43" y="3.5" size="1.27" layer="21" ratio="10">KR</text>
 <text x="-43" y="0.5" size="1.27" layer="21" ratio="10">KG</text>
 <text x="-43" y="-2.5" size="1.27" layer="21" ratio="10">KB</text>
@@ -111,6 +111,7 @@ with I2C</description>
 <hole x="32.5" y="16.1" drill="2.5"/>
 <hole x="32.5" y="-17" drill="2.5"/>
 <hole x="-32.5" y="-17" drill="2.5"/>
+<dimension x1="-35.8" y1="2.8" x2="-35.8" y2="13.1" x3="-44.45" y3="7.95" textsize="1.27" layer="47"/>
 </package>
 </packages>
 <symbols>
