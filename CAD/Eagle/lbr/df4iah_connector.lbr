@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -2979,14 +2979,14 @@ Molex 90130 series</description>
 </package>
 <package name="SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS">
 <description>&lt;h4&gt;SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS&lt;/h4&gt;</description>
-<pad name="1" x="-4.5325" y="-0.9" drill="1" shape="octagon"/>
-<pad name="5" x="1.5675" y="-0.9" drill="1" shape="octagon"/>
-<pad name="4" x="7.0675" y="-0.9" drill="1" shape="octagon"/>
-<pad name="2" x="-2.1325" y="1.1" drill="1" shape="octagon"/>
-<pad name="3" x="3.3675" y="1.1" drill="1" shape="octagon"/>
-<pad name="6" x="5.3675" y="3.55" drill="1" shape="octagon"/>
-<pad name="7" x="-3.5325" y="-5.05" drill="1" shape="octagon"/>
-<pad name="8" x="5.3675" y="-5.05" drill="1" shape="octagon"/>
+<pad name="1" x="-4.5325" y="-0.9" drill="1.5" shape="octagon"/>
+<pad name="5" x="1.5675" y="-0.9" drill="1.5" diameter="2.1" shape="octagon"/>
+<pad name="4" x="7.0675" y="-0.9" drill="1.5" shape="octagon"/>
+<pad name="2" x="-2.1325" y="1.1" drill="1.5" shape="octagon"/>
+<pad name="3" x="3.3675" y="1.1" drill="1.5" diameter="2.1" shape="octagon"/>
+<pad name="6" x="5.3675" y="3.55" drill="1.5" shape="octagon"/>
+<pad name="7" x="-3.5325" y="-5.05" drill="1.5" shape="octagon"/>
+<pad name="8" x="5.3675" y="-5.05" drill="1.5" shape="octagon"/>
 <wire x1="-6.0325" y1="-5.08" x2="8.8675" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="8.8675" y1="-5.08" x2="8.8675" y2="3.4925" width="0.127" layer="21"/>
 <wire x1="8.8675" y1="3.4925" x2="-6.0325" y2="3.4925" width="0.127" layer="21"/>
