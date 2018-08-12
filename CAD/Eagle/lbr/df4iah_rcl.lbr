@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.0125" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -12445,6 +12445,59 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 <wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
 <wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
 </package>
+<package name="C115-080X160">
+<description>&lt;b&gt;CAPACITOR&lt;/b&gt;&lt;p&gt;
+grid 11.5 mm, outline 8.0 x 16.0 mm</description>
+<wire x1="-0.635" y1="1.27" x2="-0.635" y2="0" width="0.4064" layer="21"/>
+<wire x1="-0.635" y1="0" x2="-0.635" y2="-1.27" width="0.4064" layer="21"/>
+<wire x1="0.635" y1="1.27" x2="0.635" y2="0" width="0.4064" layer="21"/>
+<wire x1="0.635" y1="0" x2="0.635" y2="-1.27" width="0.4064" layer="21"/>
+<wire x1="0.635" y1="0" x2="3.556" y2="0" width="0.1524" layer="21"/>
+<wire x1="-0.635" y1="0" x2="-3.556" y2="0" width="0.1524" layer="21"/>
+<wire x1="8" y1="3.492" x2="8" y2="-3.492" width="0.1524" layer="21"/>
+<wire x1="7.5" y1="-4" x2="-7.5" y2="-4" width="0.1524" layer="21"/>
+<wire x1="-8" y1="-3.492" x2="-8" y2="3.492" width="0.1524" layer="21"/>
+<wire x1="-7.5" y1="4" x2="7.5" y2="4" width="0.1524" layer="21"/>
+<wire x1="7.5" y1="4" x2="8" y2="3.492" width="0.1524" layer="21" curve="-90"/>
+<wire x1="7.5" y1="-4" x2="8" y2="-3.492" width="0.1524" layer="21" curve="90"/>
+<wire x1="-8" y1="-3.492" x2="-7.5" y2="-4" width="0.1524" layer="21" curve="90"/>
+<wire x1="-8" y1="3.492" x2="-7.5" y2="4" width="0.1524" layer="21" curve="-90"/>
+<pad name="1" x="-5.75" y="0" drill="1.016" shape="octagon"/>
+<pad name="2" x="5.75" y="0" drill="1.016" shape="octagon"/>
+<text x="-7.112" y="4.191" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.794" y="-5.207" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+</package>
+<package name="C115-080X160_POL">
+<description>&lt;b&gt;CAPACITOR pol.&lt;/b&gt;&lt;p&gt;
+grid 11.5 mm, outline 8.0 x 16.0 mm</description>
+<wire x1="0.635" y1="0" x2="3.556" y2="0" width="0.1524" layer="21"/>
+<wire x1="-0.635" y1="0" x2="-3.556" y2="0" width="0.1524" layer="21"/>
+<wire x1="8" y1="3.492" x2="8" y2="-3.492" width="0.1524" layer="21"/>
+<wire x1="7.5" y1="-4" x2="-7.5" y2="-4" width="0.1524" layer="21"/>
+<wire x1="-8" y1="-3.492" x2="-8" y2="3.492" width="0.1524" layer="21"/>
+<wire x1="-7.5" y1="4" x2="7.5" y2="4" width="0.1524" layer="21"/>
+<wire x1="7.5" y1="4" x2="8" y2="3.492" width="0.1524" layer="21" curve="-90"/>
+<wire x1="7.5" y1="-4" x2="8" y2="-3.492" width="0.1524" layer="21" curve="90"/>
+<wire x1="-8" y1="-3.492" x2="-7.5" y2="-4" width="0.1524" layer="21" curve="90"/>
+<wire x1="-8" y1="3.492" x2="-7.5" y2="4" width="0.1524" layer="21" curve="-90"/>
+<pad name="-" x="-5.75" y="0" drill="1.016" shape="octagon"/>
+<pad name="+" x="5.75" y="0" drill="1.016" shape="octagon"/>
+<text x="-7.112" y="4.191" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.794" y="-5.207" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<polygon width="0.254" layer="21">
+<vertex x="-0.635" y="1.27"/>
+<vertex x="-0.635" y="-1.27"/>
+<vertex x="-1.27" y="-1.27"/>
+<vertex x="-1.27" y="1.27"/>
+</polygon>
+<wire x1="0" y1="-1.27" x2="0" y2="1.27" width="0.254" layer="21"/>
+<wire x1="0" y1="1.27" x2="0.635" y2="1.27" width="0.254" layer="21"/>
+<wire x1="0.635" y1="1.27" x2="0.635" y2="-1.27" width="0.254" layer="21"/>
+<wire x1="0.635" y1="-1.27" x2="0" y2="-1.27" width="0.254" layer="21"/>
+<wire x1="-7.62" y1="0" x2="-6.985" y2="0" width="0.127" layer="21"/>
+<wire x1="6.985" y1="0" x2="7.62" y2="0" width="0.127" layer="21"/>
+<wire x1="7.3025" y1="0.3175" x2="7.3025" y2="-0.3175" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="C-EU">
@@ -14182,6 +14235,15 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 </technologies>
 </device>
 <device name="W14MM_D8MM_P13MM5" package="W14MM_D8MM_P13MM5">
+<connects>
+<connect gate="G$1" pin="+" pad="+"/>
+<connect gate="G$1" pin="-" pad="-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="C115-080X160_POL" package="C115-080X160_POL">
 <connects>
 <connect gate="G$1" pin="+" pad="+"/>
 <connect gate="G$1" pin="-" pad="-"/>
