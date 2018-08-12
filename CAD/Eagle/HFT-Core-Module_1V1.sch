@@ -205,59 +205,12 @@ DIN A4, landscape with location and doc. field</description>
 <library name="df4iah_supply">
 <description>&lt;b&gt;DF4IAH Library - Supply symols for schematics&lt;/b&gt;&lt;p&gt;</description>
 <packages>
-<package name="SOLARPANEL_3V3_5MA1_25MM_X_20MM">
-<description>&lt;h4&gt;Panasonic AM-5610CAR&lt;/h4&gt;
-Solarpanel amorph 3.3V, 5.1mA, 25mm x 20mm</description>
-<wire x1="-10" y1="-12.5" x2="10" y2="-12.5" width="0.127" layer="21"/>
-<wire x1="10" y1="-12.5" x2="10" y2="12.5" width="0.127" layer="21"/>
-<wire x1="10" y1="12.5" x2="-10" y2="12.5" width="0.127" layer="21"/>
-<wire x1="-10" y1="12.5" x2="-10" y2="-12.5" width="0.127" layer="21"/>
-<pad name="-VSOL" x="11.23" y="11.865" drill="0.8" shape="octagon"/>
-<pad name="+VSOL" x="11.23" y="-11.865" drill="0.8" shape="octagon"/>
-<text x="10.595" y="-10.635" size="1.6764" layer="21" ratio="15">+</text>
-<text x="10.595" y="9.285" size="1.6764" layer="21" ratio="15">-</text>
-<rectangle x1="-10" y1="-12.5" x2="10" y2="-10" layer="51"/>
-<rectangle x1="-10" y1="10" x2="10" y2="12.5" layer="51"/>
-<wire x1="-10" y1="7.5" x2="10" y2="7.5" width="0.127" layer="51"/>
-<wire x1="-10" y1="2.5" x2="10" y2="2.5" width="0.127" layer="51"/>
-<wire x1="-10" y1="-2.5" x2="10" y2="-2.5" width="0.127" layer="51"/>
-<wire x1="-10" y1="-7.5" x2="10" y2="-7.5" width="0.127" layer="51"/>
-<wire x1="-10" y1="12.5" x2="10" y2="12.5" width="0.127" layer="51"/>
-<wire x1="10" y1="12.5" x2="10" y2="-12.5" width="0.127" layer="51"/>
-<wire x1="10" y1="-12.5" x2="-10" y2="-12.5" width="0.127" layer="51"/>
-<wire x1="-10" y1="-12.5" x2="-10" y2="12.5" width="0.127" layer="51"/>
-</package>
 </packages>
 <symbols>
 <symbol name="GND">
 <wire x1="-1.905" y1="0" x2="1.905" y2="0" width="0.254" layer="94"/>
 <text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
-</symbol>
-<symbol name="SOLARPANEL_3V3_5MA1_25MM_X_20MM">
-<description>&lt;h4&gt;Panasonic AM-5610CAR&lt;/h4&gt;
-Solarpanel amorph 3.3V, 5.1mA, 25mm x 20mm</description>
-<pin name="+VSOL" x="12.954" y="-10.16" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="-VSOL" x="12.954" y="10.16" visible="pad" length="short" direction="pas" rot="R180"/>
-<wire x1="10.414" y1="-12.7" x2="10.414" y2="12.7" width="0.4064" layer="94"/>
-<wire x1="10.414" y1="12.7" x2="9.398" y2="12.7" width="0.4064" layer="94"/>
-<wire x1="9.144" y1="12.7" x2="2.54" y2="12.7" width="0.4064" layer="94"/>
-<wire x1="2.54" y1="12.7" x2="-1.27" y2="12.7" width="0.4064" layer="94"/>
-<wire x1="-1.27" y1="12.7" x2="-4.826" y2="12.7" width="0.4064" layer="94"/>
-<wire x1="-4.826" y1="12.7" x2="-12.446" y2="12.7" width="0.4064" layer="94"/>
-<wire x1="-12.446" y1="12.7" x2="-12.446" y2="-12.7" width="0.4064" layer="94"/>
-<wire x1="-12.446" y1="-12.7" x2="-4.826" y2="-12.7" width="0.4064" layer="94"/>
-<wire x1="-4.826" y1="-12.7" x2="-1.27" y2="-12.7" width="0.4064" layer="94"/>
-<wire x1="-1.27" y1="-12.7" x2="2.54" y2="-12.7" width="0.4064" layer="94"/>
-<wire x1="2.54" y1="-12.7" x2="10.414" y2="-12.7" width="0.4064" layer="94"/>
-<wire x1="-4.826" y1="-12.7" x2="-4.826" y2="12.7" width="0.3048" layer="94"/>
-<wire x1="-1.27" y1="-12.7" x2="-1.27" y2="12.7" width="0.3048" layer="94"/>
-<wire x1="2.54" y1="-12.7" x2="2.54" y2="12.7" width="0.3048" layer="94"/>
-<wire x1="9.144" y1="12.7" x2="9.398" y2="12.7" width="0.3048" layer="94"/>
-<text x="-5.08" y="15.24" size="2.1844" layer="95" ratio="10">&gt;NAME</text>
-<text x="-17.272" y="-17.526" size="2.1844" layer="96" ratio="10">&gt;VALUE</text>
-<rectangle x1="-12.446" y1="-12.7" x2="-8.89" y2="12.7" layer="94"/>
-<rectangle x1="6.604" y1="-12.446" x2="10.414" y2="12.7" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -268,24 +221,6 @@ Solarpanel amorph 3.3V, 5.1mA, 25mm x 20mm</description>
 </gates>
 <devices>
 <device name="">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="SOLARPANEL_3V3_5MA1_25MM_X_20MM" prefix="U">
-<description>&lt;h4&gt;Panasonic AM-5610CAR&lt;/h4&gt;
-Solarpanel amorph 3.3V, 5.1mA, 25mm x 20mm</description>
-<gates>
-<gate name="G$1" symbol="SOLARPANEL_3V3_5MA1_25MM_X_20MM" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="SOLARPANEL_3V3_5MA1_25MM_X_20MM">
-<connects>
-<connect gate="G$1" pin="+VSOL" pad="+VSOL"/>
-<connect gate="G$1" pin="-VSOL" pad="-VSOL"/>
-</connects>
 <technologies>
 <technology name=""/>
 </technologies>
@@ -9199,14 +9134,14 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 </package>
 <package name="SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS">
 <description>&lt;h4&gt;SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS&lt;/h4&gt;</description>
-<pad name="1" x="-4.5325" y="-0.9" drill="1" shape="octagon"/>
-<pad name="5" x="1.5675" y="-0.9" drill="1" shape="octagon"/>
-<pad name="4" x="7.0675" y="-0.9" drill="1" shape="octagon"/>
-<pad name="2" x="-2.1325" y="1.1" drill="1" shape="octagon"/>
-<pad name="3" x="3.3675" y="1.1" drill="1" shape="octagon"/>
-<pad name="6" x="5.3675" y="3.55" drill="1" shape="octagon"/>
-<pad name="7" x="-3.5325" y="-5.05" drill="1" shape="octagon"/>
-<pad name="8" x="5.3675" y="-5.05" drill="1" shape="octagon"/>
+<pad name="1" x="-4.5325" y="-0.9" drill="1.5" shape="octagon"/>
+<pad name="5" x="1.5675" y="-0.9" drill="1.5" diameter="2.1" shape="octagon"/>
+<pad name="4" x="7.0675" y="-0.9" drill="1.5" shape="octagon"/>
+<pad name="2" x="-2.1325" y="1.1" drill="1.5" shape="octagon"/>
+<pad name="3" x="3.3675" y="1.1" drill="1.5" diameter="2.1" shape="octagon"/>
+<pad name="6" x="5.3675" y="3.55" drill="1.5" shape="octagon"/>
+<pad name="7" x="-3.5325" y="-5.05" drill="1.5" shape="octagon"/>
+<pad name="8" x="5.3675" y="-5.05" drill="1.5" shape="octagon"/>
 <wire x1="-6.0325" y1="-5.08" x2="8.8675" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="8.8675" y1="-5.08" x2="8.8675" y2="3.4925" width="0.127" layer="21"/>
 <wire x1="8.8675" y1="3.4925" x2="-6.0325" y2="3.4925" width="0.127" layer="21"/>
@@ -9241,6 +9176,30 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <wire x1="-3.5052" y1="3.5052" x2="-3.5052" y2="-3.5052" width="0.1524" layer="51"/>
 <text x="-4.445" y="12.446" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
 <text x="-5.6642" y="-6.3754" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
+</package>
+<package name="WIRE-TO-BOARD_5MM08_1X02">
+<description>&lt;b&gt;Wire-to-Board 5.08mm 1X02&lt;/b&gt;</description>
+<wire x1="-2.54" y1="0" x2="2.54" y2="0" width="0.1524" layer="21"/>
+<wire x1="2.54" y1="0" x2="2.54" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="2.54" y1="5.08" x2="-2.54" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="-2.54" y1="5.08" x2="-2.54" y2="0" width="0.1524" layer="21"/>
+<wire x1="2.54" y1="0" x2="3.81" y2="0" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="0" x2="3.81" y2="5.08" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="5.08" x2="2.54" y2="5.08" width="0.1524" layer="21"/>
+<pad name="1" x="0" y="2.54" drill="1.4" shape="square" first="yes"/>
+<pad name="2" x="0" y="-2.54" drill="1.4" shape="octagon"/>
+<text x="-1.27" y="5.715" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.54" y="-6.985" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-1.778" y1="2.032" x2="-1.016" y2="3.048" layer="21" rot="R90"/>
+<rectangle x1="-1.778" y1="-3.048" x2="-1.016" y2="-2.032" layer="21" rot="R90"/>
+<wire x1="-2.54" y1="0" x2="-2.54" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="-2.54" y1="-5.08" x2="2.54" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="2.54" y1="-5.08" x2="2.54" y2="0" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="-5.08" x2="2.54" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="-5.08" x2="3.81" y2="0" width="0.1524" layer="21"/>
+<rectangle x1="0.762" y1="2.032" x2="1.524" y2="3.048" layer="21" rot="R90"/>
+<rectangle x1="0.762" y1="-3.048" x2="1.524" y2="-2.032" layer="21" rot="R90"/>
+<text x="-3.81" y="3.81" size="1.27" layer="21">1</text>
 </package>
 </packages>
 <symbols>
@@ -9489,6 +9448,24 @@ with dual switch</description>
 <wire x1="-4.572" y1="0" x2="0.508" y2="0" width="0.254" layer="94"/>
 <wire x1="-2.54" y1="-4.318" x2="-2.54" y2="-3.048" width="0.254" layer="94"/>
 </symbol>
+<symbol name="WIRE-TO-BOARD_1X02">
+<description>&lt;b&gt;Header 1X02&lt;/b&gt;</description>
+<wire x1="-3.81" y1="-5.08" x2="-3.302" y2="-5.08" width="0.4064" layer="94"/>
+<wire x1="-3.302" y1="-5.08" x2="2.794" y2="-5.08" width="0.4064" layer="94"/>
+<wire x1="2.794" y1="-5.08" x2="3.81" y2="-5.08" width="0.4064" layer="94"/>
+<wire x1="3.81" y1="2.54" x2="2.794" y2="2.54" width="0.4064" layer="94"/>
+<wire x1="2.794" y1="2.54" x2="-3.302" y2="2.54" width="0.4064" layer="94"/>
+<wire x1="-3.302" y1="2.54" x2="-3.81" y2="2.54" width="0.4064" layer="94"/>
+<wire x1="-3.81" y1="2.54" x2="-3.81" y2="-5.08" width="0.4064" layer="94"/>
+<wire x1="0.635" y1="0" x2="1.27" y2="0" width="1.016" layer="94"/>
+<wire x1="0.635" y1="-2.54" x2="1.27" y2="-2.54" width="1.016" layer="94"/>
+<text x="-1.27" y="3.81" size="1.778" layer="95" ratio="10">&gt;NAME</text>
+<pin name="1" x="-2.54" y="0" visible="pad" length="short" direction="pas"/>
+<pin name="2" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas"/>
+<wire x1="3.81" y1="-5.08" x2="3.81" y2="2.54" width="0.4064" layer="94"/>
+<wire x1="2.794" y1="-5.08" x2="2.794" y2="2.54" width="0.2032" layer="94"/>
+<wire x1="-3.302" y1="-5.08" x2="-3.302" y2="2.54" width="0.2032" layer="94"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="2X20/90_1MM27_HARWIN_M50-3202045" prefix="X">
@@ -9684,6 +9661,23 @@ with dual switch</description>
 <attribute name="PACKAGE" value="RF/COAXIAL, SMA JACK, R/A, 50OHM, THD " constant="no"/>
 <attribute name="SUPPLIER" value="Amphenol" constant="no"/>
 </technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="WIRE-TO-BOARD_5MM08_1X02" prefix="X">
+<description>&lt;b&gt;Wire-to-Board connector 5.08mm 1x02&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="WIRE-TO-BOARD_1X02" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="WIRE-TO-BOARD_5MM08_1X02">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -19290,6 +19284,37 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
 <wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
 </package>
+<package name="C115-080X160_POL">
+<description>&lt;b&gt;CAPACITOR pol.&lt;/b&gt;&lt;p&gt;
+grid 11.5 mm, outline 8.0 x 16.0 mm</description>
+<wire x1="0.635" y1="0" x2="3.556" y2="0" width="0.1524" layer="21"/>
+<wire x1="-0.635" y1="0" x2="-3.556" y2="0" width="0.1524" layer="21"/>
+<wire x1="8" y1="3.492" x2="8" y2="-3.492" width="0.1524" layer="21"/>
+<wire x1="7.5" y1="-4" x2="-7.5" y2="-4" width="0.1524" layer="21"/>
+<wire x1="-8" y1="-3.492" x2="-8" y2="3.492" width="0.1524" layer="21"/>
+<wire x1="-7.5" y1="4" x2="7.5" y2="4" width="0.1524" layer="21"/>
+<wire x1="7.5" y1="4" x2="8" y2="3.492" width="0.1524" layer="21" curve="-90"/>
+<wire x1="7.5" y1="-4" x2="8" y2="-3.492" width="0.1524" layer="21" curve="90"/>
+<wire x1="-8" y1="-3.492" x2="-7.5" y2="-4" width="0.1524" layer="21" curve="90"/>
+<wire x1="-8" y1="3.492" x2="-7.5" y2="4" width="0.1524" layer="21" curve="-90"/>
+<pad name="-" x="-5.75" y="0" drill="1.016" shape="octagon"/>
+<pad name="+" x="5.75" y="0" drill="1.016" shape="octagon"/>
+<text x="-7.112" y="4.191" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.794" y="-5.207" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<polygon width="0.254" layer="21">
+<vertex x="-0.635" y="1.27"/>
+<vertex x="-0.635" y="-1.27"/>
+<vertex x="-1.27" y="-1.27"/>
+<vertex x="-1.27" y="1.27"/>
+</polygon>
+<wire x1="0" y1="-1.27" x2="0" y2="1.27" width="0.254" layer="21"/>
+<wire x1="0" y1="1.27" x2="0.635" y2="1.27" width="0.254" layer="21"/>
+<wire x1="0.635" y1="1.27" x2="0.635" y2="-1.27" width="0.254" layer="21"/>
+<wire x1="0.635" y1="-1.27" x2="0" y2="-1.27" width="0.254" layer="21"/>
+<wire x1="-7.62" y1="0" x2="-6.985" y2="0" width="0.127" layer="21"/>
+<wire x1="6.985" y1="0" x2="7.62" y2="0" width="0.127" layer="21"/>
+<wire x1="7.3025" y1="0.3175" x2="7.3025" y2="-0.3175" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="CPOL">
@@ -20905,6 +20930,15 @@ Source: AVX .. aphvc.pdf</description>
 </technologies>
 </device>
 <device name="W14MM_D8MM_P13MM5" package="W14MM_D8MM_P13MM5">
+<connects>
+<connect gate="G$1" pin="+" pad="+"/>
+<connect gate="G$1" pin="-" pad="-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="C115-080X160_POL" package="C115-080X160_POL">
 <connects>
 <connect gate="G$1" pin="+" pad="+"/>
 <connect gate="G$1" pin="-" pad="-"/>
@@ -23861,9 +23895,6 @@ Subminiature Tact Switch for SMT</description>
 <pad name="B" x="2.5" y="-7.5" drill="1.1" diameter="2"/>
 <pad name="D" x="-2.5" y="7" drill="1.1" diameter="2"/>
 <pad name="E" x="2.5" y="7" drill="1.1" diameter="2"/>
-<hole x="0" y="0" drill="3"/>
-<smd name="NC1" x="-4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
-<smd name="NC2" x="4.65" y="0" dx="2.6" dy="1.8" layer="1" roundness="10" rot="R90"/>
 <text x="-3.5" y="-9" size="0.6096" layer="21" ratio="10">A</text>
 <text x="-1" y="-9" size="0.6096" layer="21" ratio="10">C</text>
 <text x="1.5" y="-9" size="0.6096" layer="21" ratio="10">B</text>
@@ -23883,6 +23914,8 @@ Subminiature Tact Switch for SMT</description>
 <wire x1="4.35" y1="-6.5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
 <text x="-2" y="9" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
 <text x="7.5" y="-6.5" size="0.8128" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
+<pad name="P$1" x="-4.65" y="0" drill="2.5" rot="R90"/>
+<pad name="P$2" x="4.65" y="0" drill="2.5" rot="R90"/>
 </package>
 </packages>
 <symbols>
@@ -24287,10 +24320,10 @@ with I2C</description>
 <dimension x1="-32.5" y1="16" x2="32.5" y2="16" x3="0" y3="20" textsize="1.27" textratio="10" layer="47" dtype="diameter"/>
 <wire x1="34.75" y1="-17" x2="34.75" y2="-14" width="0.127" layer="51"/>
 <wire x1="-34.75" y1="-17" x2="-34.75" y2="-14" width="0.127" layer="51"/>
-<pad name="9" x="-38.55" y="4.05" drill="1.6" diameter="2" shape="octagon"/>
-<pad name="10" x="-38.55" y="1.05" drill="1.6" diameter="2" shape="octagon"/>
-<pad name="11" x="-38.55" y="-1.95" drill="1.6" diameter="2" shape="octagon"/>
-<pad name="12" x="-38.55" y="-4.95" drill="1.6" diameter="2" shape="octagon"/>
+<pad name="9" x="-38.55" y="7.325" drill="1.6" diameter="2.1844" shape="octagon"/>
+<pad name="10" x="-38.55" y="4.325" drill="1.6" diameter="2.1844" shape="octagon"/>
+<pad name="11" x="-38.55" y="1.325" drill="1.6" diameter="2.1844" shape="octagon"/>
+<pad name="12" x="-38.55" y="-1.675" drill="1.6" diameter="2.1844" shape="octagon"/>
 <text x="-43" y="3.5" size="1.27" layer="21" ratio="10">KR</text>
 <text x="-43" y="0.5" size="1.27" layer="21" ratio="10">KG</text>
 <text x="-43" y="-2.5" size="1.27" layer="21" ratio="10">KB</text>
@@ -24302,6 +24335,7 @@ with I2C</description>
 <hole x="32.5" y="16.1" drill="2.5"/>
 <hole x="32.5" y="-17" drill="2.5"/>
 <hole x="-32.5" y="-17" drill="2.5"/>
+<dimension x1="-35.8" y1="2.8" x2="-35.8" y2="13.1" x3="-44.45" y3="7.95" textsize="1.27" layer="47"/>
 </package>
 </packages>
 <symbols>
@@ -25653,12 +25687,12 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0441" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="C0441" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="D0451" library="df4iah_diode" deviceset="D_SOD923" device="" value="CMAD6001"/>
-<part name="C0451" library="df4iah_rcl" deviceset="CPOL-EU" device="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N"/>
+<part name="C0451" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_EEC-S5R5H105N"/>
 <part name="GND0451" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1406" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
 <part name="GND1402" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_VSOL" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="TP_+5V0_SOL" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
+<part name="TP_+3V3_SOL" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="FRAME_15" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="D1501" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="U1501" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
@@ -25699,11 +25733,10 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="GND1701" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1701" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C1703" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C1601" library="df4iah_rcl" deviceset="CPOL-EU" device="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N"/>
 <part name="GND1601" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_+5V0" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_+5V0_USB_SW" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="C1607" library="df4iah_rcl" deviceset="CPOL-EU" device="W14MM_D8MM_P13MM5" value="1F_EEC-S5R5H105N"/>
+<part name="C1607" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_EEC-S5R5H105N"/>
 <part name="GND1602" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X2001" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device="" value="MOLEX 105017-0001"/>
 <part name="FRAME_10" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
@@ -25724,7 +25757,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R1404" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R1405" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="C1405" library="rcl" deviceset="C-EU" device="C0603" value="0nF"/>
-<part name="R1408" library="rcl" deviceset="R-EU_" device="R0603" value="310kR"/>
+<part name="R1408" library="rcl" deviceset="R-EU_" device="R0603" value="150kR"/>
 <part name="R1407" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="SJ0421" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="SJ0422" library="df4iah_jumper" deviceset="SJ" device=""/>
@@ -25862,7 +25895,6 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0272" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="U0611" library="df4iah_dac" deviceset="MAX5217" device=""/>
 <part name="TP_+3V3" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="U1401" library="df4iah_supply" deviceset="SOLARPANEL_3V3_5MA1_25MM_X_20MM" device=""/>
 <part name="U1201" library="df4iah_lcd" deviceset="NHD-C0220BIZ_2X20CHARS" device=""/>
 <part name="PF2011" library="rcl" deviceset="R-EU_" device="M1206" value="1.1A/2.2A"/>
 <part name="U0701" library="df4iah_osc" deviceset="SI5338" device="" value="Si5338"/>
@@ -26103,6 +26135,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R2338" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R1411" library="rcl" deviceset="R-EU_" device="R0603" value="1kR"/>
 <part name="R1412" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="X1401" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -31653,7 +31686,7 @@ I2C addr: 0x7C/0x7D</text>
 <sheet>
 <description>Power Solar</description>
 <plain>
-<text x="167.64" y="73.66" size="1.778" layer="97">1V25</text>
+<text x="167.64" y="73.66" size="1.778" layer="97">1V32</text>
 <text x="149.86" y="101.6" size="1.778" layer="97">Imax:50mV</text>
 <text x="58.42" y="116.84" size="1.778" layer="96">13.5mm x 12.5mm</text>
 <text x="81.28" y="134.62" size="2.54" layer="97" ratio="15">DC/DC boost converter</text>
@@ -31661,13 +31694,14 @@ I2C addr: 0x7C/0x7D</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Solar power converter</text>
 <text x="5.08" y="127.254" size="1.778" layer="97">MCU_VSOL_ADC1</text>
 <text x="30.48" y="139.7" size="1.778" layer="97">MCU_VSOL_TIMCAP</text>
+<text x="10.16" y="81.28" size="1.778" layer="97">Solar connector</text>
 </plain>
 <instances>
 <instance part="FRAME_14" gate="G$1" x="0" y="0"/>
 <instance part="C1406" gate="G$1" x="198.12" y="63.5"/>
 <instance part="GND1402" gate="1" x="198.12" y="48.26"/>
 <instance part="TP_VSOL" gate="G$1" x="43.18" y="127" rot="R180"/>
-<instance part="TP_+5V0_SOL" gate="G$1" x="198.12" y="127" rot="R180"/>
+<instance part="TP_+3V3_SOL" gate="G$1" x="198.12" y="127" rot="R180"/>
 <instance part="R1409" gate="G$1" x="220.98" y="109.22"/>
 <instance part="D1403" gate="G$1" x="101.6" y="124.46"/>
 <instance part="L1403" gate="G$1" x="71.12" y="109.22" rot="R270"/>
@@ -31683,12 +31717,9 @@ I2C addr: 0x7C/0x7D</text>
 <instance part="R1407" gate="G$1" x="175.26" y="63.5" rot="R90"/>
 <instance part="GND1401" gate="1" x="35.56" y="48.26"/>
 <instance part="U1402" gate="G$1" x="101.6" y="101.6"/>
-<instance part="U1401" gate="G$1" x="25.4" y="81.28" smashed="yes" rot="R270">
-<attribute name="NAME" x="14.224" y="94.234" size="2.1844" layer="95" ratio="10"/>
-<attribute name="VALUE" x="11.938" y="38.608" size="2.1844" layer="96" ratio="12"/>
-</instance>
 <instance part="R1411" gate="G$1" x="27.94" y="119.38" rot="R90"/>
 <instance part="R1412" gate="G$1" x="71.12" y="124.46"/>
+<instance part="X1401" gate="G$1" x="33.02" y="99.06" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -31715,7 +31746,7 @@ I2C addr: 0x7C/0x7D</text>
 <segment>
 <pinref part="GND1401" gate="1" pin="GND"/>
 <pinref part="U1402" gate="G$1" pin="GND"/>
-<wire x1="35.56" y1="68.326" x2="35.56" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="96.52" x2="35.56" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="53.34" x2="35.56" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="83.82" y1="99.06" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="99.06" x2="81.28" y2="53.34" width="0.1524" layer="91"/>
@@ -31729,14 +31760,14 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="43.18" y1="53.34" x2="43.18" y2="58.42" width="0.1524" layer="91"/>
 <junction x="43.18" y="53.34"/>
 <junction x="35.56" y="53.34"/>
-<pinref part="U1401" gate="G$1" pin="-VSOL"/>
+<pinref part="X1401" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="+5V1_SOL" class="0">
+<net name="+3V3_SOL" class="0">
 <segment>
 <wire x1="162.56" y1="109.22" x2="165.1" y2="109.22" width="0.1524" layer="91"/>
 <label x="180.34" y="109.22" size="1.778" layer="95"/>
-<pinref part="TP_+5V0_SOL" gate="G$1" pin="TP"/>
+<pinref part="TP_+3V3_SOL" gate="G$1" pin="TP"/>
 <wire x1="165.1" y1="109.22" x2="175.26" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="109.22" x2="198.12" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="109.22" x2="198.12" y2="124.46" width="0.1524" layer="91"/>
@@ -31779,21 +31810,14 @@ I2C addr: 0x7C/0x7D</text>
 <pinref part="L1403" gate="G$1" pin="2"/>
 <wire x1="60.96" y1="109.22" x2="66.04" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="109.22" x2="27.94" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="109.22" x2="7.62" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="7.62" y1="109.22" x2="7.62" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="7.62" y1="58.42" x2="15.24" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="15.24" y1="58.42" x2="15.24" y2="68.326" width="0.1524" layer="91"/>
-<pinref part="U1401" gate="G$1" pin="+VSOL"/>
+<wire x1="27.94" y1="109.22" x2="22.86" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="109.22" x2="22.86" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="R1411" gate="G$1" pin="1"/>
 <wire x1="27.94" y1="109.22" x2="27.94" y2="114.3" width="0.1524" layer="91"/>
 <junction x="27.94" y="109.22"/>
-</segment>
-</net>
-<net name="+5V0" class="4">
-<segment>
-<wire x1="236.22" y1="109.22" x2="226.06" y2="109.22" width="0.1524" layer="91"/>
-<label x="236.22" y="109.22" size="1.778" layer="95" xref="yes"/>
-<pinref part="R1409" gate="G$1" pin="2"/>
+<wire x1="22.86" y1="86.36" x2="33.02" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="X1401" gate="G$1" pin="1"/>
+<wire x1="33.02" y1="86.36" x2="33.02" y2="96.52" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SPV_ICTRL_M" class="0">
@@ -31893,6 +31917,13 @@ I2C addr: 0x7C/0x7D</text>
 <wire x1="66.04" y1="124.46" x2="60.96" y2="124.46" width="0.1524" layer="91"/>
 <wire x1="60.96" y1="124.46" x2="60.96" y2="139.7" width="0.1524" layer="91"/>
 <label x="22.86" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<wire x1="236.22" y1="109.22" x2="226.06" y2="109.22" width="0.1524" layer="91"/>
+<label x="236.22" y="109.22" size="1.778" layer="95" xref="yes"/>
+<pinref part="R1409" gate="G$1" pin="2"/>
 </segment>
 </net>
 </nets>
@@ -32016,7 +32047,6 @@ I2C addr: 0x7C/0x7D</text>
 <instance part="C1605" gate="G$1" x="160.02" y="76.2"/>
 <instance part="C1606" gate="G$1" x="180.34" y="76.2"/>
 <instance part="FRAME_16" gate="G$1" x="0" y="0"/>
-<instance part="C1601" gate="G$1" x="43.18" y="78.74"/>
 <instance part="GND1601" gate="1" x="43.18" y="60.96"/>
 <instance part="TP_+5V0" gate="G$1" x="73.66" y="111.76" rot="R180"/>
 <instance part="C1607" gate="G$1" x="213.36" y="76.2"/>
@@ -32030,14 +32060,11 @@ I2C addr: 0x7C/0x7D</text>
 <net name="GND" class="0">
 <segment>
 <pinref part="GND1601" gate="1" pin="GND"/>
-<pinref part="C1601" gate="G$1" pin="-"/>
 <wire x1="43.18" y1="63.5" x2="43.18" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="66.04" x2="43.18" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="66.04" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="U1601" gate="G$1" pin="GND"/>
 <wire x1="93.98" y1="91.44" x2="96.52" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="66.04" x2="73.66" y2="66.04" width="0.1524" layer="91"/>
-<junction x="43.18" y="66.04"/>
 <pinref part="C1602" gate="G$1" pin="2"/>
 <wire x1="73.66" y1="66.04" x2="93.98" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="66.04" x2="73.66" y2="73.66" width="0.1524" layer="91"/>
@@ -32068,18 +32095,13 @@ I2C addr: 0x7C/0x7D</text>
 </net>
 <net name="+5V0" class="4">
 <segment>
-<wire x1="43.18" y1="116.84" x2="35.56" y2="116.84" width="0.1524" layer="91"/>
-<label x="35.56" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+<label x="43.18" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 <junction x="73.66" y="96.52"/>
 <wire x1="96.52" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="96.52" x2="43.18" y2="116.84" width="0.1524" layer="91"/>
-<pinref part="C1601" gate="G$1" pin="+"/>
 <pinref part="TP_+5V0" gate="G$1" pin="TP"/>
-<wire x1="43.18" y1="81.28" x2="43.18" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
 <junction x="73.66" y="96.52"/>
 <wire x1="73.66" y1="96.52" x2="73.66" y2="109.22" width="0.1524" layer="91"/>
-<junction x="43.18" y="96.52"/>
 <pinref part="C1602" gate="G$1" pin="1"/>
 <wire x1="73.66" y1="96.52" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="U1601" gate="G$1" pin="VIN"/>
