@@ -26052,7 +26052,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="X2311" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="X2331" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="C1602" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
-<part name="L1604" library="rcl" deviceset="L-EU" device="L5650M" value="1.0uH 33mR"/>
+<part name="L1604" library="df4iah_rcl" deviceset="L-EU" device="L3230M" value="1.0uH 33mR"/>
 <part name="C1605" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C1606" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
 <part name="X0301" library="df4iah_connector" deviceset="HEADER-2X3" device=""/>
@@ -32417,7 +32417,7 @@ I2C addr: 0x7C/0x7D</text>
 <sheet>
 <description>5V -&gt; 3V3</description>
 <plain>
-<text x="139.7" y="104.14" size="1.778" layer="96">5mm x 5mm</text>
+<text x="139.7" y="104.14" size="1.778" layer="96">3mm x 3mm</text>
 <text x="104.14" y="111.76" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5V --&gt; 3.3V</text>
 <text x="104.14" y="73.66" size="1.778" layer="97">(1.5A out, 1.5MHz fixed)</text>
