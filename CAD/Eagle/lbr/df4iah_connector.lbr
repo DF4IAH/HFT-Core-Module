@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="mm"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -28,18 +28,18 @@
 <layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
-<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
-<layer number="32" name="bCream" color="7" fill="5" visible="yes" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
 <layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
-<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
-<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
-<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
@@ -2979,14 +2979,6 @@ Molex 90130 series</description>
 </package>
 <package name="SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS">
 <description>&lt;h4&gt;SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS&lt;/h4&gt;</description>
-<pad name="1" x="-4.5325" y="-0.9" drill="1.5" shape="octagon"/>
-<pad name="5" x="1.5675" y="-0.9" drill="1.5" diameter="2.1" shape="octagon"/>
-<pad name="4" x="7.0675" y="-0.9" drill="1.5" shape="octagon"/>
-<pad name="2" x="-2.1325" y="1.1" drill="1.5" shape="octagon"/>
-<pad name="3" x="3.3675" y="1.1" drill="1.5" diameter="2.1" shape="octagon"/>
-<pad name="6" x="5.3675" y="3.55" drill="1.5" shape="octagon"/>
-<pad name="7" x="-3.5325" y="-5.05" drill="1.5" shape="octagon"/>
-<pad name="8" x="5.3675" y="-5.05" drill="1.5" shape="octagon"/>
 <wire x1="-6.0325" y1="-5.08" x2="8.8675" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="8.8675" y1="-5.08" x2="8.8675" y2="3.4925" width="0.127" layer="21"/>
 <wire x1="8.8675" y1="3.4925" x2="-6.0325" y2="3.4925" width="0.127" layer="21"/>
@@ -2997,6 +2989,78 @@ Molex 90130 series</description>
 <wire x1="-6.0325" y1="-3" x2="-6.0325" y2="-5.08" width="0.127" layer="21"/>
 <text x="-4.7625" y="5.08" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-4.7625" y="-8.89" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="-5.3402" y1="-1.2891" x2="-3.7402" y2="-0.4891" layer="51" rot="R90"/>
+<polygon width="0.0032" layer="46">
+<vertex x="-4.9339" y="-1.2764"/>
+<vertex x="-4.9339" y="-0.4764" curve="-180"/>
+<vertex x="-4.1339" y="-0.4764"/>
+<vertex x="-4.1339" y="-1.2764" curve="-180"/>
+</polygon>
+<smd name="11" x="-4.5325" y="-0.9" dx="2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
+<smd name="21" x="-4.5325" y="-0.9" dx="2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
+<rectangle x1="-2.9399" y1="0.7048" x2="-1.3399" y2="1.5048" layer="51" rot="R90"/>
+<polygon width="0.0032" layer="46">
+<vertex x="-2.5336" y="0.7175"/>
+<vertex x="-2.5336" y="1.5175" curve="-180"/>
+<vertex x="-1.7336" y="1.5175"/>
+<vertex x="-1.7336" y="0.7175" curve="-180"/>
+</polygon>
+<smd name="12" x="-2.1325" y="1.1" dx="2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
+<smd name="22" x="-2.1325" y="1.1" dx="2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
+<rectangle x1="2.5719" y1="0.6921" x2="4.1719" y2="1.4921" layer="51" rot="R90"/>
+<polygon width="0.0032" layer="46">
+<vertex x="2.9782" y="0.7048"/>
+<vertex x="2.9782" y="1.5048" curve="-180"/>
+<vertex x="3.7782" y="1.5048"/>
+<vertex x="3.7782" y="0.7048" curve="-180"/>
+</polygon>
+<smd name="13" x="3.3675" y="1.1" dx="2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
+<smd name="23" x="3.3675" y="1.1" dx="2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
+<rectangle x1="6.2676" y1="-1.3018" x2="7.8676" y2="-0.5018" layer="51" rot="R90"/>
+<polygon width="0.0032" layer="46">
+<vertex x="6.6739" y="-1.2891"/>
+<vertex x="6.6739" y="-0.4891" curve="-180"/>
+<vertex x="7.4739" y="-0.4891"/>
+<vertex x="7.4739" y="-1.2891" curve="-180"/>
+</polygon>
+<smd name="14" x="7.0675" y="-0.9" dx="2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
+<smd name="24" x="7.0675" y="-0.9" dx="2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
+<rectangle x1="0.7685" y1="-1.2891" x2="2.3685" y2="-0.4891" layer="51" rot="R90"/>
+<polygon width="0.0032" layer="46">
+<vertex x="1.1748" y="-1.2764"/>
+<vertex x="1.1748" y="-0.4764" curve="-180"/>
+<vertex x="1.9748" y="-0.4764"/>
+<vertex x="1.9748" y="-1.2764" curve="-180"/>
+</polygon>
+<smd name="15" x="1.5675" y="-0.9" dx="2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
+<smd name="25" x="1.5675" y="-0.9" dx="2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
+<rectangle x1="4.5595" y1="3.1624" x2="6.1595" y2="3.9624" layer="51" rot="R180"/>
+<polygon width="0.0032" layer="46">
+<vertex x="5.7468" y="3.1687"/>
+<vertex x="4.9468" y="3.1687" curve="-180"/>
+<vertex x="4.9468" y="3.9687"/>
+<vertex x="5.7468" y="3.9687" curve="-180"/>
+</polygon>
+<smd name="16" x="5.3675" y="3.55" dx="2" dy="1.2" layer="1" roundness="100" rot="R180" thermals="no" cream="no"/>
+<smd name="26" x="5.3675" y="3.55" dx="2" dy="1.2" layer="16" roundness="100" rot="R180" thermals="no" cream="no"/>
+<rectangle x1="-4.3178" y1="-5.4355" x2="-2.7178" y2="-4.6355" layer="51" rot="R180"/>
+<polygon width="0.0032" layer="46">
+<vertex x="-3.1305" y="-5.4292"/>
+<vertex x="-3.9305" y="-5.4292" curve="-180"/>
+<vertex x="-3.9305" y="-4.6292"/>
+<vertex x="-3.1305" y="-4.6292" curve="-180"/>
+</polygon>
+<smd name="17" x="-3.5325" y="-5.05" dx="2" dy="1.2" layer="1" roundness="100" rot="R180" thermals="no" cream="no"/>
+<smd name="27" x="-3.5325" y="-5.05" dx="2" dy="1.2" layer="16" roundness="100" rot="R180" thermals="no" cream="no"/>
+<rectangle x1="4.5722" y1="-5.4609" x2="6.1722" y2="-4.6609" layer="51" rot="R180"/>
+<polygon width="0.0032" layer="46">
+<vertex x="5.7595" y="-5.4546"/>
+<vertex x="4.9595" y="-5.4546" curve="-180"/>
+<vertex x="4.9595" y="-4.6546"/>
+<vertex x="5.7595" y="-4.6546" curve="-180"/>
+</polygon>
+<smd name="18" x="5.3675" y="-5.05" dx="2" dy="1.2" layer="1" roundness="100" rot="R180" thermals="no" cream="no"/>
+<smd name="28" x="5.3675" y="-5.05" dx="2" dy="1.2" layer="16" roundness="100" rot="R180" thermals="no" cream="no"/>
 </package>
 <package name="WIRE-TO-BOARD_5MM08_1X02">
 <description>&lt;b&gt;Wire-to-Board 5.08mm 1X02&lt;/b&gt;</description>
@@ -5364,12 +5428,12 @@ Molex 90130 series</description>
 <devices>
 <device name="" package="SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS">
 <connects>
-<connect gate="G$1" pin="GND" pad="6 7 8"/>
-<connect gate="G$1" pin="RING" pad="3"/>
-<connect gate="G$1" pin="RING_SW" pad="5"/>
-<connect gate="G$1" pin="SLEEVE" pad="1"/>
-<connect gate="G$1" pin="TIP" pad="2"/>
-<connect gate="G$1" pin="TIP_SW" pad="4"/>
+<connect gate="G$1" pin="GND" pad="16 17 18 26 27 28"/>
+<connect gate="G$1" pin="RING" pad="13 23"/>
+<connect gate="G$1" pin="RING_SW" pad="15 25"/>
+<connect gate="G$1" pin="SLEEVE" pad="11 21"/>
+<connect gate="G$1" pin="TIP" pad="12 22"/>
+<connect gate="G$1" pin="TIP_SW" pad="14 24"/>
 </connects>
 <technologies>
 <technology name=""/>
