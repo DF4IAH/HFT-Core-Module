@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="yes" active="yes"/>
@@ -39,7 +39,7 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
 <layer number="47" name="Measures" color="13" fill="1" visible="yes" active="yes"/>
@@ -219,7 +219,7 @@ with I2C</description>
 </polygon>
 <smd name="11" x="-38.608" y="7.2644" dx="2.2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
 <smd name="21" x="-38.608" y="7.2644" dx="2.2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
-<polygon width="0.127" layer="2" pour="cutout">
+<polygon width="0.01" layer="2" pour="cutout">
 <vertex x="-37.719" y="7.747"/>
 <vertex x="-37.719" y="6.858" curve="-90"/>
 <vertex x="-38.608" y="5.969" curve="-90"/>
@@ -233,7 +233,7 @@ with I2C</description>
 <smd name="13" x="-38.608" y="1.2954" dx="2.2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
 <smd name="24" x="-38.608" y="-1.7526" dx="2.2" dy="1.2" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
 <smd name="14" x="-38.608" y="-1.7526" dx="2.2" dy="1.2" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
-<polygon width="0.127" layer="2" pour="cutout">
+<polygon width="0.01" layer="2" pour="cutout">
 <vertex x="-37.719" y="4.699"/>
 <vertex x="-37.719" y="3.81" curve="-90"/>
 <vertex x="-38.608" y="2.921" curve="-90"/>
@@ -241,7 +241,7 @@ with I2C</description>
 <vertex x="-39.497" y="4.699" curve="-90"/>
 <vertex x="-38.608" y="5.588" curve="-90"/>
 </polygon>
-<polygon width="0.127" layer="2" pour="cutout">
+<polygon width="0.01" layer="2" pour="cutout">
 <vertex x="-37.719" y="1.778"/>
 <vertex x="-37.719" y="0.889" curve="-90"/>
 <vertex x="-38.608" y="0" curve="-90"/>
@@ -249,7 +249,7 @@ with I2C</description>
 <vertex x="-39.497" y="1.778" curve="-90"/>
 <vertex x="-38.608" y="2.667" curve="-90"/>
 </polygon>
-<polygon width="0.127" layer="2" pour="cutout">
+<polygon width="0.01" layer="2" pour="cutout">
 <vertex x="-37.719" y="-1.27"/>
 <vertex x="-37.719" y="-2.159" curve="-90"/>
 <vertex x="-38.608" y="-3.048" curve="-90"/>
@@ -257,7 +257,7 @@ with I2C</description>
 <vertex x="-39.497" y="-1.27" curve="-90"/>
 <vertex x="-38.608" y="-0.381" curve="-90"/>
 </polygon>
-<polygon width="0.127" layer="15" pour="cutout">
+<polygon width="0.01" layer="15" pour="cutout">
 <vertex x="-37.719" y="7.747"/>
 <vertex x="-37.719" y="6.858" curve="-90"/>
 <vertex x="-38.608" y="5.969" curve="-90"/>
@@ -265,7 +265,7 @@ with I2C</description>
 <vertex x="-39.497" y="7.747" curve="-90"/>
 <vertex x="-38.608" y="8.636" curve="-90"/>
 </polygon>
-<polygon width="0.127" layer="15" pour="cutout">
+<polygon width="0.01" layer="15" pour="cutout">
 <vertex x="-37.719" y="4.699"/>
 <vertex x="-37.719" y="3.81" curve="-90"/>
 <vertex x="-38.608" y="2.921" curve="-90"/>
@@ -273,7 +273,7 @@ with I2C</description>
 <vertex x="-39.497" y="4.699" curve="-90"/>
 <vertex x="-38.608" y="5.588" curve="-90"/>
 </polygon>
-<polygon width="0.127" layer="15" pour="cutout">
+<polygon width="0.01" layer="15" pour="cutout">
 <vertex x="-37.719" y="1.778"/>
 <vertex x="-37.719" y="0.889" curve="-90"/>
 <vertex x="-38.608" y="0" curve="-90"/>
@@ -281,7 +281,7 @@ with I2C</description>
 <vertex x="-39.497" y="1.778" curve="-90"/>
 <vertex x="-38.608" y="2.667" curve="-90"/>
 </polygon>
-<polygon width="0.127" layer="15" pour="cutout">
+<polygon width="0.01" layer="15" pour="cutout">
 <vertex x="-37.719" y="-1.27"/>
 <vertex x="-37.719" y="-2.159" curve="-90"/>
 <vertex x="-38.608" y="-3.048" curve="-90"/>
