@@ -6,22 +6,36 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.127" altunitdist="mm" altunit="mm"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
+<layer number="2" name="Route2" color="1" fill="3" visible="yes" active="yes"/>
+<layer number="3" name="Route3" color="4" fill="3" visible="no" active="yes"/>
+<layer number="4" name="Route4" color="1" fill="4" visible="no" active="yes"/>
+<layer number="5" name="Route5" color="4" fill="4" visible="no" active="yes"/>
+<layer number="6" name="Route6" color="1" fill="8" visible="no" active="yes"/>
+<layer number="7" name="Route7" color="4" fill="8" visible="no" active="yes"/>
+<layer number="8" name="Route8" color="1" fill="2" visible="no" active="yes"/>
+<layer number="9" name="Route9" color="4" fill="2" visible="no" active="yes"/>
+<layer number="10" name="Route10" color="1" fill="7" visible="no" active="yes"/>
+<layer number="11" name="Route11" color="4" fill="7" visible="no" active="yes"/>
+<layer number="12" name="Route12" color="1" fill="5" visible="no" active="yes"/>
+<layer number="13" name="Route13" color="4" fill="5" visible="no" active="yes"/>
+<layer number="14" name="Route14" color="1" fill="6" visible="no" active="yes"/>
+<layer number="15" name="Route15" color="4" fill="6" visible="no" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
-<layer number="18" name="Vias" color="2" fill="1" visible="no" active="yes"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
@@ -39,7 +53,7 @@
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
@@ -53,20 +67,6 @@
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
-<layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
-<layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
-<layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
-<layer number="6" name="Route6" color="1" fill="8" visible="no" active="no"/>
-<layer number="7" name="Route7" color="4" fill="8" visible="no" active="no"/>
-<layer number="8" name="Route8" color="1" fill="2" visible="no" active="no"/>
-<layer number="9" name="Route9" color="4" fill="2" visible="no" active="no"/>
-<layer number="10" name="Route10" color="1" fill="7" visible="no" active="no"/>
-<layer number="11" name="Route11" color="4" fill="7" visible="no" active="no"/>
-<layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
-<layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
-<layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
 </layers>
 <library>
 <description>&lt;b&gt;DF4IAH Library - Switches&lt;/b&gt;&lt;p&gt;
@@ -4232,11 +4232,11 @@ Subminiature Tact Switch for SMT</description>
 </package>
 <package name="TTE_EN11-HSM">
 <description>&lt;h4&gt;TT-Electronics EN1-HSM Rotary Encoder with Switch&lt;/h4&gt;</description>
-<pad name="A" x="-2.5" y="-7.5" drill="1.1" diameter="2" first="yes"/>
-<pad name="C" x="0" y="-7.5" drill="1.1" diameter="2"/>
-<pad name="B" x="2.5" y="-7.5" drill="1.1" diameter="2"/>
-<pad name="D" x="-2.5" y="7" drill="1.1" diameter="2"/>
-<pad name="E" x="2.5" y="7" drill="1.1" diameter="2"/>
+<pad name="A" x="-2.5" y="-7.5" drill="1" diameter="1.75" shape="octagon"/>
+<pad name="C" x="0" y="-7.5" drill="1" diameter="1.75"/>
+<pad name="B" x="2.5" y="-7.5" drill="1" diameter="1.75"/>
+<pad name="D" x="-2.5" y="7" drill="1" diameter="1.75"/>
+<pad name="E" x="2.5" y="7" drill="1" diameter="1.75"/>
 <text x="-3.5" y="-9" size="0.6096" layer="21" ratio="10">A</text>
 <text x="-1" y="-9" size="0.6096" layer="21" ratio="10">C</text>
 <text x="1.5" y="-9" size="0.6096" layer="21" ratio="10">B</text>
@@ -4254,10 +4254,72 @@ Subminiature Tact Switch for SMT</description>
 <wire x1="5.85" y1="-5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
 <wire x1="-5.85" y1="-6.5" x2="-4.35" y2="-6.5" width="0.254" layer="21"/>
 <wire x1="4.35" y1="-6.5" x2="5.85" y2="-6.5" width="0.254" layer="21"/>
-<text x="-2" y="9" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
-<text x="7.5" y="-6.5" size="0.8128" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
-<pad name="P$1" x="-4.65" y="0" drill="2.5" rot="R90"/>
-<pad name="P$2" x="4.65" y="0" drill="2.5" rot="R90"/>
+<text x="-7.095" y="-2" size="0.8128" layer="25" ratio="10" rot="R90">&gt;NAME</text>
+<text x="8.135" y="-2.69" size="0.8128" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
+<polygon width="0.127" layer="46">
+<vertex x="-5.55" y="-0.65"/>
+<vertex x="-5.55" y="0.65" curve="-90"/>
+<vertex x="-5" y="1.25"/>
+<vertex x="-4.4" y="1.25" curve="-90"/>
+<vertex x="-3.75" y="0.65"/>
+<vertex x="-3.75" y="-0.65" curve="-90"/>
+<vertex x="-4.4" y="-1.25"/>
+<vertex x="-5" y="-1.25" curve="-90"/>
+</polygon>
+<polygon width="0.127" layer="46">
+<vertex x="3.75" y="-0.65"/>
+<vertex x="3.75" y="0.65" curve="-90"/>
+<vertex x="4.4" y="1.25"/>
+<vertex x="5" y="1.25" curve="-90"/>
+<vertex x="5.55" y="0.65"/>
+<vertex x="5.55" y="-0.65" curve="-90"/>
+<vertex x="5" y="-1.25"/>
+<vertex x="4.4" y="-1.25" curve="-90"/>
+</polygon>
+<smd name="GND12" x="4.65" y="0" dx="3.4" dy="2.6" layer="1" roundness="50" rot="R90" stop="no" thermals="no" cream="no"/>
+<smd name="GND11" x="-4.65" y="0" dx="3.4" dy="2.6" layer="1" roundness="50" rot="R90" stop="no" thermals="no" cream="no"/>
+<smd name="GND21" x="-4.65" y="0" dx="3.4" dy="2.6" layer="16" roundness="50" rot="R90" stop="no" thermals="no" cream="no"/>
+<smd name="GND22" x="4.65" y="0" dx="3.4" dy="2.6" layer="16" roundness="50" rot="R90" stop="no" thermals="no" cream="no"/>
+<polygon width="0.01" layer="2" pour="cutout">
+<vertex x="-5.334" y="1.905"/>
+<vertex x="-3.81" y="1.905" curve="-90"/>
+<vertex x="-3.175" y="1.27"/>
+<vertex x="-3.175" y="-1.27" curve="-90"/>
+<vertex x="-3.81" y="-1.905"/>
+<vertex x="-5.334" y="-1.905" curve="-90"/>
+<vertex x="-6.096" y="-1.27"/>
+<vertex x="-6.096" y="1.27" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="15" pour="cutout">
+<vertex x="-5.334" y="1.905"/>
+<vertex x="-3.81" y="1.905" curve="-90"/>
+<vertex x="-3.175" y="1.27"/>
+<vertex x="-3.175" y="-1.27" curve="-90"/>
+<vertex x="-3.81" y="-1.905"/>
+<vertex x="-5.334" y="-1.905" curve="-90"/>
+<vertex x="-6.096" y="-1.27"/>
+<vertex x="-6.096" y="1.27" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="15" pour="cutout">
+<vertex x="3.937" y="1.905"/>
+<vertex x="5.461" y="1.905" curve="-90"/>
+<vertex x="6.096" y="1.27"/>
+<vertex x="6.096" y="-1.27" curve="-90"/>
+<vertex x="5.461" y="-1.905"/>
+<vertex x="3.937" y="-1.905" curve="-90"/>
+<vertex x="3.175" y="-1.27"/>
+<vertex x="3.175" y="1.27" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="2" pour="cutout">
+<vertex x="3.937" y="1.905"/>
+<vertex x="5.461" y="1.905" curve="-90"/>
+<vertex x="6.096" y="1.27"/>
+<vertex x="6.096" y="-1.27" curve="-90"/>
+<vertex x="5.461" y="-1.905"/>
+<vertex x="3.937" y="-1.905" curve="-90"/>
+<vertex x="3.175" y="-1.27"/>
+<vertex x="3.175" y="1.27" curve="-90"/>
+</polygon>
 </package>
 </packages>
 <symbols>
