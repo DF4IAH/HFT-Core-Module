@@ -34215,6 +34215,8 @@ I2C addr: 0x7C/0x7D</text>
 <text x="5.08" y="127.254" size="1.778" layer="97">MCU_VSOL_ADC1</text>
 <text x="30.48" y="139.7" size="1.778" layer="97">MCU_VSOL_TIMCAP</text>
 <text x="10.16" y="81.28" size="1.778" layer="97">Solar connector</text>
+<text x="86.36" y="78.74" size="1.778" layer="97">12mA Start-up mode
+ 2mA MPPT mode</text>
 </plain>
 <instances>
 <instance part="FRAME_14" gate="G$1" x="0" y="0"/>
@@ -34568,7 +34570,8 @@ I2C addr: 0x7C/0x7D</text>
 <text x="104.14" y="111.76" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5V --&gt; 3.3V</text>
 <text x="104.14" y="73.66" size="1.778" layer="97">(1.5A out, 1.5MHz fixed)</text>
-<text x="104.14" y="68.58" size="1.778" layer="97">(replaces PAM2305)</text>
+<text x="104.14" y="68.58" size="1.778" layer="97">14mA quiescent current</text>
+<text x="104.14" y="63.5" size="1.778" layer="97">(replaces PAM2305)</text>
 </plain>
 <instances>
 <instance part="C1602" gate="G$1" x="73.66" y="78.74"/>
