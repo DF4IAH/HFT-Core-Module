@@ -5283,7 +5283,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <element name="H2401" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="91.44" y="91.44" locked="yes" smashed="yes"/>
 <element name="H2404" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="91.44" y="5.08" locked="yes" smashed="yes"/>
 <element name="U0111" library="df4iah_stm32l4" package="LQFP144" value="STM32L4Z_144PIN_SMPS" x="66.04" y="62.23" smashed="yes" rot="R270">
-<attribute name="NAME" x="72.77" y="69.55" size="0.6096" layer="25" font="vector" ratio="10" rot="R270"/>
+<attribute name="NAME" x="75.23" y="49.91" size="0.6096" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="59.34" y="69.55" size="0.6096" layer="27" font="vector" ratio="10" rot="R270"/>
 </element>
 <element name="C0401" library="rcl" package="C0603" value="100n" x="58.499375" y="63.1825" smashed="yes" rot="MR90">
