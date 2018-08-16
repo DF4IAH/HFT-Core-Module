@@ -9083,8 +9083,8 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <wire x1="-3.06" y1="-1.73" x2="-2.76" y2="-1.03" width="0.08" layer="51"/>
 <wire x1="-2.76" y1="-1.03" x2="-2.96" y2="-1.13" width="0.08" layer="51"/>
 <wire x1="-2.76" y1="-1.03" x2="-2.66" y2="-1.23" width="0.08" layer="51"/>
-<text x="-5.6896" y="1.3208" size="0.6096" layer="25" font="vector" ratio="20" rot="R90">&gt;NAME</text>
-<text x="5.6896" y="1.2319" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-left">&gt;VALUE</text>
+<text x="-5.0546" y="1.1938" size="0.6096" layer="25" font="vector" ratio="20" rot="R90">&gt;NAME</text>
+<text x="5.0546" y="-0.0381" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-left">&gt;VALUE</text>
 <smd name="D+" x="0" y="4.15" dx="0.4" dy="1.35" layer="1" rot="R180" thermals="no"/>
 <smd name="D-" x="-0.65" y="4.15" dx="0.4" dy="1.35" layer="1" rot="R180" thermals="no"/>
 <smd name="VBUS" x="-1.3" y="4.15" dx="0.4" dy="1.35" layer="1" rot="R180" thermals="no"/>
@@ -9098,39 +9098,63 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <wire x1="-4.35" y1="4.9" x2="-3.65" y2="4.9" width="0.254" layer="21"/>
 <wire x1="4.35" y1="4.2733" x2="4.35" y2="4.9" width="0.254" layer="21"/>
 <wire x1="4.35" y1="4.9" x2="3.65" y2="4.9" width="0.254" layer="21"/>
-<wire x1="-4.35" y1="1.4351" x2="-4.35" y2="0.17" width="0.254" layer="21"/>
-<wire x1="4.35" y1="1.27" x2="4.35" y2="0.17" width="0.254" layer="21"/>
+<wire x1="-4.35" y1="0.67" x2="-4.35" y2="0.05" width="0.254" layer="21"/>
+<wire x1="4.35" y1="0.67" x2="4.35" y2="0.05" width="0.254" layer="21"/>
 <wire x1="-4.81" y1="-0.7" x2="4.81" y2="-0.7" width="0" layer="51"/>
 <pad name="JSHIELD" x="-2.5" y="4.15" drill="0.85" diameter="1.45" rot="R90" thermals="no"/>
 <pad name="JSHIELD@2" x="2.5" y="4.15" drill="0.85" diameter="1.45" rot="R90" thermals="no"/>
 <polygon width="0.005" layer="2" pour="cutout">
-<vertex x="-4.21" y="0.9"/>
-<vertex x="-4.21" y="2" curve="-180"/>
-<vertex x="-2.775" y="2"/>
-<vertex x="-2.775" y="0.9" curve="-180"/>
+<vertex x="-4.45" y="0.9"/>
+<vertex x="-4.45" y="2" curve="-180"/>
+<vertex x="-2.55" y="2"/>
+<vertex x="-2.55" y="0.9" curve="-180"/>
 </polygon>
 <polygon width="0.005" layer="2" pour="cutout">
-<vertex x="2.775" y="0.9"/>
-<vertex x="2.775" y="2" curve="-180"/>
-<vertex x="4.21" y="2"/>
-<vertex x="4.21" y="0.9" curve="-180"/>
+<vertex x="2.55" y="0.9"/>
+<vertex x="2.55" y="2" curve="-180"/>
+<vertex x="4.45" y="2"/>
+<vertex x="4.45" y="0.9" curve="-180"/>
 </polygon>
 <polygon width="0.005" layer="15" pour="cutout">
-<vertex x="-4.21" y="0.9"/>
-<vertex x="-4.21" y="2" curve="-180"/>
-<vertex x="-2.775" y="2"/>
-<vertex x="-2.775" y="0.9" curve="-180"/>
+<vertex x="-4.45" y="0.9"/>
+<vertex x="-4.45" y="2" curve="-180"/>
+<vertex x="-2.55" y="2"/>
+<vertex x="-2.55" y="0.9" curve="-180"/>
 </polygon>
 <polygon width="0.005" layer="15" pour="cutout">
-<vertex x="2.775" y="0.9"/>
-<vertex x="2.775" y="2" curve="-180"/>
-<vertex x="4.21" y="2"/>
-<vertex x="4.21" y="0.9" curve="-180"/>
+<vertex x="2.55" y="0.9"/>
+<vertex x="2.55" y="2" curve="-180"/>
+<vertex x="4.45" y="2"/>
+<vertex x="4.45" y="0.9" curve="-180"/>
 </polygon>
-<pad name="JSHIELD@3" x="-3.2" y="1.45" drill="0.85" diameter="1.8" shape="octagon"/>
-<pad name="JSHIELD@6" x="3.2" y="1.45" drill="0.85" diameter="1.8" shape="octagon"/>
+<pad name="JSHIELD@3" x="-3.5" y="1.45" drill="1" diameter="1.8" shape="octagon"/>
+<pad name="JSHIELD@6" x="3.5" y="1.45" drill="1" diameter="1.8" shape="octagon"/>
 <pad name="JSHIELD@4" x="-1" y="1.45" drill="0.85" shape="square"/>
 <pad name="JSHIELD@5" x="1" y="1.45" drill="0.85" shape="square"/>
+<polygon width="0.005" layer="2" pour="cutout">
+<vertex x="-2.032" y="2.54"/>
+<vertex x="2.032" y="2.54"/>
+<vertex x="2.032" y="0.381"/>
+<vertex x="-2.032" y="0.381"/>
+</polygon>
+<polygon width="0.005" layer="15" pour="cutout">
+<vertex x="-2.032" y="2.54"/>
+<vertex x="2.032" y="2.54"/>
+<vertex x="2.032" y="0.381"/>
+<vertex x="-2.032" y="0.381"/>
+</polygon>
+<polygon width="0.005" layer="2" pour="cutout">
+<vertex x="-3.556" y="5.08"/>
+<vertex x="3.556" y="5.08"/>
+<vertex x="3.556" y="3.175"/>
+<vertex x="-3.556" y="3.175"/>
+</polygon>
+<polygon width="0.005" layer="15" pour="cutout">
+<vertex x="-3.556" y="5.08"/>
+<vertex x="3.556" y="5.08"/>
+<vertex x="3.556" y="3.175"/>
+<vertex x="-3.556" y="3.175"/>
+</polygon>
 </package>
 <package name="SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS">
 <description>&lt;h4&gt;SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS&lt;/h4&gt;</description>
