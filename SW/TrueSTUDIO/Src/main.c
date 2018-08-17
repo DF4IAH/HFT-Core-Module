@@ -1384,7 +1384,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(GPIOC, 0);
+    HAL_GPIO_TogglePin(GPIOC, 6);   // LCD-backlight: red
     osDelay(100);
   }
   /* USER CODE END 5 */ 
