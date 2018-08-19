@@ -36884,7 +36884,7 @@ USB host (OTG) interface</text>
 <approved hash="106,8,160.02,33.02,SX_DIO5_2,,,,,"/>
 <approved hash="113,1,247.404,119.38,SJ0121,,,,,"/>
 <approved hash="113,4,127,171.696,SJ0401,,,,,"/>
-<approved hash="113,3,78.74,65.2187,X0301,,,,,"/>
+<approved hash="113,3,78.74,62.6787,X0301,,,,,"/>
 <approved hash="113,3,141.915,140.149,X0322,,,,,"/>
 <approved hash="113,4,64.5245,132.08,SJ0421,,,,,"/>
 <approved hash="113,4,54.3645,132.08,SJ0422,,,,,"/>
