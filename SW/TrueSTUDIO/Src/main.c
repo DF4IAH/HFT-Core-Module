@@ -53,6 +53,14 @@
 #include "usb_device.h"
 
 /* USER CODE BEGIN Includes */
+#include "FreeRTOS.h"
+#include <stddef.h>
+#include <stdio.h>
+
+#define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */
+#define  PULSE_RED_VALUE    (uint32_t)(PERIOD_VALUE * 75 / 100)                                 /* Capture Compare 1 Value  */
+#define  PULSE_GREEN_VALUE  (uint32_t)(PERIOD_VALUE * 25 / 100)                                 /* Capture Compare 2 Value  */
+#define  PULSE_BLUE_VALUE   (uint32_t)(PERIOD_VALUE * 50 / 100)                                 /* Capture Compare 3 Value  */
 
 /* USER CODE END Includes */
 
@@ -102,6 +110,14 @@ osMessageQId usbFromHostQueueHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+/* Timer handler declaration */
+TIM_HandleTypeDef                     TimHandle;
+
+/* Timer Output Compare Configuration Structure declaration */
+TIM_OC_InitTypeDef                    sConfig;
+
+/* Counter Prescaler value */
+uint32_t                              uhPrescalerValue        = 0;
 
 /* USER CODE END PV */
 
@@ -144,6 +160,75 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
+{
+  switch (sw) {
+  case POWERSWITCH__USB_SW:
+    /* Port: PC2 */
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    break;
+
+  case POWERSWITCH__3V3_HICUR:
+    /* Port: PC1 */
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    break;
+
+  case POWERSWITCH__3V3_XO:
+    /* Port: PC3 */
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    break;
+
+  case POWERSWITCH__1V2_DCDC:
+    /* V1.0: no hardware support */
+    return;
+
+  case POWERSWITCH__1V2_SW:
+    /* SMPS handling */
+    if (enable)
+    {
+      /* Port: PC0 */
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+
+      HAL_Delay(10);
+
+      /* Scale1: 1.2V up to 80MHz */
+      /* Scale2: 1.0V up to 24MHz */
+      HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2);
+
+    } else {
+      /* Scale1: 1.2V up to 80MHz */
+      /* Scale2: 1.0V up to 24MHz */
+      HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+      HAL_Delay(100);
+
+      /* Port: PC0 */
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+    }
+    break;
+
+  case POWERSWITCH__BAT_SW:
+    if (enable) {
+      HAL_PWREx_EnableBatteryCharging(PWR_BATTERY_CHARGING_RESISTOR_5);
+
+    } else {
+      HAL_PWREx_DisableBatteryCharging();
+    }
+    break;
+
+  case POWERSWITCH__BAT_HICUR:
+    if (enable) {
+      HAL_PWREx_EnableBatteryCharging(PWR_BATTERY_CHARGING_RESISTOR_1_5);
+
+    } else {
+      HAL_PWREx_EnableBatteryCharging(PWR_BATTERY_CHARGING_RESISTOR_5);
+    }
+    break;
+
+  default:
+    return;
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -345,7 +430,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_PLLCLK, RCC_MCODIV_8);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_LSE, RCC_MCODIV_1);
 
     /**Configure the main internal regulator output voltage 
     */
@@ -1371,6 +1456,33 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void  vApplicationIdleHook(void)
+{
+  /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
+  to 1 in FreeRTOSConfig.h. It will be called on each iteration of the idle
+  task. It is essential that code added to this hook function never attempts
+  to block in any way (for example, call xQueueReceive() with a block time
+  specified, or call vTaskDelay()). If the application makes use of the
+  vTaskDelete() API function (as this demo application does) then it is also
+  important that vApplicationIdleHook() is permitted to return to its calling
+  function, because it is the responsibility of the idle task to clean up
+  memory allocated by the kernel to any task that has since been deleted. */
+  /* TODO:
+   * 1) Reduce 80 MHz  to  2 MHz
+   * 2)  go to LPRun  (SMPS 2 High (-->  MR range 1) --> MR range 2 --> LPR
+   * 3)  Go to LPSleep
+   *
+   * WAKEUP
+   * 1)  In LPRun go to 80 MHz (LPR --> MR range 2 (--> MR range 1) --> SMPS 2 High)
+   * 2)  Increase 2 MHz to 80 MHz
+   */
+
+  /* Enter sleep mode */
+  __asm volatile( "WFI" );
+
+  /* Increase clock frequency to 80 MHz */
+  // TODO: TBD
+}
 
 /* USER CODE END 4 */
 
@@ -1381,10 +1493,92 @@ void StartDefaultTask(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
+
+  /* Power switch settings */
+  {
+    PowerSwitchDo(POWERSWITCH__USB_SW, 1);
+
+    PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
+    PowerSwitchDo(POWERSWITCH__3V3_XO, 1);
+
+  //PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
+    PowerSwitchDo(POWERSWITCH__1V2_SW, 0);
+
+  //PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
+    PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
+  }
+
+  /* PWM initial code */
+  {
+    TimHandle.Instance = TIM3;
+
+    TimHandle.Init.Prescaler         = uhPrescalerValue;
+    TimHandle.Init.Period            = PERIOD_VALUE;
+    TimHandle.Init.ClockDivision     = 0;
+    TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
+    TimHandle.Init.RepetitionCounter = 0;
+    if (HAL_TIM_PWM_Init(&TimHandle) != HAL_OK)
+    {
+      /* Initialization Error */
+      Error_Handler();
+    }
+
+    /* Common configuration for all channels */
+    sConfig.OCMode       = TIM_OCMODE_PWM1;
+    sConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
+    sConfig.OCFastMode   = TIM_OCFAST_DISABLE;
+    sConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
+    sConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+
+    sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
+
+    /* PWM: LCD-backlight Red */
+    sConfig.Pulse = PULSE_RED_VALUE;
+    if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1) != HAL_OK)
+    {
+      /* Configuration Error */
+      Error_Handler();
+    }
+
+    /* PWM: LCD-backlight Green */
+    sConfig.Pulse = PULSE_GREEN_VALUE;
+    if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_2) != HAL_OK)
+    {
+      /* Configuration Error */
+      Error_Handler();
+    }
+
+    /* PWM: LCD-backlight Blue */
+    sConfig.Pulse = PULSE_BLUE_VALUE;
+    if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_3) != HAL_OK)
+    {
+      /* Configuration Error */
+      Error_Handler();
+    }
+
+    /* Start channel 1 - Red */
+    if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) != HAL_OK)
+    {
+      /* PWM Generation Error */
+      Error_Handler();
+    }
+    /* Start channel 2 - Green */
+    if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_2) != HAL_OK)
+    {
+      /* PWM Generation Error */
+      Error_Handler();
+    }
+    /* Start channel 3 - Blue */
+    if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_3) != HAL_OK)
+    {
+      /* PWM generation Error */
+      Error_Handler();
+    }
+  }
+
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(GPIOC, 6);   // LCD-backlight: red
     osDelay(100);
   }
   /* USER CODE END 5 */ 
