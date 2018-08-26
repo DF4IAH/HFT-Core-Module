@@ -25980,15 +25980,15 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="T1201" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="T1202" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="T1203" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
-<part name="R1209" library="rcl" deviceset="R-EU_" device="R0805" value="10R"/>
-<part name="R1208" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
-<part name="R1207" library="rcl" deviceset="R-EU_" device="R0603" value="2.2kR"/>
-<part name="R1206" library="rcl" deviceset="R-EU_" device="R0805" value="10R"/>
-<part name="R1203" library="rcl" deviceset="R-EU_" device="R0805" value="68R"/>
-<part name="R1205" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
-<part name="R1202" library="rcl" deviceset="R-EU_" device="R0603" value="5.2kR"/>
-<part name="R1204" library="rcl" deviceset="R-EU_" device="R0603" value="2.2kR"/>
-<part name="R1201" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
+<part name="R1209" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
+<part name="R1208" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
+<part name="R1207" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
+<part name="R1206" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
+<part name="R1203" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
+<part name="R1205" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
+<part name="R1202" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
+<part name="R1204" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
+<part name="R1201" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
 <part name="FRAME_13" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="U1301" library="df4iah_sensors" deviceset="MPU-9250" device="" value="MPU-9250"/>
 <part name="GND1301" library="df4iah_supply" deviceset="GND" device=""/>

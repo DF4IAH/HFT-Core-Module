@@ -6095,39 +6095,39 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="13.97" y="13.97" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="20.32" y="17.145" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="R1209" library="rcl" package="R0805" value="10R" x="21.59" y="14.605" smashed="yes" rot="MR0">
+<element name="R1209" library="rcl" package="R0805" value="27R" x="21.59" y="14.605" smashed="yes" rot="MR0">
 <attribute name="NAME" x="26.035" y="14.2875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="22.225" y="12.065" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1208" library="rcl" package="R0603" value="1.8kR" x="21.59" y="16.51" smashed="yes" rot="MR0">
+<element name="R1208" library="rcl" package="R0603" value="1.5kR" x="21.59" y="16.51" smashed="yes" rot="MR0">
 <attribute name="NAME" x="26.035" y="16.1925" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="22.225" y="14.605" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1207" library="rcl" package="R0603" value="2.2kR" x="62.23" y="47.625" smashed="yes" rot="MR90">
+<element name="R1207" library="rcl" package="R0603" value="2.0kR" x="62.23" y="47.625" smashed="yes" rot="MR90">
 <attribute name="NAME" x="61.9125" y="43.18" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="60.325" y="46.99" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
-<element name="R1206" library="rcl" package="R0805" value="10R" x="21.59" y="18.415" smashed="yes" rot="MR0">
+<element name="R1206" library="rcl" package="R0805" value="27R" x="21.59" y="18.415" smashed="yes" rot="MR0">
 <attribute name="NAME" x="26.035" y="18.0975" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="22.225" y="15.875" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1203" library="rcl" package="R0805" value="68R" x="21.59" y="22.225" smashed="yes" rot="MR0">
+<element name="R1203" library="rcl" package="R0805" value="27R" x="21.59" y="22.225" smashed="yes" rot="MR0">
 <attribute name="NAME" x="26.035" y="21.9075" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="22.225" y="19.685" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1205" library="rcl" package="R0603" value="1.8kR" x="21.59" y="20.32" smashed="yes" rot="MR0">
+<element name="R1205" library="rcl" package="R0603" value="1.5kR" x="21.59" y="20.32" smashed="yes" rot="MR0">
 <attribute name="NAME" x="26.035" y="20.0025" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="22.225" y="18.415" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1202" library="rcl" package="R0603" value="5.2kR" x="21.59" y="24.13" smashed="yes" rot="MR0">
+<element name="R1202" library="rcl" package="R0603" value="1.5kR" x="21.59" y="24.13" smashed="yes" rot="MR0">
 <attribute name="NAME" x="26.035" y="24.13" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="22.225" y="22.225" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1204" library="rcl" package="R0603" value="2.2kR" x="59.055" y="47.625" smashed="yes" rot="R90">
+<element name="R1204" library="rcl" package="R0603" value="2.0kR" x="59.055" y="47.625" smashed="yes" rot="R90">
 <attribute name="NAME" x="59.055" y="43.18" size="0.6096" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="60.96" y="46.99" size="0.6096" layer="27" font="vector" ratio="10" rot="R90"/>
 </element>
-<element name="R1201" library="rcl" package="R0603" value="1.8kR" x="80.645" y="65.405" smashed="yes" rot="MR0">
+<element name="R1201" library="rcl" package="R0603" value="2.0kR" x="80.645" y="65.405" smashed="yes" rot="MR0">
 <attribute name="NAME" x="79.0575" y="65.0875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="81.28" y="63.5" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
