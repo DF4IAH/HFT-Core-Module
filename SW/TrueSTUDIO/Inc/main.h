@@ -54,6 +54,7 @@
 /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
+#include <sys/_stdint.h>
 
 /* USER CODE END Includes */
 
@@ -216,6 +217,17 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+typedef enum POWERSWITCH_ENUM {
+  POWERSWITCH__USB_SW                                         = 1,
+  POWERSWITCH__3V3_HICUR,
+  POWERSWITCH__3V3_XO,
+  POWERSWITCH__1V2_DCDC,                                                                        // V1.0: not implemented
+  POWERSWITCH__1V2_SW,                                                                          // SMTP switch
+  POWERSWITCH__BAT_SW,
+  POWERSWITCH__BAT_HICUR,
+} POWERSWITCH_ENUM_t;
+
+void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
 
 /* USER CODE END Private defines */
 
