@@ -28471,14 +28471,14 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="T1201" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="T1202" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="T1203" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
-<part name="R1209" library="rcl" deviceset="R-EU_" device="R0805" value="10R"/>
-<part name="R1208" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
-<part name="R1207" library="rcl" deviceset="R-EU_" device="R0603" value="2.2kR"/>
-<part name="R1206" library="rcl" deviceset="R-EU_" device="R0805" value="10R"/>
+<part name="R1209" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
+<part name="R1208" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
+<part name="R1207" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
+<part name="R1206" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
 <part name="R1203" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
-<part name="R1205" library="rcl" deviceset="R-EU_" device="R0603" value="1.8kR"/>
+<part name="R1205" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
 <part name="R1202" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
-<part name="R1204" library="rcl" deviceset="R-EU_" device="R0603" value="2.2kR"/>
+<part name="R1204" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
 <part name="R1201" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
 <part name="FRAME_13" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="U1301" library="df4iah_sensors" deviceset="MPU-9250" device="" value="MPU-9250"/>
@@ -33615,9 +33615,6 @@ I2C addr: 0x7C/0x7D</text>
 <text x="195.58" y="58.42" size="1.778" layer="97">MCU_IN_RE_I</text>
 <text x="195.58" y="53.34" size="1.778" layer="97">MCU_IN_RE_Q</text>
 <text x="195.58" y="35.56" size="1.778" layer="97">MCU_IN_RE_PB</text>
-<text x="12.7" y="88.9" size="1.778" layer="97" rot="R90">Test-Value</text>
-<text x="12.7" y="121.92" size="1.778" layer="97" rot="R90">Test-Value</text>
-<text x="30.48" y="88.9" size="1.778" layer="97" rot="R90">Test-Value</text>
 </plain>
 <instances>
 <instance part="FRAME_12" gate="G$1" x="0" y="0"/>
