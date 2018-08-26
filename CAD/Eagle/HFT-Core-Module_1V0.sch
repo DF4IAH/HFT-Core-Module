@@ -25645,7 +25645,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="GND0321" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R0321" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
 <part name="C0313" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R0311" library="rcl" deviceset="R-EU_" device="R0603" value="3.3kR"/>
+<part name="R0311" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
 <part name="GND0311" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_14" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_16" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
@@ -25681,7 +25681,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0632" library="rcl" deviceset="C-EU" device="C0603" value="100pF"/>
 <part name="FRAME_05" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="Q0521" library="df4iah_crystal" deviceset="ABS07-32.768KHZ" device=""/>
-<part name="C0511" library="rcl" deviceset="C-EU" device="C0603" value="1.5pF"/>
+<part name="C0511" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
 <part name="GND0511" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0531" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_12" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
@@ -27903,9 +27903,12 @@ Digikey: 497-17999-ND</text>
 <text x="127" y="104.14" size="1.778" layer="97">RESET</text>
 <text x="127" y="137.16" size="1.778" layer="97">BOOT0</text>
 <text x="72.136" y="55.118" size="1.778" layer="97">SW-DEBUG</text>
-<text x="25.4" y="63.5" size="2.54" layer="97" ratio="15">Debugging header</text>
+<text x="25.4" y="63.5" size="2.54" layer="97" ratio="15">SWD header</text>
 <text x="25.4" y="137.16" size="2.54" layer="97" ratio="15">Boot configuration</text>
 <text x="25.4" y="104.14" size="2.54" layer="97" ratio="15">RESET button</text>
+<text x="25.4" y="50.8" size="1.778" layer="97">Add:
+Pin1 &lt;-- 100kR --&gt; Pin2
+Pin5 &lt;-- 100kR --&gt; Pin6</text>
 </plain>
 <instances>
 <instance part="FRAME_03" gate="G$1" x="0" y="0"/>
