@@ -51,6 +51,9 @@
 #include "task.h"
 
 /* USER CODE BEGIN Includes */     
+#include "cmsis_os.h"
+#include "stm32l4xx_hal.h"
+#include "usb.h"
 
 /* USER CODE END Includes */
 

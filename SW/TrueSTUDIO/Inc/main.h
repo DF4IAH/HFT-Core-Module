@@ -217,7 +217,26 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+#define USE_FULL_ASSERT                                       1U
+
+#ifndef PI
+# define PI                                                   3.14159265358979f
+#endif
+
+#ifndef min
+# define min(a,b)                                             (a) < (b) ?  (a) : (b)
+#endif
+
+#ifndef max
+# define max(a,b)                                             (a) > (b) ?  (a) : (b)
+#endif
+
+
+#define HFTCOREMODULE_VERSION                                 20180828U
+
+
 typedef enum POWERSWITCH_ENUM {
+
   POWERSWITCH__USB_SW                                         = 1,
   POWERSWITCH__3V3_HICUR,
   POWERSWITCH__3V3_XO,
@@ -225,7 +244,28 @@ typedef enum POWERSWITCH_ENUM {
   POWERSWITCH__1V2_SW,                                                                          // SMTP switch
   POWERSWITCH__BAT_SW,
   POWERSWITCH__BAT_HICUR,
+
 } POWERSWITCH_ENUM_t;
+
+
+typedef enum ENABLE_MASK {
+
+  ENABLE_MASK__I2C_HYGRO                                      = 0x0001UL,
+  ENABLE_MASK__I2C_BARO                                       = 0x0002UL,
+  ENABLE_MASK__I2C_GYRO                                       = 0x0004UL,
+  ENABLE_MASK__I2C_LCD                                        = 0x0008UL,
+
+} ENABLE_MASK_t;
+
+
+typedef enum MON_MASK {
+
+  MON_MASK__I2C_HYGRO                                         = 0x0001UL,
+  MON_MASK__I2C_BARO                                          = 0x0002UL,
+  MON_MASK__I2C_GYRO                                          = 0x0004UL,
+
+} MON_MASK_t;
+
 
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
 

@@ -57,6 +57,9 @@
 #include <stddef.h>
 #include <stdio.h>
 
+#include "usb.h"
+
+
 #define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */
 #define  PULSE_RED_VALUE    (uint32_t)(PERIOD_VALUE * 75 / 100)                                 /* Capture Compare 1 Value  */
 #define  PULSE_GREEN_VALUE  (uint32_t)(PERIOD_VALUE * 25 / 100)                                 /* Capture Compare 2 Value  */
@@ -110,6 +113,9 @@ osMessageQId usbFromHostQueueHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+EventGroupHandle_t                    usbToHostEventGroupHandle;
+osSemaphoreId                         usbToHostBinarySemHandle;
+
 /* Timer handler declaration */
 TIM_HandleTypeDef                     TimHandle;
 
@@ -189,7 +195,7 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
       /* Port: PC0 */
       HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 
-      HAL_Delay(10);
+      osDelay(10);
 
       /* Scale1: 1.2V up to 80MHz */
       /* Scale2: 1.0V up to 24MHz */
@@ -200,7 +206,7 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
       /* Scale2: 1.0V up to 24MHz */
       HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-      HAL_Delay(100);
+      osDelay(100);
 
       /* Port: PC0 */
       HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -227,6 +233,89 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 
   default:
     return;
+  }
+}
+
+void PowerSwitchInit(void)
+{
+  PowerSwitchDo(POWERSWITCH__USB_SW, 1);
+
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
+  PowerSwitchDo(POWERSWITCH__3V3_XO, 1);
+
+//PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
+  PowerSwitchDo(POWERSWITCH__1V2_SW, 0);
+
+//PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
+  PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
+}
+
+void LcdBacklightInit(void)
+{
+  /* PWM initial code */
+  TimHandle.Instance = TIM3;
+
+  TimHandle.Init.Prescaler         = uhPrescalerValue;
+  TimHandle.Init.Period            = PERIOD_VALUE;
+  TimHandle.Init.ClockDivision     = 0;
+  TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
+  TimHandle.Init.RepetitionCounter = 0;
+  if (HAL_TIM_PWM_Init(&TimHandle) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_Handler();
+  }
+
+  /* Common configuration for all channels */
+  sConfig.OCMode       = TIM_OCMODE_PWM1;
+  sConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
+  sConfig.OCFastMode   = TIM_OCFAST_DISABLE;
+  sConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
+  sConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+
+  sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
+
+  /* PWM: LCD-backlight Red */
+  sConfig.Pulse = PULSE_RED_VALUE;
+  if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1) != HAL_OK)
+  {
+    /* Configuration Error */
+    Error_Handler();
+  }
+
+  /* PWM: LCD-backlight Green */
+  sConfig.Pulse = PULSE_GREEN_VALUE;
+  if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_2) != HAL_OK)
+  {
+    /* Configuration Error */
+    Error_Handler();
+  }
+
+  /* PWM: LCD-backlight Blue */
+  sConfig.Pulse = PULSE_BLUE_VALUE;
+  if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_3) != HAL_OK)
+  {
+    /* Configuration Error */
+    Error_Handler();
+  }
+
+  /* Start channel 1 - Red */
+  if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) != HAL_OK)
+  {
+    /* PWM Generation Error */
+    Error_Handler();
+  }
+  /* Start channel 2 - Green */
+  if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_2) != HAL_OK)
+  {
+    /* PWM Generation Error */
+    Error_Handler();
+  }
+  /* Start channel 3 - Blue */
+  if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_3) != HAL_OK)
+  {
+    /* PWM generation Error */
+    Error_Handler();
   }
 }
 
@@ -294,6 +383,11 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
+  osSemaphoreDef(usbToHostBinarySem);
+  usbToHostBinarySemHandle = osSemaphoreCreate(osSemaphore(usbToHostBinarySem), 1);
+
+  usbToHostEventGroupHandle = xEventGroupCreate();
+
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -325,7 +419,7 @@ int main(void)
 
   /* definition and creation of usbFromHostQueue */
 /* what about the sizeof here??? cd native code */
-  osMessageQDef(usbFromHostQueue, 64, uint8_t);
+  osMessageQDef(usbFromHostQueue, 32, uint8_t);
   usbFromHostQueueHandle = osMessageCreate(osMessageQ(usbFromHostQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -1495,86 +1589,10 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN 5 */
 
   /* Power switch settings */
-  {
-    PowerSwitchDo(POWERSWITCH__USB_SW, 1);
+  PowerSwitchInit();
 
-    PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
-    PowerSwitchDo(POWERSWITCH__3V3_XO, 1);
-
-  //PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
-    PowerSwitchDo(POWERSWITCH__1V2_SW, 0);
-
-  //PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
-    PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
-  }
-
-  /* PWM initial code */
-  {
-    TimHandle.Instance = TIM3;
-
-    TimHandle.Init.Prescaler         = uhPrescalerValue;
-    TimHandle.Init.Period            = PERIOD_VALUE;
-    TimHandle.Init.ClockDivision     = 0;
-    TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
-    TimHandle.Init.RepetitionCounter = 0;
-    if (HAL_TIM_PWM_Init(&TimHandle) != HAL_OK)
-    {
-      /* Initialization Error */
-      Error_Handler();
-    }
-
-    /* Common configuration for all channels */
-    sConfig.OCMode       = TIM_OCMODE_PWM1;
-    sConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
-    sConfig.OCFastMode   = TIM_OCFAST_DISABLE;
-    sConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
-    sConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-
-    sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
-
-    /* PWM: LCD-backlight Red */
-    sConfig.Pulse = PULSE_RED_VALUE;
-    if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1) != HAL_OK)
-    {
-      /* Configuration Error */
-      Error_Handler();
-    }
-
-    /* PWM: LCD-backlight Green */
-    sConfig.Pulse = PULSE_GREEN_VALUE;
-    if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_2) != HAL_OK)
-    {
-      /* Configuration Error */
-      Error_Handler();
-    }
-
-    /* PWM: LCD-backlight Blue */
-    sConfig.Pulse = PULSE_BLUE_VALUE;
-    if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_3) != HAL_OK)
-    {
-      /* Configuration Error */
-      Error_Handler();
-    }
-
-    /* Start channel 1 - Red */
-    if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) != HAL_OK)
-    {
-      /* PWM Generation Error */
-      Error_Handler();
-    }
-    /* Start channel 2 - Green */
-    if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_2) != HAL_OK)
-    {
-      /* PWM Generation Error */
-      Error_Handler();
-    }
-    /* Start channel 3 - Blue */
-    if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_3) != HAL_OK)
-    {
-      /* PWM generation Error */
-      Error_Handler();
-    }
-  }
+  /* LCD-backlight default settings */
+  //LcdBacklightInit();
 
   /* Infinite loop */
   for(;;)
@@ -1588,10 +1606,12 @@ void StartDefaultTask(void const * argument)
 void StartUsbToHostTask(void const * argument)
 {
   /* USER CODE BEGIN StartUsbToHostTask */
+
+  usbUsbToHostTaskInit();
+
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(25);
+  for (;;) {
+    usbUsbToHostTaskLoop();
   }
   /* USER CODE END StartUsbToHostTask */
 }
@@ -1600,10 +1620,12 @@ void StartUsbToHostTask(void const * argument)
 void StartUsbFromHostTask(void const * argument)
 {
   /* USER CODE BEGIN StartUsbFromHostTask */
+
+  usbUsbFromHostTaskInit();
+
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(25);
+  for (;;) {
+    usbUsbFromHostTaskLoop();
   }
   /* USER CODE END StartUsbFromHostTask */
 }
