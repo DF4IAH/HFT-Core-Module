@@ -222,6 +222,8 @@
 #define I2C_SLAVE_BARO_REG_CONV_D2_4096                       0x58U
 #define I2C_SLAVE_BARO_REG_ADC_READ                           0x00U
 
+#define C_I2C_BARO_C_CNT                                      8
+
 
 #define I2C_SLAVE_HYGRO_ADDR                                  0x44U
 
@@ -292,5 +294,18 @@
 
 #define TXBUFFERSIZE                                          32U
 #define RXBUFFERSIZE                                          32U
+
+
+void i2cI2c4HygroTaskInit(void);
+void i2cI2c4HygroTaskLoop(void);
+
+void i2cI2c4BaroTaskInit(void);
+void i2cI2c4BaroTaskLoop(void);
+
+void i2cI2c4GyroTaskInit(void);
+void i2cI2c4GyroTaskLoop(void);
+
+void i2cI2c4LcdTaskInit(void);
+void i2cI2c4LcdTaskLoop(void);
 
 #endif /* I2C_H_ */

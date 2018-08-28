@@ -58,6 +58,7 @@
 #include <stdio.h>
 
 #include "usb.h"
+#include "i2c.h"
 
 
 #define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */
@@ -108,8 +109,18 @@ UART_HandleTypeDef huart3;
 osThreadId defaultTaskHandle;
 osThreadId usbToHostTaskHandle;
 osThreadId usbFromHostTaskHandle;
+osThreadId i2c4HygroTaskHandle;
+osThreadId i2c4BaroTaskHandle;
+osThreadId i2c4GyroTaskHandle;
+osThreadId i2c4LcdTaskHandle;
 osMessageQId usbToHostQueueHandle;
 osMessageQId usbFromHostQueueHandle;
+osMutexId i2c1MutexHandle;
+osMutexId i2c2MutexHandle;
+osMutexId i2c3MutexHandle;
+osMutexId i2c4MutexHandle;
+osMutexId spi1MutexHandle;
+osMutexId spi3MutexHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -156,6 +167,10 @@ static void MX_TIM3_Init(void);
 void StartDefaultTask(void const * argument);
 void StartUsbToHostTask(void const * argument);
 void StartUsbFromHostTask(void const * argument);
+void StartI2c4HygroTask(void const * argument);
+void StartI2c4BaroTask(void const * argument);
+void StartI2c4GyroTask(void const * argument);
+void StartI2c4LcdTask(void const * argument);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -377,6 +392,31 @@ int main(void)
 
   /* USER CODE END 2 */
 
+  /* Create the mutex(es) */
+  /* definition and creation of i2c1Mutex */
+  osMutexDef(i2c1Mutex);
+  i2c1MutexHandle = osMutexCreate(osMutex(i2c1Mutex));
+
+  /* definition and creation of i2c2Mutex */
+  osMutexDef(i2c2Mutex);
+  i2c2MutexHandle = osMutexCreate(osMutex(i2c2Mutex));
+
+  /* definition and creation of i2c3Mutex */
+  osMutexDef(i2c3Mutex);
+  i2c3MutexHandle = osMutexCreate(osMutex(i2c3Mutex));
+
+  /* definition and creation of i2c4Mutex */
+  osMutexDef(i2c4Mutex);
+  i2c4MutexHandle = osMutexCreate(osMutex(i2c4Mutex));
+
+  /* definition and creation of spi1Mutex */
+  osMutexDef(spi1Mutex);
+  spi1MutexHandle = osMutexCreate(osMutex(spi1Mutex));
+
+  /* definition and creation of spi3Mutex */
+  osMutexDef(spi3Mutex);
+  spi3MutexHandle = osMutexCreate(osMutex(spi3Mutex));
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -407,6 +447,22 @@ int main(void)
   osThreadDef(usbFromHostTask, StartUsbFromHostTask, osPriorityAboveNormal, 0, 128);
   usbFromHostTaskHandle = osThreadCreate(osThread(usbFromHostTask), NULL);
 
+  /* definition and creation of i2c4HygroTask */
+  osThreadDef(i2c4HygroTask, StartI2c4HygroTask, osPriorityLow, 0, 256);
+  i2c4HygroTaskHandle = osThreadCreate(osThread(i2c4HygroTask), NULL);
+
+  /* definition and creation of i2c4BaroTask */
+  osThreadDef(i2c4BaroTask, StartI2c4BaroTask, osPriorityLow, 0, 256);
+  i2c4BaroTaskHandle = osThreadCreate(osThread(i2c4BaroTask), NULL);
+
+  /* definition and creation of i2c4GyroTask */
+  osThreadDef(i2c4GyroTask, StartI2c4GyroTask, osPriorityIdle, 0, 512);
+  i2c4GyroTaskHandle = osThreadCreate(osThread(i2c4GyroTask), NULL);
+
+  /* definition and creation of i2c4LcdTask */
+  osThreadDef(i2c4LcdTask, StartI2c4LcdTask, osPriorityBelowNormal, 0, 128);
+  i2c4LcdTaskHandle = osThreadCreate(osThread(i2c4LcdTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -414,7 +470,7 @@ int main(void)
   /* Create the queue(s) */
   /* definition and creation of usbToHostQueue */
 /* what about the sizeof here??? cd native code */
-  osMessageQDef(usbToHostQueue, 512, uint8_t);
+  osMessageQDef(usbToHostQueue, 4096, uint8_t);
   usbToHostQueueHandle = osMessageCreate(osMessageQ(usbToHostQueue), NULL);
 
   /* definition and creation of usbFromHostQueue */
@@ -781,7 +837,7 @@ static void MX_I2C1_Init(void)
 {
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x0010061A;
+  hi2c1.Init.Timing = 0x00300711;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -803,7 +859,7 @@ static void MX_I2C1_Init(void)
 
     /**Configure Digital filter 
     */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -815,7 +871,7 @@ static void MX_I2C2_Init(void)
 {
 
   hi2c2.Instance = I2C2;
-  hi2c2.Init.Timing = 0x0010061A;
+  hi2c2.Init.Timing = 0x00300711;
   hi2c2.Init.OwnAddress1 = 0;
   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -837,7 +893,7 @@ static void MX_I2C2_Init(void)
 
     /**Configure Digital filter 
     */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -883,7 +939,7 @@ static void MX_I2C4_Init(void)
 {
 
   hi2c4.Instance = I2C4;
-  hi2c4.Init.Timing = 0x0010061A;
+  hi2c4.Init.Timing = 0x00300711;
   hi2c4.Init.OwnAddress1 = 0;
   hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -905,7 +961,7 @@ static void MX_I2C4_Init(void)
 
     /**Configure Digital filter 
     */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c4, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c4, 3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -1606,7 +1662,6 @@ void StartDefaultTask(void const * argument)
 void StartUsbToHostTask(void const * argument)
 {
   /* USER CODE BEGIN StartUsbToHostTask */
-
   usbUsbToHostTaskInit();
 
   /* Infinite loop */
@@ -1620,7 +1675,6 @@ void StartUsbToHostTask(void const * argument)
 void StartUsbFromHostTask(void const * argument)
 {
   /* USER CODE BEGIN StartUsbFromHostTask */
-
   usbUsbFromHostTaskInit();
 
   /* Infinite loop */
@@ -1628,6 +1682,58 @@ void StartUsbFromHostTask(void const * argument)
     usbUsbFromHostTaskLoop();
   }
   /* USER CODE END StartUsbFromHostTask */
+}
+
+/* StartI2c4HygroTask function */
+void StartI2c4HygroTask(void const * argument)
+{
+  /* USER CODE BEGIN StartI2c4HygroTask */
+  i2cI2c4HygroTaskInit();
+
+  /* Infinite loop */
+  for (;;) {
+    i2cI2c4HygroTaskLoop();
+  }
+  /* USER CODE END StartI2c4HygroTask */
+}
+
+/* StartI2c4BaroTask function */
+void StartI2c4BaroTask(void const * argument)
+{
+  /* USER CODE BEGIN StartI2c4BaroTask */
+  i2cI2c4BaroTaskInit();
+
+  /* Infinite loop */
+  for (;;) {
+    i2cI2c4BaroTaskLoop();
+  }
+  /* USER CODE END StartI2c4BaroTask */
+}
+
+/* StartI2c4GyroTask function */
+void StartI2c4GyroTask(void const * argument)
+{
+  /* USER CODE BEGIN StartI2c4GyroTask */
+  i2cI2c4GyroTaskInit();
+
+  /* Infinite loop */
+  for (;;) {
+    i2cI2c4GyroTaskLoop();
+  }
+  /* USER CODE END StartI2c4GyroTask */
+}
+
+/* StartI2c4LcdTask function */
+void StartI2c4LcdTask(void const * argument)
+{
+  /* USER CODE BEGIN StartI2c4LcdTask */
+  i2cI2c4LcdTaskInit();
+
+  /* Infinite loop */
+  for (;;) {
+    i2cI2c4LcdTaskLoop();
+  }
+  /* USER CODE END StartI2c4LcdTask */
 }
 
 /**
