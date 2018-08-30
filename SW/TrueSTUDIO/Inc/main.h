@@ -268,6 +268,7 @@ typedef enum MON_MASK {
 
 
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
+void SystemResetbyARMcore(void);
 
 /* USER CODE END Private defines */
 

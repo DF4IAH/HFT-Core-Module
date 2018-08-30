@@ -59,6 +59,7 @@
 
 #include "usb.h"
 #include "i2c.h"
+#include "tcxo_20MHz.h"
 
 
 #define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */
@@ -113,6 +114,7 @@ osThreadId i2c4HygroTaskHandle;
 osThreadId i2c4BaroTaskHandle;
 osThreadId i2c4GyroTaskHandle;
 osThreadId i2c4LcdTaskHandle;
+osThreadId tcxo20MhzTaskHandle;
 osMessageQId usbToHostQueueHandle;
 osMessageQId usbFromHostQueueHandle;
 osMutexId i2c1MutexHandle;
@@ -171,6 +173,7 @@ void StartI2c4HygroTask(void const * argument);
 void StartI2c4BaroTask(void const * argument);
 void StartI2c4GyroTask(void const * argument);
 void StartI2c4LcdTask(void const * argument);
+void StartTcxo20MhzTask(void const * argument);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -259,7 +262,8 @@ void PowerSwitchInit(void)
   PowerSwitchDo(POWERSWITCH__3V3_XO, 1);
 
 //PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
-  PowerSwitchDo(POWERSWITCH__1V2_SW, 0);
+//for (uint16_t i = 10000; i; i--) ;
+  PowerSwitchDo(POWERSWITCH__1V2_SW, 1);
 
 //PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
   PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
@@ -334,6 +338,49 @@ void LcdBacklightInit(void)
   }
 }
 
+void SystemResetbyARMcore(void)
+{
+  /* Set SW reset bit */
+  SCB->AIRCR = 0x05FA0000UL | SCB_AIRCR_SYSRESETREQ_Msk;
+}
+
+/* Used by the run-time stats */
+void configureTimerForRunTimeStats(void)
+{
+  getRunTimeCounterValue();
+
+#if 0
+  /* Interrupt disabled block */
+  {
+    taskDISABLE_INTERRUPTS();
+    g_timerStart_us = g_timer_us;
+    taskENABLE_INTERRUPTS();
+  }
+#endif
+}
+
+/* Used by the run-time stats */
+unsigned long getRunTimeCounterValue(void)
+{
+  uint64_t l_timerStart_us = 0ULL;
+  uint64_t timer_us = HAL_GetTick() & 0x003fffffUL;  // avoid overflows
+  timer_us *= 1000UL;
+  timer_us += TIM2->CNT;
+
+#if 0
+  /* Interrupt disabled block */
+  {
+    taskDISABLE_INTERRUPTS();
+    g_timer_us      = timer_us;
+    l_timerStart_us = g_timerStart_us;
+    taskENABLE_INTERRUPTS();
+  }
+#endif
+
+  return (unsigned long) (timer_us - l_timerStart_us);
+}
+
+
 /* USER CODE END 0 */
 
 /**
@@ -344,6 +391,32 @@ void LcdBacklightInit(void)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
+  /* Check if ARM core is already in reset state */
+  if (!(RCC->CSR & 0xff000000UL)) {
+    /* Disable SMPS */
+    HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin, GPIO_PIN_RESET);
+    //POWERSWITCH__1V2_DCDC, RESET;
+
+    /* Turn off battery charger of Vbat */
+    HAL_PWREx_DisableBatteryCharging();
+
+    /* HICUR off */
+    HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin, GPIO_PIN_RESET);
+
+    /* 20MHz oscillator off */
+    HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin, GPIO_PIN_RESET);
+
+    /* VUSB off */
+    HAL_GPIO_WritePin(MCU_OUT_VUSB_EN_GPIO_Port, MCU_OUT_VUSB_EN_Pin, GPIO_PIN_RESET);
+
+    /* LCD reset */
+    HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, GPIO_PIN_RESET);
+
+    /* ARM software reset to be done */
+    SystemResetbyARMcore();
+  }
+  __HAL_RCC_CLEAR_RESET_FLAGS();
 
   /* USER CODE END 1 */
 
@@ -462,6 +535,10 @@ int main(void)
   /* definition and creation of i2c4LcdTask */
   osThreadDef(i2c4LcdTask, StartI2c4LcdTask, osPriorityBelowNormal, 0, 128);
   i2c4LcdTaskHandle = osThreadCreate(osThread(i2c4LcdTask), NULL);
+
+  /* definition and creation of tcxo20MhzTask */
+  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityIdle, 0, 128);
+  tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -1734,6 +1811,19 @@ void StartI2c4LcdTask(void const * argument)
     i2cI2c4LcdTaskLoop();
   }
   /* USER CODE END StartI2c4LcdTask */
+}
+
+/* StartTcxo20MhzTask function */
+void StartTcxo20MhzTask(void const * argument)
+{
+  /* USER CODE BEGIN StartTcxo20MhzTask */
+  tcxo20MhzTaskInit();
+
+  /* Infinite loop */
+  for (;;) {
+    tcxo20MhzTaskLoop();
+  }
+  /* USER CODE END StartTcxo20MhzTask */
 }
 
 /**

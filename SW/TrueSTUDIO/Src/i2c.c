@@ -5,6 +5,8 @@
  *      Author: DF4IAH
  */
 
+#include <string.h>
+
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -43,6 +45,39 @@ static uint8_t              s_i2cI2c4Gyro2Version             = 0U;
 static uint8_t              s_i2cI2c4Gyro2AsaX                = 0U;
 static uint8_t              s_i2cI2c4Gyro2AsaY                = 0U;
 static uint8_t              s_i2cI2c4Gyro2AsaZ                = 0U;
+
+static uint16_t             s_i2cI2c4Tcxo20MhzDacStatus       = 0U;
+
+
+#if 0
+static void i2cI2c4AddrScan(void)
+{
+  /* DEBUG I2C4 Bus */
+  char dbgBuf[32];
+  int  dbgLen;
+
+  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+
+  aTxBuffer[0] = 0x00;
+  for (uint8_t addr = 0; addr <= 0x7F; addr++) {
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (addr << 1U), (uint8_t*) aTxBuffer, min(0U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      usbLog("ERROR: 1\r\n");
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
+      dbgLen = sprintf(dbgBuf, "ERROR: Addr=0x%02X   no response\r\n", addr);
+    } else {
+      dbgLen = sprintf(dbgBuf, "GOOD:  Addr=0x%02X  got response\r\n", addr);
+    }
+    usbLogLen(dbgBuf, dbgLen);
+    osDelay(25);
+  }
+
+  osSemaphoreRelease(i2c4MutexHandle);
+}
+#endif
 
 
 static void i2cI2c4HygroInit(void)
@@ -94,6 +129,7 @@ static void i2cI2c4HygroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
     if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) aRxBuffer, min(2U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
       /* Error_Handler() function is called when error occurs. */
       Error_Handler();
@@ -150,6 +186,7 @@ static void i2cI2c4BaroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
     if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_BARO_ADDR << 1U), (uint8_t*) aRxBuffer, min(2U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
       Error_Handler();
     }
@@ -169,6 +206,7 @@ static void i2cI2c4BaroInit(void)
       while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
         osDelay(1);
       }
+      memset(aRxBuffer, 0, sizeof(aRxBuffer));
       if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_BARO_ADDR << 1U), (uint8_t*) aRxBuffer, min(2U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
         Error_Handler();
       }
@@ -217,7 +255,6 @@ static void i2cI2c4GyroInit(void)
       break;
     }
     osDelay(10);
-    usbLog(". i2cI2c4GyroInit: state 01\r\n");
 
     /* MPU-9250 6 axis: read Who Am I control value */
     aTxBuffer[0] = I2C_SLAVE_GYRO_REG_1_WHOAMI;
@@ -228,6 +265,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
     if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_GYRO_ADDR_1 << 1U), (uint8_t*) aRxBuffer, min(1U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
       Error_Handler();
     }
@@ -235,7 +273,8 @@ static void i2cI2c4GyroInit(void)
       osDelay(1);
     }
     s_i2cI2c4Gyro1Version = aRxBuffer[0];
-    usbLog(". i2cI2c4GyroInit: state 02\r\n");
+    dbgLen = sprintf(dbgBuf, ". i2cI2c4GyroInit: 6D-Gyro version=%d\r\n", s_i2cI2c4Gyro1Version);
+    usbLogLen(dbgBuf, dbgLen);
 
     /* MPU-9250 6 axis: I2C bypass on to access the Magnetometer chip */
     aTxBuffer[0] = I2C_SLAVE_GYRO_REG_1_INT_PIN_CFG;
@@ -247,7 +286,6 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 03\r\n");
 
     /* Magnetometer: soft reset */
     aTxBuffer[0] = I2C_SLAVE_GYRO_REG_2_CNTL2;
@@ -276,6 +314,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
     if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_GYRO_ADDR_2 << 1U), (uint8_t*) aRxBuffer, min(1U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
       Error_Handler();
     }
@@ -283,9 +322,7 @@ static void i2cI2c4GyroInit(void)
       osDelay(1);
     }
     s_i2cI2c4Gyro2Version = aRxBuffer[0];
-    usbLog(". i2cI2c4GyroInit: state 05\r\n");
-
-    dbgLen = sprintf(dbgBuf, ". i2cI2c4GyroInit: 6D-Gyro version=%d, 3D-Mag version=%d\r\n", s_i2cI2c4Gyro1Version, s_i2cI2c4Gyro2Version);
+    dbgLen = sprintf(dbgBuf, ". i2cI2c4GyroInit: 3D-Mag version=%d\r\n", s_i2cI2c4Gyro2Version);
     usbLogLen(dbgBuf, dbgLen);
 
     /* Magnetometer: 16 bit access and prepare for PROM access */
@@ -309,6 +346,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
     if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_GYRO_ADDR_2 << 1U), (uint8_t*) aRxBuffer, min(3U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
       Error_Handler();
     }
@@ -435,18 +473,190 @@ static void i2cI2c4GyroInit(void)
 
 static void i2cI2c4LcdInit(void)
 {
-  int   dbgLen = 0;
-  char  dbgBuf[128];
-
   osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
   usbLog("< i2cI2c4LcdInit -\r\n");
 
   do {
+    /* Signal Reset */
+    HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_RESET));
+    osDelay(1);
+    HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_SET));
+    osDelay(50);
 
+#ifdef HISTORIC
+    /* LCD NHD-C0220BiZ-FS(RGB)-FBW-3VM */
+
+    /* Reset */
+    aTxBuffer[0] = 0x80;                                                                              // Co
+    aTxBuffer[1] = 0x38;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) aTxBuffer, min(2U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
+      /* Chip not responding */
+      usbLog(". i2cI2c4LcdInit: ERROR LCD does not respond\r\n");
+      break;
+    }
+    osDelay(10);
+
+    aTxBuffer[0] = 0x00;                                                                              // Co
+    aTxBuffer[1] = 0x39;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) aTxBuffer, min(2U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    osDelay(10);
+
+    aTxBuffer[0] = 0x80;                                                                              // Co
+    aTxBuffer[1] = 0x14;
+    aTxBuffer[2] = 0x78;
+    aTxBuffer[3] = 0x5E;
+    aTxBuffer[4] = 0x6D;
+    aTxBuffer[5] = 0x0C;
+    aTxBuffer[6] = 0x01;
+    aTxBuffer[7] = 0x06;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) aTxBuffer, min(8U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+
+    aTxBuffer[ 0] = 0x40;                                                                              // Data
+    aTxBuffer[ 1] = '*';
+    aTxBuffer[ 2] = ' ';
+    aTxBuffer[ 3] = 'H';
+    aTxBuffer[ 4] = 'F';
+    aTxBuffer[ 5] = 'T';
+    aTxBuffer[ 6] = '-';
+    aTxBuffer[ 7] = 'C';
+    aTxBuffer[ 8] = 'o';
+    aTxBuffer[ 9] = 'r';
+    aTxBuffer[10] = 'e';
+    aTxBuffer[11] = '-';
+    aTxBuffer[12] = 'M';
+    aTxBuffer[13] = 'o';
+    aTxBuffer[14] = 'd';
+    aTxBuffer[15] = 'u';
+    aTxBuffer[16] = 'l';
+    aTxBuffer[17] = 'e';
+    aTxBuffer[18] = ' ';
+    aTxBuffer[19] = '*';
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) aTxBuffer, min(20U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+#endif
   } while(0);
 
   usbLog("- i2cI2c4LcdInit >\r\n\r\n");
+
+  osSemaphoreRelease(i2c4MutexHandle);
+}
+
+void i2cI2c4Tcxo20MhzDacInit(void)
+{
+  int   dbgLen = 0;
+  char  dbgBuf[128];
+
+  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+
+  usbLog("< i2cI2c4Tcxo20MhzDacInit -\r\n");
+
+  do {
+    /* User configuration */
+    aTxBuffer[0] = I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG;
+    aTxBuffer[1] = 0x00;                                                                              // MSB  0x0020: clear value Mid, nAUX disable, DAC enabled
+    aTxBuffer[2] = 0x20;                                                                              // LSB
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR << 1U), (uint8_t*) aTxBuffer, min(3U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
+      /* Chip not responding */
+      usbLog(". i2cI2c4Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
+      break;
+    }
+
+    /* Software clear */
+    aTxBuffer[0] = I2C_SLAVE_20MHZ_DAC_REG_WR_SW_CLEAR;
+    aTxBuffer[1] = 0x00;                                                                              // MSB  DC
+    aTxBuffer[2] = 0x00;                                                                              // LSB  DC
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR << 1U), (uint8_t*) aTxBuffer, min(3U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
+      /* Chip not responding */
+      usbLog(". i2cI2c4Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
+      break;
+    }
+
+    /* Read ID and status */
+    aTxBuffer[0] = I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR << 1U), (uint8_t*) aTxBuffer, min(1U, TXBUFFERSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
+    if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR << 1U), (uint8_t*) aRxBuffer, min(2U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    s_i2cI2c4Tcxo20MhzDacStatus = ((uint16_t)aRxBuffer[0] << 8U) | aRxBuffer[1];
+
+    dbgLen = sprintf(dbgBuf, ". i2cI2c4Tcxo20MhzDacInit: Status=0x%04X\r\n", s_i2cI2c4Tcxo20MhzDacStatus);
+    usbLogLen(dbgBuf, dbgLen);
+  } while(0);
+
+  usbLog("- i2cI2c4Tcxo20MhzDacInit >\r\n\r\n");
+
+  osSemaphoreRelease(i2c4MutexHandle);
+}
+
+void i2cI2c4Tcxo20MhzDacSet(uint16_t dac)
+{
+  const uint8_t dacHi = (uint8_t) (dac >> 8U);
+  const uint8_t dacLo = (uint8_t) (dac & 0xFFU);
+
+  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+
+  do {
+    /* Set DAC value for TCXO */
+    aTxBuffer[0] = I2C_SLAVE_20MHZ_DAC_REG_WR_CODELOAD;
+    aTxBuffer[1] = dacHi;
+    aTxBuffer[2] = dacLo;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR << 1U), (uint8_t*) aTxBuffer, min(3U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+  } while(0);
 
   osSemaphoreRelease(i2c4MutexHandle);
 }
