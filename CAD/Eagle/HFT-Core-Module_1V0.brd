@@ -6151,11 +6151,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="43.4975" y="26.035" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="43.18" y="26.67" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
-<element name="R1331" library="rcl" package="R0603" value="3.9kR" x="5.715" y="15.875" smashed="yes" rot="MR0">
+<element name="R1331" library="rcl" package="R0603" value="1.0kR" x="5.715" y="15.875" smashed="yes" rot="MR0">
 <attribute name="NAME" x="10.16" y="15.5575" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="6.35" y="13.97" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R1332" library="rcl" package="R0603" value="3.9kR" x="5.715" y="13.335" smashed="yes" rot="MR0">
+<element name="R1332" library="rcl" package="R0603" value="1.0kR" x="5.715" y="13.335" smashed="yes" rot="MR0">
 <attribute name="NAME" x="10.16" y="13.0175" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="6.35" y="11.43" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
