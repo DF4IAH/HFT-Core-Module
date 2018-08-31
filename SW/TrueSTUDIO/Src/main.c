@@ -126,7 +126,9 @@ osMutexId spi3MutexHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+EventGroupHandle_t                    adcEventGroupHandle;
 EventGroupHandle_t                    usbToHostEventGroupHandle;
+
 osSemaphoreId                         usbToHostBinarySemHandle;
 
 /* Timer handler declaration */
@@ -137,6 +139,9 @@ TIM_OC_InitTypeDef                    sConfig;
 
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
+
+uint16_t                              g_adc_v_solar           = 0U;
+uint16_t                              g_adc_v_pull_tcxo       = 0U;
 
 /* USER CODE END PV */
 
@@ -269,6 +274,7 @@ void PowerSwitchInit(void)
   PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
 }
 
+#ifdef LCD_BACKLIGHT
 void LcdBacklightInit(void)
 {
   /* PWM initial code */
@@ -337,6 +343,7 @@ void LcdBacklightInit(void)
     Error_Handler();
   }
 }
+#endif
 
 void SystemResetbyARMcore(void)
 {
@@ -365,7 +372,7 @@ unsigned long getRunTimeCounterValue(void)
   uint64_t l_timerStart_us = 0ULL;
   uint64_t timer_us = HAL_GetTick() & 0x003fffffUL;  // avoid overflows
   timer_us *= 1000UL;
-  timer_us += TIM2->CNT;
+  timer_us += TIM2->CNT % 10000000UL;
 
 #if 0
   /* Interrupt disabled block */
@@ -499,7 +506,9 @@ int main(void)
   osSemaphoreDef(usbToHostBinarySem);
   usbToHostBinarySemHandle = osSemaphoreCreate(osSemaphore(usbToHostBinarySem), 1);
 
+  /* add event groups */
   usbToHostEventGroupHandle = xEventGroupCreate();
+  adcEventGroupHandle = xEventGroupCreate();
 
   /* USER CODE END RTOS_SEMAPHORES */
 
@@ -509,7 +518,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of usbToHostTask */
@@ -529,7 +538,7 @@ int main(void)
   i2c4BaroTaskHandle = osThreadCreate(osThread(i2c4BaroTask), NULL);
 
   /* definition and creation of i2c4GyroTask */
-  osThreadDef(i2c4GyroTask, StartI2c4GyroTask, osPriorityIdle, 0, 512);
+  osThreadDef(i2c4GyroTask, StartI2c4GyroTask, osPriorityLow, 0, 512);
   i2c4GyroTaskHandle = osThreadCreate(osThread(i2c4GyroTask), NULL);
 
   /* definition and creation of i2c4LcdTask */
@@ -537,7 +546,7 @@ int main(void)
   i2c4LcdTaskHandle = osThreadCreate(osThread(i2c4LcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
-  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityIdle, 0, 128);
+  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityLow, 0, 256);
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -600,13 +609,16 @@ void SystemClock_Config(void)
     /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSI
-                              |RCC_OSCILLATORTYPE_LSE;
+                              |RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSICalibrationValue = 64;
+  RCC_OscInitStruct.MSIState = RCC_MSI_ON;
+  RCC_OscInitStruct.MSICalibrationValue = 0;
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_8;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
   RCC_OscInitStruct.PLL.PLLM = 1;
   RCC_OscInitStruct.PLL.PLLN = 8;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV8;
@@ -621,7 +633,7 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
@@ -657,7 +669,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_LSE, RCC_MCODIV_1);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_MSI, RCC_MCODIV_2);
 
     /**Configure the main internal regulator output voltage 
     */
@@ -717,7 +729,11 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc1.Init.DMAContinuousRequests = DISABLE;
   hadc1.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-  hadc1.Init.OversamplingMode = DISABLE;
+  hadc1.Init.OversamplingMode = ENABLE;
+  hadc1.Init.Oversampling.Ratio = ADC_OVERSAMPLING_RATIO_16;
+  hadc1.Init.Oversampling.RightBitShift = ADC_RIGHTBITSHIFT_NONE;
+  hadc1.Init.Oversampling.TriggeredMode = ADC_TRIGGEREDMODE_SINGLE_TRIGGER;
+  hadc1.Init.Oversampling.OversamplingStopReset = ADC_REGOVERSAMPLING_CONTINUED_MODE;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -769,7 +785,11 @@ static void MX_ADC3_Init(void)
   hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc3.Init.DMAContinuousRequests = DISABLE;
   hadc3.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-  hadc3.Init.OversamplingMode = DISABLE;
+  hadc3.Init.OversamplingMode = ENABLE;
+  hadc3.Init.Oversampling.Ratio = ADC_OVERSAMPLING_RATIO_16;
+  hadc3.Init.Oversampling.RightBitShift = ADC_RIGHTBITSHIFT_NONE;
+  hadc3.Init.Oversampling.TriggeredMode = ADC_TRIGGEREDMODE_SINGLE_TRIGGER;
+  hadc3.Init.Oversampling.OversamplingStopReset = ADC_REGOVERSAMPLING_CONTINUED_MODE;
   if (HAL_ADC_Init(&hadc3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -871,12 +891,12 @@ static void MX_DFSDM1_Init(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  if (HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter0, DFSDM_CHANNEL_0, DFSDM_CONTINUOUS_CONV_ON) != HAL_OK)
+  if (HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter0, DFSDM_CHANNEL_0, DFSDM_CONTINUOUS_CONV_OFF) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  if (HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter1, DFSDM_CHANNEL_1, DFSDM_CONTINUOUS_CONV_ON) != HAL_OK)
+  if (HAL_DFSDM_FilterConfigRegChannel(&hdfsdm1_filter1, DFSDM_CHANNEL_1, DFSDM_CONTINUOUS_CONV_OFF) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -1267,7 +1287,7 @@ static void MX_TIM1_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
+  htim1.Init.Prescaler = 65535;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 0;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -1303,11 +1323,11 @@ static void MX_TIM3_Init(void)
   TIM_OC_InitTypeDef sConfigOC;
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 0;
+  htim3.Init.Prescaler = 65535;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 0;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -1365,7 +1385,7 @@ static void MX_TIM5_Init(void)
   htim5.Instance = TIM5;
   htim5.Init.Prescaler = 0;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim5.Init.Period = 0;
+  htim5.Init.Period = 1600000000;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
@@ -1422,7 +1442,7 @@ static void MX_TIM16_Init(void)
 {
 
   htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 0;
+  htim16.Init.Prescaler = 65535;
   htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim16.Init.Period = 0;
   htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -1440,7 +1460,7 @@ static void MX_TIM17_Init(void)
 {
 
   htim17.Instance = TIM17;
-  htim17.Init.Prescaler = 0;
+  htim17.Init.Prescaler = 65535;
   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim17.Init.Period = 0;
   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -1724,13 +1744,22 @@ void StartDefaultTask(void const * argument)
   /* Power switch settings */
   PowerSwitchInit();
 
+  /* Si5338 clock generator */
+  i2cI2c4Si5338Init();
+
+#ifdef LCD_BACKLIGHT
   /* LCD-backlight default settings */
-  //LcdBacklightInit();
+  LcdBacklightInit();
+#endif
+
+#ifdef I2C4_BUS_ADDR_SCAN
+  i2cI2c4AddrScan();
+#endif
 
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);
+    osDelay(1000);
   }
   /* USER CODE END 5 */ 
 }
@@ -1857,6 +1886,12 @@ void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+  int  dbgLen;
+  char dbgBuf[128];
+
+  dbgLen = sprintf(dbgBuf, "***ERROR: ERROR-HANDLER  Wrong parameters value: file %s on line %d\r\n", file, line);
+  usbLogLen(dbgBuf, dbgLen);
+
   while(1)
   {
   }
@@ -1876,6 +1911,11 @@ void assert_failed(uint8_t* file, uint32_t line)
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  int  dbgLen;
+  char dbgBuf[128];
+
+  dbgLen = sprintf(dbgBuf, "***ERROR: ASSERT-FAILED  Wrong parameters value: file %s on line %ld\r\n", file, line);
+  usbLogLen(dbgBuf, dbgLen);
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

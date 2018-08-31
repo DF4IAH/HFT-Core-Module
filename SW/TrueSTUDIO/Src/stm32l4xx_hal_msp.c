@@ -94,6 +94,10 @@ void HAL_MspInit(void)
     */
   HAL_PWR_EnablePVD();
 
+    /**Tune the Internal Voltage Reference buffer 
+    */
+  HAL_SYSCFG_VREFBUF_TrimmingConfig(34);
+
     /**Configure the internal voltage reference buffer voltage scale 
     */
   HAL_SYSCFG_VREFBUF_VoltageScalingConfig(SYSCFG_VREFBUF_VOLTAGE_SCALE0);
@@ -136,6 +140,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(MCU_VSOL_ADC1_GPIO_Port, &GPIO_InitStruct);
 
+    /* ADC1 interrupt Init */
+    HAL_NVIC_SetPriority(ADC1_2_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
   /* USER CODE BEGIN ADC1_MspInit 1 */
 
   /* USER CODE END ADC1_MspInit 1 */
@@ -159,6 +166,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(ADC3_IN6_20MHZ_PULL_GPIO_Port, &GPIO_InitStruct);
 
+    /* ADC3 interrupt Init */
+    HAL_NVIC_SetPriority(ADC3_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(ADC3_IRQn);
   /* USER CODE BEGIN ADC3_MspInit 1 */
 
   /* USER CODE END ADC3_MspInit 1 */
@@ -185,6 +195,8 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     */
     HAL_GPIO_DeInit(MCU_VSOL_ADC1_GPIO_Port, MCU_VSOL_ADC1_Pin);
 
+    /* ADC1 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(ADC1_2_IRQn);
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 
   /* USER CODE END ADC1_MspDeInit 1 */
@@ -205,6 +217,8 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     */
     HAL_GPIO_DeInit(ADC3_IN6_20MHZ_PULL_GPIO_Port, ADC3_IN6_20MHZ_PULL_Pin);
 
+    /* ADC3 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(ADC3_IRQn);
   /* USER CODE BEGIN ADC3_MspDeInit 1 */
 
   /* USER CODE END ADC3_MspDeInit 1 */
@@ -263,11 +277,6 @@ void HAL_DFSDM_FilterMspInit(DFSDM_Filter_HandleTypeDef* hdfsdm_filter)
     if(HAL_RCC_DFSDM1_CLK_ENABLED==1){
       __HAL_RCC_DFSDM1_CLK_ENABLE();
     }
-    /* DFSDM1 interrupt Init */
-    HAL_NVIC_SetPriority(DFSDM1_FLT0_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(DFSDM1_FLT0_IRQn);
-    HAL_NVIC_SetPriority(DFSDM1_FLT1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(DFSDM1_FLT1_IRQn);
   /* USER CODE BEGIN DFSDM1_MspInit 1 */
 
   /* USER CODE END DFSDM1_MspInit 1 */
@@ -306,10 +315,6 @@ void HAL_DFSDM_FilterMspDeInit(DFSDM_Filter_HandleTypeDef* hdfsdm_filter)
   /* USER CODE END DFSDM1_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_DFSDM1_CLK_DISABLE();
-
-    /* DFSDM1 interrupt DeInit */
-    HAL_NVIC_DisableIRQ(DFSDM1_FLT0_IRQn);
-    HAL_NVIC_DisableIRQ(DFSDM1_FLT1_IRQn);
   /* USER CODE BEGIN DFSDM1_MspDeInit 1 */
 
   /* USER CODE END DFSDM1_MspDeInit 1 */
@@ -805,11 +810,14 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     */
     GPIO_InitStruct.Pin = MCU_TIMCAP_N_Pin|MCU_TIMCAP_W_Pin|MCU_TIMCAP_S_Pin|MCU_VSOL_TIMCAP_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
     HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
+    /* TIM5 interrupt Init */
+    HAL_NVIC_SetPriority(TIM5_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(TIM5_IRQn);
   /* USER CODE BEGIN TIM5_MspInit 1 */
 
   /* USER CODE END TIM5_MspInit 1 */
@@ -856,21 +864,21 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
     */
     GPIO_InitStruct.Pin = MCU_PWM_LED_G_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(MCU_PWM_LED_G_GPIO_Port, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = MCU_PWM_LED_B_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(MCU_PWM_LED_B_GPIO_Port, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = MCU_PWM_LED_R_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(MCU_PWM_LED_R_GPIO_Port, &GPIO_InitStruct);
@@ -923,6 +931,8 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     */
     HAL_GPIO_DeInit(GPIOF, MCU_TIMCAP_N_Pin|MCU_TIMCAP_W_Pin|MCU_TIMCAP_S_Pin|MCU_VSOL_TIMCAP_Pin);
 
+    /* TIM5 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(TIM5_IRQn);
   /* USER CODE BEGIN TIM5_MspDeInit 1 */
 
   /* USER CODE END TIM5_MspDeInit 1 */

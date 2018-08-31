@@ -15,6 +15,7 @@
 #include "FreeRTOS.h"
 
 #include "usb.h"
+#include "si5338_RegisterMap.h"
 
 #include "i2c.h"
 
@@ -49,8 +50,9 @@ static uint8_t              s_i2cI2c4Gyro2AsaZ                = 0U;
 static uint16_t             s_i2cI2c4Tcxo20MhzDacStatus       = 0U;
 
 
-#if 0
-static void i2cI2c4AddrScan(void)
+
+#ifdef I2C4_BUS_ADDR_SCAN
+void i2cI2c4AddrScan(void)
 {
   /* DEBUG I2C4 Bus */
   char dbgBuf[32];
@@ -59,19 +61,17 @@ static void i2cI2c4AddrScan(void)
   osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
   aTxBuffer[0] = 0x00;
-  for (uint8_t addr = 0; addr <= 0x7F; addr++) {
+  for (uint8_t addr = 0x01U; addr <= 0x7FU; addr++) {
     if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (addr << 1U), (uint8_t*) aTxBuffer, min(0U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
       usbLog("ERROR: 1\r\n");
     }
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
-      dbgLen = sprintf(dbgBuf, "ERROR: Addr=0x%02X   no response\r\n", addr);
-    } else {
+    if (HAL_I2C_GetError(&hi2c4) != HAL_I2C_ERROR_AF) {
       dbgLen = sprintf(dbgBuf, "GOOD:  Addr=0x%02X  got response\r\n", addr);
+      usbLogLen(dbgBuf, dbgLen);
     }
-    usbLogLen(dbgBuf, dbgLen);
     osDelay(25);
   }
 
@@ -657,6 +657,77 @@ void i2cI2c4Tcxo20MhzDacSet(uint16_t dac)
       osDelay(1);
     }
   } while(0);
+
+  osSemaphoreRelease(i2c4MutexHandle);
+}
+
+
+void i2cI2c4Si5338Init(void)
+{
+  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+
+  usbLog("< i2cI2c4Si5338Init -\r\n");
+
+  for (uint16_t listIdx = 0U; listIdx < SI5338_NUM_REGS_MAX; listIdx++) {
+    if (si5338_Reg_Store[listIdx].Reg_Mask) {
+      /* Read current data */
+      aTxBuffer[0] = si5338_Reg_Store[listIdx].Reg_Addr;
+      if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_SI5338_ADDR << 1U), (uint8_t*) aTxBuffer, min(1U, TXBUFFERSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
+        /* Error_Handler() function is called when error occurs. */
+        Error_Handler();
+      }
+      while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+        osDelay(1);
+      }
+      if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
+        /* Chip not responding */
+        usbLog(". i2cI2c4Si5338Init: ERROR chip does not respond\r\n");
+        break;
+      }
+      memset(aRxBuffer, 0, sizeof(aRxBuffer));
+      if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_SI5338_ADDR << 1U), (uint8_t*) aRxBuffer, min(1U, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
+        Error_Handler();
+      }
+      while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+        osDelay(1);
+      }
+      uint8_t val1 = aRxBuffer[0];
+      uint8_t val2 = val1;
+
+      /* Modify value */
+      val2 &= ~(si5338_Reg_Store[listIdx].Reg_Mask);
+      val2 |= si5338_Reg_Store[listIdx].Reg_Mask & si5338_Reg_Store[listIdx].Reg_Val;
+
+      if (val2 != val1) {
+        /* Write back value */
+        aTxBuffer[0] = si5338_Reg_Store[listIdx].Reg_Addr;
+        aTxBuffer[1] = val2;
+        if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_SI5338_ADDR << 1U), (uint8_t*) aTxBuffer, min(2U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+          /* Error_Handler() function is called when error occurs. */
+          Error_Handler();
+        }
+        while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+          osDelay(1);
+        }
+      }
+
+#if 0
+      {
+        int   dbgLen = 0;
+        char  dbgBuf[128];
+
+        dbgLen = sprintf(dbgBuf, ". i2cI2c4Si5338Init: ListIdx=%03d, I2C addr=0x%02X, val_before=0x%02X, val_after=0x%02X\r\n",
+            listIdx,
+            si5338_Reg_Store[listIdx].Reg_Addr,
+            val1,
+            val2);
+        usbLogLen(dbgBuf, dbgLen);
+      }
+#endif
+    }
+  }
+
+  usbLog("- i2cI2c4Si5338Init >\r\n\r\n");
 
   osSemaphoreRelease(i2c4MutexHandle);
 }

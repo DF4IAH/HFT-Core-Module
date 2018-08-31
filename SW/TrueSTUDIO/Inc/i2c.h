@@ -311,6 +311,8 @@
 #define I2C_SLAVE_20MHZ_DAC_REG_RD_CONFIG_RB                  0x08U
 
 
+#define I2C_SLAVE_SI5338_ADDR                                 0x70U
+
 
 #ifdef HISTORIC
 #define I2C_SLAVE_LCD_ADDR                                    0x3EU
@@ -345,8 +347,13 @@
 #define RXBUFFERSIZE                                          32U
 
 
+#define I2C4_BUS_ADDR_SCAN                                    1
+
+
+void i2cI2c4AddrScan(void);
 void i2cI2c4Tcxo20MhzDacInit(void);
 void i2cI2c4Tcxo20MhzDacSet(uint16_t dac);
+void i2cI2c4Si5338Init(void);
 
 
 void i2cI2c4HygroTaskInit(void);
