@@ -222,6 +222,8 @@
 #define I2C_SLAVE_BARO_REG_CONV_D2_4096                       0x58U
 #define I2C_SLAVE_BARO_REG_ADC_READ                           0x00U
 
+#define C_I2C_BARO_C_CNT                                      8
+
 
 #define I2C_SLAVE_HYGRO_ADDR                                  0x44U
 
@@ -283,14 +285,87 @@
 #define I2C_SLAVE_HYGRO_REG_ONESHOT_LOPREC_CLKSTRETCH_HI      0x2CU
 #define I2C_SLAVE_HYGRO_REG_ONESHOT_LOPREC_CLKSTRETCH_LO      0x10U
 
-
 #define I2C_SLAVE_HYGRO_REG_FETCH_DATA_HI                     0xE0U
 #define I2C_SLAVE_HYGRO_REG_FETCH_DATA_LO                     0x00U
+
+
+#define I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR                       0x1CU
+#define I2C_SLAVE_20MHZ_DAC_BROADCAST_ADDR                    0x2AU
+
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_DC                         0x00U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_CODELOAD                   0x01U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_CODE                       0x02U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_LOAD                       0x03U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_CODELOADm                  0x05U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_CODEm                      0x06U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG                0x08U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_SW_RESET                   0x09U
+#define I2C_SLAVE_20MHZ_DAC_REG_WR_SW_CLEAR                   0x0AU
+
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS                     0x00U
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_CODELOAD_RB                0x01U
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_CODE_RB                    0x02U
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_LOAD_RB                    0x03U
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_CODELOADm_RB               0x05U
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_CODEm_RB                   0x06U
+#define I2C_SLAVE_20MHZ_DAC_REG_RD_CONFIG_RB                  0x08U
+
+
+#define I2C_SLAVE_SI5338_ADDR                                 0x70U
+
+
+#ifdef HISTORIC
+#define I2C_SLAVE_LCD_ADDR                                    0x3EU
+
+#define I2C_SLAVE_LCD_REG_CLEAR_DISPLAY                       0x01U
+#define I2C_SLAVE_LCD_REG_RETURN_HOME                         0x02U
+#define I2C_SLAVE_LCD_REG_ENTRY_MODE_SET                      0x04U
+#define I2C_SLAVE_LCD_REG_DISPLAY_ON_OFF                      0x08U
+#define I2C_SLAVE_LCD_REG_FUNCTION_SET                        0x20U
+#define I2C_SLAVE_LCD_REG_SET_DDRAM_ADDR                      0x80U
+
+// Instruction table 0
+#define I2C_SLAVE_LCD_IT0_REG_CURSOR_OR_DISPLAY_SHIFT         0x10U
+#define I2C_SLAVE_LCD_IT0_REG_SET_CGRAM                       0x40U
+
+// Instruction table 1
+#define I2C_SLAVE_LCD_IT1_REG_BIAS_SET                        0x10U
+#define I2C_SLAVE_LCD_IT1_REG_SET_ICON_ADDR                   0x40U
+#define I2C_SLAVE_LCD_IT1_REG_ICON_CONTRAST                   0x50U
+#define I2C_SLAVE_LCD_IT1_REG_FOLLOWER_CONTROL                0x60U
+#define I2C_SLAVE_LCD_IT1_REG_CONTRAST_SET                    0x70U
+
+// Instruction table 2
+#define I2C_SLAVE_LCD_IT2_REG_DOUBLE_HEIGHT_POS               0x10U
+#define I2C_SLAVE_LCD_IT2_REG_RESERVED                        0x40U
+#endif
 
 
 /* Module */
 
 #define TXBUFFERSIZE                                          32U
 #define RXBUFFERSIZE                                          32U
+
+
+#define I2C4_BUS_ADDR_SCAN                                    1
+
+
+void i2cI2c4AddrScan(void);
+void i2cI2c4Tcxo20MhzDacInit(void);
+void i2cI2c4Tcxo20MhzDacSet(uint16_t dac);
+void i2cI2c4Si5338Init(void);
+
+
+void i2cI2c4HygroTaskInit(void);
+void i2cI2c4HygroTaskLoop(void);
+
+void i2cI2c4BaroTaskInit(void);
+void i2cI2c4BaroTaskLoop(void);
+
+void i2cI2c4GyroTaskInit(void);
+void i2cI2c4GyroTaskLoop(void);
+
+void i2cI2c4LcdTaskInit(void);
+void i2cI2c4LcdTaskLoop(void);
 
 #endif /* I2C_H_ */

@@ -55,11 +55,20 @@ void UsageFault_Handler(void);
 void DebugMon_Handler(void);
 void SysTick_Handler(void);
 void RTC_WKUP_IRQHandler(void);
+void ADC1_2_IRQHandler(void);
 void TIM2_IRQHandler(void);
+void I2C1_EV_IRQHandler(void);
+void I2C1_ER_IRQHandler(void);
+void I2C2_EV_IRQHandler(void);
+void I2C2_ER_IRQHandler(void);
 void RTC_Alarm_IRQHandler(void);
-void DFSDM1_FLT0_IRQHandler(void);
-void DFSDM1_FLT1_IRQHandler(void);
+void ADC3_IRQHandler(void);
+void TIM5_IRQHandler(void);
 void OTG_FS_IRQHandler(void);
+void I2C3_EV_IRQHandler(void);
+void I2C3_ER_IRQHandler(void);
+void I2C4_EV_IRQHandler(void);
+void I2C4_ER_IRQHandler(void);
 
 #ifdef __cplusplus
 }

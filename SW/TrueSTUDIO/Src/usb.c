@@ -88,16 +88,16 @@ void usbUsbToHostTaskInit(void)
 {
   uint8_t inChr = 0;
 
-  /* Give time for USB CDC to come up */
-  osDelay(2500);
-
   /* Clear queue */
   while (xQueueReceive(usbToHostQueueHandle, &inChr, 0) == pdPASS) {
   }
   xEventGroupSetBits(usbToHostEventGroupHandle, USB_TO_HOST_EG__BUF_EMPTY);
 
+  /* Give time for USB CDC to come up */
+  osDelay(3500);
+
   /* Init connection with dummy data */
-  for (uint32_t cnt = 15; cnt; cnt--) {
+  for (uint32_t cnt = 30; cnt; cnt--) {
     CDC_Transmit_FS((uint8_t*) usbClrScrBuf, 3);
     osDelay(10);
   }
