@@ -25996,8 +25996,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1303" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="R1301" library="rcl" deviceset="R-EU_" device="R0603" value="68R"/>
 <part name="C1302" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R1331" library="rcl" deviceset="R-EU_" device="R0603" value="3.9kR"/>
-<part name="R1332" library="rcl" deviceset="R-EU_" device="R0603" value="3.9kR"/>
+<part name="R1331" library="rcl" deviceset="R-EU_" device="R0603" value="1.0kR"/>
+<part name="R1332" library="rcl" deviceset="R-EU_" device="R0603" value="1.0kR"/>
 <part name="GND1311" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1311" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="U1311" library="df4iah_sensors" deviceset="MS5607-02BA" device="" technology="03"/>
@@ -28500,7 +28500,7 @@ Pin5 &lt;-- 100kR --&gt; Pin6</text>
 <text x="177.8" y="71.12" size="2.54" layer="97" ratio="15">MOS-OP</text>
 <text x="182.88" y="162.56" size="2.54" layer="97" ratio="15">VCTCXO</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">D/A-Converter:
-I2C addr: 0x38/0x39</text>
+I2C addr: 0x1C</text>
 <text x="208.28" y="48.26" size="1.778" layer="97">ADC3_IN6_20MHZ_PULL</text>
 </plain>
 <instances>
@@ -28814,7 +28814,7 @@ I2C addr: 0x38/0x39</text>
 <text x="167.64" y="76.2" size="1.778" layer="97">Impedance 100 Ohms</text>
 <text x="116.84" y="137.16" size="1.778" layer="97" rot="R90">Impedance 100 Ohms</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Clock distributor
-I2C addr: 0xE0/0xE1</text>
+I2C addr: 0x70</text>
 <text x="118.364" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
 <text x="50.8" y="88.9" size="1.778" layer="97">16MHz</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
@@ -31077,7 +31077,7 @@ SPI</text>
 <plain>
 <text x="160.02" y="139.7" size="1.778" layer="97">LCD: 2x20 chars  NHD-C0220BIZ-FS(RGB)-FBW-3VM-ND</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LC-Display
-I2C addr: 0x7C/0x7D</text>
+I2C addr: 0x3E</text>
 <text x="10.16" y="71.12" size="2.54" layer="97" ratio="15">Rotary Encoder with Pushbutton</text>
 <text x="15.24" y="139.7" size="1.778" layer="97" rot="R90">MCU_PWM_LED_R</text>
 <text x="35.56" y="139.7" size="1.778" layer="97" rot="R90">MCU_PWM_LED_G</text>
@@ -31407,16 +31407,16 @@ I2C addr: 0x7C/0x7D</text>
 <sheet>
 <description>I2C Sensors</description>
 <plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Baro sensor: MS5607-02BA03</text>
-<text x="22.86" y="81.28" size="2.54" layer="97" ratio="15">9-axis sensor: MPU-9250</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Baro sensor: MS5607-02BA03
+I2C addr: 0x76</text>
+<text x="22.86" y="81.28" size="2.54" layer="97" ratio="15">9-axis sensor: MPU-9250
+I2C addr: 0x68, 0x0C</text>
 <text x="116.84" y="66.04" size="1.778" layer="97">NC</text>
 <text x="116.84" y="63.5" size="1.778" layer="97">NC</text>
-<text x="83.82" y="38.1" size="1.778" layer="97">I2C address = 1101000</text>
-<text x="47.752" y="104.902" size="1.778" layer="97">I2C address = 1110110</text>
 <text x="85.598" y="118.364" size="1.778" layer="97">NC</text>
 <text x="85.598" y="123.444" size="1.778" layer="97">NC</text>
-<text x="149.86" y="162.56" size="2.54" layer="97" ratio="15">RH sensor: Sensirion SHT3x</text>
-<text x="160.02" y="93.98" size="1.778" layer="97">I2C address = 1000100</text>
+<text x="149.86" y="162.56" size="2.54" layer="97" ratio="15">RH sensor: Sensirion SHT3x
+I2C addr: 0x44</text>
 <text x="195.58" y="81.28" size="2.54" layer="97" ratio="15">I2C4 Termination</text>
 <text x="127" y="25.4" size="1.778" layer="97">I2C2_INT</text>
 </plain>
