@@ -263,8 +263,11 @@ void PowerSwitchInit(void)
 {
   PowerSwitchDo(POWERSWITCH__USB_SW, 1);
 
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
-  PowerSwitchDo(POWERSWITCH__3V3_XO, 1);
+  /* Disable high current system */
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 0);
+
+  /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
+  PowerSwitchDo(POWERSWITCH__3V3_XO, 0);
 
 //PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
 //for (uint16_t i = 10000; i; i--) ;
@@ -548,6 +551,7 @@ int main(void)
   /* definition and creation of tcxo20MhzTask */
   osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityLow, 0, 256);
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
+  osThreadSuspend(tcxo20MhzTaskHandle);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -1745,7 +1749,16 @@ void StartDefaultTask(void const * argument)
   PowerSwitchInit();
 
   /* Si5338 clock generator */
-  i2cI2c4Si5338Init();
+#if 0
+  /* Switch on Si5338 clock PLL */
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
+  osDelay(10);
+# if 0
+  i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
+# else
+  i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ);
+# endif
+#endif
 
 #ifdef LCD_BACKLIGHT
   /* LCD-backlight default settings */

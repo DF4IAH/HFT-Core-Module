@@ -347,13 +347,32 @@
 #define RXBUFFERSIZE                                          32U
 
 
-#define I2C4_BUS_ADDR_SCAN                                    1
+#define I2C_BUS_ADDR_SCAN                                     1
 
 
-void i2cI2c4AddrScan(void);
+typedef struct Reg_Data{
+   uint8_t Reg_Addr;
+   uint8_t Reg_Val;
+   uint8_t Reg_Mask;
+} Reg_Data_t;
+
+
+typedef enum I2C_SI5338_CLKIN_VARIANT_ENUM {
+
+  I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ                    = 0,
+  I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ,
+
+} I2C_SI5338_CLKIN_VARIANT_t;
+
+
+void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle);
+uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint16_t count, const Reg_Data_t dataAry[]);
+uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cReg, uint16_t count, const uint8_t i2cWriteAryLong[]);
+uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cReg, uint16_t count);
+
 void i2cI2c4Tcxo20MhzDacInit(void);
 void i2cI2c4Tcxo20MhzDacSet(uint16_t dac);
-void i2cI2c4Si5338Init(void);
+void i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT_t variant);
 
 
 void i2cI2c4HygroTaskInit(void);

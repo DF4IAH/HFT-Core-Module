@@ -29,7 +29,7 @@ extern uint16_t                       g_adc_v_pull_tcxo;
 
 void tcxo20MhzTaskInit(void)
 {
-  osDelay(500);
+  osDelay(400);
   i2cI2c4Tcxo20MhzDacInit();
 
   /* Preload-value of TCXO */
