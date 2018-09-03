@@ -6,6 +6,7 @@
  */
 
 #include <string.h>
+#include <math.h>
 
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
@@ -38,6 +39,13 @@ uint8_t                     aRxBuffer[32]                     = { 0U };
 
 static uint8_t              s_i2cI2c4HygroValid               = 0U;
 static uint16_t             s_i2cI2c4HygroState               = 0U;
+static int16_t              s_i2cI2c4Hygro_T_100              = 0;
+static int16_t              s_i2cI2c4Hygro_RH_100             = 0;
+static uint16_t             s_i2cI2c4Hygro_S_T                = 0U;
+static int16_t              s_i2cI2c4Hygro_S_RH               = 0;
+static int16_t              s_i2cI2c4Hygro_T_cor_100          = 0;
+static int16_t              s_i2cI2c4Hygro_RH_cor_100         = 0;
+static int16_t              s_i2cI2c4Hygro_DP_100             = 0;
 
 static uint8_t              s_i2cI2c4BaroValid                = 0U;
 static uint16_t             s_i2cI2c4BaroVersion              = 0U;
@@ -225,13 +233,15 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uin
   return HAL_I2C_ERROR_NONE;
 }
 
-uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cReg, uint16_t count)
+uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readLen)
 {
   /* Wait for the I2Cx bus to be free */
   osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
-  aTxBuffer[0] = i2cReg;
-  if (HAL_I2C_Master_Sequential_Transmit_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) aTxBuffer, min(1U, TXBUFFERSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
+  for (uint8_t regIdx = 0; regIdx < i2cRegLen; regIdx++) {
+    aTxBuffer[regIdx] = i2cReg[regIdx];
+  }
+  if (HAL_I2C_Master_Sequential_Transmit_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) aTxBuffer, min(i2cRegLen, TXBUFFERSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
     /* Error_Handler() function is called when error occurs. */
     Error_Handler();
   }
@@ -248,7 +258,7 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t 
   }
 
   memset(aRxBuffer, 0, sizeof(aRxBuffer));
-  if (HAL_I2C_Master_Sequential_Receive_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) aRxBuffer, min(count, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
+  if (HAL_I2C_Master_Sequential_Receive_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) aRxBuffer, min(readLen, RXBUFFERSIZE), I2C_OTHER_FRAME) != HAL_OK) {
     Error_Handler();
   }
   while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
@@ -334,6 +344,107 @@ static void i2cI2c4HygroInit(void)
   osSemaphoreRelease(i2c4MutexHandle);
 }
 
+static void i2cI2c4HygroFetch(void)
+{
+  /* Read current measurement data */
+  {
+    uint8_t regQry[2] = { I2C_SLAVE_HYGRO_REG_FETCH_DATA_HI, I2C_SLAVE_HYGRO_REG_FETCH_DATA_LO };
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_HYGRO_ADDR, sizeof(regQry), regQry, 5);
+    if (i2cErr == HAL_I2C_ERROR_NONE) {
+      s_i2cI2c4Hygro_S_T  = ((uint16_t)aRxBuffer[0] << 8) | aRxBuffer[1];
+      s_i2cI2c4Hygro_S_RH = ((uint16_t)aRxBuffer[3] << 8) | aRxBuffer[4];
+    }
+  }
+
+  /* Start next measurement - available 15ms later */
+  {
+    uint8_t dataAry[1] = { I2C_SLAVE_HYGRO_REG_ONESHOT_HIPREC_NOCLKSTRETCH_LO };
+    i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_HYGRO_ADDR, I2C_SLAVE_HYGRO_REG_ONESHOT_HIPREC_NOCLKSTRETCH_HI, sizeof(dataAry), dataAry);
+  }
+}
+
+static void i2cI2c4HygroCalc(void)
+{
+  // Calculations for the presentation layer
+  static uint16_t   sf_i2cI2c4_hygro_S_T        = 0UL;
+  static uint16_t   sf_i2cI2c4_hygro_S_RH       = 0UL;
+  int16_t           l_i2cI2c4_hygro_T_100;
+  int16_t           l_i2cI2c4_hygro_RH_100;
+  int16_t           l_i2cI2c4_hygro_T_cor_100;
+  int16_t           l_i2cI2c4_hygro_RH_cor_100;
+  uint16_t          l_i2cI2c4_hygro_S_T;
+  uint16_t          l_i2cI2c4_hygro_S_RH;
+  uint8_t           hasChanged                  = 0U;
+
+  /* Getting the global values */
+  {
+    l_i2cI2c4_hygro_T_100      = s_i2cI2c4Hygro_T_100;                                               // last value
+    l_i2cI2c4_hygro_RH_100     = s_i2cI2c4Hygro_RH_100;                                              // last value
+    l_i2cI2c4_hygro_S_T        = s_i2cI2c4Hygro_S_T;                                                 // fetch sensor value
+    l_i2cI2c4_hygro_S_RH       = s_i2cI2c4Hygro_S_RH;                                                // fetch sensor value
+    l_i2cI2c4_hygro_T_cor_100  = s_i2cI2c4Hygro_T_cor_100;                                           // offset correction value
+    l_i2cI2c4_hygro_RH_cor_100 = s_i2cI2c4Hygro_RH_cor_100;                                          // offset correction value
+  }
+
+  /* Calculate and present Temp value when a different measurement has arrived */
+  int16_t temp_100 = l_i2cI2c4_hygro_T_100;
+  if (sf_i2cI2c4_hygro_S_T != l_i2cI2c4_hygro_S_T) {
+    temp_100  = (int16_t) ((((int32_t)l_i2cI2c4_hygro_S_T  * 17500) / 0xFFFF) - 4500);
+    temp_100 += l_i2cI2c4_hygro_T_cor_100;
+
+    /* Setting the global value */
+    s_i2cI2c4Hygro_T_100 = temp_100;
+
+    hasChanged = 1U;
+    sf_i2cI2c4_hygro_S_T = l_i2cI2c4_hygro_S_T;
+  }
+
+  /* Calculate and present Hygro value when a different measurement has arrived */
+  int16_t rh_100 = l_i2cI2c4_hygro_RH_100;
+  if (sf_i2cI2c4_hygro_S_RH != l_i2cI2c4_hygro_S_RH) {
+    rh_100  = (int16_t)( ((int32_t)l_i2cI2c4_hygro_S_RH * 10000) / 0xFFFF);
+    rh_100 += l_i2cI2c4_hygro_RH_cor_100;
+
+    /* Setting the global value */
+    s_i2cI2c4Hygro_RH_100 = rh_100;
+
+    hasChanged = 1U;
+    sf_i2cI2c4_hygro_S_RH = l_i2cI2c4_hygro_S_RH;
+  }
+
+  /* Calculate the dew point temperature */
+  /* @see https://de.wikipedia.org/wiki/Taupunkt  formula (15) */
+  if (hasChanged)
+  {
+    //const float K1  = 6.112f;
+    const float K2    = 17.62f;
+    const float K3    = 243.12f;
+    const float K2_m_K3 = 4283.7744f; // = K2 * K3;
+    float ln_phi    = log(rh_100 / 10000.f);
+    float k2_m_theta  = K2 * (temp_100 / 100.f);
+    float k3_p_theta  = K3 + (temp_100 / 100.f);
+    float term_z    = k2_m_theta / k3_p_theta + ln_phi;
+    float term_n    = K2_m_K3    / k3_p_theta - ln_phi;
+    float tau_100   = 0.5f + ((100.f * K3) * term_z) / term_n;
+
+    /* Setting the global value */
+    s_i2cI2c4Hygro_DP_100 = (int16_t) tau_100;
+  }
+}
+
+static void i2cI2c4HygroDistributor(void)
+{
+  int   dbgLen = 0;
+  char  dbgBuf[128];
+
+  dbgLen = sprintf(dbgBuf, "HYGRO:\t Temp=%+02d.%02uC, RH=%02u.%02u%%, Tau=%+02d.%02uC\r\n",
+      (s_i2cI2c4Hygro_T_100  / 100), (s_i2cI2c4Hygro_T_100  % 100),
+      (s_i2cI2c4Hygro_RH_100 / 100), (s_i2cI2c4Hygro_RH_100 % 100),
+      (s_i2cI2c4Hygro_DP_100 / 100), (s_i2cI2c4Hygro_DP_100 % 100));
+  usbLogLen(dbgBuf, dbgLen);
+}
+
+
 static void i2cI2c4BaroInit(void)
 {
   int   dbgLen = 0;
@@ -357,7 +468,8 @@ static void i2cI2c4BaroInit(void)
 
   /* MS560702BA03-50 Baro: get version information */
   {
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_VERSION, 2);
+    uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_VERSION };
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_i2cI2c4BaroVersion = (((uint16_t)aRxBuffer[0] << 8) | aRxBuffer[1]) >> 4;
 
@@ -368,7 +480,8 @@ static void i2cI2c4BaroInit(void)
 
   /* MS560702BA03-50 Baro: get correction data from the PROM */
   for (uint8_t adr = 1; adr < C_I2C_BARO_C_CNT; ++adr) {
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, (I2C_SLAVE_BARO_REG_PROM | (adr << 1)), 2);
+    uint8_t regQry[1] = { (I2C_SLAVE_BARO_REG_PROM | (adr << 1)) };
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_i2cI2c4BaroVersion = (((uint16_t)aRxBuffer[0] << 8) | aRxBuffer[1]) >> 4;
     }
@@ -546,13 +659,13 @@ static void i2cI2c4GyroInit(void)
 
 #if 0
     /* MPU-9250 6 axis: GYRO set offset values */
-    sc = twi1_gyro_gyro_offset_set();
+    sc = i2cI2c4_gyro_gyro_offset_set();
     if (sc != STATUS_OK) {
       break;
     }
 
     /* MPU-9250 6 axis: ACCEL set offset values */
-    sc = twi1_gyro_accel_offset_set();
+    sc = i2cI2c4_gyro_accel_offset_set();
     if (sc != STATUS_OK) {
       break;
     }
@@ -755,7 +868,8 @@ void i2cI2c4Tcxo20MhzDacInit(void)
 
   /* Read ID and status */
   {
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS, 2);
+    uint8_t regQry[1] = { I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS };
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_i2cI2c4Tcxo20MhzDacStatus = ((uint16_t)aRxBuffer[0] << 8U) | aRxBuffer[1];
 
@@ -831,14 +945,15 @@ void i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT_t variant)
 
   /* Wait for input getting stable */
   while (1) {
-	uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 218, 1);
-	if (i2cErr == HAL_I2C_ERROR_NONE) {
-      /* Leave when ready */
-      if (!(aRxBuffer[0] & waitMask)) {
-        break;
-      }
-      osDelay(1);
-	}
+    uint8_t regQry[1] = { 218 };
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+    if (i2cErr == HAL_I2C_ERROR_NONE) {
+        /* Leave when ready */
+        if (!(aRxBuffer[0] & waitMask)) {
+          break;
+        }
+        osDelay(1);
+    }
   }
 
   /* Figure 9 of DS: reg49[7] = 0, reg246[1] = 1 */
@@ -865,59 +980,66 @@ void i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT_t variant)
 
   /* Wait for PLL getting stable */
   while (1) {
-	uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 218, 1);
-	if (i2cErr == HAL_I2C_ERROR_NONE) {
-      /* Leave when ready */
-      if (!(aRxBuffer[0] & 0x11)) {
-        break;
-      }
-      osDelay(1);
-	}
+    uint8_t regQry[1] = { 218 };
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+    if (i2cErr == HAL_I2C_ERROR_NONE) {
+        /* Leave when ready */
+        if (!(aRxBuffer[0] & 0x11)) {
+          break;
+        }
+        osDelay(1);
+    }
   }
 
   /* FCAL values */
   {
-	uint8_t val = 0U;
+    uint8_t val = 0U;
 
-	uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 237, 1);
-	if (i2cErr == HAL_I2C_ERROR_NONE) {
-	  val = aRxBuffer[0];
-	}
-	{
-	  const uint8_t cVal = val;
-	  const Reg_Data_t rdAry[1] = {
-			  {  47, cVal, 0x03 }
-	  };
+    {
+      uint8_t regQry[1] = { 237 };
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+      if (i2cErr == HAL_I2C_ERROR_NONE) {
+        val = aRxBuffer[0];
+      }
+      {
+        const uint8_t cVal = val;
+        const Reg_Data_t rdAry[1] = {
+            {  47, cVal, 0x03 }
+        };
+        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
+      }
+    }
 
-	  i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
-	}
+    {
+      uint8_t regQry[1] = { 236 };
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+      if (i2cErr == HAL_I2C_ERROR_NONE) {
+        val = aRxBuffer[0];
+      }
+      {
+        const uint8_t cVal = val;
+        const Reg_Data_t rdAry[1] = {
+            {  46, cVal, 0xFF }
+        };
+        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
+      }
+    }
 
-	i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 236, 1);
-	if (i2cErr == HAL_I2C_ERROR_NONE) {
-	  val = aRxBuffer[0];
-	}
-	{
-	  const uint8_t cVal = val;
-	  const Reg_Data_t rdAry[1] = {
-			  {  46, cVal, 0xFF }
-	  };
-
-	  i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
-	}
-
-	i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 235, 1);
-	if (i2cErr == HAL_I2C_ERROR_NONE) {
-	  val = aRxBuffer[0];
-	}
-	{
-	  const uint8_t cVal = val;
-	  const Reg_Data_t rdAry[2] = {
-			  {  45, cVal, 0xFF },
-			  {  47, 0x14, 0xFC }
-	  };
-
-	  i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
-	}
+    {
+      uint8_t regQry[1] = { 235 };
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+      if (i2cErr == HAL_I2C_ERROR_NONE) {
+        val = aRxBuffer[0];
+      }
+      {
+        const uint8_t cVal = val;
+        const Reg_Data_t rdAry[2] = {
+            {  45, cVal, 0xFF },
+            {  47, 0x14, 0xFC }
+        };
+        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
+      }
+    }
   }
 
   /* Figure 9 of DS: reg49[7] = 1, reg230[4] = 0 */
@@ -926,7 +1048,6 @@ void i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT_t variant)
 			  {  49, 0x80, 0x80 },
 			  { 230, 0x00, 0x10 }
 	  };
-
 	  i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
   }
 
@@ -936,42 +1057,6 @@ void i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT_t variant)
 
 /* Tasks */
 
-void i2cI2c4HygroTaskInit(void)
-{
-  osDelay(600);
-  i2cI2c4HygroInit();
-}
-
-void i2cI2c4HygroTaskLoop(void)
-{
-  osDelay(1000);
-}
-
-
-void i2cI2c4BaroTaskInit(void)
-{
-  osDelay(700);
-  i2cI2c4BaroInit();
-}
-
-void i2cI2c4BaroTaskLoop(void)
-{
-  osDelay(1000);
-}
-
-
-void i2cI2c4GyroTaskInit(void)
-{
-  osDelay(800);
-  i2cI2c4GyroInit();
-}
-
-void i2cI2c4GyroTaskLoop(void)
-{
-  osDelay(1000);
-}
-
-
 void i2cI2c4LcdTaskInit(void)
 {
   osDelay(500);
@@ -980,5 +1065,77 @@ void i2cI2c4LcdTaskInit(void)
 
 void i2cI2c4LcdTaskLoop(void)
 {
-  osDelay(1000);
+  static uint32_t s_previousWakeTime = 0UL;
+
+  if (!s_previousWakeTime) {
+    s_previousWakeTime  = osKernelSysTick();
+    s_previousWakeTime -= s_previousWakeTime % 1000UL;
+    s_previousWakeTime += 500UL;
+  }
+
+  osDelayUntil(&s_previousWakeTime, 250);
+}
+
+
+void i2cI2c4HygroTaskInit(void)
+{
+  osDelay(550);
+  i2cI2c4HygroInit();
+}
+
+void i2cI2c4HygroTaskLoop(void)
+{
+  static uint32_t s_previousWakeTime = 0UL;
+
+  if (!s_previousWakeTime) {
+    s_previousWakeTime  = osKernelSysTick();
+    s_previousWakeTime -= s_previousWakeTime % 1000UL;
+    s_previousWakeTime += 550UL;
+  }
+
+  osDelayUntil(&s_previousWakeTime, 1000);
+
+  i2cI2c4HygroFetch();
+  i2cI2c4HygroCalc();
+  i2cI2c4HygroDistributor();
+}
+
+
+void i2cI2c4BaroTaskInit(void)
+{
+  osDelay(600);
+  i2cI2c4BaroInit();
+}
+
+void i2cI2c4BaroTaskLoop(void)
+{
+  static uint32_t s_previousWakeTime = 0UL;
+
+  if (!s_previousWakeTime) {
+    s_previousWakeTime  = osKernelSysTick();
+    s_previousWakeTime -= s_previousWakeTime % 1000UL;
+    s_previousWakeTime += 600UL;
+  }
+
+  osDelayUntil(&s_previousWakeTime, 1000);
+}
+
+
+void i2cI2c4GyroTaskInit(void)
+{
+  osDelay(650);
+  i2cI2c4GyroInit();
+}
+
+void i2cI2c4GyroTaskLoop(void)
+{
+  static uint32_t s_previousWakeTime = 0UL;
+
+  if (!s_previousWakeTime) {
+    s_previousWakeTime  = osKernelSysTick();
+    s_previousWakeTime -= s_previousWakeTime % 1000UL;
+    s_previousWakeTime += 650UL;
+  }
+
+  osDelayUntil(&s_previousWakeTime, 1000);
 }
