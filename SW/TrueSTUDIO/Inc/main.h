@@ -232,7 +232,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180901U
+#define HFTCOREMODULE_VERSION                                 20180903U
 
 
 typedef enum POWERSWITCH_ENUM {
@@ -267,6 +267,7 @@ typedef enum MON_MASK {
 } MON_MASK_t;
 
 
+void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac);
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
 void SystemResetbyARMcore(void);
 

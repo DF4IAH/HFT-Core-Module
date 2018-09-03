@@ -189,6 +189,23 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac)
+{
+  const uint8_t isNeg = val >= 0 ?  0U : 1U;
+
+  if (!outInt || !outFrac) {
+    return;
+  }
+
+  *outInt = (int32_t) val;
+
+  if (isNeg) {
+    val = -val;
+  }
+  val *= pow(10, fracCnt);
+  *outFrac = (uint32_t) (val + 0.5f);
+}
+
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 {
   switch (sw) {
