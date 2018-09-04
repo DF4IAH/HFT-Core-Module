@@ -138,8 +138,11 @@ TIM_OC_InitTypeDef                    sConfig;
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
 
-uint16_t                              g_adc_v_solar           = 0U;
-uint16_t                              g_adc_v_pull_tcxo       = 0U;
+#if 1
+static uint64_t                       s_timerLast_us              = 0ULL;
+static uint64_t                       s_timerStart_us         = 0ULL;
+#endif
+
 
 /* USER CODE END PV */
 
@@ -204,6 +207,9 @@ void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t
 
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 {
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __asm volatile( "NOP" );
+
   switch (sw) {
   case POWERSWITCH__USB_SW:
     /* Port: PC2 */
@@ -268,8 +274,10 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
     break;
 
   default:
-    return;
+    { }
   }
+
+  __HAL_RCC_GPIOC_CLK_DISABLE();
 }
 
 void PowerSwitchInit(void)
@@ -290,7 +298,6 @@ void PowerSwitchInit(void)
   PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
 }
 
-#ifdef LCD_BACKLIGHT
 void LcdBacklightInit(void)
 {
   /* PWM initial code */
@@ -359,7 +366,6 @@ void LcdBacklightInit(void)
     Error_Handler();
   }
 }
-#endif
 
 void SystemResetbyARMcore(void)
 {
@@ -372,35 +378,39 @@ void configureTimerForRunTimeStats(void)
 {
   getRunTimeCounterValue();
 
-#if 0
   /* Interrupt disabled block */
   {
-    taskDISABLE_INTERRUPTS();
-    g_timerStart_us = g_timer_us;
-    taskENABLE_INTERRUPTS();
+    __disable_irq();
+
+    s_timerStart_us = s_timerLast_us;
+
+    __enable_irq();
   }
-#endif
 }
 
 /* Used by the run-time stats */
 unsigned long getRunTimeCounterValue(void)
 {
   uint64_t l_timerStart_us = 0ULL;
-  uint64_t timer_us = HAL_GetTick() & 0x003fffffUL;  // avoid overflows
-  timer_us *= 1000UL;
-  timer_us += TIM2->CNT % 10000000UL;
+  uint64_t l_timer_us = HAL_GetTick() & 0x003fffffUL;                                                   // avoid overflows
 
-#if 0
+  /* Add microseconds */
+  l_timer_us *= 1000ULL;
+  l_timer_us += TIM2->CNT % 1000UL;                                                                     // TIM2 counts microseconds
+
   /* Interrupt disabled block */
   {
-    taskDISABLE_INTERRUPTS();
-    g_timer_us      = timer_us;
-    l_timerStart_us = g_timerStart_us;
-    taskENABLE_INTERRUPTS();
-  }
-#endif
+    __disable_irq();
 
-  return (unsigned long) (timer_us - l_timerStart_us);
+    s_timerLast_us  = l_timer_us;
+    l_timerStart_us = s_timerStart_us;
+
+    __enable_irq();
+  }
+
+  uint64_t l_timerDiff64 = (l_timer_us >= l_timerStart_us) ?  (l_timer_us - l_timerStart_us) : l_timer_us;
+  uint32_t l_timerDiff32 = (uint32_t) (l_timerDiff64 & 0xffffffffULL);
+  return l_timerDiff32;
 }
 
 
@@ -484,6 +494,17 @@ int main(void)
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 
+  __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOF_CLK_DISABLE();
+  __HAL_RCC_GPIOG_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+
+  __HAL_RCC_RNG_CLK_DISABLE();
+
   /* USER CODE END 2 */
 
   /* Create the mutex(es) */
@@ -556,7 +577,7 @@ int main(void)
   i2c4GyroTaskHandle = osThreadCreate(osThread(i2c4GyroTask), NULL);
 
   /* definition and creation of i2c4LcdTask */
-  osThreadDef(i2c4LcdTask, StartI2c4LcdTask, osPriorityBelowNormal, 0, 128);
+  osThreadDef(i2c4LcdTask, StartI2c4LcdTask, osPriorityBelowNormal, 0, 256);
   i2c4LcdTaskHandle = osThreadCreate(osThread(i2c4LcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
@@ -1751,10 +1772,8 @@ void StartDefaultTask(void const * argument)
 # endif
 #endif
 
-#ifdef LCD_BACKLIGHT
   /* LCD-backlight default settings */
   LcdBacklightInit();
-#endif
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();

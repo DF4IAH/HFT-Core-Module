@@ -30,6 +30,9 @@ typedef enum EG_ADC_ENUM {
 } EG_ADC_ENUM_t;
 
 
+uint16_t adcGetVsolar(void);
+uint16_t adcGetVpullTcxo(void);
+
 void adcStartConv(ADC_PORT_ENUM_t adc);
 void adcStopConv(ADC_PORT_ENUM_t adc);
 

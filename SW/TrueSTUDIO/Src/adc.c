@@ -19,8 +19,19 @@ extern ADC_HandleTypeDef              hadc3;
 
 extern EventGroupHandle_t             adcEventGroupHandle;
 
-extern uint16_t                       g_adc_v_solar;
-extern uint16_t                       g_adc_v_pull_tcxo;
+static uint16_t                       s_adc_v_solar           = 0U;
+static uint16_t                       s_adc_v_pull_tcxo       = 0U;
+
+
+uint16_t adcGetVsolar(void)
+{
+  return s_adc_v_solar;
+}
+
+uint16_t adcGetVpullTcxo(void)
+{
+  return s_adc_v_pull_tcxo;
+}
 
 
 void adcStartConv(ADC_PORT_ENUM_t adc)
@@ -61,11 +72,11 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
   const uint16_t  adcVal                    = HAL_ADC_GetValue(hadc);
 
   if (hadc == &hadc1) {
-    g_adc_v_solar = adcVal;
+    s_adc_v_solar = adcVal;
     xEventGroupSetBitsFromISR(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_SOLAR, &pxHigherPriorityTaskWoken);
 
   } else if (hadc == &hadc3) {
-    g_adc_v_pull_tcxo = adcVal;
+    s_adc_v_pull_tcxo = adcVal;
     xEventGroupSetBitsFromISR(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_PULL_TCXO, &pxHigherPriorityTaskWoken);
   }
 }
