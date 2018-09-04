@@ -1,6 +1,6 @@
 Configuration	HFT-Core-Module_TrueSTUDIO
 STM32CubeMX 	4.26.1
-Date	08/31/2018
+Date	09/04/2018
 MCU	STM32L496ZGTxP
 
 
@@ -52,7 +52,6 @@ SYS	SYS_WakeUp1	SYS_WKUP2	PC13
 SYS	Power Voltage Detector In (Internal analog voltage)	SYS_V_PVD_IN	VP_SYS_V_PVD_IN
 SYS	Internal voltage reference	VREFBUF_OUT	VREF+
 SYS	TIM2	SYS_VS_tim2	VP_SYS_VS_tim2
-TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
 TIM3	Internal Clock	TIM3_VS_ClockSourceINT	VP_TIM3_VS_ClockSourceINT
 TIM3	PWM Generation CH1	TIM3_CH1	PC6
 TIM3	PWM Generation CH2	TIM3_CH2	PA7
@@ -63,7 +62,9 @@ TIM5	Input Capture direct mode	TIM5_CH2	PF7
 TIM5	Input Capture direct mode	TIM5_CH3	PF8
 TIM5	Input Capture direct mode	TIM5_CH4	PF9
 TIM16	Enable_Timer	TIM16_VS_ClockSourceINT	VP_TIM16_VS_ClockSourceINT
+TIM16	Input Capture direct mode from Remap	TIM16_VS_NoInput1	VP_TIM16_VS_NoInput1
 TIM17	Enable_Timer	TIM17_VS_ClockSourceINT	VP_TIM17_VS_ClockSourceINT
+TIM17	Input Capture direct mode from Remap	TIM17_VS_NoInput1	VP_TIM17_VS_NoInput1
 USART1	Asynchronous	USART1_RX	PG10
 USART1	Asynchronous	USART1_TX	PG9
 USART1	CTS/RTS	USART1_CTS	PG11

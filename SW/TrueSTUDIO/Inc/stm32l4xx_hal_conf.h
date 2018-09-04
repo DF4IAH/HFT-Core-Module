@@ -58,7 +58,7 @@
 /*#define HAL_CRYP_MODULE_ENABLED   */
 /*#define HAL_DAC_MODULE_ENABLED   */
 /*#define HAL_DCMI_MODULE_ENABLED   */
-#define HAL_DMA2D_MODULE_ENABLED
+/*#define HAL_DMA2D_MODULE_ENABLED   */
 #define HAL_DFSDM_MODULE_ENABLED
 /*#define HAL_DSI_MODULE_ENABLED   */
 /*#define HAL_FIREWALL_MODULE_ENABLED   */
@@ -121,7 +121,7 @@
   *        This value is the default MSI range value after Reset.
   */
 #if !defined  (MSI_VALUE)
-  #define MSI_VALUE    ((uint32_t)16000000U) /*!< Value of the Internal oscillator in Hz*/
+  #define MSI_VALUE    ((uint32_t)2000000U) /*!< Value of the Internal oscillator in Hz*/
 #endif /* MSI_VALUE */
 /**
   * @brief Internal High Speed oscillator (HSI) value.
