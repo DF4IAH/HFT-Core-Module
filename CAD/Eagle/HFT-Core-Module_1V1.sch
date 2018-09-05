@@ -28248,11 +28248,11 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0702" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="GND0701" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0702" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0751" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
+<part name="R0751" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
 <part name="C0715" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="C0716" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R0638" library="rcl" deviceset="R-EU_" device="R0603" value="50R"/>
-<part name="R0639" library="rcl" deviceset="R-EU_" device="R0603" value="50R"/>
+<part name="R0638" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R0639" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="GND0632" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0703" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="GND0703" library="df4iah_supply" deviceset="GND" device=""/>
@@ -28595,7 +28595,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R1411" library="rcl" deviceset="R-EU_" device="R0603" value="1kR"/>
 <part name="R1412" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="X1401" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
-<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0805" value="50R"/>
+<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0805" value="68R"/>
 <part name="R0331" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="R0332" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="C0532" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
@@ -30542,6 +30542,9 @@ Digikey: 497-17999-ND</text>
 <text x="165.1" y="73.66" size="2.54" layer="97" ratio="15">MCU VBAT</text>
 <text x="180.34" y="78.74" size="1.778" layer="97">not needed!</text>
 <text x="48.26" y="15.24" size="1.778" layer="97">(1.0A out, 1.5MHz fixed)</text>
+<text x="48.26" y="58.42" size="1.778" layer="97">TODO: 
+enable to MCU-GPIO out
++1V2 to MCU-ADC</text>
 </plain>
 <instances>
 <instance part="FRAME_04" gate="G$1" x="0" y="0"/>
@@ -31350,7 +31353,7 @@ I2C addr: 0x70</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
 <text x="50.8" y="111.76" size="1.778" layer="97">N.C.</text>
 <text x="50.8" y="104.14" size="1.778" layer="97">N.C.</text>
-<text x="50.8" y="96.52" size="1.778" layer="97">10MHz</text>
+<text x="50.8" y="96.52" size="1.778" layer="97"> 8MHz</text>
 <text x="101.6" y="23.622" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
 <text x="122.936" y="22.098" size="1.778" layer="97" rot="R90">MCU_HSE</text>
 <text x="110.744" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
@@ -31734,7 +31737,7 @@ I2C addr: 0x70</text>
 </nets>
 </sheet>
 <sheet>
-<description>VHF/UHF SX1276 - ch 1</description>
+<description>VHF/UHF SX1262 - ch 1</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">VHF / UHF  SX1276 - channel 1
 SPI</text>
@@ -31750,6 +31753,8 @@ SPI</text>
 <text x="241.3" y="38.1" size="1.778" layer="97">NC</text>
 <text x="241.3" y="43.18" size="1.778" layer="97">NC</text>
 <text x="241.3" y="48.26" size="1.778" layer="97">NC</text>
+<text x="88.9" y="33.02" size="1.778" layer="97">to be replaced by:
+SX1262</text>
 </plain>
 <instances>
 <instance part="FRAME_08" gate="G$1" x="0" y="0"/>
@@ -32430,7 +32435,7 @@ SPI</text>
 </nets>
 </sheet>
 <sheet>
-<description>VHF/UHF SX1276 - ch 1 - HF sw</description>
+<description>VHF/UHF SX1262 - ch 1 - HF sw</description>
 <plain>
 <text x="50.8" y="25.4" size="1.778" layer="97">HF: high / LF: low</text>
 </plain>
@@ -33609,7 +33614,7 @@ SPI</text>
 
 to be replaced by:
 
-LCD: 4x10 chars EA DOGS104N-A (Mouser: 790-EADOGS104N-A)</text>
+LCD: 2x16 chars MIDAS MCCOG21605B6W-FPTLWI</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LC-Display
 I2C addr: 0x3D</text>
 <text x="10.16" y="71.12" size="2.54" layer="97" ratio="15">Rotary Encoder with Pushbutton</text>
@@ -33619,6 +33624,9 @@ I2C addr: 0x3D</text>
 <text x="195.58" y="58.42" size="1.778" layer="97">MCU_IN_RE_I</text>
 <text x="195.58" y="53.34" size="1.778" layer="97">MCU_IN_RE_Q</text>
 <text x="195.58" y="35.56" size="1.778" layer="97">MCU_IN_RE_PB</text>
+<text x="63.5" y="162.56" size="1.778" layer="97">4x PWM:
+- 1x backlight white
+- 3x RGB LED</text>
 </plain>
 <instances>
 <instance part="FRAME_12" gate="G$1" x="0" y="0"/>
@@ -34556,6 +34564,10 @@ I2C addr: 0x44</text>
 <text x="104.14" y="73.66" size="1.778" layer="97">(1.5A out, 1.5MHz fixed)</text>
 <text x="104.14" y="68.58" size="1.778" layer="97">14mA quiescent current</text>
 <text x="104.14" y="63.5" size="1.778" layer="97">(replaces PAM2305)</text>
+<text x="104.14" y="119.38" size="1.778" layer="97">TODO:
+enable to MCU GPIO out
+search device w/ lower quiescent current
++3V3 to MCU ADC</text>
 </plain>
 <instances>
 <instance part="C1602" gate="G$1" x="73.66" y="78.74"/>
@@ -35159,6 +35171,8 @@ USB host (OTG) interface</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Audio connectors</text>
 <text x="167.64" y="149.86" size="1.778" layer="97">AUDIO IN</text>
 <text x="167.64" y="81.28" size="1.778" layer="97">AUDIO OUT</text>
+<text x="162.56" y="96.52" size="1.778" layer="97">TODO:
+fix layout of sockets</text>
 </plain>
 <instances>
 <instance part="FRAME_22" gate="G$1" x="0" y="0"/>
