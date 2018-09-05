@@ -609,8 +609,6 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
     /* Peripheral clock enable */
     __HAL_RCC_RTC_ENABLE();
     /* RTC interrupt Init */
-    HAL_NVIC_SetPriority(RTC_WKUP_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(RTC_WKUP_IRQn);
     HAL_NVIC_SetPriority(RTC_Alarm_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
   /* USER CODE BEGIN RTC_MspInit 1 */
@@ -632,7 +630,6 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* hrtc)
     __HAL_RCC_RTC_DISABLE();
 
     /* RTC interrupt DeInit */
-    HAL_NVIC_DisableIRQ(RTC_WKUP_IRQn);
     HAL_NVIC_DisableIRQ(RTC_Alarm_IRQn);
   /* USER CODE BEGIN RTC_MspDeInit 1 */
 
@@ -776,9 +773,6 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
     HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-    /* TIM5 interrupt Init */
-    HAL_NVIC_SetPriority(TIM5_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(TIM5_IRQn);
   /* USER CODE BEGIN TIM5_MspInit 1 */
 
   /* USER CODE END TIM5_MspInit 1 */
@@ -790,9 +784,6 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
   /* USER CODE END TIM16_MspInit 0 */
     /* Peripheral clock enable */
     __HAL_RCC_TIM16_CLK_ENABLE();
-    /* TIM16 interrupt Init */
-    HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
   /* USER CODE BEGIN TIM16_MspInit 1 */
 
   /* USER CODE END TIM16_MspInit 1 */
@@ -804,9 +795,6 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
   /* USER CODE END TIM17_MspInit 0 */
     /* Peripheral clock enable */
     __HAL_RCC_TIM17_CLK_ENABLE();
-    /* TIM17 interrupt Init */
-    HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM17_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(TIM1_TRG_COM_TIM17_IRQn);
   /* USER CODE BEGIN TIM17_MspInit 1 */
 
   /* USER CODE END TIM17_MspInit 1 */
@@ -887,8 +875,6 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     */
     HAL_GPIO_DeInit(GPIOF, MCU_TIMCAP_N_Pin|MCU_TIMCAP_W_Pin|MCU_TIMCAP_S_Pin|MCU_VSOL_TIMCAP_Pin);
 
-    /* TIM5 interrupt DeInit */
-    HAL_NVIC_DisableIRQ(TIM5_IRQn);
   /* USER CODE BEGIN TIM5_MspDeInit 1 */
 
   /* USER CODE END TIM5_MspDeInit 1 */
@@ -900,9 +886,6 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
   /* USER CODE END TIM16_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_TIM16_CLK_DISABLE();
-
-    /* TIM16 interrupt DeInit */
-    HAL_NVIC_DisableIRQ(TIM1_UP_TIM16_IRQn);
   /* USER CODE BEGIN TIM16_MspDeInit 1 */
 
   /* USER CODE END TIM16_MspDeInit 1 */
@@ -914,9 +897,6 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
   /* USER CODE END TIM17_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_TIM17_CLK_DISABLE();
-
-    /* TIM17 interrupt DeInit */
-    HAL_NVIC_DisableIRQ(TIM1_TRG_COM_TIM17_IRQn);
   /* USER CODE BEGIN TIM17_MspDeInit 1 */
 
   /* USER CODE END TIM17_MspDeInit 1 */

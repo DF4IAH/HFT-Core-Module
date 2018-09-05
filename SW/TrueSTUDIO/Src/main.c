@@ -123,6 +123,8 @@ osMutexId spi1MutexHandle;
 osMutexId spi3MutexHandle;
 
 /* USER CODE BEGIN PV */
+extern uint32_t                       uwTick;
+
 /* Private variables ---------------------------------------------------------*/
 EventGroupHandle_t                    adcEventGroupHandle;
 EventGroupHandle_t                    usbToHostEventGroupHandle;
@@ -135,13 +137,16 @@ TIM_HandleTypeDef                     TimHandle;
 /* Timer Output Compare Configuration Structure declaration */
 TIM_OC_InitTypeDef                    sConfig;
 
+
+
+
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
 
-#if 1
-static uint64_t                       s_timerLast_us              = 0ULL;
+volatile uint32_t                     g_rtc_ssr_last          = 0UL;
+
+static uint64_t                       s_timerLast_us          = 0ULL;
 static uint64_t                       s_timerStart_us         = 0ULL;
-#endif
 
 
 /* USER CODE END PV */
@@ -427,6 +432,10 @@ int main(void)
 
   /* Check if ARM core is already in reset state */
   if (!(RCC->CSR & 0xff000000UL)) {
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __asm volatile( "NOP" );
+
     /* Disable SMPS */
     HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin, GPIO_PIN_RESET);
     //POWERSWITCH__1V2_DCDC, RESET;
@@ -502,7 +511,6 @@ int main(void)
   __HAL_RCC_GPIOF_CLK_DISABLE();
   __HAL_RCC_GPIOG_CLK_DISABLE();
   __HAL_RCC_GPIOH_CLK_DISABLE();
-
   __HAL_RCC_RNG_CLK_DISABLE();
 
   /* USER CODE END 2 */
@@ -1106,8 +1114,8 @@ static void MX_RTC_Init(void)
     */
   hrtc.Instance = RTC;
   hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
-  hrtc.Init.AsynchPrediv = 127;
-  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.AsynchPrediv = 31;
+  hrtc.Init.SynchPrediv = 1023;
   hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
   hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
   hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
@@ -1184,7 +1192,7 @@ static void MX_RTC_Init(void)
 
     /**Enable the WakeUp 
     */
-  if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
+  if (HAL_RTCEx_SetWakeUpTimer(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -1203,7 +1211,7 @@ static void MX_SAI1_Init(void)
   hsai_BlockB1.Init.Synchro = SAI_ASYNCHRONOUS;
   hsai_BlockB1.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
   hsai_BlockB1.Init.NoDivider = SAI_MASTERDIVIDER_ENABLE;
-  hsai_BlockB1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
+  hsai_BlockB1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_HF;
   hsai_BlockB1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_192K;
   hsai_BlockB1.Init.SynchroExt = SAI_SYNCEXT_DISABLE;
   hsai_BlockB1.Init.MonoStereoMode = SAI_STEREOMODE;
@@ -1224,7 +1232,7 @@ static void MX_SAI2_Init(void)
   hsai_BlockA2.Init.AudioMode = SAI_MODESLAVE_RX;
   hsai_BlockA2.Init.Synchro = SAI_ASYNCHRONOUS;
   hsai_BlockA2.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
-  hsai_BlockA2.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
+  hsai_BlockA2.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_1QF;
   hsai_BlockA2.Init.SynchroExt = SAI_SYNCEXT_DISABLE;
   hsai_BlockA2.Init.MonoStereoMode = SAI_STEREOMODE;
   hsai_BlockA2.Init.CompandingMode = SAI_NOCOMPANDING;
@@ -1719,6 +1727,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+#if 0
 void  vApplicationIdleHook(void)
 {
   /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
@@ -1741,11 +1750,36 @@ void  vApplicationIdleHook(void)
    */
 
   /* Enter sleep mode */
-  __asm volatile( "WFI" );
+//  __asm volatile( "WFI" );
+  __asm volatile( "NOP" );
 
   /* Increase clock frequency to 80 MHz */
   // TODO: TBD
 }
+#endif
+
+void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
+{
+#if 0
+  HAL_SuspendTick();
+#endif
+  g_rtc_ssr_last = RTC->SSR;
+}
+
+void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
+{
+#if 0
+  volatile uint32_t l_rtc_ssr_now = RTC->SSR;
+  volatile uint32_t l_rtc_sub1024 = (l_rtc_ssr_now >= g_rtc_ssr_last) ?  (l_rtc_ssr_now - g_rtc_ssr_last) : (1024UL - (g_rtc_ssr_last - l_rtc_ssr_now));
+  volatile uint32_t l_millis = (l_rtc_sub1024 * 1000UL) / 1024UL;
+
+  if (l_millis <= *ulExpectedIdleTime) {
+    uwTick += l_millis;
+  }
+  HAL_ResumeTick();
+#endif
+}
+
 
 /* USER CODE END 4 */
 

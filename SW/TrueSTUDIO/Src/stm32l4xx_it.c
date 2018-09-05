@@ -50,9 +50,6 @@ extern I2C_HandleTypeDef hi2c3;
 extern I2C_HandleTypeDef hi2c4;
 extern RNG_HandleTypeDef hrng;
 extern RTC_HandleTypeDef hrtc;
-extern TIM_HandleTypeDef htim5;
-extern TIM_HandleTypeDef htim16;
-extern TIM_HandleTypeDef htim17;
 
 extern TIM_HandleTypeDef htim2;
 
@@ -180,20 +177,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles RTC wake-up interrupt through EXTI line 20.
-*/
-void RTC_WKUP_IRQHandler(void)
-{
-  /* USER CODE BEGIN RTC_WKUP_IRQn 0 */
-
-  /* USER CODE END RTC_WKUP_IRQn 0 */
-  HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
-  /* USER CODE BEGIN RTC_WKUP_IRQn 1 */
-
-  /* USER CODE END RTC_WKUP_IRQn 1 */
-}
-
-/**
 * @brief This function handles ADC1 and ADC2 interrupts.
 */
 void ADC1_2_IRQHandler(void)
@@ -205,34 +188,6 @@ void ADC1_2_IRQHandler(void)
   /* USER CODE BEGIN ADC1_2_IRQn 1 */
 
   /* USER CODE END ADC1_2_IRQn 1 */
-}
-
-/**
-* @brief This function handles TIM1 update interrupt and TIM16 global interrupt.
-*/
-void TIM1_UP_TIM16_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
-
-  /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim16);
-  /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
-
-  /* USER CODE END TIM1_UP_TIM16_IRQn 1 */
-}
-
-/**
-* @brief This function handles TIM1 trigger and commutation interrupts and TIM17 global interrupt.
-*/
-void TIM1_TRG_COM_TIM17_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM1_TRG_COM_TIM17_IRQn 0 */
-
-  /* USER CODE END TIM1_TRG_COM_TIM17_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim17);
-  /* USER CODE BEGIN TIM1_TRG_COM_TIM17_IRQn 1 */
-
-  /* USER CODE END TIM1_TRG_COM_TIM17_IRQn 1 */
 }
 
 /**
@@ -331,20 +286,6 @@ void ADC3_IRQHandler(void)
   /* USER CODE BEGIN ADC3_IRQn 1 */
 
   /* USER CODE END ADC3_IRQn 1 */
-}
-
-/**
-* @brief This function handles TIM5 global interrupt.
-*/
-void TIM5_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM5_IRQn 0 */
-
-  /* USER CODE END TIM5_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim5);
-  /* USER CODE BEGIN TIM5_IRQn 1 */
-
-  /* USER CODE END TIM5_IRQn 1 */
 }
 
 /**
