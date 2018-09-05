@@ -476,6 +476,12 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+  /* HSI16 trim */
+  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
+
+  /* MSI trim */
+  __HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                        // Signed
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */

@@ -1253,6 +1253,16 @@ void i2cI2c4BaroTaskLoop(void)
   }
 
   osDelayUntil(&s_previousWakeTime, 1000);
+#if 0
+  {
+    char dbgBuf[128];
+    int  dbgLen;
+
+    uint32_t now = osKernelSysTick();
+    dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", s_previousWakeTime, now);
+    usbLogLen(dbgBuf, dbgLen);
+  }
+#endif
 
   i2cI2c4BaroFetch();
   i2cI2c4BaroCalc();
