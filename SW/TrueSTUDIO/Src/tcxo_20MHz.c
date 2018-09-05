@@ -20,10 +20,6 @@
 
 extern EventGroupHandle_t             adcEventGroupHandle;
 
-extern uint16_t                       g_adc_v_solar;
-extern uint16_t                       g_adc_v_pull_tcxo;
-
-
 
 /* Tasks */
 
@@ -53,7 +49,9 @@ void tcxo20MhzTaskLoop(void)
 
   BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_PULL_TCXO, EG_ADC__CONV_AVAIL_V_PULL_TCXO, pdFALSE, 100 / portTICK_PERIOD_MS);
   if (egBits & EG_ADC__CONV_AVAIL_V_PULL_TCXO) {
-    dbgLen = sprintf(dbgBuf, "ADC: value = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_PULL_TCXO_mV + g_adc_v_pull_tcxo * (ADC_REFBUF_mV / 65535.0f)));
+    uint16_t l_adc_v_pull_tcxo = adcGetVpullTcxo();
+
+    dbgLen = sprintf(dbgBuf, "ADC: value = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_PULL_TCXO_mV + l_adc_v_pull_tcxo * (ADC_REFBUF_mV / 65535.0f)));
     usbLogLen(dbgBuf, dbgLen);
   }
 }

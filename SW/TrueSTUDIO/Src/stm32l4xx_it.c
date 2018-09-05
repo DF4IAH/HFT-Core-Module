@@ -48,8 +48,8 @@ extern I2C_HandleTypeDef hi2c1;
 extern I2C_HandleTypeDef hi2c2;
 extern I2C_HandleTypeDef hi2c3;
 extern I2C_HandleTypeDef hi2c4;
+extern RNG_HandleTypeDef hrng;
 extern RTC_HandleTypeDef hrtc;
-extern TIM_HandleTypeDef htim5;
 
 extern TIM_HandleTypeDef htim2;
 
@@ -177,20 +177,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles RTC wake-up interrupt through EXTI line 20.
-*/
-void RTC_WKUP_IRQHandler(void)
-{
-  /* USER CODE BEGIN RTC_WKUP_IRQn 0 */
-
-  /* USER CODE END RTC_WKUP_IRQn 0 */
-  HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
-  /* USER CODE BEGIN RTC_WKUP_IRQn 1 */
-
-  /* USER CODE END RTC_WKUP_IRQn 1 */
-}
-
-/**
 * @brief This function handles ADC1 and ADC2 interrupts.
 */
 void ADC1_2_IRQHandler(void)
@@ -303,20 +289,6 @@ void ADC3_IRQHandler(void)
 }
 
 /**
-* @brief This function handles TIM5 global interrupt.
-*/
-void TIM5_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM5_IRQn 0 */
-
-  /* USER CODE END TIM5_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim5);
-  /* USER CODE BEGIN TIM5_IRQn 1 */
-
-  /* USER CODE END TIM5_IRQn 1 */
-}
-
-/**
 * @brief This function handles USB OTG FS global interrupt.
 */
 void OTG_FS_IRQHandler(void)
@@ -356,6 +328,20 @@ void I2C3_ER_IRQHandler(void)
   /* USER CODE BEGIN I2C3_ER_IRQn 1 */
 
   /* USER CODE END I2C3_ER_IRQn 1 */
+}
+
+/**
+* @brief This function handles HASH and RNG global interrupts.
+*/
+void HASH_RNG_IRQHandler(void)
+{
+  /* USER CODE BEGIN HASH_RNG_IRQn 0 */
+
+  /* USER CODE END HASH_RNG_IRQn 0 */
+  HAL_RNG_IRQHandler(&hrng);
+  /* USER CODE BEGIN HASH_RNG_IRQn 1 */
+
+  /* USER CODE END HASH_RNG_IRQn 1 */
 }
 
 /**

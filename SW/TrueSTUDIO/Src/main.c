@@ -56,6 +56,7 @@
 #include "FreeRTOS.h"
 #include <stddef.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "usb.h"
 #include "i2c.h"
@@ -80,8 +81,6 @@ DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
 DFSDM_Channel_HandleTypeDef hdfsdm1_channel0;
 DFSDM_Channel_HandleTypeDef hdfsdm1_channel1;
 
-DMA2D_HandleTypeDef hdma2d;
-
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
 I2C_HandleTypeDef hi2c3;
@@ -97,7 +96,6 @@ SAI_HandleTypeDef hsai_BlockA2;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
 
-TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim16;
@@ -125,6 +123,8 @@ osMutexId spi1MutexHandle;
 osMutexId spi3MutexHandle;
 
 /* USER CODE BEGIN PV */
+extern uint32_t                       uwTick;
+
 /* Private variables ---------------------------------------------------------*/
 EventGroupHandle_t                    adcEventGroupHandle;
 EventGroupHandle_t                    usbToHostEventGroupHandle;
@@ -137,11 +137,17 @@ TIM_HandleTypeDef                     TimHandle;
 /* Timer Output Compare Configuration Structure declaration */
 TIM_OC_InitTypeDef                    sConfig;
 
+
+
+
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
 
-uint16_t                              g_adc_v_solar           = 0U;
-uint16_t                              g_adc_v_pull_tcxo       = 0U;
+volatile uint32_t                     g_rtc_ssr_last          = 0UL;
+
+static uint64_t                       s_timerLast_us          = 0ULL;
+static uint64_t                       s_timerStart_us         = 0ULL;
+
 
 /* USER CODE END PV */
 
@@ -150,7 +156,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_CRC_Init(void);
-static void MX_DMA2D_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_I2C3_Init(void);
 static void MX_I2C4_Init(void);
@@ -160,10 +165,8 @@ static void MX_SAI1_Init(void);
 static void MX_SAI2_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_SPI3_Init(void);
-static void MX_TIM1_Init(void);
 static void MX_TIM5_Init(void);
 static void MX_TIM16_Init(void);
-static void MX_TIM17_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USART3_UART_Init(void);
@@ -171,6 +174,7 @@ static void MX_ADC3_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_DFSDM1_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_TIM17_Init(void);
 void StartDefaultTask(void const * argument);
 void StartUsbToHostTask(void const * argument);
 void StartUsbFromHostTask(void const * argument);
@@ -208,6 +212,9 @@ void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t
 
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 {
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __asm volatile( "NOP" );
+
   switch (sw) {
   case POWERSWITCH__USB_SW:
     /* Port: PC2 */
@@ -272,8 +279,10 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
     break;
 
   default:
-    return;
+    { }
   }
+
+  __HAL_RCC_GPIOC_CLK_DISABLE();
 }
 
 void PowerSwitchInit(void)
@@ -294,7 +303,6 @@ void PowerSwitchInit(void)
   PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
 }
 
-#ifdef LCD_BACKLIGHT
 void LcdBacklightInit(void)
 {
   /* PWM initial code */
@@ -363,7 +371,6 @@ void LcdBacklightInit(void)
     Error_Handler();
   }
 }
-#endif
 
 void SystemResetbyARMcore(void)
 {
@@ -376,35 +383,39 @@ void configureTimerForRunTimeStats(void)
 {
   getRunTimeCounterValue();
 
-#if 0
   /* Interrupt disabled block */
   {
-    taskDISABLE_INTERRUPTS();
-    g_timerStart_us = g_timer_us;
-    taskENABLE_INTERRUPTS();
+    __disable_irq();
+
+    s_timerStart_us = s_timerLast_us;
+
+    __enable_irq();
   }
-#endif
 }
 
 /* Used by the run-time stats */
 unsigned long getRunTimeCounterValue(void)
 {
   uint64_t l_timerStart_us = 0ULL;
-  uint64_t timer_us = HAL_GetTick() & 0x003fffffUL;  // avoid overflows
-  timer_us *= 1000UL;
-  timer_us += TIM2->CNT % 10000000UL;
+  uint64_t l_timer_us = HAL_GetTick() & 0x003fffffUL;                                                   // avoid overflows
 
-#if 0
+  /* Add microseconds */
+  l_timer_us *= 1000ULL;
+  l_timer_us += TIM2->CNT % 1000UL;                                                                     // TIM2 counts microseconds
+
   /* Interrupt disabled block */
   {
-    taskDISABLE_INTERRUPTS();
-    g_timer_us      = timer_us;
-    l_timerStart_us = g_timerStart_us;
-    taskENABLE_INTERRUPTS();
-  }
-#endif
+    __disable_irq();
 
-  return (unsigned long) (timer_us - l_timerStart_us);
+    s_timerLast_us  = l_timer_us;
+    l_timerStart_us = s_timerStart_us;
+
+    __enable_irq();
+  }
+
+  uint64_t l_timerDiff64 = (l_timer_us >= l_timerStart_us) ?  (l_timer_us - l_timerStart_us) : l_timer_us;
+  uint32_t l_timerDiff32 = (uint32_t) (l_timerDiff64 & 0xffffffffULL);
+  return l_timerDiff32;
 }
 
 
@@ -421,6 +432,10 @@ int main(void)
 
   /* Check if ARM core is already in reset state */
   if (!(RCC->CSR & 0xff000000UL)) {
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __asm volatile( "NOP" );
+
     /* Disable SMPS */
     HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin, GPIO_PIN_RESET);
     //POWERSWITCH__1V2_DCDC, RESET;
@@ -461,13 +476,18 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+  /* HSI16 trim */
+  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
+
+  /* MSI trim */
+  __HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                        // Signed
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC1_Init();
   MX_CRC_Init();
-  MX_DMA2D_Init();
   MX_I2C2_Init();
   MX_I2C3_Init();
   MX_I2C4_Init();
@@ -477,10 +497,8 @@ int main(void)
   MX_SAI2_Init();
   MX_SPI1_Init();
   MX_SPI3_Init();
-  MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM16_Init();
-  MX_TIM17_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
@@ -488,7 +506,18 @@ int main(void)
   MX_I2C1_Init();
   MX_DFSDM1_Init();
   MX_TIM3_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
+
+  __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOF_CLK_DISABLE();
+  __HAL_RCC_GPIOG_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+  __HAL_RCC_RNG_CLK_DISABLE();
 
   /* USER CODE END 2 */
 
@@ -562,13 +591,12 @@ int main(void)
   i2c4GyroTaskHandle = osThreadCreate(osThread(i2c4GyroTask), NULL);
 
   /* definition and creation of i2c4LcdTask */
-  osThreadDef(i2c4LcdTask, StartI2c4LcdTask, osPriorityBelowNormal, 0, 128);
+  osThreadDef(i2c4LcdTask, StartI2c4LcdTask, osPriorityBelowNormal, 0, 256);
   i2c4LcdTaskHandle = osThreadCreate(osThread(i2c4LcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
   osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityLow, 0, 256);
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
-  osThreadSuspend(tcxo20MhzTaskHandle);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -637,14 +665,14 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = 64;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_8;
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
-  RCC_OscInitStruct.PLL.PLLM = 1;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 2;
   RCC_OscInitStruct.PLL.PLLN = 8;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV8;
-  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV4;
+  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -654,7 +682,7 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
@@ -671,13 +699,13 @@ void SystemClock_Config(void)
                               |RCC_PERIPHCLK_I2C3|RCC_PERIPHCLK_I2C4
                               |RCC_PERIPHCLK_DFSDM1|RCC_PERIPHCLK_USB
                               |RCC_PERIPHCLK_RNG|RCC_PERIPHCLK_ADC;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_HSI;
-  PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_HSI;
-  PeriphClkInit.Usart3ClockSelection = RCC_USART3CLKSOURCE_HSI;
-  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
-  PeriphClkInit.I2c2ClockSelection = RCC_I2C2CLKSOURCE_HSI;
-  PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_HSI;
-  PeriphClkInit.I2c4ClockSelection = RCC_I2C4CLKSOURCE_HSI;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
+  PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_SYSCLK;
+  PeriphClkInit.Usart3ClockSelection = RCC_USART3CLKSOURCE_SYSCLK;
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
+  PeriphClkInit.I2c2ClockSelection = RCC_I2C2CLKSOURCE_SYSCLK;
+  PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_SYSCLK;
+  PeriphClkInit.I2c4ClockSelection = RCC_I2C4CLKSOURCE_SYSCLK;
   PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLL;
   PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLL;
   PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_SYSCLK;
@@ -690,7 +718,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_MSI, RCC_MCODIV_2);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_2);
 
     /**Configure the main internal regulator output voltage 
     */
@@ -924,32 +952,6 @@ static void MX_DFSDM1_Init(void)
 
 }
 
-/* DMA2D init function */
-static void MX_DMA2D_Init(void)
-{
-
-  hdma2d.Instance = DMA2D;
-  hdma2d.Init.Mode = DMA2D_M2M;
-  hdma2d.Init.ColorMode = DMA2D_OUTPUT_ARGB8888;
-  hdma2d.Init.OutputOffset = 0;
-  hdma2d.LayerCfg[1].InputOffset = 0;
-  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
-  hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hdma2d.LayerCfg[1].InputAlpha = 0;
-  hdma2d.LayerCfg[1].AlphaInverted = DMA2D_REGULAR_ALPHA;
-  hdma2d.LayerCfg[1].RedBlueSwap = DMA2D_RB_REGULAR;
-  if (HAL_DMA2D_Init(&hdma2d) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  if (HAL_DMA2D_ConfigLayer(&hdma2d, 1) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
 /* I2C1 init function */
 static void MX_I2C1_Init(void)
 {
@@ -1118,8 +1120,8 @@ static void MX_RTC_Init(void)
     */
   hrtc.Instance = RTC;
   hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
-  hrtc.Init.AsynchPrediv = 127;
-  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.AsynchPrediv = 31;
+  hrtc.Init.SynchPrediv = 1023;
   hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
   hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
   hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
@@ -1196,7 +1198,7 @@ static void MX_RTC_Init(void)
 
     /**Enable the WakeUp 
     */
-  if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
+  if (HAL_RTCEx_SetWakeUpTimer(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -1215,7 +1217,7 @@ static void MX_SAI1_Init(void)
   hsai_BlockB1.Init.Synchro = SAI_ASYNCHRONOUS;
   hsai_BlockB1.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
   hsai_BlockB1.Init.NoDivider = SAI_MASTERDIVIDER_ENABLE;
-  hsai_BlockB1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
+  hsai_BlockB1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_HF;
   hsai_BlockB1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_192K;
   hsai_BlockB1.Init.SynchroExt = SAI_SYNCEXT_DISABLE;
   hsai_BlockB1.Init.MonoStereoMode = SAI_STEREOMODE;
@@ -1236,7 +1238,7 @@ static void MX_SAI2_Init(void)
   hsai_BlockA2.Init.AudioMode = SAI_MODESLAVE_RX;
   hsai_BlockA2.Init.Synchro = SAI_ASYNCHRONOUS;
   hsai_BlockA2.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
-  hsai_BlockA2.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
+  hsai_BlockA2.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_1QF;
   hsai_BlockA2.Init.SynchroExt = SAI_SYNCEXT_DISABLE;
   hsai_BlockA2.Init.MonoStereoMode = SAI_STEREOMODE;
   hsai_BlockA2.Init.CompandingMode = SAI_NOCOMPANDING;
@@ -1300,41 +1302,6 @@ static void MX_SPI3_Init(void)
 
 }
 
-/* TIM1 init function */
-static void MX_TIM1_Init(void)
-{
-
-  TIM_ClockConfigTypeDef sClockSourceConfig;
-  TIM_MasterConfigTypeDef sMasterConfig;
-
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 65535;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 0;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterOutputTrigger2 = TIM_TRGO2_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
 /* TIM3 init function */
 static void MX_TIM3_Init(void)
 {
@@ -1344,11 +1311,11 @@ static void MX_TIM3_Init(void)
   TIM_OC_InitTypeDef sConfigOC;
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 65535;
+  htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 0;
+  htim3.Init.Period = 65535;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -1406,7 +1373,7 @@ static void MX_TIM5_Init(void)
   htim5.Instance = TIM5;
   htim5.Init.Prescaler = 0;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim5.Init.Period = 1600000000;
+  htim5.Init.Period = 1599999999;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
@@ -1462,14 +1429,35 @@ static void MX_TIM5_Init(void)
 static void MX_TIM16_Init(void)
 {
 
+  TIM_IC_InitTypeDef sConfigIC;
+
   htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 65535;
+  htim16.Init.Prescaler = 0;
   htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim16.Init.Period = 0;
+  htim16.Init.Period = 65535;
   htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim16.Init.RepetitionCounter = 0;
-  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_IC_Init(&htim16) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  sConfigIC.ICFilter = 0;
+  if (HAL_TIM_IC_ConfigChannel(&htim16, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIMEx_RemapConfig(&htim16, TIM_TIM16_TI1_LSE) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -1480,14 +1468,35 @@ static void MX_TIM16_Init(void)
 static void MX_TIM17_Init(void)
 {
 
+  TIM_IC_InitTypeDef sConfigIC;
+
   htim17.Instance = TIM17;
-  htim17.Init.Prescaler = 65535;
+  htim17.Init.Prescaler = 0;
   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim17.Init.Period = 0;
+  htim17.Init.Period = 65535;
   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim17.Init.RepetitionCounter = 0;
-  htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_IC_Init(&htim17) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  sConfigIC.ICFilter = 0;
+  if (HAL_TIM_IC_ConfigChannel(&htim17, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIMEx_RemapConfig(&htim17, TIM_TIM17_TI1_MSI) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -1724,6 +1733,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+#if 1
 void  vApplicationIdleHook(void)
 {
   /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
@@ -1751,6 +1761,31 @@ void  vApplicationIdleHook(void)
   /* Increase clock frequency to 80 MHz */
   // TODO: TBD
 }
+#endif
+
+#if 0
+void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
+{
+#if 0
+  HAL_SuspendTick();
+#endif
+  g_rtc_ssr_last = RTC->SSR;
+}
+
+void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
+{
+#if 0
+  volatile uint32_t l_rtc_ssr_now = RTC->SSR;
+  volatile uint32_t l_rtc_sub1024 = (l_rtc_ssr_now >= g_rtc_ssr_last) ?  (l_rtc_ssr_now - g_rtc_ssr_last) : (1024UL - (g_rtc_ssr_last - l_rtc_ssr_now));
+  volatile uint32_t l_millis = (l_rtc_sub1024 * 1000UL) / 1024UL;
+
+  if (l_millis <= *ulExpectedIdleTime) {
+    uwTick += l_millis;
+  }
+  HAL_ResumeTick();
+#endif
+}
+#endif
 
 /* USER CODE END 4 */
 
@@ -1777,10 +1812,8 @@ void StartDefaultTask(void const * argument)
 # endif
 #endif
 
-#ifdef LCD_BACKLIGHT
   /* LCD-backlight default settings */
   LcdBacklightInit();
-#endif
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();
