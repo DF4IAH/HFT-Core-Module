@@ -1733,7 +1733,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-#if 0
+#if 1
 void  vApplicationIdleHook(void)
 {
   /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
@@ -1756,14 +1756,14 @@ void  vApplicationIdleHook(void)
    */
 
   /* Enter sleep mode */
-//  __asm volatile( "WFI" );
-  __asm volatile( "NOP" );
+  __asm volatile( "WFI" );
 
   /* Increase clock frequency to 80 MHz */
   // TODO: TBD
 }
 #endif
 
+#if 0
 void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
 {
 #if 0
@@ -1785,7 +1785,7 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
   HAL_ResumeTick();
 #endif
 }
-
+#endif
 
 /* USER CODE END 4 */
 
