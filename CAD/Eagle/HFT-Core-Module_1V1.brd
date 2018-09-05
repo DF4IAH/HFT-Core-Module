@@ -5712,7 +5712,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="70.1675" y="81.915" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="69.215" y="79.375" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R0751" library="rcl" package="R0603" value="100R" x="71.12" y="76.120625" smashed="yes" rot="R180">
+<element name="R0751" library="rcl" package="R0603" value="N/A" x="71.12" y="76.120625" smashed="yes" rot="R180">
 <attribute name="NAME" x="69.85" y="74.850625" size="0.6096" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="71.755" y="78.025625" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
@@ -5724,11 +5724,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="73.025" y="77.47" size="0.6096" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="73.66" y="78.105" size="0.6096" layer="27" font="vector" ratio="10" rot="R90"/>
 </element>
-<element name="R0638" library="rcl" package="R0603" value="50R" x="55.88" y="80.645" smashed="yes">
+<element name="R0638" library="rcl" package="R0603" value="47R" x="55.88" y="80.645" smashed="yes">
 <attribute name="NAME" x="58.7375" y="80.01" size="0.6096" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="55.245" y="78.74" size="0.6096" layer="27" font="vector" ratio="10"/>
 </element>
-<element name="R0639" library="rcl" package="R0603" value="50R" x="55.88" y="79.375" smashed="yes">
+<element name="R0639" library="rcl" package="R0603" value="47R" x="55.88" y="79.375" smashed="yes">
 <attribute name="NAME" x="54.2925" y="77.7875" size="0.6096" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="55.245" y="77.47" size="0.6096" layer="27" font="vector" ratio="10"/>
 </element>
@@ -6919,7 +6919,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="28.2575" y="50.244375" size="1.27" layer="28" rot="MR0"/>
 </element>
 <element name="X1401" library="df4iah_connector" package="WIRE-TO-BOARD_5MM08_1X02" value="WIRE-TO-BOARD_5MM08_1X02" x="5.08" y="82.55" rot="R180"/>
-<element name="R1501" library="df4iah_rcl" package="R0805" value="50R" x="24.765" y="45.974" smashed="yes" rot="MR90">
+<element name="R1501" library="df4iah_rcl" package="R0805" value="68R" x="24.765" y="45.974" smashed="yes" rot="MR90">
 <attribute name="NAME" x="23.114" y="44.45" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="22.225" y="45.339" size="1.27" layer="28" rot="MR90"/>
 </element>
