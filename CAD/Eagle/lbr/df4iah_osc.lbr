@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.127" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -77,17 +77,22 @@
 <wire x1="-2.5" y1="-3.5" x2="2.5" y2="-3.5" width="0.2032" layer="51"/>
 <wire x1="2.5" y1="-3.5" x2="2.5" y2="3.5" width="0.2032" layer="51"/>
 <wire x1="2.5" y1="3.5" x2="-2.5" y2="3.5" width="0.2032" layer="51"/>
-<wire x1="-2.5" y1="1.368" x2="-2.5" y2="-1.368" width="0.2032" layer="21"/>
-<wire x1="0.876" y1="3.5" x2="-0.876" y2="3.5" width="0.2032" layer="21"/>
-<wire x1="2.5" y1="-1.368" x2="2.5" y2="1.368" width="0.2032" layer="21"/>
-<wire x1="-0.876" y1="-3.5" x2="0.876" y2="-3.5" width="0.2032" layer="21"/>
-<circle x="-3.302" y="3.429" radius="0.254" width="0" layer="21"/>
-<smd name="1" x="-2.1" y="2.54" dx="1.2" dy="1.5" layer="1"/>
-<smd name="2" x="-2.1" y="-2.54" dx="1.2" dy="1.5" layer="1"/>
-<smd name="3" x="2.1" y="-2.54" dx="1.2" dy="1.5" layer="1" rot="R180"/>
-<smd name="4" x="2.1" y="2.54" dx="1.2" dy="1.5" layer="1" rot="R180"/>
-<text x="-2.54" y="3.81" size="1.27" layer="25">&gt;NAME</text>
-<text x="-2.55013125" y="-5.007890625" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="-3.008" y1="-1.172" x2="-3.008" y2="-3.527" width="0.2032" layer="21"/>
+<wire x1="2.908" y1="3.627" x2="1.029" y2="3.627" width="0.2032" layer="21"/>
+<wire x1="3.008" y1="-3.527" x2="3.008" y2="-1.172" width="0.2032" layer="21"/>
+<wire x1="-2.908" y1="-3.627" x2="-1.283" y2="-3.627" width="0.2032" layer="21"/>
+<circle x="-3.556" y="3.937" radius="0.254" width="0" layer="21"/>
+<smd name="1" x="-2.1" y="2.54" dx="1.2" dy="1.5" layer="1" roundness="5"/>
+<smd name="2" x="-2.1" y="-2.54" dx="1.2" dy="1.5" layer="1" roundness="5"/>
+<smd name="3" x="2.1" y="-2.54" dx="1.2" dy="1.5" layer="1" roundness="5" rot="R180"/>
+<smd name="4" x="2.1" y="2.54" dx="1.2" dy="1.5" layer="1" roundness="5" rot="R180"/>
+<text x="-2.54" y="4.445" size="1.27" layer="25">&gt;NAME</text>
+<text x="-2.55013125" y="-5.642890625" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="3.008" y1="1.172" x2="3.008" y2="3.527" width="0.2032" layer="21"/>
+<wire x1="1.283" y1="-3.627" x2="2.908" y2="-3.627" width="0.2032" layer="21"/>
+<wire x1="-2.781" y1="3.612" x2="-1.283" y2="3.612" width="0.2032" layer="21"/>
+<wire x1="-3.008" y1="3.4" x2="-3.008" y2="1.172" width="0.2032" layer="21"/>
+<wire x1="-2.921" y1="3.429" x2="-2.794" y2="3.556" width="0.2032" layer="21"/>
 </package>
 <package name="CFPT-141">
 <description>&lt;b&gt;3.0V CMOS Clock Oscillator&lt;/b&gt;</description>
@@ -95,21 +100,22 @@
 <wire x1="-1.6" y1="-2.5" x2="1.6" y2="-2.5" width="0.2032" layer="51"/>
 <wire x1="1.6" y1="-2.5" x2="1.6" y2="2.5" width="0.2032" layer="51"/>
 <wire x1="1.6" y1="2.5" x2="-1.6" y2="2.5" width="0.2032" layer="51"/>
-<wire x1="1.7272" y1="2.7432" x2="1.0922" y2="2.7432" width="0.2032" layer="21"/>
-<wire x1="1.7272" y1="2.1082" x2="1.7272" y2="2.7432" width="0.2032" layer="21"/>
-<smd name="1" x="-1.15" y="1.9" dx="0.9" dy="1.4" layer="1"/>
-<smd name="2" x="-1.15" y="-1.9" dx="0.9" dy="1.4" layer="1"/>
-<smd name="3" x="1.15" y="-1.9" dx="0.9" dy="1.4" layer="1" rot="R180"/>
-<smd name="4" x="1.15" y="1.9" dx="0.9" dy="1.4" layer="1" rot="R180"/>
-<text x="-1.7212" y="2.887103125" size="1.27" layer="25">&gt;NAME</text>
-<text x="-1.74833125" y="-4.184525" size="1.27" layer="27">&gt;VALUE</text>
-<wire x1="1.7272" y1="-2.7432" x2="1.7272" y2="-2.1082" width="0.2032" layer="21"/>
-<wire x1="1.7272" y1="-2.7432" x2="1.0922" y2="-2.7432" width="0.2032" layer="21"/>
-<wire x1="-1.7272" y1="-2.7432" x2="-1.7272" y2="-2.1082" width="0.2032" layer="21"/>
-<wire x1="-1.7272" y1="2.1082" x2="-1.7272" y2="2.4932" width="0.2032" layer="21"/>
-<wire x1="-1.0922" y1="-2.7432" x2="-1.7272" y2="-2.7432" width="0.2032" layer="21"/>
-<wire x1="-1.0922" y1="2.7432" x2="-1.5" y2="2.75" width="0.2032" layer="21"/>
-<wire x1="-1.5" y1="2.75" x2="-1.7272" y2="2.4932" width="0.2032" layer="21"/>
+<wire x1="1.8542" y1="2.8702" x2="1.0922" y2="2.8702" width="0.2032" layer="21"/>
+<wire x1="1.8542" y1="2.1082" x2="1.8542" y2="2.8702" width="0.2032" layer="21"/>
+<smd name="1" x="-1.15" y="1.9" dx="0.9" dy="1.4" layer="1" roundness="5"/>
+<smd name="2" x="-1.15" y="-1.9" dx="0.9" dy="1.4" layer="1" roundness="5"/>
+<smd name="3" x="1.15" y="-1.9" dx="0.9" dy="1.4" layer="1" roundness="5" rot="R180"/>
+<smd name="4" x="1.15" y="1.9" dx="0.9" dy="1.4" layer="1" roundness="5" rot="R180"/>
+<text x="-1.7212" y="3.141103125" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.74833125" y="-4.438525" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="1.8542" y1="-2.8702" x2="1.8542" y2="-2.1082" width="0.2032" layer="21"/>
+<wire x1="1.8542" y1="-2.8702" x2="1.0922" y2="-2.8702" width="0.2032" layer="21"/>
+<wire x1="-1.8542" y1="-2.8702" x2="-1.8542" y2="-2.1082" width="0.2032" layer="21"/>
+<wire x1="-1.8542" y1="2.1082" x2="-1.8542" y2="2.6202" width="0.2032" layer="21"/>
+<wire x1="-1.0922" y1="-2.8702" x2="-1.8542" y2="-2.8702" width="0.2032" layer="21"/>
+<wire x1="-1.0922" y1="2.8702" x2="-1.627" y2="2.8702" width="0.2032" layer="21"/>
+<wire x1="-1.627" y1="2.8702" x2="-1.8542" y2="2.6202" width="0.2032" layer="21"/>
+<circle x="-2.54" y="3.175" radius="0.125" width="0.25" layer="21"/>
 </package>
 <package name="8-PIN">
 <description>&lt;b&gt;8-Pin PCB Land Pattern&lt;/b&gt;&lt;p&gt;
@@ -225,7 +231,7 @@ Source: www.analog.com/UploadedFiles/Data_Sheets/33830397585263AD9859_0.pdf</des
 <smd name="46" x="-4.1" y="-1.75" dx="1.2" dy="0.3" layer="1" stop="no" cream="no"/>
 <smd name="47" x="-4.1" y="-2.25" dx="1.2" dy="0.3" layer="1" stop="no" cream="no"/>
 <smd name="48" x="-4.1" y="-2.75" dx="1.2" dy="0.3" layer="1" stop="no" cream="no"/>
-<smd name="EXP" x="0" y="0" dx="2" dy="2" layer="1" stop="no" cream="no"/>
+<smd name="EXP" x="0" y="0" dx="5.5" dy="5.5" layer="1" roundness="5" stop="no" cream="no"/>
 <text x="-5.715" y="-3.81" size="1.27" layer="25" rot="R90">&gt;NAME</text>
 <text x="6.985" y="-3.81" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
 <rectangle x1="-4.5" y1="2.5999" x2="-3.4501" y2="2.8999" layer="51"/>
@@ -407,7 +413,7 @@ Source: www.analog.com/UploadedFiles/Data_Sheets/33830397585263AD9859_0.pdf</des
 <wire x1="-2" y1="2" x2="2" y2="2" width="0.3048" layer="21"/>
 <text x="-2" y="3" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-3" y="-4.5" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="27"/>
+<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="21"/>
 </package>
 <package name="QFN24_P0MM5_CTRPAD">
 <description>&lt;h4&gt;QFN24 - pitch 0.5 mm&lt;/h4&gt;</description>
@@ -441,8 +447,8 @@ Source: www.analog.com/UploadedFiles/Data_Sheets/33830397585263AD9859_0.pdf</des
 <wire x1="-2" y1="2" x2="2" y2="2" width="0.3048" layer="21"/>
 <text x="-2" y="3" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-3" y="-4.5" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="27"/>
-<smd name="25" x="0" y="0" dx="2.5" dy="2.5" layer="1"/>
+<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="21"/>
+<smd name="25" x="0" y="0" dx="2.4" dy="2.4" layer="1" roundness="5"/>
 </package>
 </packages>
 <symbols>
