@@ -479,6 +479,9 @@ int main(void)
   }
   __HAL_RCC_CLEAR_RESET_FLAGS();
 
+  /* Give PMIC devices 3 seconds time to stabilize before demand of power ramps up */
+  for (uint32_t delayCntr = 1000000UL; delayCntr; delayCntr--) { }
+
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
