@@ -60,6 +60,7 @@
 
 #include "usb.h"
 #include "i2c.h"
+#include "adc.h"
 #include "tcxo_20MHz.h"
 
 
@@ -287,6 +288,7 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 
 void PowerSwitchInit(void)
 {
+#if 1
   PowerSwitchDo(POWERSWITCH__USB_SW, 1);
 
   /* Disable high current system */
@@ -301,6 +303,23 @@ void PowerSwitchInit(void)
 
 //PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
   PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
+#else
+  // 22mA --> 20mA @ 3.3V
+  PowerSwitchDo(POWERSWITCH__USB_SW, 0);
+
+  /* Disable high current system */
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 0);
+
+  /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
+  PowerSwitchDo(POWERSWITCH__3V3_XO, 0);
+
+//PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
+//for (uint16_t i = 10000; i; i--) ;
+  PowerSwitchDo(POWERSWITCH__1V2_SW, 1);
+
+  PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
+  //PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
+#endif
 }
 
 void LcdBacklightInit(void)
@@ -465,7 +484,9 @@ int main(void)
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  //while (1) { };  //  2 mA @ 3.3V
   HAL_Init();
+  //while (1) { };  //  3 mA @ 3.3V
 
   /* USER CODE BEGIN Init */
 
@@ -473,6 +494,7 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
+  //while (1) { };  //  6 mA @ 3.3V
 
   /* USER CODE BEGIN SysInit */
 
@@ -480,35 +502,55 @@ int main(void)
   __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
 
   /* MSI trim */
-  __HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                        // Signed
+//__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                        // Signed
+  HAL_RCCEx_EnableMSIPLLMode();
+  //while (1) { };  //  6 mA @ 3.3V
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  //while (1) { };  //  9 mA @ 3.3V
   MX_ADC1_Init();
+  //while (1) { };  // 10 mA @ 3.3V
   MX_CRC_Init();
+  //while (1) { };  // 10 mA @ 3.3V
   MX_I2C2_Init();
   MX_I2C3_Init();
   MX_I2C4_Init();
+  //while (1) { };  // 10 mA @ 3.3V
   MX_RNG_Init();
+  //while (1) { };  // 10 mA @ 3.3V
   MX_RTC_Init();
+  //while (1) { };  // 10 mA @ 3.3V
   MX_SAI1_Init();
   MX_SAI2_Init();
+  //while (1) { };  // 11 mA @ 3.3V
   MX_SPI1_Init();
+  //while (1) { };  // 12 mA @ 3.3V
   MX_SPI3_Init();
+  //while (1) { };  // 13 mA @ 3.3V
   MX_TIM5_Init();
+  //while (1) { };  // 13 mA @ 3.3V
   MX_TIM16_Init();
+  //while (1) { };  // 14 mA @ 3.3V
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+  //while (1) { };  // 14 mA @ 3.3V
   MX_ADC3_Init();
+  //while (1) { };  // 14 mA @ 3.3V
   MX_I2C1_Init();
+  //while (1) { };  // 14 mA @ 3.3V
   MX_DFSDM1_Init();
+  //while (1) { };  // 14 mA @ 3.3V
   MX_TIM3_Init();
+  //while (1) { };  // 14 mA @ 3.3V
   MX_TIM17_Init();
+  //while (1) { };  // 15 mA @ 3.3V
   /* USER CODE BEGIN 2 */
 
+  /* Disable clocks again to save power */
   __HAL_RCC_GPIOA_CLK_DISABLE();
   __HAL_RCC_GPIOB_CLK_DISABLE();
   __HAL_RCC_GPIOC_CLK_DISABLE();
@@ -517,7 +559,49 @@ int main(void)
   __HAL_RCC_GPIOF_CLK_DISABLE();
   __HAL_RCC_GPIOG_CLK_DISABLE();
   __HAL_RCC_GPIOH_CLK_DISABLE();
+
+  __HAL_RCC_CRC_CLK_DISABLE();
+  //HAL_CRC_DeInit(&hcrc);
+
+  __HAL_RCC_I2C1_CLK_DISABLE();
+  //HAL_I2C_DeInit(&hi2c1);
+  __HAL_RCC_I2C2_CLK_DISABLE();
+  //HAL_I2C_DeInit(&hi2c2);
+  __HAL_RCC_I2C3_CLK_DISABLE();
+  //HAL_I2C_DeInit(&hi2c3);
+
   __HAL_RCC_RNG_CLK_DISABLE();
+  //HAL_RNG_DeInit(&hrng);
+
+  __HAL_RCC_SAI1_CLK_DISABLE();
+  //HAL_SAI_DeInit(&hsai_BlockB1);
+
+  __HAL_RCC_SAI2_CLK_DISABLE();
+  //HAL_SAI_DeInit(&hsai_BlockA2);
+  //while (1) { };  // 14 mA @ 3.3V (with CLK_DISABLE)
+  //while (1) { };  // 14 mA @ 3.3V (with DeInit)
+
+  //__HAL_RCC_SPI1_FORCE_RESET();
+  //__HAL_RCC_SPI1_RELEASE_RESET();
+  __HAL_RCC_SPI1_CLK_DISABLE();
+  //HAL_SPI_DeInit(&hspi1);
+  //while (1) { };  // 14 mA @ 3.3V (with    forcing/releasing reset)
+  //while (1) { };  // 13 mA @ 3.3V (without forcing/releasing reset)
+  //while (1) { };  // 14 mA @ 3.3V (with DeInit)
+
+  __HAL_RCC_SPI3_CLK_DISABLE();
+  //HAL_SPI_DeInit(&hspi3);
+
+  __HAL_RCC_USART1_CLK_DISABLE();
+  //HAL_UART_DeInit(&huart1);
+  __HAL_RCC_USART2_CLK_DISABLE();
+  //HAL_UART_DeInit(&huart1);
+  __HAL_RCC_USART3_CLK_DISABLE();
+  //HAL_UART_DeInit(&huart1);
+
+  //__HAL_RCC_DFSDM1_CLK_DISABLE();
+  //while (1) { };  // 14 mA @ 3.3V (with CLK DISABLE)
+  //while (1) { };  // 15 mA @ 3.3V (with DeInit)
 
   /* USER CODE END 2 */
 
@@ -568,6 +652,7 @@ int main(void)
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 0, 256);
+  //osThreadDef(defaultTask, StartDefaultTask, osPriorityHigh, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of usbToHostTask */
@@ -612,6 +697,7 @@ int main(void)
 /* what about the sizeof here??? cd native code */
   osMessageQDef(usbFromHostQueue, 32, uint8_t);
   usbFromHostQueueHandle = osMessageCreate(osMessageQ(usbFromHostQueue), NULL);
+  //while (1) { };  // 14 mA @ 3.3V
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -1792,13 +1878,18 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 /* StartDefaultTask function */
 void StartDefaultTask(void const * argument)
 {
+  //while (1) { };  // 14 mA @ 3.3V and High-Priority
+
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
+  //while (1) { };  // 16 mA @ 3.3V and High-Priority
+  //while (1) { };  // 20 mA @ 3.3V and Low-Priority
 
   /* USER CODE BEGIN 5 */
 
   /* Power switch settings */
   PowerSwitchInit();
+  //while (1) { };  // 18 mA @ 3.3V and High-Priority
 
   /* Si5338 clock generator */
 #if 0
@@ -1819,11 +1910,35 @@ void StartDefaultTask(void const * argument)
   i2cI2c4AddrScan();
 #endif
 
+  osDelay(850UL);
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000);
+    const uint32_t  eachMs              = 1000UL;
+    static uint32_t sf_previousWakeTime = 0UL;
+    int             dbgLen;
+    char            dbgBuf[128];
+
+    if (!sf_previousWakeTime) {
+      sf_previousWakeTime  = osKernelSysTick();
+      sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+      sf_previousWakeTime += 850UL;
+    }
+
+    /* Repeat each time period ADC conversion */
+    osDelayUntil(&sf_previousWakeTime, eachMs);
+    adcStartConv(ADC_PORT_V_SOLAR);
+
+    BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_SOLAR, EG_ADC__CONV_AVAIL_V_SOLAR, pdFALSE, 100 / portTICK_PERIOD_MS);
+    if (egBits & EG_ADC__CONV_AVAIL_V_SOLAR) {
+      uint16_t l_adc_v_solar = adcGetVsolar();
+
+      dbgLen = sprintf(dbgBuf, "ADC: Vsolar = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_SOLAR_mV + l_adc_v_solar * (ADC_REFBUF_mV / 65535.0f)));
+      usbLogLen(dbgBuf, dbgLen);
+    }
   }
+
   /* USER CODE END 5 */ 
 }
 

@@ -232,7 +232,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180905U
+#define HFTCOREMODULE_VERSION                                 20180906U
 
 
 typedef enum POWERSWITCH_ENUM {

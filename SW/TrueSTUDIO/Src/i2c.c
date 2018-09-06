@@ -548,7 +548,7 @@ static void i2cI2c4BaroCalc(void)
       s_i2cI2c4Baro_temp_100  = l_t_100;
       s_i2cI2c4Baro_p_100     = l_p_100;
 
-      int16_t l_qnh_height_m          = 110; /* s_qnh_height_m; */
+      int16_t l_qnh_height_m          = 103; /* s_qnh_height_m; */
       int32_t l_i2cI2c4Baro_temp_100  = l_t_100;
 
       /* A valid height value (3D navigation) seems to be access able */
@@ -1194,41 +1194,43 @@ void i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT_t variant)
 
 void i2cI2c4LcdTaskInit(void)
 {
-  osDelay(500);
+  osDelay(500UL);
   i2cI2c4LcdInit();
 }
 
 void i2cI2c4LcdTaskLoop(void)
 {
-  static uint32_t s_previousWakeTime = 0UL;
+  const uint32_t  eachMs              = 250UL;
+  static uint32_t sf_previousWakeTime = 0UL;
 
-  if (!s_previousWakeTime) {
-    s_previousWakeTime  = osKernelSysTick();
-    s_previousWakeTime -= s_previousWakeTime % 1000UL;
-    s_previousWakeTime += 500UL;
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 500UL;
   }
 
-  osDelayUntil(&s_previousWakeTime, 250);
+  osDelayUntil(&sf_previousWakeTime, eachMs);
 }
 
 
 void i2cI2c4HygroTaskInit(void)
 {
-  osDelay(550);
+  osDelay(550UL);
   i2cI2c4HygroInit();
 }
 
 void i2cI2c4HygroTaskLoop(void)
 {
-  static uint32_t s_previousWakeTime = 0UL;
+  const uint32_t  eachMs              = 1000UL;
+  static uint32_t sf_previousWakeTime = 0UL;
 
-  if (!s_previousWakeTime) {
-    s_previousWakeTime  = osKernelSysTick();
-    s_previousWakeTime -= s_previousWakeTime % 1000UL;
-    s_previousWakeTime += 550UL;
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 550UL;
   }
 
-  osDelayUntil(&s_previousWakeTime, 1000);
+  osDelayUntil(&sf_previousWakeTime, eachMs);
 
   i2cI2c4HygroFetch();
   i2cI2c4HygroCalc();
@@ -1238,28 +1240,29 @@ void i2cI2c4HygroTaskLoop(void)
 
 void i2cI2c4BaroTaskInit(void)
 {
-  osDelay(600);
+  osDelay(600UL);
   i2cI2c4BaroInit();
 }
 
 void i2cI2c4BaroTaskLoop(void)
 {
-  static uint32_t s_previousWakeTime = 0UL;
+  const uint32_t  eachMs              = 1000UL;
+  static uint32_t sf_previousWakeTime = 0UL;
 
-  if (!s_previousWakeTime) {
-    s_previousWakeTime  = osKernelSysTick();
-    s_previousWakeTime -= s_previousWakeTime % 1000UL;
-    s_previousWakeTime += 600UL;
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 600UL;
   }
 
-  osDelayUntil(&s_previousWakeTime, 1000);
+  osDelayUntil(&sf_previousWakeTime, eachMs);
 #if 0
   {
     char dbgBuf[128];
     int  dbgLen;
 
     uint32_t now = osKernelSysTick();
-    dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", s_previousWakeTime, now);
+    dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", sf_previousWakeTime, now);
     usbLogLen(dbgBuf, dbgLen);
   }
 #endif
@@ -1272,19 +1275,20 @@ void i2cI2c4BaroTaskLoop(void)
 
 void i2cI2c4GyroTaskInit(void)
 {
-  osDelay(650);
+  osDelay(650UL);
   i2cI2c4GyroInit();
 }
 
 void i2cI2c4GyroTaskLoop(void)
 {
-  static uint32_t s_previousWakeTime = 0UL;
+  const uint32_t  eachMs              = 1000UL;
+  static uint32_t sf_previousWakeTime = 0UL;
 
-  if (!s_previousWakeTime) {
-    s_previousWakeTime  = osKernelSysTick();
-    s_previousWakeTime -= s_previousWakeTime % 1000UL;
-    s_previousWakeTime += 650UL;
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 650UL;
   }
 
-  osDelayUntil(&s_previousWakeTime, 1000);
+  osDelayUntil(&sf_previousWakeTime, eachMs);
 }

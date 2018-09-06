@@ -25,7 +25,7 @@ extern EventGroupHandle_t             adcEventGroupHandle;
 
 void tcxo20MhzTaskInit(void)
 {
-  osDelay(400);
+  osDelay(900UL);
   i2cI2c4Tcxo20MhzDacInit();
 
   /* Preload-value of TCXO */
@@ -34,24 +34,27 @@ void tcxo20MhzTaskInit(void)
 
 void tcxo20MhzTaskLoop(void)
 {
-  const uint32_t  eachMs        = 1000UL;
-  int   dbgLen;
-  char  dbgBuf[128];
+  const uint32_t  eachMs              = 1000UL;
+  static uint32_t sf_previousWakeTime = 0UL;
+  int             dbgLen;
+  char            dbgBuf[128];
 
-  static uint32_t previousWakeTime = 0UL;
-  if (!previousWakeTime) {
-    previousWakeTime = osKernelSysTick();
+
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 900UL;
   }
 
   /* Repeat each time period ADC conversion */
-  osDelayUntil(&previousWakeTime, eachMs);
+  osDelayUntil(&sf_previousWakeTime, eachMs);
   adcStartConv(ADC_PORT_V_PULL_TCXO);
 
   BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_PULL_TCXO, EG_ADC__CONV_AVAIL_V_PULL_TCXO, pdFALSE, 100 / portTICK_PERIOD_MS);
   if (egBits & EG_ADC__CONV_AVAIL_V_PULL_TCXO) {
     uint16_t l_adc_v_pull_tcxo = adcGetVpullTcxo();
 
-    dbgLen = sprintf(dbgBuf, "ADC: value = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_PULL_TCXO_mV + l_adc_v_pull_tcxo * (ADC_REFBUF_mV / 65535.0f)));
+    dbgLen = sprintf(dbgBuf, "ADC: Vpull  = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_PULL_TCXO_mV + l_adc_v_pull_tcxo * (ADC_REFBUF_mV / 65535.0f)));
     usbLogLen(dbgBuf, dbgLen);
   }
 }
