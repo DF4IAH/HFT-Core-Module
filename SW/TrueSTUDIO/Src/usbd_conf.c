@@ -111,10 +111,10 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef* pcdHandle)
     PA11     ------> USB_OTG_FS_DM
     PA12     ------> USB_OTG_FS_DP 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_9;
+    GPIO_InitStruct.Pin = MCU_IN_VBUS_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    HAL_GPIO_Init(MCU_IN_VBUS_GPIO_Port, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = PA_USB_N_Pin|PA_USB_P_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -162,7 +162,7 @@ void HAL_PCD_MspDeInit(PCD_HandleTypeDef* pcdHandle)
     PA11     ------> USB_OTG_FS_DM
     PA12     ------> USB_OTG_FS_DP 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|PA_USB_N_Pin|PA_USB_P_Pin);
+    HAL_GPIO_DeInit(GPIOA, MCU_IN_VBUS_Pin|PA_USB_N_Pin|PA_USB_P_Pin);
 
     /* Disable VDDUSB */
     if(__HAL_RCC_PWR_IS_CLK_DISABLED())
