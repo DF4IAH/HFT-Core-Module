@@ -475,7 +475,7 @@ int main(void)
     /* ARM software reset to be done */
     SystemResetbyARMcore();
   }
-  __HAL_RCC_CLEAR_RESET_FLAGS();
+  __HAL_RCC_CLEAR_RESET_FLAGS();  // 23.0mA --> 23.0mA
 
 #if 0
   /* Give PMIC devices 3 seconds time to stabilize before demand of power ramps up */
@@ -487,52 +487,52 @@ int main(void)
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+  HAL_Init();  // 23.0mA --> 23.0mA
 
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();
+  SystemClock_Config();  // 23.0mA --> 25.0mA !!!!   solved
 
   /* USER CODE BEGIN SysInit */
 
   /* HSI16 trim */
-  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
+  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);  // 25.0mA --> 25.0mA                                  // 0x40 centered
 
   /* MSI trim */
-//__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                        // Signed
-  HAL_RCCEx_EnableMSIPLLMode();
-  //while (1) { };  //  6 mA @ 3.3V
+  //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
+  HAL_RCCEx_EnableMSIPLLMode();  // 25.0mA --> 25.0mA
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_ADC1_Init();
-  MX_CRC_Init();
-  MX_I2C2_Init();
-  MX_I2C3_Init();
-  MX_I2C4_Init();
-  MX_RNG_Init();
-  MX_RTC_Init();
-  MX_SAI1_Init();
-  MX_SAI2_Init();
-  MX_SPI1_Init();
-  MX_SPI3_Init();
-  MX_TIM5_Init();
-  MX_TIM16_Init();
-  MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
-  MX_USART3_UART_Init();
-  MX_ADC3_Init();
-  MX_I2C1_Init();
-  MX_DFSDM1_Init();
-  MX_TIM3_Init();
-  MX_TIM17_Init();
+  MX_GPIO_Init();         // 25.0mA --> 25.0mA
+  MX_ADC1_Init();         // 25.0mA --> 25.0mA
+  MX_CRC_Init();          // 25.0mA --> 25.5mA
+  MX_I2C2_Init();         // 25.5mA --> 25.5mA
+  MX_I2C3_Init();         // 25.5mA --> 25.5mA
+  MX_I2C4_Init();         // 25.5mA --> 25.5mA
+  MX_RNG_Init();          // 25.5mA --> 26.0mA
+  MX_RTC_Init();          // 26.0mA --> 26.0mA
+  MX_SAI1_Init();         // 26.0mA --> 27.0mA  !!!  solved
+  MX_SAI2_Init();         // 27.0mA --> 27.0mA
+  MX_SPI1_Init();         // 27.0mA --> 27.0mA
+  MX_SPI3_Init();         // 27.0mA --> 28.0mA  !!!  solved
+  MX_TIM5_Init();         // 28.0mA --> 28.0mA
+  MX_TIM16_Init();        // 28.0mA --> 28.0mA
+  MX_USART1_UART_Init();  // 28.0mA --> 28.0mA
+  MX_USART2_UART_Init();  // 28.0mA --> 28.0mA
+  MX_USART3_UART_Init();  // 28.0mA --> 28.5mA  !    solved
+  MX_ADC3_Init();         // 28.5mA --> 28.5mA
+  MX_I2C1_Init();         // 28.5mA --> 28.5mA
+  MX_DFSDM1_Init();       // 28.5mA --> 29.0mA  !!   solved
+  MX_TIM3_Init();         // 29.0mA --> 29.0mA
+  MX_TIM17_Init();        // 29.0mA --> 29.0mA
   /* USER CODE BEGIN 2 */
 
+#if 1
   /* Disable clocks again to save power */
   __HAL_RCC_GPIOA_CLK_DISABLE();
   __HAL_RCC_GPIOB_CLK_DISABLE();
@@ -544,47 +544,25 @@ int main(void)
   __HAL_RCC_GPIOH_CLK_DISABLE();
 
   __HAL_RCC_CRC_CLK_DISABLE();
-  //HAL_CRC_DeInit(&hcrc);
 
   __HAL_RCC_I2C1_CLK_DISABLE();
-  //HAL_I2C_DeInit(&hi2c1);
   __HAL_RCC_I2C2_CLK_DISABLE();
-  //HAL_I2C_DeInit(&hi2c2);
   __HAL_RCC_I2C3_CLK_DISABLE();
-  //HAL_I2C_DeInit(&hi2c3);
 
   __HAL_RCC_RNG_CLK_DISABLE();
-  //HAL_RNG_DeInit(&hrng);
 
   __HAL_RCC_SAI1_CLK_DISABLE();
-  //HAL_SAI_DeInit(&hsai_BlockB1);
-
   __HAL_RCC_SAI2_CLK_DISABLE();
-  //HAL_SAI_DeInit(&hsai_BlockA2);
-  //while (1) { };  // 14 mA @ 3.3V (with CLK_DISABLE)
-  //while (1) { };  // 14 mA @ 3.3V (with DeInit)
 
-  //__HAL_RCC_SPI1_FORCE_RESET();
-  //__HAL_RCC_SPI1_RELEASE_RESET();
   __HAL_RCC_SPI1_CLK_DISABLE();
-  //HAL_SPI_DeInit(&hspi1);
-  //while (1) { };  // 14 mA @ 3.3V (with    forcing/releasing reset)
-  //while (1) { };  // 13 mA @ 3.3V (without forcing/releasing reset)
-  //while (1) { };  // 14 mA @ 3.3V (with DeInit)
-
   __HAL_RCC_SPI3_CLK_DISABLE();
-  //HAL_SPI_DeInit(&hspi3);
 
   __HAL_RCC_USART1_CLK_DISABLE();
-  //HAL_UART_DeInit(&huart1);
   __HAL_RCC_USART2_CLK_DISABLE();
-  //HAL_UART_DeInit(&huart1);
   __HAL_RCC_USART3_CLK_DISABLE();
-  //HAL_UART_DeInit(&huart1);
 
-  //__HAL_RCC_DFSDM1_CLK_DISABLE();
-  //while (1) { };  // 14 mA @ 3.3V (with CLK DISABLE)
-  //while (1) { };  // 15 mA @ 3.3V (with DeInit)
+  __HAL_RCC_DFSDM1_CLK_DISABLE();
+#endif
 
   /* USER CODE END 2 */
 
@@ -614,6 +592,7 @@ int main(void)
   spi3MutexHandle = osMutexCreate(osMutex(spi3Mutex));
 
   /* USER CODE BEGIN RTOS_MUTEX */
+  __asm volatile( "nop" );  // 29.0mA
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
@@ -681,6 +660,7 @@ int main(void)
   usbFromHostQueueHandle = osMessageCreate(osMessageQ(usbFromHostQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
+  __asm volatile( "nop" );  // 29.0mA
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
  
@@ -694,11 +674,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
   }
   /* USER CODE END 3 */
 
@@ -718,9 +696,9 @@ void SystemClock_Config(void)
 
     /**Configure LSE Drive Capability 
     */
-  HAL_PWR_EnableBkUpAccess();
+  HAL_PWR_EnableBkUpAccess();                         // 23.0mA --> 23.0mA
 
-  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);        // 23.0mA --> 23.0mA
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
@@ -740,7 +718,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV4;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV4;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)  // 23.0mA --> 23.5mA
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -754,7 +732,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)  // 23.5mA --> 24.5mA
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -780,31 +758,31 @@ void SystemClock_Config(void)
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
   PeriphClkInit.RngClockSelection = RCC_RNGCLKSOURCE_HSI48;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)  // 24.5mA --> 24.5mA
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_2);
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_2);             // 24.5mA --> 25.0mA
 
     /**Configure the main internal regulator output voltage 
     */
-  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)  // 25.0mA --> 25.0mA
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
     /**Configure the Systick interrupt time 
     */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);  // 25.0mA --> 25.0mA
 
     /**Configure the Systick 
     */
-  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);  // 25.0mA --> 25.0mA
 
     /**Enable the SYSCFG APB clock 
     */
-  __HAL_RCC_CRS_CLK_ENABLE();
+  __HAL_RCC_CRS_CLK_ENABLE();  // 25.0mA --> 25.0mA
 
     /**Configures CRS 
     */
@@ -815,7 +793,7 @@ void SystemClock_Config(void)
   RCC_CRSInitStruct.ErrorLimitValue = 34;
   RCC_CRSInitStruct.HSI48CalibrationValue = 32;
 
-  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
+  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);  // 25.0mA --> 25.0mA
 
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
@@ -1864,12 +1842,13 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 void StartDefaultTask(void const * argument)
 {
   /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
+  MX_USB_DEVICE_Init();     // 29.0mA --> 32.0mA  !!!!!!
+
 
   /* USER CODE BEGIN 5 */
 
   /* Power switch settings */
-  PowerSwitchInit();
+  PowerSwitchInit();        // 32.0mA --> 28.0mA
 
   /* Si5338 clock generator */
 #if 0
@@ -1884,7 +1863,7 @@ void StartDefaultTask(void const * argument)
 #endif
 
   /* LCD-backlight default settings */
-  LcdBacklightInit();
+  LcdBacklightInit();       // 28.0mA --> 30.0mA  !!!!
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();

@@ -264,7 +264,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180907U
+#define HFTCOREMODULE_VERSION                                 20180908U
 
 
 typedef enum POWERSWITCH_ENUM {
@@ -314,6 +314,22 @@ void _Error_Handler(char *, int);
 #ifdef __cplusplus
 }
 #endif
+
+
+ /*
+  * Power analysis:
+  *
+  * Startup main() with 23.0mA @ Vsol=3.3V
+  *
+  * 23.0mA --> 23.5mA:  __HAL_RCC_PLL_ENABLE()                                                                      File:stm32l4xx_hal_rcc.c  Line:831
+  * 23.5mA --> 24.5mA:  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_ClkInitStruct->SYSCLKSource);                        File:stm32l4xx_hal_rcc.c  Line:1049     PLL selected as system clock
+  * 24.5mA --> 25.0mA:  MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE), (RCC_MCOSource | RCC_MCODiv ));  File:stm32l4xx_hal_rcc.c  Line:1191     Drive 16 MHz @ MCO
+  *
+  *
+  * 26.0mA --> 26.5mA:  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:1152     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM
+  * 26.5mA --> 27.0mA:
+  * 27.0mA --> 28.0mA:  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:694      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  */
 
 #endif /* __MAIN_H__ */
 
