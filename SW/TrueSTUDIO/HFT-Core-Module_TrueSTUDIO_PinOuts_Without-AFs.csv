@@ -75,7 +75,7 @@
 "74","PB13","I/O","SAI2_SCK_A","I2S2A_SCK_IN"
 "75","PB14","Input","GPIO_Input","MCU_IN_RE_PB"
 "76","PB15","I/O","",""
-"77","PD8","Output","GPIO_Output","MCU_OUT_SX_NRESET"
+"77","PD8","Output","GPIO_Output","MCU_OUT_SX_nRESET"
 "78","PD9","Input","GPIO_Input","MCU_INOUT_PS00"
 "79","PD10","Input","GPIO_Input","MCU_INOUT_PS01"
 "80","PD11","I/O","SAI2_SD_A","I2S2A_SD_IN"

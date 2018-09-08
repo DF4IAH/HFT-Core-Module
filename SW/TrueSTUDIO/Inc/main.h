@@ -152,8 +152,8 @@
 #define I2S2A_SCK_IN_GPIO_Port GPIOB
 #define MCU_IN_RE_PB_Pin GPIO_PIN_14
 #define MCU_IN_RE_PB_GPIO_Port GPIOB
-#define MCU_OUT_SX_NRESET_Pin GPIO_PIN_8
-#define MCU_OUT_SX_NRESET_GPIO_Port GPIOD
+#define MCU_OUT_SX_nRESET_Pin GPIO_PIN_8
+#define MCU_OUT_SX_nRESET_GPIO_Port GPIOD
 #define MCU_INOUT_PS00_Pin GPIO_PIN_9
 #define MCU_INOUT_PS00_GPIO_Port GPIOD
 #define MCU_INOUT_PS01_Pin GPIO_PIN_10
@@ -303,6 +303,20 @@ void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
 void SystemResetbyARMcore(void);
 
+/*
+ * Power analysis:
+ *
+ * Startup main() with 23.0mA @ Vsol=3.3V
+ *
+ * 23.0mA --> 23.5mA:  __HAL_RCC_PLL_ENABLE()                                                                      File:stm32l4xx_hal_rcc.c  Line:831
+ * 23.5mA --> 24.5mA:  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_ClkInitStruct->SYSCLKSource);                        File:stm32l4xx_hal_rcc.c  Line:1049     PLL selected as system clock
+ * 24.5mA --> 25.0mA:  MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE), (RCC_MCOSource | RCC_MCODiv ));  File:stm32l4xx_hal_rcc.c  Line:1191     Drive 16 MHz @ MCO
+ *
+ * 26.0mA --> 26.5mA:  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:1152     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM
+ * 26.5mA --> 27.0mA:
+ * 27.0mA --> 28.0mA:  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:694      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ */
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
@@ -314,22 +328,6 @@ void _Error_Handler(char *, int);
 #ifdef __cplusplus
 }
 #endif
-
-
- /*
-  * Power analysis:
-  *
-  * Startup main() with 23.0mA @ Vsol=3.3V
-  *
-  * 23.0mA --> 23.5mA:  __HAL_RCC_PLL_ENABLE()                                                                      File:stm32l4xx_hal_rcc.c  Line:831
-  * 23.5mA --> 24.5mA:  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_ClkInitStruct->SYSCLKSource);                        File:stm32l4xx_hal_rcc.c  Line:1049     PLL selected as system clock
-  * 24.5mA --> 25.0mA:  MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE), (RCC_MCOSource | RCC_MCODiv ));  File:stm32l4xx_hal_rcc.c  Line:1191     Drive 16 MHz @ MCO
-  *
-  *
-  * 26.0mA --> 26.5mA:  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:1152     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM
-  * 26.5mA --> 27.0mA:
-  * 27.0mA --> 28.0mA:  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:694      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  */
 
 #endif /* __MAIN_H__ */
 

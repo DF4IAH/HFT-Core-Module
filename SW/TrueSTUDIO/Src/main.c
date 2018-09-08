@@ -93,6 +93,8 @@ RTC_HandleTypeDef hrtc;
 
 SAI_HandleTypeDef hsai_BlockB1;
 SAI_HandleTypeDef hsai_BlockA2;
+DMA_HandleTypeDef hdma_sai1_b;
+DMA_HandleTypeDef hdma_sai2_a;
 
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
@@ -155,6 +157,7 @@ static uint64_t                       s_timerStart_us         = 0ULL;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_CRC_Init(void);
 static void MX_I2C2_Init(void);
@@ -487,14 +490,14 @@ int main(void)
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();  // 23.0mA --> 23.0mA
+  HAL_Init();
 
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();  // 23.0mA --> 25.0mA !!!!   solved
+  SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -508,31 +511,32 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();         // 25.0mA --> 25.0mA
-  MX_ADC1_Init();         // 25.0mA --> 25.0mA
-  MX_CRC_Init();          // 25.0mA --> 25.5mA
-  MX_I2C2_Init();         // 25.5mA --> 25.5mA
-  MX_I2C3_Init();         // 25.5mA --> 25.5mA
-  MX_I2C4_Init();         // 25.5mA --> 25.5mA
-  MX_RNG_Init();          // 25.5mA --> 26.0mA
-  MX_RTC_Init();          // 26.0mA --> 26.0mA
-  MX_SAI1_Init();         // 26.0mA --> 27.0mA  !!!  solved
-  MX_SAI2_Init();         // 27.0mA --> 27.0mA
-  MX_SPI1_Init();         // 27.0mA --> 27.0mA
-  MX_SPI3_Init();         // 27.0mA --> 28.0mA  !!!  solved
-  MX_TIM5_Init();         // 28.0mA --> 28.0mA
-  MX_TIM16_Init();        // 28.0mA --> 28.0mA
-  MX_USART1_UART_Init();  // 28.0mA --> 28.0mA
-  MX_USART2_UART_Init();  // 28.0mA --> 28.0mA
-  MX_USART3_UART_Init();  // 28.0mA --> 28.5mA  !    solved
-  MX_ADC3_Init();         // 28.5mA --> 28.5mA
-  MX_I2C1_Init();         // 28.5mA --> 28.5mA
-  MX_DFSDM1_Init();       // 28.5mA --> 29.0mA  !!   solved
-  MX_TIM3_Init();         // 29.0mA --> 29.0mA
-  MX_TIM17_Init();        // 29.0mA --> 29.0mA
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_ADC1_Init();
+  MX_CRC_Init();
+  MX_I2C2_Init();
+  MX_I2C3_Init();
+  MX_I2C4_Init();
+  MX_RNG_Init();
+  MX_RTC_Init();
+  MX_SAI1_Init();
+  MX_SAI2_Init();
+  MX_SPI1_Init();
+  MX_SPI3_Init();
+  MX_TIM5_Init();
+  MX_TIM16_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  MX_USART3_UART_Init();
+  MX_ADC3_Init();
+  MX_I2C1_Init();
+  MX_DFSDM1_Init();
+  MX_TIM3_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 
-#if 1
+#if 0
   /* Disable clocks again to save power */
   __HAL_RCC_GPIOA_CLK_DISABLE();
   __HAL_RCC_GPIOB_CLK_DISABLE();
@@ -696,29 +700,21 @@ void SystemClock_Config(void)
 
     /**Configure LSE Drive Capability 
     */
-  HAL_PWR_EnableBkUpAccess();                         // 23.0mA --> 23.0mA
+  HAL_PWR_EnableBkUpAccess();
 
-  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);        // 23.0mA --> 23.0mA
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSI
-                              |RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_LSE
+                              |RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
-  RCC_OscInitStruct.HSICalibrationValue = 64;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 2;
-  RCC_OscInitStruct.PLL.PLLN = 8;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV4;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV4;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)  // 23.0mA --> 23.5mA
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_9;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -727,12 +723,12 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)  // 23.5mA --> 24.5mA
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -751,38 +747,45 @@ void SystemClock_Config(void)
   PeriphClkInit.I2c2ClockSelection = RCC_I2C2CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c4ClockSelection = RCC_I2C4CLKSOURCE_SYSCLK;
-  PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLL;
-  PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLL;
+  PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLLSAI1;
+  PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLSAI1;
   PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_SYSCLK;
   PeriphClkInit.Dfsdm1ClockSelection = RCC_DFSDM1CLKSOURCE_PCLK;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
   PeriphClkInit.RngClockSelection = RCC_RNGCLKSOURCE_HSI48;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)  // 24.5mA --> 24.5mA
+  PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_MSI;
+  PeriphClkInit.PLLSAI1.PLLSAI1M = 2;
+  PeriphClkInit.PLLSAI1.PLLSAI1N = 8;
+  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV4;
+  PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV4;
+  PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV4;
+  PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_SAI1CLK;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_2);             // 24.5mA --> 25.0mA
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_2);
 
     /**Configure the main internal regulator output voltage 
     */
-  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)  // 25.0mA --> 25.0mA
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
     /**Configure the Systick interrupt time 
     */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);  // 25.0mA --> 25.0mA
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
     /**Configure the Systick 
     */
-  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);  // 25.0mA --> 25.0mA
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
     /**Enable the SYSCFG APB clock 
     */
-  __HAL_RCC_CRS_CLK_ENABLE();  // 25.0mA --> 25.0mA
+  __HAL_RCC_CRS_CLK_ENABLE();
 
     /**Configures CRS 
     */
@@ -793,7 +796,7 @@ void SystemClock_Config(void)
   RCC_CRSInitStruct.ErrorLimitValue = 34;
   RCC_CRSInitStruct.HSI48CalibrationValue = 32;
 
-  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);  // 25.0mA --> 25.0mA
+  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
@@ -1002,7 +1005,7 @@ static void MX_I2C1_Init(void)
 {
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x00300711;
+  hi2c1.Init.Timing = 0x00500822;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1036,7 +1039,7 @@ static void MX_I2C2_Init(void)
 {
 
   hi2c2.Instance = I2C2;
-  hi2c2.Init.Timing = 0x00300711;
+  hi2c2.Init.Timing = 0x00500822;
   hi2c2.Init.OwnAddress1 = 0;
   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1070,7 +1073,7 @@ static void MX_I2C3_Init(void)
 {
 
   hi2c3.Instance = I2C3;
-  hi2c3.Init.Timing = 0x0010061A;
+  hi2c3.Init.Timing = 0x00200C28;
   hi2c3.Init.OwnAddress1 = 0;
   hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1104,7 +1107,7 @@ static void MX_I2C4_Init(void)
 {
 
   hi2c4.Instance = I2C4;
-  hi2c4.Init.Timing = 0x00300711;
+  hi2c4.Init.Timing = 0x00500822;
   hi2c4.Init.OwnAddress1 = 0;
   hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1611,6 +1614,25 @@ static void MX_USART3_UART_Init(void)
 
 }
 
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel6_IRQn);
+  /* DMA2_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Channel2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Channel2_IRQn);
+
+}
+
 /** Configure pins as 
         * Analog 
         * Input 
@@ -1647,7 +1669,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOE, MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, MCU_OUT_SX_NRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : MCU_INOUT_PW03_Pin MCU_INOUT_PW02_Pin MCU_INOUT_PW01_Pin MCU_IN_AX_IRQ_Pin */
   GPIO_InitStruct.Pin = MCU_INOUT_PW03_Pin|MCU_INOUT_PW02_Pin|MCU_INOUT_PW01_Pin|MCU_IN_AX_IRQ_Pin;
@@ -1664,7 +1686,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_EVENTOUT_PF10_Pin */
   GPIO_InitStruct.Pin = MCU_EVENTOUT_PF10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PF10_GPIO_Port, &GPIO_InitStruct);
@@ -1674,7 +1696,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin 
                           |MCU_OUT_AUDIO_DAC_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
@@ -1687,7 +1709,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_OUT_LCD_nRST_Pin */
   GPIO_InitStruct.Pin = MCU_OUT_LCD_nRST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(MCU_OUT_LCD_nRST_GPIO_Port, &GPIO_InitStruct);
 
@@ -1700,7 +1722,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : MCU_OUT_AX_SEL_Pin MCU_OUT_SX_SEL_Pin */
   GPIO_InitStruct.Pin = MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
@@ -1710,10 +1732,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MCU_OUT_SX_NRESET_Pin MCU_OUT_AUDIO_ADC_nRESET_Pin MCU_OUT_AUDIO_ADC_SEL_Pin */
-  GPIO_InitStruct.Pin = MCU_OUT_SX_NRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin;
+  /*Configure GPIO pins : MCU_OUT_SX_nRESET_Pin MCU_OUT_AUDIO_ADC_nRESET_Pin MCU_OUT_AUDIO_ADC_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
@@ -1734,7 +1756,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_EVENTOUT_PG4_Pin */
   GPIO_InitStruct.Pin = MCU_EVENTOUT_PG4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PG4_GPIO_Port, &GPIO_InitStruct);
@@ -1748,8 +1770,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_MCO_Pin */
   GPIO_InitStruct.Pin = MCU_MCO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
   HAL_GPIO_Init(MCU_MCO_GPIO_Port, &GPIO_InitStruct);
 
@@ -1774,7 +1796,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_EVENTOUT_PE0_Pin */
   GPIO_InitStruct.Pin = MCU_EVENTOUT_PE0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PE0_GPIO_Port, &GPIO_InitStruct);
@@ -1842,8 +1864,7 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 void StartDefaultTask(void const * argument)
 {
   /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();     // 29.0mA --> 32.0mA  !!!!!!
-
+  MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
 
