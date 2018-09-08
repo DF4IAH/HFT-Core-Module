@@ -10,6 +10,7 @@
 
 
 #define ADC_REFBUF_mV                 2048UL
+#define ADC_V_OFFS_SOLAR_mV           38L
 #define ADC_V_OFFS_PULL_TCXO_mV       38L
 
 

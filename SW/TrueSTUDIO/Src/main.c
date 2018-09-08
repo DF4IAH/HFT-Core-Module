@@ -60,6 +60,7 @@
 
 #include "usb.h"
 #include "i2c.h"
+#include "adc.h"
 #include "tcxo_20MHz.h"
 
 
@@ -92,6 +93,8 @@ RTC_HandleTypeDef hrtc;
 
 SAI_HandleTypeDef hsai_BlockB1;
 SAI_HandleTypeDef hsai_BlockA2;
+DMA_HandleTypeDef hdma_sai1_b;
+DMA_HandleTypeDef hdma_sai2_a;
 
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
@@ -154,6 +157,7 @@ static uint64_t                       s_timerStart_us         = 0ULL;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_CRC_Init(void);
 static void MX_I2C2_Init(void);
@@ -287,6 +291,7 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 
 void PowerSwitchInit(void)
 {
+  /* Connect Vusb with +5V0 */
   PowerSwitchDo(POWERSWITCH__USB_SW, 1);
 
   /* Disable high current system */
@@ -295,11 +300,26 @@ void PowerSwitchInit(void)
   /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
   PowerSwitchDo(POWERSWITCH__3V3_XO, 0);
 
-//PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
-//for (uint16_t i = 10000; i; i--) ;
-  PowerSwitchDo(POWERSWITCH__1V2_SW, 1);
+  /* Enable SMPS */
+  {
+//  PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
+//  for (uint16_t i = 10000; i; i--) ;
+    PowerSwitchDo(POWERSWITCH__1V2_SW, 1);
 
-//PowerSwitchDo(POWERSWITCH__BAT_SW, 0);
+    /*
+     * SMPS DC/DC converter enabled but disconnected:
+     *  --> Quiescent   current: 3.0 mA
+     *  --> Application current: 3.0 mA + 13.5  mA = 16.5  mA
+     *  --> Power estimation   : 3.0 mA +  2.97 mA =  5.97 mA
+     *
+     * SMPS DC/DC converter enabled and connected:
+     *  --> Quiescent   current: 3.0 mA
+     *  --> Application current: 3.0 mA + 11.0  mA = 14.0  mA
+     *  --> Power estimation   : 3.0 mA +  1.33 mA =  4.33 mA
+     */
+  }
+
+  /* Vbat charger of MCU enabled with 1.5 kOhm */
   PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
 }
 
@@ -458,7 +478,12 @@ int main(void)
     /* ARM software reset to be done */
     SystemResetbyARMcore();
   }
-  __HAL_RCC_CLEAR_RESET_FLAGS();
+  __HAL_RCC_CLEAR_RESET_FLAGS();  // 23.0mA --> 23.0mA
+
+#if 0
+  /* Give PMIC devices 3 seconds time to stabilize before demand of power ramps up */
+  for (uint32_t delayCntr = 1000000UL; delayCntr; delayCntr--) { }
+#endif
 
   /* USER CODE END 1 */
 
@@ -477,15 +502,17 @@ int main(void)
   /* USER CODE BEGIN SysInit */
 
   /* HSI16 trim */
-  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
+  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);  // 25.0mA --> 25.0mA                                  // 0x40 centered
 
   /* MSI trim */
-  __HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                        // Signed
+  //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
+  HAL_RCCEx_EnableMSIPLLMode();  // 25.0mA --> 25.0mA
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_CRC_Init();
   MX_I2C2_Init();
@@ -509,6 +536,8 @@ int main(void)
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 
+#if 0
+  /* Disable clocks again to save power */
   __HAL_RCC_GPIOA_CLK_DISABLE();
   __HAL_RCC_GPIOB_CLK_DISABLE();
   __HAL_RCC_GPIOC_CLK_DISABLE();
@@ -517,7 +546,27 @@ int main(void)
   __HAL_RCC_GPIOF_CLK_DISABLE();
   __HAL_RCC_GPIOG_CLK_DISABLE();
   __HAL_RCC_GPIOH_CLK_DISABLE();
+
+  __HAL_RCC_CRC_CLK_DISABLE();
+
+  __HAL_RCC_I2C1_CLK_DISABLE();
+  __HAL_RCC_I2C2_CLK_DISABLE();
+  __HAL_RCC_I2C3_CLK_DISABLE();
+
   __HAL_RCC_RNG_CLK_DISABLE();
+
+  __HAL_RCC_SAI1_CLK_DISABLE();
+  __HAL_RCC_SAI2_CLK_DISABLE();
+
+  __HAL_RCC_SPI1_CLK_DISABLE();
+  __HAL_RCC_SPI3_CLK_DISABLE();
+
+  __HAL_RCC_USART1_CLK_DISABLE();
+  __HAL_RCC_USART2_CLK_DISABLE();
+  __HAL_RCC_USART3_CLK_DISABLE();
+
+  __HAL_RCC_DFSDM1_CLK_DISABLE();
+#endif
 
   /* USER CODE END 2 */
 
@@ -547,6 +596,7 @@ int main(void)
   spi3MutexHandle = osMutexCreate(osMutex(spi3Mutex));
 
   /* USER CODE BEGIN RTOS_MUTEX */
+  __asm volatile( "nop" );  // 29.0mA
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
@@ -614,6 +664,7 @@ int main(void)
   usbFromHostQueueHandle = osMessageCreate(osMessageQ(usbFromHostQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
+  __asm volatile( "nop" );  // 29.0mA
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
  
@@ -627,11 +678,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
   }
   /* USER CODE END 3 */
 
@@ -657,22 +706,14 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSI
-                              |RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_LSE
+                              |RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
-  RCC_OscInitStruct.HSICalibrationValue = 64;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 2;
-  RCC_OscInitStruct.PLL.PLLN = 8;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV4;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV4;
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_9;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -682,12 +723,12 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -706,13 +747,20 @@ void SystemClock_Config(void)
   PeriphClkInit.I2c2ClockSelection = RCC_I2C2CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c4ClockSelection = RCC_I2C4CLKSOURCE_SYSCLK;
-  PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLL;
-  PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLL;
+  PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLLSAI1;
+  PeriphClkInit.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLSAI1;
   PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_SYSCLK;
   PeriphClkInit.Dfsdm1ClockSelection = RCC_DFSDM1CLKSOURCE_PCLK;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
   PeriphClkInit.RngClockSelection = RCC_RNGCLKSOURCE_HSI48;
+  PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_MSI;
+  PeriphClkInit.PLLSAI1.PLLSAI1M = 2;
+  PeriphClkInit.PLLSAI1.PLLSAI1N = 8;
+  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV4;
+  PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV4;
+  PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV4;
+  PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_SAI1CLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -722,7 +770,7 @@ void SystemClock_Config(void)
 
     /**Configure the main internal regulator output voltage 
     */
-  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -957,7 +1005,7 @@ static void MX_I2C1_Init(void)
 {
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x00300711;
+  hi2c1.Init.Timing = 0x00500822;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -991,7 +1039,7 @@ static void MX_I2C2_Init(void)
 {
 
   hi2c2.Instance = I2C2;
-  hi2c2.Init.Timing = 0x00300711;
+  hi2c2.Init.Timing = 0x00500822;
   hi2c2.Init.OwnAddress1 = 0;
   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1025,7 +1073,7 @@ static void MX_I2C3_Init(void)
 {
 
   hi2c3.Instance = I2C3;
-  hi2c3.Init.Timing = 0x0010061A;
+  hi2c3.Init.Timing = 0x00200C28;
   hi2c3.Init.OwnAddress1 = 0;
   hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1059,7 +1107,7 @@ static void MX_I2C4_Init(void)
 {
 
   hi2c4.Instance = I2C4;
-  hi2c4.Init.Timing = 0x00300711;
+  hi2c4.Init.Timing = 0x00500822;
   hi2c4.Init.OwnAddress1 = 0;
   hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -1566,6 +1614,25 @@ static void MX_USART3_UART_Init(void)
 
 }
 
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel6_IRQn);
+  /* DMA2_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Channel2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Channel2_IRQn);
+
+}
+
 /** Configure pins as 
         * Analog 
         * Input 
@@ -1602,24 +1669,24 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOE, MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PE2 PE4 PE5 MCU_IN_AX_IRQ_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5|MCU_IN_AX_IRQ_Pin;
+  /*Configure GPIO pins : MCU_INOUT_PW03_Pin MCU_INOUT_PW02_Pin MCU_INOUT_PW01_Pin MCU_IN_AX_IRQ_Pin */
+  GPIO_InitStruct.Pin = MCU_INOUT_PW03_Pin|MCU_INOUT_PW02_Pin|MCU_INOUT_PW01_Pin|MCU_IN_AX_IRQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PF2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2;
+  /*Configure GPIO pin : MCU_INOUT_PW00_Pin */
+  GPIO_InitStruct.Pin = MCU_INOUT_PW00_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(MCU_INOUT_PW00_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MCU_EVENTOUT_PF10_Pin */
   GPIO_InitStruct.Pin = MCU_EVENTOUT_PF10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PF10_GPIO_Port, &GPIO_InitStruct);
@@ -1629,7 +1696,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin 
                           |MCU_OUT_AUDIO_DAC_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
@@ -1642,47 +1709,46 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_OUT_LCD_nRST_Pin */
   GPIO_InitStruct.Pin = MCU_OUT_LCD_nRST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(MCU_OUT_LCD_nRST_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MCU_IN_AX_GPIO1_Pin */
   GPIO_InitStruct.Pin = MCU_IN_AX_GPIO1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(MCU_IN_AX_GPIO1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : MCU_OUT_AX_SEL_Pin MCU_OUT_SX_SEL_Pin */
   GPIO_InitStruct.Pin = MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MCU_IN_RE_I_Pin MCU_IN_RE_Q_Pin MCU_IN_RE_PB_Pin PB3 
-                           PB5 PB6 PB7 */
-  GPIO_InitStruct.Pin = MCU_IN_RE_I_Pin|MCU_IN_RE_Q_Pin|MCU_IN_RE_PB_Pin|GPIO_PIN_3 
-                          |GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : MCU_INOUT_SX_NRESET_Pin */
-  GPIO_InitStruct.Pin = MCU_INOUT_SX_NRESET_Pin;
+  /*Configure GPIO pins : MCU_IN_RE_I_Pin MCU_IN_RE_Q_Pin MCU_IN_RE_PB_Pin */
+  GPIO_InitStruct.Pin = MCU_IN_RE_I_Pin|MCU_IN_RE_Q_Pin|MCU_IN_RE_PB_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(MCU_INOUT_SX_NRESET_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PD9 PD10 PD14 PD15 
-                           MCU_IN_AUDIO_ADC_MDAT1_Pin MCU_IN_AUDIO_ADC_MDAT0_Pin MCU_IN_AUDIO_ADC_nDR_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_14|GPIO_PIN_15 
-                          |MCU_IN_AUDIO_ADC_MDAT1_Pin|MCU_IN_AUDIO_ADC_MDAT0_Pin|MCU_IN_AUDIO_ADC_nDR_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  /*Configure GPIO pins : MCU_OUT_SX_nRESET_Pin MCU_OUT_AUDIO_ADC_nRESET_Pin MCU_OUT_AUDIO_ADC_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MCU_EXTI2_SX_DIO0_TXRXDONE_Pin MCU_EXTI3_SX_DIO1_RXTO_Pin */
-  GPIO_InitStruct.Pin = MCU_EXTI2_SX_DIO0_TXRXDONE_Pin|MCU_EXTI3_SX_DIO1_RXTO_Pin;
+  /*Configure GPIO pins : MCU_INOUT_PS00_Pin MCU_INOUT_PS01_Pin MCU_INOUT_PS02_Pin MCU_INOUT_PS03_Pin 
+                           MCU_IN_AUDIO_ADC_MDAT1_Pin MCU_IN_AUDIO_ADC_MDAT0_Pin */
+  GPIO_InitStruct.Pin = MCU_INOUT_PS00_Pin|MCU_INOUT_PS01_Pin|MCU_INOUT_PS02_Pin|MCU_INOUT_PS03_Pin 
+                          |MCU_IN_AUDIO_ADC_MDAT1_Pin|MCU_IN_AUDIO_ADC_MDAT0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : MCU_IN_EXTI2_SX_DIO0_TXRXDONE_Pin MCU_IN_EXTI3_SX_DIO1_RXTO_Pin */
+  GPIO_InitStruct.Pin = MCU_IN_EXTI2_SX_DIO0_TXRXDONE_Pin|MCU_IN_EXTI3_SX_DIO1_RXTO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
@@ -1690,7 +1756,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_EVENTOUT_PG4_Pin */
   GPIO_InitStruct.Pin = MCU_EVENTOUT_PG4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PG4_GPIO_Port, &GPIO_InitStruct);
@@ -1698,34 +1764,39 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : MCU_IN_AUDIO_DAC_nRDY_Pin */
   GPIO_InitStruct.Pin = MCU_IN_AUDIO_DAC_nRDY_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(MCU_IN_AUDIO_DAC_nRDY_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MCU_MCO_Pin */
   GPIO_InitStruct.Pin = MCU_MCO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
   HAL_GPIO_Init(MCU_MCO_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MCU_OUT_AUDIO_ADC_nRESET_Pin MCU_OUT_AUDIO_ADC_SEL_Pin */
-  GPIO_InitStruct.Pin = MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+  /*Configure GPIO pin : MCU_IN_AUDIO_ADC_nDR_Pin */
+  GPIO_InitStruct.Pin = MCU_IN_AUDIO_ADC_nDR_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(MCU_IN_AUDIO_ADC_nDR_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : MCU_EXTI7_INTR_SI5338_Pin */
-  GPIO_InitStruct.Pin = MCU_EXTI7_INTR_SI5338_Pin;
+  /*Configure GPIO pin : MCU_IN_EXTI7_INTR_SI5338_Pin */
+  GPIO_InitStruct.Pin = MCU_IN_EXTI7_INTR_SI5338_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(MCU_EXTI7_INTR_SI5338_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(MCU_IN_EXTI7_INTR_SI5338_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : MCU_INOUT_PN00_Pin MCU_INOUT_PN01_Pin MCU_INOUT_PN02_Pin MCU_INOUT_PN03_Pin */
+  GPIO_InitStruct.Pin = MCU_INOUT_PN00_Pin|MCU_INOUT_PN01_Pin|MCU_INOUT_PN02_Pin|MCU_INOUT_PN03_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MCU_EVENTOUT_PE0_Pin */
   GPIO_InitStruct.Pin = MCU_EVENTOUT_PE0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PE0_GPIO_Port, &GPIO_InitStruct);
@@ -1798,7 +1869,7 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN 5 */
 
   /* Power switch settings */
-  PowerSwitchInit();
+  PowerSwitchInit();        // 32.0mA --> 28.0mA
 
   /* Si5338 clock generator */
 #if 0
@@ -1813,17 +1884,39 @@ void StartDefaultTask(void const * argument)
 #endif
 
   /* LCD-backlight default settings */
-  LcdBacklightInit();
+  LcdBacklightInit();       // 28.0mA --> 30.0mA  !!!!
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();
 #endif
 
+  osDelay(850UL);
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000);
+    const uint32_t  eachMs              = 1000UL;
+    static uint32_t sf_previousWakeTime = 0UL;
+    int             dbgLen;
+    char            dbgBuf[128];
+
+    if (!sf_previousWakeTime) {
+      sf_previousWakeTime  = osKernelSysTick();
+    }
+
+    /* Repeat each time period ADC conversion */
+    osDelayUntil(&sf_previousWakeTime, eachMs);
+    adcStartConv(ADC_PORT_V_SOLAR);
+
+    BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_SOLAR, EG_ADC__CONV_AVAIL_V_SOLAR, pdFALSE, 100 / portTICK_PERIOD_MS);
+    if (egBits & EG_ADC__CONV_AVAIL_V_SOLAR) {
+      uint16_t l_adc_v_solar = adcGetVsolar();
+
+      dbgLen = sprintf(dbgBuf, "ADC: Vsolar = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_SOLAR_mV + l_adc_v_solar * (ADC_REFBUF_mV / 65535.0f)));
+      usbLogLen(dbgBuf, dbgLen);
+    }
   }
+
   /* USER CODE END 5 */ 
 }
 
