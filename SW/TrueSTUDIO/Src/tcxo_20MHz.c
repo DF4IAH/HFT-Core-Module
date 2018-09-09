@@ -48,13 +48,13 @@ void tcxo20MhzTaskLoop(void)
 
   /* Repeat each time period ADC conversion */
   osDelayUntil(&sf_previousWakeTime, eachMs);
-  adcStartConv(ADC_PORT_V_PULL_TCXO);
+  adcStartConv(ADC_ADC3_V_PULL_TCXO);
 
-  BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_PULL_TCXO, EG_ADC__CONV_AVAIL_V_PULL_TCXO, pdFALSE, 100 / portTICK_PERIOD_MS);
-  if (egBits & EG_ADC__CONV_AVAIL_V_PULL_TCXO) {
-    uint16_t l_adc_v_pull_tcxo = adcGetVpullTcxo();
+  BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC3__CONV_AVAIL_V_PULL_TCXO, EG_ADC3__CONV_AVAIL_V_PULL_TCXO, pdFALSE, 100 / portTICK_PERIOD_MS);
+  if (egBits & EG_ADC3__CONV_AVAIL_V_PULL_TCXO) {
+    uint16_t l_adc_v_pull_tcxo = adcGetVal(ADC_ADC3_V_PULL_TCXO);
 
-    dbgLen = sprintf(dbgBuf, "ADC: Vpull  = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_PULL_TCXO_mV + l_adc_v_pull_tcxo * (ADC_REFBUF_mV / 65535.0f)));
+    dbgLen = sprintf(dbgBuf, "ADC: Vpull  = %4d mV\r\n",  (int16_t) (l_adc_v_pull_tcxo + 0.5f));
     usbLogLen(dbgBuf, dbgLen);
   }
 }

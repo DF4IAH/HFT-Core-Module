@@ -74,6 +74,7 @@
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc3;
+DMA_HandleTypeDef hdma_adc1;
 
 CRC_HandleTypeDef hcrc;
 
@@ -815,16 +816,16 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc1.Init.ScanConvMode = ADC_SCAN_ENABLE;
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc1.Init.LowPowerAutoWait = DISABLE;
   hadc1.Init.ContinuousConvMode = DISABLE;
-  hadc1.Init.NbrOfConversion = 1;
+  hadc1.Init.NbrOfConversion = 4;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.NbrOfDiscConversion = 1;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.DMAContinuousRequests = ENABLE;
   hadc1.Init.Overrun = ADC_OVR_DATA_PRESERVED;
   hadc1.Init.OversamplingMode = ENABLE;
   hadc1.Init.Oversampling.Ratio = ADC_OVERSAMPLING_RATIO_16;
@@ -846,12 +847,39 @@ static void MX_ADC1_Init(void)
 
     /**Configure Regular Channel 
     */
-  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
+  sConfig.Channel = ADC_CHANNEL_VREFINT;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_12CYCLES_5;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configure Regular Channel 
+    */
+  sConfig.Channel = ADC_CHANNEL_8;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configure Regular Channel 
+    */
+  sConfig.Channel = ADC_CHANNEL_VBAT;
+  sConfig.Rank = ADC_REGULAR_RANK_3;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configure Regular Channel 
+    */
+  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
+  sConfig.Rank = ADC_REGULAR_RANK_4;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -1624,6 +1652,9 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA2_CLK_ENABLE();
 
   /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
   /* DMA1_Channel6_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel6_IRQn);
@@ -1898,7 +1929,7 @@ void StartDefaultTask(void const * argument)
     const uint32_t  eachMs              = 1000UL;
     static uint32_t sf_previousWakeTime = 0UL;
     int             dbgLen;
-    char            dbgBuf[128];
+    char            dbgBuf[256];
 
     if (!sf_previousWakeTime) {
       sf_previousWakeTime  = osKernelSysTick();
@@ -1906,13 +1937,22 @@ void StartDefaultTask(void const * argument)
 
     /* Repeat each time period ADC conversion */
     osDelayUntil(&sf_previousWakeTime, eachMs);
-    adcStartConv(ADC_PORT_V_SOLAR);
+    adcStartConv(ADC_ADC1_TEMP);
 
-    BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC__CONV_AVAIL_V_SOLAR, EG_ADC__CONV_AVAIL_V_SOLAR, pdFALSE, 100 / portTICK_PERIOD_MS);
-    if (egBits & EG_ADC__CONV_AVAIL_V_SOLAR) {
-      uint16_t l_adc_v_solar = adcGetVsolar();
+    const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
+    BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
+    if ((regBits & regMask) == regMask) {
+      /* All channels of ADC1 are complete */
+      float l_adc_v_vdda   = adcGetVal(ADC_ADC1_V_VDDA);
+      float l_adc_v_solar  = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
+      float l_adc_v_bat    = adcGetVal(ADC_ADC1_V_BAT);
+      float l_adc_temp     = adcGetVal(ADC_ADC1_TEMP);
 
-      dbgLen = sprintf(dbgBuf, "ADC: Vsolar = %4d mV\r\n", (int16_t) (0.5f + ADC_V_OFFS_SOLAR_mV + l_adc_v_solar * (ADC_REFBUF_mV / 65535.0f)));
+      dbgLen = sprintf(dbgBuf, "ADC: Vdda = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %4ldC\r\n",
+          (int16_t) (l_adc_v_vdda   + 0.5f),
+          (int16_t) (l_adc_v_solar  + 0.5f),
+          (int16_t) (l_adc_v_bat    + 0.5f),
+          (int32_t) (l_adc_temp     + 0.5f));
       usbLogLen(dbgBuf, dbgLen);
     }
   }
