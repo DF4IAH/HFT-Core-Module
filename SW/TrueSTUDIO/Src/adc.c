@@ -87,7 +87,7 @@ void adcStopConv(ADC_ENUM_t adc)
     break;
 
   case ADC_ADC3_V_PULL_TCXO:
-    HAL_ADC_Stop_IT(&hadc3);
+    HAL_ADC_Stop_DMA(&hadc3);
     break;
 
   default:
@@ -100,11 +100,14 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
   BaseType_t      pxHigherPriorityTaskWoken = pdFALSE;
 
   if (hadc == &hadc1) {
+    const uint16_t* TS_CAL1_ADDR = (const uint16_t*) 0x1FFF75A8;
+    const uint16_t* TS_CAL2_ADDR = (const uint16_t*) 0x1FFF75CA;
+
     s_adc1_refint_val = s_adc1_dma_buf[0] / 16.0f;
     s_adc1_vref_mv    = (((float)VREFINT_CAL_VREF * (*VREFINT_CAL_ADDR)) / s_adc1_refint_val) - ADC_V_OFFS_VREF_mV;
     s_adc1_solar_mv   = (s_adc1_dma_buf[1] * s_adc1_vref_mv / 65535.0f) + ADC_V_OFFS_SOLAR_mV;
-    s_adc1_bat_mv     = ADC_V_MUL_BAT * ((s_adc1_dma_buf[2] * s_adc1_vref_mv / 65535.0f) + ADC_V_OFFS_BAT_mV);
-    s_adc1_temp       = (s_adc1_dma_buf[3] * s_adc1_vref_mv / 65535.0f);
+    s_adc1_bat_mv     = ADC_MUL_BAT * ((s_adc1_dma_buf[2] * s_adc1_vref_mv / 65535.0f) + ADC_V_OFFS_BAT_mV);
+    s_adc1_temp       = ((float)(110 - 30) / (*TS_CAL2_ADDR - *TS_CAL1_ADDR)) * ((s_adc1_dma_buf[3] *ADC_MUL_TEMP / 16.f) - *TS_CAL1_ADDR) + 30.f;
 
     xEventGroupSetBitsFromISR(adcEventGroupHandle, EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP, &pxHigherPriorityTaskWoken);
 

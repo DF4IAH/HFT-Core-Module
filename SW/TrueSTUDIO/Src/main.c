@@ -75,6 +75,7 @@
 ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc3;
 DMA_HandleTypeDef hdma_adc1;
+DMA_HandleTypeDef hdma_adc3;
 
 CRC_HandleTypeDef hcrc;
 
@@ -207,6 +208,7 @@ void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t
   }
 
   *outInt = (int32_t) val;
+  val -= *outInt;
 
   if (isNeg) {
     val = -val;
@@ -908,7 +910,7 @@ static void MX_ADC3_Init(void)
   hadc3.Init.NbrOfDiscConversion = 1;
   hadc3.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-  hadc3.Init.DMAContinuousRequests = DISABLE;
+  hadc3.Init.DMAContinuousRequests = ENABLE;
   hadc3.Init.Overrun = ADC_OVR_DATA_PRESERVED;
   hadc3.Init.OversamplingMode = ENABLE;
   hadc3.Init.Oversampling.Ratio = ADC_OVERSAMPLING_RATIO_16;
@@ -1655,6 +1657,9 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel1_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+  /* DMA1_Channel3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
   /* DMA1_Channel6_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel6_IRQn);
@@ -1943,16 +1948,20 @@ void StartDefaultTask(void const * argument)
     BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
     if ((regBits & regMask) == regMask) {
       /* All channels of ADC1 are complete */
-      float l_adc_v_vdda   = adcGetVal(ADC_ADC1_V_VDDA);
-      float l_adc_v_solar  = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
-      float l_adc_v_bat    = adcGetVal(ADC_ADC1_V_BAT);
-      float l_adc_temp     = adcGetVal(ADC_ADC1_TEMP);
+      float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
+      float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
+      float   l_adc_v_bat       = adcGetVal(ADC_ADC1_V_BAT);
+      float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
+      int32_t   l_adc_temp_i    = 0L;
+      uint32_t  l_adc_temp_f100 = 0UL;
 
-      dbgLen = sprintf(dbgBuf, "ADC: Vdda = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %4ldC\r\n",
+      mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
+
+      dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
           (int16_t) (l_adc_v_vdda   + 0.5f),
           (int16_t) (l_adc_v_solar  + 0.5f),
           (int16_t) (l_adc_v_bat    + 0.5f),
-          (int32_t) (l_adc_temp     + 0.5f));
+          l_adc_temp_i, l_adc_temp_f100);
       usbLogLen(dbgBuf, dbgLen);
     }
   }

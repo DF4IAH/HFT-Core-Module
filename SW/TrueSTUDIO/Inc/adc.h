@@ -12,9 +12,9 @@
 #define ADC_V_OFFS_VREF_mV            38.8f
 #define ADC_V_OFFS_REFINT_mV          38.0f
 #define ADC_V_OFFS_SOLAR_mV           38.f
-#define ADC_V_MUL_BAT                 3.076f
+#define ADC_MUL_BAT                   3.076f
 #define ADC_V_OFFS_BAT_mV             38.0f
-#define ADC_V_OFFS_TEMP_mC            -273150L
+#define ADC_MUL_TEMP                  0.6667f
 
 #define ADC_V_OFFS_PULL_TCXO_mV       38.0f
 
