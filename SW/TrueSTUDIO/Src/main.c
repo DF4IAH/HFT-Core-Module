@@ -60,6 +60,7 @@
 
 #include "usb.h"
 #include "i2c.h"
+#include "spi.h"
 #include "adc.h"
 #include "tcxo_20MHz.h"
 
@@ -100,6 +101,10 @@ DMA_HandleTypeDef hdma_sai2_a;
 
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
+DMA_HandleTypeDef hdma_spi1_rx;
+DMA_HandleTypeDef hdma_spi1_tx;
+DMA_HandleTypeDef hdma_spi3_rx;
+DMA_HandleTypeDef hdma_spi3_tx;
 
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim5;
@@ -131,8 +136,10 @@ osMutexId spi3MutexHandle;
 extern uint32_t                       uwTick;
 
 /* Private variables ---------------------------------------------------------*/
-EventGroupHandle_t                    adcEventGroupHandle;
+EventGroupHandle_t                    extiEventGroupHandle;
 EventGroupHandle_t                    usbToHostEventGroupHandle;
+EventGroupHandle_t                    adcEventGroupHandle;
+EventGroupHandle_t                    spiEventGroupHandle;
 
 osSemaphoreId                         usbToHostBinarySemHandle;
 
@@ -505,11 +512,11 @@ int main(void)
   /* USER CODE BEGIN SysInit */
 
   /* HSI16 trim */
-  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);  // 25.0mA --> 25.0mA                                  // 0x40 centered
+  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
 
   /* MSI trim */
   //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
-  HAL_RCCEx_EnableMSIPLLMode();  // 25.0mA --> 25.0mA
+  HAL_RCCEx_EnableMSIPLLMode();
 
   /* USER CODE END SysInit */
 
@@ -599,7 +606,6 @@ int main(void)
   spi3MutexHandle = osMutexCreate(osMutex(spi3Mutex));
 
   /* USER CODE BEGIN RTOS_MUTEX */
-  __asm volatile( "nop" );  // 29.0mA
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
@@ -609,8 +615,10 @@ int main(void)
   usbToHostBinarySemHandle = osSemaphoreCreate(osSemaphore(usbToHostBinarySem), 1);
 
   /* add event groups */
+  extiEventGroupHandle = xEventGroupCreate();
   usbToHostEventGroupHandle = xEventGroupCreate();
   adcEventGroupHandle = xEventGroupCreate();
+  spiEventGroupHandle = xEventGroupCreate();
 
   /* USER CODE END RTOS_SEMAPHORES */
 
@@ -667,7 +675,6 @@ int main(void)
   usbFromHostQueueHandle = osMessageCreate(osMessageQ(usbFromHostQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  __asm volatile( "nop" );  // 29.0mA
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
  
@@ -1659,15 +1666,27 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel1_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
   /* DMA1_Channel3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
   /* DMA1_Channel6_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel6_IRQn);
+  /* DMA2_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Channel1_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Channel1_IRQn);
   /* DMA2_Channel2_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Channel2_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA2_Channel2_IRQn);
+  /* DMA2_Channel4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Channel4_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Channel4_IRQn);
+  /* DMA2_Channel7_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Channel7_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Channel7_IRQn);
 
 }
 
@@ -1839,9 +1858,42 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PE0_GPIO_Port, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  BaseType_t taskWoken = 0L;
+
+  switch (GPIO_Pin) {
+  case GPIO_PIN_2:
+    /* Check for PG2 pin */
+    if (GPIOG->IDR & GPIO_IDR_ID2) {
+      xEventGroupSetBitsFromISR(extiEventGroupHandle, EXTI_SX__DIO0, &taskWoken);
+      //xEventGroupSetBitsFromISR(loraEventGroupHandle, /*Lora_EGW__EXTI_DIO0*/ 0x00001000UL, &taskWoken);
+    }
+    break;
+
+  case GPIO_PIN_3:
+    /* Check for PG3 pin */
+    if (GPIOG->IDR & GPIO_IDR_ID3) {
+      xEventGroupSetBitsFromISR(extiEventGroupHandle, EXTI_SX__DIO1, &taskWoken);
+    }
+    break;
+
+  default:
+    { }
+  }
+}
+
 #if 1
 void  vApplicationIdleHook(void)
 {
@@ -1926,6 +1978,15 @@ void StartDefaultTask(void const * argument)
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();
+#endif
+
+#define SPI3_AX_CHECK
+#ifdef SPI3_AX_CHECK
+  if (HAL_OK == spiDetectAx5243()) {
+    usbLog("AX5243 detected.\r\n");
+  } else {
+    usbLog("AX5243 does not respond!\r\n");
+  }
 #endif
 
   osDelay(850UL);
