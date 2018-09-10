@@ -5172,7 +5172,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="25.4" y="34.925" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="23.495" y="36.195" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C1401" library="rcl" package="C0805" value="10uF" x="19.05" y="44.45" smashed="yes" rot="MR90">
+<element name="C1401" library="rcl" package="C0805" value="100uF" x="19.05" y="44.45" smashed="yes" rot="MR90">
 <attribute name="NAME" x="20.32" y="43.18" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="16.51" y="43.18" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
