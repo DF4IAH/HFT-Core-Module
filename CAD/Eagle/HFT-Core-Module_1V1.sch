@@ -28074,6 +28074,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <attributes>
 </attributes>
 <variantdefs>
+<variantdef name="BAT-Charger_by_MCU"/>
 </variantdefs>
 <classes>
 <class number="0" name="default" width="0" drill="0">
@@ -28129,10 +28130,9 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="X2321" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="X2311" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
 <part name="X2331" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045" device=""/>
-<part name="C1602" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
+<part name="C1602" library="rcl" deviceset="C-EU" device="C0805" value="100uF"/>
 <part name="L1604" library="df4iah_rcl" deviceset="L-EU" device="L3230M" value="1.0uH 33mR"/>
 <part name="C1605" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C1606" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
 <part name="X0301" library="df4iah_connector" deviceset="HEADER-2X5_1MM27" device="CORTEX_10PIN_JTAG-SWD"/>
 <part name="GND0301" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X0322" library="df4iah_connector" deviceset="HEADER-1X2" device=""/>
@@ -28145,13 +28145,15 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="GND0441" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R0441" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="C0441" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="D0451" library="df4iah_diode" deviceset="D_SOD923" device="" value="CMAD6001"/>
+<part name="D0451" library="df4iah_diode" deviceset="D_SOD923" device="" value="CMAD6001">
+<variant name="BAT-Charger_by_MCU" populate="no"/>
+</part>
 <part name="C0451" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_EEC-S5R5H105N"/>
 <part name="GND0451" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1406" library="rcl" deviceset="C-EU" device="C0805" value="47uF"/>
+<part name="C1406" library="rcl" deviceset="C-EU" device="C0805" value="N/A"/>
 <part name="GND1402" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_VSOL" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="TP_+3V3_SOL" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
+<part name="TP_+5V0_SOL" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="FRAME_15" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="D1501" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="U1501" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
@@ -28209,15 +28211,15 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="D1403" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="L1403" library="df4iah_rcl" deviceset="L-EU" device="13.5X12.5MM" value="33uH"/>
 <part name="C1403" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C1401" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
+<part name="C1401" library="rcl" deviceset="C-EU" device="C0805" value="100uF"/>
 <part name="C1402" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C1404" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="R1406" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R1404" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R1405" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="C1405" library="rcl" deviceset="C-EU" device="C0603" value="0nF"/>
-<part name="R1408" library="rcl" deviceset="R-EU_" device="R0603" value="150kR"/>
-<part name="R1407" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="R1408" library="rcl" deviceset="R-EU_" device="R0603" value="330kR"/>
+<part name="R1407" library="rcl" deviceset="R-EU_" device="R0603" value="120kR"/>
 <part name="SJ0421" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="SJ0422" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="C0422" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
@@ -28595,7 +28597,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R1411" library="rcl" deviceset="R-EU_" device="R0603" value="1kR"/>
 <part name="R1412" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="X1401" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
-<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0805" value="68R"/>
+<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0805" value="100R"/>
 <part name="R0331" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="R0332" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="C0532" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
@@ -30542,9 +30544,12 @@ Digikey: 497-17999-ND</text>
 <text x="165.1" y="73.66" size="2.54" layer="97" ratio="15">MCU VBAT</text>
 <text x="180.34" y="78.74" size="1.778" layer="97">not needed!</text>
 <text x="48.26" y="15.24" size="1.778" layer="97">(1.0A out, 1.5MHz fixed)</text>
-<text x="48.26" y="58.42" size="1.778" layer="97">TODO: 
-enable to MCU-GPIO out
-+1V2 to MCU-ADC</text>
+<text x="48.26" y="63.5" size="1.778" layer="97">TODO: 
+ENABLE to MCU-GPIO out
+voltage down (1.05V) to MCU-GPIO out
++1V2 to MCU-ADC
+to be replaced by TPS62051DGSR</text>
+<text x="93.98" y="30.48" size="1.778" layer="97">Use 10uH, Würth WE-PD 744 777 10</text>
 </plain>
 <instances>
 <instance part="FRAME_04" gate="G$1" x="0" y="0"/>
@@ -31353,7 +31358,7 @@ I2C addr: 0x70</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
 <text x="50.8" y="111.76" size="1.778" layer="97">N.C.</text>
 <text x="50.8" y="104.14" size="1.778" layer="97">N.C.</text>
-<text x="50.8" y="96.52" size="1.778" layer="97"> 8MHz</text>
+<text x="50.8" y="96.52" size="1.778" layer="97">12MHz</text>
 <text x="101.6" y="23.622" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
 <text x="122.936" y="22.098" size="1.778" layer="97" rot="R90">MCU_HSE</text>
 <text x="110.744" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
@@ -33615,7 +33620,7 @@ SPI</text>
 to be replaced by:
 
 LCD: 2x16 chars MIDAS MCCOG21605B6W-FPTLWI</text>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LC-Display
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LCD-Module
 I2C addr: 0x3D</text>
 <text x="10.16" y="71.12" size="2.54" layer="97" ratio="15">Rotary Encoder with Pushbutton</text>
 <text x="15.24" y="139.7" size="1.778" layer="97" rot="R90">MCU_PWM_LED_R</text>
@@ -34209,13 +34214,15 @@ I2C addr: 0x44</text>
 <text x="10.16" y="81.28" size="1.778" layer="97">Solar connector</text>
 <text x="86.36" y="78.74" size="1.778" layer="97">12mA Start-up mode
  2mA MPPT mode</text>
+<text x="182.88" y="55.88" size="1.778" layer="97" rot="R90">for 5.0V: R1407=120kR, R1408=330kR</text>
+<text x="187.96" y="55.88" size="1.778" layer="97" rot="R90">for 3.3V: R1407=100kR, R1408=150kR</text>
 </plain>
 <instances>
 <instance part="FRAME_14" gate="G$1" x="0" y="0"/>
 <instance part="C1406" gate="G$1" x="198.12" y="63.5"/>
 <instance part="GND1402" gate="1" x="198.12" y="48.26"/>
 <instance part="TP_VSOL" gate="G$1" x="43.18" y="127" rot="R180"/>
-<instance part="TP_+3V3_SOL" gate="G$1" x="198.12" y="127" rot="R180"/>
+<instance part="TP_+5V0_SOL" gate="G$1" x="198.12" y="127" rot="R180"/>
 <instance part="R1409" gate="G$1" x="220.98" y="109.22"/>
 <instance part="D1403" gate="G$1" x="101.6" y="124.46"/>
 <instance part="L1403" gate="G$1" x="71.12" y="109.22" rot="R270"/>
@@ -34277,11 +34284,11 @@ I2C addr: 0x44</text>
 <pinref part="X1401" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="+3V3_SOL" class="0">
+<net name="+5V0_SOL" class="0">
 <segment>
 <wire x1="162.56" y1="109.22" x2="165.1" y2="109.22" width="0.1524" layer="91"/>
 <label x="180.34" y="109.22" size="1.778" layer="95"/>
-<pinref part="TP_+3V3_SOL" gate="G$1" pin="TP"/>
+<pinref part="TP_+5V0_SOL" gate="G$1" pin="TP"/>
 <wire x1="165.1" y1="109.22" x2="175.26" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="109.22" x2="198.12" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="109.22" x2="198.12" y2="124.46" width="0.1524" layer="91"/>
@@ -34433,11 +34440,11 @@ I2C addr: 0x44</text>
 <label x="22.86" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="+3V3" class="0">
+<net name="+5V0" class="4">
 <segment>
-<wire x1="236.22" y1="109.22" x2="226.06" y2="109.22" width="0.1524" layer="91"/>
-<label x="236.22" y="109.22" size="1.778" layer="95" xref="yes"/>
 <pinref part="R1409" gate="G$1" pin="2"/>
+<wire x1="226.06" y1="109.22" x2="233.68" y2="109.22" width="0.1524" layer="91"/>
+<label x="233.68" y="109.22" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -34565,19 +34572,18 @@ I2C addr: 0x44</text>
 <text x="104.14" y="68.58" size="1.778" layer="97">14mA quiescent current</text>
 <text x="104.14" y="63.5" size="1.778" layer="97">(replaces PAM2305)</text>
 <text x="104.14" y="119.38" size="1.778" layer="97">TODO:
-enable to MCU GPIO out
-search device w/ lower quiescent current
-+3V3 to MCU ADC</text>
+ENABLE to MCU GPIO out
++3V3 to MCU ADC
+to be replaced by TPS62056DGSR</text>
 </plain>
 <instances>
-<instance part="C1602" gate="G$1" x="73.66" y="78.74"/>
+<instance part="C1602" gate="G$1" x="213.36" y="76.2"/>
 <instance part="L1604" gate="G$1" x="147.32" y="96.52" rot="R270"/>
 <instance part="C1605" gate="G$1" x="160.02" y="76.2"/>
-<instance part="C1606" gate="G$1" x="180.34" y="76.2"/>
 <instance part="FRAME_16" gate="G$1" x="0" y="0"/>
 <instance part="GND1601" gate="1" x="43.18" y="60.96"/>
 <instance part="TP_+5V0" gate="G$1" x="73.66" y="111.76" rot="R180"/>
-<instance part="C1607" gate="G$1" x="213.36" y="76.2"/>
+<instance part="C1607" gate="G$1" x="73.66" y="76.2"/>
 <instance part="GND1602" gate="1" x="213.36" y="60.96"/>
 <instance part="U1601" gate="G$1" x="114.3" y="91.44"/>
 <instance part="TP_+3V3" gate="G$1" x="213.36" y="111.76" rot="R180"/>
@@ -34593,24 +34599,20 @@ search device w/ lower quiescent current
 <pinref part="U1601" gate="G$1" pin="GND"/>
 <wire x1="93.98" y1="91.44" x2="96.52" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="66.04" x2="73.66" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="C1602" gate="G$1" pin="2"/>
+<pinref part="C1607" gate="G$1" pin="-"/>
 <wire x1="73.66" y1="66.04" x2="93.98" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="66.04" x2="73.66" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="66.04" x2="73.66" y2="71.12" width="0.1524" layer="91"/>
 <junction x="73.66" y="66.04"/>
 </segment>
 <segment>
 <pinref part="GND1602" gate="1" pin="GND"/>
-<pinref part="C1607" gate="G$1" pin="-"/>
 <pinref part="C1605" gate="G$1" pin="2"/>
-<wire x1="213.36" y1="66.04" x2="213.36" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="160.02" y1="66.04" x2="160.02" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="66.04" x2="180.34" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="66.04" x2="213.36" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="66.04" x2="213.36" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="66.04" x2="213.36" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="C1602" gate="G$1" pin="2"/>
+<wire x1="213.36" y1="66.04" x2="213.36" y2="71.12" width="0.1524" layer="91"/>
 <junction x="213.36" y="66.04"/>
-<pinref part="C1606" gate="G$1" pin="2"/>
-<junction x="180.34" y="66.04"/>
-<wire x1="180.34" y1="66.04" x2="180.34" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SW" class="0">
@@ -34630,12 +34632,12 @@ search device w/ lower quiescent current
 <wire x1="43.18" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
 <junction x="73.66" y="96.52"/>
 <wire x1="73.66" y1="96.52" x2="73.66" y2="109.22" width="0.1524" layer="91"/>
-<pinref part="C1602" gate="G$1" pin="1"/>
 <wire x1="73.66" y1="96.52" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="U1601" gate="G$1" pin="VIN"/>
-<wire x1="73.66" y1="86.36" x2="73.66" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="U1601" gate="G$1" pin="EN"/>
 <wire x1="96.52" y1="86.36" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="C1607" gate="G$1" pin="+"/>
+<wire x1="73.66" y1="86.36" x2="73.66" y2="78.74" width="0.1524" layer="91"/>
 <junction x="73.66" y="86.36"/>
 </segment>
 </net>
@@ -34643,18 +34645,12 @@ search device w/ lower quiescent current
 <segment>
 <pinref part="C1605" gate="G$1" pin="1"/>
 <wire x1="233.68" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
-<pinref part="C1606" gate="G$1" pin="1"/>
-<wire x1="180.34" y1="96.52" x2="180.34" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
-<junction x="180.34" y="96.52"/>
-<wire x1="160.02" y1="96.52" x2="180.34" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="160.02" y1="86.36" x2="160.02" y2="78.74" width="0.1524" layer="91"/>
 <junction x="160.02" y="86.36"/>
 <pinref part="L1604" gate="G$1" pin="1"/>
 <wire x1="152.4" y1="96.52" x2="160.02" y2="96.52" width="0.1524" layer="91"/>
 <label x="233.68" y="96.52" size="1.778" layer="95" xref="yes"/>
-<pinref part="C1607" gate="G$1" pin="+"/>
-<wire x1="213.36" y1="96.52" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
 <junction x="213.36" y="96.52"/>
 <wire x1="160.02" y1="96.52" x2="160.02" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="U1601" gate="G$1" pin="VOUT_FB"/>
@@ -34662,6 +34658,8 @@ search device w/ lower quiescent current
 <junction x="160.02" y="96.52"/>
 <pinref part="TP_+3V3" gate="G$1" pin="TP"/>
 <wire x1="213.36" y1="96.52" x2="213.36" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="C1602" gate="G$1" pin="1"/>
+<wire x1="213.36" y1="96.52" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
