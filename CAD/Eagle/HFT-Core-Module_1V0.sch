@@ -25717,7 +25717,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="D1403" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="L1403" library="df4iah_rcl" deviceset="L-EU" device="13.5X12.5MM" value="33uH"/>
 <part name="C1403" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C1401" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
+<part name="C1401" library="rcl" deviceset="C-EU" device="C0805" value="100uF"/>
 <part name="C1402" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C1404" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="R1406" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
@@ -28820,7 +28820,7 @@ I2C addr: 0x70</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
 <text x="50.8" y="111.76" size="1.778" layer="97">N.C.</text>
 <text x="50.8" y="104.14" size="1.778" layer="97">N.C.</text>
-<text x="50.8" y="96.52" size="1.778" layer="97">10MHz</text>
+<text x="50.8" y="96.52" size="1.778" layer="97">12MHz</text>
 <text x="101.6" y="23.622" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
 <text x="122.936" y="22.098" size="1.778" layer="97" rot="R90">MCU_HSE</text>
 <text x="110.744" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
