@@ -206,7 +206,7 @@
 #define I2C_SLAVE_GYRO_REG_2_ASAZ                             0x12U
 
 
-void i2cI2c4GyroTaskInit(void);
-void i2cI2c4GyroTaskLoop(void);
+void gyroTaskInit(void);
+void gyroTaskLoop(void);
 
 #endif /* TASK_GYRO_H_ */

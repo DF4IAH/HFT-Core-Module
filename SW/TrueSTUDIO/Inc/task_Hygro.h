@@ -75,7 +75,7 @@
 #define I2C_SLAVE_HYGRO_REG_FETCH_DATA_LO                     0x00U
 
 
-void i2cI2c4HygroTaskInit(void);
-void i2cI2c4HygroTaskLoop(void);
+void hygroTaskInit(void);
+void hygroTaskLoop(void);
 
 #endif /* TASK_HYGRO_H_ */

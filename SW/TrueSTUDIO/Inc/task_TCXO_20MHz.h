@@ -33,8 +33,8 @@
 #define I2C_SLAVE_20MHZ_DAC_REG_RD_CONFIG_RB                  0x08U
 
 
-void i2cI2c4Tcxo20MhzDacInit(void);
-void i2cI2c4Tcxo20MhzDacSet(uint16_t dac);
+void tcxo20MhzDacInit(void);
+void tcxo20MhzDacSet(uint16_t dac);
 
 void tcxo20MhzTaskInit(void);
 void tcxo20MhzTaskLoop(void);

@@ -52,5 +52,31 @@ uint8_t spiDetectAx5243(void)
 }
 
 
+static void ax5243Init(void)
+{
+
+}
+
+
 /* Tasks */
+
+void ax5243TaskInit(void)
+{
+  osDelay(500UL);
+  ax5243Init();
+}
+
+void ax5243TaskLoop(void)
+{
+  const uint32_t  eachMs              = 250UL;
+  static uint32_t sf_previousWakeTime = 0UL;
+
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 500UL;
+  }
+
+  osDelayUntil(&sf_previousWakeTime, eachMs);
+}
 

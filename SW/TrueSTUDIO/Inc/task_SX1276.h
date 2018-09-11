@@ -207,4 +207,8 @@ void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg);
 uint8_t spiDetectSX1276(void);
 uint8_t spiDetectAx5243(void);
 
+
+void sx1276TaskInit(void);
+void sx1276TaskLoop(void);
+
 #endif /* TASK_AX1276_H_ */

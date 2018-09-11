@@ -32,7 +32,7 @@
 
 /* Task */
 
-void i2cI2c4BaroTaskInit(void);
-void i2cI2c4BaroTaskLoop(void);
+void baroTaskInit(void);
+void baroTaskLoop(void);
 
 #endif /* TASK_BARO_H_ */

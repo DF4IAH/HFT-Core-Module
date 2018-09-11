@@ -30,19 +30,19 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_i2cI2c4BaroValid                = 0U;
-static uint16_t             s_i2cI2c4BaroVersion              = 0U;
-static uint16_t             s_i2cI2c4Baro_c[C_I2C_BARO_C_CNT] = { 0U };
-static uint32_t             s_i2cI2c4Baro_d1                  = 0UL;
-static uint32_t             s_i2cI2c4Baro_d2                  = 0UL;
-static int16_t              s_i2cI2c4Baro_temp_cor_100        = 0;
-static int16_t              s_i2cI2c4Baro_p_cor_100           = 0;
-static int32_t              s_i2cI2c4Baro_temp_100            = 0L;
-static int32_t              s_i2cI2c4Baro_p_100               = 0L;
-static int32_t              s_i2cI2c4Baro_qnh_p_h_100         = 0L;
+static uint8_t              s_baroValid                       = 0U;
+static uint16_t             s_baroVersion                     = 0U;
+static uint16_t             s_baro_c[C_I2C_BARO_C_CNT]        = { 0U };
+static uint32_t             s_baro_d1                         = 0UL;
+static uint32_t             s_baro_d2                         = 0UL;
+static int16_t              s_baro_temp_cor_100               = 0;
+static int16_t              s_baro_p_cor_100                  = 0;
+static int32_t              s_baro_temp_100                   = 0L;
+static int32_t              s_baro_p_100                      = 0L;
+static int32_t              s_baro_qnh_p_h_100                = 0L;
 
 
-static void i2cI2c4BaroFetch(void)
+static void baroFetch(void)
 {
   /* Request D1 */
   {
@@ -56,7 +56,7 @@ static void i2cI2c4BaroFetch(void)
     uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_ADC_READ };
     uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 3);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_i2cI2c4Baro_d1 = ((uint32_t)i2c4RxBuffer[0] << 16) | ((uint32_t)i2c4RxBuffer[1] << 8) | i2c4RxBuffer[2];
+      s_baro_d1 = ((uint32_t)i2c4RxBuffer[0] << 16) | ((uint32_t)i2c4RxBuffer[1] << 8) | i2c4RxBuffer[2];
     }
   }
 
@@ -72,12 +72,12 @@ static void i2cI2c4BaroFetch(void)
     uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_ADC_READ };
     uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 3);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_i2cI2c4Baro_d2 = ((uint32_t)i2c4RxBuffer[0] << 16) | ((uint32_t)i2c4RxBuffer[1] << 8) | i2c4RxBuffer[2];
+      s_baro_d2 = ((uint32_t)i2c4RxBuffer[0] << 16) | ((uint32_t)i2c4RxBuffer[1] << 8) | i2c4RxBuffer[2];
     }
   }
 }
 
-static void i2cI2c4BaroCalc(void)
+static void baroCalc(void)
 {
   static uint32_t sf_i2cI2c4Baro_d1  = 0UL;
   static uint32_t sf_i2cI2c4Baro_d2  = 0UL;
@@ -89,18 +89,18 @@ static void i2cI2c4BaroCalc(void)
   int32_t         l_p_h;
 
   /* Getting the global values */
-  l_i2cI2c4Baro_d1            = s_i2cI2c4Baro_d1;
-  l_i2cI2c4Baro_d2            = s_i2cI2c4Baro_d2;
-  l_i2cI2c4Baro_temp_cor_100  = s_i2cI2c4Baro_temp_cor_100;
-  l_i2cI2c4Baro_p_cor_100     = s_i2cI2c4Baro_p_cor_100;
+  l_i2cI2c4Baro_d1            = s_baro_d1;
+  l_i2cI2c4Baro_d2            = s_baro_d2;
+  l_i2cI2c4Baro_temp_cor_100  = s_baro_temp_cor_100;
+  l_i2cI2c4Baro_p_cor_100     = s_baro_p_cor_100;
 
   /* Calculate and present Baro and Temp values when a different measurement has arrived */
   if ((l_i2cI2c4Baro_d1 != sf_i2cI2c4Baro_d1) || (l_i2cI2c4Baro_d2 != sf_i2cI2c4Baro_d2)) {
-    int32_t dT        = (int32_t)l_i2cI2c4Baro_d2 - ((int32_t)s_i2cI2c4Baro_c[5] << 8);
-    int32_t temp_p20  = (int32_t)(((int64_t)dT * s_i2cI2c4Baro_c[6]) >> 23);
+    int32_t dT        = (int32_t)l_i2cI2c4Baro_d2 - ((int32_t)s_baro_c[5] << 8);
+    int32_t temp_p20  = (int32_t)(((int64_t)dT * s_baro_c[6]) >> 23);
     int32_t l_t_100   = temp_p20 + 2000L;
-    int64_t off       = ((int64_t)s_i2cI2c4Baro_c[2] << 17) + (((int64_t)s_i2cI2c4Baro_c[4] * dT) >> 6);
-    int64_t sens      = ((int64_t)s_i2cI2c4Baro_c[1] << 16) + (((int64_t)s_i2cI2c4Baro_c[3] * dT) >> 7);
+    int64_t off       = ((int64_t)s_baro_c[2] << 17) + (((int64_t)s_baro_c[4] * dT) >> 6);
+    int64_t sens      = ((int64_t)s_baro_c[1] << 16) + (((int64_t)s_baro_c[3] * dT) >> 7);
 
     /* Low temp and very low temp corrections */
     if (l_t_100 < 2000L) {
@@ -131,8 +131,8 @@ static void i2cI2c4BaroCalc(void)
     /* Store data and calculate QNH within valid data range, only */
     if ((-3000 < l_t_100) && (l_t_100 < 8000) && (30000L < l_p_100) && (l_p_100 < 120000L)) {
       /* Setting the global values */
-      s_i2cI2c4Baro_temp_100  = l_t_100;
-      s_i2cI2c4Baro_p_100     = l_p_100;
+      s_baro_temp_100  = l_t_100;
+      s_baro_p_100     = l_p_100;
 
       int16_t l_qnh_height_m          = 103; /* s_qnh_height_m; */
       int32_t l_i2cI2c4Baro_temp_100  = l_t_100;
@@ -145,7 +145,7 @@ static void i2cI2c4BaroCalc(void)
         l_p_h         = l_p_100 * pow(term, 5.255f);
 
         /* Setting the global values */
-        s_i2cI2c4Baro_qnh_p_h_100 = l_p_h;
+        s_baro_qnh_p_h_100 = l_p_h;
 
         sf_p = l_p_100;
       }
@@ -153,27 +153,27 @@ static void i2cI2c4BaroCalc(void)
   }
 }
 
-static void i2cI2c4BaroDistributor(void)
+static void baroDistributor(void)
 {
   int   dbgLen = 0;
   char  dbgBuf[128];
 
   dbgLen = sprintf(dbgBuf, "BARO:\t Temp=%+02ld.%02luC, QFE=%04lu.%02luhPa, QNH=%04lu.%02luhPa\r\n",
-      (s_i2cI2c4Baro_temp_100    / 100), (s_i2cI2c4Baro_temp_100    % 100),
-      (s_i2cI2c4Baro_p_100       / 100), (s_i2cI2c4Baro_p_100       % 100),
-      (s_i2cI2c4Baro_qnh_p_h_100 / 100), (s_i2cI2c4Baro_qnh_p_h_100 % 100));
+      (s_baro_temp_100    / 100), (s_baro_temp_100    % 100),
+      (s_baro_p_100       / 100), (s_baro_p_100       % 100),
+      (s_baro_qnh_p_h_100 / 100), (s_baro_qnh_p_h_100 % 100));
   usbLogLen(dbgBuf, dbgLen);
 }
 
 
 /* Tasks */
 
-static void i2cI2c4BaroInit(void)
+static void baroInit(void)
 {
   int   dbgLen = 0;
   char  dbgBuf[128];
 
-  usbLog("< i2cI2c4BaroInit -\r\n");
+  usbLog("< BaroInit -\r\n");
 
   /* MS560702BA03-50 Baro: RESET all internal data paths */
   {
@@ -183,7 +183,7 @@ static void i2cI2c4BaroInit(void)
     uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_RESET, sizeof(i2cWriteLongAry), i2cWriteLongAry);
     if (i2cErr == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
-      usbLog(". i2cI2c4BaroInit: ERROR Baro does not respond\r\n");
+      usbLog(". BaroInit: ERROR Baro does not respond\r\n");
       return;
     }
     osDelay(2);
@@ -194,9 +194,9 @@ static void i2cI2c4BaroInit(void)
     uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_VERSION };
     uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_i2cI2c4BaroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
+      s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
 
-      dbgLen = sprintf(dbgBuf, ". i2cI2c4BaroInit: MS560702BA03-50 version: %d\r\n", s_i2cI2c4BaroVersion);
+      dbgLen = sprintf(dbgBuf, ". BaroInit: MS560702BA03-50 version: %d\r\n", s_baroVersion);
       usbLogLen(dbgBuf, dbgLen);
     }
   }
@@ -206,32 +206,32 @@ static void i2cI2c4BaroInit(void)
     uint8_t regQry[1] = { (I2C_SLAVE_BARO_REG_PROM | (adr << 1)) };
     uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_i2cI2c4BaroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
+      s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
     }
 
-    s_i2cI2c4Baro_c[adr] = ((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1];
+    s_baro_c[adr] = ((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1];
 
-    dbgLen = sprintf(dbgBuf, ". i2cI2c4BaroInit: PROM adr=%d value=0x%04X\r\n", adr, s_i2cI2c4Baro_c[adr]);
+    dbgLen = sprintf(dbgBuf, ". BaroInit: PROM adr=%d value=0x%04X\r\n", adr, s_baro_c[adr]);
     usbLogLen(dbgBuf, dbgLen);
   }
 
-  if (s_i2cI2c4BaroVersion) {
-    s_i2cI2c4BaroValid = 1U;
+  if (s_baroVersion) {
+    s_baroValid = 1U;
   }
 
-  usbLog("- i2cI2c4BaroInit >\r\n\r\n");
+  usbLog("- BaroInit >\r\n\r\n");
 }
 
 
 /* Task */
 
-void i2cI2c4BaroTaskInit(void)
+void baroTaskInit(void)
 {
   osDelay(600UL);
-  i2cI2c4BaroInit();
+  baroInit();
 }
 
-void i2cI2c4BaroTaskLoop(void)
+void baroTaskLoop(void)
 {
   const uint32_t  eachMs              = 1000UL;
   static uint32_t sf_previousWakeTime = 0UL;
@@ -254,7 +254,7 @@ void i2cI2c4BaroTaskLoop(void)
   }
 #endif
 
-  i2cI2c4BaroFetch();
-  i2cI2c4BaroCalc();
-  i2cI2c4BaroDistributor();
+  baroFetch();
+  baroCalc();
+  baroDistributor();
 }

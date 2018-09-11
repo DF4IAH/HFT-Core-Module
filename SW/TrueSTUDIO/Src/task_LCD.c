@@ -28,11 +28,11 @@ extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
 
-static void i2cI2c4LcdInit(void)
+static void lcdInit(void)
 {
   osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
-  usbLog("< i2cI2c4LcdInit -\r\n");
+  usbLog("< LcdInit -\r\n");
 
   do {
     /* Signal Reset */
@@ -126,13 +126,13 @@ static void i2cI2c4LcdInit(void)
 
 /* Task */
 
-void i2cI2c4LcdTaskInit(void)
+void lcdTaskInit(void)
 {
   osDelay(500UL);
-  i2cI2c4LcdInit();
+  lcdInit();
 }
 
-void i2cI2c4LcdTaskLoop(void)
+void lcdTaskLoop(void)
 {
   const uint32_t  eachMs              = 250UL;
   static uint32_t sf_previousWakeTime = 0UL;

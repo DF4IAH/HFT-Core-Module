@@ -12,4 +12,7 @@
 #include "main.h"
 
 
+void ax5243TaskInit(void);
+void ax5243TaskLoop(void);
+
 #endif /* TASK_AX5243_H_ */

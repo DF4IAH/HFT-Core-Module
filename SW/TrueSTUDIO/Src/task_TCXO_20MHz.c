@@ -26,15 +26,15 @@ extern EventGroupHandle_t   adcEventGroupHandle;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint16_t             s_i2cI2c4Tcxo20MhzDacStatus       = 0U;
+static uint16_t             s_tcxo20MhzDacStatus              = 0U;
 
 
-void i2cI2c4Tcxo20MhzDacInit(void)
+void tcxo20MhzDacInit(void)
 {
   int   dbgLen = 0;
   char  dbgBuf[128];
 
-  usbLog("< i2cI2c4Tcxo20MhzDacInit -\r\n");
+  usbLog("< Tcxo20MhzDacInit -\r\n");
 
   {
     const uint8_t i2cWriteLongAry[2] = {
@@ -44,7 +44,7 @@ void i2cI2c4Tcxo20MhzDacInit(void)
     uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG, sizeof(i2cWriteLongAry), i2cWriteLongAry);
     if (i2cErr == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
-      usbLog(". i2cI2c4Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
+      usbLog(". Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
       return;
     }
   }
@@ -62,17 +62,17 @@ void i2cI2c4Tcxo20MhzDacInit(void)
     uint8_t regQry[1] = { I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS };
     uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_i2cI2c4Tcxo20MhzDacStatus = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
+      s_tcxo20MhzDacStatus = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
 
-      dbgLen = sprintf(dbgBuf, ". i2cI2c4Tcxo20MhzDacInit: Status=0x%04X\r\n", s_i2cI2c4Tcxo20MhzDacStatus);
+      dbgLen = sprintf(dbgBuf, ". Tcxo20MhzDacInit: Status=0x%04X\r\n", s_tcxo20MhzDacStatus);
       usbLogLen(dbgBuf, dbgLen);
     }
   }
 
-  usbLog("- i2cI2c4Tcxo20MhzDacInit >\r\n\r\n");
+  usbLog("- Tcxo20MhzDacInit >\r\n\r\n");
 }
 
-void i2cI2c4Tcxo20MhzDacSet(uint16_t dac)
+void tcxo20MhzDacSet(uint16_t dac)
 {
   const uint8_t dacHi = (uint8_t) (dac >> 8U);
   const uint8_t dacLo = (uint8_t) (dac & 0xFFU);
@@ -89,10 +89,10 @@ void i2cI2c4Tcxo20MhzDacSet(uint16_t dac)
 void tcxo20MhzTaskInit(void)
 {
   osDelay(900UL);
-  i2cI2c4Tcxo20MhzDacInit();
+  tcxo20MhzDacInit();
 
   /* Preload-value of TCXO */
-  i2cI2c4Tcxo20MhzDacSet(TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE);
+  tcxo20MhzDacSet(TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE);
 }
 
 void tcxo20MhzTaskLoop(void)

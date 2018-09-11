@@ -27,25 +27,25 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_i2cI2c4HygroValid               = 0U;
-static uint16_t             s_i2cI2c4HygroState               = 0U;
-static int16_t              s_i2cI2c4Hygro_T_100              = 0;
-static int16_t              s_i2cI2c4Hygro_RH_100             = 0;
-static uint16_t             s_i2cI2c4Hygro_S_T                = 0U;
-static int16_t              s_i2cI2c4Hygro_S_RH               = 0;
-static int16_t              s_i2cI2c4Hygro_T_cor_100          = 0;
-static int16_t              s_i2cI2c4Hygro_RH_cor_100         = 0;
-static int16_t              s_i2cI2c4Hygro_DP_100             = 0;
+static uint8_t              s_hygroValid                      = 0U;
+static uint16_t             s_hygroState                      = 0U;
+static int16_t              s_hygro_T_100                     = 0;
+static int16_t              s_hygro_RH_100                    = 0;
+static uint16_t             s_hygro_S_T                       = 0U;
+static int16_t              s_hygro_S_RH                      = 0;
+static int16_t              s_hygro_T_cor_100                 = 0;
+static int16_t              s_hygro_RH_cor_100                = 0;
+static int16_t              s_hygro_DP_100                    = 0;
 
 
-static void i2cI2c4HygroInit(void)
+static void hygroInit(void)
 {
   int   dbgLen = 0;
   char  dbgBuf[128];
 
   osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
-  usbLog("< i2cI2c4HygroInit -\r\n");
+  usbLog("< HygroInit -\r\n");
 
   do {
    /* SHT31-DIS hygro: stop any running jobs */
@@ -60,7 +60,7 @@ static void i2cI2c4HygroInit(void)
     }
     if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
-      usbLog(". i2cI2c4HygroInit: ERROR chip does not respond\r\n");
+      usbLog(". HygroInit: ERROR chip does not respond\r\n");
       break;
     }
     osDelay(2);
@@ -95,30 +95,30 @@ static void i2cI2c4HygroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    s_i2cI2c4HygroState = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
+    s_hygroState = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
 
-    dbgLen = sprintf(dbgBuf, ". i2cI2c4HygroInit: SHT31 state: 0x%04X\r\n", s_i2cI2c4HygroState);
+    dbgLen = sprintf(dbgBuf, ". HygroInit: SHT31 state: 0x%04X\r\n", s_hygroState);
     usbLogLen(dbgBuf, dbgLen);
 
-    if (s_i2cI2c4HygroState) {
-      s_i2cI2c4HygroValid = 1U;
+    if (s_hygroState) {
+      s_hygroValid = 1U;
     }
   } while(0);
 
-  usbLog("- i2cI2c4HygroInit >\r\n\r\n");
+  usbLog("- HygroInit >\r\n\r\n");
 
   osSemaphoreRelease(i2c4MutexHandle);
 }
 
-static void i2cI2c4HygroFetch(void)
+static void hygroFetch(void)
 {
   /* Read current measurement data */
   {
     uint8_t regQry[2] = { I2C_SLAVE_HYGRO_REG_FETCH_DATA_HI, I2C_SLAVE_HYGRO_REG_FETCH_DATA_LO };
     uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_HYGRO_ADDR, sizeof(regQry), regQry, 5);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_i2cI2c4Hygro_S_T  = ((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1];
-      s_i2cI2c4Hygro_S_RH = ((uint16_t)i2c4RxBuffer[3] << 8) | i2c4RxBuffer[4];
+      s_hygro_S_T  = ((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1];
+      s_hygro_S_RH = ((uint16_t)i2c4RxBuffer[3] << 8) | i2c4RxBuffer[4];
     }
   }
 
@@ -129,7 +129,7 @@ static void i2cI2c4HygroFetch(void)
   }
 }
 
-static void i2cI2c4HygroCalc(void)
+static void hygroCalc(void)
 {
   // Calculations for the presentation layer
   static uint16_t   sf_i2cI2c4_hygro_S_T        = 0UL;
@@ -144,12 +144,12 @@ static void i2cI2c4HygroCalc(void)
 
   /* Getting the global values */
   {
-    l_i2cI2c4_hygro_T_100      = s_i2cI2c4Hygro_T_100;                                               // last value
-    l_i2cI2c4_hygro_RH_100     = s_i2cI2c4Hygro_RH_100;                                              // last value
-    l_i2cI2c4_hygro_S_T        = s_i2cI2c4Hygro_S_T;                                                 // fetch sensor value
-    l_i2cI2c4_hygro_S_RH       = s_i2cI2c4Hygro_S_RH;                                                // fetch sensor value
-    l_i2cI2c4_hygro_T_cor_100  = s_i2cI2c4Hygro_T_cor_100;                                           // offset correction value
-    l_i2cI2c4_hygro_RH_cor_100 = s_i2cI2c4Hygro_RH_cor_100;                                          // offset correction value
+    l_i2cI2c4_hygro_T_100      = s_hygro_T_100;                                               // last value
+    l_i2cI2c4_hygro_RH_100     = s_hygro_RH_100;                                              // last value
+    l_i2cI2c4_hygro_S_T        = s_hygro_S_T;                                                 // fetch sensor value
+    l_i2cI2c4_hygro_S_RH       = s_hygro_S_RH;                                                // fetch sensor value
+    l_i2cI2c4_hygro_T_cor_100  = s_hygro_T_cor_100;                                           // offset correction value
+    l_i2cI2c4_hygro_RH_cor_100 = s_hygro_RH_cor_100;                                          // offset correction value
   }
 
   /* Calculate and present Temp value when a different measurement has arrived */
@@ -159,7 +159,7 @@ static void i2cI2c4HygroCalc(void)
     temp_100 += l_i2cI2c4_hygro_T_cor_100;
 
     /* Setting the global value */
-    s_i2cI2c4Hygro_T_100 = temp_100;
+    s_hygro_T_100 = temp_100;
 
     hasChanged = 1U;
     sf_i2cI2c4_hygro_S_T = l_i2cI2c4_hygro_S_T;
@@ -172,7 +172,7 @@ static void i2cI2c4HygroCalc(void)
     rh_100 += l_i2cI2c4_hygro_RH_cor_100;
 
     /* Setting the global value */
-    s_i2cI2c4Hygro_RH_100 = rh_100;
+    s_hygro_RH_100 = rh_100;
 
     hasChanged = 1U;
     sf_i2cI2c4_hygro_S_RH = l_i2cI2c4_hygro_S_RH;
@@ -194,32 +194,32 @@ static void i2cI2c4HygroCalc(void)
     float tau_100   = 0.5f + ((100.f * K3) * term_z) / term_n;
 
     /* Setting the global value */
-    s_i2cI2c4Hygro_DP_100 = (int16_t) tau_100;
+    s_hygro_DP_100 = (int16_t) tau_100;
   }
 }
 
-static void i2cI2c4HygroDistributor(void)
+static void hygroDistributor(void)
 {
   int   dbgLen = 0;
   char  dbgBuf[128];
 
   dbgLen = sprintf(dbgBuf, "HYGRO:\t Temp=%+02d.%02uC, RH=%02u.%02u%%, Tau=%+02d.%02uC\r\n",
-      (s_i2cI2c4Hygro_T_100  / 100), (s_i2cI2c4Hygro_T_100  % 100),
-      (s_i2cI2c4Hygro_RH_100 / 100), (s_i2cI2c4Hygro_RH_100 % 100),
-      (s_i2cI2c4Hygro_DP_100 / 100), (s_i2cI2c4Hygro_DP_100 % 100));
+      (s_hygro_T_100  / 100), (s_hygro_T_100  % 100),
+      (s_hygro_RH_100 / 100), (s_hygro_RH_100 % 100),
+      (s_hygro_DP_100 / 100), (s_hygro_DP_100 % 100));
   usbLogLen(dbgBuf, dbgLen);
 }
 
 
 /* Task */
 
-void i2cI2c4HygroTaskInit(void)
+void hygroTaskInit(void)
 {
   osDelay(550UL);
-  i2cI2c4HygroInit();
+  hygroInit();
 }
 
-void i2cI2c4HygroTaskLoop(void)
+void hygroTaskLoop(void)
 {
   const uint32_t  eachMs              = 1000UL;
   static uint32_t sf_previousWakeTime = 0UL;
@@ -232,7 +232,7 @@ void i2cI2c4HygroTaskLoop(void)
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
 
-  i2cI2c4HygroFetch();
-  i2cI2c4HygroCalc();
-  i2cI2c4HygroDistributor();
+  hygroFetch();
+  hygroCalc();
+  hygroDistributor();
 }

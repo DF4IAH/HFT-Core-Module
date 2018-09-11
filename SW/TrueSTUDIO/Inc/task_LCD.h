@@ -38,7 +38,7 @@
 
 /* Task */
 
-void i2cI2c4LcdTaskInit(void);
-void i2cI2c4LcdTaskLoop(void);
+void lcdTaskInit(void);
+void lcdTaskLoop(void);
 
 #endif /* TASK_LCD_H_ */

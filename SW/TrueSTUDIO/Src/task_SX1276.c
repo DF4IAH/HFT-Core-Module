@@ -1024,5 +1024,31 @@ uint8_t spiDetectSX1276(void)
 }
 
 
+static void sx1276Init(void)
+{
+
+}
+
+
 /* Tasks */
+
+void sx1276TaskInit(void)
+{
+  osDelay(600UL);
+  sx1276Init();
+}
+
+void sx1276TaskLoop(void)
+{
+  const uint32_t  eachMs              = 250UL;
+  static uint32_t sf_previousWakeTime = 0UL;
+
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 500UL;
+  }
+
+  osDelayUntil(&sf_previousWakeTime, eachMs);
+}
 

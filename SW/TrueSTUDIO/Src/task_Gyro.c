@@ -27,15 +27,15 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_i2cI2c4GyroValid                = 0U;
-static uint8_t              s_i2cI2c4Gyro1Version             = 0U;
-static uint8_t              s_i2cI2c4Gyro2Version             = 0U;
-static uint8_t              s_i2cI2c4Gyro2AsaX                = 0U;
-static uint8_t              s_i2cI2c4Gyro2AsaY                = 0U;
-static uint8_t              s_i2cI2c4Gyro2AsaZ                = 0U;
+static uint8_t              s_gyroValid                       = 0U;
+static uint8_t              s_gyro1Version                    = 0U;
+static uint8_t              s_gyro2Version                    = 0U;
+static uint8_t              s_gyro2AsaX                       = 0U;
+static uint8_t              s_gyro2AsaY                       = 0U;
+static uint8_t              s_gyro2AsaZ                       = 0U;
 
 
-static void i2cI2c4GyroInit(void)
+static void gyroInit(void)
 {
   int   dbgLen = 0;
   char  dbgBuf[128];
@@ -44,7 +44,7 @@ static void i2cI2c4GyroInit(void)
 
   osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
-  usbLog("< i2cI2c4GyroInit -\r\n");
+  usbLog("< GyroInit -\r\n");
 
   do {
     /* MPU-9250 6 axis: RESET */
@@ -59,7 +59,7 @@ static void i2cI2c4GyroInit(void)
     }
     if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
-      usbLog(". i2cI2c4GyroInit: ERROR 6D-Gyro chip does not respond\r\n");
+      usbLog(". GyroInit: ERROR 6D-Gyro chip does not respond\r\n");
       break;
     }
     osDelay(10);
@@ -81,7 +81,7 @@ static void i2cI2c4GyroInit(void)
       osDelay(1);
     }
     s_i2cI2c4Gyro1Version = i2c4RxBuffer[0];
-    dbgLen = sprintf(dbgBuf, ". i2cI2c4GyroInit: 6D-Gyro version=%d\r\n", s_i2cI2c4Gyro1Version);
+    dbgLen = sprintf(dbgBuf, ". GyroInit: 6D-Gyro version=%d\r\n", s_i2cI2c4Gyro1Version);
     usbLogLen(dbgBuf, dbgLen);
 
     /* MPU-9250 6 axis: I2C bypass on to access the Magnetometer chip */
@@ -107,11 +107,11 @@ static void i2cI2c4GyroInit(void)
     }
     if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
-      usbLog(". i2cI2c4GyroInit: ERROR 3D-Mag chip does not respond\r\n");
+      usbLog(". GyroInit: ERROR 3D-Mag chip does not respond\r\n");
       break;
     }
     osDelay(10);
-    usbLog(". i2cI2c4GyroInit: state 04\r\n");
+    usbLog(". GyroInit: state 04\r\n");
 
     /* Magnetometer: read Device ID */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_2_WIA;
@@ -129,8 +129,8 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    s_i2cI2c4Gyro2Version = i2c4RxBuffer[0];
-    dbgLen = sprintf(dbgBuf, ". i2cI2c4GyroInit: 3D-Mag version=%d\r\n", s_i2cI2c4Gyro2Version);
+    s_gyro2Version = i2c4RxBuffer[0];
+    dbgLen = sprintf(dbgBuf, ". GyroInit: 3D-Mag version=%d\r\n", s_gyro2Version);
     usbLogLen(dbgBuf, dbgLen);
 
     /* Magnetometer: 16 bit access and prepare for PROM access */
@@ -143,7 +143,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 06\r\n");
+    usbLog(". GyroInit: state 06\r\n");
 
     /* Magnetometer: read correction data for X, Y and Z */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_2_ASAX;
@@ -161,11 +161,11 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    s_i2cI2c4Gyro2AsaX = i2c4RxBuffer[0];
-    s_i2cI2c4Gyro2AsaY = i2c4RxBuffer[1];
-    s_i2cI2c4Gyro2AsaZ = i2c4RxBuffer[2];
-    usbLog(". i2cI2c4GyroInit: state 07\r\n");
-    dbgLen = sprintf(dbgBuf, ". i2cI2c4GyroInit: Mag asaX=%d, asaY=%d, asaZ=%d\r\n", s_i2cI2c4Gyro2AsaX, s_i2cI2c4Gyro2AsaY, s_i2cI2c4Gyro2AsaZ);
+    s_gyro2AsaX = i2c4RxBuffer[0];
+    s_gyro2AsaY = i2c4RxBuffer[1];
+    s_gyro2AsaZ = i2c4RxBuffer[2];
+    usbLog(". GyroInit: state 07\r\n");
+    dbgLen = sprintf(dbgBuf, ". GyroInit: Mag asaX=%d, asaY=%d, asaZ=%d\r\n", s_gyro2AsaX, s_gyro2AsaY, s_gyro2AsaZ);
     usbLogLen(dbgBuf, dbgLen);
 
     /* Magnetometer: mode change via power-down mode */
@@ -179,7 +179,7 @@ static void i2cI2c4GyroInit(void)
       osDelay(1);
     }
     osDelay(10);
-    usbLog(". i2cI2c4GyroInit: state 08\r\n");
+    usbLog(". GyroInit: state 08\r\n");
 
     /* Magnetometer: mode change for 16bit and run all axis at 8 Hz */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_2_CNTL1;
@@ -191,7 +191,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 09\r\n");
+    usbLog(". GyroInit: state 09\r\n");
 
 #if 0
     /* MPU-9250 6 axis: GYRO set offset values */
@@ -217,7 +217,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 10\r\n");
+    usbLog(". GyroInit: state 10\r\n");
 
     /* MPU-9250 6 axis: GYRO Bandwidth = 5 Hz, Fs = 1 kHz */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_ADDR_1;
@@ -229,7 +229,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 11\r\n");
+    usbLog(". GyroInit: state 11\r\n");
 
     /* MPU-9250 6 axis: ACCEL Bandwidth = 5 Hz, Fs = 1 kHz */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_1_ACCEL_CONFIG2;
@@ -241,7 +241,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 12\r\n");
+    usbLog(". GyroInit: state 12\r\n");
 
     /* MPU-9250 6 axis: Wake On Motion interrupt = 0.1 g (1 LSB = 4 mg) */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_1_WOM_THR;
@@ -253,7 +253,7 @@ static void i2cI2c4GyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    usbLog(". i2cI2c4GyroInit: state 13\r\n");
+    usbLog(". GyroInit: state 13\r\n");
 
     /* MPU-9250 6 axis: RESET all internal data paths */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_1_USER_CTRL;
@@ -266,15 +266,15 @@ static void i2cI2c4GyroInit(void)
       osDelay(1);
     }
     osDelay(10);
-    usbLog(". i2cI2c4GyroInit: state 14\r\n");
+    usbLog(". GyroInit: state 14\r\n");
 
-    if (s_i2cI2c4Gyro1Version && s_i2cI2c4Gyro2Version) {
-      s_i2cI2c4GyroValid = 1U;
-      usbLog(". i2cI2c4GyroInit: state 15\r\n");
+    if (s_i2cI2c4Gyro1Version && s_gyro2Version) {
+      s_gyroValid = 1U;
+      usbLog(". GyroInit: state 15\r\n");
     }
   } while(0);
 
-  usbLog("- i2cI2c4GyroInit >\r\n\r\n");
+  usbLog("- GyroInit >\r\n\r\n");
 
   osSemaphoreRelease(i2c4MutexHandle);
 }
@@ -282,13 +282,13 @@ static void i2cI2c4GyroInit(void)
 
 /* Task */
 
-void i2cI2c4GyroTaskInit(void)
+void gyroTaskInit(void)
 {
   osDelay(650UL);
-  i2cI2c4GyroInit();
+  gyroInit();
 }
 
-void i2cI2c4GyroTaskLoop(void)
+void gyroTaskLoop(void)
 {
   const uint32_t  eachMs              = 1000UL;
   static uint32_t sf_previousWakeTime = 0UL;
