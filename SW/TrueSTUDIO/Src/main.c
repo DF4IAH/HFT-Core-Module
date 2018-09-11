@@ -61,6 +61,7 @@
 
 #include "bus_i2c.h"
 #include "bus_spi.h"
+#include "task_Controller.h"
 #include "task_TCXO_20MHz.h"
 #include "task_Si5338.h"
 #include "task_AX5243.h"
@@ -130,14 +131,26 @@ osThreadId tcxo20MhzTaskHandle;
 osThreadId ax5243TaskHandle;
 osThreadId sx1276TaskHandle;
 osThreadId controllerTaskHandle;
+osThreadId si5338TaskHandle;
 osMessageQId usbToHostQueueHandle;
 osMessageQId usbFromHostQueueHandle;
+osMessageQId controllerInQueueHandle;
+osMessageQId controllerOutQueueHandle;
 osMutexId i2c1MutexHandle;
 osMutexId i2c2MutexHandle;
 osMutexId i2c3MutexHandle;
 osMutexId i2c4MutexHandle;
 osMutexId spi1MutexHandle;
 osMutexId spi3MutexHandle;
+osSemaphoreId c2Ax5243_BSemHandle;
+osSemaphoreId c2Sx1276_BSemHandle;
+osSemaphoreId c2Si5338_BSemHandle;
+osSemaphoreId c2Tcxo_BSemHandle;
+osSemaphoreId c2Baro_BSemHandle;
+osSemaphoreId c2Gyro_BSemHandle;
+osSemaphoreId c2Hygro_BSemHandle;
+osSemaphoreId c2Lcd_BSemHandle;
+osSemaphoreId c2Default_BSemHandle;
 
 /* USER CODE BEGIN PV */
 extern uint32_t                       uwTick;
@@ -206,6 +219,7 @@ void StartTcxo20MhzTask(void const * argument);
 void StartAx5243Task(void const * argument);
 void StartSx1276Task(void const * argument);
 void StartControllerTask(void const * argument);
+void StartSi5338Task(void const * argument);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -619,6 +633,43 @@ int main(void)
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
+  /* Create the semaphores(s) */
+  /* definition and creation of c2Ax5243_BSem */
+  osSemaphoreDef(c2Ax5243_BSem);
+  c2Ax5243_BSemHandle = osSemaphoreCreate(osSemaphore(c2Ax5243_BSem), 1);
+
+  /* definition and creation of c2Sx1276_BSem */
+  osSemaphoreDef(c2Sx1276_BSem);
+  c2Sx1276_BSemHandle = osSemaphoreCreate(osSemaphore(c2Sx1276_BSem), 1);
+
+  /* definition and creation of c2Si5338_BSem */
+  osSemaphoreDef(c2Si5338_BSem);
+  c2Si5338_BSemHandle = osSemaphoreCreate(osSemaphore(c2Si5338_BSem), 1);
+
+  /* definition and creation of c2Tcxo_BSem */
+  osSemaphoreDef(c2Tcxo_BSem);
+  c2Tcxo_BSemHandle = osSemaphoreCreate(osSemaphore(c2Tcxo_BSem), 1);
+
+  /* definition and creation of c2Baro_BSem */
+  osSemaphoreDef(c2Baro_BSem);
+  c2Baro_BSemHandle = osSemaphoreCreate(osSemaphore(c2Baro_BSem), 1);
+
+  /* definition and creation of c2Gyro_BSem */
+  osSemaphoreDef(c2Gyro_BSem);
+  c2Gyro_BSemHandle = osSemaphoreCreate(osSemaphore(c2Gyro_BSem), 1);
+
+  /* definition and creation of c2Hygro_BSem */
+  osSemaphoreDef(c2Hygro_BSem);
+  c2Hygro_BSemHandle = osSemaphoreCreate(osSemaphore(c2Hygro_BSem), 1);
+
+  /* definition and creation of c2Lcd_BSem */
+  osSemaphoreDef(c2Lcd_BSem);
+  c2Lcd_BSemHandle = osSemaphoreCreate(osSemaphore(c2Lcd_BSem), 1);
+
+  /* definition and creation of c2Default_BSem */
+  osSemaphoreDef(c2Default_BSem);
+  c2Default_BSemHandle = osSemaphoreCreate(osSemaphore(c2Default_BSem), 1);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   osSemaphoreDef(usbToHostBinarySem);
@@ -638,7 +689,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of usbToHostTask */
@@ -681,6 +732,10 @@ int main(void)
   osThreadDef(controllerTask, StartControllerTask, osPriorityAboveNormal, 0, 256);
   controllerTaskHandle = osThreadCreate(osThread(controllerTask), NULL);
 
+  /* definition and creation of si5338Task */
+  osThreadDef(si5338Task, StartSi5338Task, osPriorityBelowNormal, 0, 256);
+  si5338TaskHandle = osThreadCreate(osThread(si5338Task), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -695,6 +750,16 @@ int main(void)
 /* what about the sizeof here??? cd native code */
   osMessageQDef(usbFromHostQueue, 32, uint8_t);
   usbFromHostQueueHandle = osMessageCreate(osMessageQ(usbFromHostQueue), NULL);
+
+  /* definition and creation of controllerInQueue */
+/* what about the sizeof here??? cd native code */
+  osMessageQDef(controllerInQueue, 32, uint32_t);
+  controllerInQueueHandle = osMessageCreate(osMessageQ(controllerInQueue), NULL);
+
+  /* definition and creation of controllerOutQueue */
+/* what about the sizeof here??? cd native code */
+  osMessageQDef(controllerOutQueue, 8, uint32_t);
+  controllerOutQueueHandle = osMessageCreate(osMessageQ(controllerOutQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -2035,7 +2100,7 @@ void StartDefaultTask(void const * argument)
       /* All channels of ADC1 are complete */
       float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
       float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
-      float   l_adc_v_bat       = adcGetVal(ADC_ADC1_V_BAT);
+      float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
       float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
       int32_t   l_adc_temp_i    = 0L;
       uint32_t  l_adc_temp_f100 = 0UL;
@@ -2189,6 +2254,20 @@ void StartControllerTask(void const * argument)
     controllerTaskLoop();
   }
   /* USER CODE END StartControllerTask */
+}
+
+/* StartSi5338Task function */
+void StartSi5338Task(void const * argument)
+{
+  /* USER CODE BEGIN StartSi5338Task */
+  /* Infinite loop */
+  si5338TaskInit();
+
+  for(;;)
+  {
+    si5338TaskLoop();
+  }
+  /* USER CODE END StartSi5338Task */
 }
 
 /**

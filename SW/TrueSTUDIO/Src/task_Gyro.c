@@ -80,8 +80,8 @@ static void gyroInit(void)
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
       osDelay(1);
     }
-    s_i2cI2c4Gyro1Version = i2c4RxBuffer[0];
-    dbgLen = sprintf(dbgBuf, ". GyroInit: 6D-Gyro version=%d\r\n", s_i2cI2c4Gyro1Version);
+    s_gyro1Version = i2c4RxBuffer[0];
+    dbgLen = sprintf(dbgBuf, ". GyroInit: 6D-Gyro version=%d\r\n", s_gyro1Version);
     usbLogLen(dbgBuf, dbgLen);
 
     /* MPU-9250 6 axis: I2C bypass on to access the Magnetometer chip */
@@ -268,7 +268,7 @@ static void gyroInit(void)
     osDelay(10);
     usbLog(". GyroInit: state 14\r\n");
 
-    if (s_i2cI2c4Gyro1Version && s_gyro2Version) {
+    if (s_gyro1Version && s_gyro2Version) {
       s_gyroValid = 1U;
       usbLog(". GyroInit: state 15\r\n");
     }

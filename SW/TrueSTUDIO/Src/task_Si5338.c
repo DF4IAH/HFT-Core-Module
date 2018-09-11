@@ -65,3 +65,31 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t 
 
   return HAL_I2C_ERROR_NONE;
 }
+
+static void si5338Init(void)
+{
+
+}
+
+
+/* Tasks */
+
+void si5338TaskInit(void)
+{
+  osDelay(400UL);
+  si5338Init();
+}
+
+void si5338TaskLoop(void)
+{
+  const uint32_t  eachMs              = 1000UL;
+  static uint32_t sf_previousWakeTime = 0UL;
+
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 400UL;
+  }
+
+  osDelayUntil(&sf_previousWakeTime, eachMs);
+}
