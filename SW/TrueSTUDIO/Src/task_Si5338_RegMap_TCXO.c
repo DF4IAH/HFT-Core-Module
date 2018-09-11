@@ -2,6 +2,8 @@
 #ifndef SI5338_TCXO_H_
 #define SI5338_TCXO_H_
 
+#include "task_Si5338.h"
+
 
 //Register map for use with AN428 (JumpStart)
 //http://www.silabs.com/clocks 

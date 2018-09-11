@@ -1,5 +1,5 @@
 /*
- * spi.c
+ * task_SK1276.c
  *
  *  Created on: 10.09.2018
  *      Author: DF4IAH
@@ -7,15 +7,17 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "spi.h"
-
 #include <string.h>
 
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "stm32l496xx.h"
-#include "stm32l4xx_hal_gpio.h"
+
+//#include "stm32l4xx_hal_gpio.h"
 #include "usb.h"
+#include "bus_spi.h"
+
+#include "task_SX1276.h"
 
 
 extern EventGroupHandle_t   extiEventGroupHandle;
@@ -25,143 +27,14 @@ extern EventGroupHandle_t   spiEventGroupHandle;
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
 
-
-/* Buffer used for transmission */
-volatile uint8_t            spi3TxBuffer[SPI1_BUFFERSIZE]     = { 0 };
-
-/* Buffer used for reception */
-volatile uint8_t            spi3RxBuffer[SPI1_BUFFERSIZE]     = { 0 };
+extern uint8_t              spi3TxBuffer[SPI3_BUFFERSIZE];
+extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
 
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi3;
 DMA_HandleTypeDef hdma_spi3_tx;
 DMA_HandleTypeDef hdma_spi3_rx;
-
-
-/**
-  * @brief  TxRx Transfer completed callback.
-  * @param  hspi: SPI handle
-  * @note   This example shows a simple way to report end of DMA TxRx transfer, and
-  *         you can add your own implementation.
-  * @retval None
-  */
-void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
-{
-  BaseType_t taskWoken = 0;
-
-  if (&hspi3 == hspi) {
-    uint8_t spi3BusInUse = 0U;
-
-    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_SX_SEL_GPIO_Port, MCU_OUT_SX_SEL_Pin)) {
-      /* Deactivate the NSS/SEL pin */
-      HAL_GPIO_WritePin(MCU_OUT_SX_SEL_GPIO_Port, MCU_OUT_SX_SEL_Pin, GPIO_PIN_SET);
-      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_SX__BUS_DONE, &taskWoken);
-    } else {
-      spi3BusInUse = 1U;
-    }
-
-    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_AX_SEL_GPIO_Port, MCU_OUT_AX_SEL_Pin)) {
-      /* Deactivate the NSS/SEL pin */
-      HAL_GPIO_WritePin(MCU_OUT_AX_SEL_GPIO_Port, MCU_OUT_AX_SEL_Pin, GPIO_PIN_SET);
-      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_AX__BUS_DONE, &taskWoken);
-    } else {
-      spi3BusInUse = 1U;
-    }
-
-    if (!spi3BusInUse) {
-      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3__BUS_FREE, &taskWoken);
-    }
-  }
-}
-
-/**
-  * @brief  SPI error callbacks.
-  * @param  hspi: SPI handle
-  * @note   This example shows a simple way to report transfer error, and you can
-  *         add your own implementation.
-  * @retval None
-  */
-void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
-{
-  BaseType_t taskWoken = 0;
-
-  if (&hspi3 == hspi) {
-    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_SX_SEL_GPIO_Port, MCU_OUT_SX_SEL_Pin)) {
-      /* Deactivate the NSS/SEL pin */
-      HAL_GPIO_WritePin(MCU_OUT_SX_SEL_GPIO_Port, MCU_OUT_SX_SEL_Pin, GPIO_PIN_SET);
-      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_SX__BUS_DONE, &taskWoken);
-    }
-
-    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_AX_SEL_GPIO_Port, MCU_OUT_AX_SEL_Pin)) {
-      /* Deactivate the NSS/SEL pin */
-      HAL_GPIO_WritePin(MCU_OUT_AX_SEL_GPIO_Port, MCU_OUT_AX_SEL_Pin, GPIO_PIN_SET);
-      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_AX__BUS_DONE, &taskWoken);
-    }
-
-    xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3__BUS_ERROR, &taskWoken);
-  }
-}
-
-
-const uint16_t spiWait_EGW_MaxWaitTicks = 500;
-uint8_t spiProcessSpiReturnWait(void)
-{
-  EventBits_t eb = xEventGroupWaitBits(spiEventGroupHandle, EG_SPI3_SX__BUS_DONE | EG_SPI3_AX__BUS_DONE | EG_SPI3__BUS_FREE | EG_SPI3__BUS_ERROR, 0, pdFALSE, spiWait_EGW_MaxWaitTicks);
-  if (eb & (EG_SPI3_SX__BUS_DONE | EG_SPI3_AX__BUS_DONE | EG_SPI3__BUS_FREE)) {
-    return HAL_OK;
-  }
-
-  if (eb & EG_SPI3__BUS_ERROR) {
-    Error_Handler();
-  }
-  return HAL_ERROR;
-}
-
-uint8_t spiProcessSpi3Msg(SPI3_CHIPS_t chip, uint8_t msgLen)
-{
-  GPIO_TypeDef*     GPIOx     = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_GPIO_Port : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_GPIO_Port  : 0);
-  uint16_t          GPIO_Pin  = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_Pin       : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_Pin        : 0);
-  HAL_StatusTypeDef status    = HAL_OK;
-  uint8_t           errCnt    = 0;
-
-  /* Sanity check */
-  if (!GPIOx || !GPIO_Pin) {
-    return HAL_ERROR;
-  }
-
-  /* Wait for SPI3 mutex */
-  // TODO: SPI3 mutex
-
-  /* Activate low active NSS/SEL transaction */
-  HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
-
-  do {
-    status = HAL_SPI_TransmitReceive_DMA(&hspi3, (uint8_t*) spi3TxBuffer, (uint8_t *) spi3RxBuffer, msgLen);
-    if (status == HAL_BUSY)
-    {
-      osDelay(1);
-
-      if (++errCnt >= 100) {
-        /* Transfer error in transmission process */
-        HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
-        Error_Handler();
-      }
-    }
-  } while (status == HAL_BUSY);
-
-  if (status == HAL_OK) {
-    /* Wait until the data is transfered */
-    status = spiProcessSpiReturnWait();
-  }
-
-  /* Release low active NSS/SEL transaction */
-  HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
-
-  /* Release SPI3 mutex */
-
-  return status;
-}
 
 
 void spiSX127xReset(void)
@@ -1150,22 +1023,32 @@ uint8_t spiDetectSX1276(void)
   return HAL_OK;
 }
 
-uint8_t spiDetectAx5243(void)
+
+static void sx1276Init(void)
 {
-  /* Request RD-address 0x000 SILICONREV */
-  {
-    uint8_t axVersion = 0;
 
-    spi3TxBuffer[0] = SPI_RD_FLAG | 0x00;
-    if (HAL_OK == spiProcessSpi3Msg(SPI3_AX, 2)) {
-      axVersion = spi3RxBuffer[1];
-    }
+}
 
-    if (axVersion != 0x51) {                                                                    // AX5243
-      /* We can handle Version  0x51 (AX5243) only */
-      return HAL_ERROR;
-    }
+
+/* Tasks */
+
+void sx1276TaskInit(void)
+{
+  osDelay(600UL);
+  sx1276Init();
+}
+
+void sx1276TaskLoop(void)
+{
+  const uint32_t  eachMs              = 250UL;
+  static uint32_t sf_previousWakeTime = 0UL;
+
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 500UL;
   }
 
-  return HAL_OK;
+  osDelayUntil(&sf_previousWakeTime, eachMs);
 }
+
