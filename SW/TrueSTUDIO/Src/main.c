@@ -54,15 +54,19 @@
 
 /* USER CODE BEGIN Includes */
 #include "FreeRTOS.h"
+
 #include <stddef.h>
 #include <stdio.h>
 #include <math.h>
 
+#include "bus_i2c.h"
+#include "bus_spi.h"
+#include "task_TCXO_20MHz.h"
+#include "task_Si5338.h"
+#include "task_AX5243.h"
+#include "task_SX1276.h"
 #include "usb.h"
-#include "i2c.h"
-#include "spi.h"
 #include "adc.h"
-#include "tcxo_20MHz.h"
 
 
 #define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */

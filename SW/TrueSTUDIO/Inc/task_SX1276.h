@@ -5,41 +5,16 @@
  *      Author: DF4IAH
  */
 
-#ifndef SPI_H_
-#define SPI_H_
+#ifndef TASK_AX1276_H_
+#define TASK_AX1276_H_
 
-#include "stm32l4xx_hal.h"
+//#include "stm32l4xx_hal.h"
 #include "main.h"
 
 //#include "LoRaWAN.h"
 
 
 extern SPI_HandleTypeDef hspi3;
-
-
-#define SPI1_BUFFERSIZE 64
-
-#define SPI_WR_FLAG   (1 << 7)
-#define SPI_RD_FLAG   (0 << 7)
-
-
-typedef enum EG_SPI3_ENUM {
-
-  EG_SPI3_SX__BUS_DONE                = 0x0001U,
-  EG_SPI3_AX__BUS_DONE                = 0x0002U,
-
-  EG_SPI3__BUS_FREE                   = 0x0010U,
-  EG_SPI3__BUS_ERROR                  = 0x0080U,
-
-} EG_SPI3_t;
-
-
-typedef enum SPI3_CHIPS_ENUM {
-
-  SPI3_SX                             = 1,
-  SPI3_AX,
-
-} SPI3_CHIPS_t;
 
 
 typedef enum spiSX1276_Mode {
@@ -232,4 +207,4 @@ void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg);
 uint8_t spiDetectSX1276(void);
 uint8_t spiDetectAx5243(void);
 
-#endif /* SPI_H_ */
+#endif /* TASK_AX1276_H_ */

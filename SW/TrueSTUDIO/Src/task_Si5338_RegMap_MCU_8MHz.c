@@ -1,6 +1,11 @@
+/*
+ * task_Si5338_RegMap_MCU_8MHz.c
+ *
+ *  Created on: 27.08.2018
+ *      Author: DF4IAH
+ */
 
-#ifndef SI5338_MCU_8MHZ_H_
-#define SI5338_MCU_8MHZ_H_
+#include "task_Si5338.h"
 
 
 //Register map for use with AN428 (JumpStart)
@@ -428,5 +433,3 @@ const Reg_Data_t si5338_Reg_Store_MCU_8MHz[SI5338_MCU_8MHZ_NUM_REGS_MAX] = {
 { 94,0x00,0x00},
 {255, 0, 0xFF} }; // set page bit to 0
 //End of file
-
-#endif /* SI5338_MCU_8MHZ_H_ */
