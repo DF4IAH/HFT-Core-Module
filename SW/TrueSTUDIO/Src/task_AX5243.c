@@ -14,6 +14,7 @@
 #include "cmsis_os.h"
 #include "stm32l496xx.h"
 
+//#include "stm32l4xx_hal_def.h"
 //#include "stm32l4xx_hal_gpio.h"
 #include "usb.h"
 #include "bus_spi.h"
@@ -56,6 +57,123 @@ extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 # endif
 #endif
 
+
+static uint8_t              s_ax_enable                       = 0U;  // FLASH
+static uint8_t              s_ax_aprs_enable                  = 0U;  // FLASH
+static uint8_t              s_ax_pocsag_enable                = 0U;  // FLASH
+static uint8_t              s_ax_pocsag_beacon_secs           = 0U;  // FLASH
+static AX_SET_TX_RX_MODE_t  s_ax_set_tx_rx_mode               = AX_SET_TX_RX_MODE_OFF;
+static AX_SET_MON_MODE_t    s_ax_set_mon_mode                 = AX_SET_MON_MODE_OFF;  // FLASH
+//static struct spi_device    s_ax_spi_device_conf              = { 0 };
+static  uint8_t             s_ax_spi_packet_buffer[C_SPI_AX_BUFFER_LENGTH]  = { 0U };
+static  uint8_t             s_ax_spi_rx_buffer[C_SPI_AX_BUFFER_LENGTH]      = { 0U };
+static  uint16_t            s_ax_spi_rx_buffer_idx            = 0U;
+static  uint8_t             s_ax_spi_rx_fifo_doService        = 0U;
+static  uint32_t            s_ax_spi_freq_chan[2]             = { 0UL };
+static  uint8_t             s_ax_spi_range_chan[2]            = { 0U };
+static  uint8_t             s_ax_spi_vcoi_chan[2]             = { 0U };
+static  int8_t              s_ax_spi_rx_bgnd_rssi             = 0x96;  // -170 dBm
+static  AX_RX_FIFO_MEAS_t   s_ax_rx_fifo_meas                 = { 0 };
+
+static uint8_t              s_ax_pocsag_chime_enable          = 0U;
+static uint32_t             s_ax_pocsag_individual_ric        = 0UL;
+
+static const uint16_t       s_ax_pwr_ary[C_AX_PRW_LENGTH]     = {
+  0x0000UL,
+  0x000aUL,
+
+  // -10.0 .. - 9.1
+    170,    173,    175,    178,    180,    182,    184,    186,    188,    189,
+
+  // - 9.0 .. - 8.1
+    191,    193,    194,    196,    198,    199,    201,    203,    205,    207,
+
+  // - 8.0 .. - 7.1
+    209,    211,    214,    216,    219,    221,    224,    227,    230,    233,
+
+  // - 7.0 .. - 6.1
+    236,    239,    243,    246,    250,    253,    257,    260,    264,    267,
+
+  // - 6.0 .. - 5.1
+    271,    275,    278,    282,    285,    289,    292,    296,    299,    303,
+
+  // - 5.0 .. - 4.1
+    306,    309,    313,    317,    320,    324,    327,    331,    335,    338,
+
+  // - 4.0 .. - 3.1
+    342,    346,    350,    354,    358,    362,    366,    370,    374,    379,
+
+  // - 3.0 .. - 2.1
+    383,    387,    392,    397,    401,    406,    411,    416,    421,    426,
+
+  // - 2.0 .. - 1.1
+    431,    436,    441,    447,    452,    457,    462,    467,    471,    476,
+
+  // - 1.0 .. - 0.1
+    480,    484,    488,    492,    495,    499,    502,    506,    510,    514,
+
+  //   0.0 .. + 0.9
+    519,    524,    529,    535,    540,    547,    553,    559,    566,    573,
+
+  // + 1.0 .. + 1.9
+    580,    587,    594,    602,    609,    616,    624,    632,    640,    648,
+
+  // + 2.0 .. + 2.1
+    656,    664,    673,    681,    690,    699,    708,    718,    727,    737,
+
+  // + 3.0 .. + 3.9
+    747,    757,    768,    778,    789,    800,    812,    824,    836,    849,
+
+  // + 4.0 .. + 4.9
+    862,    876,    889,    903,    917,    930,    942,    954,    965,    974,
+
+  // + 5.0 .. + 5.9
+    982,    988,    993,    997,   1001,   1004,   1008,   1012,   1016,   1022,
+
+  // + 6.0 .. + 6.9
+   1030,   1039,   1051,   1064,   1078,   1095,   1112,   1131,   1151,   1171,
+
+  // + 7.0 .. + 7.9
+   1193,   1215,   1238,   1261,   1284,   1307,   1329,   1350,   1369,   1388,
+
+  // + 8.0 .. + 8.9
+   1404,   1419,   1431,   1443,   1454,   1466,   1477,   1489,   1503,   1518,
+
+  // + 9.0 .. + 9.9
+   1536,   1556,   1579,   1604,   1630,   1657,   1685,   1712,   1740,   1766,
+
+  // +10.0 .. +10.9
+   1792,   1816,   1839,   1861,   1884,   1907,   1931,   1956,   1984,   2014,
+
+  // +11.0 .. +11.9
+   2048,   2085,   2126,   2169,   2215,   2263,   2313,   2363,   2414,   2465,
+
+  // +12.0 .. +12.9
+   2516,   2566,   2616,   2666,   2717,   2770,   2824,   2881,   2941,   3004,
+
+  // +13.0 .. +13.9
+   3072,   3144,   3220,   3298,   3378,   3459,   3540,   3619,   3696,   3770,
+
+  // +14.0 .. +14.9
+   3840,   3905,   3963,   4015,   4058,   4093,   4117,   4131,   4132,   4120,
+
+  // +15.0
+   4095
+};
+
+static uint8_t              s_ax_pocsag_news_idx              = 0;
+
+static uint8_t              s_ax_pocsag_activation_code_len;
+static const uint8_t        s_ax_pocsag_activation_code[][3]  = {
+  { 0, 7, 0x32},
+  { 0, 7, 0x22},
+  { 0, 7, 0x35},
+  { 0, 7, 0x33},
+  { 0, 7, 0x33},
+  { 0, 7, 0x34},
+  { 0, 7, 0x34},
+  { 0, 7, 0x34}
+};
 
 
 /* Forward declarations */
@@ -137,7 +255,7 @@ ISR(PORTC_INT0_vect, ISR_BLOCK)
 
   /* IRQRQPLLUNLOCK */
   if (ax_spi_irq_request & _BV(5)) {
-    nop();
+    __asm volatile( "nop" );
     processed = 1U;
   }
 
@@ -154,7 +272,7 @@ ISR(PORTC_INT0_vect, ISR_BLOCK)
 
   if (!processed) {
     /* unknown request */
-    nop();
+    __asm volatile( "nop" );
   }
 }
 
@@ -237,12 +355,12 @@ void isr_spi_ax_fifo_readMessage(void)
 }
 #endif
 
-static uint8_t s_sel_u8_from_u32(uint32_t in_u32, uint8_t sel)
+static uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel)
 {
   return 0xff & (in_u32 >> (sel << 3));
 }
 
-static void s_spi_ax_select_device(void)
+static void spi_ax_select_device(void)
 {
 #if 0
   /* clear PORT C4 */
@@ -250,15 +368,17 @@ static void s_spi_ax_select_device(void)
 #endif
 }
 
-static void s_spi_ax_deselect_device(void)
+#if 0
+static void spi_ax_deselect_device(void)
 {
 #if 0
   /* set   PORT C4 */
   PORTC_OUTSET = 0x10;
 #endif
 }
+#endif
 
-static uint8_t s_strGetHex(const char* str)
+static uint8_t strGetHex(const char* str)
 {
   unsigned int ret = 0;
 
@@ -266,9 +386,17 @@ static uint8_t s_strGetHex(const char* str)
   return (uint8_t)ret;
 }
 
-static uint8_t s_strGetDec(const char* str, int* o_val)
+static uint8_t strGetDec(const char* str, int* o_val)
 {
   return (uint8_t) sscanf(str, "%d", o_val);
+}
+
+static void spi_ax_xtal_waitReady(void)
+{
+  /*  Wait until crystal oscillator is ready */
+  //do {
+    //spi_ax_transport(0U, "< 1d R1 >");                       // RD Address 0x1D: XTALSTATUS
+  //} while (!(g_ax_spi_packet_buffer[0] & 0x01));                      // Bit 0: XTALRUN
 }
 
 
@@ -684,15 +812,15 @@ uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t outBuf
   uint16_t outLen = 0;
 
   /* Sanity checks */
-  if (!outBuf || outBufSize <= g_ax_pocsag_activation_code_len) {
+  if (!outBuf || outBufSize <= s_ax_pocsag_activation_code_len) {
     return 0;
   }
 
-  for (uint16_t codeIdx = 0; codeIdx < g_ax_pocsag_activation_code_len; codeIdx++) {
+  for (uint16_t codeIdx = 0; codeIdx < s_ax_pocsag_activation_code_len; codeIdx++) {
     outBuf[outLen++] = (((RIC
-              >> g_ax_pocsag_activation_code[codeIdx][AX_POCSAG_SKYPER_ACTIVATION_ARY_SHIFT])
-              &  g_ax_pocsag_activation_code[codeIdx][AX_POCSAG_SKYPER_ACTIVATION_ARY_MASK])
-              +  g_ax_pocsag_activation_code[codeIdx][AX_POCSAG_SKYPER_ACTIVATION_ARY_OFFSET])
+              >> s_ax_pocsag_activation_code[codeIdx][AX_POCSAG_SKYPER_ACTIVATION_ARY_SHIFT])
+              &  s_ax_pocsag_activation_code[codeIdx][AX_POCSAG_SKYPER_ACTIVATION_ARY_MASK])
+              +  s_ax_pocsag_activation_code[codeIdx][AX_POCSAG_SKYPER_ACTIVATION_ARY_OFFSET])
               &  0x7f;                              // ASCII-7bit
   }
   outBuf[outLen] = 0;
@@ -711,7 +839,7 @@ uint16_t spi_ax_pocsag_skyper_TimeString(char* outBuf, uint16_t outBufSize, stru
   }
 
   /* Put calendar information into Skyper time message form */
-  return (uint16_t) snprintf_P(outBuf, outBufSize, PM_POCSAG_SKYPER_TIME, calDat->hour, calDat->minute, calDat->second, calDat->date + 1, calDat->month + 1, calDat->year % 100);
+  return (uint16_t) snprintf(outBuf, outBufSize, PM_POCSAG_SKYPER_TIME, calDat->hour, calDat->minute, calDat->second, calDat->date + 1, calDat->month + 1, calDat->year % 100);
 }
 #endif
 
@@ -725,7 +853,7 @@ uint16_t spi_ax_pocsag_skyper_RubricString_Encode(char* outBuf, uint16_t outBufS
   }
 
   /* Put rubric label into Skyper rubric message form */
-  uint16_t outLen = snprintf_P(outBuf, outBufSize, PM_POCSAG_SKYPER_RUBRIC_ENC, ' ' + (rubricNumber - 1), ' ' + 10);
+  uint16_t outLen = snprintf(outBuf, outBufSize, PM_POCSAG_SKYPER_RUBRIC_ENC, ' ' + (rubricNumber - 1), ' ' + 10);
 
   char* outBuf_ptr    = outBuf + outLen;
   const char* read_ptr  = rubricLabel;
@@ -752,7 +880,7 @@ uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t outBufS
 
   uint8_t rubricNumber  = (pocsagSkyperRubricMsg[1] - ' ') + 1;
   uint8_t rubricSize    = pocsagSkyperRubricMsg[2] - ' ';
-  uint16_t outLen     = snprintf_P(outBuf, outBufSize, PM_POCSAG_SKYPER_RUBRIC_DEC, rubricNumber, rubricSize);
+  uint16_t outLen     = snprintf(outBuf, outBufSize, PM_POCSAG_SKYPER_RUBRIC_DEC, rubricNumber, rubricSize);
 
   char* outBuf_ptr    = outBuf + outLen;
   const char* read_ptr  = pocsagSkyperRubricMsg + 3;
@@ -778,7 +906,7 @@ uint16_t spi_ax_pocsag_skyper_NewsString_Encode(char* outBuf, uint16_t outBufSiz
   }
 
   /* Put news into Skyper news message form */
-  uint16_t outLen = snprintf_P(outBuf, outBufSize, PM_POCSAG_SKYPER_NEWS_ENC, ' ' + (rubricNumber - 1), ' ' + newsNumber);
+  uint16_t outLen = snprintf(outBuf, outBufSize, PM_POCSAG_SKYPER_NEWS_ENC, ' ' + (rubricNumber - 1), ' ' + newsNumber);
 
   char* outBuf_ptr    = outBuf + outLen;
   const char* read_ptr  = newsString;
@@ -805,7 +933,7 @@ uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t outBufSiz
 
   uint8_t rubricNumber  = (pocsagSkyperNewsMsg[0] - ' ') + 1;
   uint8_t newsNumber    = pocsagSkyperNewsMsg[1] - ' ';
-  uint16_t outLen     = snprintf_P(outBuf, outBufSize, PM_POCSAG_SKYPER_NEWS_DEC, rubricNumber, newsNumber);
+  uint16_t outLen     = snprintf(outBuf, outBufSize, PM_POCSAG_SKYPER_NEWS_DEC, rubricNumber, newsNumber);
 
   char* outBuf_ptr    = outBuf + outLen;
   const char* read_ptr  = pocsagSkyperNewsMsg + 2;
@@ -903,14 +1031,7 @@ void spi_ax_pocsag_messageDecoder(uint32_t address, uint8_t functionBits, uint32
   uint8_t isSkyper = 1U;
 
   if (isSkyper) {
-    uint32_t l_ax_pocsag_individual_ric;
-
-    /* Get global vars */
-    {
-      irqflags_t flags = cpu_irq_save();
-      l_ax_pocsag_individual_ric = g_ax_pocsag_individual_ric;
-      cpu_irq_restore(flags);
-    }
+    uint32_t l_ax_pocsag_individual_ric = s_ax_pocsag_individual_ric;
 
     switch (address) {
       case AX_POCSAG_SKYPER_RIC_CLOCK:
@@ -1000,7 +1121,7 @@ status_code_t spi_ax_transport(uint8_t isProgMem, const char* packet)
   memset(g_ax_spi_packet_buffer, 0, sizeof(g_ax_spi_packet_buffer));
 
   if (isProgMem) {
-    snprintf_P(l_msg_buf, sizeof(l_msg_buf), packet);
+    snprintf(l_msg_buf, sizeof(l_msg_buf), packet);
   }
 
   do {
@@ -1157,7 +1278,7 @@ status_code_t spi_ax_transport(uint8_t isProgMem, const char* packet)
 
         //return 0U;
         while (1U)
-          nop();
+          __asm volatile( "nop" );
       }
     }
   } while (l_state != SPI_AX_TRPT_STATE_END);
@@ -1209,7 +1330,7 @@ static void s_spi_ax_xtal_waitReady(void)
 
 void spi_ax_setPower_dBm(float dBm)
 {
-  uint16_t pwrReg;
+  uint16_t pwrReg; (void) pwrReg;
   uint8_t pwrIdx;
 
   if (dBm > 15.f) {
@@ -1223,17 +1344,19 @@ void spi_ax_setPower_dBm(float dBm)
   }
 
   pwrIdx = (uint8_t) ((dBm + 10.2f) * 10.f + 0.5f);
-  pwrReg = g_ax_pwr_ary[pwrIdx];
+  pwrReg = s_ax_pwr_ary[pwrIdx];
 
   /* Set power register value */
-  g_ax_spi_packet_buffer[0] = 0xF1;                             // WR Address 0x16A: TXPWRCOEFFB
-  g_ax_spi_packet_buffer[1] = 0x6A;
-  g_ax_spi_packet_buffer[2] = (uint8_t) (pwrReg >> 8);
-  g_ax_spi_packet_buffer[3] = (uint8_t) (pwrReg  & 0xff);
+#if 0
+  s_ax_spi_packet_buffer[0] = 0xF1;                             // WR Address 0x16A: TXPWRCOEFFB
+  s_ax_spi_packet_buffer[1] = 0x6A;
+  s_ax_spi_packet_buffer[2] = (uint8_t) (pwrReg >> 8);
+  s_ax_spi_packet_buffer[3] = (uint8_t) (pwrReg  & 0xff);
 
   spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
-  spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 4);
+  spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 4)
   spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 }
 
 void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState)
@@ -1245,6 +1368,7 @@ void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState)
   }
 
   /* Prepare packet */
+#if 0
   g_ax_spi_packet_buffer[0] = 0x02 | 0x80;                            // WR address 0x02: PWRMODE
   g_ax_spi_packet_buffer[1] = (uint8_t)powerState;
 
@@ -1252,6 +1376,7 @@ void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState)
   spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
   spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 2);
   spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 }
 
 void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulation, AX_SET_REGISTERS_VARIANT_t variant, AX_SET_REGISTERS_POWERMODE_t powerState)
@@ -1259,10 +1384,10 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
   static AX_SET_REGISTERS_MODULATION_t s_modulation = AX_SET_REGISTERS_MODULATION_NONE;
   static AX_SET_REGISTERS_VARIANT_t    s_variant    = AX_SET_REGISTERS_VARIANT_NONE;
   static AX_SET_REGISTERS_POWERMODE_t  s_powerState = AX_SET_REGISTERS_POWERMODE_NONE;
-  status_code_t sc;
+  //status_code_t sc;
 
   /* Do not access the registers when not enabled */
-  if (!g_ax_enable) {
+  if (!s_ax_enable) {
     return;
   }
 
@@ -1281,7 +1406,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
 
   /* Entering DEEPSLEEP - all register contents are lost */
   if (powerState == AX_SET_REGISTERS_POWERMODE_DEEPSLEEP) {
-    spi_ax_ISR_setFlags(0x00);
+    //spi_ax_ISR_setFlags(0x00);
 
     s_modulation  = AX_SET_REGISTERS_MODULATION_NONE;
     s_variant   = AX_SET_REGISTERS_VARIANT_NONE;
@@ -1292,16 +1417,16 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
   }
 
   if (doReset) {
-    spi_ax_ISR_setFlags(0x00);
+    //spi_ax_ISR_setFlags(0x00);
 
     s_modulation  = AX_SET_REGISTERS_MODULATION_NONE;
     s_variant   = AX_SET_REGISTERS_VARIANT_NONE;
     s_powerState  = AX_SET_REGISTERS_POWERMODE_POWERDOWN;
 
-    sc = spi_ax_sync2Powerdown();
-    if (sc != STATUS_OK) {
-      ax_enable(0U);
-    }
+    //sc = spi_ax_sync2Powerdown();
+    //if (sc != STATUS_OK) {
+    //  s_ax_enable = 0U;
+    //}
   }
 
   /* Copy when NO_CHANGE */
@@ -1326,7 +1451,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
 
     /* Go to POWERDOWN mode for register file modifications */
     if (s_powerState != AX_SET_REGISTERS_POWERMODE_POWERDOWN) {
-      spi_ax_ISR_setFlags(0x00);
+      //spi_ax_ISR_setFlags(0x00);
       s_powerState  = AX_SET_REGISTERS_POWERMODE_POWERDOWN;
       spi_ax_setPwrMode(s_powerState);
     }
@@ -1392,7 +1517,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
               spi_ax_initRegisters_PR1200();
               spi_ax_initRegisters_PR1200_Rx();
               spi_ax_initRegisters_PR1200_Rx_WoR();
-              spi_ax_ISR_setFlags(0x01);
+              //spi_ax_ISR_setFlags(0x01);
             }
             break;
 
@@ -1402,7 +1527,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
               spi_ax_initRegisters_PR1200();
               spi_ax_initRegisters_PR1200_Rx();
               spi_ax_initRegisters_PR1200_Rx_cont();
-              spi_ax_ISR_setFlags(0x01);
+              //spi_ax_ISR_setFlags(0x01);
             }
             break;
 
@@ -1412,7 +1537,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
               spi_ax_initRegisters_PR1200_Rx();
               spi_ax_initRegisters_PR1200_Rx_cont();
               spi_ax_initRegisters_PR1200_Rx_cont_SingleParamSet();
-              spi_ax_ISR_setFlags(0x01);
+              //spi_ax_ISR_setFlags(0x01);
             }
             break;
 
@@ -1449,7 +1574,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
               spi_ax_initRegisters_POCSAG();
               spi_ax_initRegisters_POCSAG_Rx();
               spi_ax_initRegisters_POCSAG_Rx_WoR();
-              spi_ax_ISR_setFlags(0x01);
+              //spi_ax_ISR_setFlags(0x01);
             }
             break;
 
@@ -1459,7 +1584,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
               spi_ax_initRegisters_POCSAG();
               spi_ax_initRegisters_POCSAG_Rx();
               spi_ax_initRegisters_POCSAG_Rx_cont();
-              spi_ax_ISR_setFlags(0x01);
+              //spi_ax_ISR_setFlags(0x01);
             }
             break;
 
@@ -1469,7 +1594,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
               spi_ax_initRegisters_POCSAG_Rx();
               spi_ax_initRegisters_POCSAG_Rx_cont();
               //spi_ax_initRegisters_POCSAG_Rx_cont_SingleParamSet();
-              spi_ax_ISR_setFlags(0x01);
+              //spi_ax_ISR_setFlags(0x01);
             }
             break;
 
@@ -1548,7 +1673,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
       if (s_powerState != powerState) {
         s_powerState  = powerState;
         spi_ax_setPwrMode(s_powerState);
-        s_spi_ax_xtal_waitReady();  // T_xtal
+        spi_ax_xtal_waitReady();  // T_xtal
       }
       return;
     }
@@ -1561,11 +1686,11 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState  = AX_SET_REGISTERS_POWERMODE_STANDBY;
           spi_ax_setPwrMode(s_powerState);
-          s_spi_ax_xtal_waitReady();  // T_xtal
+          spi_ax_xtal_waitReady();  // T_xtal
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
         }
         break;
 
@@ -1573,7 +1698,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
         }
         break;
 
@@ -1600,7 +1725,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
         }
         break;
 
@@ -1616,15 +1741,15 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_STANDBY;
           spi_ax_setPwrMode(s_powerState);
-          s_spi_ax_xtal_waitReady();  // T_xtal
+          spi_ax_xtal_waitReady();  // T_xtal
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(5);  // T_rx_rssi
+          //osDelay(5);  // T_rx_rssi
         }
         break;
 
@@ -1632,11 +1757,11 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(5);  // T_rx_rssi
+          osDelay(5);  // T_rx_rssi
         }
         break;
 
@@ -1644,7 +1769,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(5);  // T_rx_rssi
+          osDelay(5);  // T_rx_rssi
         }
         break;
 
@@ -1663,11 +1788,11 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(5);  // T_rx_rssi
+          osDelay(5);  // T_rx_rssi
         }
         break;
 
@@ -1683,11 +1808,11 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_STANDBY;
           spi_ax_setPwrMode(s_powerState);
-          s_spi_ax_xtal_waitReady();  // T_xtal
+          spi_ax_xtal_waitReady();  // T_xtal
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
         }
         break;
 
@@ -1695,7 +1820,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
         }
         break;
 
@@ -1708,7 +1833,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
         }
         break;
 
@@ -1722,7 +1847,7 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(1);  // T_tx_on
+          osDelay(1);  // T_tx_on
         }
         break;
 
@@ -1738,15 +1863,15 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_STANDBY;
           spi_ax_setPwrMode(s_powerState);
-          s_spi_ax_xtal_waitReady();  // T_xtal
+          spi_ax_xtal_waitReady();  // T_xtal
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(1);  // T_tx_on
+          osDelay(1);  // T_tx_on
         }
         break;
 
@@ -1754,11 +1879,11 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(1);  // T_tx_on
+          osDelay(1);  // T_tx_on
         }
         break;
 
@@ -1771,11 +1896,11 @@ void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulati
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_us(40);  // T_synth
+          //delay_us(40);  // T_synth
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          delay_ms(1);  // T_tx_on
+          osDelay(1);  // T_tx_on
         }
         break;
 
@@ -1819,18 +1944,19 @@ float spi_ax_calcFrequency_Regs2MHz(uint32_t vco_regval)
 
 void spi_ax_setFrequency2Regs(uint8_t chan, uint8_t isFreqB)
 {
-  uint32_t f_reg;
+  uint32_t f_reg;  (void) f_reg;
 
   if (chan > 2) {
     /* ERROR */
     return;
   }
-  f_reg = g_ax_spi_freq_chan[chan];
+  f_reg = s_ax_spi_freq_chan[chan];
 
   /* Make range value non-valid again */
-  g_ax_spi_range_chan[chan] = C_SPI_AX_RANGE_NOT_SET;
+  s_ax_spi_range_chan[chan] = C_SPI_AX_RANGE_NOT_SET;
 
   /* Prepare packet */
+#if 0
   g_ax_spi_packet_buffer[0] = (isFreqB ?  0x3C : 0x34) | 0x80;                // WR Address 0x34 or 0x3C
   g_ax_spi_packet_buffer[1] = (uint8_t) (f_reg >> 24) & 0xff;
   g_ax_spi_packet_buffer[2] = (uint8_t) (f_reg >> 16) & 0xff;
@@ -1841,27 +1967,30 @@ void spi_ax_setFrequency2Regs(uint8_t chan, uint8_t isFreqB)
   spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
   spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 5);
   spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 }
 
 void spi_ax_doRanging(void)
 {
-  static uint32_t s_ax_spi_freq_chan[2] = { 0x28, 0x28 };
+  static uint32_t sf_ax_spi_freq_chan[2] = { 0x28, 0x28 };
 
-  if ((0x00 <= g_ax_spi_range_chan[0]) && (g_ax_spi_range_chan[0] <= 0x0f)  &&  (s_ax_spi_freq_chan[0] == g_ax_spi_freq_chan[0])  &&
-      (0x00 <= g_ax_spi_range_chan[1]) && (g_ax_spi_range_chan[1] <= 0x0f)  &&  (s_ax_spi_freq_chan[1] == g_ax_spi_freq_chan[1])) {
+  if ((0x00 <= s_ax_spi_range_chan[0]) && (s_ax_spi_range_chan[0] <= 0x0f)  &&  (s_ax_spi_freq_chan[0] == s_ax_spi_freq_chan[0])  &&
+      (0x00 <= s_ax_spi_range_chan[1]) && (s_ax_spi_range_chan[1] <= 0x0f)  &&  (s_ax_spi_freq_chan[1] == s_ax_spi_freq_chan[1])) {
 
     spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
     /* Recall the ranging values for both frequencies FREQA and FREQB */
     for (uint8_t idx = 0; idx < 2; idx++) {
-      uint8_t regAdr = idx ?  0x3b : 0x33;                        // WR Address 0x33: PLLRANGINGA  or  Address 0x3b: PLLRANGINGB
-      uint8_t val   = g_ax_spi_range_chan[idx];
+      uint8_t regAdr = idx ?  0x3b : 0x33;  (void) regAdr;                        // WR Address 0x33: PLLRANGINGA  or  Address 0x3b: PLLRANGINGB
+      uint8_t val = s_ax_spi_range_chan[idx];  (void) val;
 
-      g_ax_spi_packet_buffer[0] = regAdr | 0x80;
-      g_ax_spi_packet_buffer[1] = val  & 0x0f;
+#if 0
+      s_ax_spi_packet_buffer[0] = regAdr | 0x80;
+      s_ax_spi_packet_buffer[1] = val  & 0x0f;
       spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
       spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 2);
       spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
     }
 
   } else {
@@ -1871,34 +2000,37 @@ void spi_ax_doRanging(void)
     spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_STANDBY);
 
     /* MODULATION */
-    spi_ax_transport(0U, "< 90 08 >");                         // WR address 0x10: MODULATION - 08: FSK
+    //spi_ax_transport(0U, "< 90 08 >");                         // WR address 0x10: MODULATION - 08: FSK
 
     /* Default 100kHz loop BW for ranging */
     /* PLLLOOP */
-    spi_ax_transport(0U, "< b0 09 >");                         // WR address 0x30: PLLLOOP - DIRECT: Bypass External Filter Pin, FLT: Internal Loop Filter x1 --> BW = 100 kHz for I_CP = 68 µA
+    //spi_ax_transport(0U, "< b0 09 >");                         // WR address 0x30: PLLLOOP - DIRECT: Bypass External Filter Pin, FLT: Internal Loop Filter x1 --> BW = 100 kHz for I_CP = 68 µA
 
     /* PLLCPI */
-    spi_ax_transport(0U, "< b1 08 >");                         // WR address 0x31: PLLCPI - PLLCPI: Charge pump current in multiples of 8.5 µA --> I_CP = 68 µA
+    //spi_ax_transport(0U, "< b1 08 >");                         // WR address 0x31: PLLCPI - PLLCPI: Charge pump current in multiples of 8.5 µA --> I_CP = 68 µA
 
     /* FSKDEV */
-    spi_ax_transport(0U, "< f1 61 00 00 00 >");                      // WR address 0x161: FSKDEV - off
+    //spi_ax_transport(0U, "< f1 61 00 00 00 >");                      // WR address 0x161: FSKDEV - off
 
     for (uint8_t idx = 0; idx < 2; idx++) {
-      if ((0x10 <= g_ax_spi_range_chan[idx]) || (s_ax_spi_freq_chan[idx] != g_ax_spi_freq_chan[idx]))
+      if ((0x10 <= s_ax_spi_range_chan[idx]) || (sf_ax_spi_freq_chan[idx] != s_ax_spi_freq_chan[idx]))
       {
-        uint8_t regAdr = idx ?  0x3b : 0x33;                      // WR Address 0x33: PLLRANGINGA  or  Address 0x3b: PLLRANGINGB
+        uint8_t regAdr = idx ?  0x3b : 0x33;  (void) regAdr;                      // WR Address 0x33: PLLRANGINGA  or  Address 0x3b: PLLRANGINGB
 
         /* Switch to VCO1 or VCO2 as needed */
-        (void) spi_ax_vco_select(g_ax_spi_freq_chan[idx], 1U);
+        (void) spi_ax_vco_select(s_ax_spi_freq_chan[idx], 1U);
 
         /* Command message */
+#if 0
         g_ax_spi_packet_buffer[0] = regAdr | 0x80;
         g_ax_spi_packet_buffer[1] = 0x18;                       // Bit 4: RNGSTART, ranging start value = 8
         spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
         spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 2);
         spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 
         /* Wait until ranging has ended */
+#if 0
         do {
           /* Request message */
           g_ax_spi_packet_buffer[0] = regAdr;
@@ -1907,12 +2039,14 @@ void spi_ax_doRanging(void)
           spi_read_packet(&SPI_AX, g_ax_spi_packet_buffer, 1);
           spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
         } while (g_ax_spi_packet_buffer[0] & _BV(4));                 // Bit 4: RNGSTATUS
+#endif
 
         /* Ranging value to be stored - when error occurs store that result, also */
-        g_ax_spi_range_chan[idx]  = g_ax_spi_packet_buffer[0];
-        s_ax_spi_freq_chan[idx]   = g_ax_spi_freq_chan[idx];
+        s_ax_spi_range_chan[idx]  = s_ax_spi_packet_buffer[0];
+        sf_ax_spi_freq_chan[idx]  = s_ax_spi_freq_chan[idx];
 
         /* When ranging has failed set default ranging value to keep VCO stable */
+#if 0
         if (g_ax_spi_packet_buffer[0] & _BV(5)) {
           /* Command message */
           g_ax_spi_packet_buffer[0] = regAdr | 0x80;
@@ -1921,6 +2055,7 @@ void spi_ax_doRanging(void)
           spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 2);
           spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
         }
+#endif
       }
     }
 
@@ -2014,14 +2149,16 @@ void spi_ax_doRanging(void)
 uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
 {
   float f_Mhz = spi_ax_calcFrequency_Regs2MHz(reg_freq);
-  uint8_t curVco2;
+  uint8_t curVco2 = 0U;
   uint8_t modified = 0U;
 
   /* Read VCO settings */
   {
     /* PLLVCODIV */
+#if 0
     spi_ax_transport(0U, "< 32 R1 >");                         // RD address 0x32: PLLVCODIV - VCO2INT, VCOSEL, RFDIV
     curVco2 = (g_ax_spi_packet_buffer[0] & 0x20) ?  1U : 0U;
+#endif
   }
 
   /* VCO1 ranges abt. 380 MHz ... 540 MHz (RFDIV=1)  and  760 MHz ... 1080 MHz (RFDIV=0) */
@@ -2029,10 +2166,10 @@ uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
     modified = 1U;
 
     /* PLLVCODIV - mind you: check 0xF34, also */
-    spi_ax_transport(0U, "< b2 00 >");                         // WR address 0x32: PLLVCODIV - no RFDIV
+    //spi_ax_transport(0U, "< b2 00 >");                         // WR address 0x32: PLLVCODIV - no RFDIV
 
     /* 0xF34 */
-    spi_ax_transport(0U, "< ff 34 08 >");                        // WR address 0xF34 (RX/TX) - Set to 0x28 if RFDIV in register PLLVCODIV is set, or to 0x08 otherwise
+    //spi_ax_transport(0U, "< ff 34 08 >");                        // WR address 0xF34 (RX/TX) - Set to 0x28 if RFDIV in register PLLVCODIV is set, or to 0x08 otherwise
   }
 
   else if (f_Mhz >= 380.f) {
@@ -2041,10 +2178,10 @@ uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
       modified = 1U;
 
       /* PLLVCODIV - mind you: check 0xF34, also */
-      spi_ax_transport(0U, "< b2 04 >");                       // WR address 0x32: PLLVCODIV - RFDIV
+      //spi_ax_transport(0U, "< b2 04 >");                       // WR address 0x32: PLLVCODIV - RFDIV
 
       /* 0xF34 */
-      spi_ax_transport(0U, "< ff 34 28 >");                      // WR address 0xF34 (RX/TX) - Set to 0x28 if RFDIV in register PLLVCODIV is set, or to 0x08 otherwise
+      //spi_ax_transport(0U, "< ff 34 28 >");                      // WR address 0xF34 (RX/TX) - Set to 0x28 if RFDIV in register PLLVCODIV is set, or to 0x08 otherwise
     }
   }
 
@@ -2054,10 +2191,10 @@ uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
       modified = 1U;
 
       /* PLLVCODIV - mind you: check 0xF34, also */
-      spi_ax_transport(0U, "< b2 34 >");                       // WR address 0x32: PLLVCODIV - VCO2INT, VCOSEL, RFDIV
+      //spi_ax_transport(0U, "< b2 34 >");                       // WR address 0x32: PLLVCODIV - VCO2INT, VCOSEL, RFDIV
 
       /* 0xF34 */
-      spi_ax_transport(0U, "< ff 34 28 >");                      // WR address 0xF34 (RX/TX) - Set to 0x28 if RFDIV in register PLLVCODIV is set, or to 0x08 otherwise
+      //spi_ax_transport(0U, "< ff 34 28 >");                      // WR address 0xF34 (RX/TX) - Set to 0x28 if RFDIV in register PLLVCODIV is set, or to 0x08 otherwise
     }
   }
 
@@ -2067,9 +2204,10 @@ uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
 uint8_t spi_ax_selectVcoFreq(uint8_t isFreqB)
 {
   /* Switch to VCO1 or VCO2 as needed */
-  uint8_t modified = spi_ax_vco_select(g_ax_spi_freq_chan[isFreqB ?  1 : 0], 0U);
+  uint8_t modified = spi_ax_vco_select(s_ax_spi_freq_chan[isFreqB ?  1 : 0], 0U);
 
   /* PLLLOOP */
+#if 0
   spi_ax_transport(0U, "< 30 R1 >");                           // RD address 0x30: PLLLOOP
   g_ax_spi_packet_buffer[1] = (isFreqB ?  (g_ax_spi_packet_buffer[0] | 0x80)          // Set   FREQB
                      :  (g_ax_spi_packet_buffer[0] & 0x7f));        // Clear FREQB
@@ -2078,35 +2216,33 @@ uint8_t spi_ax_selectVcoFreq(uint8_t isFreqB)
   spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
   spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 2);
   spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 
   return modified;
 }
 
 void spi_ax_util_FIFO_waitFree(uint8_t neededSpace)
 {
-  uint16_t fifoFree;
+  uint16_t fifoFree;  (void) fifoFree;
 
+#if 0
   do {
     /* FIFOFREE */
     spi_ax_transport(0U, "< 2c R2 >");                         // RD address 0x2C: FIFOFREE
     fifoFree = 0x1ff & (((uint16_t)g_ax_spi_packet_buffer[0] << 8) | g_ax_spi_packet_buffer[1]);
   } while (fifoFree < neededSpace);
+#endif
 }
 
 void spi_ax_setRxMode_by_MonMode(void)
 {
   /* Leave when AX5243 is disabled */
-  if (!g_ax_enable) {
-    irqflags_t flags = cpu_irq_save();
-    g_ax_set_mon_mode = AX_SET_MON_MODE_OFF;
-    cpu_irq_restore(flags);
-
+  if (!s_ax_enable) {
+    s_ax_set_mon_mode = AX_SET_MON_MODE_OFF;
     return;
   }
 
-  irqflags_t flags = cpu_irq_save();
-  AX_SET_MON_MODE_t l_ax_set_mon_mode = g_ax_set_mon_mode;
-  cpu_irq_restore(flags);
+  AX_SET_MON_MODE_t l_ax_set_mon_mode = s_ax_set_mon_mode;
 
   switch (l_ax_set_mon_mode) {
     case AX_SET_MON_MODE_APRS_RX_WOR:
@@ -2131,6 +2267,7 @@ void spi_ax_setRxMode_by_MonMode(void)
 void spi_ax_initRegisters_FSK(void)
 {
   /* MODULATION */
+#if 0
   spi_ax_transport(0U, "< 90 08 >");                           // WR address 0x10: MODULATION - 08: FSK
 
   /* ENCODING */
@@ -2424,24 +2561,29 @@ void spi_ax_initRegisters_FSK(void)
 
   /* 0xF11 - XTALAMPL */
   spi_ax_transport(0U, "< ff 11 07 >");                          // WR address 0xF11: XTALAMPL
+#endif
 }
 
 void spi_ax_initRegisters_FSK_Tx(void)
 {
+#if 0
   /* PLLLOOP */
   spi_ax_transport(0U, "< b0 0a >");                           // WR address 0x30: PLLLOOP - DIRECT 0x08, no FILTEN, FLT 02: Internal Loop Filter x2 (BW = 200 kHz for ICP = 272 mA)
 
   /* PLLLOOPBOOST */
   spi_ax_transport(0U, "< b8 0b >");                           // WR address 0x38: PLLLOOPBOOST - DIRECT 0x08, no FILTEN, FLT 03: Internal Loop Filter x5 (BW = 500 kHz for ICP = 1.7 mA)
+#endif
 }
 
 void spi_ax_initRegisters_FSK_Rx(void)
 {
+#if 0
   /* PLLLOOP */
   spi_ax_transport(0U, "< b0 0a >");                           // WR address 0x30: PLLLOOP - DIRECT 0x08, no FILTEN, FLT 02: Internal Loop Filter x2 (BW = 200 kHz for ICP = 272 mA)
 
   /* PLLLOOPBOOST */
   spi_ax_transport(0U, "< b8 0b >");                           // WR address 0x38: PLLLOOPBOOST - DIRECT 0x08, no FILTEN, FLT 03: Internal Loop Filter x5 (BW = 500 kHz for ICP = 1.7 mA)
+#endif
 }
 
 void spi_ax_init_FSK_Tx(void)
@@ -2452,7 +2594,7 @@ void spi_ax_init_FSK_Tx(void)
   /* Frequency settings */
   {
     /* FSK */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);            // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);            // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
     /*
     Radiometrix TXL2/RXL2 - 16kbps bi-phase FSK
     433.925MHz - CHAN0
@@ -2463,7 +2605,7 @@ void spi_ax_init_FSK_Tx(void)
     */
 
     /* POCSAG */
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
 
     /* FREQA <-- chan[0], FREQB <-- chan[1] */
     spi_ax_setFrequency2Regs(0, 0U);
@@ -2489,7 +2631,7 @@ void spi_ax_init_FSK_Tx(void)
   spi_ax_setPower_dBm(-10.0f);
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the transmitter */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_FULLTX);
@@ -2503,7 +2645,7 @@ void spi_ax_init_FSK_Rx(void)
   /* Frequency settings */
   {
     /* FSK */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);            // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);            // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
     /*
     Radiometrix TXL2/RXL2 - 16kbps bi-phase FSK
     433.925MHz - CHAN0
@@ -2514,7 +2656,7 @@ void spi_ax_init_FSK_Rx(void)
     */
 
     /* POCSAG */
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
 
     /* FREQA <-- chan[0], FREQB <-- chan[1] */
     spi_ax_setFrequency2Regs(0, 0U);
@@ -2537,7 +2679,7 @@ void spi_ax_init_FSK_Rx(void)
   #endif
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the wake-on-radio receiver */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_WOR);
@@ -2546,6 +2688,7 @@ void spi_ax_init_FSK_Rx(void)
 
 void spi_ax_initRegisters_PR1200(void)
 {
+#if 0
   /* MODULATION */
   spi_ax_transport(0U, "< 90 0a >");                           // WR address 0x10: MODULATION - 0A: AFSK
 
@@ -2563,31 +2706,34 @@ void spi_ax_initRegisters_PR1200(void)
 
   /* CRCINIT */
   spi_ax_transport(0U, "< 94 ff ff ff ff >");                        // WR address 0x14: CRCINIT
-
+#endif
 
   /*WAKEUPTIMER */
-  spi_ax_transport(0U, "< 68 R2 >");                           // RD address 0x68: WAKEUPTIMER
-  uint16_t wutNext = ((uint16_t)g_ax_spi_packet_buffer[0] << 8) | g_ax_spi_packet_buffer[1];
-  wutNext += 1024;
+  //spi_ax_transport(0U, "< 68 R2 >");                           // RD address 0x68: WAKEUPTIMER
+  //uint16_t wutNext = ((uint16_t)s_ax_spi_packet_buffer[0] << 8) | g_ax_spi_packet_buffer[1];
+  //wutNext += 1024;
 
+#if 0
   g_ax_spi_packet_buffer[0] = 0x6A | 0x80;                          // WR address 0x6A: WAKEUP - 100 ms later
   g_ax_spi_packet_buffer[1] = wutNext >> 8;
   g_ax_spi_packet_buffer[2] = wutNext & 0xff;
   spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
   spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, 3);
   spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 
   /* WAKEUPFREQ */
-  spi_ax_transport(0U, "< ec 04 00 >");                          // WR address 0x6C: WAKEUPFREQ - every 100 ms = 1024d
+  //spi_ax_transport(0U, "< ec 04 00 >");                          // WR address 0x6C: WAKEUPFREQ - every 100 ms = 1024d
 
 
   /* PINFUNCTCXO_EN */
   #if 0
   spi_ax_transport(0U, "< a6 05 >");                           // WR address 0x26: PINFUNCTCXO_EN - Use TCXO_EN pin as DAC output
   #else
-  spi_ax_transport(0U, "< a6 00 >");                           // WR address 0x26: PINFUNCTCXO_EN - Set to output '0'
+  //spi_ax_transport(0U, "< a6 00 >");                           // WR address 0x26: PINFUNCTCXO_EN - Set to output '0'
   #endif
 
+#if 0
   /* WAKEUPXOEARLY */
   spi_ax_transport(0U, "< ee 01 >");                           // WR address 0x6E: WAKEUPXOEARLY - 1 LPOSC cycle wake-up time before receiver is started
 
@@ -2918,10 +3064,12 @@ void spi_ax_initRegisters_PR1200(void)
 
   /* 0xF11 - XTALAMPL */
   spi_ax_transport(0U, "< ff 11 07 >");                          // WR address 0xF11: XTALAMPL
+#endif
 }
 
 void spi_ax_initRegisters_PR1200_Tx(void)
 {
+#if 0
   /* PLLLOOP */
   spi_ax_transport(0U, "< b0 0a >");                           // WR address 0x30: PLLLOOP - DIRECT 0x08, no FILTEN, FLT 02: Internal Loop Filter x2 (BW = 200 kHz for ICP = 272 mA)
 
@@ -2998,10 +3146,12 @@ void spi_ax_initRegisters_PR1200_Tx(void)
 
   /* 0xF44 */
   spi_ax_transport(0U, "< ff 44 25 >");                          // WR address 0xF44 (RX/TX)
+#endif
 }
 
 void spi_ax_initRegisters_PR1200_Rx(void)
 {
+#if 0
   /* PLLLOOP */
   spi_ax_transport(0U, "< b0 0a >");                           // WR address 0x30: PLLLOOP - DIRECT 0x08, no FILTEN, FLT 02: Internal Loop Filter x2 (BW = 200 kHz for ICP = 272 mA)
 
@@ -3071,10 +3221,12 @@ void spi_ax_initRegisters_PR1200_Rx(void)
 
   /* 0xF72 */
   spi_ax_transport(0U, "< ff 72 00 >");                          // WR address 0xF72 (RX) - Set to 0x06 if the framing mode is set to "Raw, Soft Bits" (register FRAMING), or to 0x00 otherwise
+#endif
 }
 
 void spi_ax_initRegisters_PR1200_Rx_WoR(void)
 {
+#if 0
   /* AGCGAIN0 */
   spi_ax_transport(0U, "< f1 20 83 >");                          // WR address 0x120: AGCGAIN0 - AGCDECAY0 = 8  (f_3db=621 Hz), AGCATTACK0 = 3  (f_3db=18,660 Hz)
 
@@ -3090,10 +3242,12 @@ void spi_ax_initRegisters_PR1200_Rx_WoR(void)
 
   /* PKTMISCFLAGS */
   spi_ax_transport(0U, "< f2 31 05 >");                          // WR address 0x231: PKTMISCFLAGS - BGND RSSI 0x04, !RXAGC CLK, RXRSSI CLK clock sources: Bit clock
+#endif
 }
 
 void spi_ax_initRegisters_PR1200_Rx_cont(void)
 {
+#if 0
   /* AGCGAIN0 */
   spi_ax_transport(0U, "< f1 20 e8 >");                          // WR address 0x120: AGCGAIN0 - AGCDECAY0 = 14  (f_3db=10 Hz), AGCATTACK0 = 8  (f_3db=621 Hz)
 
@@ -3110,10 +3264,12 @@ void spi_ax_initRegisters_PR1200_Rx_cont(void)
   /* PKTMISCFLAGS */
   //spi_ax_transport(0U, "< f2 31 00 >");                          // WR address 0x231: PKTMISCFLAGS - no BGND RSSI !0x04, RXAGC CLK, RXRSSI CLK clock sources: 1 µs
   spi_ax_transport(0U, "< f2 31 04 >");                          // WR address 0x231: PKTMISCFLAGS - BGND RSSI 0x04, RXAGC CLK, RXRSSI CLK clock sources: 1 µs
+#endif
 }
 
 void spi_ax_initRegisters_PR1200_Rx_cont_SingleParamSet(void)
 {
+#if 0
   /* RXPARAMSETS */
   spi_ax_transport(0U, "< f1 17 ff >");                          // WR address 0x117: RXPARAMSETS
 
@@ -3122,6 +3278,7 @@ void spi_ax_initRegisters_PR1200_Rx_cont_SingleParamSet(void)
 
   /* AGCGAIN3 */
   spi_ax_transport(0U, "< f1 50 e8 >");                          // WR address 0x150: AGCGAIN3
+#endif
 }
 
 void spi_ax_init_PR1200_Tx(void)
@@ -3132,10 +3289,10 @@ void spi_ax_init_PR1200_Tx(void)
   /* Frequency settings */
   {
     /* APRS  */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);            // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);            // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
 
     /* Burst-Aussendungen fuer Steuerungszwecke */
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);            // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);            // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
     spi_ax_setFrequency2Regs(0, 0U);
     spi_ax_setFrequency2Regs(1, 1U);
@@ -3160,7 +3317,7 @@ void spi_ax_init_PR1200_Tx(void)
   spi_ax_setPower_dBm(-10.0f);
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the transmitter */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_FULLTX);
@@ -3182,11 +3339,12 @@ void spi_ax_run_PR1200_Tx_FIFO_APRS(const char addrAry[][C_PR1200_CALL_LENGTH], 
 
 void spi_ax_util_PR1200_Tx_FIFO_Flags(uint8_t count)
 {
-  uint16_t idx = 0;
+  uint16_t idx = 0;  (void) idx;
 
   /* Wait until enough space for next batch is available */
   spi_ax_util_FIFO_waitFree(5 + count);
 
+#if 0
   g_ax_spi_packet_buffer[idx++] = 0xA9;                           // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
   g_ax_spi_packet_buffer[idx++] = AX_FIFO_DATA_CMD_REPEATDATA_TX;
 
@@ -3201,11 +3359,12 @@ void spi_ax_util_PR1200_Tx_FIFO_Flags(uint8_t count)
 
   /* FIFO do a COMMIT */
   spi_ax_transport(0U, "< a8 04 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_COMMIT
+#endif
 }
 
 void spi_ax_util_PR1200_Tx_FIFO_AddressField(const char addrAry[][C_PR1200_CALL_LENGTH], const uint8_t* ssidAry, uint8_t addrCnt)
 {
-  uint16_t idx = 0;
+  uint16_t idx = 0;  (void) idx;
 
   /* Sanity check */
   if (addrCnt > 4) {
@@ -3215,6 +3374,7 @@ void spi_ax_util_PR1200_Tx_FIFO_AddressField(const char addrAry[][C_PR1200_CALL_
   /* Wait until enough space for next batch is available */
   spi_ax_util_FIFO_waitFree(4 + addrCnt * 7 + 2);
 
+#if 0
   g_ax_spi_packet_buffer[idx++] = 0xA9;                           // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
   g_ax_spi_packet_buffer[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
   g_ax_spi_packet_buffer[idx++] = 0;                              // Dummy entry for now
@@ -3249,11 +3409,12 @@ void spi_ax_util_PR1200_Tx_FIFO_AddressField(const char addrAry[][C_PR1200_CALL_
 
   /* FIFO do a COMMIT */
   spi_ax_transport(0U, "< a8 04 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_COMMIT
+#endif
 }
 
 void spi_ax_util_PR1200_Tx_FIFO_InformationField(const char* aprsMsg, uint8_t aprsMsgLen)
 {
-  uint16_t idx = 0;
+  uint16_t idx = 0;  (void) idx;
 
   /* Sanity checks */
   if (!aprsMsg || (aprsMsgLen > 80)) {
@@ -3263,6 +3424,7 @@ void spi_ax_util_PR1200_Tx_FIFO_InformationField(const char* aprsMsg, uint8_t ap
   /* Wait until enough space for next batch is available */
   spi_ax_util_FIFO_waitFree(4 + aprsMsgLen);
 
+#if 0
   g_ax_spi_packet_buffer[idx++] = 0xA9;                           // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
   g_ax_spi_packet_buffer[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
   g_ax_spi_packet_buffer[idx++] = 0;                              // Dummy entry for now
@@ -3282,6 +3444,7 @@ void spi_ax_util_PR1200_Tx_FIFO_InformationField(const char* aprsMsg, uint8_t ap
 
   /* FIFO do a COMMIT */
   spi_ax_transport(0U, "< a8 04 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_COMMIT
+#endif
 }
 
 void spi_ax_init_PR1200_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
@@ -3292,10 +3455,10 @@ void spi_ax_init_PR1200_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
   /* Frequency settings */
   {
     /* APRS  */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);            // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);            // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
 
     /* Burst-Aussendungen fuer Steuerungszwecke */
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);            // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);            // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
     spi_ax_setFrequency2Regs(0, 0U);
     spi_ax_setFrequency2Regs(1, 1U);
@@ -3317,7 +3480,7 @@ void spi_ax_init_PR1200_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
   #endif
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the wake-on-radio receiver */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, powerMode);
@@ -3326,6 +3489,7 @@ void spi_ax_init_PR1200_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
 
 void spi_ax_initRegisters_POCSAG(void)
 {
+#if 0
   /* MODULATION */
   spi_ax_transport(0U, "< 90 08 >");                           // WR address 0x10: MODULATION - 08: FSK
 
@@ -3790,10 +3954,12 @@ void spi_ax_initRegisters_POCSAG_Tx(void)
 
   /* 0xF44 */
   //spi_ax_transport(0U, "< ff 44 25 >");                          // WR address 0xF44 (RX/TX)
+#endif
 }
 
 void spi_ax_initRegisters_POCSAG_Rx(void)
 {
+#if 0
   /* PLLLOOP */
   spi_ax_transport(0U, "< b0 0b >");                           // WR address 0x30: PLLLOOP - DIRECT 0x08, no FILTEN, FLT 03: Internal Loop Filter x5
 
@@ -3855,10 +4021,12 @@ void spi_ax_initRegisters_POCSAG_Rx(void)
 
   /* 0xF72 */
   //spi_ax_transport(0U, "< ff 72 00 >");                          // WR address 0xF72 (RX) - Set to 0x06 if the framing mode is set to "Raw, Soft Bits" (register FRAMING), or to 0x00 otherwise
+#endif
 }
 
 void spi_ax_initRegisters_POCSAG_Rx_WoR(void)
 {
+#if 0
   /* AGCGAIN0 */
   spi_ax_transport(0U, "< f1 20 83 >");                          // WR address 0x120: AGCGAIN0 - AGCDECAY0 = 14  (f_3db=10 Hz), AGCATTACK0 = 8  (f_3db=621 Hz)
 
@@ -3874,10 +4042,12 @@ void spi_ax_initRegisters_POCSAG_Rx_WoR(void)
 
   /* PKTMISCFLAGS */
   spi_ax_transport(0U, "< f2 31 05 >");                          // WR address 0x231: PKTMISCFLAGS
+#endif
 }
 
 void spi_ax_initRegisters_POCSAG_Rx_cont(void)
 {
+#if 0
   /* AGCGAIN0 */
   spi_ax_transport(0U, "< f1 20 e8 >");                          // WR address 0x120: AGCGAIN0 - AGCDECAY0 = 14  (f_3db=10 Hz), AGCATTACK0 = 8  (f_3db=621 Hz)
 
@@ -3894,6 +4064,7 @@ void spi_ax_initRegisters_POCSAG_Rx_cont(void)
   /* PKTMISCFLAGS */
   //spi_ax_transport(0U, "< f2 31 00 >");                          // WR address 0x231: PKTMISCFLAGS - no BGND RSSI !0x04, RXAGC CLK, RXRSSI CLK clock sources: 1 µs
   spi_ax_transport(0U, "< f2 31 04 >");                          // WR address 0x231: PKTMISCFLAGS - BGND RSSI 0x04, RXAGC CLK, RXRSSI CLK clock sources: 1 µs
+#endif
 }
 
 void spi_ax_init_POCSAG_Tx(void)
@@ -3904,8 +4075,8 @@ void spi_ax_init_POCSAG_Tx(void)
   /* Frequency settings */
   {
     /* POCSAG */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9250);            // VCO1 (internal with    ext. L) with RFDIV --> VCORB = 0x05
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9250);            // VCO1 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
 
     /* FREQA <-- chan[0], FREQB <-- chan[1] */
     spi_ax_setFrequency2Regs(0, 0U);
@@ -3926,7 +4097,7 @@ void spi_ax_init_POCSAG_Tx(void)
   spi_ax_setPower_dBm(-10.0f);
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the transmitter */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_FULLTX);
@@ -3938,7 +4109,7 @@ int8_t spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocs
   int8_t ret;
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* 1 - Flags */
   spi_ax_util_POCSAG_Tx_FIFO_Preamble();                            // 576 bits of 1/0 pattern
@@ -3947,21 +4118,24 @@ int8_t spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocs
   ret = spi_ax_util_POCSAG_Tx_FIFO_Batches(pocsagTgtRIC, pocsagTgtFunc, pocsagTgtMsg, pocsagTgtMsgLen);
 
   /* 3 - Delay until message is sent */
+#if 0
   do {
     /* RADIOSTATE */
     spi_ax_transport(0U, "< 1c R1 >");                         // RD Address 0x1C: RADIOSTATE - IDLE
   } while ((g_ax_spi_packet_buffer[0] & 0x0f) != 0);
+#endif
 
   return ret;
 }
 
 void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
 {
-  uint16_t idx = 0;
+  uint16_t idx = 0;  (void) idx;
 
   /* Wait until enough space for next batch is available */
   spi_ax_util_FIFO_waitFree(4 + 18 * 4);
 
+#if 0
   g_ax_spi_packet_buffer[idx++] = 0xA9;                           // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
   g_ax_spi_packet_buffer[idx++] = AX_FIFO_DATA_CMD_REPEATDATA_TX;
   g_ax_spi_packet_buffer[idx++] = AX_FIFO_DATA_FLAGS_TX_PKTSTART;               // FIFO flag byte
@@ -3972,6 +4146,7 @@ void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
   spi_select_device(&SPI_AX, &g_ax_spi_device_conf);
   spi_write_packet(&SPI_AX, g_ax_spi_packet_buffer, idx);
   spi_deselect_device(&SPI_AX, &g_ax_spi_device_conf);
+#endif
 }
 
 int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFunc, const char* tgtMsg, uint8_t tgtMsgLen)
@@ -3980,9 +4155,9 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
   uint32_t tgtAddrHi  = tgtRIC >> 3;
   uint8_t  tgtAddrLo  = tgtRIC & 0x7;
   uint16_t msgBitIdx  = 0U;
-  uint8_t  batchIdx = 0U;
-  uint8_t     inMsg    = 0U;
-  uint8_t     msgDone  = 0U;
+  uint8_t  batchIdx   = 0U;
+  uint8_t  inMsg      = 0U;
+  uint8_t  msgDone    = 0U;
 
   /* Sanity checks */
   {
@@ -4022,11 +4197,12 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
 
   /* Process message as much batches it needs - each batch is enqueued into the transmitter FIFO */
   do {
-    uint8_t idx = 0;
+    uint8_t idx = 0;  (void) idx;
 
     /* Wait until enough space for next batch is available */
     spi_ax_util_FIFO_waitFree(4 + 4 + 8 * (4 + 4));                     // FIFO_cmd + SYNCWORD + 8 batches * (2 words)
 
+#if 0
     g_ax_spi_packet_buffer[idx++] = 0xA9;                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
     g_ax_spi_packet_buffer[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
     g_ax_spi_packet_buffer[idx++] = 0;                            // Dummy entry for now
@@ -4037,11 +4213,12 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
     g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 2);
     g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 1);
     g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 0);
+#endif
 
     /* Frames */
     for (uint8_t frIdx = 0; frIdx < 8; frIdx++) {
       for (uint8_t cwIdx = 0; cwIdx < 2; cwIdx++) {
-        uint32_t pad;
+        uint32_t pad;  (void) pad;
 
         /* WORD */
         if (!inMsg && !msgDone) {
@@ -4102,13 +4279,16 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
           frIdx = 8;
         }
 
+#if 0
         g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(pad, 3);
         g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(pad, 2);
         g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(pad, 1);
         g_ax_spi_packet_buffer[idx++] = s_sel_u8_from_u32(pad, 0);
+#endif
       }  // for (cwIdx)
     }  // for (frIdx)
 
+#if 0
     /* Set length for FIFO DATA command */
     g_ax_spi_packet_buffer[    2] = idx - 3;                        // Length
 
@@ -4119,6 +4299,7 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
 
     /* FIFO do a COMMIT */
     spi_ax_transport(0U, "< a8 04 >");                         // WR address 0x28: FIFOCMD - AX_FIFO_CMD_COMMIT
+#endif
 
     batchIdx++;
   } while (!msgDone || inMsg);
@@ -4132,6 +4313,7 @@ void spi_ax_send_POCSAG_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsagTgtFunc
   spi_ax_run_POCSAG_Tx_FIFO_Msg(pocsagTgtRIC, pocsagTgtFunc, pocsagTgtMsg, pocsagTgtMsgLen);
 
   /* Wait until message in FIFO is sent and transmitter switches off */
+#if 0
   do {
     /* FIFOSTAT */
     spi_ax_transport(0U, "< 28 R1 >");
@@ -4140,6 +4322,7 @@ void spi_ax_send_POCSAG_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsagTgtFunc
     /* RADIOSTATE */
     spi_ax_transport(0U, "< 1c R1 >");                       // RD Address 0x1C: RADIOSTATE - IDLE
   } while ((g_ax_spi_packet_buffer[0] & 0x0f) != 0);
+#endif
 }
 
 void spi_ax_init_POCSAG_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
@@ -4150,7 +4333,7 @@ void spi_ax_init_POCSAG_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
   /* Frequency settings */
   {
     /* FSK */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);            // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);            // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
     /*
     Radiometrix TXL2/RXL2 - 16kbps bi-phase FSK
     433.925MHz - CHAN0
@@ -4161,7 +4344,7 @@ void spi_ax_init_POCSAG_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
     */
 
     /* POCSAG */
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);            // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
 
     /* FREQA <-- chan[0], FREQB <-- chan[1] */
     spi_ax_setFrequency2Regs(0, 0U);
@@ -4183,7 +4366,7 @@ void spi_ax_init_POCSAG_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
   (void) spi_ax_selectVcoFreq(1U);
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Change PowerMode */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, powerMode);
@@ -4193,11 +4376,12 @@ void spi_ax_init_POCSAG_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode)
 void spi_ax_initRegisters_AnlogFM(void)
 {
   /* MODULATION */
-  spi_ax_transport(0U, "< 90 0b >");                           // WR address 0x10: MODULATION - 0B: Analog FM
+  //spi_ax_transport(0U, "< 90 0b >");                           // WR address 0x10: MODULATION - 0B: Analog FM
 }
 
 void spi_ax_initRegisters_AnlogFM_Tx(void)
 {
+#if 0
   /* PINFUNCDATA */
   spi_ax_transport(0U, "< a3 04 >");                           // WR address 0x23: PINFUNCDATA - DATA Input/Output Modem Data: enables continuous TX operation, rather than powering up the PA only if there is committed FIFO data. This is similar to wire mode, except that no data is read from the pin in FM mode.
 
@@ -4221,10 +4405,12 @@ void spi_ax_initRegisters_AnlogFM_Tx(void)
 
   /* 0xF18 */
   spi_ax_transport(0U, "< ff 18 06 >");                          // WR address 0xF18 (RX/TX) - ? (is set to 0x06, explicit named for using Analog FM)
+#endif
 }
 
 void spi_ax_initRegisters_AnlogFM_Rx(void)
 {
+#if 0
   /* PINFUNCTCXO_EN */
   spi_ax_transport(0U, "< a6 05 >");                           // WR address 0x26: PINFUNCTCXO_EN - Use TCXO_EN pin as DAC output
 
@@ -4269,6 +4455,7 @@ void spi_ax_initRegisters_AnlogFM_Rx(void)
 
   /* 0xF18 */
   spi_ax_transport(0U, "< ff 18 06 >");                          // WR address 0xF18 (RX/TX) - ? (is set to 0x06, explicit named for using Analog FM)
+#endif
 }
 
 void spi_ax_init_AnalogFM_Tx(void)
@@ -4279,8 +4466,8 @@ void spi_ax_init_AnalogFM_Tx(void)
   /* Frequency settings */
   {
     /* Burst-Aussendungen fuer Steuerungszwecke - lower and upper frequencies */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9245);          // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9255);          // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9245);          // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9255);          // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
     /* FREQA <-- chan[0], FREQB <-- chan[1] */
     spi_ax_setFrequency2Regs(0, 0U);
@@ -4300,7 +4487,7 @@ void spi_ax_init_AnalogFM_Tx(void)
   spi_ax_setPower_dBm(-10.0f);
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                         // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                         // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the transmitter */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_FULLTX);
@@ -4314,8 +4501,8 @@ void spi_ax_init_AnalogFM_Rx(void)
   /* Frequency settings */
   {
     /* Burst-Aussendungen fuer Steuerungszwecke - lower and upper frequencies */
-    g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9245);          // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
-    g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9255);          // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+    s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9245);          // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+    s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9255);          // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
     /* FREQA <-- chan[0], FREQB <-- chan[1] */
     spi_ax_setFrequency2Regs(0, 0U);
@@ -4332,7 +4519,7 @@ void spi_ax_init_AnalogFM_Rx(void)
   (void) spi_ax_selectVcoFreq(0U);
 
   /* FIFOCMD / FIFOSTAT */
-  spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+  //spi_ax_transport(0U, "< a8 03 >");                           // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
   /* Enabling the receiver */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_FULLRX);
@@ -4460,7 +4647,7 @@ void spi_ax_setTxRxMode(AX_SET_TX_RX_MODE_t txRxMode)
     lastTxRxMode  = txRxMode;
 
     /* FIFOCMD / FIFOSTAT */
-    spi_ax_transport(0U, "< a8 03 >");                               // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
+    //spi_ax_transport(0U, "< a8 03 >");                               // WR address 0x28: FIFOCMD - AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS
 
     switch (txRxMode) {
       case AX_SET_TX_RX_MODE_APRS_RX_WOR:
@@ -4503,7 +4690,6 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
   uint16_t  msgPos      = 0;
   uint8_t   fifoCmd     = 0;
   uint8_t   fifoDataLen   = 0;
-  irqflags_t  flags;
 
   /* Process each FIFO message */
   while (msgPos < msgLen) {
@@ -4512,16 +4698,14 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
     switch (fifoCmd) {
       case 0b00000001:                                    // TRX change: Own CMD for TRX mode change
       {
-        nop();
+        __asm volatile( "nop" );
       }
       break;
 
       case 0b00110001:                                    // RSSI: Receive Signal Strength Indicator
       case 0b00110010:                                    // RSSI: Own CMD for RSSI
       {
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.rssi = *(buf + msgPos++);
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.rssi = *(buf + msgPos++);
 
         msgCnt++;
       }
@@ -4532,9 +4716,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
         uint8_t fifoFrqOffsHi = *(buf + msgPos++);
         uint8_t fifoFrqOffsLo = *(buf + msgPos++);
 
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.frqOffs = (int16_t) ((uint16_t)fifoFrqOffsHi << 8 | fifoFrqOffsLo);
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.frqOffs = (int16_t) ((uint16_t)fifoFrqOffsHi << 8 | fifoFrqOffsLo);
 
         msgCnt++;
       }
@@ -4545,9 +4727,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
         uint8_t fifoAntRssi2Hi = *(buf + msgPos++);
         uint8_t fifoAntRssi2Lo = *(buf + msgPos++);
 
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.antRssi2 = (int16_t) ((uint16_t)fifoAntRssi2Hi << 8 | fifoAntRssi2Lo);
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.antRssi2 = (int16_t) ((uint16_t)fifoAntRssi2Hi << 8 | fifoAntRssi2Lo);
 
         msgCnt++;
       }
@@ -4559,9 +4739,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
         uint8_t fifoTimerMid = *(buf + msgPos++);
         uint8_t fifoTimerLo  = *(buf + msgPos++);
 
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.timer = (uint32_t)fifoTimerHi << 16 | (uint32_t)fifoTimerMid << 8 | fifoTimerLo;
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.timer = (uint32_t)fifoTimerHi << 16 | (uint32_t)fifoTimerMid << 8 | fifoTimerLo;
 
         msgCnt++;
       }
@@ -4573,9 +4751,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
         uint8_t fifoRfFrqOffsMid = *(buf + msgPos++);
         uint8_t fifoRfFrqOffsLo  = *(buf + msgPos++);
 
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.rfFrqOffs = (int32_t) ((uint32_t)fifoRfFrqOffsHi << 16 | (uint32_t)fifoRfFrqOffsMid << 8 | fifoRfFrqOffsLo);
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.rfFrqOffs = (int32_t) ((uint32_t)fifoRfFrqOffsHi << 16 | (uint32_t)fifoRfFrqOffsMid << 8 | fifoRfFrqOffsLo);
 
         msgCnt++;
       }
@@ -4587,9 +4763,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
         uint8_t fifoDataRateMid = *(buf + msgPos++);
         uint8_t fifoDataRateLo  = *(buf + msgPos++);
 
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.dataRate = (uint32_t)fifoDataRateHi << 16 | (uint32_t)fifoDataRateMid << 8 | fifoDataRateLo;
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.dataRate = (uint32_t)fifoDataRateHi << 16 | (uint32_t)fifoDataRateMid << 8 | fifoDataRateLo;
 
         msgCnt++;
       }
@@ -4601,9 +4775,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
         uint8_t fifoAntRssi3Mid = *(buf + msgPos++);
         uint8_t fifoAntRssi3Lo  = *(buf + msgPos++);
 
-        flags = cpu_irq_save();
-        g_ax_rx_fifo_meas.antRssi3 = (int32_t) ((uint32_t)fifoAntRssi3Hi << 16 | (uint32_t)fifoAntRssi3Mid << 8 | fifoAntRssi3Lo);
-        cpu_irq_restore(flags);
+        s_ax_rx_fifo_meas.antRssi3 = (int32_t) ((uint32_t)fifoAntRssi3Hi << 16 | (uint32_t)fifoAntRssi3Mid << 8 | fifoAntRssi3Lo);
 
         msgCnt++;
       }
@@ -4613,9 +4785,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
       {
         fifoDataLen = *(buf + msgPos++);
 
-        irqflags_t flags = cpu_irq_save();
-        AX_SET_MON_MODE_t l_ax_set_mon_mode = g_ax_set_mon_mode;
-        cpu_irq_restore(flags);
+        AX_SET_MON_MODE_t l_ax_set_mon_mode = s_ax_set_mon_mode;
 
         spi_ax_Rx_FIFO_DataProcessor(l_ax_set_mon_mode, buf + msgPos, fifoDataLen);
         msgPos += fifoDataLen;
@@ -4627,7 +4797,7 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen)
       default:
       {
         // Nothing to do
-        nop();
+        __asm volatile( "nop" );
       }
     }  // switch(fifoCmd)
   }  // while (msgPos < msgLen)
@@ -4659,7 +4829,7 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
     case AX_SET_MON_MODE_APRS_RX_CONT_SINGLEPARAMSET:
     case AX_SET_MON_MODE_APRS_RX_WOR:
     {
-      nop();
+      __asm volatile( "nop" );
     }
     break;
 
@@ -4722,8 +4892,7 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
         if ((pocsagWord == 0x55555555UL) || (pocsagWord == 0xaaaaaaaaUL)) {
           /* Interrupt disabled actions */
           {
-            irqflags_t flags = cpu_irq_save();
-
+#if 0
             /* FRMMODE abort frame */
             spi_ax_transport(0U, "< 92 07 >");                   // WR address 0x12: FRAMING - CRCMODE: none, FRMMODE: Raw, Pattern Match 0x06, FABORT
 
@@ -4732,8 +4901,7 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
 
             g_ax_spi_rx_buffer_idx = 0;
             memset(g_ax_spi_rx_buffer, 0, C_SPI_AX_BUFFER_LENGTH);
-
-            cpu_irq_restore(flags);
+#endif
           }
 
           /* DEBUG WORDs */
@@ -4834,16 +5002,14 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
 
           /* Get RSSI and take that as background RSSI */
           {
+#if 0
             int16_t   l_cur_bgnd_rssi;
             int16_t   l_mean_bgnd_rssi;
-            irqflags_t  flags;
 
             spi_ax_transport(0U, "< 40 R1 >");                 // RD Address 0x40: RSSI
             l_cur_bgnd_rssi = (int8_t) (g_ax_spi_packet_buffer[0]);
 
-            flags = cpu_irq_save();
-            l_mean_bgnd_rssi = g_ax_spi_rx_bgnd_rssi;
-            cpu_irq_restore(flags);
+            l_mean_bgnd_rssi = s_ax_spi_rx_bgnd_rssi;
 
             /* 64 dB offset correction */
             l_cur_bgnd_rssi   -= 64;
@@ -4857,9 +5023,8 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
             /* 64 dB offset encoding */
             l_mean_bgnd_rssi += 64;
 
-            flags = cpu_irq_save();
-            g_ax_spi_rx_bgnd_rssi = (int8_t) (l_mean_bgnd_rssi & 0xff);
-            cpu_irq_restore(flags);
+            s_ax_spi_rx_bgnd_rssi = (int8_t) (l_mean_bgnd_rssi & 0xff);
+#endif
           }
         }  // if (l_pocsagData.badDecode)
 
@@ -4985,7 +5150,7 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
 
     default:
     {
-      nop();
+      __asm volatile( "nop" );
     }
   }
 }
@@ -4995,55 +5160,63 @@ const char          PM_SPI_INIT_AX5243_01[]       = "\r\nSPI  AX5243: AX5243 VHF
 const char          PM_SPI_INIT_AX5243_02[]       = "SPI  AX5243:  Silicon-Rev: 0x%02X\r\n";
 const char          PM_SPI_INIT_AX5243_03[]       = "SPI  AX5243:  --> INIT success.\r\n";
 const char          PM_SPI_INIT_AX5243_04[]       = "SPI  AX5243:  --> device not found on board.\r\n";
-PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_01[]);
-PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_02[]);
-PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_03[]);
-PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_04[]);
+//PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_01[]);
+//PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_02[]);
+//PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_03[]);
+//PROGMEM_DECLARE(const char, PM_SPI_INIT_AX5243_04[]);
 static void init_spi_ax5243(void)
 {
-  status_code_t sc;
+  //status_code_t sc;
+  int  dbgLen;
+  char dbgBuf[128];
 
-  int len = snprintf_P(g_prepare_buf, sizeof(g_prepare_buf), PM_SPI_INIT_AX5243_01);
-  udi_write_tx_buf(g_prepare_buf, min(len, sizeof(g_prepare_buf)), 0U);
+  dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_AX5243_01);
+  usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgLen)));
 
   do {
     /* Reset AX5243 and go to Powerdown mode */
+#if 0
     sc = spi_ax_sync2Powerdown();
     if (sc != STATUS_OK) {
       break;
     }
+#endif
 
     /* AX5243: read Silicon-Rev byte */
+#if 0
     sc = spi_ax_transport(0U, "< 00 R1 >");                        // RD Address 0x00: REVISION
     if (sc != STATUS_OK) {
       break;
     }
-    uint8_t rev = g_ax_spi_packet_buffer[0];
+#endif
+    uint8_t rev = 0x99;  //g_ax_spi_packet_buffer[0];
 
-    len = snprintf_P(g_prepare_buf, sizeof(g_prepare_buf), PM_SPI_INIT_AX5243_02, rev);
-    udi_write_tx_buf(g_prepare_buf, min(len, sizeof(g_prepare_buf)), 0U);
-    delay_ms(2);
+    dbgLen = snprintf(dbgBuf, sizeof(dbgLen), PM_SPI_INIT_AX5243_02, rev);
+    usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
+    osDelay(2);
 
     /* Known chip revision */
     if (rev == 0x51) {
-      len = snprintf_P(g_prepare_buf, sizeof(g_prepare_buf), PM_SPI_INIT_AX5243_03);
-      udi_write_tx_buf(g_prepare_buf, min(len, sizeof(g_prepare_buf)), 0U);
-      delay_ms(2);
+      dbgLen = snprintf(dbgBuf, sizeof(dbgLen), PM_SPI_INIT_AX5243_03);
+      usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
+      osDelay(2);
+      s_ax_enable = 1U;
       return;
     }
   } while (0U);
 
-  len = snprintf_P(g_prepare_buf, sizeof(g_prepare_buf), PM_SPI_INIT_AX5243_04);
-  udi_write_tx_buf(g_prepare_buf, min(len, sizeof(g_prepare_buf)), 0U);
-  delay_ms(2);
+  dbgLen = snprintf(dbgBuf, sizeof(dbgLen), PM_SPI_INIT_AX5243_04);
+  usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
+  osDelay(2);
 
   /* No chip on board */
-  ax_enable(0U);
+  s_ax_enable = 0U;
 }
 
 
 void spi_init(void) {
   /* Set init level */
+#if 0
   ioport_set_pin_mode(AX_SEL,  (uint8_t) (IOPORT_INIT_HIGH | IOPORT_SRL_ENABLED));      // SEL  inactive
   ioport_set_pin_mode(AX_CLK,  (uint8_t) (IOPORT_INIT_HIGH | IOPORT_SRL_ENABLED));      // CLK  inactive
   ioport_set_pin_mode(AX_MOSI, (uint8_t) (IOPORT_INIT_HIGH | IOPORT_SRL_ENABLED));      // MOSI inactive
@@ -5058,9 +5231,11 @@ void spi_init(void) {
   /* Set input pulling resistors */
   ioport_set_pin_mode(AX_IRQ,     IOPORT_MODE_PULLUP);
   ioport_set_pin_mode(AX_MISO,    IOPORT_MODE_BUSKEEPER);
+#endif
 }
 
 void spi_start(void) {
+#if 0
   g_ax_spi_device_conf.id = AX_SEL;
 
   spi_master_init(&SPI_AX);
@@ -5160,7 +5335,7 @@ void spi_start(void) {
 
     #ifndef AX_RUN_VCO2_APRS_TX
       #if 0
-        while (1U) { nop(); }
+        while (1U) { __asm volatile( "nop" ); }
       #endif
     #endif
   }
@@ -5168,10 +5343,12 @@ void spi_start(void) {
   /* TEST BOX */
   s_spi_test_start_testBox();
   #endif
+#endif
 }
 
 void task_spi_ax(void)
 {
+#if 0
   /* When doService is flagged by the ISR do read the FIFO */
   if (g_ax_spi_rx_fifo_doService) {
     uint8_t bufDbg[C_SPI_AX_BUFFER_LENGTH];
@@ -5208,6 +5385,7 @@ void task_spi_ax(void)
     /* Decode the POCSAG data */
     spi_ax_doProcess_RX_messages(buf, len);
   }
+#endif
 }
 
 
@@ -5215,7 +5393,7 @@ void task_spi_ax(void)
 
 #ifdef AX_TEST
 
-static void s_spi_test_start_testBox(void)
+static void spi_test_start_testBox(void)
 {
   //  AX_TEST_ANALOG_FM_TX
   #if defined(AX_TEST_VCO2_ANALOG_FM_TX)
@@ -5277,7 +5455,7 @@ void spi_ax_test_monitor_levels(void)
     curTrkFreq    = ((uint16_t)g_ax_spi_packet_buffer[0] << 8) | g_ax_spi_packet_buffer[1];
 
     /* View debugger auto variables*/
-    nop();
+    __asm volatile( "nop" );
 
     (void) curRssi;
     (void) curBgndRssi;
@@ -5531,7 +5709,7 @@ void spi_ax_test_Rx_FIFO(void)
     (void) l_fifo_lastPacket_dataStatus;
     (void) l_fifo_lastPacket_dataMsg;
 
-    nop();
+    __asm volatile( "nop" );
   } while (1U);
 }
 
@@ -5572,7 +5750,7 @@ void spi_ax_test_Analog_FM_Tx(void)
   }
 
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
-  nop();
+  __asm volatile( "nop" );
 }
 
 void spi_ax_test_Analog_FM_Rx(void)
@@ -5666,13 +5844,13 @@ void spi_ax_test_PR1200_Tx(void)
     #if 0
     /* Enter minimal AX.25 Level-2 packet */
     spi_ax_test_PR1200_Tx_FIFO_Lev2_minimal();
-    delay_ms(750);
+    osDelay(750);
 
     #else
     /* Enter an APRS UI frame */
     spi_ax_run_PR1200_Tx_FIFO_APRS(addrAry, ssidAry, 4, aprsMsg, strlen(aprsMsg));
-    delay_ms(1000);
-    //delay_ms(7500);
+    osDelay(1000);
+    //osDelay(7500);
     #endif
 
   }
@@ -5688,7 +5866,7 @@ void spi_ax_test_PR1200_Tx(void)
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
   while (1U) {
-    nop();
+    __asm volatile( "nop" );
   }
 }
 
@@ -5830,8 +6008,8 @@ void spi_ax_test_POCSAG_Tx(void)
     const char msgBuf[] = "DF4IAH: This is a demonstration message to my  RIC 2030000  using 80 characters.";
     (void) spi_ax_util_POCSAG_Tx_FIFO_Batches(targetRIC, AX_POCSAG_CW2_MODE3_ALPHANUM, msgBuf, strlen(msgBuf));
 
-    delay_ms(2000);
-    //delay_ms(7500);
+    osDelay(2000);
+    //osDelay(7500);
   }
 
   /* FIFOCMD / FIFOSTAT */
@@ -5845,7 +6023,7 @@ void spi_ax_test_POCSAG_Tx(void)
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_NO_CHANGE, AX_SET_REGISTERS_VARIANT_NO_CHANGE, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
   while (1U) {
-    nop();
+    __asm volatile( "nop" );
   }
 }
 

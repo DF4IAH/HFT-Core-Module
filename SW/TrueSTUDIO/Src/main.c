@@ -47,7 +47,6 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
-#include <device_adc.h>
 #include "main.h"
 #include "stm32l4xx_hal.h"
 #include "cmsis_os.h"
@@ -60,6 +59,7 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "device_adc.h"
 #include "bus_i2c.h"
 #include "bus_spi.h"
 #include "task_Controller.h"
