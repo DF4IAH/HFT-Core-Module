@@ -211,7 +211,7 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
 
   if (i2cErr == HAL_I2C_ERROR_AF) {
     /* Chip not responding */
-    usbLog("i2cSequenceWriteLong: ERROR chip does not respond\r\n");
+    //usbLog("i2cSequenceWriteLong: ERROR chip does not respond\r\n");
     return HAL_I2C_ERROR_AF;
   }
 

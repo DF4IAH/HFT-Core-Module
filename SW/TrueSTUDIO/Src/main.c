@@ -230,6 +230,12 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+
+uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel)
+{
+  return 0xff & (in_u32 >> (sel << 3));
+}
+
 void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac)
 {
   const uint8_t isNeg = val >= 0 ?  0U : 1U;
@@ -2065,15 +2071,6 @@ void StartDefaultTask(void const * argument)
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();
-#endif
-
-#define SPI3_AX_CHECK
-#ifdef SPI3_AX_CHECK
-  if (HAL_OK == spiDetectAx5243()) {
-    usbLog("AX5243 detected.\r\n");
-  } else {
-    usbLog("AX5243 does not respond!\r\n");
-  }
 #endif
 
   osDelay(850UL);

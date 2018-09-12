@@ -320,50 +320,47 @@ void isr_spi_ax_fifo_readMessage(void);
 
 
 # if 0
-inline static uint8_t s_sel_u8_from_u32(uint32_t in_u32, uint8_t sel);
-inline static void s_spi_ax_select_device(void);
-inline static void s_spi_ax_deselect_device(void);
 inline static uint8_t s_strGetHex(const char* str);
 inline static uint8_t s_strGetDec(const char* str, int* o_val);
 # endif
 
 
-AX_POCSAG_CW2_t ax_pocsag_analyze_msg_tgtFunc_get(const char* msg, uint16_t msgLen);
-uint8_t spi_ax_pocsag_calc_evenParity(uint32_t par);
-uint32_t spi_ax_pocsag_calc_checkAndParity(uint32_t codeword_in);
-uint8_t spi_ax_pocsag_getBcd(char c);
-char spi_ax_pocsag_getReversedNumChar(uint8_t nibble);
-char spi_ax_pocsag_getReversedAlphaChar(uint8_t reversedIn);
-uint32_t spi_ax_pocsag_get20Bits(const char* tgtMsg, uint16_t tgtMsgLen, AX_POCSAG_CW2_t tgtFunc, uint16_t msgBitIdx);
-char spi_ax_pocsag_getNumeric(const uint32_t* rcv20Bits, uint8_t rcv20BitsCnt, uint8_t msgNumIdx);
-char spi_ax_pocsag_getAlphanum(const uint32_t* rcv20Bits, uint8_t rcv20BitsCnt, uint8_t msgAlphaIdx);
+//AX_POCSAG_CW2_t ax_pocsag_analyze_msg_tgtFunc_get(const char* msg, uint16_t msgLen);
+//uint8_t spi_ax_pocsag_calc_evenParity(uint32_t par);
+//uint32_t spi_ax_pocsag_calc_checkAndParity(uint32_t codeword_in);
+//uint8_t spi_ax_pocsag_getBcd(char c);
+//char spi_ax_pocsag_getReversedNumChar(uint8_t nibble);
+//char spi_ax_pocsag_getReversedAlphaChar(uint8_t reversedIn);
+//uint32_t spi_ax_pocsag_get20Bits(const char* tgtMsg, uint16_t tgtMsgLen, AX_POCSAG_CW2_t tgtFunc, uint16_t msgBitIdx);
+//char spi_ax_pocsag_getNumeric(const uint32_t* rcv20Bits, uint8_t rcv20BitsCnt, uint8_t msgNumIdx);
+//char spi_ax_pocsag_getAlphanum(const uint32_t* rcv20Bits, uint8_t rcv20BitsCnt, uint8_t msgAlphaIdx);
 
-void spi_ax_pocsag_address_tone(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits);
-void spi_ax_pocsag_address_numeric(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
-void spi_ax_pocsag_address_alphanum(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt, AX_POCSAG_IS_SKYPER_SPECIAL_t skyperSpecial);
-void spi_ax_pocsag_address_skyper_activation(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
+//void spi_ax_pocsag_address_tone(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits);
+//void spi_ax_pocsag_address_numeric(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
+//void spi_ax_pocsag_address_alphanum(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt, AX_POCSAG_IS_SKYPER_SPECIAL_t skyperSpecial);
+//void spi_ax_pocsag_address_skyper_activation(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
 
-uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t outBufSize, uint32_t RIC);
+//uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t outBufSize, uint32_t RIC);
 //uint16_t spi_ax_pocsag_skyper_TimeString(char* outBuf, uint16_t outBufSize, struct calendar_date* calDat);
-uint16_t spi_ax_pocsag_skyper_RubricString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, const char* rubricLabel, uint16_t rubricLabelLen);
-uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperRubricMsg, uint16_t pocsagSkyperRubricMsgLen);
-uint16_t spi_ax_pocsag_skyper_NewsString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, uint8_t newsNumber, const char* newsString, uint16_t newsStringLen);
-uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperNewsMsg, uint16_t pocsagSkyperNewsMsgLen);
+//uint16_t spi_ax_pocsag_skyper_RubricString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, const char* rubricLabel, uint16_t rubricLabelLen);
+//uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperRubricMsg, uint16_t pocsagSkyperRubricMsgLen);
+//uint16_t spi_ax_pocsag_skyper_NewsString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, uint8_t newsNumber, const char* newsString, uint16_t newsStringLen);
+//uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperNewsMsg, uint16_t pocsagSkyperNewsMsgLen);
 
-void spi_ax_pocsag_wordDecoder(AX_POCSAG_DECODER_DATA_t* l_pocsagData, uint32_t pocsagWord, uint8_t pocsagWordCnt);
-void spi_ax_pocsag_messageDecoder(uint32_t address, uint8_t functionBits, uint32_t* dataAry, uint8_t dataCnt);
+//void spi_ax_pocsag_wordDecoder(AX_POCSAG_DECODER_DATA_t* l_pocsagData, uint32_t pocsagWord, uint8_t pocsagWordCnt);
+//void spi_ax_pocsag_messageDecoder(uint32_t address, uint8_t functionBits, uint32_t* dataAry, uint8_t dataCnt);
 
 //status_code_t spi_ax_transport(uint8_t isProgMem, const char* packet);
 
 //status_code_t spi_ax_sync2Powerdown(void);
-void spi_ax_setPower_dBm(float dBm);
-void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState);
-void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulation, AX_SET_REGISTERS_VARIANT_t variant, AX_SET_REGISTERS_POWERMODE_t powerState);
+//void spi_ax_setPower_dBm(float dBm);
+//void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState);
+//void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulation, AX_SET_REGISTERS_VARIANT_t variant, AX_SET_REGISTERS_POWERMODE_t powerState);
 
-uint32_t spi_ax_calcFrequency_Mhz2Regs(float f_mhz);
-float spi_ax_calcFrequency_Regs2MHz(uint32_t vco_regval);
-void spi_ax_setFrequency2Regs(uint8_t chan, uint8_t isFreqB);
-void spi_ax_doRanging(void);
+//uint32_t spi_ax_calcFrequency_Mhz2Regs(float f_mhz);
+//float spi_ax_calcFrequency_Regs2MHz(uint32_t vco_regval);
+//void spi_ax_setFrequency2Regs(uint8_t chan, uint8_t isFreqB);
+//void spi_ax_doRanging(void);
 uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force);
 uint8_t spi_ax_selectVcoFreq(uint8_t isFreqB);
 void spi_ax_util_FIFO_waitFree(uint8_t neededSpace);
@@ -413,13 +410,14 @@ void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* data
 
 //void init_spi_ax5243(void);
 
-void spi_init(void);
-void spi_start(void);
+//void spi_init(void);
+//void spi_start(void);
 
-void task_spi_ax(void);
+//void task_spi_ax(void);
 
 
 /* Debugging */
+#if 0
 void spi_ax_test_monitor_levels(void);
 void spi_ax_test_Rx_FIFO(void);
 
@@ -434,6 +432,7 @@ void spi_ax_test_PR1200_Rx(void);
 void spi_ax_test_POCSAG(void);
 void spi_ax_test_POCSAG_Tx(void);
 void spi_ax_test_POCSAG_Rx(void);
+#endif
 
 
 /*

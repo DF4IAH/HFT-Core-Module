@@ -44,7 +44,7 @@ void tcxo20MhzDacInit(void)
     if (i2cErr == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
       usbLog(". Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
-      return;
+      goto tcxo20MhzDacInit_out;
     }
   }
 
@@ -68,6 +68,7 @@ void tcxo20MhzDacInit(void)
     }
   }
 
+tcxo20MhzDacInit_out:
   usbLog("- Tcxo20MhzDacInit >\r\n\r\n");
 }
 
