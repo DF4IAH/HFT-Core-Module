@@ -16,257 +16,299 @@
 /* NEW CODE */
 
 #if 0
-# define USART_SPI_AX                       USARTC1
+# define USART_SPI_AX                                         USARTC1
 #else
-# define SPI_AX                           SPIC
+# define SPI_AX                                               SPIC
 #endif
 
 #ifndef IOPORT_MODE_FALLING
-# define IOPORT_MODE_FALLING                    0x02
+# define IOPORT_MODE_FALLING                                  0x02
+#endif
 #endif
 
 
-#define C_PR1200_CALL_LENGTH                    6
+#define C_PR1200_CALL_LENGTH                                  6
 
-#define C_AX_PRW_LENGTH                       253
-#define C_SPI_AX_BUFFER_LENGTH                    512
-#define C_SPI_AX_RANGE_NOT_SET                    0x10
+#define C_AX_PRW_LENGTH                                       253
+#define C_SPI_AX_BUFFER_LENGTH                                512
+#define C_SPI_AX_RANGE_NOT_SET                                0x10
 
 
-typedef enum SPI_AX_TRPT_STATE {
-  SPI_AX_TRPT_STATE_DISABLED                    = 0x00,
+typedef enum SPI_AX_TRPT_STATE_ENUM {
+
+  SPI_AX_TRPT_STATE_DISABLED                                  = 0x00,
   SPI_AX_TRPT_STATE_ENA_ADDR,
   SPI_AX_TRPT_STATE_ENA_DATA_WRITE,
   SPI_AX_TRPT_STATE_ENA_DATA_READ,
   SPI_AX_TRPT_STATE_COMPLETE,
 
-  SPI_AX_TRPT_STATE_END                     = 0x7f,
-  SPI_AX_TRPT_STATE_ERROR                     = 0xff,
+  SPI_AX_TRPT_STATE_END                                       = 0x7f,
+  SPI_AX_TRPT_STATE_ERROR                                     = 0xff,
+
 } SPI_AX_TRPT_STATE_t;
 
 
-typedef enum AX_SET_REGISTERS_MODULATION {
-  AX_SET_REGISTERS_MODULATION_NONE                = 0x00,
-  AX_SET_REGISTERS_MODULATION_NO_CHANGE             = 0x01,
-  AX_SET_REGISTERS_MODULATION_FSK                 = 0x11,
-  AX_SET_REGISTERS_MODULATION_PR1200                = 0x21,
-  AX_SET_REGISTERS_MODULATION_POCSAG                = 0x71,
-  AX_SET_REGISTERS_MODULATION_ANALOG_FM             = 0x81,
-  AX_SET_REGISTERS_MODULATION_INVALIDATE              = 0x100,
+typedef enum AX_SET_REGISTERS_MODULATION_ENUM {
+
+  AX_SET_REGISTERS_MODULATION_NONE                            = 0x00,
+  AX_SET_REGISTERS_MODULATION_NO_CHANGE                       = 0x01,
+  AX_SET_REGISTERS_MODULATION_FSK                             = 0x11,
+  AX_SET_REGISTERS_MODULATION_PR1200                          = 0x21,
+  AX_SET_REGISTERS_MODULATION_POCSAG                          = 0x71,
+  AX_SET_REGISTERS_MODULATION_ANALOG_FM                       = 0x81,
+  AX_SET_REGISTERS_MODULATION_INVALIDATE                      = 0x100,
+
 } AX_SET_REGISTERS_MODULATION_t;
 
-typedef enum AX_SET_REGISTERS_VARIANT {
-  AX_SET_REGISTERS_VARIANT_NONE                 = 0x00,
-  AX_SET_REGISTERS_VARIANT_NO_CHANGE                = 0x01,
-  AX_SET_REGISTERS_VARIANT_TX                   = 0x11,
-  AX_SET_REGISTERS_VARIANT_RX                   = 0x21,
+typedef enum AX_SET_REGISTERS_VARIANT_ENUM {
+
+  AX_SET_REGISTERS_VARIANT_NONE                               = 0x00,
+  AX_SET_REGISTERS_VARIANT_NO_CHANGE                          = 0x01,
+  AX_SET_REGISTERS_VARIANT_TX                                 = 0x11,
+  AX_SET_REGISTERS_VARIANT_RX                                 = 0x21,
   AX_SET_REGISTERS_VARIANT_RX_WOR,
   AX_SET_REGISTERS_VARIANT_RX_CONT,
   AX_SET_REGISTERS_VARIANT_RX_CONT_SINGLEPARAMSET,
-  AX_SET_REGISTERS_VARIANT_INVALIDATE               = 0x100,
+  AX_SET_REGISTERS_VARIANT_INVALIDATE                         = 0x100,
+
 } AX_SET_REGISTERS_VARIANT_t;
 
-typedef enum AX_SET_REGISTERS_POWERMODE {
-  AX_SET_REGISTERS_POWERMODE_POWERDOWN              = 0x00,
-  AX_SET_REGISTERS_POWERMODE_DEEPSLEEP              = 0x01,
-  AX_SET_REGISTERS_POWERMODE_STANDBY                = 0x05,
-  AX_SET_REGISTERS_POWERMODE_FIFO                 = 0x06,
-  AX_SET_REGISTERS_POWERMODE_SYNTHRX                = 0x08,
-  AX_SET_REGISTERS_POWERMODE_FULLRX               = 0x09,
-  AX_SET_REGISTERS_POWERMODE_WOR                  = 0x0B,
-  AX_SET_REGISTERS_POWERMODE_SYNTHTX                = 0x0C,
-  AX_SET_REGISTERS_POWERMODE_FULLTX               = 0x0D,
-  AX_SET_REGISTERS_POWERMODE_NONE                 = 0x100,
+typedef enum AX_SET_REGISTERS_POWERMODE_ENUM {
+
+  AX_SET_REGISTERS_POWERMODE_POWERDOWN                        = 0x00,
+  AX_SET_REGISTERS_POWERMODE_DEEPSLEEP                        = 0x01,
+  AX_SET_REGISTERS_POWERMODE_STANDBY                          = 0x05,
+  AX_SET_REGISTERS_POWERMODE_FIFO                             = 0x06,
+  AX_SET_REGISTERS_POWERMODE_SYNTHRX                          = 0x08,
+  AX_SET_REGISTERS_POWERMODE_FULLRX                           = 0x09,
+  AX_SET_REGISTERS_POWERMODE_WOR                              = 0x0B,
+  AX_SET_REGISTERS_POWERMODE_SYNTHTX                          = 0x0C,
+  AX_SET_REGISTERS_POWERMODE_FULLTX                           = 0x0D,
+  AX_SET_REGISTERS_POWERMODE_NONE                             = 0x100,
+
 } AX_SET_REGISTERS_POWERMODE_t;
 
 /* find AX_SET_TX_RX_MODE_t in main.h, also */
 #ifndef DEFINED_AX_SET_TX_RX_MODE
-typedef enum AX_SET_TX_RX_MODE {
-  AX_SET_TX_RX_MODE_OFF                     = 0x00,
-  AX_SET_TX_RX_MODE_APRS_TX                   = 0x31,
+typedef enum AX_SET_TX_RX_MODE_ENUM {
+
+  AX_SET_TX_RX_MODE_OFF                                       = 0x00,
+  AX_SET_TX_RX_MODE_APRS_TX                                   = 0x31,
   AX_SET_TX_RX_MODE_APRS_RX_WOR,
   AX_SET_TX_RX_MODE_APRS_RX_CONT,
   AX_SET_TX_RX_MODE_APRS_RX_CONT_SINGLEPARAMSET,
-  AX_SET_TX_RX_MODE_POCSAG_TX                   = 0x71,
+  AX_SET_TX_RX_MODE_POCSAG_TX                                 = 0x71,
   AX_SET_TX_RX_MODE_POCSAG_RX_WOR,
   AX_SET_TX_RX_MODE_POCSAG_RX_CONT,
   AX_SET_TX_RX_MODE_POCSAG_RX_CONT_SINGLEPARAMSET,
+
 } AX_SET_TX_RX_MODE_t;
 #define DEFINED_AX_SET_TX_RX_MODE
 #endif
 
 /* find AX_SET_MON_MODE_t in main.h, also */
 #ifndef DEFINED_AX_SET_MON_MODE
-typedef enum AX_SET_MON_MODE {
-  AX_SET_MON_MODE_OFF                       = 0x00,
+typedef enum AX_SET_MON_MODE_ENUM {
 
-  AX_SET_MON_MODE_APRS_RX_WOR                   = AX_SET_TX_RX_MODE_APRS_RX_WOR,
-  AX_SET_MON_MODE_APRS_RX_CONT                  = AX_SET_TX_RX_MODE_APRS_RX_CONT,
-  AX_SET_MON_MODE_APRS_RX_CONT_SINGLEPARAMSET           = AX_SET_TX_RX_MODE_APRS_RX_CONT_SINGLEPARAMSET,
+  AX_SET_MON_MODE_OFF                                         = 0x00,
 
-  AX_SET_MON_MODE_POCSAG_RX_WOR                 = AX_SET_TX_RX_MODE_POCSAG_RX_WOR,
-  AX_SET_MON_MODE_POCSAG_RX_CONT                  = AX_SET_TX_RX_MODE_POCSAG_RX_CONT,
-  AX_SET_MON_MODE_POCSAG_RX_CONT_SINGLEPARAMSET         = AX_SET_TX_RX_MODE_POCSAG_RX_CONT_SINGLEPARAMSET,
+  AX_SET_MON_MODE_APRS_RX_WOR                                 = AX_SET_TX_RX_MODE_APRS_RX_WOR,
+  AX_SET_MON_MODE_APRS_RX_CONT                                = AX_SET_TX_RX_MODE_APRS_RX_CONT,
+  AX_SET_MON_MODE_APRS_RX_CONT_SINGLEPARAMSET                 = AX_SET_TX_RX_MODE_APRS_RX_CONT_SINGLEPARAMSET,
+
+  AX_SET_MON_MODE_POCSAG_RX_WOR                               = AX_SET_TX_RX_MODE_POCSAG_RX_WOR,
+  AX_SET_MON_MODE_POCSAG_RX_CONT                              = AX_SET_TX_RX_MODE_POCSAG_RX_CONT,
+  AX_SET_MON_MODE_POCSAG_RX_CONT_SINGLEPARAMSET               = AX_SET_TX_RX_MODE_POCSAG_RX_CONT_SINGLEPARAMSET,
+
 } AX_SET_MON_MODE_t;
 #define DEFINED_AX_SET_MON_MODE
 #endif
 
 
-typedef enum AX_FIFO_CMD {
-  AX_FIFO_CMD_NOP                         = 0x00,
-  AX_FIFO_CMD_ASK_COHERENT                    = 0x01,
-  AX_FIFO_CMD_CLEAR_FIFO_ERROR                  = 0x02,
-  AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS             = 0x03,
-  AX_FIFO_CMD_COMMIT                        = 0x04,
-  AX_FIFO_CMD_ROLLBACK                      = 0x05
+typedef enum AX_FIFO_CMD_ENUM {
+
+  AX_FIFO_CMD_NOP                                             = 0x00,
+  AX_FIFO_CMD_ASK_COHERENT                                    = 0x01,
+  AX_FIFO_CMD_CLEAR_FIFO_ERROR                                = 0x02,
+  AX_FIFO_CMD_CLEAR_FIFO_DATA_AND_FLAGS                       = 0x03,
+  AX_FIFO_CMD_COMMIT                                          = 0x04,
+  AX_FIFO_CMD_ROLLBACK                                        = 0x05
+
 } AX_FIFO_CMD_t;
 
-typedef enum AX_FIFO_DATA_CMD {
-  AX_FIFO_DATA_CMD_NOP_TX                     = 0x00,
-  AX_FIFO_DATA_CMD_RSSI_RX                    = 0x31,
-  AX_FIFO_DATA_CMD_TXCTRL_TX                    = 0x3C,
-  AX_FIFO_DATA_CMD_FREQOFFS_RX                  = 0x52,
-  AX_FIFO_DATA_CMD_ANTRSSI2_RX                  = 0x55,
-  AX_FIFO_DATA_CMD_REPEATDATA_TX                  = 0x62,
-  AX_FIFO_DATA_CMD_TIMER_RX                   = 0x70,
-  AX_FIFO_DATA_CMD_RFFREQOFFS_RX                  = 0x73,
-  AX_FIFO_DATA_CMD_DATARATE_RX                  = 0x74,
-  AX_FIFO_DATA_CMD_ANTRSSI3_RX                  = 0x75,
-  AX_FIFO_DATA_CMD_DATA_TX_RX                   = 0xE1,
-  AX_FIFO_DATA_CMD_TXPWR_TX                   = 0xFD,
+typedef enum AX_FIFO_DATA_CMD_ENUM {
+
+  AX_FIFO_DATA_CMD_NOP_TX                                     = 0x00,
+  AX_FIFO_DATA_CMD_RSSI_RX                                    = 0x31,
+  AX_FIFO_DATA_CMD_TXCTRL_TX                                  = 0x3C,
+  AX_FIFO_DATA_CMD_FREQOFFS_RX                                = 0x52,
+  AX_FIFO_DATA_CMD_ANTRSSI2_RX                                = 0x55,
+  AX_FIFO_DATA_CMD_REPEATDATA_TX                              = 0x62,
+  AX_FIFO_DATA_CMD_TIMER_RX                                   = 0x70,
+  AX_FIFO_DATA_CMD_RFFREQOFFS_RX                              = 0x73,
+  AX_FIFO_DATA_CMD_DATARATE_RX                                = 0x74,
+  AX_FIFO_DATA_CMD_ANTRSSI3_RX                                = 0x75,
+  AX_FIFO_DATA_CMD_DATA_TX_RX                                 = 0xE1,
+  AX_FIFO_DATA_CMD_TXPWR_TX                                   = 0xFD,
+
 } AX_FIFO_DATA_CMD_t;
 
-typedef enum AX_FIFO_DATA_FLAGS_TX_BF {
-  AX_FIFO_DATA_FLAGS_TX_PKTSTART                  = 0x01,
-  AX_FIFO_DATA_FLAGS_TX_PKTEND                  = 0x02,
-  AX_FIFO_DATA_FLAGS_TX_RESIDUE                 = 0x04,
-  AX_FIFO_DATA_FLAGS_TX_NOCRC                   = 0x08,
-  AX_FIFO_DATA_FLAGS_TX_RAW                   = 0x10,
-  AX_FIFO_DATA_FLAGS_TX_UNENC                   = 0x20
+typedef enum AX_FIFO_DATA_FLAGS_TX_BF_ENUM {
+
+  AX_FIFO_DATA_FLAGS_TX_PKTSTART                              = 0x01,
+  AX_FIFO_DATA_FLAGS_TX_PKTEND                                = 0x02,
+  AX_FIFO_DATA_FLAGS_TX_RESIDUE                               = 0x04,
+  AX_FIFO_DATA_FLAGS_TX_NOCRC                                 = 0x08,
+  AX_FIFO_DATA_FLAGS_TX_RAW                                   = 0x10,
+  AX_FIFO_DATA_FLAGS_TX_UNENC                                 = 0x20,
+
 } AX_FIFO_DATA_FLAGS_TX_BF_t;
 
-typedef enum AX_FIFO_DATA_FLAGS_RX_BF {
-  AX_FIFO_DATA_FLAGS_RX_PKTSTART                  = 0x01,
-  AX_FIFO_DATA_FLAGS_RX_PKTEND                  = 0x02,
-  AX_FIFO_DATA_FLAGS_RX_RESIDUE                 = 0x04,
-  AX_FIFO_DATA_FLAGS_RX_CRCFAIL                 = 0x08,
-  AX_FIFO_DATA_FLAGS_RX_ADDRFAIL                  = 0x10,
-  AX_FIFO_DATA_FLAGS_RX_SIZEFAIL                  = 0x20,
-  AX_FIFO_DATA_FLAGS_RX_ABORT                   = 0x40
+typedef enum AX_FIFO_DATA_FLAGS_RX_BF_ENUM {
+
+  AX_FIFO_DATA_FLAGS_RX_PKTSTART                              = 0x01,
+  AX_FIFO_DATA_FLAGS_RX_PKTEND                                = 0x02,
+  AX_FIFO_DATA_FLAGS_RX_RESIDUE                               = 0x04,
+  AX_FIFO_DATA_FLAGS_RX_CRCFAIL                               = 0x08,
+  AX_FIFO_DATA_FLAGS_RX_ADDRFAIL                              = 0x10,
+  AX_FIFO_DATA_FLAGS_RX_SIZEFAIL                              = 0x20,
+  AX_FIFO_DATA_FLAGS_RX_ABORT                                 = 0x40,
+
 } AX_FIFO_DATA_FLAGS_RX_BF_t;
 
-typedef enum AX_DECODER_POCSAG {
-  AX_DECODER_POCSAG__NONE                     = 0x00,
+typedef enum AX_DECODER_POCSAG_ENUM {
+
+  AX_DECODER_POCSAG__NONE                                     = 0x00,
   AX_DECODER_POCSAG__FLUSH,
   AX_DECODER_POCSAG__SYNC,
   AX_DECODER_POCSAG__IDLE,
   AX_DECODER_POCSAG__ADDRESS,
   AX_DECODER_POCSAG__DATA,
+
 } AX_DECODER_POCSAG_t;
 
 
-typedef enum AX_FIFO_RX_FSM {
-  AX_FIFO_RX_FSM__START                     = 0x00,
-  AX_FIFO_RX_FSM__STOP                      = 0x0f,
+typedef enum AX_FIFO_RX_FSM_ENUM {
 
-  AX_FIFO_RX_FSM_TIMER_1                      = 0x11,
+  AX_FIFO_RX_FSM__START                                       = 0x00,
+  AX_FIFO_RX_FSM__STOP                                        = 0x0f,
+
+  AX_FIFO_RX_FSM_TIMER_1                                      = 0x11,
   AX_FIFO_RX_FSM_TIMER_2,
   AX_FIFO_RX_FSM_TIMER_3,
 
-  AX_FIFO_RX_FSM_RSSI_1                     = 0x21,
+  AX_FIFO_RX_FSM_RSSI_1                                       = 0x21,
 
-  AX_FIFO_RX_FSM_ANTRSSI2_1                   = 0x31,
+  AX_FIFO_RX_FSM_ANTRSSI2_1                                   = 0x31,
   AX_FIFO_RX_FSM_ANTRSSI2_2,
 
-  AX_FIFO_RX_FSM_ANTRSSI3_1                   = 0x41,
+  AX_FIFO_RX_FSM_ANTRSSI3_1                                   = 0x41,
   AX_FIFO_RX_FSM_ANTRSSI3_2,
   AX_FIFO_RX_FSM_ANTRSSI3_3,
 
-  AX_FIFO_RX_FSM_RFFREQOFFS_1                   = 0x51,
+  AX_FIFO_RX_FSM_RFFREQOFFS_1                                 = 0x51,
   AX_FIFO_RX_FSM_RFFREQOFFS_2,
   AX_FIFO_RX_FSM_RFFREQOFFS_3,
 
-  AX_FIFO_RX_FSM_FREQOFFS_1                   = 0x61,
+  AX_FIFO_RX_FSM_FREQOFFS_1                                   = 0x61,
   AX_FIFO_RX_FSM_FREQOFFS_2,
 
-  AX_FIFO_RX_FSM_DATARATE_1                   = 0x71,
+  AX_FIFO_RX_FSM_DATARATE_1                                   = 0x71,
   AX_FIFO_RX_FSM_DATARATE_2,
   AX_FIFO_RX_FSM_DATARATE_3,
 
-  AX_FIFO_RX_FSM_DATA_1                     = 0x81,
+  AX_FIFO_RX_FSM_DATA_1                                       = 0x81,
   AX_FIFO_RX_FSM_DATA_2,
   AX_FIFO_RX_FSM_DATA_3,
 
-  AX_FIFO_RX_FSM__FAIL_STATE                    = 0xf1,
-  AX_FIFO_RX_FSM__FAIL_CMD                    = 0xf2,
+  AX_FIFO_RX_FSM__FAIL_STATE                                  = 0xf1,
+  AX_FIFO_RX_FSM__FAIL_CMD                                    = 0xf2,
+
 } AX_FIFO_RX_FSM_t;
 
 
-typedef enum AX_POCSAG_CODES_ENUM {                           // MSB   S A A A  A A A A     A A A A  A A A A     A A A F  F C C C     C C C C  C C C P   LSB - S: Addr/Data, A: Addr, F: Function bits, C: Check, P: even Parity
-  AX_POCSAG_CODES_PREAMBLE                    = 0xaaaaaaaaUL,   // MSB   1 0 1 0  1 0 1 0     1 0 1 0  1 0 1 0     1 0 1 0  1 0 1 0     1 0 1 0  1 0 1 0   LSB
-  AX_POCSAG_CODES_SYNCWORD                    = 0x7cd215d8UL,   // MSB   0 1 1 1  1 1 0 0     1 1 0 1  0 0 1 0     0 0 0 1  0 1 0 1     1 1 0 1  1 0 0 0   LSB  == HI-address: 0x1f348  concat  0b000           = 0xf9a40
-  AX_POCSAG_CODES_IDLEWORD                    = 0x7a89c197UL,   // MSB   0 1 1 1  1 0 1 0     1 0 0 0  1 0 0 1     1 1 0 0  0 0 0 1     1 0 0 1  0 1 1 1   LSB  == HI-address: 0x1eb27  concat  0b000 .. 0b111  = 0xf5938 .. 0xf593f
+typedef enum AX_POCSAG_CODES_ENUM {                                             // MSB   S A A A  A A A A     A A A A  A A A A     A A A F  F C C C     C C C C  C C C P   LSB - S: Addr/Data, A: Addr, F: Function bits, C: Check, P: even Parity
+
+  AX_POCSAG_CODES_PREAMBLE                                    = 0xaaaaaaaaUL,   // MSB   1 0 1 0  1 0 1 0     1 0 1 0  1 0 1 0     1 0 1 0  1 0 1 0     1 0 1 0  1 0 1 0   LSB
+  AX_POCSAG_CODES_SYNCWORD                                    = 0x7cd215d8UL,   // MSB   0 1 1 1  1 1 0 0     1 1 0 1  0 0 1 0     0 0 0 1  0 1 0 1     1 1 0 1  1 0 0 0   LSB  == HI-address: 0x1f348  concat  0b000           = 0xf9a40
+  AX_POCSAG_CODES_IDLEWORD                                    = 0x7a89c197UL,   // MSB   0 1 1 1  1 0 1 0     1 0 0 0  1 0 0 1     1 1 0 0  0 0 0 1     1 0 0 1  0 1 1 1   LSB  == HI-address: 0x1eb27  concat  0b000 .. 0b111  = 0xf5938 .. 0xf593f
+
 } AX_POCSAG_CODES_t;
 
 typedef enum AX_POCSAG_CW1_ENUM {
-  AX_POCSAG_CW1_IS_ADDR                     = 0,
-  AX_POCSAG_CW1_IS_MSG                      = 1
+
+  AX_POCSAG_CW1_IS_ADDR                                       = 0,
+  AX_POCSAG_CW1_IS_MSG                                        = 1,
+
 } AX_POCSAG_CW1_t;
 
 typedef enum AX_POCSAG_CW2_ENUM {
-  AX_POCSAG_CW2_MODE0_NUMERIC                   = 0,
-  AX_POCSAG_CW2_MODE1_TONE                    = 1,
-  AX_POCSAG_CW2_MODE2_ACTIVATION                  = 2,
-  AX_POCSAG_CW2_MODE3_ALPHANUM                  = 3
+
+  AX_POCSAG_CW2_MODE0_NUMERIC                                 = 0,
+  AX_POCSAG_CW2_MODE1_TONE                                    = 1,
+  AX_POCSAG_CW2_MODE2_ACTIVATION                              = 2,
+  AX_POCSAG_CW2_MODE3_ALPHANUM                                = 3,
+
 } AX_POCSAG_CW2_t;
 
 typedef enum AX_POCSAG_SKYPER_ACTIVATION_ARY_ENUM {
-  AX_POCSAG_SKYPER_ACTIVATION_ARY_SHIFT             = 0,
+
+  AX_POCSAG_SKYPER_ACTIVATION_ARY_SHIFT                       = 0,
   AX_POCSAG_SKYPER_ACTIVATION_ARY_MASK,
-  AX_POCSAG_SKYPER_ACTIVATION_ARY_OFFSET
+  AX_POCSAG_SKYPER_ACTIVATION_ARY_OFFSET,
+
 } AX_POCSAG_SKYPER_ACTIVATION_ARY_t;
 
 typedef enum AX_POCSAG_SKYPER_RIC_ENUM {
-  AX_POCSAG_SKYPER_RIC_CLOCK                    = 2504,
-  AX_POCSAG_SKYPER_RIC_RUBRICS                  = 4512,
-  AX_POCSAG_SKYPER_RIC_NEWS                   = 4520
+
+  AX_POCSAG_SKYPER_RIC_CLOCK                                  = 2504,
+  AX_POCSAG_SKYPER_RIC_RUBRICS                                = 4512,
+  AX_POCSAG_SKYPER_RIC_NEWS                                   = 4520,
+
 } AX_POCSAG_SKYPER_RIC_t;
 
 typedef enum AX_POCSAG_IS_SKYPER_SPECIAL_ENUM {
-  AX_POCSAG_IS_SKYPER_SPECIAL_NO                  = 0,
+
+  AX_POCSAG_IS_SKYPER_SPECIAL_NO                              = 0,
   AX_POCSAG_IS_SKYPER_SPECIAL_RUBRIC,
   AX_POCSAG_IS_SKYPER_SPECIAL_NEWS,
+
 } AX_POCSAG_IS_SKYPER_SPECIAL_t;
 
 
 typedef struct AX_POCSAG_DECODER_DATA {
-  bool    badDecode;                                    // No successful decode (0 bit error and 1 bit error)
 
-  bool    badParity;                                    // Parity not even (0 bit error)
-  bool    badCheck;                                   // Check failed (0 bit error)
+  uint8_t                   badDecode;                        // No successful decode (0 bit error and 1 bit error)
 
-  bool    isAddr;                                     // Decoded word is an address
-  bool    isData;                                     // Decoded word contains data
-  uint32_t  addrData;                                   // Shared data or an address
-  uint8_t   functionBits;                                 // Two additional bits for sub-address or Skyper signaling
-  uint8_t   invertedBit;                                  // One bit error correction: 0-31 inverted bit. 32 means no correction involved
+  uint8_t                   badParity;                        // Parity not even (0 bit error)
+  uint8_t                   badCheck;                         // Check failed (0 bit error)
+
+  uint8_t                   isAddr;                           // Decoded word is an address
+  uint8_t                   isData;                           // Decoded word contains data
+  uint32_t                  addrData;                         // Shared data or an address
+  uint8_t                   functionBits;                     // Two additional bits for sub-address or Skyper signaling
+  uint8_t                   invertedBit;                      // One bit error correction: 0-31 inverted bit. 32 means no correction involved
+
 } AX_POCSAG_DECODER_DATA_t;
 
 typedef struct AX_RX_FIFO_MEAS {
-  uint32_t  timer;
 
-  int8_t    rssi;                                     // Sign reversal at 0x40 offset
-  int16_t   antRssi2;
-  int32_t   antRssi3;
+  uint32_t                  timer;
 
-  int32_t   rfFrqOffs;
-  int16_t   frqOffs;
+  int8_t                    rssi;                             // Sign reversal at 0x40 offset
+  int16_t                   antRssi2;
+  int32_t                   antRssi3;
 
-  uint32_t  dataRate;
+  int32_t                   rfFrqOffs;
+  int16_t                   frqOffs;
+
+  uint32_t                  dataRate;
+
 } AX_RX_FIFO_MEAS_t;
 
 
 
+#if 0
 /* ISR routines */
 
 /* PORTC Pin3 - AX5243 IRQ */
@@ -274,16 +316,17 @@ ISR(PORTC_INT0_vect, ISR_BLOCK);
 
 void spi_ax_ISR_setFlags(uint8_t flags);
 void isr_spi_ax_fifo_readMessage(void);
+#endif
 
 
-
-#if 0
+# if 0
 inline static uint8_t s_sel_u8_from_u32(uint32_t in_u32, uint8_t sel);
 inline static void s_spi_ax_select_device(void);
 inline static void s_spi_ax_deselect_device(void);
 inline static uint8_t s_strGetHex(const char* str);
 inline static uint8_t s_strGetDec(const char* str, int* o_val);
-#endif
+# endif
+
 
 AX_POCSAG_CW2_t ax_pocsag_analyze_msg_tgtFunc_get(const char* msg, uint16_t msgLen);
 uint8_t spi_ax_pocsag_calc_evenParity(uint32_t par);
@@ -295,13 +338,13 @@ uint32_t spi_ax_pocsag_get20Bits(const char* tgtMsg, uint16_t tgtMsgLen, AX_POCS
 char spi_ax_pocsag_getNumeric(const uint32_t* rcv20Bits, uint8_t rcv20BitsCnt, uint8_t msgNumIdx);
 char spi_ax_pocsag_getAlphanum(const uint32_t* rcv20Bits, uint8_t rcv20BitsCnt, uint8_t msgAlphaIdx);
 
-void spi_ax_pocsag_address_tone(bool individual_RIC_address, uint32_t address, uint8_t fktBits);
-void spi_ax_pocsag_address_numeric(bool individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
-void spi_ax_pocsag_address_alphanum(bool individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt, AX_POCSAG_IS_SKYPER_SPECIAL_t skyperSpecial);
-void spi_ax_pocsag_address_skyper_activation(bool individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
+void spi_ax_pocsag_address_tone(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits);
+void spi_ax_pocsag_address_numeric(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
+void spi_ax_pocsag_address_alphanum(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt, AX_POCSAG_IS_SKYPER_SPECIAL_t skyperSpecial);
+void spi_ax_pocsag_address_skyper_activation(uint8_t individual_RIC_address, uint32_t address, uint8_t fktBits, uint32_t* dataAry, uint8_t dataCnt);
 
 uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t outBufSize, uint32_t RIC);
-uint16_t spi_ax_pocsag_skyper_TimeString(char* outBuf, uint16_t outBufSize, struct calendar_date* calDat);
+//uint16_t spi_ax_pocsag_skyper_TimeString(char* outBuf, uint16_t outBufSize, struct calendar_date* calDat);
 uint16_t spi_ax_pocsag_skyper_RubricString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, const char* rubricLabel, uint16_t rubricLabelLen);
 uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperRubricMsg, uint16_t pocsagSkyperRubricMsgLen);
 uint16_t spi_ax_pocsag_skyper_NewsString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, uint8_t newsNumber, const char* newsString, uint16_t newsStringLen);
@@ -310,19 +353,19 @@ uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t outBufSiz
 void spi_ax_pocsag_wordDecoder(AX_POCSAG_DECODER_DATA_t* l_pocsagData, uint32_t pocsagWord, uint8_t pocsagWordCnt);
 void spi_ax_pocsag_messageDecoder(uint32_t address, uint8_t functionBits, uint32_t* dataAry, uint8_t dataCnt);
 
-status_code_t spi_ax_transport(bool isProgMem, const char* packet);
+//status_code_t spi_ax_transport(uint8_t isProgMem, const char* packet);
 
-status_code_t spi_ax_sync2Powerdown(void);
+//status_code_t spi_ax_sync2Powerdown(void);
 void spi_ax_setPower_dBm(float dBm);
 void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState);
-void spi_ax_setRegisters(bool doReset, AX_SET_REGISTERS_MODULATION_t modulation, AX_SET_REGISTERS_VARIANT_t variant, AX_SET_REGISTERS_POWERMODE_t powerState);
+void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t modulation, AX_SET_REGISTERS_VARIANT_t variant, AX_SET_REGISTERS_POWERMODE_t powerState);
 
 uint32_t spi_ax_calcFrequency_Mhz2Regs(float f_mhz);
 float spi_ax_calcFrequency_Regs2MHz(uint32_t vco_regval);
-void spi_ax_setFrequency2Regs(uint8_t chan, bool isFreqB);
+void spi_ax_setFrequency2Regs(uint8_t chan, uint8_t isFreqB);
 void spi_ax_doRanging(void);
-bool spi_ax_vco_select(uint32_t reg_freq, bool force);
-bool spi_ax_selectVcoFreq(bool isFreqB);
+uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force);
+uint8_t spi_ax_selectVcoFreq(uint8_t isFreqB);
 void spi_ax_util_FIFO_waitFree(uint8_t neededSpace);
 void spi_ax_setRxMode_by_MonMode(void);
 
@@ -447,7 +490,7 @@ void spi_ax_test_POCSAG_Rx(void);
  */
 
  /* See also: https://www.codeproject.com/Articles/13189/POCSAG-Encoder and  http://www.codeproject.com/samples/bch2131.asp */
-#endif
+
 
 void ax5243TaskInit(void);
 void ax5243TaskLoop(void);
