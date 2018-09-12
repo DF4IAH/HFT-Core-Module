@@ -5,6 +5,7 @@
  *      Author: DF4IAH
  */
 
+#include <device_adc.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_it.h"
 
@@ -13,8 +14,6 @@
 
 #include "bus_i2c.h"
 #include "usb.h"
-#include "adc.h"
-
 #include <task_TCXO_20MHz.h>
 
 

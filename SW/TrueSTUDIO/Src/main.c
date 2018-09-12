@@ -47,6 +47,7 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
+#include <device_adc.h>
 #include "main.h"
 #include "stm32l4xx_hal.h"
 #include "cmsis_os.h"
@@ -67,7 +68,6 @@
 #include "task_AX5243.h"
 #include "task_SX1276.h"
 #include "usb.h"
-#include "adc.h"
 
 
 #define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */

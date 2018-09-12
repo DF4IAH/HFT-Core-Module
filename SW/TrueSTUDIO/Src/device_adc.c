@@ -1,5 +1,5 @@
 /*
- * adc.c
+ * device_adc.c
  *
  *  Created on: 30.08.2018
  *      Author: DF4IAH
@@ -11,24 +11,25 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "adc.h"
+#include "device_adc.h"
 
 
-extern ADC_HandleTypeDef              hadc1;
-extern ADC_HandleTypeDef              hadc3;
+extern ADC_HandleTypeDef    hadc1;
+extern ADC_HandleTypeDef    hadc3;
 
-extern EventGroupHandle_t             adcEventGroupHandle;
+extern EventGroupHandle_t   adcEventGroupHandle;
 
-static uint16_t                       s_adc1_dma_buf[4]       = { 0U };
-static uint16_t                       s_adc3_dma_buf[1]       = { 0U };
 
-static float                          s_adc1_refint_val       = 0.f;
-static float                          s_adc1_vref_mv           = 0.f;
-static float                          s_adc1_solar_mv          = 0.f;
-static float                          s_adc1_bat_mv            = 0.f;
-static float                          s_adc1_temp             = 0.f;
+static uint16_t             s_adc1_dma_buf[ADC1_CHANNELS]     = { 0U };
+static uint16_t             s_adc3_dma_buf[ADC3_CHANNELS]     = { 0U };
 
-static float                          s_adc3_v_pull_tcxo      = 0.f;
+static float                s_adc1_refint_val                 = 0.f;
+static float                s_adc1_vref_mv                    = 0.f;
+static float                s_adc1_solar_mv                   = 0.f;
+static float                s_adc1_bat_mv                     = 0.f;
+static float                s_adc1_temp                       = 0.f;
+
+static float                s_adc3_v_pull_tcxo                = 0.f;
 
 
 float adcGetVal(ADC_ENUM_t channel)
