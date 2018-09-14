@@ -59,6 +59,7 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "device_adc.h"
 #include "bus_i2c.h"
 #include "bus_spi.h"
 #include "task_Controller.h"
@@ -67,7 +68,6 @@
 #include "task_AX5243.h"
 #include "task_SX1276.h"
 #include "usb.h"
-#include "adc.h"
 
 
 #define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */
@@ -230,6 +230,12 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+
+uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel)
+{
+  return 0xff & (in_u32 >> (sel << 3));
+}
+
 void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac)
 {
   const uint8_t isNeg = val >= 0 ?  0U : 1U;
@@ -701,39 +707,39 @@ int main(void)
   usbFromHostTaskHandle = osThreadCreate(osThread(usbFromHostTask), NULL);
 
   /* definition and creation of hygroTask */
-  osThreadDef(hygroTask, StartHygroTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(hygroTask, StartHygroTask, osPriorityNormal, 0, 256);
   hygroTaskHandle = osThreadCreate(osThread(hygroTask), NULL);
 
   /* definition and creation of baroTask */
-  osThreadDef(baroTask, StartBaroTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(baroTask, StartBaroTask, osPriorityNormal, 0, 256);
   baroTaskHandle = osThreadCreate(osThread(baroTask), NULL);
 
   /* definition and creation of gyroTask */
-  osThreadDef(gyroTask, StartGyroTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(gyroTask, StartGyroTask, osPriorityNormal, 0, 256);
   gyroTaskHandle = osThreadCreate(osThread(gyroTask), NULL);
 
   /* definition and creation of lcdTask */
-  osThreadDef(lcdTask, StartLcdTask, osPriorityNormal, 0, 256);
+  osThreadDef(lcdTask, StartLcdTask, osPriorityAboveNormal, 0, 256);
   lcdTaskHandle = osThreadCreate(osThread(lcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
-  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityNormal, 0, 256);
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
 
   /* definition and creation of ax5243Task */
-  osThreadDef(ax5243Task, StartAx5243Task, osPriorityBelowNormal, 0, 256);
+  osThreadDef(ax5243Task, StartAx5243Task, osPriorityNormal, 0, 512);
   ax5243TaskHandle = osThreadCreate(osThread(ax5243Task), NULL);
 
   /* definition and creation of sx1276Task */
-  osThreadDef(sx1276Task, StartSx1276Task, osPriorityBelowNormal, 0, 256);
+  osThreadDef(sx1276Task, StartSx1276Task, osPriorityNormal, 0, 512);
   sx1276TaskHandle = osThreadCreate(osThread(sx1276Task), NULL);
 
   /* definition and creation of controllerTask */
-  osThreadDef(controllerTask, StartControllerTask, osPriorityAboveNormal, 0, 256);
+  osThreadDef(controllerTask, StartControllerTask, osPriorityBelowNormal, 0, 256);
   controllerTaskHandle = osThreadCreate(osThread(controllerTask), NULL);
 
   /* definition and creation of si5338Task */
-  osThreadDef(si5338Task, StartSi5338Task, osPriorityBelowNormal, 0, 256);
+  osThreadDef(si5338Task, StartSi5338Task, osPriorityNormal, 0, 256);
   si5338TaskHandle = osThreadCreate(osThread(si5338Task), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -753,7 +759,7 @@ int main(void)
 
   /* definition and creation of controllerInQueue */
 /* what about the sizeof here??? cd native code */
-  osMessageQDef(controllerInQueue, 32, uint32_t);
+  osMessageQDef(controllerInQueue, 8, uint32_t);
   controllerInQueueHandle = osMessageCreate(osMessageQ(controllerInQueue), NULL);
 
   /* definition and creation of controllerOutQueue */
@@ -2065,15 +2071,6 @@ void StartDefaultTask(void const * argument)
 
 #ifdef I2C4_BUS_ADDR_SCAN
   i2cI2c4AddrScan();
-#endif
-
-#define SPI3_AX_CHECK
-#ifdef SPI3_AX_CHECK
-  if (HAL_OK == spiDetectAx5243()) {
-    usbLog("AX5243 detected.\r\n");
-  } else {
-    usbLog("AX5243 does not respond!\r\n");
-  }
 #endif
 
   osDelay(850UL);

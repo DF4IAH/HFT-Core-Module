@@ -1,13 +1,16 @@
 /*
- * adc.h
+ * device_adc.h
  *
  *  Created on: 30.08.2018
  *      Author: DF4IAH
  */
 
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef DEVICE_ADC_H_
+#define DEVICE_ADC_H_
 
+
+#define ADC1_CHANNELS                 4
+#define ADC3_CHANNELS                 1
 
 #define ADC_V_OFFS_VREF_mV            38.8f
 #define ADC_V_OFFS_REFINT_mV          38.0f
@@ -50,4 +53,4 @@ float adcGetVal(ADC_ENUM_t channel);
 void adcStartConv(ADC_ENUM_t adc);
 void adcStopConv(ADC_ENUM_t adc);
 
-#endif /* ADC_H_ */
+#endif /* DEVICE_ADC_H_ */

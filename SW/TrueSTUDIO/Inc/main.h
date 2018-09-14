@@ -266,7 +266,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180911U
+#define HFTCOREMODULE_VERSION                                 20180914U
 
 
 typedef enum EXTI_ENUM {
@@ -309,6 +309,7 @@ typedef enum MON_MASK {
 } MON_MASK_t;
 
 
+uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel);
 void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac);
 void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
 void SystemResetbyARMcore(void);

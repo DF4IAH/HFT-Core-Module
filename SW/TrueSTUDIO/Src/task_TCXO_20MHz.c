@@ -5,6 +5,7 @@
  *      Author: DF4IAH
  */
 
+#include <device_adc.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_it.h"
 
@@ -13,8 +14,6 @@
 
 #include "bus_i2c.h"
 #include "usb.h"
-#include "adc.h"
-
 #include <task_TCXO_20MHz.h>
 
 
@@ -45,7 +44,7 @@ void tcxo20MhzDacInit(void)
     if (i2cErr == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
       usbLog(". Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
-      return;
+      goto tcxo20MhzDacInit_out;
     }
   }
 
@@ -69,6 +68,7 @@ void tcxo20MhzDacInit(void)
     }
   }
 
+tcxo20MhzDacInit_out:
   usbLog("- Tcxo20MhzDacInit >\r\n\r\n");
 }
 
