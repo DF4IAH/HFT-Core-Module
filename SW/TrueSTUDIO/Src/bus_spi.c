@@ -19,6 +19,8 @@
 
 extern EventGroupHandle_t   extiEventGroupHandle;
 extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osMutexId            spi1MutexHandle;
+extern osMutexId            spi3MutexHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
@@ -117,7 +119,7 @@ uint8_t spiProcessSpiReturnWait(void)
   return HAL_ERROR;
 }
 
-uint8_t spiProcessSpi3Msg(SPI3_CHIPS_t chip, uint8_t msgLen)
+uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen)
 {
   GPIO_TypeDef*     GPIOx     = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_GPIO_Port : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_GPIO_Port  : 0);
   uint16_t          GPIO_Pin  = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_Pin       : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_Pin        : 0);
@@ -128,9 +130,6 @@ uint8_t spiProcessSpi3Msg(SPI3_CHIPS_t chip, uint8_t msgLen)
   if (!GPIOx || !GPIO_Pin) {
     return HAL_ERROR;
   }
-
-  /* Wait for SPI3 mutex */
-  // TODO: SPI3 mutex
 
   /* Activate low active NSS/SEL transaction */
   HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
@@ -157,7 +156,29 @@ uint8_t spiProcessSpi3Msg(SPI3_CHIPS_t chip, uint8_t msgLen)
   /* Release low active NSS/SEL transaction */
   HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
 
-  /* Release SPI3 mutex */
-
   return status;
+}
+
+uint8_t spiProcessSpi3MsgTemplateLocked(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf)
+{
+  /* Wait for SPI3 mutex */
+  if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+    return HAL_BUSY;
+  }
+
+  /* Copy from Template */
+  memcpy((void*) spi3TxBuffer, (void*) templateBuf, templateLen);
+
+  /* Execute SPI3 communication and leave with locked SPI3 mutex for read purpose */
+  return spiProcessSpi3MsgLocked(chip, templateLen);
+}
+
+uint8_t spiProcessSpi3MsgTemplate(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf)
+{
+  const uint8_t ret = spiProcessSpi3MsgTemplateLocked(chip, templateLen, templateBuf);
+
+  /* Release SPI3 mutex */
+  osMutexRelease(spi3MutexHandle);
+
+  return ret;
 }

@@ -707,39 +707,39 @@ int main(void)
   usbFromHostTaskHandle = osThreadCreate(osThread(usbFromHostTask), NULL);
 
   /* definition and creation of hygroTask */
-  osThreadDef(hygroTask, StartHygroTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(hygroTask, StartHygroTask, osPriorityNormal, 0, 256);
   hygroTaskHandle = osThreadCreate(osThread(hygroTask), NULL);
 
   /* definition and creation of baroTask */
-  osThreadDef(baroTask, StartBaroTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(baroTask, StartBaroTask, osPriorityNormal, 0, 256);
   baroTaskHandle = osThreadCreate(osThread(baroTask), NULL);
 
   /* definition and creation of gyroTask */
-  osThreadDef(gyroTask, StartGyroTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(gyroTask, StartGyroTask, osPriorityNormal, 0, 256);
   gyroTaskHandle = osThreadCreate(osThread(gyroTask), NULL);
 
   /* definition and creation of lcdTask */
-  osThreadDef(lcdTask, StartLcdTask, osPriorityNormal, 0, 256);
+  osThreadDef(lcdTask, StartLcdTask, osPriorityAboveNormal, 0, 256);
   lcdTaskHandle = osThreadCreate(osThread(lcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
-  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(tcxo20MhzTask, StartTcxo20MhzTask, osPriorityNormal, 0, 256);
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
 
   /* definition and creation of ax5243Task */
-  osThreadDef(ax5243Task, StartAx5243Task, osPriorityBelowNormal, 0, 256);
+  osThreadDef(ax5243Task, StartAx5243Task, osPriorityNormal, 0, 512);
   ax5243TaskHandle = osThreadCreate(osThread(ax5243Task), NULL);
 
   /* definition and creation of sx1276Task */
-  osThreadDef(sx1276Task, StartSx1276Task, osPriorityBelowNormal, 0, 256);
+  osThreadDef(sx1276Task, StartSx1276Task, osPriorityNormal, 0, 512);
   sx1276TaskHandle = osThreadCreate(osThread(sx1276Task), NULL);
 
   /* definition and creation of controllerTask */
-  osThreadDef(controllerTask, StartControllerTask, osPriorityAboveNormal, 0, 256);
+  osThreadDef(controllerTask, StartControllerTask, osPriorityBelowNormal, 0, 256);
   controllerTaskHandle = osThreadCreate(osThread(controllerTask), NULL);
 
   /* definition and creation of si5338Task */
-  osThreadDef(si5338Task, StartSi5338Task, osPriorityBelowNormal, 0, 256);
+  osThreadDef(si5338Task, StartSi5338Task, osPriorityNormal, 0, 256);
   si5338TaskHandle = osThreadCreate(osThread(si5338Task), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -759,7 +759,7 @@ int main(void)
 
   /* definition and creation of controllerInQueue */
 /* what about the sizeof here??? cd native code */
-  osMessageQDef(controllerInQueue, 32, uint32_t);
+  osMessageQDef(controllerInQueue, 8, uint32_t);
   controllerInQueueHandle = osMessageCreate(osMessageQ(controllerInQueue), NULL);
 
   /* definition and creation of controllerOutQueue */

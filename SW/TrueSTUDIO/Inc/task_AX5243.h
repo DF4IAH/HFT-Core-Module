@@ -391,8 +391,7 @@ void spi_ax_initRegisters_POCSAG_Rx(void);
 void spi_ax_initRegisters_POCSAG_Rx_WoR(void);
 void spi_ax_initRegisters_POCSAG_Rx_cont(void);
 void spi_ax_init_POCSAG_Tx(void);
-int8_t spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsagTgtFunc, const char* pocsagTgtMsg, uint8_t pocsagTgtMsgLen);
-void spi_ax_send_POCSAG_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsagTgtFunc, const char* pocsagTgtMsg, uint8_t pocsagTgtMsgLen);
+void spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsagTgtFunc, const char* pocsagTgtMsg, uint8_t pocsagTgtMsgLen);
 void spi_ax_init_POCSAG_Rx(AX_SET_REGISTERS_POWERMODE_t powerMode);
 void spi_ax_run_POCSAG_Tx_single_Msg(const char msgBuf, uint16_t msgBufLen);
 void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void);
@@ -409,9 +408,6 @@ uint8_t spi_ax_doProcess_RX_messages(const uint8_t* buf, uint8_t msgLen);
 void spi_ax_Rx_FIFO_DataProcessor(AX_SET_MON_MODE_t monMode, const uint8_t* dataBuf, uint16_t dataLen);
 
 //void init_spi_ax5243(void);
-
-//void spi_init(void);
-//void spi_start(void);
 
 //void task_spi_ax(void);
 
