@@ -33,6 +33,9 @@
 #define C_SPI_AX_BUFFER_LENGTH                                512
 #define C_SPI_AX_RANGE_NOT_SET                                0x10
 
+#define C_AX_REG_RD                                           0x00U
+#define C_AX_REG_WR                                           0x80U
+
 
 typedef enum SPI_AX_TRPT_STATE_ENUM {
 
