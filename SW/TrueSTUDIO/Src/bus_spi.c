@@ -28,9 +28,15 @@ extern MON_MASK_t           g_monMsk;
 
 
 /* Buffer used for transmission */
+#if 0
+volatile uint8_t            spi1TxBuffer[SPI1_BUFFERSIZE]     = { 0 };
+#endif
 volatile uint8_t            spi3TxBuffer[SPI3_BUFFERSIZE]     = { 0 };
 
 /* Buffer used for reception */
+#if 0
+volatile uint8_t            spi1RxBuffer[SPI1_BUFFERSIZE]     = { 0 };
+#endif
 volatile uint8_t            spi3RxBuffer[SPI3_BUFFERSIZE]     = { 0 };
 
 
@@ -119,17 +125,27 @@ uint8_t spiProcessSpiReturnWait(void)
   return HAL_ERROR;
 }
 
-uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen)
+uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen, uint8_t waitComplete)
 {
   GPIO_TypeDef*     GPIOx     = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_GPIO_Port : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_GPIO_Port  : 0);
   uint16_t          GPIO_Pin  = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_Pin       : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_Pin        : 0);
   HAL_StatusTypeDef status    = HAL_OK;
-  uint8_t           errCnt    = 0;
+  uint8_t           errCnt    = 0U;
 
   /* Sanity check */
   if (!GPIOx || !GPIO_Pin) {
     return HAL_ERROR;
   }
+
+  /* Wait for free select line */
+  do {
+    if (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOx, GPIO_Pin)) {
+      break;
+    }
+
+    /* Wait some time for free bus */
+    osDelay(5);
+  } while (1);
 
   /* Activate low active NSS/SEL transaction */
   HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
@@ -138,9 +154,9 @@ uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen)
     status = HAL_SPI_TransmitReceive_DMA(&hspi3, (uint8_t*) spi3TxBuffer, (uint8_t *) spi3RxBuffer, msgLen);
     if (status == HAL_BUSY)
     {
-      osDelay(1);
+      osThreadYield();
 
-      if (++errCnt >= 100) {
+      if (++errCnt >= 100U) {
         /* Transfer error in transmission process */
         HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
         Error_Handler();
@@ -148,18 +164,15 @@ uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen)
     }
   } while (status == HAL_BUSY);
 
-  if (status == HAL_OK) {
+  if ((status == HAL_OK) && waitComplete) {
     /* Wait until the data is transfered */
     status = spiProcessSpiReturnWait();
   }
 
-  /* Release low active NSS/SEL transaction */
-  HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
-
   return status;
 }
 
-uint8_t spiProcessSpi3MsgTemplateLocked(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf)
+uint8_t spiProcessSpi3MsgTemplateLocked(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf, uint8_t waitComplete)
 {
   /* Wait for SPI3 mutex */
   if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
@@ -170,12 +183,12 @@ uint8_t spiProcessSpi3MsgTemplateLocked(SPI3_CHIPS_t chip, uint16_t templateLen,
   memcpy((void*) spi3TxBuffer, (void*) templateBuf, templateLen);
 
   /* Execute SPI3 communication and leave with locked SPI3 mutex for read purpose */
-  return spiProcessSpi3MsgLocked(chip, templateLen);
+  return spiProcessSpi3MsgLocked(chip, templateLen, waitComplete);
 }
 
 uint8_t spiProcessSpi3MsgTemplate(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf)
 {
-  const uint8_t ret = spiProcessSpi3MsgTemplateLocked(chip, templateLen, templateBuf);
+  const uint8_t ret = spiProcessSpi3MsgTemplateLocked(chip, templateLen, templateBuf, 0U);
 
   /* Release SPI3 mutex */
   osMutexRelease(spi3MutexHandle);
