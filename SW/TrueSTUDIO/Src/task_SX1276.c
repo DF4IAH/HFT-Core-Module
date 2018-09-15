@@ -22,6 +22,7 @@
 
 extern EventGroupHandle_t   extiEventGroupHandle;
 extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osMutexId            spi3MutexHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
@@ -31,10 +32,7 @@ extern uint8_t              spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
 
-SPI_HandleTypeDef hspi1;
-SPI_HandleTypeDef hspi3;
-DMA_HandleTypeDef hdma_spi3_tx;
-DMA_HandleTypeDef hdma_spi3_rx;
+static uint8_t              s_sx1276_enable                   = 0U;
 
 
 void spiSX127xReset(void)
@@ -1050,5 +1048,8 @@ void sx1276TaskLoop(void)
   }
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
-}
 
+  if (s_sx1276_enable) {
+    // TODO: code here
+  }
+}

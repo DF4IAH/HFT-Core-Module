@@ -27,6 +27,8 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+static uint8_t              s_lcd_enable                      = 0U;
+
 
 static void lcdInit(void)
 {
@@ -144,4 +146,8 @@ void lcdTaskLoop(void)
   }
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
+
+  if (s_lcd_enable) {
+    // TODO: code here
+  }
 }

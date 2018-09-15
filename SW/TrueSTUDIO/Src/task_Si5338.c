@@ -27,6 +27,8 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+static uint8_t              s_si5338_enable                   = 0U;
+
 
 uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readLen)
 {
@@ -92,4 +94,8 @@ void si5338TaskLoop(void)
   }
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
+
+  if (s_si5338_enable) {
+    // TODO: code here
+  }
 }
