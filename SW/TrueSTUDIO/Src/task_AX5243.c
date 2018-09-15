@@ -1116,7 +1116,7 @@ static uint8_t spi_ax_sync2Powerdown(void)
     uint8_t state;
 
     while (--cntr) {
-      spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+      spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
       state = spi3RxBuffer[1];
       osMutexRelease(spi3MutexHandle);
 
@@ -1163,7 +1163,7 @@ static void spi_ax_xtal_waitReady(void)
 
   /*  Wait until crystal oscillator is ready */
   do {
-    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     state = spi3RxBuffer[1] & 0x01U;                                                                  // Bit 0: XTALRUN
     osMutexRelease(spi3MutexHandle);
 
@@ -1895,7 +1895,7 @@ static void spi_ax_doRanging(void)
           uint8_t rngVal, rngState;
 
           do {
-            spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+            spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
             rngVal    = spi3RxBuffer[1];
             rngState  = rngVal & (1U << 4);
             osMutexRelease(spi3MutexHandle);
@@ -2033,7 +2033,7 @@ uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
     const uint8_t txMsg[2] = { 0x32U | C_AX_REG_RD,
         0x00U
     };                                                                                                // RD address 0x32: PLLVCODIV - VCO2INT, VCOSEL, RFDIV
-    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     curVco2 = (spi3RxBuffer[1] & 0x20) ?  1U : 0U;
     osMutexRelease(spi3MutexHandle);
   }
@@ -2118,7 +2118,7 @@ uint8_t spi_ax_selectVcoFreq(uint8_t isFreqB)
     const uint8_t txMsg[2] = { 0x30U | C_AX_REG_RD,
         0x00U
     };                                                                                                // RD address 0x30: PLLLOOP
-    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     const uint8_t pllLoop = spi3RxBuffer[1];
     osMutexRelease(spi3MutexHandle);
 
@@ -2141,7 +2141,7 @@ void spi_ax_util_FIFO_waitFree(uint8_t neededSpace)
     const uint8_t txMsg[3] = { 0x2cU | C_AX_REG_RD,                                                   // RD address 0x2C: FIFOFREE
         0x00U, 0x00U
     };
-    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     fifoFree = 0x1ffU & (((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2]);
     osMutexRelease(spi3MutexHandle);
 
@@ -4561,7 +4561,7 @@ void spi_ax_run_PR1200_Tx_FIFO_APRS(const char addrAry[][C_PR1200_CALL_LENGTH], 
     uint8_t state;
 
     do {
-      spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+      spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
       state = spi3RxBuffer[1] & 0x0f;
       osMutexRelease(spi3MutexHandle);
 
@@ -4600,7 +4600,7 @@ void spi_ax_util_PR1200_Tx_FIFO_Flags(uint8_t count)
     spi3TxBuffer[idx++] = 0b01111110;                                                                 // The AX25 'Flag'
 
     /* FIFO data enter */
-    spiProcessSpi3MsgLocked(SPI3_AX, idx);
+    spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
     osMutexRelease(spi3MutexHandle);
   }
 
@@ -4654,7 +4654,7 @@ void spi_ax_util_PR1200_Tx_FIFO_AddressField(const char addrAry[][C_PR1200_CALL_
     spi3TxBuffer[    2] = idx - 3;                                                                    // Overwrite with length value
 
     /* FIFO data enter */
-    spiProcessSpi3MsgLocked(SPI3_AX, idx);
+    spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
     osRecursiveMutexRelease(spi3MutexHandle);
   }
 
@@ -4691,7 +4691,7 @@ void spi_ax_util_PR1200_Tx_FIFO_InformationField(const char* aprsMsg, uint8_t ap
   spi3TxBuffer[    2] = idx - 3;                                                                      // Overwrite with length value
 
   /* FIFO data enter */
-  spiProcessSpi3MsgLocked(SPI3_AX, idx);
+  spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
   osRecursiveMutexRelease(spi3MutexHandle);
 
   /* FIFO do a COMMIT */
@@ -4834,7 +4834,7 @@ void spi_ax_initRegisters_POCSAG(void)
     const uint8_t txMsg[3] = { 0x68U,                                                                 // RD address 0x68: WAKEUPTIMER
         0x00, 0x00
     };
-    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+    spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     uint16_t wutNext = ((uint16_t)spi3RxBuffer[1] << 8) | spi3RxBuffer[2];
     wutNext += 1024;
     osMutexRelease(spi3MutexHandle);
@@ -6287,8 +6287,6 @@ void spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsag
 
   /* 3 - Delay until message is sent */
   {
-    spi_ax_util_FIFO_waitFree(0x80);
-
     /* RADIOSTATE */
     const uint8_t txMsg[2] = { 0x1cU | C_AX_REG_RD,                                                   // RD Address 0x1C: RADIOSTATE - IDLE
         0x00U
@@ -6296,7 +6294,7 @@ void spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsag
     uint8_t state;
 
     do {
-      spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
+      spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
       state = spi3RxBuffer[1] & 0x0f;
       osMutexRelease(spi3MutexHandle);
 
@@ -6331,7 +6329,7 @@ void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
   spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_PREAMBLE, 0);                                 // 1/0 pattern
 
   /* FIFO data enter */
-  spiProcessSpi3MsgLocked(SPI3_AX, idx);
+  spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
 
   /* Release SPI3 mutex */
   osMutexRelease(spi3MutexHandle);
@@ -6343,12 +6341,14 @@ void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
 
 int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFunc, const char* tgtMsg, uint8_t tgtMsgLen)
 {
-  uint32_t tgtAddrHi  = tgtRIC >> 3;
-  uint8_t  tgtAddrLo  = tgtRIC & 0x7;
-  uint16_t msgBitIdx  = 0U;
-  uint8_t  batchIdx   = 0U;
-  uint8_t  inMsg      = 0U;
-  uint8_t  msgDone    = 0U;
+  uint32_t tgtAddrHi    = tgtRIC >> 3;
+  uint8_t  tgtAddrLo    = tgtRIC & 0x7;
+  uint16_t msgBitIdx    = 0U;
+  uint8_t  batchIdx     = 0U;
+  uint8_t  inMsg        = 0U;
+  uint8_t  msgDone      = 0U;
+  uint8_t  idx          = 0U;
+  uint8_t  prepAry[256] = { 0U };
 
   /* Sanity checks */
   {
@@ -6388,26 +6388,16 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
 
   /* Process message as much batches it needs - each batch is enqueued into the transmitter FIFO */
   do {
-    uint8_t idx = 0;
-
-    /* Wait until enough space for next batch is available */
-    spi_ax_util_FIFO_waitFree(4 + 4 + 8 * (4 + 4));                                                   // FIFO_cmd + SYNCWORD + 8 batches * (2 words)
-
-    /* Wait for SPI3 mutex */
-    if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
-      return osErrorOS;
-    }
-
-    spi3TxBuffer[idx++] = 0x29 | C_AX_REG_WR;                                                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
-    spi3TxBuffer[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
-    spi3TxBuffer[idx++] = 0;                                                                          // Dummy entry to be overwritten
-    spi3TxBuffer[idx++] = AX_FIFO_DATA_FLAGS_TX_NOCRC;                                                // FIFO flag byte
+    prepAry[idx++] = 0x29 | C_AX_REG_WR;                                                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
+    prepAry[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
+    prepAry[idx++] = 0;                                                                          // Dummy entry to be overwritten
+    prepAry[idx++] = AX_FIFO_DATA_FLAGS_TX_PKTEND | AX_FIFO_DATA_FLAGS_TX_NOCRC;                 // FIFO flag byte
 
     /* SYNC */
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 3);
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 2);
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 1);
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 0);
+    prepAry[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 3);
+    prepAry[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 2);
+    prepAry[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 1);
+    prepAry[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_SYNCWORD, 0);
 
     /* Frames */
     for (uint8_t frIdx = 0; frIdx < 8; frIdx++) {
@@ -6473,61 +6463,32 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
           frIdx = 8;
         }
 
-        spi3TxBuffer[idx++] = sel_u8_from_u32(pad, 3);
-        spi3TxBuffer[idx++] = sel_u8_from_u32(pad, 2);
-        spi3TxBuffer[idx++] = sel_u8_from_u32(pad, 1);
-        spi3TxBuffer[idx++] = sel_u8_from_u32(pad, 0);
+        prepAry[idx++] = sel_u8_from_u32(pad, 3);
+        prepAry[idx++] = sel_u8_from_u32(pad, 2);
+        prepAry[idx++] = sel_u8_from_u32(pad, 1);
+        prepAry[idx++] = sel_u8_from_u32(pad, 0);
       }  // for (cwIdx)
     }  // for (frIdx)
 
-    /* Set length for FIFO DATA command */
-    spi3TxBuffer[    2] = idx - 3;                                                                    // Overwrite with length value
-
-    /* FIFO data enter */
-    spiProcessSpi3MsgLocked(SPI3_AX, idx);
-
-    /* Release SPI3 mutex */
-    osMutexRelease(spi3MutexHandle);
-
-    /* FIFO do a COMMIT */
-    spi_ax_FIFO_COMMIT();
-    osThreadYield();
+    /* Buffer overflow */
+    if (idx > 252U) {
+      return osErrorParameter;
+    }
 
     batchIdx++;
   } while (!msgDone || inMsg);
 
-  /* Write last block to finish the FIFO message */
-  {
-    uint8_t idx = 0;
+  /* Set length for FIFO DATA command */
+  prepAry[    2] = idx - 3;                                                                           // Overwrite with length value
 
-    /* Wait until enough space for next batch is available */
-    spi_ax_util_FIFO_waitFree(4 + 4);
+  /* Wait until enough space for next batch is available */
+  spi_ax_util_FIFO_waitFree(idx);                                                                     // Complete length
 
-    /* Wait for SPI3 mutex */
-    if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
-      return osErrorOS;
-    }
+  /* FIFO data enter */
+  spiProcessSpi3MsgTemplate(SPI3_AX, idx, prepAry);
 
-    spi3TxBuffer[idx++] = 0x29 | C_AX_REG_WR;                                                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
-    spi3TxBuffer[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
-    spi3TxBuffer[idx++] = 0;                                                                          // Dummy entry to be overwritten
-    spi3TxBuffer[idx++] = AX_FIFO_DATA_FLAGS_TX_PKTEND | AX_FIFO_DATA_FLAGS_TX_NOCRC;                 // FIFO flag byte
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 3);
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 2);
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 1);
-    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 0);
-    spi3TxBuffer[    2] = idx - 3;                                                                    // Overwrite with length value
-
-    /* FIFO data enter */
-    spiProcessSpi3MsgLocked(SPI3_AX, idx);
-
-    /* Release SPI3 mutex */
-    osMutexRelease(spi3MutexHandle);
-
-    /* FIFO do a COMMIT */
-    spi_ax_FIFO_COMMIT();
-    osThreadYield();
-  }
+  /* FIFO do a COMMIT */
+  spi_ax_FIFO_COMMIT();
 
   return osOK;
 }
@@ -8165,7 +8126,7 @@ static uint8_t spiDetectAx5243(void)
   {
     const uint8_t txMsg[2] = { 0x00U | SPI_RD_FLAG, 0 };
 
-    if (HAL_OK == spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg)) {
+    if (HAL_OK == spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U)) {
       s_ax_version = spi3RxBuffer[1];
       osMutexRelease(spi3MutexHandle);
     }
