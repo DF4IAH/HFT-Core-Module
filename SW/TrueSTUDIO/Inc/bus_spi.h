@@ -14,8 +14,8 @@
 //#include "LoRaWAN.h"
 
 
-#define SPI1_BUFFERSIZE 64
-#define SPI3_BUFFERSIZE 64
+#define SPI1_BUFFERSIZE 256
+#define SPI3_BUFFERSIZE 256
 
 #define SPI_WR_FLAG   (1 << 7)
 #define SPI_RD_FLAG   (0 << 7)

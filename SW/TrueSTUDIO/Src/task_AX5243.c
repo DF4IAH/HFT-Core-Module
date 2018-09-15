@@ -1111,16 +1111,20 @@ static uint8_t spi_ax_sync2Powerdown(void)
   /* SEL line and MISO check */
   {
     const uint8_t txMsg[2] = { SPI_RD_FLAG | C_AX_REG_RD,
-        0U
+        0x00U
     };
+    uint8_t state;
 
     while (--cntr) {
       spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
-      if (spi3RxBuffer[1] > 0) {
-        osMutexRelease(spi3MutexHandle);
+      state = spi3RxBuffer[1];
+      osMutexRelease(spi3MutexHandle);
+
+      if (state > 0) {
         break;
       }
-      osDelay(1);
+
+      osThreadYield();
     }
 
     if (!cntr) {
@@ -1131,13 +1135,17 @@ static uint8_t spi_ax_sync2Powerdown(void)
 
   /* Set RESET with Powerdown mode */
   {
-    const uint8_t txMsg[2] = { 0x82U, 0x80U };                                                        // WR address 0x02: PWRMODE - RESET, PWRMODE=Powerdown
+    const uint8_t txMsg[2] = { 0x02U | C_AX_REG_WR,                                                   // WR address 0x02: PWRMODE - RESET, PWRMODE=Powerdown
+        0x80U
+    };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 
   /* Clear RESET and go to Powerdown */
   {
-    const uint8_t txMsg[2] = { 0x82U, 0x00U };                                                        // WR address 0x02: PWRMODE - RESET, PWRMODE=Powerdown
+    const uint8_t txMsg[2] = { 0x02U | C_AX_REG_WR,                                                   // WR address 0x02: PWRMODE - RESET, PWRMODE=Powerdown
+        0x00U
+    };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 
@@ -1148,7 +1156,7 @@ static uint8_t spi_ax_sync2Powerdown(void)
 
 static void spi_ax_xtal_waitReady(void)
 {
-  const uint8_t txMsg[2] = { 0x1DU | C_AX_REG_RD,                                                     // RD Address 0x1D: XTALSTATUS
+  const uint8_t txMsg[2] = { 0x1dU | C_AX_REG_RD,                                                     // RD Address 0x1D: XTALSTATUS
       0x00U
   };
   uint8_t state = 0U;
@@ -1156,7 +1164,7 @@ static void spi_ax_xtal_waitReady(void)
   /*  Wait until crystal oscillator is ready */
   do {
     spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg);
-    state = spi3RxBuffer[1] & 0x01;                                                                   // Bit 0: XTALRUN
+    state = spi3RxBuffer[1] & 0x01U;                                                                  // Bit 0: XTALRUN
     osMutexRelease(spi3MutexHandle);
 
     if (state) {
@@ -1190,7 +1198,9 @@ static void spi_ax_setPower_dBm(float dBm)
 
   /* Set power register value */
   {
-    const uint8_t txMsg[4] = { 0xF1U, 0x6AU, (uint8_t) (pwrReg >> 8), (uint8_t) (pwrReg  & 0xff) };   // WR Address 0x16A: TXPWRCOEFFB
+    const uint8_t txMsg[4] = { 0xF1U, 0x6AU,                                                          // WR Address 0x16A: TXPWRCOEFFB
+        (uint8_t) (pwrReg >> 8), (uint8_t) (pwrReg  & 0xff)
+    };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 }
@@ -1205,7 +1215,9 @@ static void spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_t powerState)
 
   /* Prepare packet */
   {
-    const uint8_t txMsg[2] = { 0x02 | 0x80, (uint8_t)powerState };                                    // WR address 0x02: PWRMODE
+    const uint8_t txMsg[2] = { 0x02 | C_AX_REG_WR,                                                    // WR address 0x02: PWRMODE
+        (uint8_t) powerState
+    };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 }
@@ -1516,11 +1528,11 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
         {
           s_powerState  = AX_SET_REGISTERS_POWERMODE_STANDBY;
           spi_ax_setPwrMode(s_powerState);
-          spi_ax_xtal_waitReady();  // T_xtal
+          spi_ax_xtal_waitReady();                                                                    // T_xtal
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
         }
         break;
 
@@ -1528,7 +1540,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
         }
         break;
 
@@ -1555,7 +1567,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
         }
         break;
 
@@ -1575,7 +1587,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
@@ -1587,7 +1599,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
@@ -1618,7 +1630,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHRX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLRX;
           spi_ax_setPwrMode(s_powerState);
@@ -1642,7 +1654,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
         }
         break;
 
@@ -1650,7 +1662,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
         }
         break;
 
@@ -1663,7 +1675,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
         }
         break;
 
@@ -1677,7 +1689,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_tx_on
+          osDelay(5);                                                                                 // T_tx_on
         }
         break;
 
@@ -1697,11 +1709,11 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_tx_on
+          osDelay(5);                                                                                 // T_tx_on
         }
         break;
 
@@ -1709,11 +1721,11 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
         {
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_tx_on
+          osDelay(5);                                                                                 // T_tx_on
         }
         break;
 
@@ -1726,11 +1738,11 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_SYNTHTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_synth: >40us
+          osDelay(5);                                                                                 // T_synth: >40us
 
           s_powerState = AX_SET_REGISTERS_POWERMODE_FULLTX;
           spi_ax_setPwrMode(s_powerState);
-          osDelay(1);                                                                                 // T_tx_on
+          osDelay(5);                                                                                 // T_tx_on
         }
         break;
 
@@ -6326,7 +6338,7 @@ void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
 
   /* Do a FIFO commit */
   spi_ax_FIFO_COMMIT();
-  osDelay(5);
+  osThreadYield();
 }
 
 int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFunc, const char* tgtMsg, uint8_t tgtMsgLen)
@@ -6479,7 +6491,7 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
 
     /* FIFO do a COMMIT */
     spi_ax_FIFO_COMMIT();
-    osDelay(5);
+    osThreadYield();
 
     batchIdx++;
   } while (!msgDone || inMsg);
@@ -6489,7 +6501,7 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
     uint8_t idx = 0;
 
     /* Wait until enough space for next batch is available */
-    spi_ax_util_FIFO_waitFree(5);                                                                     // FIFO_cmd + 1 payload
+    spi_ax_util_FIFO_waitFree(4 + 4);
 
     /* Wait for SPI3 mutex */
     if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
@@ -6497,10 +6509,14 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
     }
 
     spi3TxBuffer[idx++] = 0x29 | C_AX_REG_WR;                                                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
-    spi3TxBuffer[idx++] = AX_FIFO_DATA_CMD_REPEATDATA_TX;
+    spi3TxBuffer[idx++] = AX_FIFO_DATA_CMD_DATA_TX_RX;
+    spi3TxBuffer[idx++] = 0;                                                                          // Dummy entry to be overwritten
     spi3TxBuffer[idx++] = AX_FIFO_DATA_FLAGS_TX_PKTEND | AX_FIFO_DATA_FLAGS_TX_NOCRC;                 // FIFO flag byte
-    spi3TxBuffer[idx++] = 18 * 4;                                                                     // Length
-    spi3TxBuffer[idx++] = 0b11001001;                                                                 // Dummy
+    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 3);
+    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 2);
+    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 1);
+    spi3TxBuffer[idx++] = sel_u8_from_u32(AX_POCSAG_CODES_IDLEWORD, 0);
+    spi3TxBuffer[    2] = idx - 3;                                                                    // Overwrite with length value
 
     /* FIFO data enter */
     spiProcessSpi3MsgLocked(SPI3_AX, idx);
@@ -6510,7 +6526,7 @@ int8_t spi_ax_util_POCSAG_Tx_FIFO_Batches(uint32_t tgtRIC, AX_POCSAG_CW2_t tgtFu
 
     /* FIFO do a COMMIT */
     spi_ax_FIFO_COMMIT();
-    osDelay(5);
+    osThreadYield();
   }
 
   return osOK;
@@ -8333,14 +8349,14 @@ void ax5243TaskLoop(void)
       #else
       const int32_t targetRIC = 143721UL;                                                             // Skyper of DF4IAH
       #endif
-      const char msgBuf[]     = "DF4IAH: This is a demonstration message to my  RIC 2030000  using 80 characters.";
+      const char msgBuf[]     = "DF4IAH: This is a demonstration message to my  RIC 143721   using 80 characters.";
 
       /* Switch transmitter to POCSAG mode and prepare for transmission */
       spi_ax_init_POCSAG_Tx();
 
       /* Send POCSAG message */
       {
-        static uint8_t mode = 0;
+        static uint8_t mode = 1;
 
         /* Skyper Activation */
         if (mode == 1) {

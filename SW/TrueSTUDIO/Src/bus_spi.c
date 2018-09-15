@@ -28,9 +28,15 @@ extern MON_MASK_t           g_monMsk;
 
 
 /* Buffer used for transmission */
+#if 0
+volatile uint8_t            spi1TxBuffer[SPI1_BUFFERSIZE]     = { 0 };
+#endif
 volatile uint8_t            spi3TxBuffer[SPI3_BUFFERSIZE]     = { 0 };
 
 /* Buffer used for reception */
+#if 0
+volatile uint8_t            spi1RxBuffer[SPI1_BUFFERSIZE]     = { 0 };
+#endif
 volatile uint8_t            spi3RxBuffer[SPI3_BUFFERSIZE]     = { 0 };
 
 
