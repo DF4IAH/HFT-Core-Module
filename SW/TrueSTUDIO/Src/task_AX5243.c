@@ -48,7 +48,7 @@ extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 //# define  AX_TEST_VCO2_ANALOG_FM_TX 1U
 //# define  AX_TEST_VCO2_ANALOG_FM_RX 1U
 //# define  AX_TEST_VCO2_PR1200_TX    1U
-# define  AX_TEST_VCO2_PR1200_RX    1U
+//# define  AX_TEST_VCO2_PR1200_RX    1U
 
 
 #if defined(AX_TEST_VCO1_BANDENDS) | defined(AX_TEST_VCO1_FSK_TX)   | defined(AX_TEST_VCO1_FSK_RX)      | defined(AX_TEST_VCO1_FSK_RX)    | defined(AX_TEST_VCO1_POCSAG_RX) | \
