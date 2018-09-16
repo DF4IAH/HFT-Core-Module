@@ -28112,15 +28112,15 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="FRAME_07" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_03" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="GND0432" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0401" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0402" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0403" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0404" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0405" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0406" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0407" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0408" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0409" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
+<part name="C0401" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0402" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0403" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0404" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0405" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0406" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0407" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0408" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0409" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="GND0401" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="L0411" library="rcl" deviceset="L-EU" device="L2012C" value="10uH"/>
 <part name="C0412" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
@@ -28217,7 +28217,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R1406" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R1404" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R1405" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="C1405" library="rcl" deviceset="C-EU" device="C0603" value="0nF"/>
+<part name="C1405" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="R1408" library="rcl" deviceset="R-EU_" device="R0603" value="330kR"/>
 <part name="R1407" library="rcl" deviceset="R-EU_" device="R0603" value="120kR"/>
 <part name="SJ0421" library="df4iah_jumper" deviceset="SJ" device=""/>
@@ -28242,8 +28242,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0723" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0743" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0744" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0711" library="rcl" deviceset="R-EU_" device="R0603" value="none"/>
-<part name="R0712" library="rcl" deviceset="R-EU_" device="R0603" value="none"/>
+<part name="R0711" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
+<part name="R0712" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
 <part name="R0713" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0714" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="C0701" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
@@ -28292,8 +28292,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1001" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="L_AX_C1" library="rcl" deviceset="R-US_" device="R0603" value="100nH"/>
 <part name="L_AX_C2" library="rcl" deviceset="R-US_" device="R0603" value="100nH"/>
-<part name="C_AX_C2" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="C_AX_C1" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C_AX_C2" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
+<part name="C_AX_C1" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="GND0971" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C_AX_T1" library="rcl" deviceset="C-EU" device="C0603" value="4.3pF"/>
 <part name="C_AX_T2" library="rcl" deviceset="C-EU" device="C0603" value="4.3pF"/>
@@ -28303,7 +28303,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C_AX_B2" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
 <part name="C_AX_M1" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
 <part name="GND0981" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C_AX_M2" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C_AX_M2" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="L_AX_B2" library="rcl" deviceset="R-US_" device="R0603" value="22nH"/>
 <part name="L_AX_F1" library="rcl" deviceset="R-US_" device="R0603" value="22nH"/>
 <part name="C_AX_F2" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
@@ -28429,7 +28429,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1261" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 <part name="C1271" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 <part name="C1262" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
-<part name="R0611" library="rcl" deviceset="R-EU_" device="R0603" value="open"/>
+<part name="R0611" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
 <part name="R0231" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R0232" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="R0201" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
@@ -28502,19 +28502,19 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="Q0811" library="df4iah_crystal" deviceset="ABM03B-32.000MHZ" device=""/>
 <part name="R0811" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="GND0811" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0811" library="df4iah_c-trimm" deviceset="C-TRIMM" device="3MM2_2MM5" value="4.7p"/>
-<part name="C0812" library="rcl" deviceset="C-EU" device="C0603" value="4.7p"/>
-<part name="C0806" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0807" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0805" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
+<part name="C0811" library="df4iah_c-trimm" deviceset="C-TRIMM" device="3MM2_2MM5" value="3..10pF"/>
+<part name="C0812" library="rcl" deviceset="C-EU" device="C0603" value="10pF"/>
+<part name="C0806" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0807" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0805" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="R0821" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
-<part name="C0802" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0803" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0804" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C0801" library="rcl" deviceset="C-EU" device="C0603" value="1u"/>
+<part name="C0802" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0803" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0804" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0801" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="GND0801" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R0831" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="C0841" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C0841" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="C0843" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
 <part name="L0842" library="rcl" deviceset="R-US_" device="R0603" value="10nH"/>
 <part name="L0851" library="rcl" deviceset="R-US_" device="R0603" value="68nH"/>
@@ -28543,11 +28543,11 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="L0858" library="rcl" deviceset="R-US_" device="R0603" value="0R"/>
 <part name="C0856" library="rcl" deviceset="C-EU" device="C0603" value="6.8pF"/>
 <part name="C0859" library="rcl" deviceset="C-EU" device="C0603" value="6.8pF"/>
-<part name="C0850" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C0850" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="C0857" library="rcl" deviceset="C-EU" device="C0603" value="2.7pF"/>
-<part name="C0858" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C0858" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="L0871" library="rcl" deviceset="R-US_" device="R0603" value="18nH"/>
-<part name="C0872" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C0872" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
 <part name="C0873" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
 <part name="C0875" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
 <part name="R0874" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
@@ -28555,11 +28555,11 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0854" library="rcl" deviceset="C-EU" device="C0603" value="15nH"/>
 <part name="R0801" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
 <part name="R0803" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0805" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
-<part name="R0807" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
+<part name="R0805" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
+<part name="R0807" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
 <part name="R0802" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0804" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
-<part name="R0806" library="rcl" deviceset="R-EU_" device="R0603" value="NC"/>
+<part name="R0804" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
+<part name="R0806" library="rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
 <part name="FRAME_09" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="U0911" library="df4iah_rf" deviceset="PE4259" device=""/>
 <part name="U0921" library="df4iah_rf" deviceset="PE4259" device=""/>
@@ -28570,8 +28570,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="GND0921" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0911" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0991" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0994" library="rcl" deviceset="C-EU" device="C0603" value="0nF HiQ"/>
-<part name="C0996" library="rcl" deviceset="C-EU" device="C0603" value="0nF HiQ"/>
+<part name="C0994" library="rcl" deviceset="C-EU" device="C0603" value="N/A HiQ"/>
+<part name="C0996" library="rcl" deviceset="C-EU" device="C0603" value="N/A HiQ"/>
 <part name="L0995" library="rcl" deviceset="R-US_" device="R0603" value="0R"/>
 <part name="GND0992" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0911" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
@@ -31356,8 +31356,8 @@ I2C addr: 0x70</text>
 <text x="118.364" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
 <text x="50.8" y="88.9" size="1.778" layer="97">16MHz</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
-<text x="50.8" y="111.76" size="1.778" layer="97">N.C.</text>
-<text x="50.8" y="104.14" size="1.778" layer="97">N.C.</text>
+<text x="50.8" y="111.76" size="1.778" layer="97">D.C.</text>
+<text x="50.8" y="104.14" size="1.778" layer="97">D.C.</text>
 <text x="50.8" y="96.52" size="1.778" layer="97">12MHz</text>
 <text x="101.6" y="23.622" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
 <text x="122.936" y="22.098" size="1.778" layer="97" rot="R90">MCU_HSE</text>
@@ -31760,6 +31760,7 @@ SPI</text>
 <text x="241.3" y="48.26" size="1.778" layer="97">NC</text>
 <text x="88.9" y="33.02" size="1.778" layer="97">to be replaced by:
 SX1262</text>
+<text x="86.36" y="144.78" size="2.54" layer="97">C0812: 4.7pF to low</text>
 </plain>
 <instances>
 <instance part="FRAME_08" gate="G$1" x="0" y="0"/>
@@ -32451,7 +32452,10 @@ SX1262</text>
 <instance part="U0991" gate="G$1" x="147.32" y="91.44"/>
 <instance part="C0991" gate="G$1" x="116.84" y="104.14" rot="R90"/>
 <instance part="C0992" gate="G$1" x="116.84" y="78.74" rot="R90"/>
-<instance part="C0993" gate="G$1" x="175.26" y="91.44" rot="R90"/>
+<instance part="C0993" gate="G$1" x="175.26" y="91.44" smashed="yes" rot="R90">
+<attribute name="NAME" x="174.879" y="82.804" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="179.959" y="75.184" size="1.778" layer="96" rot="R90"/>
+</instance>
 <instance part="GND0921" gate="1" x="43.18" y="50.8"/>
 <instance part="GND0911" gate="1" x="43.18" y="119.38"/>
 <instance part="GND0991" gate="1" x="127" y="86.36"/>
@@ -32669,9 +32673,15 @@ SPI</text>
 <instance part="L_AX_1" gate="G$1" x="116.84" y="99.06"/>
 <instance part="R1021" gate="G$1" x="142.24" y="114.3"/>
 <instance part="R1041" gate="G$1" x="40.64" y="93.98"/>
-<instance part="R1051" gate="G$1" x="40.64" y="78.74"/>
+<instance part="R1051" gate="G$1" x="40.64" y="78.74" smashed="yes">
+<attribute name="NAME" x="34.29" y="80.2386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="44.45" y="80.518" size="1.778" layer="96"/>
+</instance>
 <instance part="GND1001" gate="1" x="45.72" y="111.76"/>
-<instance part="R1061" gate="G$1" x="40.64" y="73.66"/>
+<instance part="R1061" gate="G$1" x="40.64" y="73.66" smashed="yes">
+<attribute name="NAME" x="34.29" y="70.0786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="44.45" y="70.358" size="1.778" layer="96"/>
+</instance>
 <instance part="R1031" gate="G$1" x="147.32" y="68.58"/>
 <instance part="R1032" gate="G$1" x="157.48" y="63.5"/>
 <instance part="GND1031" gate="1" x="170.18" y="58.42"/>
@@ -32682,9 +32692,18 @@ SPI</text>
 <attribute name="VALUE" x="114.808" y="127.254" size="1.778" layer="96"/>
 </instance>
 <instance part="GND1011" gate="1" x="127" y="119.38"/>
-<instance part="C1003" gate="G$1" x="50.8" y="119.38" rot="R90"/>
-<instance part="C1002" gate="G$1" x="50.8" y="124.46" rot="R90"/>
-<instance part="C1001" gate="G$1" x="33.02" y="121.92"/>
+<instance part="C1003" gate="G$1" x="50.8" y="119.38" smashed="yes" rot="R90">
+<attribute name="NAME" x="42.164" y="117.221" size="1.778" layer="95"/>
+<attribute name="VALUE" x="54.864" y="117.221" size="1.778" layer="96"/>
+</instance>
+<instance part="C1002" gate="G$1" x="50.8" y="124.46" smashed="yes" rot="R90">
+<attribute name="NAME" x="42.164" y="124.841" size="1.778" layer="95"/>
+<attribute name="VALUE" x="54.864" y="122.301" size="1.778" layer="96"/>
+</instance>
+<instance part="C1001" gate="G$1" x="33.02" y="121.92" smashed="yes">
+<attribute name="NAME" x="24.384" y="122.301" size="1.778" layer="95"/>
+<attribute name="VALUE" x="24.384" y="117.221" size="1.778" layer="96"/>
+</instance>
 <instance part="L_AX_C1" gate="G$1" x="116.84" y="88.9"/>
 <instance part="L_AX_C2" gate="G$1" x="116.84" y="76.2"/>
 <instance part="C_AX_C2" gate="G$1" x="116.84" y="71.12" rot="R90"/>
