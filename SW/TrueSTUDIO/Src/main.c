@@ -172,6 +172,8 @@ TIM_OC_InitTypeDef                    sConfig;
 
 
 
+static uint8_t                        s_adc_enable            = 0U;
+
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
 
@@ -262,17 +264,20 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
   switch (sw) {
   case POWERSWITCH__USB_SW:
     /* Port: PC2 */
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    HAL_GPIO_WritePin(MCU_OUT_VUSB_EN_GPIO_Port, MCU_OUT_VUSB_EN_Pin,
+        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
     break;
 
   case POWERSWITCH__3V3_HICUR:
     /* Port: PC1 */
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin,
+        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
     break;
 
   case POWERSWITCH__3V3_XO:
     /* Port: PC3 */
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin,
+        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
     break;
 
   case POWERSWITCH__1V2_DCDC:
@@ -284,7 +289,8 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
     if (enable)
     {
       /* Port: PC0 */
-      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
+          GPIO_PIN_SET);
 
       osDelay(10);
 
@@ -300,7 +306,8 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
       osDelay(100);
 
       /* Port: PC0 */
-      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
+          GPIO_PIN_RESET);
     }
     break;
 
@@ -332,19 +339,24 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 void PowerSwitchInit(void)
 {
   /* Connect Vusb with +5V0 */
-  PowerSwitchDo(POWERSWITCH__USB_SW, 1);
+  PowerSwitchDo(POWERSWITCH__USB_SW,
+      1);
 
   /* Disable high current system */
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 0);
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR,
+      0);
 
   /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
-  PowerSwitchDo(POWERSWITCH__3V3_XO, 0);
+  PowerSwitchDo(POWERSWITCH__3V3_XO,
+      0);
 
   /* Enable SMPS */
   {
-//  PowerSwitchDo(POWERSWITCH__1V2_DCDC, 1);
+//  PowerSwitchDo(POWERSWITCH__1V2_DCDC,
+//      1);
 //  for (uint16_t i = 10000; i; i--) ;
-    PowerSwitchDo(POWERSWITCH__1V2_SW, 1);
+    PowerSwitchDo(POWERSWITCH__1V2_SW,
+        1);
 
     /*
      * SMPS DC/DC converter enabled but disconnected:
@@ -360,7 +372,8 @@ void PowerSwitchInit(void)
   }
 
   /* Vbat charger of MCU enabled with 1.5 kOhm */
-  PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1);
+  PowerSwitchDo(POWERSWITCH__BAT_HICUR,
+      1);
 }
 
 void LcdBacklightInit(void)
@@ -2089,27 +2102,31 @@ void StartDefaultTask(void const * argument)
 
     /* Repeat each time period ADC conversion */
     osDelayUntil(&sf_previousWakeTime, eachMs);
-    adcStartConv(ADC_ADC1_TEMP);
 
-    const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
-    BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
-    if ((regBits & regMask) == regMask) {
-      /* All channels of ADC1 are complete */
-      float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
-      float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
-      float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
-      float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
-      int32_t   l_adc_temp_i    = 0L;
-      uint32_t  l_adc_temp_f100 = 0UL;
+    /* Do ADC conversion and logging of ADC data */
+    if (s_adc_enable) {
+      adcStartConv(ADC_ADC1_TEMP);
 
-      mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
+      const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
+      BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
+      if ((regBits & regMask) == regMask) {
+        /* All channels of ADC1 are complete */
+        float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
+        float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
+        float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
+        float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
+        int32_t   l_adc_temp_i    = 0L;
+        uint32_t  l_adc_temp_f100 = 0UL;
 
-      dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
-          (int16_t) (l_adc_v_vdda   + 0.5f),
-          (int16_t) (l_adc_v_solar  + 0.5f),
-          (int16_t) (l_adc_v_bat    + 0.5f),
-          l_adc_temp_i, l_adc_temp_f100);
-      usbLogLen(dbgBuf, dbgLen);
+        mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
+
+        dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
+            (int16_t) (l_adc_v_vdda   + 0.5f),
+            (int16_t) (l_adc_v_solar  + 0.5f),
+            (int16_t) (l_adc_v_bat    + 0.5f),
+            l_adc_temp_i, l_adc_temp_f100);
+        usbLogLen(dbgBuf, dbgLen);
+      }
     }
   }
 

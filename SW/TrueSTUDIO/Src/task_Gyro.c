@@ -27,6 +27,7 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+static uint8_t              s_gyro_enable                     = 0U;
 static uint8_t              s_gyroValid                       = 0U;
 static uint8_t              s_gyro1Version                    = 0U;
 static uint8_t              s_gyro2Version                    = 0U;
@@ -300,4 +301,8 @@ void gyroTaskLoop(void)
   }
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
+
+  if (s_gyro_enable) {
+    // TODO: code here
+  }
 }

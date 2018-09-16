@@ -27,6 +27,7 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+static uint8_t              s_hygro_enable                    = 0U;
 static uint8_t              s_hygroValid                      = 0U;
 static uint16_t             s_hygroState                      = 0U;
 static int16_t              s_hygro_T_100                     = 0;
@@ -232,7 +233,9 @@ void hygroTaskLoop(void)
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
 
-  hygroFetch();
-  hygroCalc();
-  hygroDistributor();
+  if (s_hygro_enable) {
+    hygroFetch();
+    hygroCalc();
+    hygroDistributor();
+  }
 }

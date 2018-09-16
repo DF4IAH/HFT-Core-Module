@@ -30,6 +30,7 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+static uint8_t              s_baro_enable                     = 0U;
 static uint8_t              s_baroValid                       = 0U;
 static uint16_t             s_baroVersion                     = 0U;
 static uint16_t             s_baro_c[C_I2C_BARO_C_CNT]        = { 0U };
@@ -243,18 +244,21 @@ void baroTaskLoop(void)
   }
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
-#if 0
-  {
-    char dbgBuf[128];
-    int  dbgLen;
 
-    uint32_t now = osKernelSysTick();
-    dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", sf_previousWakeTime, now);
-    usbLogLen(dbgBuf, dbgLen);
+  if (s_baro_enable) {
+    #if 0
+    {
+      char dbgBuf[128];
+      int  dbgLen;
+
+      uint32_t now = osKernelSysTick();
+      dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", sf_previousWakeTime, now);
+      usbLogLen(dbgBuf, dbgLen);
+    }
+    #endif
+
+    baroFetch();
+    baroCalc();
+    baroDistributor();
   }
-#endif
-
-  baroFetch();
-  baroCalc();
-  baroDistributor();
 }

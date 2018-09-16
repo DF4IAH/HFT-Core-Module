@@ -13,9 +13,9 @@
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "stm32l496xx.h"
-
 //#include "stm32l4xx_hal_def.h"
 //#include "stm32l4xx_hal_gpio.h"
+
 #include "usb.h"
 #include "bus_spi.h"
 
@@ -59,7 +59,7 @@ extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 #endif
 
 
-static uint8_t              s_ax_enable                       = 0U;  // FLASH
+static uint8_t              s_ax5243_enable                   = 0U;  // FLASH
 static uint8_t              s_ax_version                      = 0U;
 static uint8_t              s_ax_aprs_enable                  = 0U;  // FLASH
 static uint8_t              s_ax_pocsag_enable                = 0U;  // FLASH
@@ -184,7 +184,7 @@ static const uint8_t        c_ax_pocsag_activation_code_len = sizeof(c_ax_pocsag
 /* Forward declarations */
 static uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperRubricMsg, uint16_t pocsagSkyperRubricMsgLen);
 static uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperNewsMsg, uint16_t pocsagSkyperNewsMsgLen);
-static uint8_t spiDetectAx5243(void);
+static uint8_t spiDetectAX5243(void);
 
 #ifdef AX_TEST
 static void s_spi_test_start_testBox(void);
@@ -1229,7 +1229,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
   static AX_SET_REGISTERS_POWERMODE_t  s_powerState = AX_SET_REGISTERS_POWERMODE_NONE;
 
   /* Do not access the registers when not enabled */
-  if (!s_ax_enable) {
+  if (!s_ax5243_enable) {
     return;
   }
 
@@ -1266,7 +1266,7 @@ static void spi_ax_setRegisters(uint8_t doReset, AX_SET_REGISTERS_MODULATION_t m
     s_powerState  = AX_SET_REGISTERS_POWERMODE_POWERDOWN;
 
     if (HAL_OK != spi_ax_sync2Powerdown()) {
-      s_ax_enable = 0U;
+      s_ax5243_enable = 0U;
       return;
     }
   }
@@ -2157,7 +2157,7 @@ void spi_ax_util_FIFO_waitFree(uint8_t neededSpace)
 void spi_ax_setRxMode_by_MonMode(void)
 {
   /* Leave when AX5243 is disabled */
-  if (!s_ax_enable) {
+  if (!s_ax5243_enable) {
     s_ax_set_mon_mode = AX_SET_MON_MODE_OFF;
     return;
   }
@@ -8117,7 +8117,7 @@ void spi_ax_test_POCSAG_Rx(void)
 #endif
 
 
-static uint8_t spiDetectAx5243(void)
+static uint8_t spiDetectAX5243(void)
 {
   /* Reset the AX5243 */
    spi_ax_sync2Powerdown();
@@ -8140,7 +8140,7 @@ static uint8_t spiDetectAx5243(void)
 }
 
 const char          PM_SPI_INIT_AX5243_01[]       = "< AX5243_Init -\r\n";
-const char          PM_SPI_INIT_AX5243_02[]       = ". AX5243_Init:  AX5243 VHF/UHF transceiver\r\n";
+const char          PM_SPI_INIT_AX5243_02[]       = ". AX5243_Init:  AX5243 VHF/UHF ASK, FSK, PSK (all-mode) transceiver\r\n";
 const char          PM_SPI_INIT_AX5243_03[]       = ". AX5243_Init:  Silicon-Rev: 0x%02X\r\n";
 const char          PM_SPI_INIT_AX5243_04[]       = ". AX5243_Init:  ERROR Device not found on board.\r\n";
 const char          PM_SPI_INIT_AX5243_05[]       = "- AX5243_Init>\r\n\r\n";
@@ -8152,8 +8152,8 @@ static void ax5243Init(void)
   usbLog(PM_SPI_INIT_AX5243_01);
   usbLog(PM_SPI_INIT_AX5243_02);
 
-  if (HAL_OK == spiDetectAx5243()) {
-    s_ax_enable = 1U;
+  if (HAL_OK == spiDetectAX5243()) {
+    s_ax5243_enable = 1U;
 
     dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_AX5243_03, s_ax_version);
     usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
@@ -8270,7 +8270,6 @@ static void ax5243Init(void)
 void ax5243TaskInit(void)
 {
   osDelay(850UL);
-
   ax5243Init();
 }
 
@@ -8287,7 +8286,7 @@ void ax5243TaskLoop(void)
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
 
-  if (s_ax_enable) {
+  if (s_ax5243_enable) {
 
     /* Send APRS packet */
     if (s_ax_aprs_enable) {

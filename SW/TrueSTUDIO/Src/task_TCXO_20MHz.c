@@ -25,6 +25,7 @@ extern EventGroupHandle_t   adcEventGroupHandle;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+static uint8_t              s_tcxo_enable                     = 0U;
 static uint16_t             s_tcxo20MhzDacStatus              = 0U;
 
 
@@ -89,10 +90,16 @@ void tcxo20MhzDacSet(uint16_t dac)
 void tcxo20MhzTaskInit(void)
 {
   osDelay(900UL);
-  tcxo20MhzDacInit();
 
-  /* Preload-value of TCXO */
-  tcxo20MhzDacSet(TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE);
+  if (GPIO_PIN_SET == HAL_GPIO_ReadPin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin)) {
+    tcxo20MhzDacInit();
+
+    /* Preload-value of TCXO */
+    tcxo20MhzDacSet(TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE);
+
+  } else {
+    s_tcxo_enable = 0U;
+  }
 }
 
 void tcxo20MhzTaskLoop(void)
@@ -111,13 +118,16 @@ void tcxo20MhzTaskLoop(void)
 
   /* Repeat each time period ADC conversion */
   osDelayUntil(&sf_previousWakeTime, eachMs);
-  adcStartConv(ADC_ADC3_V_PULL_TCXO);
 
-  BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC3__CONV_AVAIL_V_PULL_TCXO, EG_ADC3__CONV_AVAIL_V_PULL_TCXO, pdFALSE, 100 / portTICK_PERIOD_MS);
-  if (egBits & EG_ADC3__CONV_AVAIL_V_PULL_TCXO) {
-    uint16_t l_adc_v_pull_tcxo = adcGetVal(ADC_ADC3_V_PULL_TCXO);
+  if (s_tcxo_enable) {
+    adcStartConv(ADC_ADC3_V_PULL_TCXO);
 
-    dbgLen = sprintf(dbgBuf, "ADC: Vpull  = %4d mV\r\n",  (int16_t) (l_adc_v_pull_tcxo + 0.5f));
-    usbLogLen(dbgBuf, dbgLen);
+    BaseType_t egBits = xEventGroupWaitBits(adcEventGroupHandle, EG_ADC3__CONV_AVAIL_V_PULL_TCXO, EG_ADC3__CONV_AVAIL_V_PULL_TCXO, pdFALSE, 100 / portTICK_PERIOD_MS);
+    if (egBits & EG_ADC3__CONV_AVAIL_V_PULL_TCXO) {
+      uint16_t l_adc_v_pull_tcxo = adcGetVal(ADC_ADC3_V_PULL_TCXO);
+
+      dbgLen = sprintf(dbgBuf, "ADC: Vpull  = %4d mV\r\n",  (int16_t) (l_adc_v_pull_tcxo + 0.5f));
+      usbLogLen(dbgBuf, dbgLen);
+    }
   }
 }
