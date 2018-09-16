@@ -5305,39 +5305,39 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="75.23" y="49.91" size="0.6096" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="59.34" y="69.55" size="0.6096" layer="27" font="vector" ratio="10" rot="R270"/>
 </element>
-<element name="C0401" library="rcl" package="C0603" value="100n" x="58.499375" y="63.1825" smashed="yes" rot="MR90">
+<element name="C0401" library="rcl" package="C0603" value="100nF" x="58.499375" y="63.1825" smashed="yes" rot="MR90">
 <attribute name="NAME" x="59.451875" y="61.9125" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="56.594375" y="62.5475" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
-<element name="C0402" library="rcl" package="C0603" value="100n" x="59.134375" y="53.6575" smashed="yes" rot="MR0">
+<element name="C0402" library="rcl" package="C0603" value="100nF" x="59.134375" y="53.6575" smashed="yes" rot="MR0">
 <attribute name="NAME" x="60.404375" y="54.2925" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="59.769375" y="51.7525" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C0403" library="rcl" package="C0603" value="100n" x="64.849375" y="53.578125" smashed="yes" rot="MR0">
+<element name="C0403" library="rcl" package="C0603" value="100nF" x="64.849375" y="53.578125" smashed="yes" rot="MR0">
 <attribute name="NAME" x="66.119375" y="51.990625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="65.484375" y="51.673125" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C0404" library="rcl" package="C0603" value="100n" x="69.85" y="53.975" smashed="yes" rot="MR0">
+<element name="C0404" library="rcl" package="C0603" value="100nF" x="69.85" y="53.975" smashed="yes" rot="MR0">
 <attribute name="NAME" x="71.12" y="52.3875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="70.485" y="52.07" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C0405" library="rcl" package="C0603" value="100n" x="73.66" y="54.689375" smashed="yes" rot="MR90">
+<element name="C0405" library="rcl" package="C0603" value="100nF" x="73.66" y="54.689375" smashed="yes" rot="MR90">
 <attribute name="NAME" x="74.6125" y="53.419375" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="71.755" y="54.054375" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
-<element name="C0406" library="rcl" package="C0603" value="100n" x="73.66" y="59.055" smashed="yes" rot="MR270">
+<element name="C0406" library="rcl" package="C0603" value="100nF" x="73.66" y="59.055" smashed="yes" rot="MR270">
 <attribute name="NAME" x="74.6125" y="57.785" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="75.565" y="59.69" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C0407" library="rcl" package="C0603" value="100n" x="73.66" y="70.485" smashed="yes" rot="MR270">
+<element name="C0407" library="rcl" package="C0603" value="100nF" x="73.66" y="70.485" smashed="yes" rot="MR270">
 <attribute name="NAME" x="74.6125" y="69.215" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="75.565" y="71.12" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C0408" library="rcl" package="C0603" value="100n" x="69.294375" y="70.723125" smashed="yes" rot="MR180">
+<element name="C0408" library="rcl" package="C0603" value="100nF" x="69.294375" y="70.723125" smashed="yes" rot="MR180">
 <attribute name="NAME" x="70.564375" y="71.675625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="68.659375" y="72.628125" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0409" library="rcl" package="C0603" value="100n" x="59.134375" y="70.723125" smashed="yes" rot="MR180">
+<element name="C0409" library="rcl" package="C0603" value="100nF" x="59.134375" y="70.723125" smashed="yes" rot="MR180">
 <attribute name="NAME" x="60.404375" y="71.358125" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="58.499375" y="72.628125" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -5601,7 +5601,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="16.8275" y="26.3525" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="19.05" y="24.765" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C1405" library="rcl" package="C0603" value="0nF" x="22.225" y="26.67" smashed="yes" rot="MR180">
+<element name="C1405" library="rcl" package="C0603" value="N/A" x="22.225" y="26.67" smashed="yes" rot="MR180">
 <attribute name="NAME" x="26.67" y="26.3525" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="21.59" y="28.575" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -5685,11 +5685,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="62.785625" y="82.2325" size="0.6096" layer="51" font="vector" ratio="10"/>
 <attribute name="VALUE" x="64.690625" y="84.455" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
-<element name="R0711" library="rcl" package="R0603" value="none" x="65.405" y="78.74" smashed="yes" rot="R90">
+<element name="R0711" library="rcl" package="R0603" value="N/A" x="65.405" y="78.74" smashed="yes" rot="R90">
 <attribute name="NAME" x="64.77" y="77.47" size="0.6096" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="67.31" y="78.105" size="0.6096" layer="27" font="vector" ratio="10" rot="R90"/>
 </element>
-<element name="R0712" library="rcl" package="R0603" value="none" x="66.675" y="78.74" smashed="yes" rot="R90">
+<element name="R0712" library="rcl" package="R0603" value="N/A" x="66.675" y="78.74" smashed="yes" rot="R90">
 <attribute name="NAME" x="66.9925" y="77.47" size="0.6096" layer="51" font="vector" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="68.58" y="78.105" size="0.6096" layer="27" font="vector" ratio="10" rot="R90"/>
 </element>
@@ -5849,11 +5849,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="74.6125" y="26.3525" size="0.6096" layer="52" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="76.835" y="29.845" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C_AX_C2" library="rcl" package="C0603" value="0pF" x="73.66" y="29.21" smashed="yes" rot="MR270">
+<element name="C_AX_C2" library="rcl" package="C0603" value="N/A" x="73.66" y="29.21" smashed="yes" rot="MR270">
 <attribute name="NAME" x="73.3425" y="26.3525" size="0.6096" layer="52" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="75.565" y="29.845" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C_AX_C1" library="rcl" package="C0603" value="0pF" x="73.66" y="35.8775" smashed="yes" rot="MR90">
+<element name="C_AX_C1" library="rcl" package="C0603" value="N/A" x="73.66" y="35.8775" smashed="yes" rot="MR90">
 <attribute name="NAME" x="73.3425" y="37.7825" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="71.755" y="35.2425" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
@@ -5885,7 +5885,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="80.9625" y="34.29" size="0.6096" layer="52" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="79.375" y="34.925" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
-<element name="C_AX_M2" library="rcl" package="C0603" value="0pF" x="82.55" y="28.575" smashed="yes" rot="MR180">
+<element name="C_AX_M2" library="rcl" package="C0603" value="N/A" x="82.55" y="28.575" smashed="yes" rot="MR180">
 <attribute name="NAME" x="83.82" y="28.2575" size="0.6096" layer="52" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="81.915" y="30.48" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -6327,7 +6327,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="87.63" y="45.4025" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="85.725" y="48.895" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="R0611" library="rcl" package="R0603" value="open" x="38.1" y="82.55" smashed="yes">
+<element name="R0611" library="rcl" package="R0603" value="N/A" x="38.1" y="82.55" smashed="yes">
 <attribute name="NAME" x="33.655" y="82.8675" size="0.6096" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="37.465" y="80.645" size="0.6096" layer="27" font="vector" ratio="10"/>
 </element>
@@ -6591,23 +6591,23 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="57.15" y="8.5725" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="58.42" y="13.335" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C0811" library="df4iah_c-trimm" package="3MM2_X_2MM5" value="4.7p" x="59.055" y="12.065" smashed="yes" rot="MR270">
+<element name="C0811" library="df4iah_c-trimm" package="3MM2_X_2MM5" value="3..10pF" x="59.055" y="12.065" smashed="yes" rot="MR270">
 <attribute name="NAME" x="60.6425" y="8.5725" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="62.23" y="14.605" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C0812" library="rcl" package="C0603" value="4.7p" x="69.215" y="10.795" smashed="yes" rot="MR270">
+<element name="C0812" library="rcl" package="C0603" value="10pF" x="69.215" y="10.795" smashed="yes" rot="MR270">
 <attribute name="NAME" x="67.945" y="9.525" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="71.12" y="11.43" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C0806" library="rcl" package="C0603" value="100n" x="67.945" y="14.605" smashed="yes" rot="MR0">
+<element name="C0806" library="rcl" package="C0603" value="100nF" x="67.945" y="14.605" smashed="yes" rot="MR0">
 <attribute name="NAME" x="69.215" y="13.335" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="68.58" y="12.7" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C0807" library="rcl" package="C0603" value="100n" x="61.595" y="14.605" smashed="yes" rot="MR180">
+<element name="C0807" library="rcl" package="C0603" value="100nF" x="61.595" y="14.605" smashed="yes" rot="MR180">
 <attribute name="NAME" x="62.865" y="14.2875" size="0.6096" layer="52" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="60.96" y="16.51" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0805" library="rcl" package="C0603" value="100n" x="68.58" y="19.685" smashed="yes" rot="MR0">
+<element name="C0805" library="rcl" package="C0603" value="100nF" x="68.58" y="19.685" smashed="yes" rot="MR0">
 <attribute name="NAME" x="69.85" y="19.3675" size="0.6096" layer="52" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="69.215" y="17.78" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
@@ -6615,19 +6615,19 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="57.15" y="15.875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="55.245" y="17.145" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0802" library="rcl" package="C0603" value="100n" x="68.58" y="20.955" smashed="yes" rot="MR0">
+<element name="C0802" library="rcl" package="C0603" value="100nF" x="68.58" y="20.955" smashed="yes" rot="MR0">
 <attribute name="NAME" x="69.85" y="20.6375" size="0.6096" layer="52" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="69.215" y="19.05" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C0803" library="rcl" package="C0603" value="100n" x="64.77" y="14.605" smashed="yes" rot="MR0">
+<element name="C0803" library="rcl" package="C0603" value="100nF" x="64.77" y="14.605" smashed="yes" rot="MR0">
 <attribute name="NAME" x="66.04" y="13.335" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="65.405" y="12.7" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="C0804" library="rcl" package="C0603" value="100n" x="55.88" y="22.225" smashed="yes" rot="MR180">
+<element name="C0804" library="rcl" package="C0603" value="100nF" x="55.88" y="22.225" smashed="yes" rot="MR180">
 <attribute name="NAME" x="57.15" y="22.86" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="55.245" y="24.13" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0801" library="rcl" package="C0603" value="1u" x="68.58" y="22.225" smashed="yes" rot="MR180">
+<element name="C0801" library="rcl" package="C0603" value="1uF" x="68.58" y="22.225" smashed="yes" rot="MR180">
 <attribute name="NAME" x="69.85" y="21.9075" size="0.6096" layer="52" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="67.945" y="24.13" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -6635,7 +6635,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="61.2775" y="25.7175" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="59.3725" y="26.67" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0841" library="rcl" package="C0603" value="0pF" x="73.025" y="20.955" smashed="yes" rot="MR270">
+<element name="C0841" library="rcl" package="C0603" value="N/A" x="73.025" y="20.955" smashed="yes" rot="MR270">
 <attribute name="NAME" x="71.755" y="19.05" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="74.93" y="21.59" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
@@ -6727,7 +6727,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="78.74" y="15.875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="76.2" y="16.51" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
-<element name="C0850" library="rcl" package="C0603" value="0pF" x="81.28" y="17.145" smashed="yes" rot="MR90">
+<element name="C0850" library="rcl" package="C0603" value="N/A" x="81.28" y="17.145" smashed="yes" rot="MR90">
 <attribute name="NAME" x="81.915" y="15.875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="79.375" y="16.51" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
 </element>
@@ -6735,7 +6735,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="78.74" y="12.065" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="76.835" y="15.24" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0858" library="rcl" package="C0603" value="0pF" x="80.645" y="13.335" smashed="yes" rot="MR180">
+<element name="C0858" library="rcl" package="C0603" value="N/A" x="80.645" y="13.335" smashed="yes" rot="MR180">
 <attribute name="NAME" x="81.915" y="12.065" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="80.01" y="15.24" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -6743,7 +6743,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="69.85" y="9.525" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="73.025" y="11.43" size="0.6096" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="C0872" library="rcl" package="C0603" value="0pF" x="73.66" y="9.525" smashed="yes" rot="MR180">
+<element name="C0872" library="rcl" package="C0603" value="N/A" x="73.66" y="9.525" smashed="yes" rot="MR180">
 <attribute name="NAME" x="74.93" y="8.255" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="73.025" y="11.43" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -6775,11 +6775,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="53.34" y="17.78" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="52.705" y="15.24" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R0805" library="rcl" package="R0603" value="NC" x="52.07" y="19.05" smashed="yes" rot="MR0">
+<element name="R0805" library="rcl" package="R0603" value="N/A" x="52.07" y="19.05" smashed="yes" rot="MR0">
 <attribute name="NAME" x="53.34" y="19.685" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="52.705" y="17.145" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R0807" library="rcl" package="R0603" value="NC" x="52.07" y="20.955" smashed="yes" rot="MR0">
+<element name="R0807" library="rcl" package="R0603" value="N/A" x="52.07" y="20.955" smashed="yes" rot="MR0">
 <attribute name="NAME" x="53.34" y="21.59" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="52.705" y="19.05" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
@@ -6787,11 +6787,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="53.34" y="15.875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="52.705" y="13.335" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R0804" library="rcl" package="R0603" value="NC" x="55.88" y="17.78" smashed="yes" rot="MR0">
+<element name="R0804" library="rcl" package="R0603" value="N/A" x="55.88" y="17.78" smashed="yes" rot="MR0">
 <attribute name="NAME" x="57.15" y="18.415" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="56.515" y="15.875" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
-<element name="R0806" library="rcl" package="R0603" value="NC" x="55.88" y="19.685" smashed="yes" rot="MR0">
+<element name="R0806" library="rcl" package="R0603" value="N/A" x="55.88" y="19.685" smashed="yes" rot="MR0">
 <attribute name="NAME" x="57.15" y="20.32" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="56.515" y="17.78" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
@@ -6819,11 +6819,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="91.44" y="24.765" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="89.535" y="26.035" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0994" library="rcl" package="C0603" value="0nF HiQ" x="93.98" y="22.86" smashed="yes" rot="MR180">
+<element name="C0994" library="rcl" package="C0603" value="N/A HiQ" x="93.98" y="22.86" smashed="yes" rot="MR180">
 <attribute name="NAME" x="95.25" y="23.495" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="93.345" y="24.765" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="C0996" library="rcl" package="C0603" value="0nF HiQ" x="93.98" y="20.32" smashed="yes" rot="MR180">
+<element name="C0996" library="rcl" package="C0603" value="N/A HiQ" x="93.98" y="20.32" smashed="yes" rot="MR180">
 <attribute name="NAME" x="95.25" y="20.955" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="93.345" y="22.225" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
