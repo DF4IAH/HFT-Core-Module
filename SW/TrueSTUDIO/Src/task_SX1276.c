@@ -1101,6 +1101,12 @@ static void sx1276Init(void)
     dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_SX1276_03, s_sx_version);
     usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
 
+    /* Test */
+    // TODO: remove me!
+    {
+      spiSX1276Mode(MODE_LoRa | ACCESS_SHARE_OFF | LOW_FREQ_MODE_OFF | STANDBY);
+    }
+
   } else {
     usbLog(PM_SPI_INIT_SX1276_04);
   }

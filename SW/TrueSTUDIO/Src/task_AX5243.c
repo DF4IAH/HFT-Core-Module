@@ -187,7 +187,8 @@ static uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t ou
 static uint8_t spiDetectAX5243(void);
 
 #ifdef AX_TEST
-static void s_spi_test_start_testBox(void);
+static void spi_test_start_testBox(void);
+static void spi_ax_test_PR1200_Rx(void);
 #endif
 
 
@@ -3087,7 +3088,7 @@ void spi_ax_initRegisters_PR1200(void)
 
   /* ENCODING */
   {
-    const uint8_t txMsg[2] = { 0x11U | C_AX_REG_WR,                                                         // WR address 0x11: ENCODING -  NRZI = ENC DIFF 0x02  &  ENC INV 0x01
+    const uint8_t txMsg[2] = { 0x11U | C_AX_REG_WR,                                                   // WR address 0x11: ENCODING -  NRZI = ENC DIFF 0x02  &  ENC INV 0x01
         0x03U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
@@ -4103,8 +4104,8 @@ void spi_ax_initRegisters_PR1200_Tx(void)
 
   /* XTALCAP */
   {
-    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP - DF4IAH: adjusted from 0x08 to 0x0c
-        0x0cU
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
+        0x08U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -4250,13 +4251,15 @@ void spi_ax_initRegisters_PR1200_Rx(void)
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 
+
   /* XTALCAP */
   {
-    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP - DF4IAH: adjusted from 0x08 to 0x0c
-        0x0cU
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
+        0x08U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
+
 
   /* 0xF00 */
   {
@@ -5784,7 +5787,7 @@ void spi_ax_initRegisters_POCSAG_Tx(void)
   /* XTALCAP */
   {
     const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
-        0x0cU
+        0x08U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -5997,7 +6000,7 @@ void spi_ax_initRegisters_POCSAG_Rx(void)
   /* XTALCAP */
   {
     const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
-        0x0cU
+        0x08U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -7484,8 +7487,9 @@ static void spi_test_start_testBox(void)
   #endif
 }
 
-void spi_ax_test_monitor_levels(void)
+static void spi_ax_test_monitor_levels(void)
 {
+#ifdef TO_BE_CONVERTED
   volatile uint8_t curRssi = 0;
   volatile uint8_t curBgndRssi = 0;
   volatile uint8_t curAgcCounter = 0;
@@ -7523,10 +7527,12 @@ void spi_ax_test_monitor_levels(void)
     (void) curTrkRfFreq;
     (void) curTrkFreq;
   }
+#endif
 }
 
 void spi_ax_test_Rx_FIFO(void)
 {
+#ifdef TO_BE_CONVERTED
   uint8_t       l_curRssi           = 0;
   uint8_t       l_curBgndRssi         = 0;
   uint8_t       l_agcCounter          = 0;
@@ -7768,6 +7774,9 @@ void spi_ax_test_Rx_FIFO(void)
     (void) l_fifo_lastPacket_dataStatus;
     (void) l_fifo_lastPacket_dataMsg;
   } while (1U);
+#else
+  osDelay(100);
+#endif
 }
 
 
@@ -7842,6 +7851,7 @@ void spi_ax_test_Analog_FM_Rx(void)
 /* PR1200 TX */
 void spi_ax_test_PR1200_Tx(void)
 { /* TEST: transmitting some packet */
+#ifdef TO_BE_CONVERTED
   //uint8_t cmd = 0x59;
   //volatile uint8_t tmr01[3];
   //volatile uint8_t tmr02[3];
@@ -7923,10 +7933,12 @@ void spi_ax_test_PR1200_Tx(void)
 
   while (1U) {
   }
+#endif
 }
 
 void spi_ax_test_PR1200_Tx_FIFO_Lev2_minimal_AddressField(void)
 {
+#ifdef TO_BE_CONVERTED
   uint16_t idx = 0;
 
   g_ax_spi_packet_buffer[idx++] = 0x29 | C_AX_REG_WR;                                                 // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
@@ -7967,6 +7979,7 @@ void spi_ax_test_PR1200_Tx_FIFO_Lev2_minimal_AddressField(void)
 
   /* FIFO do a COMMIT */
   spi_ax_FIFO_COMMIT();
+#endif
 }
 
 void spi_ax_test_PR1200_Tx_FIFO_Lev2_minimal()
@@ -7982,7 +7995,7 @@ void spi_ax_test_PR1200_Tx_FIFO_Lev2_minimal()
 
 
 /* PR1200 RX */
-void spi_ax_test_PR1200_Rx(void)
+static void spi_ax_test_PR1200_Rx(void)
 {
   /* Syncing and sending reset command, then setting the packet radio values for receiving */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_PR1200, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
@@ -8024,6 +8037,7 @@ void spi_ax_test_PR1200_Rx(void)
 /* POCSAG TX */
 void spi_ax_test_POCSAG_Tx(void)
 { /* TEST: transmitting some packet */
+#ifdef TO_BE_CONVERTED
   /* Syncing and sending reset command, then setting the packet radio values for transmission */
   spi_ax_setRegisters(0U, AX_SET_REGISTERS_MODULATION_POCSAG, AX_SET_REGISTERS_VARIANT_TX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
@@ -8079,6 +8093,7 @@ void spi_ax_test_POCSAG_Tx(void)
 
   while (1U) {
   }
+#endif
 }
 
 /* POCSAG RX */
@@ -8230,10 +8245,10 @@ static void ax5243Init(void)
         spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_PR1200, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
         /* APRS  */
-        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+        s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
 
         /* Burst-Aussendungen fuer Steuerungszwecke */
-        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+        s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
       #else
         #error "A FREQA / FREQB pair has to be set."
@@ -8255,7 +8270,7 @@ static void ax5243Init(void)
     }
 
     /* TEST BOX */
-    s_spi_test_start_testBox();
+    spi_test_start_testBox();
     #endif
 
   } else {
