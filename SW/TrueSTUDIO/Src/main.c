@@ -136,6 +136,7 @@ osMessageQId usbToHostQueueHandle;
 osMessageQId usbFromHostQueueHandle;
 osMessageQId controllerInQueueHandle;
 osMessageQId controllerOutQueueHandle;
+osMessageQId loraMacQueueHandle;
 osMutexId i2c1MutexHandle;
 osMutexId i2c2MutexHandle;
 osMutexId i2c3MutexHandle;
@@ -154,6 +155,10 @@ osSemaphoreId c2Default_BSemHandle;
 
 /* USER CODE BEGIN PV */
 extern uint32_t                       uwTick;
+
+ENABLE_MASK_t                         g_enableMsk;
+MON_MASK_t                            g_monMsk;
+
 
 /* Private variables ---------------------------------------------------------*/
 EventGroupHandle_t                    extiEventGroupHandle;
@@ -232,6 +237,12 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+
+uint32_t crcCalc(const uint32_t* ptr, uint32_t len)
+{
+  return HAL_CRC_Calculate(&hcrc, (uint32_t*) ptr, len);
+}
+
 
 uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel)
 {
@@ -779,6 +790,11 @@ int main(void)
 /* what about the sizeof here??? cd native code */
   osMessageQDef(controllerOutQueue, 8, uint32_t);
   controllerOutQueueHandle = osMessageCreate(osMessageQ(controllerOutQueue), NULL);
+
+  /* definition and creation of loraMacQueue */
+/* what about the sizeof here??? cd native code */
+  osMessageQDef(loraMacQueue, 32, uint8_t);
+  loraMacQueueHandle = osMessageCreate(osMessageQ(loraMacQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
