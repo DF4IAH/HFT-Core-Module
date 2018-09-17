@@ -36,15 +36,15 @@ extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
 /* BLOCK of DEFINITIONS */
 
-//# define  AX_RUN_VCO2_APRS_TX     1U
+//# define  AX_RUN_VCO2_APRS_TX       1U
 
-//# define  AX_TEST_VCO1_BANDENDS   1U
-//# define  AX_TEST_VCO1_FSK_TX     1U
-//# define  AX_TEST_VCO1_FSK_RX     1U
+//# define  AX_TEST_VCO1_BANDENDS     1U
+//# define  AX_TEST_VCO1_FSK_TX       1U
+//# define  AX_TEST_VCO1_FSK_RX       1U
 //# define  AX_TEST_VCO1_POCSAG_TX    1U
 //# define  AX_TEST_VCO1_POCSAG_RX    1U
 
-//# define  AX_TEST_VCO2_BANDENDS   1U
+//# define  AX_TEST_VCO2_BANDENDS     1U
 //# define  AX_TEST_VCO2_ANALOG_FM_TX 1U
 //# define  AX_TEST_VCO2_ANALOG_FM_RX 1U
 //# define  AX_TEST_VCO2_PR1200_TX    1U
@@ -2936,6 +2936,14 @@ void spi_ax_initRegisters_FSK(void)
 
 void spi_ax_initRegisters_FSK_Tx(void)
 {
+  /* XTALCAP (FSK-TX) */
+  {
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
 #if 0
   /* PLLLOOP */
   {
@@ -2957,6 +2965,14 @@ void spi_ax_initRegisters_FSK_Tx(void)
 
 void spi_ax_initRegisters_FSK_Rx(void)
 {
+  /* XTALCAP (FSK-RX) */
+  {
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
 #if 0
   /* PLLLOOP */
   {
@@ -4102,10 +4118,10 @@ void spi_ax_initRegisters_PR1200_Tx(void)
   }
 
 
-  /* XTALCAP */
+  /* XTALCAP (PR1200-TX) */
   {
-    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
-        0x08U
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -4252,10 +4268,10 @@ void spi_ax_initRegisters_PR1200_Rx(void)
   }
 
 
-  /* XTALCAP */
+  /* XTALCAP (PR1200-RX) */
   {
-    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
-        0x08U
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -5784,10 +5800,10 @@ void spi_ax_initRegisters_POCSAG_Tx(void)
 #endif
 
 
-  /* XTALCAP */
+  /* XTALCAP (POCSAG-TX) */
   {
-    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
-        0x08U
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -5997,10 +6013,10 @@ void spi_ax_initRegisters_POCSAG_Rx(void)
 #endif
 
 
-  /* XTALCAP */
+  /* XTALCAP (POCSAG-RX) */
   {
-    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP
-        0x08U
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -6583,6 +6599,14 @@ void spi_ax_initRegisters_AnlogFM_Tx(void)
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 
+  /* XTALCAP (AnalogFM-TX) */
+  {
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
   /* GPADCCTRL */
   {
     const uint8_t txMsg[3] = { 0xf3U, 0x00U,                                                          // WR address 0x300: GPADCCTRL - continuous sampling of GPADC13
@@ -6718,6 +6742,14 @@ void spi_ax_initRegisters_AnlogFM_Rx(void)
   {
     const uint8_t txMsg[3] = { 0xf1U, 0x2aU,                                                          // WR address 0x12A: FREQGAIND0 - bandwidth of "outer" AFC loop (tracking frequency mismatch), 78 Hz @ BR = 100 kbps, f_xtal = 16 MHz
         0x08U
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
+  /* XTALCAP (AnalogFM-RX) */
+  {
+    const uint8_t txMsg[3] = { 0xf1U, 0x84U,                                                          // WR address 0x184: XTALCAP = 16.000018 MHz
+        0x04U
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
