@@ -54,7 +54,7 @@
 "53","PF13","I/O","",""
 "54","PF14","I/O","I2C4_SCL","MCU_I2C4_SCL"
 "55","PF15","I/O","",""
-"56","PG0","I/O","",""
+"56","PG0","Output","GPIO_Output","MCU_OUT_SX_HF_LF_CTRL"
 "57","PG1","Input","GPIO_Input","MCU_IN_AX_GPIO1"
 "58","PE7","Input","GPIO_Input","MCU_IN_AX_IRQ"
 "59","PE8","I/O","SAI1_SCK_B","I2S1B_SCK_OUT"

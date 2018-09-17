@@ -1829,6 +1829,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(MCU_OUT_SX_HF_LF_CTRL_GPIO_Port, MCU_OUT_SX_HF_LF_CTRL_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
@@ -1875,6 +1878,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(MCU_OUT_LCD_nRST_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : MCU_OUT_SX_HF_LF_CTRL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_SX_HF_LF_CTRL_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(MCU_OUT_SX_HF_LF_CTRL_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MCU_IN_AX_GPIO1_Pin */
   GPIO_InitStruct.Pin = MCU_IN_AX_GPIO1_Pin;

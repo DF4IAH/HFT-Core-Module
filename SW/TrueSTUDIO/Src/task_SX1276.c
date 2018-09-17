@@ -1118,7 +1118,7 @@ static void sx1276Init(void)
 
 void sx1276TaskInit(void)
 {
-  osDelay(800UL);
+  osDelay(750UL);
   sx1276Init();
 }
 
