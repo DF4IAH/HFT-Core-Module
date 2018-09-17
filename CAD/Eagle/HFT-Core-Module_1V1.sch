@@ -28503,7 +28503,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0811" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="GND0811" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0811" library="df4iah_c-trimm" deviceset="C-TRIMM" device="3MM2_2MM5" value="3..10pF"/>
-<part name="C0812" library="rcl" deviceset="C-EU" device="C0603" value="10pF"/>
+<part name="C0812" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
 <part name="C0806" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C0807" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C0805" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
@@ -31760,7 +31760,6 @@ SPI</text>
 <text x="241.3" y="48.26" size="1.778" layer="97">NC</text>
 <text x="88.9" y="33.02" size="1.778" layer="97">to be replaced by:
 SX1262</text>
-<text x="86.36" y="144.78" size="2.54" layer="97">C0812: 4.7pF to low</text>
 </plain>
 <instances>
 <instance part="FRAME_08" gate="G$1" x="0" y="0"/>
