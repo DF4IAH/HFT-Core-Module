@@ -26010,7 +26010,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0811" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="GND0811" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0811" library="df4iah_c-trimm" deviceset="C-TRIMM" device="3MM2_2MM5" value="4.7p"/>
-<part name="C0812" library="rcl" deviceset="C-EU" device="C0603" value="4.7p"/>
+<part name="C0812" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
 <part name="C0806" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
 <part name="C0807" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
 <part name="C0805" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
