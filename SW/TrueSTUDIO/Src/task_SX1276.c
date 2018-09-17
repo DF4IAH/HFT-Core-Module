@@ -65,6 +65,14 @@ void spiSX127xReset(void)
 
 void spiSX127xFrequency_MHz(float mhz)
 {
+  /* Sanity checks */
+  if  (                mhz < 136.f  ||
+      ( 175.f < mhz && mhz < 410.f) ||
+      (1020.f < mhz)) {
+    /* Out of bands */
+    return;
+  }
+
   /* Register value calc */
   const float     fVal    = (mhz * 1e6 * (1UL << 19)) / 32e6;
   const uint32_t  regVal  = (uint32_t) (fVal + 0.5f);
@@ -77,6 +85,18 @@ void spiSX127xFrequency_MHz(float mhz)
         (uint8_t) ((regVal >>  0) & 0xffUL)
     };
     spiProcessSpi3MsgTemplate(SPI3_SX, sizeof(txMsg), txMsg);
+  }
+
+  /* Set RF MUX for HF-band / LF-band */
+  {
+    if (600.f < mhz) {
+      /* HF (band 1) */
+      HAL_GPIO_WritePin(MCU_OUT_SX_HF_LF_CTRL_GPIO_Port, MCU_OUT_SX_HF_LF_CTRL_Pin, GPIO_PIN_SET);
+
+    } else {
+      /* LF band 2, band 3) */
+      HAL_GPIO_WritePin(MCU_OUT_SX_HF_LF_CTRL_GPIO_Port, MCU_OUT_SX_HF_LF_CTRL_Pin, GPIO_PIN_RESET);
+    }
   }
 }
 
