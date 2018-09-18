@@ -30,7 +30,7 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_baro_enable                     = 1U;
+static uint8_t              s_baro_enable                     = 0U;
 static uint8_t              s_baroValid                       = 0U;
 static uint16_t             s_baroVersion                     = 0U;
 static uint16_t             s_baro_c[C_I2C_BARO_C_CNT]        = { 0U };

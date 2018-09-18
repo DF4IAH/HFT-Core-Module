@@ -1878,6 +1878,8 @@ static void LoRaWAN_TX_msg(LoRaWANctx_t* ctx, LoRaWAN_TX_Message_t* msg)
 
   /* Transmission */
   {
+    usbLog(". LoRaWAN: TX\r\n");
+
     /* Start transmitter and wait until the message is being sent */
     {
       now = xTaskGetTickCount();
@@ -2008,7 +2010,7 @@ void loRaWANLoraTaskInit(void)
       loRaWANctx.bkpRAM = LoRaWANctxBkpRam;
     }
 
-    /* Setup data from FLASH NVM */
+    /* Setup data from FLASH NVM (or fix data at the moment) */
     LoRaWANctx_readFLASH();
 
     /* Only when bare mode is not partnered with LoRaWAN mode */
@@ -2036,13 +2038,6 @@ void loRaWANLoraTaskInit(void)
 
     /* Only when bare mode is not partnered with LoRaWAN mode */
     if (!(ENABLE_MASK__LORAWAN_DEVICE & g_enableMsk)) {
-      /* Delay until USB DCD is ready */
-      {
-        uint32_t PreviousWakeTime = 0UL;
-
-        osDelayUntil(&PreviousWakeTime, 4500);
-      }
-
       /* No LoRaWAN actions to take */
       loRaWANctx.FsmState = Fsm_NOP;
     }
@@ -3762,9 +3757,25 @@ void loRaWANLoraTaskLoop(void)
         }
       }
     }
+
     #else
-    (void) eb;
-    osDelay(100);
+    {
+      const  uint8_t  testMessage[] = "*** LoRa test transmission ***\r\n";
+      static uint8_t  s_red = 0U;
+      int             dbgLen;
+      char            dbgBuf[128];
+      (void)          eb;
+
+      osDelay(1000);
+
+      dbgLen = sprintf(dbgBuf, ". LoRaWAN: power reduction = %02u dB.\r\n", 5U * s_red);
+      usbLogLen(dbgBuf, dbgLen);
+
+      loRaBareCtx.pwrred = 5U *  s_red++;
+      s_red %= 5U;
+
+      LoRaWAN_LoRaBare_TX_msg(&loRaWANctx, &loRaBareCtx, &loRaWanTxMsg, testMessage, strlen((char*)testMessage));
+    }
     #endif
   }  // switch ()
 }

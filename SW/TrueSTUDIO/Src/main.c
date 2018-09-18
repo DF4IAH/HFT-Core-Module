@@ -156,8 +156,8 @@ osSemaphoreId c2Default_BSemHandle;
 /* USER CODE BEGIN PV */
 extern uint32_t                       uwTick;
 
-ENABLE_MASK_t                         g_enableMsk;
-MON_MASK_t                            g_monMsk;
+ENABLE_MASK_t                         g_enableMsk             = ENABLE_MASK__LORA_BARE;
+MON_MASK_t                            g_monMsk                = 0UL;
 
 
 /* Private variables ---------------------------------------------------------*/
