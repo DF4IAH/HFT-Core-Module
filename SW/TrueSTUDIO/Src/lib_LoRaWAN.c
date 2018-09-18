@@ -3761,18 +3761,9 @@ void loRaWANLoraTaskLoop(void)
     #else
     {
       const  uint8_t  testMessage[] = "*** LoRa test transmission ***\r\n";
-      static uint8_t  s_red = 0U;
-      int             dbgLen;
-      char            dbgBuf[128];
       (void)          eb;
 
-      osDelay(1000);
-
-      dbgLen = sprintf(dbgBuf, ". LoRaWAN: power reduction = %02u dB.\r\n", 5U * s_red);
-      usbLogLen(dbgBuf, dbgLen);
-
-      loRaBareCtx.pwrred = 5U *  s_red++;
-      s_red %= 5U;
+      osDelay(5000);
 
       LoRaWAN_LoRaBare_TX_msg(&loRaWANctx, &loRaBareCtx, &loRaWanTxMsg, testMessage, strlen((char*)testMessage));
     }
