@@ -50,7 +50,7 @@ void spiSX127xReset(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
   HAL_GPIO_Init(MCU_OUT_SX_nRESET_GPIO_Port, &GPIO_InitStruct);
 
-  /* At least for 100 µs */
+  /* At least for 100 us */
   osDelay(2);
 
   /* Release the nRESET line */
@@ -1266,10 +1266,18 @@ void sx1276TaskInit(void)
 
 void sx1276TaskLoop(void)
 {
+  const uint32_t  eachMs              = 5000UL;
+  static uint32_t sf_previousWakeTime = 0UL;
+
+  if (!sf_previousWakeTime) {
+    sf_previousWakeTime  = osKernelSysTick();
+    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
+    sf_previousWakeTime += 750UL;
+  }
+
+  osDelayUntil(&sf_previousWakeTime, eachMs);
+
   if (s_sx1276_enable) {
     loRaWANLoraTaskLoop();
-
-  } else {
-    osDelay(1000);
   }
 }

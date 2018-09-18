@@ -3763,9 +3763,9 @@ void loRaWANLoraTaskLoop(void)
       const  uint8_t  testMessage[] = "*** LoRa test transmission ***\r\n";
       (void)          eb;
 
-      osDelay(5000);
-
-      LoRaWAN_LoRaBare_TX_msg(&loRaWANctx, &loRaBareCtx, &loRaWanTxMsg, testMessage, strlen((char*)testMessage));
+      if (ENABLE_MASK__LORA_BARE & g_enableMsk) {
+        LoRaWAN_LoRaBare_TX_msg(&loRaWANctx, &loRaBareCtx, &loRaWanTxMsg, testMessage, strlen((char*)testMessage));
+      }
     }
     #endif
   }  // switch ()
