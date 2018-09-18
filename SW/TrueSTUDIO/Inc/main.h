@@ -124,6 +124,8 @@
 #define MCU_OUT_LCD_nRST_GPIO_Port GPIOF
 #define MCU_I2C4_SCL_Pin GPIO_PIN_14
 #define MCU_I2C4_SCL_GPIO_Port GPIOF
+#define MCU_OUT_SX_HF_LF_CTRL_Pin GPIO_PIN_0
+#define MCU_OUT_SX_HF_LF_CTRL_GPIO_Port GPIOG
 #define MCU_IN_AX_GPIO1_Pin GPIO_PIN_1
 #define MCU_IN_AX_GPIO1_GPIO_Port GPIOG
 #define MCU_IN_AX_IRQ_Pin GPIO_PIN_7
@@ -266,7 +268,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180917U
+#define HFTCOREMODULE_VERSION                                 20180919U
 
 
 typedef enum EXTI_ENUM {
@@ -296,6 +298,8 @@ typedef enum ENABLE_MASK {
   ENABLE_MASK__I2C_BARO                                       = 0x0002UL,
   ENABLE_MASK__I2C_GYRO                                       = 0x0004UL,
   ENABLE_MASK__I2C_LCD                                        = 0x0008UL,
+  ENABLE_MASK__LORA_BARE                                      = 0x0010UL,
+  ENABLE_MASK__LORAWAN_DEVICE                                 = 0x0020UL,
 
 } ENABLE_MASK_t;
 
@@ -305,9 +309,12 @@ typedef enum MON_MASK {
   MON_MASK__I2C_HYGRO                                         = 0x0001UL,
   MON_MASK__I2C_BARO                                          = 0x0002UL,
   MON_MASK__I2C_GYRO                                          = 0x0004UL,
+  MON_MASK__LORA                                              = 0x0008UL,
 
 } MON_MASK_t;
 
+
+uint32_t crcCalc(const uint32_t* ptr, uint32_t len);
 
 uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel);
 void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac);

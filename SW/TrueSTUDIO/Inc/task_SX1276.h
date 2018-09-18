@@ -11,7 +11,7 @@
 //#include "stm32l4xx_hal.h"
 #include "main.h"
 
-//#include "LoRaWAN.h"
+#include "lib_LoRaWAN.h"
 
 
 extern SPI_HandleTypeDef hspi3;
@@ -167,21 +167,11 @@ typedef enum DIO_TxRx_Mode {
 extern void _Error_Handler(char *, int);
 
 
-void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi);
-void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi);
-
-uint8_t spiProcessSpiReturnWait(void);
-uint8_t spiProcessSpi3Msg(SPI3_CHIPS_t chip, uint8_t msgLen);
-
 void spiSX127xReset(void);
 void spiSX127xFrequency_MHz(float mhz);
-#if 0
 uint8_t spiSX1276Power_GetSetting(LoRaWANctx_t* ctx);
-#endif
 void spiSX127xDio_Mapping(DIO_TxRx_Mode_t mode);
-#if 0
 uint8_t spiSX127xDR_to_SF(DataRates_t dr);
-#endif
 
 uint8_t spiSX127xMode_LoRa_GetBroadbandRSSI(void);
 void spiSX127xLoRa_setTxMsgLen(uint8_t payloadLen);
@@ -193,16 +183,10 @@ uint8_t spiSX127xGetMode(void);
 void spiSX1276Mode(spiSX1276_Mode_t mode);
 void spiSX127xRegister_IRQ_clearAll(void);
 void spiSX127xRegister_IRQ_enableBits(uint8_t enaBits);
-#if 0
 void spiSX1276_TxRx_Preps(LoRaWANctx_t* ctx, DIO_TxRx_Mode_t mode, LoRaWAN_TX_Message_t* msg);
-#endif
 uint32_t spiSX127x_WaitUntil_TxDone(uint32_t stopTime);
-#if 0
 void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, uint32_t stopTime1, uint32_t stopTime2);
-#endif
-#if 0
 void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg);
-#endif
 
 uint8_t spiDetectSX1276(void);
 
