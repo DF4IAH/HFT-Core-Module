@@ -1241,16 +1241,18 @@ static void sx1276Init(void)
   usbLog(PM_SPI_INIT_SX1276_01);
   usbLog(PM_SPI_INIT_SX1276_02);
 
-  if (HAL_OK == spiDetectSX1276()) {
-    s_sx1276_enable = 1U;
+  if (s_sx1276_enable) {
+    if (HAL_OK == spiDetectSX1276()) {
 
-    dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_SX1276_03, s_sx_version);
-    usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
+      dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_SX1276_03, s_sx_version);
+      usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
 
-    loRaWANLoraTaskInit();
+      loRaWANLoraTaskInit();
 
-  } else {
-    usbLog(PM_SPI_INIT_SX1276_04);
+    } else {
+      s_sx1276_enable = 0U;
+      usbLog(PM_SPI_INIT_SX1276_04);
+    }
   }
   usbLog(PM_SPI_INIT_SX1276_05);
 }

@@ -11,6 +11,11 @@
 #include "FreeRTOS.h"
 
 
+/* I2C devices */
+
+#define I2C_SLAVE_SI5338_ADDR                                 0x70U
+
+
 typedef struct Reg_Data{
    uint8_t Reg_Addr;
    uint8_t Reg_Val;
@@ -21,12 +26,10 @@ typedef struct Reg_Data{
 typedef enum I2C_SI5338_CLKIN_VARIANT_ENUM {
 
   I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ                    = 0,
+  I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ,
   I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ,
 
 } I2C_SI5338_CLKIN_VARIANT_t;
-
-
-uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readLen);
 
 
 void si5338TaskInit(void);
