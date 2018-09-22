@@ -76,6 +76,22 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
       spi3BusInUse = 1U;
     }
 
+    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin)) {
+      /* Deactivate the NSS/SEL pin */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_SET);
+      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_DAC__BUS_DONE, &taskWoken);
+    } else {
+      spi3BusInUse = 1U;
+    }
+
+    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin)) {
+      /* Deactivate the NSS/SEL pin */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_SET);
+      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_ADC__BUS_DONE, &taskWoken);
+    } else {
+      spi3BusInUse = 1U;
+    }
+
     if (!spi3BusInUse) {
       xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3__BUS_FREE, &taskWoken);
     }
@@ -106,6 +122,18 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
       xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_AX__BUS_DONE, &taskWoken);
     }
 
+    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin)) {
+      /* Deactivate the NSS/SEL pin */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_SET);
+      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_DAC__BUS_DONE, &taskWoken);
+    }
+
+    if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin)) {
+      /* Deactivate the NSS/SEL pin */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_SET);
+      xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3_ADC__BUS_DONE, &taskWoken);
+    }
+
     xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3__BUS_ERROR, &taskWoken);
   }
 }
@@ -114,8 +142,12 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
 const uint16_t spiWait_EGW_MaxWaitTicks = 500;
 uint8_t spiProcessSpiReturnWait(void)
 {
-  EventBits_t eb = xEventGroupWaitBits(spiEventGroupHandle, EG_SPI3_SX__BUS_DONE | EG_SPI3_AX__BUS_DONE | EG_SPI3__BUS_FREE | EG_SPI3__BUS_ERROR, 0, pdFALSE, spiWait_EGW_MaxWaitTicks);
-  if (eb & (EG_SPI3_SX__BUS_DONE | EG_SPI3_AX__BUS_DONE | EG_SPI3__BUS_FREE)) {
+  EventBits_t eb = xEventGroupWaitBits(spiEventGroupHandle,
+      EG_SPI3_SX__BUS_DONE | EG_SPI3_AX__BUS_DONE | EG_SPI3_DAC__BUS_DONE | EG_SPI3_ADC__BUS_DONE |
+      EG_SPI3__BUS_FREE | EG_SPI3__BUS_ERROR,
+      0, pdFALSE, spiWait_EGW_MaxWaitTicks);
+  if (eb & (EG_SPI3_SX__BUS_DONE | EG_SPI3_AX__BUS_DONE | EG_SPI3_DAC__BUS_DONE | EG_SPI3_ADC__BUS_DONE |
+      EG_SPI3__BUS_FREE)) {
     return HAL_OK;
   }
 
@@ -127,13 +159,39 @@ uint8_t spiProcessSpiReturnWait(void)
 
 uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen, uint8_t waitComplete)
 {
-  GPIO_TypeDef*     GPIOx     = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_GPIO_Port : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_GPIO_Port  : 0);
-  uint16_t          GPIO_Pin  = (chip == SPI3_SX) ?  MCU_OUT_SX_SEL_Pin       : ((chip == SPI3_AX) ?  MCU_OUT_AX_SEL_Pin        : 0);
   HAL_StatusTypeDef status    = HAL_OK;
   uint8_t           errCnt    = 0U;
 
+  GPIO_TypeDef*     GPIOx;
+  uint16_t          GPIO_Pin;
+  switch (chip) {
+  case SPI3_SX:
+    GPIOx     = MCU_OUT_SX_SEL_GPIO_Port;
+    GPIO_Pin  = MCU_OUT_SX_SEL_Pin;
+    break;
+
+  case SPI3_AX:
+    GPIOx     = MCU_OUT_AX_SEL_GPIO_Port;
+    GPIO_Pin  = MCU_OUT_AX_SEL_Pin;
+    break;
+
+  case SPI3_DAC:
+    GPIOx     = MCU_OUT_AUDIO_DAC_SEL_GPIO_Port;
+    GPIO_Pin  = MCU_OUT_AUDIO_DAC_SEL_Pin;
+    break;
+
+  case SPI3_ADC:
+    GPIOx     = MCU_OUT_AUDIO_ADC_SEL_GPIO_Port;
+    GPIO_Pin  = MCU_OUT_AUDIO_ADC_SEL_Pin;
+    break;
+
+  default:
+    GPIOx     = 0;
+    GPIO_Pin  = 0;
+  }
+
   /* Sanity check */
-  if (!GPIOx || !GPIO_Pin) {
+  if (!GPIOx) {
     return HAL_ERROR;
   }
 

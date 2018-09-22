@@ -1838,8 +1838,7 @@ static void MX_GPIO_Init(void)
   HAL_PWREx_EnableVddIO2();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin 
-                          |MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, GPIO_PIN_RESET);
@@ -1851,7 +1850,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOE, MCU_OUT_AX_SEL_Pin|MCU_OUT_SX_SEL_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : MCU_INOUT_PW03_Pin MCU_INOUT_PW02_Pin MCU_INOUT_PW01_Pin MCU_IN_AX_IRQ_Pin */
   GPIO_InitStruct.Pin = MCU_INOUT_PW03_Pin|MCU_INOUT_PW02_Pin|MCU_INOUT_PW01_Pin|MCU_IN_AX_IRQ_Pin;
@@ -1873,10 +1878,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF15_EVENTOUT;
   HAL_GPIO_Init(MCU_EVENTOUT_PF10_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MCU_OUT_VDD12_EN_Pin MCU_OUT_HICUR_EN_Pin MCU_OUT_VUSB_EN_Pin MCU_OUT_20MHZ_EN_Pin 
-                           MCU_OUT_AUDIO_DAC_SEL_Pin */
-  GPIO_InitStruct.Pin = MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin 
-                          |MCU_OUT_AUDIO_DAC_SEL_Pin;
+  /*Configure GPIO pins : MCU_OUT_VDD12_EN_Pin MCU_OUT_HICUR_EN_Pin MCU_OUT_VUSB_EN_Pin MCU_OUT_20MHZ_EN_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_VDD12_EN_Pin|MCU_OUT_HICUR_EN_Pin|MCU_OUT_VUSB_EN_Pin|MCU_OUT_20MHZ_EN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -1921,8 +1924,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MCU_OUT_SX_nRESET_Pin MCU_OUT_AUDIO_ADC_nRESET_Pin MCU_OUT_AUDIO_ADC_SEL_Pin */
-  GPIO_InitStruct.Pin = MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin|MCU_OUT_AUDIO_ADC_SEL_Pin;
+  /*Configure GPIO pins : MCU_OUT_SX_nRESET_Pin MCU_OUT_AUDIO_ADC_nRESET_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_SX_nRESET_Pin|MCU_OUT_AUDIO_ADC_nRESET_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -1956,6 +1959,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(MCU_IN_AUDIO_DAC_nRDY_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : MCU_OUT_AUDIO_DAC_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_AUDIO_DAC_SEL_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : MCU_MCO_Pin */
   GPIO_InitStruct.Pin = MCU_MCO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -1969,6 +1979,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(MCU_IN_AUDIO_ADC_nDR_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : MCU_OUT_AUDIO_ADC_SEL_Pin */
+  GPIO_InitStruct.Pin = MCU_OUT_AUDIO_ADC_SEL_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : MCU_IN_EXTI7_INTR_SI5338_Pin */
   GPIO_InitStruct.Pin = MCU_IN_EXTI7_INTR_SI5338_Pin;
@@ -2113,6 +2130,47 @@ void StartDefaultTask(void const * argument)
 #endif
 
   osDelay(850UL);
+
+
+  #define TEST_ADC
+
+  #ifdef TEST_DAC
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  osDelay(5);
+
+  uint8_t value = 0U;
+  do {
+    const uint8_t txMsgL[3] = { 0x31U,             value,  0 };
+    const uint8_t txMsgR[3] = { 0x32U, ((uint8_t) ~value), 0 };
+
+    spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgL), txMsgL);
+    spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgR), txMsgR);
+
+    value += 0x10U;
+  } while (1);
+  #endif
+
+  #ifdef TEST_ADC
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
+
+  /* Enable Si5338 output clock to AUDIO_ADC */
+
+  /* Disable RESET of AUDIO_ADC */
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_SET);
+
+  osDelay(5);
+
+  do {
+    //const uint8_t txMsg[3] = { 0x31U,             0,  0 };
+
+    //spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg), txMsg);
+    // TODO: work ahead!
+
+  } while (1);
+  #endif
+
 
   /* Infinite loop */
   for(;;)

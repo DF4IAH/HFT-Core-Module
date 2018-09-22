@@ -1,13 +1,13 @@
 /*
- * task_Si5338_RegMap_MCU_8MHz.c
+ * task_Si5338_RegMap_MCU_12MHz.c
  *
- *  Created on: 27.08.2018
+ *  Created on: 22.09.2018
  *      Author: DF4IAH
  */
 
-#include "task_Si5338_RegMap_MCU_8MHz.h"
+#include "task_Si5338_RegMap_MCU_12MHz.h"
 
-const Reg_Data_t si5338_Reg_Store_MCU_8MHz[SI5338_MCU_8MHZ_NUM_REGS_MAX] = {
+const Reg_Data_t si5338_Reg_Store_MCU_12MHz[SI5338_MCU_12MHZ_NUM_REGS_MAX] = {
     {  0,0x00,0x00},
     {  1,0x00,0x00},
     {  2,0x00,0x00},
@@ -56,7 +56,7 @@ const Reg_Data_t si5338_Reg_Store_MCU_8MHz[SI5338_MCU_8MHZ_NUM_REGS_MAX] = {
     { 45,0x00,0xFF},
     { 46,0x00,0xFF},
     { 47,0x14,0x3F},
-    { 48,0x40,0xFF},
+    { 48,0x2A,0xFF},
     { 49,0x05,0xFF},
     { 50,0xC4,0xFF},
     { 51,0x07,0xFF},
@@ -105,13 +105,13 @@ const Reg_Data_t si5338_Reg_Store_MCU_8MHz[SI5338_MCU_8MHZ_NUM_REGS_MAX] = {
     { 94,0x00,0xFF},
     { 95,0x00,0x3F},
     { 96,0x10,0x00},
-    { 97,0x40,0xFF},
-    { 98,0x9A,0xFF},
-    { 99,0x00,0xFF},
+    { 97,0x2A,0xFF},
+    { 98,0x66,0xFF},
+    { 99,0x08,0xFF},
     {100,0x00,0xFF},
     {101,0x00,0xFF},
     {102,0x00,0xFF},
-    {103,0x02,0xFF},
+    {103,0x03,0xFF},
     {104,0x00,0xFF},
     {105,0x00,0xFF},
     {106,0x80,0xBF},

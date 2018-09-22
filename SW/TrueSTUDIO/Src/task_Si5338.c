@@ -17,6 +17,10 @@
 #include "usb.h"
 #include "bus_i2c.h"
 
+#include "task_Si5338_RegMap_MCU_8MHz.h"
+#include "task_Si5338_RegMap_MCU_12MHz.h"
+#include "task_Si5338_RegMap_TCXO.h"
+
 #include "task_Si5338.h"
 
 
@@ -26,50 +30,40 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_si5338_enable                   = 0U;
+extern const Reg_Data_t     si5338_Reg_Store_MCU_8MHz[];
+extern const Reg_Data_t     si5338_Reg_Store_MCU_12MHz[];
+extern const Reg_Data_t     si5338_Reg_Store_TCXO[];
 
 
-uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readLen)
-{
-  /* Wait for the I2Cx bus to be free */
-  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+static uint8_t              s_si5338_enable                   = 1U;
+static uint8_t              s_si5338_variant                  = I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ;
 
-  for (uint8_t regIdx = 0; regIdx < i2cRegLen; regIdx++) {
-    i2c4TxBuffer[regIdx] = i2cReg[regIdx];
-  }
-  if (HAL_I2C_Master_Sequential_Transmit_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) i2c4TxBuffer, min(i2cRegLen, I2C_TXBUFSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
-    /* Error_Handler() function is called when error occurs. */
-    Error_Handler();
-  }
-  while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-    osDelay(1);
-  }
-  if (HAL_I2C_GetError(dev) == HAL_I2C_ERROR_AF) {
-    /* Return mutex */
-    osSemaphoreRelease(i2c4MutexHandle);
-
-    /* Chip not responding */
-    usbLog("i2cSequenceRead: ERROR chip does not respond\r\n");
-    return HAL_I2C_ERROR_AF;
-  }
-
-  memset(i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
-  if (HAL_I2C_Master_Sequential_Receive_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) i2c4RxBuffer, min(readLen, I2C_RXBUFSIZE), I2C_OTHER_FRAME) != HAL_OK) {
-    Error_Handler();
-  }
-  while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-    osDelay(1);
-  }
-
-  /* Return mutex */
-  osSemaphoreRelease(i2c4MutexHandle);
-
-  return HAL_I2C_ERROR_NONE;
-}
 
 static void si5338Init(void)
 {
+  if (s_si5338_enable) {
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    if (GPIO_PIN_SET == HAL_GPIO_ReadPin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin)) {
+      switch (s_si5338_variant) {
+      case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ:
+        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_8MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_8MHz);
+        break;
 
+      case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ:
+        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_12MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_12MHz);
+        break;
+
+      case I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ:
+        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_TCXO_NUM_REGS_MAX, si5338_Reg_Store_TCXO);
+        break;
+
+      default:
+        s_si5338_enable = 0U;
+      }
+    } else {
+      s_si5338_enable = 0U;
+    }
+  }
 }
 
 
