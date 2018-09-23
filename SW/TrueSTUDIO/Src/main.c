@@ -156,6 +156,12 @@ osSemaphoreId c2Default_BSemHandle;
 /* USER CODE BEGIN PV */
 extern uint32_t                       uwTick;
 
+extern uint8_t                        i2c4TxBuffer[I2C_TXBUFSIZE];
+extern uint8_t                        i2c4RxBuffer[I2C_RXBUFSIZE];
+
+extern uint8_t                        spi3TxBuffer[SPI3_BUFFERSIZE];
+extern uint8_t                        spi3RxBuffer[SPI3_BUFFERSIZE];
+
 ENABLE_MASK_t                         g_enableMsk             = 0UL;  // ENABLE_MASK__LORA_BARE;
 MON_MASK_t                            g_monMsk                = 0UL;
 
@@ -2111,14 +2117,14 @@ void StartDefaultTask(void const * argument)
   PowerSwitchInit();        // 32.0mA --> 28.0mA
 
   /* Si5338 clock generator */
-#if 0
+#if 1
   /* Switch on Si5338 clock PLL */
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
-  osDelay(10);
 # if 0
-  i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
+  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
+# elif 1
+  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ);
 # else
-  i2cI2c4Si5338Init(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ);
+  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ);
 # endif
 #endif
 
@@ -2152,22 +2158,45 @@ void StartDefaultTask(void const * argument)
   #endif
 
   #ifdef TEST_ADC
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
-
-  /* Enable Si5338 output clock to AUDIO_ADC */
-
   /* Disable RESET of AUDIO_ADC */
   __HAL_RCC_GPIOD_CLK_ENABLE();
   HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_SET);
-
   osDelay(5);
 
+  /* Init convertions */
+  {
+    const uint8_t txMsg_0x0d_Reset[2]     = { ((0x0dU << 1U) | 0x00U),                                // Write address 0x0D
+        0xc2U                                                                                         // Reset both ADCs
+    };
+    const uint8_t txMsg_0x07_Config[14]   = { ((0x07U << 1U) | 0x00U),                                // Write address 0x07
+        0x00U, 0x00U,                                                                                 // No phase delay between ADC1 and ADC2
+        0b10101101U,                                                                                  // Gain=32 and Boost=1x (0b10)
+        0b00010011U, 0b10100100U,                                                                     // DR:PP, 16bit, EN_OFFCAL=1
+        0b00011110U, 0b00000010U,                                                                     // AMCLK=MCLK, OSR=256,
+        0xfdU, 0x70U, 0x00U,                                                                          // Offset CH0
+        0x00U, 0x00U, 0x00U                                                                           // Offset CH1
+    };
+
+    spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x0d_Reset),   txMsg_0x0d_Reset);
+    spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x07_Config),  txMsg_0x07_Config);
+  }
+
   do {
-    //const uint8_t txMsg[3] = { 0x31U,             0,  0 };
+    const uint8_t txMsg_0x00_RdAdcs[7] = { ((0x00U << 1U) | 0x01U),                                   // Read address 0x00
+        0U
+    };
+    uint16_t adc_L, adc_R;
+    char dbgBuf[128];
 
-    //spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg), txMsg);
-    // TODO: work ahead!
+    spiProcessSpi3MsgTemplateLocked(SPI3_ADC, sizeof(txMsg_0x00_RdAdcs), txMsg_0x00_RdAdcs, 1U);
+    adc_L = ((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2];
+    adc_R = ((uint16_t)spi3RxBuffer[3] << 8U) | spi3RxBuffer[4];
+    osMutexRelease(spi3MutexHandle);
 
+    int dbgLen = sprintf(dbgBuf, ". AUDIO_ADC: Left = 0x%04X, Right = 0x%04X\r\n", adc_L, adc_R);
+    usbLogLen(dbgBuf, dbgLen);
+
+    osDelay(500);
   } while (1);
   #endif
 

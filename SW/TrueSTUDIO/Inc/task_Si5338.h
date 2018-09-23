@@ -32,6 +32,8 @@ typedef enum I2C_SI5338_CLKIN_VARIANT_ENUM {
 } I2C_SI5338_CLKIN_VARIANT_t;
 
 
+void si5338VariantSet(I2C_SI5338_CLKIN_VARIANT_t v);
+
 void si5338TaskInit(void);
 void si5338TaskLoop(void);
 
