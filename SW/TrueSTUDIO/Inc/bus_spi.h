@@ -25,6 +25,8 @@ typedef enum EG_SPI3_ENUM {
 
   EG_SPI3_SX__BUS_DONE                = 0x0001U,
   EG_SPI3_AX__BUS_DONE                = 0x0002U,
+  EG_SPI3_DAC__BUS_DONE               = 0x0004U,
+  EG_SPI3_ADC__BUS_DONE               = 0x0008U,
 
   EG_SPI3__BUS_FREE                   = 0x0010U,
   EG_SPI3__BUS_ERROR                  = 0x0080U,
@@ -36,6 +38,8 @@ typedef enum SPI3_CHIPS_ENUM {
 
   SPI3_SX                             = 1,
   SPI3_AX,
+  SPI3_DAC,
+  SPI3_ADC,
 
 } SPI3_CHIPS_t;
 
