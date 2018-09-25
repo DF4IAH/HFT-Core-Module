@@ -25886,8 +25886,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="L1112" library="rcl" deviceset="L-EU" device="L2012C" value="10uH"/>
 <part name="C1112" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="R1114" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1132" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="R1142" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
+<part name="R1132" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
+<part name="R1142" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
 <part name="R1131" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
 <part name="R1141" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
 <part name="U1121" library="df4iah_opamp" deviceset="OPA354" device=""/>
@@ -25898,8 +25898,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1141" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
 <part name="C1131" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
 <part name="GND1121" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1135" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="R1145" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
+<part name="R1135" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
+<part name="R1145" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
 <part name="GND1102" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U1101" library="df4iah_adc" deviceset="MCP3911" device="" value="MCP3911A0-E-SS"/>
 <part name="R1106" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
@@ -30527,7 +30527,7 @@ SPI</text>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Audio stereo A/D-Converter
 SPI</text>
-<text x="124.714" y="138.43" size="1.778" layer="97">N.C.</text>
+<text x="124.714" y="138.43" size="1.778" layer="97">N.C. (should be connected to GND)</text>
 <text x="147.32" y="142.24" size="1.778" layer="97">10MHz</text>
 <text x="22.86" y="86.36" size="2.54" layer="97" ratio="15">Audio stereo D/A-Converter
 SPI</text>
@@ -30562,7 +30562,10 @@ SPI</text>
 <instance part="R1135" gate="G$1" x="165.1" y="53.34" rot="R90"/>
 <instance part="R1145" gate="G$1" x="167.64" y="33.02" rot="R90"/>
 <instance part="GND1102" gate="1" x="101.6" y="88.9"/>
-<instance part="U1101" gate="G$1" x="99.06" y="124.46"/>
+<instance part="U1101" gate="G$1" x="99.06" y="124.46" smashed="yes">
+<attribute name="NAME" x="83.82" y="149.86" size="2.1844" layer="95" ratio="10"/>
+<attribute name="VALUE" x="103.886" y="97.79" size="2.1844" layer="96" ratio="10"/>
+</instance>
 <instance part="R1106" gate="G$1" x="132.08" y="129.54"/>
 <instance part="R1107" gate="G$1" x="144.78" y="127"/>
 <instance part="R1108" gate="G$1" x="132.08" y="109.22"/>
