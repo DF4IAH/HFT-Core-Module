@@ -28379,11 +28379,10 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="L1112" library="rcl" deviceset="L-EU" device="L2012C" value="10uH"/>
 <part name="C1112" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="R1114" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1132" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="R1142" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
+<part name="R1132" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
+<part name="R1142" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
 <part name="R1131" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
 <part name="R1141" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
-<part name="U1121" library="df4iah_opamp" deviceset="OPA354" device=""/>
 <part name="U1131" library="df4iah_opamp" deviceset="OPA354" device=""/>
 <part name="U1141" library="df4iah_opamp" deviceset="OPA354" device=""/>
 <part name="C1142" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="100uF"/>
@@ -28391,8 +28390,8 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C1141" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
 <part name="C1131" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
 <part name="GND1121" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1135" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="R1145" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
+<part name="R1135" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
+<part name="R1145" library="rcl" deviceset="R-EU_" device="R0603" value="10MR"/>
 <part name="GND1102" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U1101" library="df4iah_adc" deviceset="MCP3911" device="" value="MCP3911A0-E-SS"/>
 <part name="R1106" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
@@ -28602,6 +28601,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R0332" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="C0532" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
 <part name="GND0532" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="GND1104" library="df4iah_supply" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -30385,7 +30385,7 @@ Digikey: 497-17999-ND</text>
 <label x="160.02" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCU_SX_TX_RX_CTRL" class="0">
+<net name="MCU_OUT_SX_HF_!LF!_CTRL" class="0">
 <segment>
 <pinref part="R0277" gate="G$1" pin="2"/>
 <wire x1="172.72" y1="121.92" x2="175.26" y2="121.92" width="0.1524" layer="91"/>
@@ -32316,7 +32316,7 @@ SX1262</text>
 <junction x="144.78" y="63.5"/>
 </segment>
 </net>
-<net name="SX_RXTX_2" class="0">
+<net name="SX_TX_!RX!_CTRL" class="0">
 <segment>
 <pinref part="R0801" gate="G$1" pin="2"/>
 <wire x1="160.02" y1="63.5" x2="223.52" y2="63.5" width="0.1524" layer="91"/>
@@ -32443,6 +32443,7 @@ SX1262</text>
 <description>VHF/UHF SX1262 - ch 1 - HF sw</description>
 <plain>
 <text x="50.8" y="25.4" size="1.778" layer="97">HF: high / LF: low</text>
+<text x="50.8" y="86.36" size="1.778" layer="97">TX: high / RX: low</text>
 </plain>
 <instances>
 <instance part="FRAME_09" gate="G$1" x="0" y="0"/>
@@ -32498,19 +32499,6 @@ SX1262</text>
 <pinref part="U0921" gate="G$1" pin="RF2"/>
 <wire x1="45.72" y1="43.18" x2="35.56" y2="43.18" width="0.1524" layer="91"/>
 <label x="35.56" y="43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="SX_RXTX_2" class="0">
-<segment>
-<wire x1="35.56" y1="88.9" x2="86.36" y2="88.9" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="88.9" x2="86.36" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="U0911" gate="G$1" pin="CTRL"/>
-<wire x1="86.36" y1="111.76" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="88.9" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
-<junction x="86.36" y="88.9"/>
-<pinref part="U0921" gate="G$1" pin="CTRL"/>
-<wire x1="86.36" y1="43.18" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
-<label x="35.56" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SX_HF_2" class="0">
@@ -32649,13 +32637,26 @@ SX1262</text>
 <junction x="170.18" y="104.14"/>
 </segment>
 </net>
-<net name="MCU_SX_TX_RX_CTRL" class="0">
+<net name="MCU_OUT_SX_HF_!LF!_CTRL" class="0">
 <segment>
 <pinref part="U0991" gate="G$1" pin="CTRL"/>
 <wire x1="165.1" y1="78.74" x2="170.18" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="78.74" x2="170.18" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="27.94" x2="45.72" y2="27.94" width="0.1524" layer="91"/>
 <label x="45.72" y="27.94" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SX_TX_!RX!_CTRL" class="0">
+<segment>
+<wire x1="35.56" y1="88.9" x2="86.36" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="88.9" x2="86.36" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="U0911" gate="G$1" pin="CTRL"/>
+<wire x1="86.36" y1="111.76" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="88.9" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
+<junction x="86.36" y="88.9"/>
+<pinref part="U0921" gate="G$1" pin="CTRL"/>
+<wire x1="86.36" y1="43.18" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
+<label x="35.56" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -33085,7 +33086,6 @@ SPI</text>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Audio stereo A/D-Converter
 SPI</text>
-<text x="124.714" y="138.43" size="1.778" layer="97">N.C.</text>
 <text x="147.32" y="142.24" size="1.778" layer="97">10MHz</text>
 <text x="22.86" y="86.36" size="2.54" layer="97" ratio="15">Audio stereo D/A-Converter
 SPI</text>
@@ -33094,6 +33094,9 @@ SPI</text>
 <text x="157.48" y="106.68" size="1.778" layer="97">MCU_IN_AUDIO_ADC_MDAT1</text>
 <text x="139.7" y="132.08" size="1.778" layer="97">MCU_IN_AUDIO_ADC_NDR</text>
 <text x="208.28" y="129.54" size="1.778" layer="97">MCU_SPI3_MISO</text>
+<text x="71.12" y="160.02" size="2.54" layer="97">Change to 0603</text>
+<text x="76.2" y="81.28" size="2.54" layer="97">Change to 0603</text>
+<text x="119.38" y="152.4" size="2.54" layer="97">To be replaced by I2S components.</text>
 </plain>
 <instances>
 <instance part="FRAME_11" gate="G$1" x="0" y="0"/>
@@ -33109,7 +33112,6 @@ SPI</text>
 <instance part="R1142" gate="G$1" x="144.78" y="45.72"/>
 <instance part="R1131" gate="G$1" x="144.78" y="58.42"/>
 <instance part="R1141" gate="G$1" x="144.78" y="38.1"/>
-<instance part="U1121" gate="G$1" x="180.34" y="76.2"/>
 <instance part="U1131" gate="G$1" x="180.34" y="55.88"/>
 <instance part="U1141" gate="G$1" x="180.34" y="35.56"/>
 <instance part="C1142" gate="G$1" x="195.58" y="35.56" rot="R90"/>
@@ -33120,7 +33122,10 @@ SPI</text>
 <instance part="R1135" gate="G$1" x="165.1" y="53.34" rot="R90"/>
 <instance part="R1145" gate="G$1" x="167.64" y="33.02" rot="R90"/>
 <instance part="GND1102" gate="1" x="101.6" y="88.9"/>
-<instance part="U1101" gate="G$1" x="99.06" y="124.46"/>
+<instance part="U1101" gate="G$1" x="99.06" y="124.46" smashed="yes">
+<attribute name="NAME" x="83.82" y="149.86" size="2.1844" layer="95" ratio="10"/>
+<attribute name="VALUE" x="103.886" y="97.79" size="2.1844" layer="96" ratio="10"/>
+</instance>
 <instance part="R1106" gate="G$1" x="132.08" y="129.54"/>
 <instance part="R1107" gate="G$1" x="144.78" y="127"/>
 <instance part="R1108" gate="G$1" x="132.08" y="109.22"/>
@@ -33139,6 +33144,7 @@ SPI</text>
 <instance part="C1129" gate="G$1" x="208.28" y="78.74"/>
 <instance part="GND1122" gate="1" x="208.28" y="68.58"/>
 <instance part="C1128" gate="G$1" x="198.12" y="78.74"/>
+<instance part="GND1104" gate="1" x="129.54" y="137.16"/>
 </instances>
 <busses>
 </busses>
@@ -33204,10 +33210,6 @@ SPI</text>
 <pinref part="U1131" gate="G$1" pin="V-"/>
 <wire x1="170.18" y1="48.26" x2="180.34" y2="48.26" width="0.1524" layer="91"/>
 <junction x="170.18" y="27.94"/>
-<wire x1="170.18" y1="48.26" x2="170.18" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="U1121" gate="G$1" pin="V-"/>
-<wire x1="170.18" y1="68.58" x2="180.34" y2="68.58" width="0.1524" layer="91"/>
-<junction x="170.18" y="48.26"/>
 <pinref part="R1145" gate="G$1" pin="1"/>
 <pinref part="R1135" gate="G$1" pin="1"/>
 <wire x1="165.1" y1="27.94" x2="165.1" y2="48.26" width="0.1524" layer="91"/>
@@ -33272,18 +33274,10 @@ SPI</text>
 <wire x1="198.12" y1="71.12" x2="198.12" y2="73.66" width="0.1524" layer="91"/>
 <junction x="208.28" y="71.12"/>
 </segment>
-</net>
-<net name="MAX5136_REF" class="0">
 <segment>
-<pinref part="U1111" gate="G$1" pin="REFI"/>
-<wire x1="106.68" y1="68.58" x2="111.76" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="U1111" gate="G$1" pin="REFO"/>
-<wire x1="111.76" y1="68.58" x2="114.3" y2="68.58" width="0.1524" layer="91"/>
-<junction x="111.76" y="68.58"/>
-<pinref part="C1113" gate="G$1" pin="1"/>
-<wire x1="111.76" y1="68.58" x2="111.76" y2="78.74" width="0.1524" layer="91"/>
-<pinref part="U1121" gate="G$1" pin="+IN"/>
-<wire x1="172.72" y1="78.74" x2="111.76" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="GND1104" gate="1" pin="GND"/>
+<pinref part="U1101" gate="G$1" pin="OSC2"/>
+<wire x1="129.54" y1="139.7" x2="121.92" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+3V3_HICUR" class="0">
@@ -33317,17 +33311,14 @@ SPI</text>
 <wire x1="167.64" y1="43.18" x2="180.34" y2="43.18" width="0.1524" layer="91"/>
 <junction x="167.64" y="63.5"/>
 <pinref part="U1131" gate="G$1" pin="V+"/>
-<pinref part="U1121" gate="G$1" pin="V+"/>
-<wire x1="167.64" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
 <junction x="167.64" y="83.82"/>
 <pinref part="C1129" gate="G$1" pin="1"/>
-<wire x1="180.34" y1="83.82" x2="198.12" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="83.82" x2="198.12" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="83.82" x2="208.28" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="208.28" y1="83.82" x2="208.28" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="C1128" gate="G$1" pin="1"/>
 <wire x1="198.12" y1="83.82" x2="198.12" y2="81.28" width="0.1524" layer="91"/>
 <junction x="198.12" y="83.82"/>
-<junction x="180.34" y="83.82"/>
 </segment>
 <segment>
 <label x="43.18" y="157.48" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -33491,24 +33482,6 @@ SPI</text>
 <junction x="167.64" y="38.1"/>
 </segment>
 </net>
-<net name="MAX5136_REF_OP" class="0">
-<segment>
-<pinref part="U1121" gate="G$1" pin="-IN"/>
-<wire x1="172.72" y1="73.66" x2="172.72" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="66.04" x2="187.96" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="U1121" gate="G$1" pin="OUT"/>
-<wire x1="187.96" y1="66.04" x2="187.96" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="73.66" x2="137.16" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="73.66" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="R1142" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="66.04" x2="137.16" y2="45.72" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="45.72" x2="139.7" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="R1132" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="66.04" x2="139.7" y2="66.04" width="0.1524" layer="91"/>
-<junction x="137.16" y="66.04"/>
-<junction x="172.72" y="73.66"/>
-</segment>
-</net>
 <net name="MCU_OUT_AUDIO_ADC_NRESET" class="0">
 <segment>
 <pinref part="U1101" gate="G$1" pin="!RESET"/>
@@ -33626,6 +33599,25 @@ SPI</text>
 <pinref part="U1101" gate="G$1" pin="OSC1"/>
 <wire x1="121.92" y1="142.24" x2="157.48" y2="142.24" width="0.1524" layer="91"/>
 <label x="157.48" y="142.24" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="MAX5136_REF" class="0">
+<segment>
+<wire x1="137.16" y1="78.74" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="R1142" gate="G$1" pin="1"/>
+<wire x1="137.16" y1="66.04" x2="137.16" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="45.72" x2="139.7" y2="45.72" width="0.1524" layer="91"/>
+<pinref part="R1132" gate="G$1" pin="1"/>
+<wire x1="137.16" y1="66.04" x2="139.7" y2="66.04" width="0.1524" layer="91"/>
+<junction x="137.16" y="66.04"/>
+<pinref part="U1111" gate="G$1" pin="REFI"/>
+<wire x1="106.68" y1="68.58" x2="111.76" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="U1111" gate="G$1" pin="REFO"/>
+<wire x1="111.76" y1="68.58" x2="114.3" y2="68.58" width="0.1524" layer="91"/>
+<junction x="111.76" y="68.58"/>
+<pinref part="C1113" gate="G$1" pin="1"/>
+<wire x1="111.76" y1="68.58" x2="111.76" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="78.74" x2="111.76" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
