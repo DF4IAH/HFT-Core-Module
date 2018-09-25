@@ -9,7 +9,7 @@
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="3.125" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="Layer_2" color="1" fill="3" visible="yes" active="yes"/>
+<layer number="2" name="Layer_2" color="1" fill="3" visible="no" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
 <layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
@@ -22,21 +22,21 @@
 <layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Layer_15" color="4" fill="6" visible="yes" active="yes"/>
+<layer number="15" name="Layer_15" color="4" fill="6" visible="no" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="5" fill="1" visible="yes" active="yes"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
@@ -51,14 +51,14 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
-<layer number="47" name="Measures" color="13" fill="1" visible="yes" active="yes"/>
-<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="47" name="Measures" color="13" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
-<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="52" name="bDocu" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
@@ -5718,11 +5718,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="73.81875" y="79.21625" size="0.6096" layer="52" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="71.91375" y="81.43875" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="R1132" library="rcl" package="R0603" value="33kR" x="85.725" y="73.66" smashed="yes" rot="MR180">
+<element name="R1132" library="rcl" package="R0603" value="10MR" x="85.725" y="73.66" smashed="yes" rot="MR180">
 <attribute name="NAME" x="86.995" y="72.39" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="85.09" y="75.565" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="R1142" library="rcl" package="R0603" value="33kR" x="87.63" y="66.04" smashed="yes" rot="MR180">
+<element name="R1142" library="rcl" package="R0603" value="10MR" x="87.63" y="66.04" smashed="yes" rot="MR180">
 <attribute name="NAME" x="88.9" y="64.4525" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="86.995" y="67.945" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
@@ -5777,11 +5777,11 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="NAME" x="89.05875" y="74.295" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="87.15375" y="77.47" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="R1135" library="rcl" package="R0603" value="33kR" x="87.78875" y="76.835" smashed="yes" rot="MR180">
+<element name="R1135" library="rcl" package="R0603" value="10MR" x="87.78875" y="76.835" smashed="yes" rot="MR180">
 <attribute name="NAME" x="89.05875" y="77.7875" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="87.15375" y="78.74" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="R1145" library="rcl" package="R0603" value="33kR" x="91.44" y="67.945" smashed="yes" rot="MR0">
+<element name="R1145" library="rcl" package="R0603" value="10MR" x="91.44" y="67.945" smashed="yes" rot="MR0">
 <attribute name="NAME" x="92.71" y="66.3575" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="92.075" y="66.04" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>
