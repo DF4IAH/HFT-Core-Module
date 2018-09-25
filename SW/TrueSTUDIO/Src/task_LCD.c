@@ -159,14 +159,14 @@ void lcdTaskLoop(void)
   if (s_lcd_enable) {
     const int32_t p_100     = baroGetValue(BARO_GET_TYPE__QNH_100);
     const uint16_t p_100_i  = (uint16_t) (p_100 / 100UL);
-    const uint16_t p_100_f  = (uint16_t) (p_100 % 100UL);
+    const uint16_t p_100_f  = (uint16_t) (p_100 % 100UL) / 10U;
 
     const int16_t rh_100    = hygroGetValue(HYGRO_GET_TYPE__RH_100);
     const int16_t rh_100_i  = rh_100 / 100U;
     const int16_t rh_100_f  = (rh_100 % 100U) / 10U;
 
     uint8_t strBuf[17];
-    const uint8_t len       = sprintf((char*)strBuf, "%04u.%02uhPa %02u.%01u%%", p_100_i, p_100_f, rh_100_i, rh_100_f);
+    const uint8_t len       = sprintf((char*)strBuf, "%04u.%01uhPa  %02u.%01u%%", p_100_i, p_100_f, rh_100_i, rh_100_f);
 
     if (p_100) {
       lcdTextWrite(1U, 0U, len, strBuf);
