@@ -548,19 +548,19 @@ int main(void)
     /* ARM software reset to be done */
     SystemResetbyARMcore();
   }
-  __HAL_RCC_CLEAR_RESET_FLAGS();  // 23.0mA --> 23.0mA
+  __HAL_RCC_CLEAR_RESET_FLAGS();                                                                      // 26.0mA --> 25.5mA
 
-#if 0
+  #if 0
   /* Give PMIC devices 3 seconds time to stabilize before demand of power ramps up */
   for (uint32_t delayCntr = 1000000UL; delayCntr; delayCntr--) { }
-#endif
+  #endif
 
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+  HAL_Init();                                                                                         // 25.5mA --> 28.5mA
 
   /* USER CODE BEGIN Init */
 
@@ -576,12 +576,12 @@ int main(void)
 
   /* MSI trim */
   //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
-  HAL_RCCEx_EnableMSIPLLMode();
+  HAL_RCCEx_EnableMSIPLLMode();                                                                       // 28.5mA --> 28.5mA
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
+  MX_GPIO_Init();                                                                                     // 28.5mA --> 45.0mA
   MX_DMA_Init();
   MX_ADC1_Init();
   MX_CRC_Init();
@@ -605,6 +605,27 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
+
+  #if 1
+  /* Disable greedy CS of AUDIO_ADC */
+  {
+    GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+
+    GPIO_InitStruct.Pin = MCU_OUT_AUDIO_ADC_SEL_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  //GPIO_InitStruct.Alternate = ;
+    HAL_GPIO_Init(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, &GPIO_InitStruct);
+  }
+  #endif
+
+
+  //#define I2C_BUS4_SCAN
+  #ifdef I2C_BUS4_SCAN
+  i2cBusAddrScan(&hi2c4, i2c4MutexHandle);
+  #endif
+
 
 #if 0
   /* Disable clocks again to save power */
@@ -2117,7 +2138,7 @@ void StartDefaultTask(void const * argument)
   PowerSwitchInit();        // 32.0mA --> 28.0mA
 
   /* Si5338 clock generator */
-#if 1
+#if 0
   /* Switch on Si5338 clock PLL */
 # if 0
   si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
@@ -2129,16 +2150,19 @@ void StartDefaultTask(void const * argument)
 #endif
 
   /* LCD-backlight default settings */
-  LcdBacklightInit();       // 28.0mA --> 30.0mA  !!!!
+  //LcdBacklightInit();       // 28.0mA --> 30.0mA  !!!!
 
-#ifdef I2C4_BUS_ADDR_SCAN
-  i2cI2c4AddrScan();
-#endif
-
-  osDelay(850UL);
+  osDelay(1500UL);
 
 
-  #define TEST_ADC
+  //#define I2C4_BUS_ADDR_SCAN
+  //#define TEST_DAC
+  //#define TEST_ADC
+
+
+  #ifdef I2C4_BUS_ADDR_SCAN
+  i2cBusAddrScan(&hi2c4, i2c4MutexHandle);
+  #endif
 
   #ifdef TEST_DAC
   PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);

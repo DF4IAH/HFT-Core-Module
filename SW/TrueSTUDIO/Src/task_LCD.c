@@ -27,102 +27,108 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_lcd_enable                      = 0U;
+static uint8_t              s_lcd_enable                      = 1U;
 
+
+uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf)
+{
+  if (s_lcd_enable) {
+    /* Sanity checks */
+    if (row > 1 || col > 15) {
+      return HAL_ERROR;
+    }
+
+    const uint8_t cursorPos = 0x7fU & (row * 40U + col);
+
+    /* Set Position */
+    {
+      const uint8_t cmdBuf[1] = { 0x80U | cursorPos };
+      i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
+      osDelay(2U);
+    }
+
+    /* Write Text */
+    {
+      for (uint8_t txtIdx = 0U; txtIdx < strLen; ++txtIdx) {
+        i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x40, 1, strBuf + txtIdx);
+        osDelay(2U);
+      }
+    }
+    return HAL_OK;
+  }
+  return HAL_ERROR;
+}
 
 static void lcdInit(void)
 {
-  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+  /* LCD MIDAS MCCOG21605B6W-FPTLWI */
 
   usbLog("< LcdInit -\r\n");
 
   do {
-    /* Signal Reset */
-    HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_RESET));
-    osDelay(1);
-    HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_SET));
-    osDelay(50);
+    /* Hardware reset */
+    {
+      HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_RESET));
+      osDelay(2U);
 
-#ifdef HISTORIC
-    /* LCD NHD-C0220BiZ-FS(RGB)-FBW-3VM */
-
-    /* Reset */
-    i2c4TxBuffer[0] = 0x80;                                                                              // Co
-    i2c4TxBuffer[1] = 0x38;
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
-    }
-    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
-      /* Chip not responding */
-      usbLog(". i2cI2c4LcdInit: ERROR LCD does not respond\r\n");
-      break;
-    }
-    osDelay(10);
-
-    i2c4TxBuffer[0] = 0x00;                                                                              // Co
-    i2c4TxBuffer[1] = 0x39;
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
-    }
-    osDelay(10);
-
-    i2c4TxBuffer[0] = 0x80;                                                                              // Co
-    i2c4TxBuffer[1] = 0x14;
-    i2c4TxBuffer[2] = 0x78;
-    i2c4TxBuffer[3] = 0x5E;
-    i2c4TxBuffer[4] = 0x6D;
-    i2c4TxBuffer[5] = 0x0C;
-    i2c4TxBuffer[6] = 0x01;
-    i2c4TxBuffer[7] = 0x06;
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(8U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+      HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_SET));
+      osDelay(50U);
     }
 
-    i2c4TxBuffer[ 0] = 0x40;                                                                              // Data
-    i2c4TxBuffer[ 1] = '*';
-    i2c4TxBuffer[ 2] = ' ';
-    i2c4TxBuffer[ 3] = 'H';
-    i2c4TxBuffer[ 4] = 'F';
-    i2c4TxBuffer[ 5] = 'T';
-    i2c4TxBuffer[ 6] = '-';
-    i2c4TxBuffer[ 7] = 'C';
-    i2c4TxBuffer[ 8] = 'o';
-    i2c4TxBuffer[ 9] = 'r';
-    i2c4TxBuffer[10] = 'e';
-    i2c4TxBuffer[11] = '-';
-    i2c4TxBuffer[12] = 'M';
-    i2c4TxBuffer[13] = 'o';
-    i2c4TxBuffer[14] = 'd';
-    i2c4TxBuffer[15] = 'u';
-    i2c4TxBuffer[16] = 'l';
-    i2c4TxBuffer[17] = 'e';
-    i2c4TxBuffer[18] = ' ';
-    i2c4TxBuffer[19] = '*';
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_LCD_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(20U, TXBUFFERSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
+    /* Function Set 0x38 (interface: 8bits; lines: 2; single height font; instruction table: 0) */
+    {
+      const uint8_t txMsg[1] = { 0x38U };
+
+      uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, txMsg);
+      if (i2cErr == HAL_I2C_ERROR_AF) {
+        s_lcd_enable = 0U;
+
+        /* Chip not responding */
+        usbLog(". LcdInit: ERROR display does not respond\r\n");
+        break;
+      }
+      osDelay(2U);
     }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+
+    /* Function set 0x39 (same above; instruction table: 1) */
+    {
+      const uint8_t txMsg[1] = { 0x39U };
+
+      i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, txMsg);
+      osDelay(2U);
     }
-#endif
+
+    /* Settings */
+    {
+      const uint8_t cmds[6] = {
+          0x14U,                                                                                      // Internal OSC frequency - 1/5 bias; Osc frequency: abt. 185 Hz
+          0x74U,                                                                                      // Contrast: 4 of [0..63]
+          0x54U,                                                                                      // Icon: off; Booster: on; Contrast: MSB of 4
+          0x6fU,                                                                                      // Follower: on; amplification ratio: 7 of [0..7]
+          0x0cU,                                                                                      // Display: on; Cursor: off; Cursor position: off
+          0x01U                                                                                       // Clear display
+      };
+      const uint8_t cmdCnt = sizeof(cmds);
+
+      for (uint8_t cmdIdx = 0U; cmdIdx < cmdCnt; ++cmdIdx) {
+        i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, cmds + cmdIdx);
+        osDelay(2U);
+      }
+    }
+
+    /* Welcome Text / Logo */
+    {
+      const uint8_t strBuf[]  = "*HFT-CoreModule*";
+      const uint8_t strLen    = sizeof(strBuf);
+
+      for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
+        i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x40, 1U, strBuf + strIdx);
+        osDelay(2U);
+      }
+    }
   } while(0);
 
-  usbLog("- i2cI2c4LcdInit >\r\n\r\n");
-
-  osSemaphoreRelease(i2c4MutexHandle);
+  usbLog("- LcdInit >\r\n\r\n");
 }
 
 
@@ -130,24 +136,40 @@ static void lcdInit(void)
 
 void lcdTaskInit(void)
 {
-  osDelay(500UL);
-  lcdInit();
+  osDelay(200UL);
+
+  if (s_lcd_enable) {
+    lcdInit();
+  }
 }
 
 void lcdTaskLoop(void)
 {
-  const uint32_t  eachMs              = 250UL;
+  const uint32_t  eachMs              = 1000UL;
   static uint32_t sf_previousWakeTime = 0UL;
 
   if (!sf_previousWakeTime) {
     sf_previousWakeTime  = osKernelSysTick();
     sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 500UL;
+    sf_previousWakeTime += 200UL;
   }
 
   osDelayUntil(&sf_previousWakeTime, eachMs);
 
   if (s_lcd_enable) {
-    // TODO: code here
+    const int32_t p_100     = baroGetValue(BARO_GET_TYPE__QNH_100);
+    const uint16_t p_100_i  = (uint16_t) (p_100 / 100UL);
+    const uint16_t p_100_f  = (uint16_t) (p_100 % 100UL);
+
+    const int16_t rh_100    = hygroGetValue(HYGRO_GET_TYPE__RH_100);
+    const int16_t rh_100_i  = rh_100 / 100U;
+    const int16_t rh_100_f  = (rh_100 % 100U) / 10U;
+
+    uint8_t strBuf[17];
+    const uint8_t len       = sprintf((char*)strBuf, "%04u.%02uhPa %02u.%01u%%", p_100_i, p_100_f, rh_100_i, rh_100_f);
+
+    if (p_100) {
+      lcdTextWrite(1U, 0U, len, strBuf);
+    }
   }
 }

@@ -30,11 +30,10 @@ extern I2C_HandleTypeDef    hi2c2;
 extern I2C_HandleTypeDef    hi2c3;
 extern I2C_HandleTypeDef    hi2c4;
 
-uint8_t                     i2c4TxBuffer[I2C_TXBUFSIZE];
-uint8_t                     i2c4RxBuffer[I2C_RXBUFSIZE];
+volatile uint8_t            i2c4TxBuffer[I2C_TXBUFSIZE];
+volatile uint8_t            i2c4RxBuffer[I2C_RXBUFSIZE];
 
 
-#ifdef I2C_BUS_ADDR_SCAN
 void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle) {
   /* DEBUG I2C4 Bus */
   char dbgBuf[64];
@@ -44,10 +43,9 @@ void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle) {
 
   i2c4TxBuffer[0] = 0x00;
   for (uint8_t addr = 0x01U; addr <= 0x7FU; addr++) {
-    if (HAL_I2C_Master_Sequential_Transmit_IT(dev, (uint16_t) (addr << 1U),
-        (uint8_t*) i2c4TxBuffer, min(0U, I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME)
-        != HAL_OK) {
-      usbLog("ERROR: 1\r\n");
+    if (HAL_OK != HAL_I2C_Master_Sequential_Transmit_IT(dev, ((uint16_t)addr << 1U), (uint8_t*) i2c4TxBuffer, 0U, I2C_FIRST_AND_LAST_FRAME)) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
     }
     while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
       osDelay(1);
@@ -61,7 +59,6 @@ void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle) {
 
   osSemaphoreRelease(mutexHandle);
 }
-#endif
 
 //#define DEBUG_WRITE_MASK 1
 uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
@@ -74,7 +71,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
       /* Write without read */
       i2c4TxBuffer[0] = dataAry[listIdx].Reg_Addr;
       i2c4TxBuffer[1] = dataAry[listIdx].Reg_Val;
-      if (HAL_I2C_Master_Sequential_Transmit_IT(dev, (uint16_t) (addr << 1U),
+      if (HAL_I2C_Master_Sequential_Transmit_IT(dev, ((uint16_t)addr << 1U),
           (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE),
           I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
         /* Error_Handler() function is called when error occurs. */
@@ -126,7 +123,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
         return HAL_I2C_ERROR_AF;
       }
 
-      memset(i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
+      memset((uint8_t*) i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
       if (HAL_I2C_Master_Sequential_Receive_IT(dev, (uint16_t) (addr << 1U),
           (uint8_t*) i2c4RxBuffer, min(1U, I2C_RXBUFSIZE), I2C_OTHER_FRAME)
           != HAL_OK) {
@@ -195,9 +192,7 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
     i2c4TxBuffer[idx + 1] = i2cWriteAryLong[idx];
   }
 
-  if (HAL_I2C_Master_Sequential_Transmit_IT(dev, (uint16_t) (addr << 1U),
-      (uint8_t*) i2c4TxBuffer, min((count + 1U), I2C_TXBUFSIZE),
-      I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+  if (HAL_OK != HAL_I2C_Master_Sequential_Transmit_IT(dev, ((uint16_t)addr << 1U), (uint8_t*) i2c4TxBuffer, min((1U + count), I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME)) {
     /* Error_Handler() function is called when error occurs. */
     Error_Handler();
   }
@@ -233,7 +228,9 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t 
   while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
     osDelay(1);
   }
-  if (HAL_I2C_GetError(dev) == HAL_I2C_ERROR_AF) {
+  uint32_t i2cErr = HAL_I2C_GetError(dev);
+
+  if (i2cErr == HAL_I2C_ERROR_AF) {
     /* Return mutex */
     osSemaphoreRelease(i2c4MutexHandle);
 
@@ -242,8 +239,8 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t 
     return HAL_I2C_ERROR_AF;
   }
 
-  memset(i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
-  if (HAL_I2C_Master_Sequential_Receive_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) i2c4RxBuffer, min(readLen, I2C_RXBUFSIZE), I2C_OTHER_FRAME) != HAL_OK) {
+  memset((uint8_t*) i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
+  if (HAL_I2C_Master_Sequential_Receive_IT(dev, (uint16_t) (addr << 1U), (uint8_t*) i2c4RxBuffer, min(readLen, I2C_RXBUFSIZE), I2C_LAST_FRAME) != HAL_OK) {
     Error_Handler();
   }
   while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {

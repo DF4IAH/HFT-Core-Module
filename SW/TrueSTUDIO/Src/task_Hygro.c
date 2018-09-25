@@ -27,7 +27,7 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_hygro_enable                    = 0U;
+static uint8_t              s_hygro_enable                    = 1U;
 static uint8_t              s_hygroValid                      = 0U;
 static uint16_t             s_hygroState                      = 0U;
 static int16_t              s_hygro_T_100                     = 0;
@@ -38,6 +38,31 @@ static int16_t              s_hygro_T_cor_100                 = 0;
 static int16_t              s_hygro_RH_cor_100                = 0;
 static int16_t              s_hygro_DP_100                    = 0;
 
+
+
+int16_t hygroGetValue(HYGRO_GET_TYPE_t type)
+{
+  if (s_hygroValid) {
+    switch (type) {
+    case HYGRO_GET_TYPE__RH_100:
+      return s_hygro_RH_100;
+      break;
+
+    case HYGRO_GET_TYPE__T_100:
+      return s_hygro_T_100;
+      break;
+
+    case HYGRO_GET_TYPE__DP_100:
+      return s_hygro_DP_100;
+      break;
+
+    default:
+      { }
+    }
+  }
+
+  return 0;
+}
 
 static void hygroInit(void)
 {
@@ -236,6 +261,7 @@ void hygroTaskLoop(void)
   if (s_hygro_enable) {
     hygroFetch();
     hygroCalc();
-    hygroDistributor();
+
+    //hygroDistributor();
   }
 }

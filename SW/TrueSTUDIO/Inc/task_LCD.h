@@ -11,7 +11,7 @@
 
 /* I2C devices */
 
-#define I2C_SLAVE_LCD_ADDR                                    0x3EU
+#define I2C_SLAVE_LCD_ADDR                                    0x3eU
 
 #define I2C_SLAVE_LCD_REG_CLEAR_DISPLAY                       0x01U
 #define I2C_SLAVE_LCD_REG_RETURN_HOME                         0x02U
@@ -34,6 +34,10 @@
 // Instruction table 2
 #define I2C_SLAVE_LCD_IT2_REG_DOUBLE_HEIGHT_POS               0x10U
 #define I2C_SLAVE_LCD_IT2_REG_RESERVED                        0x40U
+
+
+
+uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf);
 
 
 /* Task */

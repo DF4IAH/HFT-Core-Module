@@ -75,6 +75,21 @@
 #define I2C_SLAVE_HYGRO_REG_FETCH_DATA_LO                     0x00U
 
 
+typedef enum HYGRO_GET_TYPE_ENUM {
+
+  HYGRO_GET_TYPE__RH_100                                      = 1,
+  HYGRO_GET_TYPE__T_100,
+  HYGRO_GET_TYPE__DP_100
+
+} HYGRO_GET_TYPE_t;
+
+
+
+int16_t hygroGetValue(HYGRO_GET_TYPE_t type);
+
+
+/* Task */
+
 void hygroTaskInit(void);
 void hygroTaskLoop(void);
 

@@ -30,7 +30,7 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_baro_enable                     = 0U;
+static uint8_t              s_baro_enable                     = 1U;
 static uint8_t              s_baroValid                       = 0U;
 static uint16_t             s_baroVersion                     = 0U;
 static uint16_t             s_baro_c[C_I2C_BARO_C_CNT]        = { 0U };
@@ -42,6 +42,30 @@ static int32_t              s_baro_temp_100                   = 0L;
 static int32_t              s_baro_p_100                      = 0L;
 static int32_t              s_baro_qnh_p_h_100                = 0L;
 
+
+int32_t baroGetValue(BARO_GET_TYPE_t type)
+{
+  if (s_baroValid) {
+    switch (type) {
+    case BARO_GET_TYPE__TEMP_100:
+      return s_baro_temp_100;
+      break;
+
+    case BARO_GET_TYPE__P_100:
+      return s_baro_p_100;
+      break;
+
+    case BARO_GET_TYPE__QNH_100:
+      return s_baro_qnh_p_h_100;
+      break;
+
+    default:
+      { }
+    }
+  }
+
+  return 0L;
+}
 
 static void baroFetch(void)
 {
@@ -259,6 +283,7 @@ void baroTaskLoop(void)
 
     baroFetch();
     baroCalc();
-    baroDistributor();
+
+    //baroDistributor();
   }
 }
