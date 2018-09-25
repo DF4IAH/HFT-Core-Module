@@ -30,6 +30,19 @@
 #define C_I2C_BARO_C_CNT                                      8
 
 
+typedef enum BARO_GET_TYPE_ENUM {
+
+  BARO_GET_TYPE__TEMP_100                                     = 1,
+  BARO_GET_TYPE__P_100,
+  BARO_GET_TYPE__QNH_100
+
+} BARO_GET_TYPE_t;
+
+
+
+int32_t baroGetValue(BARO_GET_TYPE_t type);
+
+
 /* Task */
 
 void baroTaskInit(void);

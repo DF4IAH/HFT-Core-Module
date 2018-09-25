@@ -29,9 +29,6 @@
 #define I2C_RXBUFSIZE                                         32U
 
 
-#define I2C_BUS_ADDR_SCAN                                     1
-
-
 void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle);
 uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint16_t count, const Reg_Data_t dataAry[]);
 uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cReg, uint16_t count, const uint8_t i2cWriteAryLong[]);
