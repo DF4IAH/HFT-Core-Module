@@ -6907,7 +6907,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <attribute name="VALUE" x="28.2575" y="50.244375" size="1.27" layer="28" rot="MR0"/>
 </element>
 <element name="X1401" library="df4iah_connector" package="WIRE-TO-BOARD_5MM08_1X02" value="WIRE-TO-BOARD_5MM08_1X02" x="5.08" y="82.55" rot="R180"/>
-<element name="R1501" library="df4iah_rcl" package="R0805" value="100R" x="24.765" y="45.974" smashed="yes" rot="MR90">
+<element name="R1501" library="df4iah_rcl" package="R0805" value="68R" x="24.765" y="45.974" smashed="yes" rot="MR90">
 <attribute name="NAME" x="23.114" y="44.45" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="22.225" y="45.339" size="1.27" layer="28" rot="MR90"/>
 </element>

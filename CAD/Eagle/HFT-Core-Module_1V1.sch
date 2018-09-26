@@ -28596,7 +28596,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="R1411" library="rcl" deviceset="R-EU_" device="R0603" value="1kR"/>
 <part name="R1412" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="X1401" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
-<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0805" value="100R"/>
+<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0805" value="68R"/>
 <part name="R0331" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="R0332" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
 <part name="C0532" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
