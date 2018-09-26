@@ -54,9 +54,9 @@
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
-<layer number="47" name="Measures" color="13" fill="1" visible="no" active="yes"/>
-<layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="13" fill="1" visible="yes" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="52" name="bDocu" color="15" fill="1" visible="yes" active="yes"/>
@@ -187,10 +187,7 @@ Hochschule Mannheim, Germany</text>
 <text x="7.62" y="1.27" size="0.8128" layer="51">4x 2.8 mm</text>
 <dimension x1="0" y1="96.52" x2="96.52" y2="96.52" x3="48.26" y3="106.68" textsize="1.016" textratio="10" layer="47"/>
 <text x="54.61" y="96.52" size="1.778" layer="51">3.5 mm / 2 for each board</text>
-<dimension x1="0" y1="0" x2="19.05" y2="0" x3="9.525" y3="-3.81" textsize="1.016" textratio="10" layer="47" dtype="horizontal"/>
-<dimension x1="77.47" y1="0" x2="96.52" y2="0" x3="86.995" y3="-3.81" textsize="1.016" textratio="10" layer="47" dtype="horizontal"/>
 <dimension x1="96.52" y1="0" x2="96.52" y2="1.27" x3="100.33" y3="0.635" textsize="1.016" textratio="11" layer="47" dtype="horizontal"/>
-<dimension x1="0" y1="0" x2="0" y2="19.05" x3="-13.97" y3="9.525" textsize="1.016" textratio="11" layer="47"/>
 <text x="50.165" y="42.545" size="1.27" layer="21">5V</text>
 <text x="50.165" y="48.26" size="1.27" layer="21">3.3V</text>
 <text x="40.64" y="71.12" size="1.27" layer="21">VBAT</text>
@@ -208,6 +205,12 @@ Hochschule Mannheim, Germany</text>
 <text x="65.7225" y="26.67" size="0.4064" layer="22" font="vector" ratio="10" rot="MR0">ADC2</text>
 <text x="66.9925" y="34.29" size="0.4064" layer="22" font="vector" ratio="10" rot="MR0">GPIO</text>
 <wire x1="96.52" y1="96.52" x2="96.52" y2="0" width="0" layer="20"/>
+<dimension x1="0" y1="0" x2="0" y2="21.59" x3="-13.97" y3="10.795" textsize="1.016" textratio="10" layer="47"/>
+<dimension x1="0" y1="96.52" x2="0" y2="74.93" x3="-13.97" y3="85.725" textsize="1.016" textratio="10" layer="47"/>
+<dimension x1="21.59" y1="93.98" x2="0" y2="93.98" x3="10.795" y3="110.49" textsize="1.016" textratio="10" layer="47"/>
+<dimension x1="96.52" y1="96.52" x2="74.93" y2="96.52" x3="85.725" y3="110.49" textsize="1.016" textratio="10" layer="47"/>
+<dimension x1="0" y1="0" x2="21.59" y2="0" x3="10.795" y3="-3.81" textsize="1.016" textratio="10" layer="47"/>
+<dimension x1="96.52" y1="0" x2="74.93" y2="0" x3="85.725" y3="-3.81" textsize="1.016" textratio="10" layer="47"/>
 </plain>
 <libraries>
 <library name="holes">
