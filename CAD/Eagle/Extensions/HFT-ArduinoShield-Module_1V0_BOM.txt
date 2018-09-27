@@ -1,0 +1,13 @@
+Stückliste exportiert aus /Users/espero/nfs_ds_nfs/git/HFT-Core-Module__HW_1V1/CAD/Eagle/Extensions/HFT-ArduinoShield-Module_1V0.sch am 27.09.18 20:26
+
+Qty Value                                   Device                                  Package                                 Parts                  Description                                
+1                                           2X08_2MM56_SOCKET                       2X08                                    X108                   Header 2X08 2.54mm                         
+1                                           2X10_2MM56_SOCKET                       2X10                                    X107                   Header 2X10 2.54mm                         
+1                                           2X15_2MM56_SOCKET                       2X15                                    X105                   Header 2X15 2.54mm                         
+2                                           2X17_2MM56_SOCKET                       2X17                                    X110, X190             Header 2X17 2.54mm                         
+1                                           2X20_2MM56_SOCKET                       2X20                                    X201                   Header 2X20 2.54mm                         
+2   100nF                                   C-EUC0603                               C0603                                   C108, C118             CAPACITOR, European symbol                 
+1   120R                                    R-EU_R0603                              R0603                                   R201                   RESISTOR, European symbol                  
+2   2X20/90_1MM27_HARWIN_M50-3902042_HEADER 2X20/90_1MM27_HARWIN_M50-3902042_HEADER 2X20/90_1MM27_HARWIN_M50-3902042_HEADER X301, X302             Header 20X2 1.27mm M50-3902042 Archer, 90° 
+2   47R                                     R-EU_R0603                              R0603                                   R107, R110             RESISTOR, European symbol                  
+4   MOUNT-PAD-ROUND2.8                      MOUNT-PAD-ROUND2.8                      2,8-PAD                                 H401, H402, H403, H404 MOUNTING PAD, round                        
