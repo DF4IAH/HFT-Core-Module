@@ -2562,15 +2562,15 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <element name="H401" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="74.93" y="91.44" locked="yes" smashed="yes"/>
 <element name="H404" library="holes" package="2,8-PAD" value="MOUNT-PAD-ROUND2.8" x="74.93" y="5.08" locked="yes" smashed="yes"/>
 <element name="X301" library="df4iah_connector" package="2X20/90_1MM27_HARWIN_M50-3902042_HEADER" value="2X20/90_1MM27_HARWIN_M50-3902042_HEADER" x="76.2" y="33.02" locked="yes" smashed="yes" rot="R90">
-<attribute name="NAME" x="73.025" y="45.72" size="0.6096" layer="25" font="vector" ratio="10"/>
+<attribute name="NAME" x="73.66" y="20.955" size="1.27" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="80.01" y="47.625" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
 <element name="X302" library="df4iah_connector" package="2X20/90_1MM27_HARWIN_M50-3902042_HEADER" value="2X20/90_1MM27_HARWIN_M50-3902042_HEADER" x="76.2" y="62.23" locked="yes" smashed="yes" rot="R90">
-<attribute name="NAME" x="73.025" y="74.93" size="0.6096" layer="25" font="vector" ratio="10"/>
+<attribute name="NAME" x="73.66" y="50.165" size="1.27" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="80.01" y="76.835" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
 <element name="X108" library="df4iah_connector" package="2X08" value="" x="11.43" y="71.12" locked="yes" smashed="yes" rot="R270">
-<attribute name="NAME" x="15.24" y="81.28" size="1.27" layer="25" font="vector" ratio="16"/>
+<attribute name="NAME" x="3.81" y="81.28" size="1.27" layer="25" font="vector" ratio="16"/>
 <attribute name="VALUE" x="6.985" y="81.28" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="X107" library="df4iah_connector" package="2X10" value="" x="62.23" y="77.47" locked="yes" smashed="yes" rot="R270">
@@ -2578,7 +2578,7 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <attribute name="VALUE" x="57.785" y="90.17" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="X105" library="df4iah_connector" package="2X15" value="" x="11.43" y="38.1" locked="yes" smashed="yes" rot="R270">
-<attribute name="NAME" x="15.24" y="58.42" size="1.27" layer="25" font="vector" ratio="15"/>
+<attribute name="NAME" x="3.81" y="58.42" size="1.27" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="6.985" y="58.42" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="X110" library="df4iah_connector" package="2X17" value="" x="62.23" y="40.64" locked="yes" smashed="yes" rot="R270">
