@@ -7905,6 +7905,12 @@ Source: AVX .. aphvc.pdf</description>
 <text x="175.26" y="90.678" size="1.778" layer="97">D1</text>
 <text x="175.26" y="88.138" size="1.778" layer="97">D0</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Arduino Uno sockets</text>
+<text x="108.966" y="68.326" size="2.54" layer="97">Interconnect
+with PI socket</text>
+<wire x1="91.44" y1="71.12" x2="106.68" y2="71.12" width="1.6764" layer="97"/>
+<wire x1="139.7" y1="71.12" x2="154.94" y2="71.12" width="1.6764" layer="97"/>
+<wire x1="91.44" y1="81.28" x2="91.44" y2="66.04" width="1.6764" layer="97"/>
+<wire x1="154.94" y1="76.2" x2="154.94" y2="66.04" width="1.6764" layer="97"/>
 </plain>
 <instances>
 <instance part="FRAME_01" gate="G$1" x="0" y="0"/>
@@ -8059,53 +8065,74 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="71.12" y1="83.82" x2="81.28" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N105_17" class="0">
+<net name="PI_11" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="17"/>
 <pinref part="X105" gate="G$1" pin="18"/>
 <wire x1="71.12" y1="81.28" x2="81.28" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="81.28" x2="58.42" y2="81.28" width="0.1524" layer="91"/>
+<junction x="71.12" y="81.28"/>
+<label x="58.42" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N105_19" class="0">
+<net name="PI_13" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="19"/>
 <pinref part="X105" gate="G$1" pin="20"/>
 <wire x1="71.12" y1="78.74" x2="81.28" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="78.74" x2="58.42" y2="78.74" width="0.1524" layer="91"/>
+<junction x="71.12" y="78.74"/>
+<label x="58.42" y="78.74" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N105_21" class="0">
+<net name="PI_15" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="21"/>
 <pinref part="X105" gate="G$1" pin="22"/>
 <wire x1="71.12" y1="76.2" x2="81.28" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="76.2" x2="58.42" y2="76.2" width="0.1524" layer="91"/>
+<junction x="71.12" y="76.2"/>
+<label x="58.42" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N105_23" class="0">
+<net name="PI_27" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="23"/>
 <pinref part="X105" gate="G$1" pin="24"/>
 <wire x1="71.12" y1="73.66" x2="81.28" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="73.66" x2="58.42" y2="73.66" width="0.1524" layer="91"/>
+<junction x="71.12" y="73.66"/>
+<label x="58.42" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N105_25" class="0">
+<net name="PI_29" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="25"/>
 <pinref part="X105" gate="G$1" pin="26"/>
 <wire x1="71.12" y1="71.12" x2="81.28" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="71.12" x2="58.42" y2="71.12" width="0.1524" layer="91"/>
+<junction x="71.12" y="71.12"/>
+<label x="58.42" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N105_27" class="0">
+<net name="PI_31" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="27"/>
 <pinref part="X105" gate="G$1" pin="28"/>
 <wire x1="71.12" y1="68.58" x2="81.28" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="68.58" x2="58.42" y2="68.58" width="0.1524" layer="91"/>
+<junction x="71.12" y="68.58"/>
+<label x="58.42" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N105_29" class="0">
+<net name="PI_37" class="0">
 <segment>
 <pinref part="X105" gate="G$1" pin="29"/>
 <pinref part="X105" gate="G$1" pin="30"/>
 <wire x1="71.12" y1="66.04" x2="81.28" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="66.04" x2="58.42" y2="66.04" width="0.1524" layer="91"/>
+<junction x="71.12" y="66.04"/>
+<label x="58.42" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N110_01" class="0">
@@ -8178,39 +8205,54 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="162.56" y1="78.74" x2="172.72" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N110_25" class="0">
+<net name="PI_16" class="0">
 <segment>
 <pinref part="X110" gate="G$1" pin="25"/>
 <pinref part="X110" gate="G$1" pin="26"/>
 <wire x1="162.56" y1="76.2" x2="172.72" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="76.2" x2="185.42" y2="76.2" width="0.1524" layer="91"/>
+<junction x="172.72" y="76.2"/>
+<label x="185.42" y="76.2" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N110_27" class="0">
+<net name="PI_18" class="0">
 <segment>
 <pinref part="X110" gate="G$1" pin="27"/>
 <pinref part="X110" gate="G$1" pin="28"/>
 <wire x1="162.56" y1="73.66" x2="172.72" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="73.66" x2="185.42" y2="73.66" width="0.1524" layer="91"/>
+<junction x="172.72" y="73.66"/>
+<label x="185.42" y="73.66" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N110_29" class="0">
+<net name="PI_22" class="0">
 <segment>
 <pinref part="X110" gate="G$1" pin="29"/>
 <pinref part="X110" gate="G$1" pin="30"/>
 <wire x1="162.56" y1="71.12" x2="172.72" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="71.12" x2="185.42" y2="71.12" width="0.1524" layer="91"/>
+<junction x="172.72" y="71.12"/>
+<label x="185.42" y="71.12" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N110_31" class="0">
+<net name="PI_28" class="0">
 <segment>
 <pinref part="X110" gate="G$1" pin="31"/>
 <pinref part="X110" gate="G$1" pin="32"/>
 <wire x1="162.56" y1="68.58" x2="172.72" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="68.58" x2="185.42" y2="68.58" width="0.1524" layer="91"/>
+<junction x="172.72" y="68.58"/>
+<label x="185.42" y="68.58" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N110_33" class="0">
+<net name="PI_36" class="0">
 <segment>
 <pinref part="X110" gate="G$1" pin="33"/>
 <pinref part="X110" gate="G$1" pin="34"/>
 <wire x1="162.56" y1="66.04" x2="172.72" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="66.04" x2="185.42" y2="66.04" width="0.1524" layer="91"/>
+<junction x="172.72" y="66.04"/>
+<label x="185.42" y="66.04" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -8559,6 +8601,9 @@ Source: AVX .. aphvc.pdf</description>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">Raspberry Pi socket</text>
 <text x="137.16" y="127" size="1.778" layer="97">(TXD)</text>
 <text x="137.16" y="124.46" size="1.778" layer="97">(RXD)</text>
+<text x="113.284" y="69.596" size="2.54" layer="97">Interconnect with
+Arduino sockets:
+PI_xx</text>
 </plain>
 <instances>
 <instance part="FRAME_02" gate="G$1" x="0" y="0"/>
@@ -8794,6 +8839,90 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="15.24" y1="116.84" x2="17.78" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="119.38" x2="66.04" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="R201" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="PI_11" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="11"/>
+<wire x1="124.46" y1="121.92" x2="111.76" y2="121.92" width="0.1524" layer="91"/>
+<label x="111.76" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_13" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="13"/>
+<wire x1="124.46" y1="119.38" x2="111.76" y2="119.38" width="0.1524" layer="91"/>
+<label x="111.76" y="119.38" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_15" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="15"/>
+<wire x1="124.46" y1="116.84" x2="111.76" y2="116.84" width="0.1524" layer="91"/>
+<label x="111.76" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_27" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="27"/>
+<wire x1="124.46" y1="101.6" x2="111.76" y2="101.6" width="0.1524" layer="91"/>
+<label x="111.76" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_29" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="29"/>
+<wire x1="124.46" y1="99.06" x2="111.76" y2="99.06" width="0.1524" layer="91"/>
+<label x="111.76" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_31" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="31"/>
+<wire x1="124.46" y1="96.52" x2="111.76" y2="96.52" width="0.1524" layer="91"/>
+<label x="111.76" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_37" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="37"/>
+<wire x1="124.46" y1="88.9" x2="111.76" y2="88.9" width="0.1524" layer="91"/>
+<label x="111.76" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PI_16" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="16"/>
+<wire x1="134.62" y1="116.84" x2="147.32" y2="116.84" width="0.1524" layer="91"/>
+<label x="147.32" y="116.84" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="PI_18" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="18"/>
+<wire x1="134.62" y1="114.3" x2="147.32" y2="114.3" width="0.1524" layer="91"/>
+<label x="147.32" y="114.3" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="PI_22" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="22"/>
+<wire x1="134.62" y1="109.22" x2="147.32" y2="109.22" width="0.1524" layer="91"/>
+<label x="147.32" y="109.22" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="PI_28" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="28"/>
+<wire x1="134.62" y1="101.6" x2="147.32" y2="101.6" width="0.1524" layer="91"/>
+<label x="147.32" y="101.6" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="PI_36" class="0">
+<segment>
+<pinref part="X201" gate="G$1" pin="36"/>
+<wire x1="134.62" y1="91.44" x2="147.32" y2="91.44" width="0.1524" layer="91"/>
+<label x="147.32" y="91.44" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -9354,4 +9483,10 @@ Source: AVX .. aphvc.pdf</description>
 </errors>
 </schematic>
 </drawing>
+<compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
+</compatibility>
 </eagle>
