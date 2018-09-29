@@ -62,6 +62,7 @@
 
 /* USER CODE BEGIN INCLUDE */
 
+ void HFTcore_USB_DEVICE_Init(void);
 /* USER CODE END INCLUDE */
 
 /** @addtogroup USBD_OTG_DRIVER

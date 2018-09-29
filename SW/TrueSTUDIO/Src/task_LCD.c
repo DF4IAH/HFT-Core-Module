@@ -126,6 +126,9 @@ static void lcdInit(void)
         osDelay(2U);
       }
     }
+
+    /* LCD-backlight default settings */
+    //LcdBacklightInit();
   } while(0);
 
   usbLog("- LcdInit >\r\n\r\n");

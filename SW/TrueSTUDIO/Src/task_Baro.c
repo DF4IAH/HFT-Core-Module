@@ -30,14 +30,20 @@ extern I2C_HandleTypeDef    hi2c4;
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
+
+/* Correction offset values */
+static int16_t              s_qnh_height_m                    = 103;
+static int16_t              s_baro_temp_cor_100               = 0;
+static int16_t              s_baro_p_cor_100                  = 170;
+
 static uint8_t              s_baro_enable                     = 1U;
 static uint8_t              s_baroValid                       = 0U;
 static uint16_t             s_baroVersion                     = 0U;
 static uint16_t             s_baro_c[C_I2C_BARO_C_CNT]        = { 0U };
 static uint32_t             s_baro_d1                         = 0UL;
 static uint32_t             s_baro_d2                         = 0UL;
-static int16_t              s_baro_temp_cor_100               = 0;
-static int16_t              s_baro_p_cor_100                  = 0;
+
+/* Out values */
 static int32_t              s_baro_temp_100                   = 0L;
 static int32_t              s_baro_p_100                      = 0L;
 static int32_t              s_baro_qnh_p_h_100                = 0L;
@@ -159,12 +165,11 @@ static void baroCalc(void)
       s_baro_temp_100  = l_t_100;
       s_baro_p_100     = l_p_100;
 
-      int16_t l_qnh_height_m          = 103; /* s_qnh_height_m; */
       int32_t l_i2cI2c4Baro_temp_100  = l_t_100;
 
       /* A valid height value (3D navigation) seems to be access able */
       if (sf_p != l_p_100) {
-        float a_m_h   = 0.0065f * l_qnh_height_m;
+        float a_m_h   = 0.0065f * s_qnh_height_m;
         float Th0     = C_0DEGC_K + (l_i2cI2c4Baro_temp_100 / 100.f);
         float term    = 1.f + (a_m_h / Th0);
         l_p_h         = l_p_100 * pow(term, 5.255f);
@@ -284,6 +289,6 @@ void baroTaskLoop(void)
     baroFetch();
     baroCalc();
 
-    //baroDistributor();
+    baroDistributor();
   }
 }

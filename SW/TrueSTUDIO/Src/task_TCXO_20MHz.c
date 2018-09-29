@@ -109,7 +109,6 @@ void tcxo20MhzTaskLoop(void)
   int             dbgLen;
   char            dbgBuf[128];
 
-
   if (!sf_previousWakeTime) {
     sf_previousWakeTime  = osKernelSysTick();
     sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
