@@ -36,7 +36,23 @@
 #define I2C_SLAVE_LCD_IT2_REG_RESERVED                        0x40U
 
 
+typedef enum LcdMsgLcdCmds_ENUM {
 
+  MsgLcd__InitDo                                              = 0x01U,
+  MsgLcd__InitDone,
+
+  MsgLcd__SetVar01_x                                          = 0x41U,
+
+  MsgLcd__GetVar01_y                                          = 0x81U,
+
+  MsgLcd__CallFunc01_ClearDisplay                             = 0xc1U,
+  MsgLcd__CallFunc02_WriteString,
+
+} LcdMsgLcdCmds_t;
+
+
+
+void lcdClearDisplay(void);
 uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf);
 
 

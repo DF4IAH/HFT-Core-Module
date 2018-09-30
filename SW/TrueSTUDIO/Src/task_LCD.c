@@ -17,18 +17,33 @@
 
 #include "usb.h"
 #include "bus_i2c.h"
+#include "task_Controller.h"
 
 #include "task_LCD.h"
 
 
 extern osMutexId            i2c4MutexHandle;
+extern osSemaphoreId        c2Lcd_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+
 extern I2C_HandleTypeDef    hi2c4;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_lcd_enable                      = 1U;
+static uint8_t              s_lcd_enable;
+static uint32_t             s_lcdStartTime;
 
+
+void lcdClearDisplay(void)
+{
+  /* Clear Display */
+  {
+    const uint8_t cmdBuf[1] = { 0x01U };
+    i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
+    osDelay(2U);
+  }
+}
 
 uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf)
 {
@@ -62,6 +77,8 @@ uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* st
 static void lcdInit(void)
 {
   /* LCD MIDAS MCCOG21605B6W-FPTLWI */
+
+  s_lcd_enable = 1U;
 
   usbLog("< LcdInit -\r\n");
 
@@ -116,17 +133,6 @@ static void lcdInit(void)
       }
     }
 
-    /* Welcome Text / Logo */
-    {
-      const uint8_t strBuf[]  = "*HFT-CoreModule*";
-      const uint8_t strLen    = sizeof(strBuf);
-
-      for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
-        i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x40, 1U, strBuf + strIdx);
-        osDelay(2U);
-      }
-    }
-
     /* LCD-backlight default settings */
     //LcdBacklightInit();
   } while(0);
@@ -134,45 +140,107 @@ static void lcdInit(void)
   usbLog("- LcdInit >\r\n\r\n");
 }
 
+static void lcdMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const LcdMsgLcdCmds_t   cmd     = (LcdMsgLcdCmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgLcd__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_lcdStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      lcdInit();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Actor_LCD, 0U, MsgLcd__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  case MsgLcd__CallFunc01_ClearDisplay:
+    {
+      lcdClearDisplay();
+    }
+    break;
+
+  case MsgLcd__CallFunc02_WriteString:
+    {
+      const uint8_t byteCnt = 0xffU & (hdr >> 8U);
+      const uint8_t pos = 0xffU & (msgAry[msgIdx] >> 24U);
+      const uint8_t row = 0x0fU & (pos >> 4U);
+      const uint8_t col = 0x0fU &  pos       ;
+      uint8_t strBuf[CONTROLLER_MSG_Q_LEN << 2] = { 0 };
+
+      /* Copy string */
+      uint8_t wordPos = 2;
+      uint8_t strIdx = 0U;
+      for (uint8_t pos = 1; pos < byteCnt; pos++) {
+        strBuf[strIdx++] = (uint8_t) (0xffU & (msgAry[msgIdx] >> (wordPos << 3U)));
+
+        if (wordPos) {
+          --wordPos;
+
+        } else {
+          msgIdx++;
+          wordPos = 3U;
+        }
+      }
+
+      /* Write text onto display */
+      lcdTextWrite(row, col, strIdx, strBuf);
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+}
+
 
 /* Task */
 
 void lcdTaskInit(void)
 {
-  osDelay(200UL);
+  s_lcd_enable = 0U;
 
-  if (s_lcd_enable) {
-    lcdInit();
-  }
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_lcdStartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
 }
 
 void lcdTaskLoop(void)
 {
-  const uint32_t  eachMs              = 1000UL;
-  static uint32_t sf_previousWakeTime = 0UL;
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
 
-  if (!sf_previousWakeTime) {
-    sf_previousWakeTime  = osKernelSysTick();
-    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 200UL;
-  }
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Lcd_BSemHandle, osWaitForever);
 
-  osDelayUntil(&sf_previousWakeTime, eachMs);
-
-  if (s_lcd_enable) {
-    const int32_t p_100     = baroGetValue(BARO_GET_TYPE__QNH_100);
-    const uint16_t p_100_i  = (uint16_t) (p_100 / 100UL);
-    const uint16_t p_100_f  = (uint16_t) (p_100 % 100UL) / 10U;
-
-    const int16_t rh_100    = hygroGetValue(HYGRO_GET_TYPE__RH_100);
-    const int16_t rh_100_i  = rh_100 / 100U;
-    const int16_t rh_100_f  = (rh_100 % 100U) / 10U;
-
-    uint8_t strBuf[17];
-    const uint8_t len       = sprintf((char*)strBuf, "%04u.%01uhPa  %02u.%01u%%", p_100_i, p_100_f, rh_100_i, rh_100_f);
-
-    if (p_100) {
-      lcdTextWrite(1U, 0U, len, strBuf);
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Actor_LCD, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
     }
+
+    osSemaphoreRelease(c2Lcd_BSemHandle);
   }
+
+  /* Decode and execute the commands */
+  lcdMsgProcess(msgLen, msgAry);
 }

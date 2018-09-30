@@ -25,11 +25,25 @@ typedef struct Reg_Data{
 
 typedef enum I2C_SI5338_CLKIN_VARIANT_ENUM {
 
-  I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ                    = 0,
+  I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ                      = 0,
   I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ,
   I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ,
 
 } I2C_SI5338_CLKIN_VARIANT_t;
+
+
+typedef enum Si5338MsgSi5338Cmds_ENUM {
+
+  MsgSi5338__InitDo                                           = 0x01U,
+  MsgSi5338__InitDone,
+
+  MsgSi5338__SetVar01_Variant                                 = 0x41U,
+
+  MsgSi5338__GetVar01_y                                       = 0x81U,
+
+  MsgSi5338__CallFunc01_Execute                               = 0xc1U,
+
+} Si5338MsgSi5338Cmds_t;
 
 
 void si5338VariantSet(I2C_SI5338_CLKIN_VARIANT_t v);

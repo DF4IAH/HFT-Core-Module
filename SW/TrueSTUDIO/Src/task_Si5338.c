@@ -16,6 +16,7 @@
 
 #include "usb.h"
 #include "bus_i2c.h"
+#include "task_Controller.h"
 
 #include "task_Si5338_RegMap_MCU_8MHz.h"
 #include "task_Si5338_RegMap_MCU_12MHz.h"
@@ -25,6 +26,9 @@
 
 
 extern osMutexId            i2c4MutexHandle;
+extern osSemaphoreId        c2Si5338_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+
 extern I2C_HandleTypeDef    hi2c4;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
@@ -35,20 +39,11 @@ extern const Reg_Data_t     si5338_Reg_Store_MCU_12MHz[];
 extern const Reg_Data_t     si5338_Reg_Store_TCXO[];
 
 
-static uint8_t              s_si5338_enable                   = 0U;
-static uint8_t              s_si5338_waitMask                 = 0U;
-static uint8_t              s_si5338_variant                  = I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ;
-static uint8_t              ls_si5338_variant                 = 0U;
-
-
-void si5338VariantSet(I2C_SI5338_CLKIN_VARIANT_t v)
-{
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1);
-  osDelay(10);
-
-  s_si5338_variant  = v;
-  s_si5338_enable   = 1U;
-}
+static uint8_t                        s_si5338_enable;
+static uint32_t                       s_si5338StartTime;
+static uint8_t                        s_si5338_waitMask;
+static I2C_SI5338_CLKIN_VARIANT_t     s_si5338_variant;
+static I2C_SI5338_CLKIN_VARIANT_t     ls_si5338_variant;
 
 
 static void si5338SettingStep1(void)
@@ -177,54 +172,115 @@ static void si5338SettingStep3(void)
   }
 }
 
+static void si5338Execute(void)
+{
+  /* Avoid to set same variant again */
+  if (ls_si5338_variant == s_si5338_variant) {
+    return;
+  }
+
+  /* Execute variant */
+  switch (s_si5338_variant) {
+  case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ:
+    si5338SettingStep1();
+    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_8MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_8MHz);
+    s_si5338_waitMask = 0x04U;
+    si5338SettingStep3();
+    break;
+
+  case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ:
+    si5338SettingStep1();
+    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_12MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_12MHz);
+    s_si5338_waitMask = 0x04U;
+    si5338SettingStep3();
+    break;
+
+  case I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ:
+    si5338SettingStep1();
+    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_TCXO_NUM_REGS_MAX, si5338_Reg_Store_TCXO);
+    s_si5338_waitMask = 0x08U;
+    si5338SettingStep3();
+    break;
+
+  default:
+    s_si5338_enable = 0U;
+  }
+
+  /* Update last variant */
+  ls_si5338_variant = s_si5338_variant;
+}
 
 static void si5338Init(void)
 {
-  if (s_si5338_enable) {
-    __HAL_RCC_GPIOC_CLK_ENABLE();
 
-    if (GPIO_PIN_SET == HAL_GPIO_ReadPin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin)) {
-      switch (s_si5338_variant) {
-      case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ:
-        si5338SettingStep1();
-        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_8MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_8MHz);
-        s_si5338_waitMask = 0x04U;
-        si5338SettingStep3();
-        break;
-
-      case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ:
-        si5338SettingStep1();
-        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_12MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_12MHz);
-        s_si5338_waitMask = 0x04U;
-        si5338SettingStep3();
-        break;
-
-      case I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ:
-        si5338SettingStep1();
-        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_TCXO_NUM_REGS_MAX, si5338_Reg_Store_TCXO);
-        s_si5338_waitMask = 0x08U;
-        si5338SettingStep3();
-        break;
-
-      default:
-        s_si5338_enable = 0U;
-      }
-    } else {
-      s_si5338_enable = 0U;
-    }
+  /* Switch on TCXO and high-current circuits */
+  {
+    PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
+    osDelay(10);
   }
 
-  /* Si5338 clock generator */
-#if 0
-  /* Switch on Si5338 clock PLL */
-# if 0
-  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
-# elif 1
-  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ);
-# else
-  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ);
-# endif
-#endif
+  /* Check if TCXO is enabled */
+  {
+    /* Enable clock of Port C */
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+
+    /* Check if TCXO is enabled */
+    if (GPIO_PIN_SET == HAL_GPIO_ReadPin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin)) {
+      s_si5338_variant = I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ;
+    }
+
+    /* Disable clock of Port C, again */
+    __HAL_RCC_GPIOC_CLK_DISABLE();
+  }
+
+  /* Si5338 is active */
+  s_si5338_enable = 1U;
+
+  /* Init after power-up */
+  si5338Execute();
+}
+
+
+static void si5338MsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                    msgIdx  = 0UL;
+  const uint32_t              hdr     = msgAry[msgIdx++];
+  const Si5338MsgSi5338Cmds_t cmd     = (Si5338MsgSi5338Cmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgSi5338__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_si5338StartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      si5338Init();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Osc_Si5338, 0U, MsgSi5338__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  case MsgSi5338__SetVar01_Variant:
+    {
+      s_si5338_variant = (uint8_t) (0xffUL & (msgAry[msgIdx++] >> 24U));
+    }
+    break;
+
+  case MsgSi5338__CallFunc01_Execute:
+    {
+      si5338Execute();
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
 }
 
 
@@ -232,30 +288,41 @@ static void si5338Init(void)
 
 void si5338TaskInit(void)
 {
-  osDelay(100UL);
+  s_si5338_enable   = 0U;
+  s_si5338_waitMask = 0U;
+  s_si5338_variant  = I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ;
+  ls_si5338_variant = 0U;
 
-  ls_si5338_variant = s_si5338_variant;
-  si5338Init();
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_si5338StartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
 }
 
 void si5338TaskLoop(void)
 {
-  const uint32_t  eachMs              = 100UL;
-  static uint32_t sf_previousWakeTime = 0UL;
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
 
-  if (!sf_previousWakeTime) {
-    sf_previousWakeTime  = osKernelSysTick();
-    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 100UL;
-  }
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Si5338_BSemHandle, osWaitForever);
 
-  osDelayUntil(&sf_previousWakeTime, eachMs);
-
-  if (s_si5338_enable) {
-    /* Change of variant detected */
-    if (ls_si5338_variant != s_si5338_variant) {
-      ls_si5338_variant = s_si5338_variant;
-      si5338Init();
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_Si5338, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
     }
+
+    osSemaphoreRelease(c2Si5338_BSemHandle);
   }
+
+  /* Decode and execute the commands */
+  si5338MsgProcess(msgLen, msgAry);
 }

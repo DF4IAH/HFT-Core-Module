@@ -829,7 +829,6 @@ static uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t
 }
 
 const char          PM_POCSAG_SKYPER_TIME[]         = "%02d%02d%02d   %02d%02d%02d";
-//PROGMEM_DECLARE(const char, PM_POCSAG_SKYPER_TIME[]);
 #if 0
 static uint16_t spi_ax_pocsag_skyper_TimeString(char* outBuf, uint16_t outBufSize, struct calendar_date* calDat)
 {
@@ -843,8 +842,8 @@ static uint16_t spi_ax_pocsag_skyper_TimeString(char* outBuf, uint16_t outBufSiz
 }
 #endif
 
+#if 0
 const char          PM_POCSAG_SKYPER_RUBRIC_ENC[]     = "1%c%c";
-//PROGMEM_DECLARE(const char, PM_POCSAG_SKYPER_RUBRIC_ENC[]);
 static uint16_t spi_ax_pocsag_skyper_RubricString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, const char* rubricLabel, uint16_t rubricLabelLen)
 {
   /* Sanity checks */
@@ -868,9 +867,9 @@ static uint16_t spi_ax_pocsag_skyper_RubricString_Encode(char* outBuf, uint16_t 
   *outBuf_ptr = 0;
   return outLen;
 }
+#endif
 
 const char          PM_POCSAG_SKYPER_RUBRIC_DEC[]     = "Rubric=%02d, MaxEntries=%02d, Name: ";
-//PROGMEM_DECLARE(const char, PM_POCSAG_SKYPER_RUBRIC_DEC[]);
 static uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperRubricMsg, uint16_t pocsagSkyperRubricMsgLen)
 {
   /* Sanity checks */
@@ -896,8 +895,8 @@ static uint16_t spi_ax_pocsag_skyper_RubricString_Decode(char* outBuf, uint16_t 
   return outLen;
 }
 
+#if 0
 const char          PM_POCSAG_SKYPER_NEWS_ENC[]       = "%c%c";
-//PROGMEM_DECLARE(const char, PM_POCSAG_SKYPER_NEWS_ENC[]);
 static uint16_t spi_ax_pocsag_skyper_NewsString_Encode(char* outBuf, uint16_t outBufSize, uint8_t rubricNumber, uint8_t newsNumber, const char* newsString, uint16_t newsStringLen)
 {
   /* Sanity checks */
@@ -921,9 +920,9 @@ static uint16_t spi_ax_pocsag_skyper_NewsString_Encode(char* outBuf, uint16_t ou
   *outBuf_ptr = 0;
   return outLen;
 }
+#endif
 
 const char          PM_POCSAG_SKYPER_NEWS_DEC[]       = "Rubric=%02d, News#=%02d, Text: ";
-//PROGMEM_DECLARE(const char, PM_POCSAG_SKYPER_NEWS_DEC[]);
 static uint16_t spi_ax_pocsag_skyper_NewsString_Decode(char* outBuf, uint16_t outBufSize, const char* pocsagSkyperNewsMsg, uint16_t pocsagSkyperNewsMsgLen)
 {
   /* Sanity checks */

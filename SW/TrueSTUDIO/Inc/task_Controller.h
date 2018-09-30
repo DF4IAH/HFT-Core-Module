@@ -112,8 +112,8 @@ typedef struct ControllerMsg2Proc {
 
 uint32_t controllerCalcMsgHdr(ControllerMsgDestinations_t dst, ControllerMsgDestinations_t src, uint8_t lengthBytes, uint8_t cmd);
 
-uint32_t controllerMsgPushToQueueIn(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs);
-uint32_t controllerMsgPullFromQueueOut(uint32_t* msgAry, ControllerMsgDestinations_t dst, uint32_t waitMs);
+uint32_t controllerMsgPushToInQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs);
+uint32_t controllerMsgPullFromOutQueue(uint32_t* msgAry, ControllerMsgDestinations_t dst, uint32_t waitMs);
 
 void controllerTaskInit(void);
 void controllerTaskLoop(void);

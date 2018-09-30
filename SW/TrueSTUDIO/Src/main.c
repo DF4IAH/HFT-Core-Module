@@ -356,24 +356,20 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
 void PowerSwitchInit(void)
 {
   /* Connect Vusb with +5V0 */
-  PowerSwitchDo(POWERSWITCH__USB_SW,
-      1);
+  PowerSwitchDo(POWERSWITCH__USB_SW,    1U);
 
   /* Disable high current system */
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR,
-      0);
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 0U);
 
   /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
-  PowerSwitchDo(POWERSWITCH__3V3_XO,
-      1);
+  PowerSwitchDo(POWERSWITCH__3V3_XO,    0U);
 
   /* Enable SMPS */
   {
 //  PowerSwitchDo(POWERSWITCH__1V2_DCDC,
-//      1);
+//      1U);
 //  for (uint16_t i = 10000; i; i--) ;
-    PowerSwitchDo(POWERSWITCH__1V2_SW,
-        1);
+    PowerSwitchDo(POWERSWITCH__1V2_SW,  1U);
 
     /*
      * SMPS DC/DC converter enabled but disconnected:
@@ -389,8 +385,7 @@ void PowerSwitchInit(void)
   }
 
   /* Vbat charger of MCU enabled with 1.5 kOhm */
-  PowerSwitchDo(POWERSWITCH__BAT_HICUR,
-      1);
+  PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1U);
 }
 
 void LcdBacklightInit(void)
@@ -2147,17 +2142,20 @@ static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
   switch (cmd) {
   case MsgMain__InitDo:
     {
+      /* Start at defined point of time */
       const uint32_t delayMs = msgAry[msgIdx++];
       if (delayMs) {
         uint32_t  previousWakeTime = s_mainStartTime;
         osDelayUntil(&previousWakeTime, delayMs);
       }
 
+      /* Init module */
       mainDefaultInit();
 
+      /* Return Init confirmation */
       uint32_t cmdBack[1];
       cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgMain__InitDone);
-      controllerMsgPushToQueueIn(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
     }
     break;
 
@@ -2304,7 +2302,7 @@ void StartDefaultTask(void const * argument)
     {
       osSemaphoreWait(c2Default_BSemHandle, osWaitForever);
 
-      msgLen = controllerMsgPullFromQueueOut(msgAry, Destinations__Main_Default, osWaitForever);
+      msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Main_Default, osWaitForever);
       if (!msgLen) {
         Error_Handler();
       }
