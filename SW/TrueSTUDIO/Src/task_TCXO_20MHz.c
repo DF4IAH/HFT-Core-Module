@@ -37,7 +37,7 @@ static uint32_t             s_tcxoStartTime;
 
 static uint16_t tcxoCalcVoltage2DacValue(uint32_t voltage_uV)
 {
-  return (uint16_t) (voltage_uV * TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE) / TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VOLTAGE_UV;
+  return (uint16_t) (((uint64_t)voltage_uV * TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE) / TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VOLTAGE_UV);
 }
 
 static void tcxo20MhzDacInit(void)
@@ -97,6 +97,9 @@ static void tcxo20MhzDacSet(uint16_t dac)
 
 static void tcxo20MhzInit(void)
 {
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __asm volatile( "NOP" );
+
   /* When TCXO-power is up */
   if (GPIO_PIN_SET == HAL_GPIO_ReadPin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin)) {
     /* Prepare TCXO-DAC */
@@ -109,6 +112,8 @@ static void tcxo20MhzInit(void)
     /* TCXO is running */
     s_tcxo_enable = 1U;
   }
+
+  __HAL_RCC_GPIOC_CLK_DISABLE();
 }
 
 static void tcxo20MHzMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
