@@ -17,29 +17,38 @@
 
 #include "usb.h"
 #include "bus_i2c.h"
+#include "task_Controller.h"
 
 #include "task_Gyro.h"
 
 
 extern osMutexId            i2c4MutexHandle;
+extern osSemaphoreId        c2Gyro_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+
 extern I2C_HandleTypeDef    hi2c4;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
-static uint8_t              s_gyro_enable                     = 0U;
-static uint8_t              s_gyroValid                       = 0U;
-static uint8_t              s_gyro1Version                    = 0U;
-static uint8_t              s_gyro2Version                    = 0U;
-static uint8_t              s_gyro2AsaX                       = 0U;
-static uint8_t              s_gyro2AsaY                       = 0U;
-static uint8_t              s_gyro2AsaZ                       = 0U;
+static uint8_t              s_gyro_enable;
+static uint32_t             s_gyroStartTime;
+static uint8_t              s_gyro1Version;
+static uint8_t              s_gyro2Version;
+static uint32_t             s_gyro2AsaX;
+static uint32_t             s_gyro2AsaY;
+static uint32_t             s_gyro2AsaZ;
 
+
+static void gyroDoMeasure(void)
+{
+
+}
 
 static void gyroInit(void)
 {
-  int   dbgLen = 0;
-  char  dbgBuf[128];
+  //int   dbgLen = 0;
+  //char  dbgBuf[128];
 
   // TODO: refactor to use i2cSequenceWrite()
 
@@ -48,6 +57,7 @@ static void gyroInit(void)
   usbLog("< GyroInit -\r\n");
 
   do {
+#if 0
     /* MPU-9250 6 axis: RESET */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_1_PWR_MGMT_1;
     i2c4TxBuffer[1] = I2C_SLAVE_GYRO_DTA_1_PWR_MGMT_1__HRESET | I2C_SLAVE_GYRO_DTA_1_PWR_MGMT_1__CLKSEL_VAL;
@@ -270,9 +280,10 @@ static void gyroInit(void)
     usbLog(". GyroInit: state 14\r\n");
 
     if (s_gyro1Version && s_gyro2Version) {
-      s_gyroValid = 1U;
+      s_gyro_enable = 1U;
       usbLog(". GyroInit: state 15\r\n");
     }
+#endif
   } while(0);
 
   usbLog("- GyroInit >\r\n\r\n");
@@ -280,29 +291,97 @@ static void gyroInit(void)
   osSemaphoreRelease(i2c4MutexHandle);
 }
 
+static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const gyroMsgGyroCmds_t cmd     = (gyroMsgGyroCmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgGyro__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_gyroStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      gyroInit();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Gyro, 0U, MsgGyro__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  case MsgGyro__CallFunc01_DoMeasure:
+    {
+      /* Get the values */
+      gyroDoMeasure();
+
+      /* Send them to the controller */
+      {
+        uint32_t cmdBack[4];
+
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Gyro, sizeof(cmdBack) - 4U, MsgGyro__CallFunc01_DoMeasure);
+        cmdBack[1] = s_gyro2AsaX;
+        cmdBack[2] = s_gyro2AsaY;
+        cmdBack[3] = s_gyro2AsaZ;
+
+        controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+      }
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+}
+
 
 /* Task */
 
 void gyroTaskInit(void)
 {
-  osDelay(650UL);
-  gyroInit();
+  s_gyro_enable   = 0U;
+  s_gyro1Version  = 0U;
+  s_gyro2Version  = 0U;
+  s_gyro2AsaX     = 0UL;
+  s_gyro2AsaY     = 0UL;
+  s_gyro2AsaZ     = 0UL;
+
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_gyroStartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
 }
 
 void gyroTaskLoop(void)
 {
-  const uint32_t  eachMs              = 1000UL;
-  static uint32_t sf_previousWakeTime = 0UL;
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
 
-  if (!sf_previousWakeTime) {
-    sf_previousWakeTime  = osKernelSysTick();
-    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 650UL;
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Gyro_BSemHandle, osWaitForever);
+
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Gyro, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
+    }
+
+    osSemaphoreRelease(c2Gyro_BSemHandle);
   }
 
-  osDelayUntil(&sf_previousWakeTime, eachMs);
-
-  if (s_gyro_enable) {
-    // TODO: code here
-  }
+  /* Decode and execute the commands */
+  gyroMsgProcess(msgLen, msgAry);
 }

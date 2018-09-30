@@ -41,11 +41,11 @@ static int16_t              s_baro_temp_cor_100;
 static int16_t              s_baro_p_cor_100;
 
 static uint8_t              s_baro_enable;
+static uint32_t             s_baroStartTime;
 static uint16_t             s_baroVersion;
 static uint16_t             s_baro_c[C_I2C_BARO_C_CNT];
 static uint32_t             s_baro_d1;
 static uint32_t             s_baro_d2;
-static uint32_t             s_baroStartTime;
 
 /* Out values */
 static int32_t              s_baro_temp_100;

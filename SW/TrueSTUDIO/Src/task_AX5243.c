@@ -18,14 +18,17 @@
 
 #include "usb.h"
 #include "bus_spi.h"
+#include "task_Controller.h"
 
 #include "task_AX5243.h"
 
 
-extern EventGroupHandle_t   extiEventGroupHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
 extern osMutexId            spi3MutexHandle;
+extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osSemaphoreId        c2Ax5243_BSemHandle;
+extern EventGroupHandle_t   extiEventGroupHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
@@ -58,27 +61,6 @@ extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 # endif
 #endif
 
-
-static uint8_t              s_ax5243_enable                   = 0U;  // FLASH
-static uint8_t              s_ax_version                      = 0U;
-static uint8_t              s_ax_aprs_enable                  = 0U;  // FLASH
-static uint8_t              s_ax_pocsag_enable                = 0U;  // FLASH
-//static uint8_t              s_ax_pocsag_beacon_secs           = 0U;  // FLASH
-//static AX_SET_TX_RX_MODE_t  s_ax_set_tx_rx_mode               = AX_SET_TX_RX_MODE_OFF;
-static AX_SET_MON_MODE_t    s_ax_set_mon_mode                 = AX_SET_MON_MODE_OFF;  // FLASH
-//static struct spi_device    s_ax_spi_device_conf              = { 0 };
-//static  uint8_t             s_ax_spi_packet_buffer[C_SPI_AX_BUFFER_LENGTH]  = { 0U };
-//static  uint8_t             s_ax_spi_rx_buffer[C_SPI_AX_BUFFER_LENGTH]      = { 0U };
-//static  uint16_t            s_ax_spi_rx_buffer_idx            = 0U;
-//static  uint8_t             s_ax_spi_rx_fifo_doService        = 0U;
-static  uint32_t            s_ax_spi_freq_chan[2]             = { 0UL };
-static  uint8_t             s_ax_spi_range_chan[2]            = { 0U };
-//static  uint8_t             s_ax_spi_vcoi_chan[2]             = { 0U };
-//static  int8_t              s_ax_spi_rx_bgnd_rssi             = 0x96;  // -170 dBm
-static  AX_RX_FIFO_MEAS_t   s_ax_rx_fifo_meas                 = { 0 };
-
-//static uint8_t              s_ax_pocsag_chime_enable          = 0U;
-static uint32_t             s_ax_pocsag_individual_ric        = 0UL;
 
 static const uint16_t       c_ax_pwr_ary[C_AX_PRW_LENGTH]     = {
   // -10.4  (< -20dBm)
@@ -166,8 +148,7 @@ static const uint16_t       c_ax_pwr_ary[C_AX_PRW_LENGTH]     = {
    4095
 };
 
-//static uint8_t              s_ax_pocsag_news_idx              = 0;
-
+#if 0
 static const uint8_t        c_ax_pocsag_activation_code[][3]  = {
   { 0, 7, 0x32},
   { 0, 7, 0x22},
@@ -179,6 +160,31 @@ static const uint8_t        c_ax_pocsag_activation_code[][3]  = {
   { 0, 7, 0x34}
 };
 static const uint8_t        c_ax_pocsag_activation_code_len = sizeof(c_ax_pocsag_activation_code) / 3;
+#endif
+
+static uint8_t              s_ax5243_enable;                                                          // FLASH
+static uint32_t             s_ax5243StartTime;
+static uint8_t              s_ax_version;
+static uint8_t              s_ax_aprs_enable;                                                         // FLASH
+static uint8_t              s_ax_pocsag_enable;                                                       // FLASH
+//static uint8_t            s_ax_pocsag_beacon_secs;                                                  // FLASH
+//static AX_SET_TX_RX_MODE_t  s_ax_set_tx_rx_mode;
+static AX_SET_MON_MODE_t    s_ax_set_mon_mode;                                                        // FLASH
+//static struct spi_device  s_ax_spi_device_conf;
+//static  uint8_t           s_ax_spi_packet_buffer[C_SPI_AX_BUFFER_LENGTH];
+//static  uint8_t           s_ax_spi_rx_buffer[C_SPI_AX_BUFFER_LENGTH];
+//static  uint16_t          s_ax_spi_rx_buffer_idx;
+//static  uint8_t           s_ax_spi_rx_fifo_doService;
+static  uint32_t            s_ax_spi_freq_chan[2];
+static  uint8_t             s_ax_spi_range_chan[2];
+//static  uint8_t           s_ax_spi_vcoi_chan[2];
+//static  int8_t            s_ax_spi_rx_bgnd_rssi;
+static  AX_RX_FIFO_MEAS_t   s_ax_rx_fifo_meas;
+
+//static uint8_t            s_ax_pocsag_chime_enable;
+static uint32_t             s_ax_pocsag_individual_ric;
+//static uint8_t            s_ax_pocsag_news_idx;
+
 
 
 /* Forward declarations */
@@ -807,6 +813,7 @@ static void spi_ax_pocsag_address_skyper_activation(uint8_t is_RIC_individual, u
 }
 
 
+#if 0
 static uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t outBufSize, uint32_t RIC)
 {
   uint16_t outLen = 0;
@@ -827,6 +834,7 @@ static uint16_t spi_ax_pocsag_skyper_RIC2ActivationString(char* outBuf, uint16_t
 
   return outLen;
 }
+#endif
 
 const char          PM_POCSAG_SKYPER_TIME[]         = "%02d%02d%02d   %02d%02d%02d";
 #if 0
@@ -8198,130 +8206,148 @@ static void ax5243Init(void)
   usbLog(PM_SPI_INIT_AX5243_01);
   usbLog(PM_SPI_INIT_AX5243_02);
 
-  if (s_ax5243_enable) {
-    if (HAL_OK == spiDetectAX5243()) {
-      dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_AX5243_03, s_ax_version);
-      usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
+  if (HAL_OK == spiDetectAX5243()) {
+    dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_AX5243_03, s_ax_version);
+    usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
 
-      #ifdef AX_TEST
-      /* Frequency settings */
-      {
-        #if defined(AX_RUN_VCO2_APRS_TX)
-          /* Default setting for the application: APRS */
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_PR1200, AX_SET_REGISTERS_VARIANT_TX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+    #ifdef AX_TEST
+    /* Frequency settings */
+    {
+      #if defined(AX_RUN_VCO2_APRS_TX)
+        /* Default setting for the application: APRS */
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_PR1200, AX_SET_REGISTERS_VARIANT_TX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* APRS  */
-          g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+        /* APRS  */
+        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
 
-          /* "Burst-Aussendungen fuer Steuerungszwecke" */
-          g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+        /* "Burst-Aussendungen fuer Steuerungszwecke" */
+        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
 
-        #elif defined(AX_TEST_VCO1_BANDENDS)
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+      #elif defined(AX_TEST_VCO1_BANDENDS)
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* VCO A/B settings */
-          g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(400.0000);                              // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x0e
-          g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(525.0000);                              // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x02
+        /* VCO A/B settings */
+        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(400.0000);                              // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x0e
+        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(525.0000);                              // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x02
 
-        #elif defined(AX_TEST_VCO1_FSK_TX) | defined(AX_TEST_VCO1_FSK_RX) | defined(AX_TEST_VCO1_POCSAG_TX) | defined(AX_TEST_VCO1_POCSAG_RX)
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+      #elif defined(AX_TEST_VCO1_FSK_TX) | defined(AX_TEST_VCO1_FSK_RX) | defined(AX_TEST_VCO1_POCSAG_TX) | defined(AX_TEST_VCO1_POCSAG_RX)
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* FSK */
-          g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);                              // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
-          /*
-          Radiometrix TXL2/RXL2 - 16kbps bi-phase FSK
-          433.925MHz - CHAN0
-          433.285MHz - CHAN1
-          433.605MHz - CHAN2
-          434.245MHz - CHAN3
-          434.565MHz - CHAN4
-          */
+        /* FSK */
+        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(433.9250);                              // VCO1 (internal without ext. L) with RFDIV --> VCORA = 0x09
+        /*
+        Radiometrix TXL2/RXL2 - 16kbps bi-phase FSK
+        433.925MHz - CHAN0
+        433.285MHz - CHAN1
+        433.605MHz - CHAN2
+        434.245MHz - CHAN3
+        434.565MHz - CHAN4
+        */
 
-          /* POCSAG */
-          g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);                              // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
+        /* POCSAG */
+        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(439.9875);                              // VCO1 (internal without ext. L) with RFDIV --> VCORB = 0x09
 
-        #elif defined(AX_TEST_VCO2_BANDENDS)
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+      #elif defined(AX_TEST_VCO2_BANDENDS)
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_FSK, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* VCO A/B settings */
-          g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(137.0000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x0e
-          g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(149.0000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x00
+        /* VCO A/B settings */
+        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(137.0000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x0e
+        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(149.0000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x00
 
-        #elif defined(AX_TEST_VCO2_ANALOG_FM_RX)
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_ANALOG_FM, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+      #elif defined(AX_TEST_VCO2_ANALOG_FM_RX)
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_ANALOG_FM, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* APRS */
-          g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+        /* APRS */
+        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
 
-          /* DB0ZH */
-          g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(145.6250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x04
+        /* DB0ZH */
+        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(145.6250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x04
 
-        #elif defined(AX_TEST_VCO2_ANALOG_FM_TX)
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_ANALOG_FM, AX_SET_REGISTERS_VARIANT_TX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+      #elif defined(AX_TEST_VCO2_ANALOG_FM_TX)
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_ANALOG_FM, AX_SET_REGISTERS_VARIANT_TX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* Burst-Aussendungen fuer Steuerungszwecke - lower and upper frequencies */
-          g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9245);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
-          g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9255);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+        /* Burst-Aussendungen fuer Steuerungszwecke - lower and upper frequencies */
+        g_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.9245);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+        g_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9255);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
-        #elif defined(AX_TEST_VCO2_PR1200_TX) | defined(AX_TEST_VCO2_PR1200_RX)
-          /* Syncing and sending reset command, then setting the default values */
-          spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_PR1200, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
+      #elif defined(AX_TEST_VCO2_PR1200_TX) | defined(AX_TEST_VCO2_PR1200_RX)
+        /* Syncing and sending reset command, then setting the default values */
+        spi_ax_setRegisters(1U, AX_SET_REGISTERS_MODULATION_PR1200, AX_SET_REGISTERS_VARIANT_RX, AX_SET_REGISTERS_POWERMODE_POWERDOWN);
 
-          /* APRS  */
-          s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
+        /* APRS  */
+        s_ax_spi_freq_chan[0] = spi_ax_calcFrequency_Mhz2Regs(144.8000);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORA = 0x05
 
-          /* Burst-Aussendungen fuer Steuerungszwecke */
-          s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
+        /* Burst-Aussendungen fuer Steuerungszwecke */
+        s_ax_spi_freq_chan[1] = spi_ax_calcFrequency_Mhz2Regs(144.9250);                              // VCO2 (internal with    ext. L) with RFDIV --> VCORB = 0x05
 
-        #else
-          #error "A FREQA / FREQB pair has to be set."
-        #endif
-
-        /* FREQA <-- chan[0], FREQB <-- chan[1] */
-        spi_ax_setFrequency2Regs(0, 0U);
-        spi_ax_setFrequency2Regs(1, 1U);
-
-        /* Auto ranging and storing */
-        spi_ax_doRanging();
-
-        #ifndef AX_RUN_VCO2_APRS_TX
-          #if 0
-            while (1U) {
-            }
-          #endif
-        #endif
-      }
-
-      /* TEST BOX */
-      spi_test_start_testBox();
+      #else
+        #error "A FREQA / FREQB pair has to be set."
       #endif
 
-    } else {
-      s_ax5243_enable = 0U;
-      usbLog(PM_SPI_INIT_AX5243_04);
+      /* FREQA <-- chan[0], FREQB <-- chan[1] */
+      spi_ax_setFrequency2Regs(0, 0U);
+      spi_ax_setFrequency2Regs(1, 1U);
+
+      /* Auto ranging and storing */
+      spi_ax_doRanging();
+
+      #ifndef AX_RUN_VCO2_APRS_TX
+        #if 0
+          while (1U) {
+          }
+        #endif
+      #endif
     }
+
+    /* TEST BOX */
+    spi_test_start_testBox();
+    #endif
+
+    s_ax5243_enable = 1U;
+
+  } else {
+    usbLog(PM_SPI_INIT_AX5243_04);
   }
   usbLog(PM_SPI_INIT_AX5243_05);
 }
 
-
-/* Tasks */
-
-void ax5243TaskInit(void)
+static void ax5243MsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 {
-  osDelay(850UL);
-  ax5243Init();
-}
+  uint32_t                    msgIdx  = 0UL;
+  const uint32_t              hdr     = msgAry[msgIdx++];
+  const ax5243MsgAx5243Cmds_t cmd     = (ax5243MsgAx5243Cmds_t) (0xffUL & hdr);
 
-void ax5243TaskLoop(void)
-{
+  switch (cmd) {
+  case MsgAx5243__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_ax5243StartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      ax5243Init();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Radio_AX5243, 0U, MsgAx5243__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+
+#if 0
   const uint32_t  eachMs              = 5000UL;
   static uint32_t sf_previousWakeTime = 0UL;
 
@@ -8419,4 +8445,67 @@ void ax5243TaskLoop(void)
     }
     #endif
   }
+#endif
+}
+
+
+/* Tasks */
+
+void ax5243TaskInit(void)
+{
+  s_ax5243_enable             = 0U;
+  s_ax5243StartTime           = 0UL;
+  s_ax_version                = 0U;
+  s_ax_aprs_enable            = 0U;
+  s_ax_pocsag_enable          = 0U;
+//s_ax_pocsag_beacon_secs     = 0U;
+//s_ax_set_tx_rx_mode         = AX_SET_TX_RX_MODE_OFF;
+  s_ax_set_mon_mode           = AX_SET_MON_MODE_OFF;
+//memset(s_ax_spi_device_conf, 0, sizeof(s_ax_spi_device_conf));
+//memset(s_ax_spi_packet_buffer, 0, sizeof(s_ax_spi_packet_buffer));
+//memset(s_ax_spi_rx_buffer, 0, sizeof(s_ax_spi_rx_buffer));
+//s_ax_spi_rx_buffer_idx      = 0U;
+//s_ax_spi_rx_fifo_doService  = 0U;
+//s_ax_pocsag_news_idx        = 0U;
+//s_ax_spi_rx_bgnd_rssi       = 0x96;                                                                 // -170 dBm
+//s_ax_pocsag_chime_enable    = 0U;
+  s_ax_pocsag_individual_ric  = 0UL;
+
+  memset(s_ax_spi_freq_chan, 0, sizeof(s_ax_spi_freq_chan));
+  memset(s_ax_spi_range_chan, 0, sizeof(s_ax_spi_range_chan));
+//memset(s_ax_spi_vcoi_chan, 0, sizeof(s_ax_spi_vcoi_chan));
+  memset(&s_ax_rx_fifo_meas, 0, sizeof(s_ax_rx_fifo_meas));
+
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_ax5243StartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
+}
+
+void ax5243TaskLoop(void)
+{
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
+
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Ax5243_BSemHandle, osWaitForever);
+
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_AX5243, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
+    }
+
+    osSemaphoreRelease(c2Ax5243_BSemHandle);
+  }
+
+  /* Decode and execute the commands */
+  ax5243MsgProcess(msgLen, msgAry);
 }

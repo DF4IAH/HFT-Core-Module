@@ -268,7 +268,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180930U
+#define HFTCOREMODULE_VERSION                                 20181001U
 
 
 typedef enum EXTI_ENUM {

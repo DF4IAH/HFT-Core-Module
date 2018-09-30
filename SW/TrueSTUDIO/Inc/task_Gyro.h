@@ -206,6 +206,20 @@
 #define I2C_SLAVE_GYRO_REG_2_ASAZ                             0x12U
 
 
+typedef enum gyroMsgGyroCmds_ENUM {
+
+  MsgGyro__InitDo                                             = 0x01U,
+  MsgGyro__InitDone,
+
+  MsgGyro__SetVar01_x                                         = 0x41U,
+
+  MsgGyro__GetVar01_y                                         = 0x81U,
+
+  MsgGyro__CallFunc01_DoMeasure                               = 0xc1U,
+
+} gyroMsgGyroCmds_t;
+
+
 void gyroTaskInit(void);
 void gyroTaskLoop(void);
 

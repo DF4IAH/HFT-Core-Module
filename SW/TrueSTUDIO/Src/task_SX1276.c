@@ -17,13 +17,16 @@
 #include "main.h"
 #include "usb.h"
 #include "bus_spi.h"
+#include "task_Controller.h"
 
 #include "task_SX1276.h"
 
 
-extern EventGroupHandle_t   extiEventGroupHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
 extern osMutexId            spi3MutexHandle;
+extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osSemaphoreId        c2Sx1276_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+extern EventGroupHandle_t   extiEventGroupHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
@@ -33,8 +36,9 @@ extern uint8_t              spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
 
-static uint8_t              s_sx1276_enable                   = 0U;
-static uint8_t              s_sx_version                      = 0U;
+static uint8_t              s_sx1276_enable;
+static uint32_t             s_sx1276StartTime;
+static uint8_t              s_sx_version;
 
 
 void spiSX127xReset(void)
@@ -1241,20 +1245,48 @@ static void sx1276Init(void)
   usbLog(PM_SPI_INIT_SX1276_01);
   usbLog(PM_SPI_INIT_SX1276_02);
 
-  if (s_sx1276_enable) {
-    if (HAL_OK == spiDetectSX1276()) {
+  if (HAL_OK == spiDetectSX1276()) {
+    dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_SX1276_03, s_sx_version);
+    usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
 
-      dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_SX1276_03, s_sx_version);
-      usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
+    loRaWANLoraTaskInit();
 
-      loRaWANLoraTaskInit();
+    s_sx1276_enable = 1U;
 
-    } else {
-      s_sx1276_enable = 0U;
-      usbLog(PM_SPI_INIT_SX1276_04);
-    }
+  } else {
+    usbLog(PM_SPI_INIT_SX1276_04);
   }
   usbLog(PM_SPI_INIT_SX1276_05);
+}
+
+static void sx1276MsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                    msgIdx  = 0UL;
+  const uint32_t              hdr     = msgAry[msgIdx++];
+  const sx1276MsgSx1276Cmds_t cmd     = (sx1276MsgSx1276Cmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgSx1276__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_sx1276StartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      sx1276Init();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Radio_SX1276, 0U, MsgSx1276__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
 }
 
 
@@ -1262,24 +1294,39 @@ static void sx1276Init(void)
 
 void sx1276TaskInit(void)
 {
-  osDelay(750UL);
-  sx1276Init();
+  s_sx1276_enable = 0U;
+  s_sx_version    = 0U;
+
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_sx1276StartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
 }
 
 void sx1276TaskLoop(void)
 {
-  const uint32_t  eachMs              = 5000UL;
-  static uint32_t sf_previousWakeTime = 0UL;
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
 
-  if (!sf_previousWakeTime) {
-    sf_previousWakeTime  = osKernelSysTick();
-    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 750UL;
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Sx1276_BSemHandle, osWaitForever);
+
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_SX1276, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
+    }
+
+    osSemaphoreRelease(c2Sx1276_BSemHandle);
   }
 
-  osDelayUntil(&sf_previousWakeTime, eachMs);
-
-  if (s_sx1276_enable) {
-    loRaWANLoraTaskLoop();
-  }
+  /* Decode and execute the commands */
+  sx1276MsgProcess(msgLen, msgAry);
 }
