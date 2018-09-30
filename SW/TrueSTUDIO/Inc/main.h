@@ -268,7 +268,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20180929U
+#define HFTCOREMODULE_VERSION                                 20180930U
 
 
 typedef enum EXTI_ENUM {
@@ -312,6 +312,23 @@ typedef enum MON_MASK {
   MON_MASK__LORA                                              = 0x0008UL,
 
 } MON_MASK_t;
+
+
+typedef enum MainMsgMainCmds_ENUM {
+
+  MsgMain__InitDo                                             = 0x01U,
+  MsgMain__InitDone,
+
+  MsgMain__SetVar01_IOs                                       = 0x41U,
+  MsgMain__SetVar02_Clocks,
+
+  MsgMain__GetVar01_x                                         = 0x81U,
+
+  MsgMain__CallFunc01_MCU_ADC                                 = 0xc1U,
+  MsgMain__CallFunc02_AUDIO_ADC,
+  MsgMain__CallFunc03_AUDIO_DAC,
+
+} MainMsgMainCmds_t;
 
 
 

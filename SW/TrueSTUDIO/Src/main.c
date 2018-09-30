@@ -164,9 +164,6 @@ extern uint8_t                        i2c4RxBuffer[I2C_RXBUFSIZE];
 extern uint8_t                        spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t                        spi3RxBuffer[SPI3_BUFFERSIZE];
 
-ENABLE_MASK_t                         g_enableMsk             = 0UL;  // ENABLE_MASK__LORA_BARE;
-MON_MASK_t                            g_monMsk                = 0UL;
-
 
 /* Private variables ---------------------------------------------------------*/
 EventGroupHandle_t                    controllerEventGroupHandle;
@@ -183,10 +180,11 @@ TIM_HandleTypeDef                     TimHandle;
 /* Timer Output Compare Configuration Structure declaration */
 TIM_OC_InitTypeDef                    sConfig;
 
+ENABLE_MASK_t                         g_enableMsk;
+MON_MASK_t                            g_monMsk;
 
-
-
-static uint8_t                        s_adc_enable            = 0U;
+static uint8_t                        s_adc_enable;
+static uint32_t                       s_mainStartTime;
 
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
@@ -195,9 +193,6 @@ volatile uint32_t                     g_rtc_ssr_last          = 0UL;
 
 static uint64_t                       s_timerLast_us          = 0ULL;
 static uint64_t                       s_timerStart_us         = 0ULL;
-
-static uint32_t                       s_mainStartTime         = 0UL;
-
 
 /* USER CODE END PV */
 
@@ -370,7 +365,7 @@ void PowerSwitchInit(void)
 
   /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
   PowerSwitchDo(POWERSWITCH__3V3_XO,
-      0);
+      1);
 
   /* Enable SMPS */
   {
@@ -779,7 +774,7 @@ int main(void)
   gyroTaskHandle = osThreadCreate(osThread(gyroTask), NULL);
 
   /* definition and creation of lcdTask */
-  osThreadDef(lcdTask, StartLcdTask, osPriorityAboveNormal, 0, 256);
+  osThreadDef(lcdTask, StartLcdTask, osPriorityNormal, 0, 256);
   lcdTaskHandle = osThreadCreate(osThread(lcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
@@ -2134,7 +2129,7 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 #endif
 
 
-static void mainDefaultTaskInit(void)
+static void mainDefaultInit(void)
 {
   /* Activate USB communication */
   HFTcore_USB_DEVICE_Init();
@@ -2145,26 +2140,29 @@ static void mainDefaultTaskInit(void)
 
 static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 {
-  uint32_t                            msgIdx  = 0UL;
-  const uint32_t                      hdr     = msgAry[msgIdx++];
-  const ControllerMsgControllerCmds_t cmd     = (ControllerMsgControllerCmds_t) (0xffUL & hdr);
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const MainMsgMainCmds_t cmd     = (MainMsgMainCmds_t) (0xffUL & hdr);
 
   switch (cmd) {
-  case MsgController__InitDo:
+  case MsgMain__InitDo:
     {
-      uint32_t mainStartTime = s_mainStartTime;
-      osDelayUntil(&mainStartTime, msgAry[msgIdx++]);
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_mainStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
 
-      mainDefaultTaskInit();
+      mainDefaultInit();
 
       uint32_t cmdBack[1];
-      cmdBack[0] = controllerCalcMsg(Destinations__Controller, Destinations__Main_Default, 0U, MsgController__InitDone);
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgMain__InitDone);
       controllerMsgPushToQueueIn(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
     }
     break;
 
   /* ADC single conversion */
-  case MsgController__CallFunc01:
+  case MsgMain__CallFunc01_MCU_ADC:
     {
       int   dbgLen;
       char  dbgBuf[128];
@@ -2197,28 +2195,8 @@ static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  /* TEST_AUDIO_DAC */
-  case MsgController__CallFunc04:
-    {
-      PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
-      __HAL_RCC_GPIOC_CLK_ENABLE();
-      osDelay(5UL);
-
-      uint8_t value = 0U;
-      do {
-        const uint8_t txMsgL[3] = { 0x31U,             value,  0 };
-        const uint8_t txMsgR[3] = { 0x32U, ((uint8_t) ~value), 0 };
-
-        spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgL), txMsgL);
-        spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgR), txMsgR);
-
-        value += 0x10U;
-      } while (1);
-    }
-    break;
-
   /* TEST_AUDIO_ADC */
-  case MsgController__CallFunc05:
+  case MsgMain__CallFunc02_AUDIO_ADC:
     {
       /* Disable RESET of AUDIO_ADC */
       __HAL_RCC_GPIOD_CLK_ENABLE();
@@ -2263,8 +2241,28 @@ static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
+    /* TEST_AUDIO_DAC */
+    case MsgMain__CallFunc03_AUDIO_DAC:
+      {
+        PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
+        __HAL_RCC_GPIOC_CLK_ENABLE();
+        osDelay(5UL);
+
+        uint8_t value = 0U;
+        do {
+          const uint8_t txMsgL[3] = { 0x31U,             value,  0 };
+          const uint8_t txMsgR[3] = { 0x32U, ((uint8_t) ~value), 0 };
+
+          spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgL), txMsgL);
+          spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgR), txMsgR);
+
+          value += 0x10U;
+        } while (1);
+      }
+      break;
+
   default: { }
-  }
+  }  // switch (cmd)
 }
 
 /* USER CODE END 4 */
@@ -2276,7 +2274,15 @@ void StartDefaultTask(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
-  // Above function is voided
+  // Above function is voided. USB-DCD is activated when needed
+
+  /* defaultTaskInit() section */
+  {
+    g_enableMsk     = 0UL;  // ENABLE_MASK__LORA_BARE;
+    g_monMsk        = 0UL;
+    s_adc_enable    = 0U;
+    s_mainStartTime = 0UL;
+  }
 
   /* Wait until controller is up */
   xEventGroupWaitBits(controllerEventGroupHandle,
@@ -2291,7 +2297,7 @@ void StartDefaultTask(void const * argument)
   osDelay(10UL);
 
   do {
-    uint32_t msgLen = 0UL;
+    uint32_t msgLen                       = 0UL;
     uint32_t msgAry[CONTROLLER_MSG_Q_LEN];
 
     /* Wait for door bell and hand-over controller out queue */

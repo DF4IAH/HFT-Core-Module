@@ -22,12 +22,9 @@
 
 extern osMessageQId         controllerInQueueHandle;
 extern osMessageQId         controllerOutQueueHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
 extern osMutexId            controllerQueueInMutexHandle;
 extern osMutexId            controllerQueueOutMutexHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
-extern EventGroupHandle_t   extiEventGroupHandle;
-extern EventGroupHandle_t   spiEventGroupHandle;
+extern osSemaphoreId        usbToHostBinarySemHandle;
 extern osSemaphoreId        c2Default_BSemHandle;
 extern osSemaphoreId        c2Tcxo_BSemHandle;
 extern osSemaphoreId        c2Si5338_BSemHandle;
@@ -37,6 +34,9 @@ extern osSemaphoreId        c2Hygro_BSemHandle;
 extern osSemaphoreId        c2Gyro_BSemHandle;
 extern osSemaphoreId        c2Ax5243_BSemHandle;
 extern osSemaphoreId        c2Sx1276_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+extern EventGroupHandle_t   extiEventGroupHandle;
+extern EventGroupHandle_t   spiEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
@@ -47,14 +47,14 @@ static ControllerMods_t     s_mod_start                       = { 0 };
 static ControllerMods_t     s_mod_rdy                         = { 0 };
 
 
-uint32_t controllerCalcMsg(ControllerMsgDestinations_t dst, ControllerMsgDestinations_t src, uint8_t lengthBytes, uint8_t cmd)
+uint32_t controllerCalcMsgHdr(ControllerMsgDestinations_t dst, ControllerMsgDestinations_t src, uint8_t lengthBytes, uint8_t cmd)
 {
   return ((uint32_t)dst << 24U) | ((uint32_t)src << 16U) | ((uint32_t)lengthBytes << 8U) | ((uint32_t)cmd);
 }
 
 static uint32_t controllerCalcMsgInit(uint32_t* ary, ControllerMsgDestinations_t dst, uint32_t startDelayMs)
 {
-  ary[0] = controllerCalcMsg(dst, Destinations__Controller, sizeof(uint32_t), MsgController__InitDo);
+  ary[0] = controllerCalcMsgHdr(dst, Destinations__Controller, sizeof(uint32_t), MsgController__InitDo);
   ary[1] = startDelayMs;
   return 2UL;
 }
@@ -359,7 +359,7 @@ static void controllerInit(void)
 
     s_mod_start.main_default                                  = 1U;
 
-    s_mod_start.osc_TCXO                                      = 0U;
+    s_mod_start.osc_TCXO                                      = 1U;
     s_mod_start.osc_Si5338                                    = 0U;
     s_mod_start.actor_LCD                                     = 1U;
     s_mod_start.sensor_Baro                                   = 1U;
@@ -391,7 +391,7 @@ static void controllerInit(void)
     if (s_mod_start.osc_TCXO) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Osc_TCXO,
-          0UL);
+          100UL);
       controllerMsgQueueOut(msgLen, msgAry);
     }
 
@@ -399,7 +399,7 @@ static void controllerInit(void)
     if (s_mod_start.actor_LCD) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Actor_LCD,
-          50UL);
+          150UL);
       controllerMsgQueueOut(msgLen, msgAry);
     }
 
