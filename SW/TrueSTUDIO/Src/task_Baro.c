@@ -17,6 +17,7 @@
 
 #include "usb.h"
 #include "bus_i2c.h"
+#include "task_Controller.h"
 
 #include "task_Baro.h"
 
@@ -25,6 +26,9 @@
 
 
 extern osMutexId            i2c4MutexHandle;
+extern osSemaphoreId        c2Baro_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+
 extern I2C_HandleTypeDef    hi2c4;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
@@ -32,26 +36,26 @@ extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
 
 /* Correction offset values */
-static int16_t              s_qnh_height_m                    = 103;
-static int16_t              s_baro_temp_cor_100               = 0;
-static int16_t              s_baro_p_cor_100                  = 170;
+static int16_t              s_qnh_height_m;
+static int16_t              s_baro_temp_cor_100;
+static int16_t              s_baro_p_cor_100;
 
-static uint8_t              s_baro_enable                     = 1U;
-static uint8_t              s_baroValid                       = 0U;
-static uint16_t             s_baroVersion                     = 0U;
-static uint16_t             s_baro_c[C_I2C_BARO_C_CNT]        = { 0U };
-static uint32_t             s_baro_d1                         = 0UL;
-static uint32_t             s_baro_d2                         = 0UL;
+static uint8_t              s_baro_enable;
+static uint16_t             s_baroVersion;
+static uint16_t             s_baro_c[C_I2C_BARO_C_CNT];
+static uint32_t             s_baro_d1;
+static uint32_t             s_baro_d2;
+static uint32_t             s_baroStartTime;
 
 /* Out values */
-static int32_t              s_baro_temp_100                   = 0L;
-static int32_t              s_baro_p_100                      = 0L;
-static int32_t              s_baro_qnh_p_h_100                = 0L;
+static int32_t              s_baro_temp_100;
+static int32_t              s_baro_p_100;
+static int32_t              s_baro_qnh_p_h_100;
 
 
 int32_t baroGetValue(BARO_GET_TYPE_t type)
 {
-  if (s_baroValid) {
+  if (s_baro_enable) {
     switch (type) {
     case BARO_GET_TYPE__TEMP_100:
       return s_baro_temp_100;
@@ -183,6 +187,7 @@ static void baroCalc(void)
   }
 }
 
+#if 0
 static void baroDistributor(void)
 {
   int   dbgLen = 0;
@@ -194,9 +199,15 @@ static void baroDistributor(void)
       (s_baro_qnh_p_h_100 / 100), (s_baro_qnh_p_h_100 % 100));
   usbLogLen(dbgBuf, dbgLen);
 }
+#endif
 
 
-/* Tasks */
+void baroDoMeasure(void)
+{
+  baroFetch();
+  baroCalc();
+}
+
 
 static void baroInit(void)
 {
@@ -246,34 +257,62 @@ static void baroInit(void)
   }
 
   if (s_baroVersion) {
-    s_baroValid = 1U;
+    s_baro_enable = 1U;
   }
 
   usbLog("- BaroInit >\r\n\r\n");
 }
 
 
-/* Task */
-
-void baroTaskInit(void)
+static void baroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 {
-  osDelay(600UL);
-  baroInit();
-}
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const baroMsgBaroCmds_t cmd     = (baroMsgBaroCmds_t) (0xffUL & hdr);
 
-void baroTaskLoop(void)
-{
-  const uint32_t  eachMs              = 1000UL;
-  static uint32_t sf_previousWakeTime = 0UL;
+  switch (cmd) {
+  case MsgBaro__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_baroStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
 
-  if (!sf_previousWakeTime) {
-    sf_previousWakeTime  = osKernelSysTick();
-    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 600UL;
-  }
+      /* Init module */
+      baroInit();
 
-  osDelayUntil(&sf_previousWakeTime, eachMs);
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Baro, 0U, MsgBaro__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
 
+  case MsgBaro__CallFunc01_DoMeasure:
+    {
+      /* Get the values */
+      baroDoMeasure();
+
+      /* Send them to the controller */
+      {
+        uint32_t cmdBack[4];
+
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Baro, sizeof(cmdBack) - 4U, MsgBaro__CallFunc01_DoMeasure);
+        cmdBack[1] = s_baro_temp_100;
+        cmdBack[2] = s_baro_p_100;
+        cmdBack[3] = s_baro_qnh_p_h_100;
+
+        controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+      }
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+
+#if 0
   if (s_baro_enable) {
     #if 0
     {
@@ -291,4 +330,60 @@ void baroTaskLoop(void)
 
     baroDistributor();
   }
+#endif
+}
+
+
+/* Task */
+
+void baroTaskInit(void)
+{
+  /* Correction offset values */
+  s_qnh_height_m                    = 103;
+  s_baro_temp_cor_100               = 0;
+  s_baro_p_cor_100                  = 170;
+
+  s_baro_enable                     = 0U;
+  s_baroVersion                     = 0U;
+  memset(s_baro_c, 0, C_I2C_BARO_C_CNT);
+  s_baro_d1                         = 0UL;
+  s_baro_d2                         = 0UL;
+
+  /* Out values */
+  s_baro_temp_100                   = 0L;
+  s_baro_p_100                      = 0L;
+  s_baro_qnh_p_h_100                = 0L;
+
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_baroStartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
+}
+
+void baroTaskLoop(void)
+{
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
+
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Baro_BSemHandle, osWaitForever);
+
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Baro, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
+    }
+
+    osSemaphoreRelease(c2Baro_BSemHandle);
+  }
+
+  /* Decode and execute the commands */
+  baroMsgProcess(msgLen, msgAry);
 }

@@ -39,6 +39,20 @@ typedef enum BARO_GET_TYPE_ENUM {
 } BARO_GET_TYPE_t;
 
 
+typedef enum baroMsgBaroCmds_ENUM {
+
+  MsgBaro__InitDo                                             = 0x01U,
+  MsgBaro__InitDone,
+
+  MsgBaro__SetVar01_x                                         = 0x41U,
+
+  MsgBaro__GetVar01_y                                         = 0x81U,
+
+  MsgBaro__CallFunc01_DoMeasure                               = 0xc1U,
+
+} baroMsgBaroCmds_t;
+
+
 
 int32_t baroGetValue(BARO_GET_TYPE_t type);
 

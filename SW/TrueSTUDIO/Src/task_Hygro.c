@@ -17,11 +17,15 @@
 
 #include "usb.h"
 #include "bus_i2c.h"
+#include "task_Controller.h"
 
 #include "task_Hygro.h"
 
 
 extern osMutexId            i2c4MutexHandle;
+extern osSemaphoreId        c2Hygro_BSemHandle;
+extern EventGroupHandle_t   controllerEventGroupHandle;
+
 extern I2C_HandleTypeDef    hi2c4;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
@@ -29,24 +33,24 @@ extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
 
 
 /* Correction values */
-static int16_t              s_hygro_T_cor_100                 = 0;
-static int16_t              s_hygro_RH_cor_100                = 700;
+static int16_t              s_hygro_T_cor_100;
+static int16_t              s_hygro_RH_cor_100;
 
-static uint8_t              s_hygro_enable                    = 1U;
-static uint8_t              s_hygroValid                      = 0U;
-static uint16_t             s_hygroState                      = 0U;
-static uint16_t             s_hygro_S_T                       = 0U;
-static int16_t              s_hygro_S_RH                      = 0;
+static uint8_t              s_hygro_enable;
+static uint16_t             s_hygroState;
+static uint32_t             s_hygroStartTime;
+static uint16_t             s_hygro_S_T;
+static int16_t              s_hygro_S_RH;
 
 /* Out values */
-static int16_t              s_hygro_T_100                     = 0;
-static int16_t              s_hygro_RH_100                    = 0;
-static int16_t              s_hygro_DP_100                    = 0;
+static int16_t              s_hygro_T_100;
+static int16_t              s_hygro_RH_100;
+static int16_t              s_hygro_DP_100;
 
 
 int16_t hygroGetValue(HYGRO_GET_TYPE_t type)
 {
-  if (s_hygroValid) {
+  if (s_hygro_enable) {
     switch (type) {
     case HYGRO_GET_TYPE__RH_100:
       return s_hygro_RH_100;
@@ -68,77 +72,6 @@ int16_t hygroGetValue(HYGRO_GET_TYPE_t type)
   return 0;
 }
 
-static void hygroInit(void)
-{
-  int   dbgLen = 0;
-  char  dbgBuf[128];
-
-  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
-
-  usbLog("< HygroInit -\r\n");
-
-  do {
-   /* SHT31-DIS hygro: stop any running jobs */
-    i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_BREAK_HI;
-    i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_BREAK_LO;
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
-    }
-    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
-      /* Chip not responding */
-      usbLog(". HygroInit: ERROR chip does not respond\r\n");
-      break;
-    }
-    osDelay(2);
-
-    /* SHT31-DIS hygro: reset */
-    i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_RESET_HI;
-    i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_RESET_LO;
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
-    }
-    osDelay(2);
-
-    /* SHT31-DIS hygro: return current status */
-    i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_STATUS_HI;
-    i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_STATUS_LO;
-    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
-    }
-    memset(i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
-    if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4RxBuffer, min(2U, I2C_RXBUFSIZE), I2C_OTHER_FRAME) != HAL_OK) {
-      /* Error_Handler() function is called when error occurs. */
-      Error_Handler();
-    }
-    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
-    }
-    s_hygroState = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
-
-    dbgLen = sprintf(dbgBuf, ". HygroInit: SHT31 state: 0x%04X\r\n", s_hygroState);
-    usbLogLen(dbgBuf, dbgLen);
-
-    if (s_hygroState) {
-      s_hygroValid = 1U;
-    }
-  } while(0);
-
-  usbLog("- HygroInit >\r\n\r\n");
-
-  osSemaphoreRelease(i2c4MutexHandle);
-}
 
 static void hygroFetch(void)
 {
@@ -228,6 +161,7 @@ static void hygroCalc(void)
   }
 }
 
+#if 0
 static void hygroDistributor(void)
 {
   int   dbgLen = 0;
@@ -239,33 +173,195 @@ static void hygroDistributor(void)
       (s_hygro_DP_100 / 100), (s_hygro_DP_100 % 100));
   usbLogLen(dbgBuf, dbgLen);
 }
+#endif
 
 
-/* Task */
-
-void hygroTaskInit(void)
+void hygroDoMeasure(void)
 {
-  osDelay(550UL);
-  hygroInit();
+  hygroFetch();
+  hygroCalc();
 }
 
-void hygroTaskLoop(void)
+static void hygroInit(void)
 {
-  const uint32_t  eachMs              = 1000UL;
-  static uint32_t sf_previousWakeTime = 0UL;
+  int   dbgLen = 0;
+  char  dbgBuf[128];
 
-  if (!sf_previousWakeTime) {
-    sf_previousWakeTime  = osKernelSysTick();
-    sf_previousWakeTime -= sf_previousWakeTime % 1000UL;
-    sf_previousWakeTime += 550UL;
-  }
+  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
 
-  osDelayUntil(&sf_previousWakeTime, eachMs);
+  usbLog("< HygroInit -\r\n");
 
+  do {
+   /* SHT31-DIS hygro: stop any running jobs */
+    i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_BREAK_HI;
+    i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_BREAK_LO;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
+      /* Chip not responding */
+      usbLog(". HygroInit: ERROR chip does not respond\r\n");
+      break;
+    }
+    osDelay(2);
+
+    /* SHT31-DIS hygro: reset */
+    i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_RESET_HI;
+    i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_RESET_LO;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    osDelay(2);
+
+    /* SHT31-DIS hygro: return current status */
+    i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_STATUS_HI;
+    i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_STATUS_LO;
+    if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_LAST_FRAME_NO_STOP) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    memset(i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
+    if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4RxBuffer, min(2U, I2C_RXBUFSIZE), I2C_OTHER_FRAME) != HAL_OK) {
+      /* Error_Handler() function is called when error occurs. */
+      Error_Handler();
+    }
+    while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
+      osDelay(1);
+    }
+    s_hygroState = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
+
+    dbgLen = sprintf(dbgBuf, ". HygroInit: SHT31 state: 0x%04X\r\n", s_hygroState);
+    usbLogLen(dbgBuf, dbgLen);
+
+    if (s_hygroState) {
+      s_hygro_enable = 1U;
+    }
+  } while(0);
+
+  usbLog("- HygroInit >\r\n\r\n");
+
+  osSemaphoreRelease(i2c4MutexHandle);
+}
+
+
+static void hygroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                  msgIdx  = 0UL;
+  const uint32_t            hdr     = msgAry[msgIdx++];
+  const hygroMsgHygroCmds_t cmd     = (hygroMsgHygroCmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgHygro__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_hygroStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      hygroInit();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Hygro, 0U, MsgHygro__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  case MsgHygro__CallFunc01_DoMeasure:
+    {
+      /* Get the values */
+      hygroDoMeasure();
+
+      /* Send them to the controller */
+      {
+        uint32_t cmdBack[4];
+
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Hygro, sizeof(cmdBack) - 4U, MsgHygro__CallFunc01_DoMeasure);
+        cmdBack[1] = s_hygro_T_100;
+        cmdBack[2] = s_hygro_RH_100;
+        cmdBack[3] = s_hygro_DP_100;
+
+        controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+      }
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+
+#if 0
   if (s_hygro_enable) {
     hygroFetch();
     hygroCalc();
 
     hygroDistributor();
   }
+#endif
+}
+
+
+/* Task */
+
+void hygroTaskInit(void)
+{
+  /* Correction values */
+  s_hygro_T_cor_100   = 0;
+  s_hygro_RH_cor_100  = 700;
+
+  s_hygro_enable      = 0U;
+  s_hygroState        = 0U;
+  s_hygro_S_T         = 0U;
+  s_hygro_S_RH        = 0;
+
+  /* Out values */
+  s_hygro_T_100       = 0;
+  s_hygro_RH_100      = 0;
+  s_hygro_DP_100      = 0;
+
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_hygroStartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
+}
+
+void hygroTaskLoop(void)
+{
+  uint32_t  msgLen                        = 0UL;
+  uint32_t  msgAry[CONTROLLER_MSG_Q_LEN];
+
+  /* Wait for door bell and hand-over controller out queue */
+  {
+    osSemaphoreWait(c2Hygro_BSemHandle, osWaitForever);
+
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Hygro, osWaitForever);
+    if (!msgLen) {
+      Error_Handler();
+    }
+
+    osSemaphoreRelease(c2Hygro_BSemHandle);
+  }
+
+  /* Decode and execute the commands */
+  hygroMsgProcess(msgLen, msgAry);
 }
