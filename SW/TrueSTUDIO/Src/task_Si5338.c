@@ -39,11 +39,11 @@ extern const Reg_Data_t     si5338_Reg_Store_MCU_12MHz[];
 extern const Reg_Data_t     si5338_Reg_Store_TCXO[];
 
 
-static uint8_t                        s_si5338_enable;
-static uint32_t                       s_si5338StartTime;
-static uint8_t                        s_si5338_waitMask;
-static I2C_SI5338_CLKIN_VARIANT_t     s_si5338_variant;
-static I2C_SI5338_CLKIN_VARIANT_t     ls_si5338_variant;
+static uint8_t              s_si5338_enable;
+static uint32_t             s_si5338StartTime;
+static uint8_t              s_si5338_waitMask;
+static I2C_SI5338_CLKIN_VARIANT_t s_si5338_variant;
+static I2C_SI5338_CLKIN_VARIANT_t ls_si5338_variant;
 
 
 static void si5338SettingStep1(void)

@@ -84,6 +84,20 @@ typedef enum HYGRO_GET_TYPE_ENUM {
 } HYGRO_GET_TYPE_t;
 
 
+typedef enum hygroMsgHygroCmds_ENUM {
+
+  MsgHygro__InitDo                                            = 0x01U,
+  MsgHygro__InitDone,
+
+  MsgHygro__SetVar01_x                                        = 0x41U,
+
+  MsgHygro__GetVar01_y                                        = 0x81U,
+
+  MsgHygro__CallFunc01_DoMeasure                              = 0xc1U,
+
+} hygroMsgHygroCmds_t;
+
+
 
 int16_t hygroGetValue(HYGRO_GET_TYPE_t type);
 

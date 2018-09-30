@@ -426,8 +426,8 @@ static void controllerInit(void)
     s_mod_start.osc_TCXO                                      = 0U;
     s_mod_start.osc_Si5338                                    = 0U;
     s_mod_start.actor_LCD                                     = 1U;
-    s_mod_start.sensor_Baro                                   = 0U;
-    s_mod_start.sensor_Hygro                                  = 0U;
+    s_mod_start.sensor_Baro                                   = 1U;
+    s_mod_start.sensor_Hygro                                  = 1U;
     s_mod_start.sensor_Gyro                                   = 0U;
     s_mod_start.radio_AX5243                                  = 0U;
     s_mod_start.radio_SX1276                                  = 0U;
@@ -532,7 +532,6 @@ static void controllerInit(void)
     }
   }
 
-
   #if 0
   if (s_lcd_enable) {
     const int32_t p_100     = baroGetValue(BARO_GET_TYPE__QNH_100);
@@ -551,7 +550,6 @@ static void controllerInit(void)
     }
   }
   #endif
-
 
   //#define I2C4_BUS_ADDR_SCAN
   #ifdef I2C4_BUS_ADDR_SCAN
