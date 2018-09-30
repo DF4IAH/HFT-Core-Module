@@ -9,6 +9,7 @@
 #define TASK_TCXO_20MHZ_H_
 
 #define TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE                 36200U
+#define TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VOLTAGE_UV            1510000UL
 
 
 #define I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR                       0x1CU
@@ -33,8 +34,21 @@
 #define I2C_SLAVE_20MHZ_DAC_REG_RD_CONFIG_RB                  0x08U
 
 
-void tcxo20MhzDacInit(void);
-void tcxo20MhzDacSet(uint16_t dac);
+typedef enum Tcxo20MHzMsgTcxoCmds_ENUM {
+
+  MsgTcxo__InitDo                                             = 0x01U,
+  MsgTcxo__InitDone,
+
+  MsgTcxo__SetVar01_Voltage                                   = 0x41U,
+
+  MsgTcxo__GetVar01_Voltage                                   = 0x81U,
+
+  MsgTcxo__CallFunc01_SetDAC                                  = 0xc1U,
+
+} Tcxo20MHzMsgTcxoCmds_t;
+
+
+
 
 void tcxo20MhzTaskInit(void);
 void tcxo20MhzTaskLoop(void);

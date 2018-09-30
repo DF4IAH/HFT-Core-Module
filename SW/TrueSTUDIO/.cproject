@@ -279,7 +279,7 @@
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/HFT-Core-Module_TrueSTUDIO"/>
+			<resource resourceType="PROJECT" workspacePath="HFT-Core-Module_TrueSTUDIO"/>
 		</configuration>
 		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/HFT-Core-Module_TrueSTUDIO"/>

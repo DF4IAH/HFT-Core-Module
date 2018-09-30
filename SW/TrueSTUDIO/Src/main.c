@@ -143,6 +143,8 @@ osMutexId i2c3MutexHandle;
 osMutexId i2c4MutexHandle;
 osMutexId spi1MutexHandle;
 osMutexId spi3MutexHandle;
+osMutexId controllerQueueInMutexHandle;
+osMutexId controllerQueueOutMutexHandle;
 osSemaphoreId c2Ax5243_BSemHandle;
 osSemaphoreId c2Sx1276_BSemHandle;
 osSemaphoreId c2Si5338_BSemHandle;
@@ -162,11 +164,9 @@ extern uint8_t                        i2c4RxBuffer[I2C_RXBUFSIZE];
 extern uint8_t                        spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t                        spi3RxBuffer[SPI3_BUFFERSIZE];
 
-ENABLE_MASK_t                         g_enableMsk             = 0UL;  // ENABLE_MASK__LORA_BARE;
-MON_MASK_t                            g_monMsk                = 0UL;
-
 
 /* Private variables ---------------------------------------------------------*/
+EventGroupHandle_t                    controllerEventGroupHandle;
 EventGroupHandle_t                    extiEventGroupHandle;
 EventGroupHandle_t                    usbToHostEventGroupHandle;
 EventGroupHandle_t                    adcEventGroupHandle;
@@ -180,10 +180,11 @@ TIM_HandleTypeDef                     TimHandle;
 /* Timer Output Compare Configuration Structure declaration */
 TIM_OC_InitTypeDef                    sConfig;
 
+ENABLE_MASK_t                         g_enableMsk;
+MON_MASK_t                            g_monMsk;
 
-
-
-static uint8_t                        s_adc_enable            = 0U;
+static uint8_t                        s_adc_enable;
+static uint32_t                       s_mainStartTime;
 
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
@@ -192,7 +193,6 @@ volatile uint32_t                     g_rtc_ssr_last          = 0UL;
 
 static uint64_t                       s_timerLast_us          = 0ULL;
 static uint64_t                       s_timerStart_us         = 0ULL;
-
 
 /* USER CODE END PV */
 
@@ -309,7 +309,7 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
       HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
           GPIO_PIN_SET);
 
-      osDelay(10);
+      osDelay(10UL);
 
       /* Scale1: 1.2V up to 80MHz */
       /* Scale2: 1.0V up to 24MHz */
@@ -320,7 +320,7 @@ void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
       /* Scale2: 1.0V up to 24MHz */
       HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-      osDelay(100);
+      osDelay(100UL);
 
       /* Port: PC0 */
       HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
@@ -365,7 +365,7 @@ void PowerSwitchInit(void)
 
   /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
   PowerSwitchDo(POWERSWITCH__3V3_XO,
-      0);
+      1);
 
   /* Enable SMPS */
   {
@@ -548,19 +548,14 @@ int main(void)
     /* ARM software reset to be done */
     SystemResetbyARMcore();
   }
-  __HAL_RCC_CLEAR_RESET_FLAGS();                                                                      // 26.0mA --> 25.5mA
-
-  #if 0
-  /* Give PMIC devices 3 seconds time to stabilize before demand of power ramps up */
-  for (uint32_t delayCntr = 1000000UL; delayCntr; delayCntr--) { }
-  #endif
+  __HAL_RCC_CLEAR_RESET_FLAGS();
 
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();                                                                                         // 25.5mA --> 28.5mA
+  HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -576,12 +571,12 @@ int main(void)
 
   /* MSI trim */
   //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
-  HAL_RCCEx_EnableMSIPLLMode();                                                                       // 28.5mA --> 28.5mA
+  HAL_RCCEx_EnableMSIPLLMode();
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();                                                                                     // 28.5mA --> 45.0mA
+  MX_GPIO_Init();
   MX_DMA_Init();
   MX_ADC1_Init();
   MX_CRC_Init();
@@ -607,7 +602,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   #if 1
-  /* Disable greedy CS of AUDIO_ADC */
+  /* Disable greedy CS of AUDIO_ADC when not powered up */
   {
     GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
@@ -686,6 +681,14 @@ int main(void)
   osMutexDef(spi3Mutex);
   spi3MutexHandle = osMutexCreate(osMutex(spi3Mutex));
 
+  /* definition and creation of controllerQueueInMutex */
+  osMutexDef(controllerQueueInMutex);
+  controllerQueueInMutexHandle = osMutexCreate(osMutex(controllerQueueInMutex));
+
+  /* definition and creation of controllerQueueOutMutex */
+  osMutexDef(controllerQueueOutMutex);
+  controllerQueueOutMutexHandle = osMutexCreate(osMutex(controllerQueueOutMutex));
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -733,6 +736,7 @@ int main(void)
   usbToHostBinarySemHandle = osSemaphoreCreate(osSemaphore(usbToHostBinarySem), 1);
 
   /* add event groups */
+  controllerEventGroupHandle = xEventGroupCreate();
   extiEventGroupHandle = xEventGroupCreate();
   usbToHostEventGroupHandle = xEventGroupCreate();
   adcEventGroupHandle = xEventGroupCreate();
@@ -746,7 +750,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityLow, 0, 256);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityBelowNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of usbToHostTask */
@@ -770,7 +774,7 @@ int main(void)
   gyroTaskHandle = osThreadCreate(osThread(gyroTask), NULL);
 
   /* definition and creation of lcdTask */
-  osThreadDef(lcdTask, StartLcdTask, osPriorityAboveNormal, 0, 256);
+  osThreadDef(lcdTask, StartLcdTask, osPriorityNormal, 0, 256);
   lcdTaskHandle = osThreadCreate(osThread(lcdTask), NULL);
 
   /* definition and creation of tcxo20MhzTask */
@@ -786,7 +790,7 @@ int main(void)
   sx1276TaskHandle = osThreadCreate(osThread(sx1276Task), NULL);
 
   /* definition and creation of controllerTask */
-  osThreadDef(controllerTask, StartControllerTask, osPriorityBelowNormal, 0, 256);
+  osThreadDef(controllerTask, StartControllerTask, osPriorityLow, 0, 256);
   controllerTaskHandle = osThreadCreate(osThread(controllerTask), NULL);
 
   /* definition and creation of si5338Task */
@@ -815,7 +819,7 @@ int main(void)
 
   /* definition and creation of controllerOutQueue */
 /* what about the sizeof here??? cd native code */
-  osMessageQDef(controllerOutQueue, 8, uint32_t);
+  osMessageQDef(controllerOutQueue, 32, uint32_t);
   controllerOutQueueHandle = osMessageCreate(osMessageQ(controllerOutQueue), NULL);
 
   /* definition and creation of loraMacQueue */
@@ -2124,6 +2128,143 @@ void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 }
 #endif
 
+
+static void mainDefaultInit(void)
+{
+  /* Activate USB communication */
+  HFTcore_USB_DEVICE_Init();
+
+  /* Power switch settings */
+  PowerSwitchInit();
+}
+
+static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const MainMsgMainCmds_t cmd     = (MainMsgMainCmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgMain__InitDo:
+    {
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_mainStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      mainDefaultInit();
+
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgMain__InitDone);
+      controllerMsgPushToQueueIn(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  /* ADC single conversion */
+  case MsgMain__CallFunc01_MCU_ADC:
+    {
+      int   dbgLen;
+      char  dbgBuf[128];
+
+      /* Do ADC conversion and logging of ADC data */
+      if (s_adc_enable) {
+        adcStartConv(ADC_ADC1_TEMP);
+
+        const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
+        BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
+        if ((regBits & regMask) == regMask) {
+          /* All channels of ADC1 are complete */
+          float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
+          float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
+          float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
+          float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
+          int32_t   l_adc_temp_i    = 0L;
+          uint32_t  l_adc_temp_f100 = 0UL;
+
+          mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
+
+          dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
+              (int16_t) (l_adc_v_vdda   + 0.5f),
+              (int16_t) (l_adc_v_solar  + 0.5f),
+              (int16_t) (l_adc_v_bat    + 0.5f),
+              l_adc_temp_i, l_adc_temp_f100);
+          usbLogLen(dbgBuf, dbgLen);
+        }
+      }
+    }
+    break;
+
+  /* TEST_AUDIO_ADC */
+  case MsgMain__CallFunc02_AUDIO_ADC:
+    {
+      /* Disable RESET of AUDIO_ADC */
+      __HAL_RCC_GPIOD_CLK_ENABLE();
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_SET);
+      osDelay(5UL);
+
+      /* Init conversions */
+      {
+        const uint8_t txMsg_0x0d_Reset[2]     = { ((0x0dU << 1U) | 0x00U),                                // Write address 0x0D
+            0xc2U                                                                                         // Reset both ADCs
+        };
+        const uint8_t txMsg_0x07_Config[14]   = { ((0x07U << 1U) | 0x00U),                                // Write address 0x07
+            0x00U, 0x00U,                                                                                 // No phase delay between ADC1 and ADC2
+            0b10101101U,                                                                                  // Gain=32 and Boost=1x (0b10)
+            0b00010011U, 0b10100100U,                                                                     // DR:PP, 16bit, EN_OFFCAL=1
+            0b00011110U, 0b00000010U,                                                                     // AMCLK=MCLK, OSR=256,
+            0xfdU, 0x70U, 0x00U,                                                                          // Offset CH0
+            0x00U, 0x00U, 0x00U                                                                           // Offset CH1
+        };
+
+        spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x0d_Reset),   txMsg_0x0d_Reset);
+        spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x07_Config),  txMsg_0x07_Config);
+      }
+
+      do {
+        const uint8_t txMsg_0x00_RdAdcs[7] = { ((0x00U << 1U) | 0x01U),                                   // Read address 0x00
+            0U
+        };
+        uint16_t adc_L, adc_R;
+        char dbgBuf[128];
+
+        spiProcessSpi3MsgTemplateLocked(SPI3_ADC, sizeof(txMsg_0x00_RdAdcs), txMsg_0x00_RdAdcs, 1U);
+        adc_L = ((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2];
+        adc_R = ((uint16_t)spi3RxBuffer[3] << 8U) | spi3RxBuffer[4];
+        osMutexRelease(spi3MutexHandle);
+
+        int dbgLen = sprintf(dbgBuf, ". AUDIO_ADC: Left = 0x%04X, Right = 0x%04X\r\n", adc_L, adc_R);
+        usbLogLen(dbgBuf, dbgLen);
+
+        osDelay(500UL);
+      } while (1);
+    }
+    break;
+
+    /* TEST_AUDIO_DAC */
+    case MsgMain__CallFunc03_AUDIO_DAC:
+      {
+        PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
+        __HAL_RCC_GPIOC_CLK_ENABLE();
+        osDelay(5UL);
+
+        uint8_t value = 0U;
+        do {
+          const uint8_t txMsgL[3] = { 0x31U,             value,  0 };
+          const uint8_t txMsgR[3] = { 0x32U, ((uint8_t) ~value), 0 };
+
+          spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgL), txMsgL);
+          spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgR), txMsgR);
+
+          value += 0x10U;
+        } while (1);
+      }
+      break;
+
+  default: { }
+  }  // switch (cmd)
+}
+
 /* USER CODE END 4 */
 
 /* StartDefaultTask function */
@@ -2133,139 +2274,47 @@ void StartDefaultTask(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
+  // Above function is voided. USB-DCD is activated when needed
 
-  /* Power switch settings */
-  PowerSwitchInit();        // 32.0mA --> 28.0mA
-
-  /* Si5338 clock generator */
-#if 0
-  /* Switch on Si5338 clock PLL */
-# if 0
-  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
-# elif 1
-  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ);
-# else
-  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ);
-# endif
-#endif
-
-  /* LCD-backlight default settings */
-  //LcdBacklightInit();       // 28.0mA --> 30.0mA  !!!!
-
-  osDelay(1500UL);
-
-
-  //#define I2C4_BUS_ADDR_SCAN
-  //#define TEST_DAC
-  //#define TEST_ADC
-
-
-  #ifdef I2C4_BUS_ADDR_SCAN
-  i2cBusAddrScan(&hi2c4, i2c4MutexHandle);
-  #endif
-
-  #ifdef TEST_DAC
-  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  osDelay(5);
-
-  uint8_t value = 0U;
-  do {
-    const uint8_t txMsgL[3] = { 0x31U,             value,  0 };
-    const uint8_t txMsgR[3] = { 0x32U, ((uint8_t) ~value), 0 };
-
-    spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgL), txMsgL);
-    spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgR), txMsgR);
-
-    value += 0x10U;
-  } while (1);
-  #endif
-
-  #ifdef TEST_ADC
-  /* Disable RESET of AUDIO_ADC */
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_SET);
-  osDelay(5);
-
-  /* Init convertions */
+  /* defaultTaskInit() section */
   {
-    const uint8_t txMsg_0x0d_Reset[2]     = { ((0x0dU << 1U) | 0x00U),                                // Write address 0x0D
-        0xc2U                                                                                         // Reset both ADCs
-    };
-    const uint8_t txMsg_0x07_Config[14]   = { ((0x07U << 1U) | 0x00U),                                // Write address 0x07
-        0x00U, 0x00U,                                                                                 // No phase delay between ADC1 and ADC2
-        0b10101101U,                                                                                  // Gain=32 and Boost=1x (0b10)
-        0b00010011U, 0b10100100U,                                                                     // DR:PP, 16bit, EN_OFFCAL=1
-        0b00011110U, 0b00000010U,                                                                     // AMCLK=MCLK, OSR=256,
-        0xfdU, 0x70U, 0x00U,                                                                          // Offset CH0
-        0x00U, 0x00U, 0x00U                                                                           // Offset CH1
-    };
-
-    spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x0d_Reset),   txMsg_0x0d_Reset);
-    spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x07_Config),  txMsg_0x07_Config);
+    g_enableMsk     = 0UL;  // ENABLE_MASK__LORA_BARE;
+    g_monMsk        = 0UL;
+    s_adc_enable    = 0U;
+    s_mainStartTime = 0UL;
   }
 
+  /* Wait until controller is up */
+  xEventGroupWaitBits(controllerEventGroupHandle,
+      Controller__CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_mainStartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
+
   do {
-    const uint8_t txMsg_0x00_RdAdcs[7] = { ((0x00U << 1U) | 0x01U),                                   // Read address 0x00
-        0U
-    };
-    uint16_t adc_L, adc_R;
-    char dbgBuf[128];
+    uint32_t msgLen                       = 0UL;
+    uint32_t msgAry[CONTROLLER_MSG_Q_LEN];
 
-    spiProcessSpi3MsgTemplateLocked(SPI3_ADC, sizeof(txMsg_0x00_RdAdcs), txMsg_0x00_RdAdcs, 1U);
-    adc_L = ((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2];
-    adc_R = ((uint16_t)spi3RxBuffer[3] << 8U) | spi3RxBuffer[4];
-    osMutexRelease(spi3MutexHandle);
+    /* Wait for door bell and hand-over controller out queue */
+    {
+      osSemaphoreWait(c2Default_BSemHandle, osWaitForever);
 
-    int dbgLen = sprintf(dbgBuf, ". AUDIO_ADC: Left = 0x%04X, Right = 0x%04X\r\n", adc_L, adc_R);
-    usbLogLen(dbgBuf, dbgLen);
-
-    osDelay(500);
-  } while (1);
-  #endif
-
-
-  /* Infinite loop */
-  for(;;)
-  {
-    const uint32_t  eachMs              = 1000UL;
-    static uint32_t sf_previousWakeTime = 0UL;
-    int             dbgLen;
-    char            dbgBuf[256];
-
-    if (!sf_previousWakeTime) {
-      sf_previousWakeTime  = osKernelSysTick();
-    }
-
-    /* Repeat each time period ADC conversion */
-    osDelayUntil(&sf_previousWakeTime, eachMs);
-
-    /* Do ADC conversion and logging of ADC data */
-    if (s_adc_enable) {
-      adcStartConv(ADC_ADC1_TEMP);
-
-      const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
-      BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
-      if ((regBits & regMask) == regMask) {
-        /* All channels of ADC1 are complete */
-        float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
-        float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
-        float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
-        float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
-        int32_t   l_adc_temp_i    = 0L;
-        uint32_t  l_adc_temp_f100 = 0UL;
-
-        mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
-
-        dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
-            (int16_t) (l_adc_v_vdda   + 0.5f),
-            (int16_t) (l_adc_v_solar  + 0.5f),
-            (int16_t) (l_adc_v_bat    + 0.5f),
-            l_adc_temp_i, l_adc_temp_f100);
-        usbLogLen(dbgBuf, dbgLen);
+      msgLen = controllerMsgPullFromQueueOut(msgAry, Destinations__Main_Default, osWaitForever);
+      if (!msgLen) {
+        Error_Handler();
       }
+
+      osSemaphoreRelease(c2Default_BSemHandle);
     }
-  }
+
+    /* Decode and execute the commands */
+    mainMsgProcess(msgLen, msgAry);
+  } while (1);
 
   /* USER CODE END 5 */ 
 }

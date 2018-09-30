@@ -213,6 +213,18 @@ static void si5338Init(void)
       s_si5338_enable = 0U;
     }
   }
+
+  /* Si5338 clock generator */
+#if 0
+  /* Switch on Si5338 clock PLL */
+# if 0
+  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ);
+# elif 1
+  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ);
+# else
+  si5338VariantSet(I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ);
+# endif
+#endif
 }
 
 
