@@ -777,15 +777,15 @@ int main(void)
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
 
   /* definition and creation of ax5243Task */
-  osThreadDef(ax5243Task, StartAx5243Task, osPriorityAboveNormal, 0, 1024);
+  osThreadDef(ax5243Task, StartAx5243Task, osPriorityAboveNormal, 0, 2048);
   ax5243TaskHandle = osThreadCreate(osThread(ax5243Task), NULL);
 
   /* definition and creation of sx1276Task */
-  osThreadDef(sx1276Task, StartSx1276Task, osPriorityAboveNormal, 0, 1024);
+  osThreadDef(sx1276Task, StartSx1276Task, osPriorityAboveNormal, 0, 2048);
   sx1276TaskHandle = osThreadCreate(osThread(sx1276Task), NULL);
 
   /* definition and creation of controllerTask */
-  osThreadDef(controllerTask, StartControllerTask, osPriorityLow, 0, 256);
+  osThreadDef(controllerTask, StartControllerTask, osPriorityLow, 0, 512);
   controllerTaskHandle = osThreadCreate(osThread(controllerTask), NULL);
 
   /* definition and creation of si5338Task */
