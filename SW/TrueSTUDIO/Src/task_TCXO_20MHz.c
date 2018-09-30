@@ -24,7 +24,6 @@ extern osThreadId           tcxo20MhzTaskHandle;
 extern osMutexId            i2c4MutexHandle;
 extern osSemaphoreId        c2Tcxo_BSemHandle;
 extern EventGroupHandle_t   controllerEventGroupHandle;
-//extern EventGroupHandle_t   adcEventGroupHandle;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -37,7 +36,7 @@ static uint32_t             s_tcxoStartTime;
 
 static uint16_t tcxoCalcVoltage2DacValue(uint32_t voltage_uV)
 {
-  return (uint16_t) (voltage_uV * TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE) / TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VOLTAGE_UV;
+  return (uint16_t) (((uint64_t)voltage_uV * TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VALUE) / TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VOLTAGE_UV);
 }
 
 static void tcxo20MhzDacInit(void)
@@ -97,18 +96,30 @@ static void tcxo20MhzDacSet(uint16_t dac)
 
 static void tcxo20MhzInit(void)
 {
-  /* When TCXO-power is up */
-  if (GPIO_PIN_SET == HAL_GPIO_ReadPin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin)) {
+  /* Enable clock of Port C */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+
+  /* Switch on TCXO and high-current circuits */
+  {
+    PowerSwitchDo(POWERSWITCH__3V3_XO, 1U);
+    osDelay(10);
+  }
+
+  /* TCXO is being powered */
+  s_tcxo_enable = 1U;
+
+  /* Init after power-up */
+  {
     /* Prepare TCXO-DAC */
     tcxo20MhzDacInit();
 
     /* Tune VCTCXO for its mid-range voltage */
     s_tcxoVoltage_uV = TCXO_DAC_16BIT_3V3_PULL_DEFAULT_VOLTAGE_UV;
     tcxo20MhzDacSet(tcxoCalcVoltage2DacValue(s_tcxoVoltage_uV));
-
-    /* TCXO is running */
-    s_tcxo_enable = 1U;
   }
+
+  /* Disable clock of Port C, again */
+  __HAL_RCC_GPIOC_CLK_DISABLE();
 }
 
 static void tcxo20MHzMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
@@ -120,17 +131,20 @@ static void tcxo20MHzMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
   switch (cmd) {
   case MsgTcxo__InitDo:
     {
+      /* Start at defined point of time */
       const uint32_t delayMs = msgAry[msgIdx++];
       if (delayMs) {
         uint32_t  previousWakeTime = s_tcxoStartTime;
         osDelayUntil(&previousWakeTime, delayMs);
       }
 
+      /* Init module */
       tcxo20MhzInit();
 
+      /* Return Init confirmation */
       uint32_t cmdBack[1];
       cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Osc_TCXO, 0U, MsgTcxo__InitDone);
-      controllerMsgPushToQueueIn(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
     }
     break;
 
@@ -145,7 +159,7 @@ static void tcxo20MHzMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       uint32_t cmdBack[2];
       cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Osc_TCXO, 0U, MsgTcxo__GetVar01_Voltage);
       cmdBack[1] = s_tcxoVoltage_uV;
-      controllerMsgPushToQueueIn(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
     }
     break;
 
@@ -205,7 +219,7 @@ void tcxo20MhzTaskLoop(void)
   {
     osSemaphoreWait(c2Tcxo_BSemHandle, osWaitForever);
 
-    msgLen = controllerMsgPullFromQueueOut(msgAry, Destinations__Osc_TCXO, osWaitForever);
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_TCXO, osWaitForever);
     if (!msgLen) {
       Error_Handler();
     }

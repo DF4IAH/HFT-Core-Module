@@ -37,7 +37,7 @@ extern osMessageQId         loraMacQueueHandle;
 //extern osMutexId            trackMeApplUpDataMutexHandle;
 //extern osMutexId            trackMeApplDnDataMutexHandle;
 extern osMutexId            spi3MutexHandle;
-extern EventGroupHandle_t   spiEventGroupHandle;
+//extern EventGroupHandle_t   spiEventGroupHandle;
 //extern EventGroupHandle_t   loraEventGroupHandle;
 //extern EventGroupHandle_t   controllerEventGroupHandle;
 
@@ -48,7 +48,7 @@ extern uint8_t              spi3TxBuffer[SPI1_BUFFERSIZE];
 extern uint8_t              spi3RxBuffer[SPI1_BUFFERSIZE];
 
 
-const uint16_t              loRaWANWait_EGW_MaxWaitTicks      = 60000 / portTICK_PERIOD_MS;           // One minute
+//const uint16_t              loRaWANWait_EGW_MaxWaitTicks      = 60000 / portTICK_PERIOD_MS;           // One minute
 const uint16_t              LoRaWAN_MaxWaitMs                 = 100;
 
 
@@ -106,7 +106,7 @@ LoraliveApp_down_t          loraliveApp_down                  = {   };
 /* Forward declarations */
 
 static void LoRaWAN_LoRaBare_TX_msg(LoRaWANctx_t* ctxWan, LoRaBareCtx_t* ctxBare, LoRaWAN_TX_Message_t* msg, const uint8_t* strBuf, uint8_t strLen);
-static void LoRaWAN_LoRaBare_RX(LoRaWANctx_t* ctxWan, LoRaBareCtx_t* ctxBare, uint8_t turnOn);
+//static void LoRaWAN_LoRaBare_RX(LoRaWANctx_t* ctxWan, LoRaBareCtx_t* ctxBare, uint8_t turnOn);
 static void LoRaWAN_TX_msg(LoRaWANctx_t* ctx, LoRaWAN_TX_Message_t* msg);
 
 
@@ -174,6 +174,7 @@ void LoRaWANctx_applyKeys_trackMeApp(void)
 }
 
 
+#if 0
 static uint8_t LoRaWAN_marshalling_PayloadCompress_TrackMeAppUp(uint8_t outBuf[], const TrackMeApp_up_t* trackMeApp_UL)
 {
   uint8_t outLen = 0;
@@ -339,6 +340,7 @@ static uint8_t LoRaWAN_marshalling_PayloadCompress_TrackMeAppUp(uint8_t outBuf[]
   }
   return outLen;
 }
+#endif
 
 static uint8_t LoRaWAN_marshalling_PayloadExpand_TrackMeAppDown(TrackMeApp_down_t* trackMeApp_DL, const uint8_t* compressedMsg, uint8_t compressedMsgLen)
 {
@@ -494,6 +496,7 @@ static void LoRaWAN_marshalling_PayloadDownExpand(LoRaWAN_RX_Message_t* msg)
 #endif
 
 
+#if 0
 static void LoRaWAN_QueueIn_Process__Fsm_TX(void)
 {
   /* Prepare to transmit data buffer */
@@ -518,7 +521,9 @@ static void LoRaWAN_QueueIn_Process__Fsm_TX(void)
     /* Drop data when (again?) Join-Request is just exchanged */
   }
 }
+#endif
 
+#if 0
 static void LoRaWAN_QueueIn_Process(void)
 {
 #ifdef NEW_CODE_TO_WRITE
@@ -761,6 +766,7 @@ loRaWAN_Error_clrInBuf:
   }
 #endif
 }
+#endif
 
 static void LoRaWAN_QueueOut_Process(uint8_t cmd)
 {
@@ -1780,6 +1786,7 @@ static void LoRaWAN_LoRaBare_TX_msg(LoRaWANctx_t* ctxWan, LoRaBareCtx_t* ctxBare
   }
 }
 
+#if 0
 static void LoRaWAN_LoRaBare_RX(LoRaWANctx_t* ctxWan, LoRaBareCtx_t* ctxBare, uint8_t turnOn)
 {
   const uint8_t sxMode = TXRX_MODE_MASK & spiSX127xGetMode();
@@ -1810,7 +1817,9 @@ static void LoRaWAN_LoRaBare_RX(LoRaWANctx_t* ctxWan, LoRaBareCtx_t* ctxBare, ui
     spiSX1276Mode(MODE_LoRa | ACCESS_SHARE_OFF | LOW_FREQ_MODE_OFF | STANDBY);
   }
 }
+#endif
 
+#if 0
 static void LoRaWAN_LoRaBare_RX__RXdone(void)
 {
   char usbDbgBuf[512];
@@ -1846,6 +1855,7 @@ static void LoRaWAN_LoRaBare_RX__RXdone(void)
     usbLogLen((const char*) usbDbgBuf, len);
   }
 }
+#endif
 
 
 //#define DEBUG_TX_TIMING
@@ -3712,7 +3722,7 @@ void loRaWANLoraTaskLoop(void)
 
   default:
     loRaWANctx.FsmState = Fsm_NOP;
-    // Fall-through.
+    /* no break */
   case Fsm_NOP:
     #ifdef NEW_CODE_TO_WRITE
     eb = xEventGroupWaitBits(loraEventGroupHandle,

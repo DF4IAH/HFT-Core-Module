@@ -16,6 +16,14 @@
 //#include "stm32l4xx_hal_gpio.h"
 #include "usb.h"
 #include "bus_spi.h"
+#include "task_TCXO_20MHz.h"
+#include "task_Si5338.h"
+#include "task_LCD.h"
+#include "task_Baro.h"
+#include "task_Hygro.h"
+#include "task_Gyro.h"
+#include "task_AX5243.h"
+#include "task_SX1276.h"
 
 #include "task_Controller.h"
 
@@ -59,22 +67,44 @@ static uint32_t controllerCalcMsgInit(uint32_t* ary, ControllerMsgDestinations_t
   return 2UL;
 }
 
-static void controllerMsgQueueOut(uint8_t msgLen, uint32_t* msgAry)
+
+uint32_t controllerMsgPushToInQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs)
 {
   /* Sanity checks */
-  if (!msgLen || !msgAry) {
-    return;
+  if (!msgLen || (msgLen > CONTROLLER_MSG_Q_LEN) || !msgAry) {
+    return 0UL;
   }
 
+  /* Get mutex */
+  osMutexWait(controllerQueueInMutexHandle, waitMs);
+
+  /* Push to the queue */
+  uint8_t idx = 0U;
+  while (idx < msgLen) {
+    osMessagePut(controllerInQueueHandle, msgAry[idx++], osWaitForever);
+  }
+
+  /* Return mutex */
+  osMutexRelease(controllerQueueInMutexHandle);
+
+  /* Door bell */
+  xEventGroupSetBits(controllerEventGroupHandle, Controller__QUEUE_IN);
+
+  return idx;
+}
+
+static void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry)
+{
   /* Get mutex to queue in */
   osMutexWait(controllerQueueOutMutexHandle, osWaitForever);
 
+  /* Push to the queue */
   uint8_t idx = 0U;
-  while (msgLen--) {
+  while (idx < msgLen) {
     osMessagePut(controllerOutQueueHandle, msgAry[idx++], osWaitForever);
   }
 
-  /* Inform destination to pull from*/
+  /* Ring bell at the destination */
   osSemaphoreId semId = 0;
   switch ((ControllerMsgDestinations_t) (msgAry[0] >> 24)) {
   case Destinations__Main_Default:
@@ -138,7 +168,7 @@ static void controllerMsgQueueOut(uint8_t msgLen, uint32_t* msgAry)
   /* Return mutex */
   osMutexRelease(controllerQueueOutMutexHandle);
 
-  /* Door bell */
+  /* Big Ben for the public */
   xEventGroupSetBits(  controllerEventGroupHandle, Controller__QUEUE_OUT);
   xEventGroupClearBits(controllerEventGroupHandle, Controller__QUEUE_OUT);
 
@@ -148,77 +178,8 @@ static void controllerMsgQueueOut(uint8_t msgLen, uint32_t* msgAry)
   }
 }
 
-uint32_t controllerMsgPushToQueueIn(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs)
-{
-  /* Sanity checks */
-  if (!msgLen || (msgLen > CONTROLLER_MSG_Q_LEN) || !msgAry) {
-    return 0UL;
-  }
 
-  /* Get mutex to queue in */
-  osMutexWait(controllerQueueInMutexHandle, waitMs);
-
-  uint8_t idx = 0U;
-  while (idx < msgLen) {
-    osMessagePut(controllerInQueueHandle, msgAry[idx++], osWaitForever);
-  }
-
-  /* Return mutex */
-  osMutexRelease(controllerQueueInMutexHandle);
-
-  /* Door bell */
-  xEventGroupSetBits(controllerEventGroupHandle, Controller__QUEUE_IN);
-
-  return idx;
-}
-
-uint32_t controllerMsgPullFromQueueOut(uint32_t* msgAry, ControllerMsgDestinations_t dst, uint32_t waitMs)
-{
-  uint32_t len = 0UL;
-
-  /* Get mutex to queue out */
-  osMutexWait(controllerQueueOutMutexHandle, waitMs);
-
-  osEvent ev = osMessagePeek(controllerOutQueueHandle, osWaitForever);
-  if (ev.status == osEventMessage) {
-    const uint32_t  hdr       = ev.value.v;
-    uint32_t        lenBytes  = 0xffUL & (hdr >> 8U);
-
-    if (dst == (0xffUL & (hdr >> 24))) {
-      (void) osMessageGet(controllerOutQueueHandle, osWaitForever);
-      msgAry[len++] = hdr;
-
-      while (lenBytes) {
-        /* Push token into array */
-        ev = osMessageGet(controllerOutQueueHandle, osWaitForever);
-        const uint32_t opt = ev.value.v;
-        msgAry[len++] = opt;
-
-        /* Count off bytes transferred */
-        if (lenBytes > 4) {
-          lenBytes -= 4U;
-        } else {
-          lenBytes = 0U;
-        }
-      }
-
-    } else {
-      /* Strip off unused message */
-      const uint8_t cnt = (lenBytes + 3U) / 4U;
-
-      for (uint8_t idx = 0; idx < cnt; idx++) {
-        (void) osMessageGet(controllerOutQueueHandle, osWaitForever);
-      }
-    }
-  }
-
-  /* Return mutex */
-  osMutexRelease(controllerQueueOutMutexHandle);
-
-  return len;
-}
-
-static uint32_t controllerMsgPullFromQueue(void)
+static uint32_t controllerMsgPullFromInQueue(void)
 {
   /* Process each message token */
   do {
@@ -258,6 +219,56 @@ static uint32_t controllerMsgPullFromQueue(void)
   return osOK;
 }
 
+uint32_t controllerMsgPullFromOutQueue(uint32_t* msgAry, ControllerMsgDestinations_t dst, uint32_t waitMs)
+{
+  uint32_t len = 0UL;
+
+  /* Get mutex */
+  osMutexWait(controllerQueueOutMutexHandle, waitMs);
+
+  do {
+    osEvent ev = osMessagePeek(controllerOutQueueHandle, 1UL);
+    if (ev.status == osEventMessage) {
+      const uint32_t  hdr       = ev.value.v;
+      uint32_t        lenBytes  = 0xffUL & (hdr >> 8U);
+
+      if (dst == (0xffUL & (hdr >> 24))) {
+        (void) osMessageGet(controllerOutQueueHandle, 1UL);
+        msgAry[len++] = hdr;
+
+        while (lenBytes) {
+          /* Push token into array */
+          ev = osMessageGet(controllerOutQueueHandle, 1UL);
+          const uint32_t opt = ev.value.v;
+          msgAry[len++] = opt;
+
+          /* Count off bytes transferred */
+          if (lenBytes > 4) {
+            lenBytes -= 4U;
+          } else {
+            lenBytes = 0U;
+          }
+        }
+        break;
+
+      } else {
+        /* Strip off unused message */
+        const uint8_t cnt = 1U + ((lenBytes + 3U) / 4U);
+
+        for (uint8_t idx = 0; idx < cnt; idx++) {
+          (void) osMessageGet(controllerOutQueueHandle, 1UL);
+        }
+      }
+    }
+  } while (1);
+
+  /* Return mutex */
+  osMutexRelease(controllerQueueOutMutexHandle);
+
+  return len;
+}
+
+
 static void controllerMsgProcessor(void)
 {
   /* Discard message that are not for us (yet) */
@@ -283,10 +294,64 @@ static void controllerMsgProcessor(void)
 
         case Destinations__Osc_Si5338:
           s_mod_rdy.osc_Si5338    = 1U;
+
+          /* Switch Si5338 to the desired mode */
+          {
+            uint32_t msgAry[CONTROLLER_MSG_Q_LEN] = { 0 };
+
+            /* Set variant */
+            {
+              uint8_t msgLen = 0U;
+              msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Osc_Si5338, Destinations__Controller, 1U, MsgSi5338__SetVar01_Variant);
+              if (s_mod_rdy.osc_TCXO) {
+                msgAry[msgLen++] = (I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ << 24U);
+              } else {
+                msgAry[msgLen++] = (I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ << 24U);
+              }
+              controllerMsgPushToOutQueue(msgLen, msgAry);
+            }
+
+            /* Execute */
+            {
+              uint8_t msgLen = 0U;
+              msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Osc_Si5338, Destinations__Controller, 0U, MsgSi5338__CallFunc01_Execute);
+              controllerMsgPushToOutQueue(msgLen, msgAry);
+            }
+          }
           break;
 
         case Destinations__Actor_LCD:
           s_mod_rdy.actor_LCD     = 1U;
+
+          /* Welcome Text */
+          {
+            const uint8_t strBuf[]                = "*HFT-CoreModule*";
+            const uint8_t strLen                  = strlen((const char*) strBuf);
+            uint8_t msgLen                        = 0U;
+            uint32_t msgAry[CONTROLLER_MSG_Q_LEN] = { 0 };
+
+            msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Controller, 1U + strLen, MsgLcd__CallFunc02_WriteString);
+            uint32_t word = 0x00U << 24U;                                                             // Display @ Row=0, Col=0
+            uint8_t wordPos = 2;
+
+            for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
+              word |= (0xffU & strBuf[strIdx]) << (wordPos << 3U);
+
+              if (wordPos) {
+                --wordPos;
+
+              } else {
+                msgAry[msgLen++] = word;
+
+                word = 0UL;
+                wordPos = 3U;
+              }
+            }
+            msgAry[msgLen++] = word;
+
+            /* Put message into ControllerQueueOut */
+            controllerMsgPushToOutQueue(msgLen, msgAry);
+          }
           break;
 
         case Destinations__Sensor_Baro:
@@ -358,12 +423,11 @@ static void controllerInit(void)
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
 
     s_mod_start.main_default                                  = 1U;
-
-    s_mod_start.osc_TCXO                                      = 1U;
+    s_mod_start.osc_TCXO                                      = 0U;
     s_mod_start.osc_Si5338                                    = 0U;
     s_mod_start.actor_LCD                                     = 1U;
-    s_mod_start.sensor_Baro                                   = 1U;
-    s_mod_start.sensor_Hygro                                  = 1U;
+    s_mod_start.sensor_Baro                                   = 0U;
+    s_mod_start.sensor_Hygro                                  = 0U;
     s_mod_start.sensor_Gyro                                   = 0U;
     s_mod_start.radio_AX5243                                  = 0U;
     s_mod_start.radio_SX1276                                  = 0U;
@@ -384,7 +448,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Main_Default,
           0UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* osc_TCXO */
@@ -392,7 +456,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Osc_TCXO,
           100UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* actor_LCD */
@@ -400,7 +464,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Actor_LCD,
           150UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* sensor_Baro */
@@ -408,7 +472,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Sensor_Baro,
           200UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* sensor_Hygro */
@@ -416,7 +480,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Sensor_Hygro,
           250UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* sensor_Gyro */
@@ -424,7 +488,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Sensor_Gyro,
           300UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* radio_AX5243 */
@@ -432,7 +496,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Radio_AX5243,
           400UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* radio_SX1276 */
@@ -440,7 +504,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Radio_SX1276,
           450UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* osc_Si5338 */
@@ -448,7 +512,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Osc_Si5338,
           600UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* audio_ADC */
@@ -456,7 +520,7 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Audio_ADC,
           700UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
 
     /* audio_DAC */
@@ -464,9 +528,30 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Audio_DAC,
           750UL);
-      controllerMsgQueueOut(msgLen, msgAry);
+      controllerMsgPushToOutQueue(msgLen, msgAry);
     }
   }
+
+
+  #if 0
+  if (s_lcd_enable) {
+    const int32_t p_100     = baroGetValue(BARO_GET_TYPE__QNH_100);
+    const uint16_t p_100_i  = (uint16_t) (p_100 / 100UL);
+    const uint16_t p_100_f  = (uint16_t) (p_100 % 100UL) / 10U;
+
+    const int16_t rh_100    = hygroGetValue(HYGRO_GET_TYPE__RH_100);
+    const int16_t rh_100_i  = rh_100 / 100U;
+    const int16_t rh_100_f  = (rh_100 % 100U) / 10U;
+
+    uint8_t strBuf[17];
+    const uint8_t len       = sprintf((char*)strBuf, "%04u.%01uhPa  %02u.%01u%%", p_100_i, p_100_f, rh_100_i, rh_100_f);
+
+    if (p_100) {
+      lcdTextWrite(1U, 0U, len, strBuf);
+    }
+  }
+  #endif
+
 
   //#define I2C4_BUS_ADDR_SCAN
   #ifdef I2C4_BUS_ADDR_SCAN
@@ -491,7 +576,7 @@ void controllerTaskLoop(void)
 
   if (Controller__QUEUE_IN & eb) {
     /* Get next complete messages */
-    if (osOK != controllerMsgPullFromQueue()) {
+    if (osOK != controllerMsgPullFromInQueue()) {
       /* Message Queue corrupt */
       Error_Handler();
     }
