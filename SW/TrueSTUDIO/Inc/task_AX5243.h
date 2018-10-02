@@ -310,6 +310,20 @@ typedef struct AX_RX_FIFO_MEAS {
 } AX_RX_FIFO_MEAS_t;
 
 
+typedef enum ax5243MsgAx5243Cmds_ENUM {
+
+  MsgAx5243__InitDo                                           = 0x01U,
+  MsgAx5243__InitDone,
+
+  MsgAx5243__SetVar01_x                                       = 0x41U,
+
+  MsgAx5243__GetVar01_y                                       = 0x81U,
+
+  MsgAx5243__CallFunc01_z                                     = 0xc1U,
+
+} ax5243MsgAx5243Cmds_t;
+
+
 
 #if 0
 /* ISR routines */

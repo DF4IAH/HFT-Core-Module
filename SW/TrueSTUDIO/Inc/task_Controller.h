@@ -15,18 +15,6 @@
 #define CONTROLLER_MSG_Q_LEN                                  8
 
 
-/* Bit-mask for the controllerEventGroup */
-typedef enum EG_Controller_BM {
-
-  Controller__QUEUE_IN                                        = 0x00000001UL,
-  Controller__QUEUE_OUT                                       = 0x00000002UL,
-
-  Controller__CTRL_IS_RUNNING                                 = 0x00800000UL,
-
-} EG_Controller_BM_t;
-
-
-
 typedef enum ControllerMsgDestinations_ENUM {
 
   Destinations__Unspec                                        = 0,
@@ -113,7 +101,13 @@ typedef struct ControllerMsg2Proc {
 uint32_t controllerCalcMsgHdr(ControllerMsgDestinations_t dst, ControllerMsgDestinations_t src, uint8_t lengthBytes, uint8_t cmd);
 
 uint32_t controllerMsgPushToInQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs);
+void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs);
 uint32_t controllerMsgPullFromOutQueue(uint32_t* msgAry, ControllerMsgDestinations_t dst, uint32_t waitMs);
+
+void controllerTimerCallback(void const *argument);
+
+
+/* Task */
 
 void controllerTaskInit(void);
 void controllerTaskLoop(void);

@@ -94,12 +94,17 @@ typedef enum hygroMsgHygroCmds_ENUM {
   MsgHygro__GetVar01_y                                        = 0x81U,
 
   MsgHygro__CallFunc01_DoMeasure                              = 0xc1U,
+  MsgHygro__CallFunc02_CyclicTimerEvent,
+  MsgHygro__CallFunc03_CyclicTimerStart,
+  MsgHygro__CallFunc04_CyclicTimerStop,
 
 } hygroMsgHygroCmds_t;
 
 
 
 int16_t hygroGetValue(HYGRO_GET_TYPE_t type);
+
+void hygroTimerCallback(void const *argument);
 
 
 /* Task */

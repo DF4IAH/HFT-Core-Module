@@ -44,11 +44,17 @@ typedef enum Tcxo20MHzMsgTcxoCmds_ENUM {
   MsgTcxo__GetVar01_Voltage                                   = 0x81U,
 
   MsgTcxo__CallFunc01_SetDAC                                  = 0xc1U,
+  MsgTcxo__CallFunc02_CyclicMeasurements,
+  MsgTcxo__CallFunc03_StopCycles,
 
 } Tcxo20MHzMsgTcxoCmds_t;
 
 
 
+void tcxoTimerCallback(void const *argument);
+
+
+/* Task */
 
 void tcxo20MhzTaskInit(void);
 void tcxo20MhzTaskLoop(void);

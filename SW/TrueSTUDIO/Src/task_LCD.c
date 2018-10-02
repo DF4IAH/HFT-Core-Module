@@ -22,11 +22,12 @@
 #include "task_LCD.h"
 
 
-extern osMutexId            i2c4MutexHandle;
 extern osSemaphoreId        c2Lcd_BSemHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
-
+extern osSemaphoreId        i2c4_BSemHandle;
 extern I2C_HandleTypeDef    hi2c4;
+
+extern EventGroupHandle_t   globalEventGroupHandle;
+
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -40,7 +41,7 @@ void lcdClearDisplay(void)
   /* Clear Display */
   {
     const uint8_t cmdBuf[1] = { 0x01U };
-    i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
+    i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
     osDelay(2U);
   }
 }
@@ -58,14 +59,14 @@ uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* st
     /* Set Position */
     {
       const uint8_t cmdBuf[1] = { 0x80U | cursorPos };
-      i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
+      i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
       osDelay(2U);
     }
 
     /* Write Text */
     {
       for (uint8_t txtIdx = 0U; txtIdx < strLen; ++txtIdx) {
-        i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x40, 1, strBuf + txtIdx);
+        i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x40, 1, strBuf + txtIdx);
         osDelay(2U);
       }
     }
@@ -96,7 +97,7 @@ static void lcdInit(void)
     {
       const uint8_t txMsg[1] = { 0x38U };
 
-      uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, txMsg);
+      uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, txMsg);
       if (i2cErr == HAL_I2C_ERROR_AF) {
         s_lcd_enable = 0U;
 
@@ -111,7 +112,7 @@ static void lcdInit(void)
     {
       const uint8_t txMsg[1] = { 0x39U };
 
-      i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, txMsg);
+      i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, txMsg);
       osDelay(2U);
     }
 
@@ -128,7 +129,7 @@ static void lcdInit(void)
       const uint8_t cmdCnt = sizeof(cmds);
 
       for (uint8_t cmdIdx = 0U; cmdIdx < cmdCnt; ++cmdIdx) {
-        i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, cmds + cmdIdx);
+        i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00U, 1U, cmds + cmdIdx);
         osDelay(2U);
       }
     }
@@ -212,8 +213,8 @@ void lcdTaskInit(void)
   s_lcd_enable = 0U;
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -232,15 +233,15 @@ void lcdTaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Lcd_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Actor_LCD, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Actor_LCD, 1UL);                     // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Lcd_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  lcdMsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    lcdMsgProcess(msgLen, msgAry);
+  }
 }

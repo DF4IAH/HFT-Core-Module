@@ -164,6 +164,20 @@ typedef enum DIO_TxRx_Mode {
 } DIO_TxRx_Mode_t;
 
 
+typedef enum sx1276MsgSx1276Cmds_ENUM {
+
+  MsgSx1276__InitDo                                           = 0x01U,
+  MsgSx1276__InitDone,
+
+  MsgSx1276__SetVar01_x                                       = 0x41U,
+
+  MsgSx1276__GetVar01_y                                       = 0x81U,
+
+  MsgSx1276__CallFunc01_z                                     = 0xc1U,
+
+} sx1276MsgSx1276Cmds_t;
+
+
 extern void _Error_Handler(char *, int);
 
 

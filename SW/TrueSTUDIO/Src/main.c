@@ -137,14 +137,12 @@ osMessageQId usbFromHostQueueHandle;
 osMessageQId controllerInQueueHandle;
 osMessageQId controllerOutQueueHandle;
 osMessageQId loraMacQueueHandle;
-osMutexId i2c1MutexHandle;
-osMutexId i2c2MutexHandle;
-osMutexId i2c3MutexHandle;
-osMutexId i2c4MutexHandle;
-osMutexId spi1MutexHandle;
-osMutexId spi3MutexHandle;
-osMutexId controllerQueueInMutexHandle;
-osMutexId controllerQueueOutMutexHandle;
+osTimerId baroTimerHandle;
+osTimerId hygroTimerHandle;
+osTimerId defaultTimerHandle;
+osTimerId gyroTimerHandle;
+osTimerId controllerTimerHandle;
+osTimerId tcxoTimerHandle;
 osSemaphoreId c2Ax5243_BSemHandle;
 osSemaphoreId c2Sx1276_BSemHandle;
 osSemaphoreId c2Si5338_BSemHandle;
@@ -154,6 +152,14 @@ osSemaphoreId c2Gyro_BSemHandle;
 osSemaphoreId c2Hygro_BSemHandle;
 osSemaphoreId c2Lcd_BSemHandle;
 osSemaphoreId c2Default_BSemHandle;
+osSemaphoreId i2c1_BSemHandle;
+osSemaphoreId i2c2_BSemHandle;
+osSemaphoreId i2c3_BSemHandle;
+osSemaphoreId i2c4_BSemHandle;
+osSemaphoreId spi1_BSemHandle;
+osSemaphoreId spi3_BSemHandle;
+osSemaphoreId cQin_BSemHandle;
+osSemaphoreId cQout_BSemHandle;
 
 /* USER CODE BEGIN PV */
 extern uint32_t                       uwTick;
@@ -166,11 +172,11 @@ extern uint8_t                        spi3RxBuffer[SPI3_BUFFERSIZE];
 
 
 /* Private variables ---------------------------------------------------------*/
-EventGroupHandle_t                    controllerEventGroupHandle;
-EventGroupHandle_t                    extiEventGroupHandle;
-EventGroupHandle_t                    usbToHostEventGroupHandle;
 EventGroupHandle_t                    adcEventGroupHandle;
+EventGroupHandle_t                    extiEventGroupHandle;
+EventGroupHandle_t                    globalEventGroupHandle;
 EventGroupHandle_t                    spiEventGroupHandle;
+EventGroupHandle_t                    usbToHostEventGroupHandle;
 
 osSemaphoreId                         usbToHostBinarySemHandle;
 
@@ -233,6 +239,12 @@ void StartAx5243Task(void const * argument);
 void StartSx1276Task(void const * argument);
 void StartControllerTask(void const * argument);
 void StartSi5338Task(void const * argument);
+void mainBaroTimerCallback(void const * argument);
+void mainHygroTimerCallback(void const * argument);
+void mainDefaultTimerCallback(void const * argument);
+void mainGyroTimerCallback(void const * argument);
+void mainControllerTimerCallback(void const * argument);
+void mainTcxoTimerCallback(void const * argument);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -651,39 +663,6 @@ int main(void)
 
   /* USER CODE END 2 */
 
-  /* Create the mutex(es) */
-  /* definition and creation of i2c1Mutex */
-  osMutexDef(i2c1Mutex);
-  i2c1MutexHandle = osMutexCreate(osMutex(i2c1Mutex));
-
-  /* definition and creation of i2c2Mutex */
-  osMutexDef(i2c2Mutex);
-  i2c2MutexHandle = osMutexCreate(osMutex(i2c2Mutex));
-
-  /* definition and creation of i2c3Mutex */
-  osMutexDef(i2c3Mutex);
-  i2c3MutexHandle = osMutexCreate(osMutex(i2c3Mutex));
-
-  /* definition and creation of i2c4Mutex */
-  osMutexDef(i2c4Mutex);
-  i2c4MutexHandle = osMutexCreate(osMutex(i2c4Mutex));
-
-  /* definition and creation of spi1Mutex */
-  osMutexDef(spi1Mutex);
-  spi1MutexHandle = osMutexCreate(osMutex(spi1Mutex));
-
-  /* definition and creation of spi3Mutex */
-  osMutexDef(spi3Mutex);
-  spi3MutexHandle = osMutexCreate(osMutex(spi3Mutex));
-
-  /* definition and creation of controllerQueueInMutex */
-  osMutexDef(controllerQueueInMutex);
-  controllerQueueInMutexHandle = osMutexCreate(osMutex(controllerQueueInMutex));
-
-  /* definition and creation of controllerQueueOutMutex */
-  osMutexDef(controllerQueueOutMutex);
-  controllerQueueOutMutexHandle = osMutexCreate(osMutex(controllerQueueOutMutex));
-
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -725,19 +704,95 @@ int main(void)
   osSemaphoreDef(c2Default_BSem);
   c2Default_BSemHandle = osSemaphoreCreate(osSemaphore(c2Default_BSem), 1);
 
+  /* definition and creation of i2c1_BSem */
+  osSemaphoreDef(i2c1_BSem);
+  i2c1_BSemHandle = osSemaphoreCreate(osSemaphore(i2c1_BSem), 1);
+
+  /* definition and creation of i2c2_BSem */
+  osSemaphoreDef(i2c2_BSem);
+  i2c2_BSemHandle = osSemaphoreCreate(osSemaphore(i2c2_BSem), 1);
+
+  /* definition and creation of i2c3_BSem */
+  osSemaphoreDef(i2c3_BSem);
+  i2c3_BSemHandle = osSemaphoreCreate(osSemaphore(i2c3_BSem), 1);
+
+  /* definition and creation of i2c4_BSem */
+  osSemaphoreDef(i2c4_BSem);
+  i2c4_BSemHandle = osSemaphoreCreate(osSemaphore(i2c4_BSem), 1);
+
+  /* definition and creation of spi1_BSem */
+  osSemaphoreDef(spi1_BSem);
+  spi1_BSemHandle = osSemaphoreCreate(osSemaphore(spi1_BSem), 1);
+
+  /* definition and creation of spi3_BSem */
+  osSemaphoreDef(spi3_BSem);
+  spi3_BSemHandle = osSemaphoreCreate(osSemaphore(spi3_BSem), 1);
+
+  /* definition and creation of cQin_BSem */
+  osSemaphoreDef(cQin_BSem);
+  cQin_BSemHandle = osSemaphoreCreate(osSemaphore(cQin_BSem), 1);
+
+  /* definition and creation of cQout_BSem */
+  osSemaphoreDef(cQout_BSem);
+  cQout_BSemHandle = osSemaphoreCreate(osSemaphore(cQout_BSem), 1);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   osSemaphoreDef(usbToHostBinarySem);
   usbToHostBinarySemHandle = osSemaphoreCreate(osSemaphore(usbToHostBinarySem), 1);
 
+  vQueueAddToRegistry(i2c1_BSemHandle,          "Resc I2C1 BSem");
+  vQueueAddToRegistry(i2c2_BSemHandle,          "Resc I2C2 BSem");
+  vQueueAddToRegistry(i2c3_BSemHandle,          "Resc I2C3 BSem");
+  vQueueAddToRegistry(i2c4_BSemHandle,          "Resc I2C4 BSem");
+  vQueueAddToRegistry(spi1_BSemHandle,          "Resc SPI1 BSem");
+  vQueueAddToRegistry(spi3_BSemHandle,          "Resc SPI2 BSem");
+  vQueueAddToRegistry(cQin_BSemHandle,          "Resc cQin BSem");
+  vQueueAddToRegistry(cQout_BSemHandle,         "Resc cQout BSem");
+  vQueueAddToRegistry(usbToHostBinarySemHandle, "Resc usb-2-host BSem");
+  vQueueAddToRegistry(c2Ax5243_BSemHandle,      "Wake c2Ax5243 BSem");
+  vQueueAddToRegistry(c2Default_BSemHandle,     "Wake c2Default BSem");
+  vQueueAddToRegistry(c2Baro_BSemHandle,        "Wake c2Baro BSem");
+  vQueueAddToRegistry(c2Gyro_BSemHandle,        "Wake c2Gyro BSem");
+  vQueueAddToRegistry(c2Hygro_BSemHandle,       "Wake c2Hygro BSem");
+  vQueueAddToRegistry(c2Lcd_BSemHandle,         "Wake c2LCD BSem");
+  vQueueAddToRegistry(c2Si5338_BSemHandle,      "Wake c2Si5338 BSem");
+  vQueueAddToRegistry(c2Sx1276_BSemHandle,      "Wake c2Sx1276 BSem");
+  vQueueAddToRegistry(c2Tcxo_BSemHandle,        "Wake c2TCXO BSem");
+
   /* add event groups */
-  controllerEventGroupHandle = xEventGroupCreate();
-  extiEventGroupHandle = xEventGroupCreate();
-  usbToHostEventGroupHandle = xEventGroupCreate();
   adcEventGroupHandle = xEventGroupCreate();
+  extiEventGroupHandle = xEventGroupCreate();
+  globalEventGroupHandle = xEventGroupCreate();
   spiEventGroupHandle = xEventGroupCreate();
+  usbToHostEventGroupHandle = xEventGroupCreate();
 
   /* USER CODE END RTOS_SEMAPHORES */
+
+  /* Create the timer(s) */
+  /* definition and creation of baroTimer */
+  osTimerDef(baroTimer, mainBaroTimerCallback);
+  baroTimerHandle = osTimerCreate(osTimer(baroTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of hygroTimer */
+  osTimerDef(hygroTimer, mainHygroTimerCallback);
+  hygroTimerHandle = osTimerCreate(osTimer(hygroTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of defaultTimer */
+  osTimerDef(defaultTimer, mainDefaultTimerCallback);
+  defaultTimerHandle = osTimerCreate(osTimer(defaultTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of gyroTimer */
+  osTimerDef(gyroTimer, mainGyroTimerCallback);
+  gyroTimerHandle = osTimerCreate(osTimer(gyroTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of controllerTimer */
+  osTimerDef(controllerTimer, mainControllerTimerCallback);
+  controllerTimerHandle = osTimerCreate(osTimer(controllerTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of tcxoTimer */
+  osTimerDef(tcxoTimer, mainTcxoTimerCallback);
+  tcxoTimerHandle = osTimerCreate(osTimer(tcxoTimer), osTimerPeriodic, NULL);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -777,11 +832,11 @@ int main(void)
   tcxo20MhzTaskHandle = osThreadCreate(osThread(tcxo20MhzTask), NULL);
 
   /* definition and creation of ax5243Task */
-  osThreadDef(ax5243Task, StartAx5243Task, osPriorityAboveNormal, 0, 1024);
+  osThreadDef(ax5243Task, StartAx5243Task, osPriorityAboveNormal, 0, 512);
   ax5243TaskHandle = osThreadCreate(osThread(ax5243Task), NULL);
 
   /* definition and creation of sx1276Task */
-  osThreadDef(sx1276Task, StartSx1276Task, osPriorityAboveNormal, 0, 1024);
+  osThreadDef(sx1276Task, StartSx1276Task, osPriorityAboveNormal, 0, 512);
   sx1276TaskHandle = osThreadCreate(osThread(sx1276Task), NULL);
 
   /* definition and creation of controllerTask */
@@ -824,6 +879,10 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  vQueueAddToRegistry(usbToHostQueueHandle,     "usb-to-host");
+  vQueueAddToRegistry(usbFromHostQueueHandle,   "usb-from-host");
+  vQueueAddToRegistry(controllerInQueueHandle,  "controller-in");
+  vQueueAddToRegistry(controllerOutQueueHandle, "controller-out");
   /* USER CODE END RTOS_QUEUES */
  
 
@@ -2229,7 +2288,7 @@ static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
         spiProcessSpi3MsgTemplateLocked(SPI3_ADC, sizeof(txMsg_0x00_RdAdcs), txMsg_0x00_RdAdcs, 1U);
         adc_L = ((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2];
         adc_R = ((uint16_t)spi3RxBuffer[3] << 8U) | spi3RxBuffer[4];
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
 
         int dbgLen = sprintf(dbgBuf, ". AUDIO_ADC: Left = 0x%04X, Right = 0x%04X\r\n", adc_L, adc_R);
         usbLogLen(dbgBuf, dbgLen);
@@ -2283,8 +2342,8 @@ void StartDefaultTask(void const * argument)
   }
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -2301,17 +2360,17 @@ void StartDefaultTask(void const * argument)
     /* Wait for door bell and hand-over controller out queue */
     {
       osSemaphoreWait(c2Default_BSemHandle, osWaitForever);
-
-      msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Main_Default, osWaitForever);
-      if (!msgLen) {
-        Error_Handler();
-      }
-
+      msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Main_Default, 1UL);                // Special case of callbacks need to limit blocking time
       osSemaphoreRelease(c2Default_BSemHandle);
+      osDelay(3UL);
     }
 
-    /* Decode and execute the commands */
-    mainMsgProcess(msgLen, msgAry);
+    /* Decode and execute the commands when a message exists
+     * (in case of callbacks the loop catches its wakeup semaphore
+     * before ctrlQout is released results to request on an empty queue) */
+    if (msgLen) {
+      mainMsgProcess(msgLen, msgAry);
+    }
   } while (1);
 
   /* USER CODE END 5 */ 
@@ -2466,6 +2525,55 @@ void StartSi5338Task(void const * argument)
     si5338TaskLoop();
   }
   /* USER CODE END StartSi5338Task */
+}
+
+/* mainBaroTimerCallback function */
+void mainBaroTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainBaroTimerCallback */
+  baroTimerCallback(argument);
+  /* USER CODE END mainBaroTimerCallback */
+}
+
+/* mainHygroTimerCallback function */
+void mainHygroTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainHygroTimerCallback */
+  hygroTimerCallback(argument);
+  /* USER CODE END mainHygroTimerCallback */
+}
+
+/* mainDefaultTimerCallback function */
+void mainDefaultTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainDefaultTimerCallback */
+  // TODO: code here
+
+  /* USER CODE END mainDefaultTimerCallback */
+}
+
+/* mainGyroTimerCallback function */
+void mainGyroTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainGyroTimerCallback */
+  gyroTimerCallback(argument);
+  /* USER CODE END mainGyroTimerCallback */
+}
+
+/* mainControllerTimerCallback function */
+void mainControllerTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainControllerTimerCallback */
+  controllerTimerCallback(argument);
+  /* USER CODE END mainControllerTimerCallback */
+}
+
+/* mainTcxoTimerCallback function */
+void mainTcxoTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainTcxoTimerCallback */
+  tcxoTimerCallback(argument);
+  /* USER CODE END mainTcxoTimerCallback */
 }
 
 /**

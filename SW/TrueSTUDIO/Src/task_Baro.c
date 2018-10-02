@@ -25,11 +25,12 @@
 #define C_0DEGC_K                                             (273.15f)
 
 
-extern osMutexId            i2c4MutexHandle;
+extern osTimerId            baroTimerHandle;
 extern osSemaphoreId        c2Baro_BSemHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
-
+extern osSemaphoreId        i2c4_BSemHandle;
 extern I2C_HandleTypeDef    hi2c4;
+
+extern EventGroupHandle_t   globalEventGroupHandle;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -41,11 +42,11 @@ static int16_t              s_baro_temp_cor_100;
 static int16_t              s_baro_p_cor_100;
 
 static uint8_t              s_baro_enable;
+static uint32_t             s_baroStartTime;
 static uint16_t             s_baroVersion;
 static uint16_t             s_baro_c[C_I2C_BARO_C_CNT];
 static uint32_t             s_baro_d1;
 static uint32_t             s_baro_d2;
-static uint32_t             s_baroStartTime;
 
 /* Out values */
 static int32_t              s_baro_temp_100;
@@ -82,14 +83,14 @@ static void baroFetch(void)
   /* Request D1 */
   {
     uint8_t dataAry[0] = { };
-    i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_CONV_D1_4096, sizeof(dataAry), dataAry);
+    i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_CONV_D1_4096, sizeof(dataAry), dataAry);
   }
   osDelay(20);
 
   /* Get D1 data */
   {
     uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_ADC_READ };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 3);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 3);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_baro_d1 = ((uint32_t)i2c4RxBuffer[0] << 16) | ((uint32_t)i2c4RxBuffer[1] << 8) | i2c4RxBuffer[2];
     }
@@ -98,14 +99,14 @@ static void baroFetch(void)
   /* Request D2 */
   {
     uint8_t dataAry[0] = { };
-    i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_CONV_D2_4096, sizeof(dataAry), dataAry);
+    i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_CONV_D2_4096, sizeof(dataAry), dataAry);
   }
   osDelay(20);
 
   /* Get D2 data */
   {
     uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_ADC_READ };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 3);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 3);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_baro_d2 = ((uint32_t)i2c4RxBuffer[0] << 16) | ((uint32_t)i2c4RxBuffer[1] << 8) | i2c4RxBuffer[2];
     }
@@ -187,7 +188,7 @@ static void baroCalc(void)
   }
 }
 
-#if 0
+#if 1
 static void baroDistributor(void)
 {
   int   dbgLen = 0;
@@ -209,6 +210,36 @@ void baroDoMeasure(void)
 }
 
 
+/* Timer functions */
+
+static void baroCyclicTimerStart(uint32_t period_ms)
+{
+  osTimerStart(baroTimerHandle, period_ms);
+}
+
+static void baroCyclicTimerStop(void)
+{
+  osTimerStop(baroTimerHandle);
+}
+
+void baroTimerCallback(void const *argument)
+{
+  /* Context of RTOS Daemon Task */
+  uint32_t msgAry[1];
+
+  /* Write cyclic timer message to this destination */
+  uint8_t msgLen    = 0U;
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Baro, Destinations__Sensor_Baro, 0U, MsgBaro__CallFunc02_CyclicTimerEvent);
+  controllerMsgPushToOutQueue(msgLen, msgAry, 1UL);
+}
+
+static void baroCyclicTimerEvent(void)
+{
+  baroDoMeasure();
+  baroDistributor();
+}
+
+
 static void baroInit(void)
 {
   int   dbgLen = 0;
@@ -221,7 +252,7 @@ static void baroInit(void)
     const uint8_t i2cWriteLongAry[0] = {
     };
 
-    uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_RESET, sizeof(i2cWriteLongAry), i2cWriteLongAry);
+    uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_RESET, sizeof(i2cWriteLongAry), i2cWriteLongAry);
     if (i2cErr == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
       usbLog(". BaroInit: ERROR Baro does not respond\r\n");
@@ -233,7 +264,7 @@ static void baroInit(void)
   /* MS560702BA03-50 Baro: get version information */
   {
     uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_VERSION };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
 
@@ -245,7 +276,7 @@ static void baroInit(void)
   /* MS560702BA03-50 Baro: get correction data from the PROM */
   for (uint8_t adr = 1; adr < C_I2C_BARO_C_CNT; ++adr) {
     uint8_t regQry[1] = { (I2C_SLAVE_BARO_REG_PROM | (adr << 1)) };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
     }
@@ -309,6 +340,26 @@ static void baroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
+  case MsgBaro__CallFunc02_CyclicTimerEvent:
+    {
+      baroCyclicTimerEvent();
+    }
+    break;
+
+  case MsgBaro__CallFunc03_CyclicTimerStart:
+    {
+      /* Start cyclic measurements with that period in ms */
+      baroCyclicTimerStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgBaro__CallFunc04_CyclicTimerStop:
+    {
+      /* Stop cyclic measurements */
+      baroCyclicTimerStop();
+    }
+    break;
+
   default: { }
   }  // switch (cmd)
 
@@ -355,8 +406,8 @@ void baroTaskInit(void)
   s_baro_qnh_p_h_100                = 0L;
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -375,15 +426,15 @@ void baroTaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Baro_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Baro, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Baro, 1UL);                   // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Baro_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  baroMsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    baroMsgProcess(msgLen, msgAry);
+  }
 }

@@ -19,8 +19,8 @@
 
 extern EventGroupHandle_t   extiEventGroupHandle;
 extern osSemaphoreId        usbToHostBinarySemHandle;
-extern osMutexId            spi1MutexHandle;
-extern osMutexId            spi3MutexHandle;
+extern osSemaphoreId        spi1_BSemHandle;
+extern osSemaphoreId        spi3_BSemHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
@@ -233,7 +233,7 @@ uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen, uint8_t waitC
 uint8_t spiProcessSpi3MsgTemplateLocked(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf, uint8_t waitComplete)
 {
   /* Wait for SPI3 mutex */
-  if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+  if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000)) {
     return HAL_BUSY;
   }
 
@@ -249,7 +249,7 @@ uint8_t spiProcessSpi3MsgTemplate(SPI3_CHIPS_t chip, uint16_t templateLen, const
   const uint8_t ret = spiProcessSpi3MsgTemplateLocked(chip, templateLen, templateBuf, 0U);
 
   /* Release SPI3 mutex */
-  osMutexRelease(spi3MutexHandle);
+  osSemaphoreRelease(spi3_BSemHandle);
 
   return ret;
 }

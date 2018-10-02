@@ -20,10 +20,10 @@
 #include "bus_i2c.h"
 
 
-extern osMutexId            i2c1MutexHandle;
-extern osMutexId            i2c2MutexHandle;
-extern osMutexId            i2c3MutexHandle;
-extern osMutexId            i2c4MutexHandle;
+extern osSemaphoreId        i2c1_BSemHandle;
+extern osSemaphoreId        i2c2_BSemHandle;
+extern osSemaphoreId        i2c3_BSemHandle;
+extern osSemaphoreId        i2c4_BSemHandle;
 
 extern I2C_HandleTypeDef    hi2c1;
 extern I2C_HandleTypeDef    hi2c2;
@@ -34,12 +34,12 @@ volatile uint8_t            i2c4TxBuffer[I2C_TXBUFSIZE];
 volatile uint8_t            i2c4RxBuffer[I2C_RXBUFSIZE];
 
 
-void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle) {
+void i2cBusAddrScan(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle) {
   /* DEBUG I2C4 Bus */
   char dbgBuf[64];
   int dbgLen;
 
-  osSemaphoreWait(mutexHandle, osWaitForever);
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
 
   i2c4TxBuffer[0] = 0x00;
   for (uint8_t addr = 0x01U; addr <= 0x7FU; addr++) {
@@ -57,14 +57,14 @@ void i2cBusAddrScan(I2C_HandleTypeDef* dev, osMutexId mutexHandle) {
     osDelay(25);
   }
 
-  osSemaphoreRelease(mutexHandle);
+  osSemaphoreRelease(semaphoreHandle);
 }
 
 //#define DEBUG_WRITE_MASK 1
-uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
+uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle,
     uint8_t addr, uint16_t count, const Reg_Data_t dataAry[]) {
   /* Wait for the I2Cx bus to be free */
-  osSemaphoreWait(mutexHandle, osWaitForever);
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
 
   for (uint16_t listIdx = 0U; listIdx < count; listIdx++) {
     if (dataAry[listIdx].Reg_Mask == 0xffU) {
@@ -82,7 +82,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
       }
       if (HAL_I2C_GetError(dev) == HAL_I2C_ERROR_AF) {
         /* Return mutex */
-        osSemaphoreRelease(mutexHandle);
+        osSemaphoreRelease(semaphoreHandle);
 
         /* Chip not responding */
         usbLog("i2cSequenceWriteMask: ERROR chip does not respond\r\n");
@@ -116,7 +116,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
       }
       if (HAL_I2C_GetError(dev) == HAL_I2C_ERROR_AF) {
         /* Return mutex */
-        osSemaphoreRelease(mutexHandle);
+        osSemaphoreRelease(semaphoreHandle);
 
         /* Chip not responding */
         usbLog("i2cSequenceWriteMask: ERROR chip does not respond\r\n");
@@ -171,12 +171,12 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
   }
 
   /* Return mutex */
-  osSemaphoreRelease(mutexHandle);
+  osSemaphoreRelease(semaphoreHandle);
 
   return HAL_I2C_ERROR_NONE;
 }
 
-uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
+uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle,
     uint8_t addr, uint8_t i2cReg, uint16_t count,
     const uint8_t i2cWriteAryLong[]) {
   if (count && ((count - 1) >= I2C_TXBUFSIZE)) {
@@ -184,7 +184,7 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
   }
 
   /* Wait for the I2Cx bus to be free */
-  osSemaphoreWait(mutexHandle, osWaitForever);
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
 
   i2c4TxBuffer[0] = i2cReg;
 
@@ -202,7 +202,7 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
   uint32_t i2cErr = HAL_I2C_GetError(dev);
 
   /* Return mutex */
-  osSemaphoreRelease(mutexHandle);
+  osSemaphoreRelease(semaphoreHandle);
 
   if (i2cErr == HAL_I2C_ERROR_AF) {
     /* Chip not responding */
@@ -213,10 +213,10 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osMutexId mutexHandle,
   return HAL_I2C_ERROR_NONE;
 }
 
-uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readLen)
+uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readLen)
 {
   /* Wait for the I2Cx bus to be free */
-  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
 
   for (uint8_t regIdx = 0; regIdx < i2cRegLen; regIdx++) {
     i2c4TxBuffer[regIdx] = i2cReg[regIdx];
@@ -232,7 +232,7 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t 
 
   if (i2cErr == HAL_I2C_ERROR_AF) {
     /* Return mutex */
-    osSemaphoreRelease(i2c4MutexHandle);
+    osSemaphoreRelease(semaphoreHandle);
 
     /* Chip not responding */
     usbLog("i2cSequenceRead: ERROR chip does not respond\r\n");
@@ -248,7 +248,7 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osMutexId mutexHandle, uint8_t 
   }
 
   /* Return mutex */
-  osSemaphoreRelease(i2c4MutexHandle);
+  osSemaphoreRelease(semaphoreHandle);
 
   return HAL_I2C_ERROR_NONE;
 }
