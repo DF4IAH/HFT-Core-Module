@@ -23,12 +23,12 @@
 #include "task_AX5243.h"
 
 
-extern osMutexId            spi3MutexHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
 extern osSemaphoreId        c2Ax5243_BSemHandle;
+extern osSemaphoreId        spi3_BSemHandle;
+extern osSemaphoreId        usbToHostBinarySemHandle;
 extern EventGroupHandle_t   extiEventGroupHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
+extern EventGroupHandle_t   globalEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
@@ -1126,7 +1126,7 @@ static uint8_t spi_ax_sync2Powerdown(void)
     while (--cntr) {
       spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
       state = spi3RxBuffer[1];
-      osMutexRelease(spi3MutexHandle);
+      osSemaphoreRelease(spi3_BSemHandle);
 
       if (state > 0) {
         break;
@@ -1173,7 +1173,7 @@ static void spi_ax_xtal_waitReady(void)
   do {
     spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     state = spi3RxBuffer[1] & 0x01U;                                                                  // Bit 0: XTALRUN
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
 
     if (state) {
       break;
@@ -1906,7 +1906,7 @@ static void spi_ax_doRanging(void)
             spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
             rngVal    = spi3RxBuffer[1];
             rngState  = rngVal & (1U << 4);
-            osMutexRelease(spi3MutexHandle);
+            osSemaphoreRelease(spi3_BSemHandle);
 
             if (!rngState) {
               break;
@@ -2043,7 +2043,7 @@ uint8_t spi_ax_vco_select(uint32_t reg_freq, uint8_t force)
     };                                                                                                // RD address 0x32: PLLVCODIV - VCO2INT, VCOSEL, RFDIV
     spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     curVco2 = (spi3RxBuffer[1] & 0x20) ?  1U : 0U;
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   /* VCO1 ranges abt. 380 MHz ... 540 MHz (RFDIV=1)  and  760 MHz ... 1080 MHz (RFDIV=0) */
@@ -2128,7 +2128,7 @@ uint8_t spi_ax_selectVcoFreq(uint8_t isFreqB)
     };                                                                                                // RD address 0x30: PLLLOOP
     spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     const uint8_t pllLoop = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
 
     const uint8_t txMsg2[2] = { 0x30U | C_AX_REG_WR,                                                  // WR address 0x30: PLLLOOP
         (isFreqB ?  (pllLoop | 0x80)                                                                  // Set   FREQB
@@ -2151,7 +2151,7 @@ void spi_ax_util_FIFO_waitFree(uint8_t neededSpace)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     fifoFree = 0x1ffU & (((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2]);
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
 
     if (fifoFree >= neededSpace) {
       break;
@@ -4589,7 +4589,7 @@ void spi_ax_run_PR1200_Tx_FIFO_APRS(const char addrAry[][C_PR1200_CALL_LENGTH], 
     do {
       spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
       state = spi3RxBuffer[1] & 0x0f;
-      osMutexRelease(spi3MutexHandle);
+      osSemaphoreRelease(spi3_BSemHandle);
 
       if (state == 0) {
         break;
@@ -4613,7 +4613,7 @@ void spi_ax_util_PR1200_Tx_FIFO_Flags(uint8_t count)
     spi_ax_util_FIFO_waitFree(5 + count);
 
     /* Wait for SPI3 mutex */
-    if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+    if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000)) {
       return;
     }
     spi3TxBuffer[idx++] = 0x29 | C_AX_REG_WR;                                                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
@@ -4627,7 +4627,7 @@ void spi_ax_util_PR1200_Tx_FIFO_Flags(uint8_t count)
 
     /* FIFO data enter */
     spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   /* FIFO do a COMMIT */
@@ -4649,7 +4649,7 @@ void spi_ax_util_PR1200_Tx_FIFO_AddressField(const char addrAry[][C_PR1200_CALL_
     spi_ax_util_FIFO_waitFree(4 + addrCnt * 7 + 2);
 
     /* Wait for SPI3 mutex */
-    if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+    if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000)) {
       return;
     }
     spi3TxBuffer[idx++] = 0x29 | C_AX_REG_WR;                                                         // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
@@ -4681,7 +4681,7 @@ void spi_ax_util_PR1200_Tx_FIFO_AddressField(const char addrAry[][C_PR1200_CALL_
 
     /* FIFO data enter */
     spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
-    osRecursiveMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   /* FIFO do a COMMIT */
@@ -4701,7 +4701,7 @@ void spi_ax_util_PR1200_Tx_FIFO_InformationField(const char* aprsMsg, uint8_t ap
   spi_ax_util_FIFO_waitFree(4 + aprsMsgLen);
 
   /* Wait for SPI3 mutex */
-  if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+  if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000)) {
     return;
   }
   spi3TxBuffer[idx++] = 0x29 | C_AX_REG_WR;                                                           // WR address 0x29: FIFODATA  (SPI AX address keeps constant)
@@ -4718,7 +4718,7 @@ void spi_ax_util_PR1200_Tx_FIFO_InformationField(const char* aprsMsg, uint8_t ap
 
   /* FIFO data enter */
   spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
-  osRecursiveMutexRelease(spi3MutexHandle);
+  osSemaphoreRelease(spi3_BSemHandle);
 
   /* FIFO do a COMMIT */
   spi_ax_FIFO_COMMIT();
@@ -4863,7 +4863,7 @@ void spi_ax_initRegisters_POCSAG(void)
     spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
     uint16_t wutNext = ((uint16_t)spi3RxBuffer[1] << 8) | spi3RxBuffer[2];
     wutNext += 1024;
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
 
     const uint8_t txMsg2[3] = { 0x6AU | C_AX_REG_WR,                                                  // WR address 0x6A: WAKEUP - 100 ms later
         wutNext >> 8, wutNext & 0xff
@@ -6322,7 +6322,7 @@ void spi_ax_run_POCSAG_Tx_FIFO_Msg(uint32_t pocsagTgtRIC, AX_POCSAG_CW2_t pocsag
     do {
       spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
       state = spi3RxBuffer[1] & 0x0f;
-      osMutexRelease(spi3MutexHandle);
+      osSemaphoreRelease(spi3_BSemHandle);
 
       if (state == 0) {
         break;
@@ -6344,7 +6344,7 @@ void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
   spi_ax_util_FIFO_waitFree(4 + 18 * 4);
 
   /* Wait for SPI3 mutex */
-  if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+  if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000)) {
     return;
   }
 
@@ -6357,8 +6357,8 @@ void spi_ax_util_POCSAG_Tx_FIFO_Preamble(void)
   /* FIFO data enter */
   spiProcessSpi3MsgLocked(SPI3_AX, idx, 0U);
 
-  /* Release SPI3 mutex */
-  osMutexRelease(spi3MutexHandle);
+  /* Release SPI3 semaphore */
+  osSemaphoreRelease(spi3_BSemHandle);
 
   /* Do a FIFO commit */
   spi_ax_FIFO_COMMIT();
@@ -8182,7 +8182,7 @@ static uint8_t spiDetectAX5243(void)
 
     if (HAL_OK == spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U)) {
       s_ax_version = spi3RxBuffer[1];
-      osMutexRelease(spi3MutexHandle);
+      osSemaphoreRelease(spi3_BSemHandle);
     }
 
     if (s_ax_version != 0x51) {                                                                       // AX5243
@@ -8477,8 +8477,8 @@ void ax5243TaskInit(void)
   memset(&s_ax_rx_fifo_meas, 0, sizeof(s_ax_rx_fifo_meas));
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -8497,15 +8497,15 @@ void ax5243TaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Ax5243_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_AX5243, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_AX5243, 1UL);                  // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Ax5243_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  ax5243MsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    ax5243MsgProcess(msgLen, msgAry);
+  }
 }

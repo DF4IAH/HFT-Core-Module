@@ -268,7 +268,18 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20181001U
+#define HFTCOREMODULE_VERSION                                 20181002U
+
+
+/* Bit-mask for the globalEventGroup */
+typedef enum EG_GLOBAL {
+
+  EG_GLOBAL__Controller_CTRL_IS_RUNNING                       = (1UL <<  0UL ),
+  EG_GLOBAL__Controller_QUEUE_IN                              = (1UL <<  1UL ),
+  EG_GLOBAL__Controller_QUEUE_OUT                             = (1UL <<  2UL ),
+
+} EG_GLOBAL_t;
+
 
 
 typedef enum EXTI_ENUM {

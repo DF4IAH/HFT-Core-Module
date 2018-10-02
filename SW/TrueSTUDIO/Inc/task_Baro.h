@@ -49,12 +49,17 @@ typedef enum baroMsgBaroCmds_ENUM {
   MsgBaro__GetVar01_y                                         = 0x81U,
 
   MsgBaro__CallFunc01_DoMeasure                               = 0xc1U,
+  MsgBaro__CallFunc02_CyclicTimerEvent,
+  MsgBaro__CallFunc03_CyclicTimerStart,
+  MsgBaro__CallFunc04_CyclicTimerStop,
 
 } baroMsgBaroCmds_t;
 
 
 
 int32_t baroGetValue(BARO_GET_TYPE_t type);
+
+void baroTimerCallback(void const *argument);
 
 
 /* Task */

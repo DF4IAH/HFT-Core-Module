@@ -216,9 +216,20 @@ typedef enum gyroMsgGyroCmds_ENUM {
   MsgGyro__GetVar01_y                                         = 0x81U,
 
   MsgGyro__CallFunc01_DoMeasure                               = 0xc1U,
+  MsgGyro__CallFunc02_CyclicTimerEvent,
+  MsgGyro__CallFunc03_CyclicTimerStart,
+  MsgGyro__CallFunc04_CyclicTimerStop,
 
 } gyroMsgGyroCmds_t;
 
+
+
+int32_t gyroGetValue(BARO_GET_TYPE_t type);
+
+void gyroTimerCallback(void const *argument);
+
+
+/* Task */
 
 void gyroTaskInit(void);
 void gyroTaskLoop(void);

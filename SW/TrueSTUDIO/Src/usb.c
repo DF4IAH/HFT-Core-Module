@@ -22,10 +22,11 @@
 
 
 /* Variables -----------------------------------------------------------------*/
-extern osMessageQId         usbToHostQueueHandle;
 extern osMessageQId         usbFromHostQueueHandle;
-extern EventGroupHandle_t   usbToHostEventGroupHandle;
+extern osMessageQId         usbToHostQueueHandle;
 extern osSemaphoreId        usbToHostBinarySemHandle;
+
+extern EventGroupHandle_t   usbToHostEventGroupHandle;
 
 uint8_t                     usbFromHostISRBuf[64]                  = { 0 };
 uint32_t                    usbFromHostISRBufLen                   = 0;

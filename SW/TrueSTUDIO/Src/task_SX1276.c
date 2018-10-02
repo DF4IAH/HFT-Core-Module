@@ -22,11 +22,12 @@
 #include "task_SX1276.h"
 
 
-extern osMutexId            spi3MutexHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
 extern osSemaphoreId        c2Sx1276_BSemHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
+extern osSemaphoreId        spi3_BSemHandle;
+extern osSemaphoreId        usbToHostBinarySemHandle;
+
 extern EventGroupHandle_t   extiEventGroupHandle;
+extern EventGroupHandle_t   globalEventGroupHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 
 extern ENABLE_MASK_t        g_enableMsk;
@@ -212,7 +213,7 @@ uint8_t spiSX127xMode_LoRa_GetBroadbandRSSI(void)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
     broadRSSI = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   return broadRSSI;
@@ -256,7 +257,7 @@ void spiSX127xLoRa_Fifo_SetFifoPtrFromTxBase(void)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
     fifoTxBaseAddr = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   {
@@ -277,7 +278,7 @@ void spiSX127xLoRa_Fifo_SetFifoPtrFromRxBase(void)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
     fifoRxBaseAddr = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   {
@@ -299,7 +300,7 @@ uint8_t spiSX127xGetMode(void)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
     mode = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   return mode;
@@ -435,7 +436,7 @@ void spiSX1276_TxRx_Preps(LoRaWANctx_t* ctx, DIO_TxRx_Mode_t mode, LoRaWAN_TX_Me
           spiProcessSpi3MsgTemplateLocked(SPI3_AX, sizeof(txMsg), txMsg, 1U);
           balState  = spi3RxBuffer[1];
           temp      = spi3RxBuffer[2];
-          osMutexRelease(spi3MutexHandle);
+          osSemaphoreRelease(spi3_BSemHandle);
         }
 
         /* Test for completion */
@@ -707,7 +708,7 @@ uint32_t spiSX127x_WaitUntil_TxDone(uint32_t stopTime)
         };
         spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
         irq = spi3RxBuffer[1];
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
       }
 
       if ((eb & EXTI_SX__DIO0) || (irq & (1U << TxDoneMask))) {
@@ -905,7 +906,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
       };
       spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
       irq = spi3RxBuffer[1];
-      osMutexRelease(spi3MutexHandle);
+      osSemaphoreRelease(spi3_BSemHandle);
     }
 
     /* Reset all IRQ flags */
@@ -952,7 +953,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
         packetRssi  = spi3RxBuffer[3];
         rssi        = spi3RxBuffer[4];
 
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
       }
       ctx->LastRSSIDbm           = (int16_t) (packetSnr >= 0 ?  (-157 + 16.0/15.0 * packetRssi) : (-157 + (int16_t)rssi));
 //    ctx->LastPacketStrengthDbm = (int16_t) (packetSnr >= 0 ?  (-157 +                   rssi) : (-157 +    packetRssi + 0.25 * packetSnr));
@@ -966,7 +967,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
         };
         spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
         fei = ((uint32_t)spi3RxBuffer[1] << 16) | ((uint32_t)spi3RxBuffer[2] << 8) | (spi3RxBuffer[3]);
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
       }
       if (fei >= (1UL << 19)) {
         fei   -= (1UL << 20);
@@ -1042,7 +1043,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
         };
         spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
         rxNbBytes = spi3RxBuffer[1];
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
       }
 
       /* FIFO readout */
@@ -1055,7 +1056,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
           };
           spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
           fifoRxCurrentAddr = spi3RxBuffer[1];
-          osMutexRelease(spi3MutexHandle);
+          osSemaphoreRelease(spi3_BSemHandle);
 
           const uint8_t txMsg2[2] = { SPI_WR_FLAG | 0x13U,                                            // WR address 0x13: RegFifoAddrPtr
               fifoRxCurrentAddr
@@ -1070,7 +1071,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
         /* FIFO read out */
         if (rxNbBytes < sizeof(spi3RxBuffer)) {
           {
-            if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+            if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000)) {
               return;
             }
 
@@ -1081,7 +1082,7 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
             memcpy((void*)msg->msg_encoded_Buf, (const void*)spi3RxBuffer + 1, rxNbBytes);
             msg->msg_encoded_Len = rxNbBytes;
 
-            osMutexRelease(spi3MutexHandle);
+            osSemaphoreRelease(spi3_BSemHandle);
           }
 
 #ifdef DEBUG_RX2
@@ -1142,7 +1143,7 @@ void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
     irq = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   /* Reset all IRQ flags */
@@ -1161,7 +1162,7 @@ void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg)
       };
       spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
       rxNbBytes = spi3RxBuffer[1];
-      osMutexRelease(spi3MutexHandle);
+      osSemaphoreRelease(spi3_BSemHandle);
     }
 
     /* FIFO readout */
@@ -1173,7 +1174,7 @@ void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg)
         };
         spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
         uint8_t fifoRxCurrentAddr = spi3RxBuffer[1];
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
 
         const uint8_t txMsg2[2] = { SPI_WR_FLAG | 0x0dU,                                              // RegFifoAddrPtr
             fifoRxCurrentAddr
@@ -1193,7 +1194,7 @@ void spiSX127x_Process_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg)
         memcpy((void*)msg->msg_encoded_Buf, (const void*)spi3RxBuffer + 1, rxNbBytes);
         msg->msg_encoded_Len = rxNbBytes;
 
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
 
       } else {
         /* Buffer to small */
@@ -1219,7 +1220,7 @@ uint8_t spiDetectSX1276(void)
     };
     spiProcessSpi3MsgTemplateLocked(SPI3_SX, sizeof(txMsg), txMsg, 1U);
     s_sx_version = spi3RxBuffer[1];
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   if (s_sx_version != 0x12) {                                                                         // SX1276
@@ -1298,8 +1299,8 @@ void sx1276TaskInit(void)
   s_sx_version    = 0U;
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -1318,15 +1319,15 @@ void sx1276TaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Sx1276_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_SX1276, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_SX1276, 1UL);                  // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Sx1276_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  sx1276MsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    sx1276MsgProcess(msgLen, msgAry);
+  }
 }

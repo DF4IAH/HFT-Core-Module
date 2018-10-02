@@ -22,11 +22,12 @@
 #include "task_Gyro.h"
 
 
-extern osMutexId            i2c4MutexHandle;
+extern osTimerId            gyroTimerHandle;
 extern osSemaphoreId        c2Gyro_BSemHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
-
+extern osSemaphoreId        i2c4_BSemHandle;
 extern I2C_HandleTypeDef    hi2c4;
+
+extern EventGroupHandle_t   globalEventGroupHandle;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -40,10 +41,71 @@ static uint32_t             s_gyro2AsaY;
 static uint32_t             s_gyro2AsaZ;
 
 
+int32_t gyroGetValue(BARO_GET_TYPE_t type)
+{
+  if (s_gyro_enable) {
+    switch (type) {
+//  case GYRO_GET_TYPE__xxx:
+//    return s_baro_temp_100;
+//    break;
+
+    default:
+      { }
+    }
+  }
+
+  return 0L;
+}
+
+static void gyroFetch(void)
+{
+}
+
+static void gyroCalc(void)
+{
+}
+
+static void gyroDistributor(void)
+{
+}
+
+
 static void gyroDoMeasure(void)
 {
-
+  gyroFetch();
+  gyroCalc();
 }
+
+
+/* Timer functions */
+
+static void gyroCyclicStart(uint32_t period_ms)
+{
+  osTimerStart(gyroTimerHandle, period_ms);
+}
+
+static void gyroCyclicStop(void)
+{
+  osTimerStop(gyroTimerHandle);
+}
+
+void gyroTimerCallback(void const *argument)
+{
+  /* Context of RTOS Daemon Task */
+  uint32_t msgAry[1];
+
+  /* Write cyclic timer message to this destination */
+  uint8_t msgLen    = 0U;
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Gyro, Destinations__Sensor_Gyro, 0U, MsgGyro__CallFunc02_CyclicTimerEvent);
+  controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+}
+
+static void gyroCyclicTimerEvent(void)
+{
+  gyroDoMeasure();
+  gyroDistributor();
+}
+
 
 static void gyroInit(void)
 {
@@ -52,7 +114,7 @@ static void gyroInit(void)
 
   // TODO: refactor to use i2cSequenceWrite()
 
-  osSemaphoreWait(i2c4MutexHandle, osWaitForever);
+  osSemaphoreWait(i2c4_BSemHandle, osWaitForever);
 
   usbLog("< GyroInit -\r\n");
 
@@ -288,7 +350,7 @@ static void gyroInit(void)
 
   usbLog("- GyroInit >\r\n\r\n");
 
-  osSemaphoreRelease(i2c4MutexHandle);
+  osSemaphoreRelease(i2c4_BSemHandle);
 }
 
 static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
@@ -336,6 +398,27 @@ static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
+  case MsgGyro__CallFunc02_CyclicTimerEvent:
+    {
+      gyroCyclicTimerEvent();
+    }
+    break;
+
+  case MsgGyro__CallFunc03_CyclicTimerStart:
+    {
+      /* Start cyclic measurements with that period in ms */
+      gyroCyclicStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgGyro__CallFunc04_CyclicTimerStop:
+    {
+      /* Stop cyclic measurements */
+      gyroCyclicStop();
+    }
+    break;
+
+
   default: { }
   }  // switch (cmd)
 }
@@ -353,8 +436,8 @@ void gyroTaskInit(void)
   s_gyro2AsaZ     = 0UL;
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -373,15 +456,15 @@ void gyroTaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Gyro_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Gyro, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Gyro, 1UL);                   // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Gyro_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  gyroMsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    gyroMsgProcess(msgLen, msgAry);
+  }
 }

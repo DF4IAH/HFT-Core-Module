@@ -25,11 +25,11 @@
 #include "task_Si5338.h"
 
 
-extern osMutexId            i2c4MutexHandle;
 extern osSemaphoreId        c2Si5338_BSemHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
-
+extern osSemaphoreId        i2c4_BSemHandle;
 extern I2C_HandleTypeDef    hi2c4;
+
+extern EventGroupHandle_t   globalEventGroupHandle;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -54,7 +54,7 @@ static void si5338SettingStep1(void)
       { 241, 0x80, 0x80 }
   };
 
-  uint32_t i2cErr = i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
+  uint32_t i2cErr = i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
   if (i2cErr == HAL_I2C_ERROR_AF) {
     /* Chip not responding */
     usbLog(". si5338: ERROR chip does not respond\r\n");
@@ -66,7 +66,7 @@ static void si5338SettingStep3(void)
   /* Wait for input getting stable */
   while (1) {
     uint8_t regQry[1] = { 218 };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
         /* Leave when ready */
         if (!(i2c4RxBuffer[0] & s_si5338_waitMask)) {
@@ -83,7 +83,7 @@ static void si5338SettingStep3(void)
         { 246, 0x02, 0x02 }
     };
 
-    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
+    i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
   }
 
   osDelay(25);
@@ -95,13 +95,13 @@ static void si5338SettingStep3(void)
         { 241, 0x65, 0xFF }
     };
 
-    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
+    i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
   }
 
   /* Wait for PLL getting stable */
   while (1) {
     uint8_t regQry[1] = { 218 };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
         /* Leave when ready */
         if (!(i2c4RxBuffer[0] & 0x11)) {
@@ -117,7 +117,7 @@ static void si5338SettingStep3(void)
 
     {
       uint8_t regQry[1] = { 237 };
-      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
       if (i2cErr == HAL_I2C_ERROR_NONE) {
         val = i2c4RxBuffer[0];
       }
@@ -126,13 +126,13 @@ static void si5338SettingStep3(void)
         const Reg_Data_t rdAry[1] = {
             {  47, cVal, 0x03 }
         };
-        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
+        i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
       }
     }
 
     {
       uint8_t regQry[1] = { 236 };
-      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
       if (i2cErr == HAL_I2C_ERROR_NONE) {
         val = i2c4RxBuffer[0];
       }
@@ -141,13 +141,13 @@ static void si5338SettingStep3(void)
         const Reg_Data_t rdAry[1] = {
             {  46, cVal, 0xFF }
         };
-        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
+        i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 1, rdAry);
       }
     }
 
     {
       uint8_t regQry[1] = { 235 };
-      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, sizeof(regQry), regQry, 1);
       if (i2cErr == HAL_I2C_ERROR_NONE) {
         val = i2c4RxBuffer[0];
       }
@@ -157,7 +157,7 @@ static void si5338SettingStep3(void)
             {  45, cVal, 0xFF },
             {  47, 0x14, 0xFC }
         };
-        i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
+        i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
       }
     }
   }
@@ -168,7 +168,7 @@ static void si5338SettingStep3(void)
         {  49, 0x80, 0x80 },
         { 230, 0x00, 0x10 }
     };
-    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
+    i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, 2, rdAry);
   }
 }
 
@@ -183,21 +183,21 @@ static void si5338Execute(void)
   switch (s_si5338_variant) {
   case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_8MHZ:
     si5338SettingStep1();
-    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_8MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_8MHz);
+    i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_8MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_8MHz);
     s_si5338_waitMask = 0x04U;
     si5338SettingStep3();
     break;
 
   case I2C_SI5338_CLKIN_VARIANT__MCU_MCO_12MHZ:
     si5338SettingStep1();
-    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_12MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_12MHz);
+    i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, SI5338_MCU_12MHZ_NUM_REGS_MAX, si5338_Reg_Store_MCU_12MHz);
     s_si5338_waitMask = 0x04U;
     si5338SettingStep3();
     break;
 
   case I2C_SI5338_CLKIN_VARIANT__TCXO_20MHZ:
     si5338SettingStep1();
-    i2cSequenceWriteMask(&hi2c4, i2c4MutexHandle, I2C_SLAVE_SI5338_ADDR, SI5338_TCXO_NUM_REGS_MAX, si5338_Reg_Store_TCXO);
+    i2cSequenceWriteMask(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_SI5338_ADDR, SI5338_TCXO_NUM_REGS_MAX, si5338_Reg_Store_TCXO);
     s_si5338_waitMask = 0x08U;
     si5338SettingStep3();
     break;
@@ -294,8 +294,8 @@ void si5338TaskInit(void)
   ls_si5338_variant = 0U;
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -314,15 +314,15 @@ void si5338TaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Si5338_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_Si5338, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_Si5338, 1UL);                    // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Si5338_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  si5338MsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    si5338MsgProcess(msgLen, msgAry);
+  }
 }

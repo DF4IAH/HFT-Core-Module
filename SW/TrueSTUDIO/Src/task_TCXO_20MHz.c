@@ -19,11 +19,13 @@
 #include "task_TCXO_20MHz.h"
 
 
-extern I2C_HandleTypeDef    hi2c4;
+extern osTimerId            tcxoTimerHandle;
 extern osThreadId           tcxo20MhzTaskHandle;
-extern osMutexId            i2c4MutexHandle;
 extern osSemaphoreId        c2Tcxo_BSemHandle;
-extern EventGroupHandle_t   controllerEventGroupHandle;
+extern osSemaphoreId        i2c4_BSemHandle;
+extern I2C_HandleTypeDef    hi2c4;
+
+extern EventGroupHandle_t   globalEventGroupHandle;
 
 extern uint8_t              i2c4TxBuffer[I2C_TXBUFSIZE];
 extern uint8_t              i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -51,7 +53,7 @@ static void tcxo20MhzDacInit(void)
       0x00, 0x20                                                                                      // 0x0020: clear value Mid, nAUX disable, DAC enabled
     };
 
-    uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG, sizeof(i2cWriteLongAry), i2cWriteLongAry);
+    uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG, sizeof(i2cWriteLongAry), i2cWriteLongAry);
     if (i2cErr == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
       usbLog(". Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
@@ -64,13 +66,13 @@ static void tcxo20MhzDacInit(void)
       0x00, 0x00                                                                                      // DC
     };
 
-    i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_SW_CLEAR, sizeof(i2cWriteLongAry), i2cWriteLongAry);
+    i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_SW_CLEAR, sizeof(i2cWriteLongAry), i2cWriteLongAry);
   }
 
   /* Read ID and status */
   {
     uint8_t regQry[1] = { I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, sizeof(regQry), regQry, 2);
+    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, sizeof(regQry), regQry, 2);
     if (i2cErr == HAL_I2C_ERROR_NONE) {
       s_tcxo20MhzDacStatus = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
 
@@ -91,8 +93,27 @@ static void tcxo20MhzDacSet(uint16_t dac)
     dacHi, dacLo
   };
 
-  i2cSequenceWriteLong(&hi2c4, i2c4MutexHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_CODELOAD, sizeof(i2cWriteLongAry), i2cWriteLongAry);
+  i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_CODELOAD, sizeof(i2cWriteLongAry), i2cWriteLongAry);
 }
+
+
+/* Timer functions */
+
+static void tcxoCyclicStart(uint32_t period_ms)
+{
+  osTimerStart(tcxoTimerHandle, period_ms);
+}
+
+static void tcxoCyclicStop(void)
+{
+  osTimerStop(tcxoTimerHandle);
+}
+
+void tcxoTimerCallback(void const *argument)
+{
+
+}
+
 
 static void tcxo20MhzInit(void)
 {
@@ -169,6 +190,20 @@ static void tcxo20MHzMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
+  case MsgTcxo__CallFunc02_CyclicMeasurements:
+    {
+      /* Start cyclic measurements with that period in ms */
+      tcxoCyclicStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgTcxo__CallFunc03_StopCycles:
+    {
+      /* Stop cyclic measurements */
+      tcxoCyclicStop();
+    }
+    break;
+
   default: { }
   }  // switch (cmd)
 
@@ -198,8 +233,8 @@ void tcxo20MhzTaskInit(void)
   s_tcxo20MhzDacStatus  = 0U;
 
   /* Wait until controller is up */
-  xEventGroupWaitBits(controllerEventGroupHandle,
-      Controller__CTRL_IS_RUNNING,
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
       0UL,
       0, portMAX_DELAY);
 
@@ -218,15 +253,15 @@ void tcxo20MhzTaskLoop(void)
   /* Wait for door bell and hand-over controller out queue */
   {
     osSemaphoreWait(c2Tcxo_BSemHandle, osWaitForever);
-
-    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_TCXO, osWaitForever);
-    if (!msgLen) {
-      Error_Handler();
-    }
-
+    msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_TCXO, 1UL);                      // Special case of callbacks need to limit blocking time
     osSemaphoreRelease(c2Tcxo_BSemHandle);
+    osDelay(3UL);
   }
 
-  /* Decode and execute the commands */
-  tcxo20MHzMsgProcess(msgLen, msgAry);
+  /* Decode and execute the commands when a message exists
+   * (in case of callbacks the loop catches its wakeup semaphore
+   * before ctrlQout is released results to request on an empty queue) */
+  if (msgLen) {
+    tcxo20MHzMsgProcess(msgLen, msgAry);
+  }
 }
