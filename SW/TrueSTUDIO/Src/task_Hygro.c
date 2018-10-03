@@ -162,7 +162,6 @@ static void hygroCalc(void)
   }
 }
 
-#if 1
 static void hygroDistributor(void)
 {
   int   dbgLen = 0;
@@ -174,7 +173,6 @@ static void hygroDistributor(void)
       (s_hygro_DP_100 / 100), (s_hygro_DP_100 % 100));
   usbLogLen(dbgBuf, dbgLen);
 }
-#endif
 
 
 void hygroDoMeasure(void)

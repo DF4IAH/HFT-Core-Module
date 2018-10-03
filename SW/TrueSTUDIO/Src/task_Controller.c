@@ -97,11 +97,6 @@ uint32_t controllerMsgPushToInQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t w
 
 void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t waitMs)
 {
-  static uint32_t ls_entryPush = 0UL;
-
-  if (++ls_entryPush == 6UL) {
-    __asm volatile( "nop" );
-  }
   osSemaphoreId semId = 0;
 
   /* Get semaphore to queue out */
@@ -189,6 +184,9 @@ void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t wait
 
 static uint32_t controllerMsgPullFromInQueue(void)
 {
+  /* Prepare all fields */
+  memset(&s_msg_in, 0, sizeof(s_msg_in));
+
   /* Process each message token */
   do {
     const osEvent evt = osMessageGet(controllerInQueueHandle, osWaitForever);
@@ -197,6 +195,14 @@ static uint32_t controllerMsgPullFromInQueue(void)
 
       /* Starting new message or go ahead with option bytes */
       if (!s_msg_in.bRemain) {
+        if (!token) {
+          return osErrorResource;
+        }
+
+        /* Store raw 32bit tokens */
+        s_msg_in.rawLen = 0U;
+        s_msg_in.rawAry[s_msg_in.rawLen++] = token;
+
         /* Message type */
         s_msg_in.msgDst   = (ControllerMsgDestinations_t)   (0xffUL & (token >> 24U));
         s_msg_in.msgSrc   = (ControllerMsgDestinations_t)   (0xffUL & (token >> 16U));
@@ -211,6 +217,9 @@ static uint32_t controllerMsgPullFromInQueue(void)
       } else {
         /* Option fields */
         const uint8_t cnt = min(4U, s_msg_in.bRemain);
+
+        /* Store raw 32bit tokens */
+        s_msg_in.rawAry[s_msg_in.rawLen++] = token;
 
         for (uint8_t idx = 0; idx < cnt; ++idx) {
           const uint8_t byte = (uint8_t) (0xffUL & (token >> ((3U - idx) << 3U)));
@@ -229,12 +238,7 @@ static uint32_t controllerMsgPullFromInQueue(void)
 
 uint32_t controllerMsgPullFromOutQueue(uint32_t* msgAry, ControllerMsgDestinations_t dst, uint32_t waitMs)
 {
-  static uint32_t ls_entryPull = 0UL;
   uint32_t len = 0UL;
-
-  if (++ls_entryPull == 100UL) {
-    __asm volatile( "nop" );
-  }
 
   /* Get semaphore to queue out */
   osSemaphoreWait(cQout_BSemHandle, waitMs);
@@ -284,10 +288,19 @@ uint32_t controllerMsgPullFromOutQueue(uint32_t* msgAry, ControllerMsgDestinatio
 
 static void controllerMsgProcessor(void)
 {
-  /* Discard message that are not for us (yet) */
   if (s_msg_in.msgDst > Destinations__Controller) {
-    /* Drop message */
-    memset(&s_msg_in, 0, sizeof(s_msg_in));
+    /* Forward message to the destination via the ctrlQout */
+    const uint8_t cnt                     = s_msg_in.rawLen;
+    uint32_t msgAry[CONTROLLER_MSG_Q_LEN] = { 0 };
+    uint8_t msgLen                        = 0U;
+
+    /* Copy message header and option entries to the target */
+    for (uint8_t idx = 0; idx < cnt; ++idx) {
+      msgAry[msgLen++] = s_msg_in.rawAry[idx];
+    }
+
+    /* Push message out */
+    controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
 
   } else {
     /* Message is for us */
@@ -360,7 +373,11 @@ static void controllerMsgProcessor(void)
                 wordPos = 3U;
               }
             }
-            msgAry[msgLen++] = word;
+
+            /* Add last fraction */
+            if ((1U + strLen) % 4) {
+              msgAry[msgLen++] = word;
+            }
 
             /* Put message into ControllerQueueOut */
             controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
@@ -429,6 +446,9 @@ static void controllerMsgProcessor(void)
       Error_Handler();
     }  // switch (s_msg_in.msgCmd)
   }  // else
+
+  /* Discard message */
+  memset(&s_msg_in, 0, sizeof(s_msg_in));
 }
 
 
