@@ -164,14 +164,54 @@ static void hygroCalc(void)
 
 static void hygroDistributor(void)
 {
-  int   dbgLen = 0;
-  char  dbgBuf[128];
+  /* USB Logging */
+  {
+    int   dbgLen = 0;
+    char  dbgBuf[128];
 
-  dbgLen = sprintf(dbgBuf, "HYGRO:\t Temp=%+02d.%02uC, RH=%02u.%02u%%, Tau=%+02d.%02uC\r\n",
-      (s_hygro_T_100  / 100), (s_hygro_T_100  % 100),
-      (s_hygro_RH_100 / 100), (s_hygro_RH_100 % 100),
-      (s_hygro_DP_100 / 100), (s_hygro_DP_100 % 100));
-  usbLogLen(dbgBuf, dbgLen);
+    dbgLen = sprintf(dbgBuf, "HYGRO:\t Temp=%+02d.%02uC, RH=%02u.%02u%%, Tau=%+02d.%02uC\r\n",
+        (s_hygro_T_100  / 100), (s_hygro_T_100  % 100),
+        (s_hygro_RH_100 / 100), (s_hygro_RH_100 % 100),
+        (s_hygro_DP_100 / 100), (s_hygro_DP_100 % 100));
+    usbLogLen(dbgBuf, dbgLen);
+  }
+
+  /* Write to LCD module */
+  {
+    uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
+    uint8_t   msgLen                        = 0U;
+    uint32_t  word                          = 0x1aU << 24U;                                           // Display @ Row=1, Col=11
+    uint8_t   wordPos                       = 2;
+    char      strBuf[32];
+
+    /* Format the string to be displayed */
+    const uint8_t strLen = sprintf(strBuf, " %02u.%01u%%",
+        (s_hygro_RH_100 / 100), (s_hygro_RH_100 % 100) / 10);
+
+    msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Hygro, 1U + strLen, MsgLcd__CallFunc02_WriteString);
+
+    for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
+      word |= (0xffU & strBuf[strIdx]) << (wordPos << 3U);
+
+      if (wordPos) {
+        --wordPos;
+
+      } else {
+        msgAry[msgLen++] = word;
+
+        word = 0UL;
+        wordPos = 3U;
+      }
+    }
+
+    /* Add last fraction */
+    if ((1U + strLen) % 4) {
+      msgAry[msgLen++] = word;
+    }
+
+    /* Put message into ControllerQueueIn */
+    controllerMsgPushToInQueue(msgLen, msgAry, osWaitForever);
+  }
 }
 
 
