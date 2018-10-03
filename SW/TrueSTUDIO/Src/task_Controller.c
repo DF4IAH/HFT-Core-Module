@@ -286,6 +286,37 @@ uint32_t controllerMsgPullFromOutQueue(uint32_t* msgAry, ControllerMsgDestinatio
 }
 
 
+/* Timer functions */
+
+static void controllerCyclicStart(uint32_t period_ms)
+{
+  osTimerStart(controllerTimerHandle, period_ms);
+}
+
+static void controllerCyclicStop(void)
+{
+  osTimerStop(controllerTimerHandle);
+}
+
+void controllerTimerCallback(void const *argument)
+{
+  /* Context of RTOS Daemon Task */
+  uint32_t msgAry[1];
+
+  /* Write cyclic timer message to this destination */
+  uint8_t msgLen    = 0U;
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Controller, Destinations__Controller, 0U, MsgController__CallFunc02_CyclicTimerEvent);
+  controllerMsgPushToInQueue(msgLen, msgAry, 1UL);
+}
+
+static void controllerCyclicTimerEvent(void)
+{
+  /* Cyclic job to do */
+  // TODO: coding
+  __asm volatile( "nop" );
+}
+
+
 static void controllerMsgProcessor(void)
 {
   if (s_msg_in.msgDst > Destinations__Controller) {
@@ -442,6 +473,13 @@ static void controllerMsgProcessor(void)
       }  // case MsgController__InitDone { }
     break;
 
+    /* Process own command */
+    case MsgController__CallFunc02_CyclicTimerEvent:
+    {
+      controllerCyclicTimerEvent();
+    }
+    break;
+
     default:
       Error_Handler();
     }  // switch (s_msg_in.msgCmd)
@@ -449,42 +487,6 @@ static void controllerMsgProcessor(void)
 
   /* Discard message */
   memset(&s_msg_in, 0, sizeof(s_msg_in));
-}
-
-
-/* Timer functions */
-
-static void controllerCyclicStart(uint32_t period_ms)
-{
-  osTimerStart(controllerTimerHandle, period_ms);
-}
-
-static void controllerCyclicStop(void)
-{
-  osTimerStop(controllerTimerHandle);
-}
-
-void controllerTimerCallback(void const *argument)
-{
-
-#if 0
-if (s_lcd_enable) {
-  const int32_t p_100     = baroGetValue(BARO_GET_TYPE__QNH_100);
-  const uint16_t p_100_i  = (uint16_t) (p_100 / 100UL);
-  const uint16_t p_100_f  = (uint16_t) (p_100 % 100UL) / 10U;
-
-  const int16_t rh_100    = hygroGetValue(HYGRO_GET_TYPE__RH_100);
-  const int16_t rh_100_i  = rh_100 / 100U;
-  const int16_t rh_100_f  = (rh_100 % 100U) / 10U;
-
-  uint8_t strBuf[17];
-  const uint8_t len       = sprintf((char*)strBuf, "%04u.%01uhPa  %02u.%01u%%", p_100_i, p_100_f, rh_100_i, rh_100_f);
-
-  if (p_100) {
-    lcdTextWrite(1U, 0U, len, strBuf);
-  }
-}
-#endif
 }
 
 
@@ -566,7 +568,7 @@ static void controllerInit(void)
     if (s_mod_start.sensor_Baro) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Sensor_Baro,
-          200UL);
+          250UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -574,7 +576,7 @@ static void controllerInit(void)
     if (s_mod_start.sensor_Hygro) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Sensor_Hygro,
-          250UL);
+          400UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -582,7 +584,7 @@ static void controllerInit(void)
     if (s_mod_start.sensor_Gyro) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Sensor_Gyro,
-          300UL);
+          450UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -590,7 +592,7 @@ static void controllerInit(void)
     if (s_mod_start.radio_AX5243) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Radio_AX5243,
-          400UL);
+          600UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -598,7 +600,7 @@ static void controllerInit(void)
     if (s_mod_start.radio_SX1276) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Radio_SX1276,
-          450UL);
+          650UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -606,7 +608,7 @@ static void controllerInit(void)
     if (s_mod_start.osc_Si5338) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Osc_Si5338,
-          600UL);
+          800UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -614,7 +616,7 @@ static void controllerInit(void)
     if (s_mod_start.audio_ADC) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Audio_ADC,
-          700UL);
+          900UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -622,7 +624,7 @@ static void controllerInit(void)
     if (s_mod_start.audio_DAC) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Audio_DAC,
-          750UL);
+          950UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
   }
