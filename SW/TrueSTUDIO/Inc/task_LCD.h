@@ -52,10 +52,6 @@ typedef enum LcdMsgLcdCmds_ENUM {
 
 
 
-void lcdClearDisplay(void);
-uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf);
-
-
 /* Task */
 
 void lcdTaskInit(void);

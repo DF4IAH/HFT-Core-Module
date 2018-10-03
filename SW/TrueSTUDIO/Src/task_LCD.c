@@ -36,17 +36,17 @@ static uint8_t              s_lcd_enable;
 static uint32_t             s_lcdStartTime;
 
 
-void lcdClearDisplay(void)
+static void lcdClearDisplay(void)
 {
   /* Clear Display */
   {
     const uint8_t cmdBuf[1] = { 0x01U };
     i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
-    osDelay(2U);
+    osDelay(3U);
   }
 }
 
-uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf)
+static uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* strBuf)
 {
   if (s_lcd_enable) {
     /* Sanity checks */
@@ -54,20 +54,17 @@ uint8_t lcdTextWrite(uint8_t row, uint8_t col, uint8_t strLen, const uint8_t* st
       return HAL_ERROR;
     }
 
-    const uint8_t cursorPos = 0x7fU & (row * 40U + col);
-
-    /* Set Position */
-    {
-      const uint8_t cmdBuf[1] = { 0x80U | cursorPos };
-      i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
-      osDelay(2U);
-    }
-
     /* Write Text */
-    {
-      for (uint8_t txtIdx = 0U; txtIdx < strLen; ++txtIdx) {
+    for (uint8_t txtIdx = 0U; txtIdx < strLen; ++txtIdx) {
+      const uint8_t cursorPos = 0x7fU & (row * 40U + col++);
+      const uint8_t cmdBuf[1] = { 0x80U | cursorPos };
+
+      for (uint8_t rptIdx = 0U; rptIdx < 3; rptIdx++) {
+        /* Set Position */
+        i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x00, sizeof(cmdBuf), cmdBuf);
+
+        /* Set Character */
         i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_LCD_ADDR, 0x40, 1, strBuf + txtIdx);
-        osDelay(2U);
       }
     }
     return HAL_OK;
@@ -105,7 +102,6 @@ static void lcdInit(void)
         usbLog(". LcdInit: ERROR display does not respond\r\n");
         break;
       }
-      osDelay(2U);
     }
 
     /* Function set 0x39 (same above; instruction table: 1) */

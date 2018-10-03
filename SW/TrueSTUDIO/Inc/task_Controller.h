@@ -84,6 +84,9 @@ typedef enum ControllerMsgControllerCmds_ENUM {
 
 typedef struct ControllerMsg2Proc {
 
+  uint32_t                            rawAry[CONTROLLER_MSG_Q_LEN];
+  uint8_t                             rawLen;
+
   ControllerMsgDestinations_t         msgSrc;
   ControllerMsgDestinations_t         msgDst;                                                         // Not in use yet
   ControllerMsgControllerCmds_t       msgCmd;

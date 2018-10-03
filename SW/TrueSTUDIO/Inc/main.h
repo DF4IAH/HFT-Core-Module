@@ -268,7 +268,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20181002U
+#define HFTCOREMODULE_VERSION                                 20181003U
 
 
 /* Bit-mask for the globalEventGroup */

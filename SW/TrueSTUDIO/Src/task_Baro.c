@@ -188,19 +188,57 @@ static void baroCalc(void)
   }
 }
 
-#if 1
 static void baroDistributor(void)
 {
-  int   dbgLen = 0;
-  char  dbgBuf[128];
+  /* USB Logging */
+  {
+    int   dbgLen = 0;
+    char  dbgBuf[128];
 
-  dbgLen = sprintf(dbgBuf, "BARO:\t Temp=%+02ld.%02luC, QFE=%04lu.%02luhPa, QNH=%04lu.%02luhPa\r\n",
-      (s_baro_temp_100    / 100), (s_baro_temp_100    % 100),
-      (s_baro_p_100       / 100), (s_baro_p_100       % 100),
-      (s_baro_qnh_p_h_100 / 100), (s_baro_qnh_p_h_100 % 100));
-  usbLogLen(dbgBuf, dbgLen);
+    dbgLen = sprintf(dbgBuf, "\r\nBARO:\t Temp=%+02ld.%02luC, QFE=%04lu.%02luhPa, QNH=%04lu.%02luhPa\r\n",
+        (s_baro_temp_100    / 100), (s_baro_temp_100    % 100),
+        (s_baro_p_100       / 100), (s_baro_p_100       % 100),
+        (s_baro_qnh_p_h_100 / 100), (s_baro_qnh_p_h_100 % 100));
+    usbLogLen(dbgBuf, dbgLen);
+  }
+
+  /* Write to LCD module */
+  {
+    uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
+    uint8_t   msgLen                        = 0U;
+    uint32_t  word                          = 0x10U << 24U;                                           // Display @ Row=1, Col=0
+    uint8_t   wordPos                       = 2;
+    char      strBuf[32];
+
+    /* Format the string to be displayed */
+    const uint8_t strLen = sprintf(strBuf, "%04lu.%02luhPa ",
+        (s_baro_p_100       / 100), (s_baro_p_100       % 100));
+
+    msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Baro, 1U + strLen, MsgLcd__CallFunc02_WriteString);
+
+    for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
+      word |= (0xffU & strBuf[strIdx]) << (wordPos << 3U);
+
+      if (wordPos) {
+        --wordPos;
+
+      } else {
+        msgAry[msgLen++] = word;
+
+        word = 0UL;
+        wordPos = 3U;
+      }
+    }
+
+    /* Add last fraction */
+    if ((1U + strLen) % 4) {
+      msgAry[msgLen++] = word;
+    }
+
+    /* Put message into ControllerQueueIn */
+    controllerMsgPushToInQueue(msgLen, msgAry, osWaitForever);
+  }
 }
-#endif
 
 
 void baroDoMeasure(void)
@@ -237,6 +275,19 @@ static void baroCyclicTimerEvent(void)
 {
   baroDoMeasure();
   baroDistributor();
+
+  #if 0
+  {
+    static uint32_t sf_previousWakeTime = 0UL;
+    char dbgBuf[128];
+    int  dbgLen;
+
+    uint32_t now = osKernelSysTick();
+    dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", sf_previousWakeTime, now);
+    usbLogLen(dbgBuf, dbgLen);
+    sf_previousWakeTime = now;
+  }
+  #endif
 }
 
 
@@ -362,26 +413,6 @@ static void baroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 
   default: { }
   }  // switch (cmd)
-
-#if 0
-  if (s_baro_enable) {
-    #if 0
-    {
-      char dbgBuf[128];
-      int  dbgLen;
-
-      uint32_t now = osKernelSysTick();
-      dbgLen = sprintf(dbgBuf, "BARO: prev=%010lu is=%010lu\r\n", sf_previousWakeTime, now);
-      usbLogLen(dbgBuf, dbgLen);
-    }
-    #endif
-
-    baroFetch();
-    baroCalc();
-
-    baroDistributor();
-  }
-#endif
 }
 
 
