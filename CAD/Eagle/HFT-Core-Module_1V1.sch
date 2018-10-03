@@ -212,12 +212,31 @@ DIN A4, landscape with location and doc. field</description>
 <text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
 </symbol>
+<symbol name="+3V3">
+<wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
+<text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="+3V3" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="GND" prefix="GND">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="1" symbol="GND" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="+3V3" prefix="+3V3">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="+3V3" x="0" y="0"/>
 </gates>
 <devices>
 <device name="">
@@ -28111,7 +28130,6 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="FRAME_23" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_07" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_03" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
-<part name="GND0432" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0401" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C0402" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C0403" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
@@ -28202,11 +28220,6 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="X2001" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device="" value="MOLEX 105017-0001"/>
 <part name="FRAME_10" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="R1409" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="C0431" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
-<part name="C0432" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="GND0431" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0444" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
-<part name="L0433" library="df4iah_rcl" deviceset="L-EU" device="6.0X6.0MM" value="2.2uH 14mR"/>
 <part name="U0901" library="df4iah_rf" deviceset="AX5243" device=""/>
 <part name="D1403" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="L1403" library="df4iah_rcl" deviceset="L-EU" device="13.5X12.5MM" value="33uH"/>
@@ -28347,7 +28360,6 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="GND1901" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1901" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="C1903" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="U0431" library="df4iah_powersupply" deviceset="PAM2305" device="" value="PAM2305AAB120"/>
 <part name="R0273" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0274" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R0275" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
@@ -28360,7 +28372,6 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="PF2011" library="rcl" deviceset="R-EU_" device="M1206" value="1.1A/2.2A"/>
 <part name="U0701" library="df4iah_osc" deviceset="SI5338" device="" value="Si5338"/>
 <part name="TP_+3V3_HICUR" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="TP_+1V2" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_+1V2_MCU" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_VBAT" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_+3V3_20MHZ" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
@@ -28602,6 +28613,17 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <part name="C0532" library="rcl" deviceset="C-EU" device="C0603" value="12pF"/>
 <part name="GND0532" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND1104" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="FRAME_25" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
+<part name="FRAME_26" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
+<part name="GND00001" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0001" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
+<part name="C0002" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="GND00002" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C0003" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
+<part name="L0001" library="df4iah_rcl" deviceset="L-EU" device="6.0X6.0MM" value="2.2uH 14mR"/>
+<part name="U0001" library="df4iah_powersupply" deviceset="PAM2305" device="" value="PAM2305AAB120"/>
+<part name="TP_+1V1" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
+<part name="+3V1" library="df4iah_supply" deviceset="+3V3" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -28610,6 +28632,7 @@ NC pin 19. 2-6 &amp; 14-17 not internally connected. May be used for PCB trace r
 <text x="132.08" y="93.98" size="1.778" layer="97">STM32L496ZGT6P
 Digikey: 497-17999-ND</text>
 <text x="132.08" y="106.68" size="2.54" layer="97" ratio="15">MCU</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU</text>
 </plain>
 <instances>
 <instance part="FRAME_01" gate="G$1" x="0" y="0"/>
@@ -30409,6 +30432,7 @@ Digikey: 497-17999-ND</text>
 <text x="86.36" y="60.198" size="1.778" layer="97">NC</text>
 <text x="86.36" y="57.658" size="1.778" layer="97">NC</text>
 <text x="99.06" y="55.88" size="1.778" layer="97">nRESET</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU Reset &amp; SWD</text>
 </plain>
 <instances>
 <instance part="FRAME_03" gate="G$1" x="0" y="0"/>
@@ -30534,26 +30558,17 @@ Digikey: 497-17999-ND</text>
 </nets>
 </sheet>
 <sheet>
-<description>MCU Power</description>
+<description>MCU Power Distribution</description>
 <plain>
-<text x="88.9" y="45.72" size="1.778" layer="97">6mm x 6mm</text>
 <text x="35.56" y="111.76" size="2.54" layer="97" ratio="15">MCU VDDIO2 selection</text>
 <text x="165.1" y="111.76" size="2.54" layer="97" ratio="15">MCU VDDA</text>
-<text x="48.26" y="53.34" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
 <text x="165.1" y="38.1" size="2.54" layer="97" ratio="15">MCU VREF</text>
 <text x="165.1" y="73.66" size="2.54" layer="97" ratio="15">MCU VBAT</text>
 <text x="180.34" y="78.74" size="1.778" layer="97">not needed!</text>
-<text x="48.26" y="15.24" size="1.778" layer="97">(1.0A out, 1.5MHz fixed)</text>
-<text x="48.26" y="63.5" size="1.778" layer="97">TODO: 
-ENABLE to MCU-GPIO out
-voltage down (1.05V) to MCU-GPIO out
-+1V2 to MCU-ADC
-to be replaced by TPS62051DGSR</text>
-<text x="93.98" y="30.48" size="1.778" layer="97">Use 10uH, Würth WE-PD 744 777 10</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU power distribution</text>
 </plain>
 <instances>
 <instance part="FRAME_04" gate="G$1" x="0" y="0"/>
-<instance part="GND0432" gate="1" x="106.68" y="7.62"/>
 <instance part="C0401" gate="G$1" x="144.78" y="147.32"/>
 <instance part="C0402" gate="G$1" x="154.94" y="147.32"/>
 <instance part="C0403" gate="G$1" x="165.1" y="147.32"/>
@@ -30574,11 +30589,6 @@ to be replaced by TPS62051DGSR</text>
 <instance part="D0451" gate="G$1" x="185.42" y="83.82"/>
 <instance part="C0451" gate="G$1" x="200.66" y="73.66"/>
 <instance part="GND0451" gate="1" x="200.66" y="63.5"/>
-<instance part="C0431" gate="G$1" x="12.7" y="22.86"/>
-<instance part="C0432" gate="G$1" x="25.4" y="22.86"/>
-<instance part="GND0431" gate="1" x="12.7" y="7.62"/>
-<instance part="C0444" gate="G$1" x="106.68" y="20.32"/>
-<instance part="L0433" gate="G$1" x="96.52" y="38.1" rot="R270"/>
 <instance part="SJ0421" gate="1" x="66.04" y="132.08" rot="R90"/>
 <instance part="SJ0422" gate="1" x="55.88" y="132.08" rot="R90"/>
 <instance part="C0422" gate="G$1" x="86.36" y="111.76"/>
@@ -30587,8 +30597,6 @@ to be replaced by TPS62051DGSR</text>
 <instance part="GND0421" gate="1" x="76.2" y="139.7"/>
 <instance part="SJ0423" gate="1" x="45.72" y="132.08" rot="R90"/>
 <instance part="SJ0424" gate="1" x="35.56" y="132.08" rot="R90"/>
-<instance part="U0431" gate="G$1" x="58.42" y="33.02"/>
-<instance part="TP_+1V2" gate="G$1" x="106.68" y="50.8" rot="R180"/>
 <instance part="TP_VBAT" gate="G$1" x="210.82" y="91.44" rot="R90"/>
 <instance part="C0410" gate="G$1" x="144.78" y="129.54" rot="R90"/>
 <instance part="C0423" gate="G$1" x="12.7" y="111.76"/>
@@ -30626,11 +30634,6 @@ to be replaced by TPS62051DGSR</text>
 </segment>
 </net>
 <net name="GND" class="0">
-<segment>
-<pinref part="GND0432" gate="1" pin="GND"/>
-<pinref part="C0444" gate="G$1" pin="2"/>
-<wire x1="106.68" y1="10.16" x2="106.68" y2="15.24" width="0.1524" layer="91"/>
-</segment>
 <segment>
 <pinref part="GND0401" gate="1" pin="GND"/>
 <wire x1="226.06" y1="137.16" x2="226.06" y2="139.7" width="0.1524" layer="91"/>
@@ -30699,21 +30702,6 @@ to be replaced by TPS62051DGSR</text>
 <pinref part="GND0451" gate="1" pin="GND"/>
 <pinref part="C0451" gate="G$1" pin="-"/>
 <wire x1="200.66" y1="66.04" x2="200.66" y2="68.58" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="GND0431" gate="1" pin="GND"/>
-<pinref part="C0431" gate="G$1" pin="2"/>
-<wire x1="12.7" y1="10.16" x2="12.7" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="C0432" gate="G$1" pin="2"/>
-<wire x1="12.7" y1="12.7" x2="12.7" y2="17.78" width="0.1524" layer="91"/>
-<wire x1="12.7" y1="12.7" x2="25.4" y2="12.7" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="12.7" x2="25.4" y2="17.78" width="0.1524" layer="91"/>
-<junction x="12.7" y="12.7"/>
-<wire x1="25.4" y1="12.7" x2="38.1" y2="12.7" width="0.1524" layer="91"/>
-<junction x="25.4" y="12.7"/>
-<pinref part="U0431" gate="G$1" pin="GND"/>
-<wire x1="40.64" y1="33.02" x2="38.1" y2="33.02" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="33.02" x2="38.1" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C0421" gate="G$1" pin="1"/>
@@ -30843,24 +30831,7 @@ to be replaced by TPS62051DGSR</text>
 <wire x1="116.84" y1="170.18" x2="116.84" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="116.84" y1="83.82" x2="182.88" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="D0451" gate="G$1" pin="A"/>
-<wire x1="116.84" y1="83.82" x2="12.7" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="12.7" y1="83.82" x2="12.7" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="12.7" y1="38.1" x2="25.4" y2="38.1" width="0.1524" layer="91"/>
-<label x="30.48" y="38.1" size="1.778" layer="95"/>
-<pinref part="C0431" gate="G$1" pin="1"/>
-<wire x1="25.4" y1="38.1" x2="40.64" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="12.7" y1="38.1" x2="12.7" y2="25.4" width="0.1524" layer="91"/>
-<pinref part="C0432" gate="G$1" pin="1"/>
-<wire x1="25.4" y1="38.1" x2="25.4" y2="27.94" width="0.1524" layer="91"/>
-<junction x="12.7" y="38.1"/>
-<junction x="25.4" y="38.1"/>
-<junction x="116.84" y="83.82"/>
 <label x="119.38" y="83.82" size="1.778" layer="95"/>
-<pinref part="U0431" gate="G$1" pin="VIN"/>
-<pinref part="U0431" gate="G$1" pin="EN"/>
-<wire x1="25.4" y1="27.94" x2="25.4" y2="25.4" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="27.94" x2="40.64" y2="27.94" width="0.1524" layer="91"/>
-<junction x="25.4" y="27.94"/>
 <wire x1="66.04" y1="170.18" x2="27.94" y2="170.18" width="0.1524" layer="91"/>
 <pinref part="SJ0421" gate="1" pin="2"/>
 <wire x1="66.04" y1="137.16" x2="66.04" y2="170.18" width="0.1524" layer="91"/>
@@ -30870,14 +30841,6 @@ to be replaced by TPS62051DGSR</text>
 <label x="27.94" y="170.18" size="1.778" layer="95" rot="R180" xref="yes"/>
 <junction x="116.84" y="170.18"/>
 <wire x1="116.84" y1="170.18" x2="66.04" y2="170.18" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="VDD12_SW" class="0">
-<segment>
-<wire x1="76.2" y1="38.1" x2="91.44" y2="38.1" width="0.1524" layer="91"/>
-<label x="76.2" y="38.1" size="1.778" layer="95"/>
-<pinref part="L0433" gate="G$1" pin="2"/>
-<pinref part="U0431" gate="G$1" pin="SW"/>
 </segment>
 </net>
 <net name="+2V5_UNUSED" class="0">
@@ -30925,7 +30888,7 @@ to be replaced by TPS62051DGSR</text>
 <junction x="35.56" y="121.92"/>
 </segment>
 </net>
-<net name="+1V8_UNUSED" class="0">
+<net name="+1V8" class="0">
 <segment>
 <pinref part="SJ0423" gate="1" pin="2"/>
 <wire x1="45.72" y1="137.16" x2="45.72" y2="154.94" width="0.1524" layer="91"/>
@@ -30941,30 +30904,14 @@ to be replaced by TPS62051DGSR</text>
 <label x="27.94" y="147.32" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="+1V2" class="0">
-<segment>
-<pinref part="C0444" gate="G$1" pin="1"/>
-<wire x1="106.68" y1="38.1" x2="106.68" y2="27.94" width="0.1524" layer="91"/>
-<junction x="106.68" y="38.1"/>
-<wire x1="106.68" y1="27.94" x2="106.68" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="106.68" y1="27.94" x2="76.2" y2="27.94" width="0.1524" layer="91"/>
-<junction x="106.68" y="27.94"/>
-<wire x1="106.68" y1="38.1" x2="121.92" y2="38.1" width="0.1524" layer="91"/>
-<label x="121.92" y="38.1" size="1.778" layer="95" xref="yes"/>
-<pinref part="L0433" gate="G$1" pin="1"/>
-<wire x1="106.68" y1="38.1" x2="101.6" y2="38.1" width="0.1524" layer="91"/>
-<pinref part="U0431" gate="G$1" pin="VOUT_FB"/>
-<pinref part="TP_+1V2" gate="G$1" pin="TP"/>
-<wire x1="106.68" y1="38.1" x2="106.68" y2="48.26" width="0.1524" layer="91"/>
-</segment>
-</net>
 </nets>
 </sheet>
 <sheet>
-<description>32.768 kHz</description>
+<description>Crystal 32.768 kHz</description>
 <plain>
 <text x="137.16" y="86.36" size="1.778" layer="97">3..10pF</text>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Low frequency oscillator</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">MCU: low frequency oscillator</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU LF Osc</text>
 </plain>
 <instances>
 <instance part="FRAME_05" gate="G$1" x="0" y="0"/>
@@ -31025,7 +30972,7 @@ to be replaced by TPS62051DGSR</text>
 </nets>
 </sheet>
 <sheet>
-<description>20 MHz TCXO</description>
+<description>VCTCXO 20MHz</description>
 <plain>
 <text x="104.14" y="154.94" size="1.778" layer="97">f_LP = 10 Hz</text>
 <text x="185.42" y="119.38" size="1.778" layer="97">Use ECS VC-TXO-23SM-200-B
@@ -31040,6 +30987,7 @@ to be replaced by TPS62051DGSR</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">D/A-Converter:
 I2C addr: 0x38/0x39</text>
 <text x="208.28" y="48.26" size="1.778" layer="97">ADC3_IN6_20MHZ_PULL</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">VCTCXO 20MHz</text>
 </plain>
 <instances>
 <instance part="FRAME_06" gate="G$1" x="0" y="0"/>
@@ -31346,7 +31294,7 @@ I2C addr: 0x38/0x39</text>
 </nets>
 </sheet>
 <sheet>
-<description>Clock Si5338</description>
+<description>PLL Si5338</description>
 <plain>
 <text x="167.64" y="106.68" size="1.778" layer="97">Impedance 100 Ohms</text>
 <text x="167.64" y="76.2" size="1.778" layer="97">Impedance 100 Ohms</text>
@@ -33976,6 +33924,10 @@ I2C addr: 0x68 / 0x0C</text>
 I2C addr: 0x44</text>
 <text x="195.58" y="81.28" size="2.54" layer="97" ratio="15">I2C4 Termination</text>
 <text x="127" y="25.4" size="1.778" layer="97">I2C2_INT</text>
+<text x="83.82" y="33.02" size="1.778" layer="97">TODO:
+To be replaced by ICM-20948
+(1.8 Volt !)
+Use SPI instead of I2C and Level Converter</text>
 </plain>
 <instances>
 <instance part="FRAME_13" gate="G$1" x="0" y="0"/>
@@ -34222,8 +34174,12 @@ I2C addr: 0x44</text>
 <text x="5.08" y="127.254" size="1.778" layer="97">MCU_VSOL_ADC1</text>
 <text x="30.48" y="139.7" size="1.778" layer="97">MCU_VSOL_TIMCAP</text>
 <text x="10.16" y="81.28" size="1.778" layer="97">Solar connector</text>
-<text x="86.36" y="78.74" size="1.778" layer="97">12mA Start-up mode
- 2mA MPPT mode</text>
+<text x="86.36" y="66.04" size="1.778" layer="97">12mA Start-up mode
+ 2mA MPPT mode
+
+TODO:
+To be replaced by
+Texas Instruments BQ25570</text>
 <text x="182.88" y="55.88" size="1.778" layer="97" rot="R90">for 5.0V: R1407=120kR, R1408=330kR</text>
 <text x="187.96" y="55.88" size="1.778" layer="97" rot="R90">for 3.3V: R1407=100kR, R1408=150kR</text>
 </plain>
@@ -34460,7 +34416,220 @@ I2C addr: 0x44</text>
 </nets>
 </sheet>
 <sheet>
-<description>Power USB</description>
+<description>5V -&gt; 3V3</description>
+<plain>
+<text x="139.7" y="104.14" size="1.778" layer="96">3mm x 3mm</text>
+<text x="104.14" y="111.76" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5V --&gt; 3.3V</text>
+<text x="104.14" y="73.66" size="1.778" layer="97">(1.5A out, 1.5MHz fixed)</text>
+<text x="104.14" y="68.58" size="1.778" layer="97">14mA quiescent current</text>
+<text x="104.14" y="63.5" size="1.778" layer="97">(replaces PAM2305)</text>
+<text x="104.14" y="119.38" size="1.778" layer="97">TODO:
+ENABLE to MCU GPIO out
++3V3 to MCU ADC
+to be replaced by TPS62056DGSR</text>
+</plain>
+<instances>
+<instance part="C1602" gate="G$1" x="213.36" y="76.2"/>
+<instance part="L1604" gate="G$1" x="147.32" y="96.52" rot="R270"/>
+<instance part="C1605" gate="G$1" x="160.02" y="76.2"/>
+<instance part="FRAME_16" gate="G$1" x="0" y="0"/>
+<instance part="GND1601" gate="1" x="43.18" y="60.96"/>
+<instance part="TP_+5V0" gate="G$1" x="73.66" y="111.76" rot="R180"/>
+<instance part="C1607" gate="G$1" x="73.66" y="76.2"/>
+<instance part="GND1602" gate="1" x="213.36" y="60.96"/>
+<instance part="U1601" gate="G$1" x="114.3" y="91.44"/>
+<instance part="TP_+3V3" gate="G$1" x="213.36" y="111.76" rot="R180"/>
+</instances>
+<busses>
+</busses>
+<nets>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND1601" gate="1" pin="GND"/>
+<wire x1="43.18" y1="63.5" x2="43.18" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="66.04" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="U1601" gate="G$1" pin="GND"/>
+<wire x1="93.98" y1="91.44" x2="96.52" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="66.04" x2="73.66" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="C1607" gate="G$1" pin="-"/>
+<wire x1="73.66" y1="66.04" x2="93.98" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="66.04" x2="73.66" y2="71.12" width="0.1524" layer="91"/>
+<junction x="73.66" y="66.04"/>
+</segment>
+<segment>
+<pinref part="GND1602" gate="1" pin="GND"/>
+<pinref part="C1605" gate="G$1" pin="2"/>
+<wire x1="160.02" y1="66.04" x2="160.02" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="66.04" x2="213.36" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="213.36" y1="66.04" x2="213.36" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="C1602" gate="G$1" pin="2"/>
+<wire x1="213.36" y1="66.04" x2="213.36" y2="71.12" width="0.1524" layer="91"/>
+<junction x="213.36" y="66.04"/>
+</segment>
+</net>
+<net name="SW" class="0">
+<segment>
+<pinref part="L1604" gate="G$1" pin="2"/>
+<wire x1="132.08" y1="96.52" x2="142.24" y2="96.52" width="0.1524" layer="91"/>
+<label x="134.62" y="96.52" size="1.778" layer="95"/>
+<pinref part="U1601" gate="G$1" pin="SW"/>
+</segment>
+</net>
+<net name="+5V0" class="4">
+<segment>
+<label x="43.18" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<junction x="73.66" y="96.52"/>
+<wire x1="96.52" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
+<pinref part="TP_+5V0" gate="G$1" pin="TP"/>
+<wire x1="43.18" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
+<junction x="73.66" y="96.52"/>
+<wire x1="73.66" y1="96.52" x2="73.66" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="96.52" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="U1601" gate="G$1" pin="VIN"/>
+<pinref part="U1601" gate="G$1" pin="EN"/>
+<wire x1="96.52" y1="86.36" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="C1607" gate="G$1" pin="+"/>
+<wire x1="73.66" y1="86.36" x2="73.66" y2="78.74" width="0.1524" layer="91"/>
+<junction x="73.66" y="86.36"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<pinref part="C1605" gate="G$1" pin="1"/>
+<wire x1="233.68" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="86.36" x2="160.02" y2="78.74" width="0.1524" layer="91"/>
+<junction x="160.02" y="86.36"/>
+<pinref part="L1604" gate="G$1" pin="1"/>
+<wire x1="152.4" y1="96.52" x2="160.02" y2="96.52" width="0.1524" layer="91"/>
+<label x="233.68" y="96.52" size="1.778" layer="95" xref="yes"/>
+<junction x="213.36" y="96.52"/>
+<wire x1="160.02" y1="96.52" x2="160.02" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="U1601" gate="G$1" pin="VOUT_FB"/>
+<wire x1="160.02" y1="86.36" x2="132.08" y2="86.36" width="0.1524" layer="91"/>
+<junction x="160.02" y="96.52"/>
+<pinref part="TP_+3V3" gate="G$1" pin="TP"/>
+<wire x1="213.36" y1="96.52" x2="213.36" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="C1602" gate="G$1" pin="1"/>
+<wire x1="213.36" y1="96.52" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+</net>
+</nets>
+</sheet>
+<sheet>
+<description>3.3V -&gt; 1.8V</description>
+<plain>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 3.3V --&gt; 1.8V</text>
+</plain>
+<instances>
+<instance part="FRAME_25" gate="G$1" x="0" y="0"/>
+</instances>
+<busses>
+</busses>
+<nets>
+</nets>
+</sheet>
+<sheet>
+<description>3.3V -&gt; 1.2V</description>
+<plain>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 3.3V --&gt; 1.2V</text>
+<text x="139.7" y="96.52" size="1.778" layer="97">6mm x 6mm</text>
+<text x="99.06" y="104.14" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
+<text x="99.06" y="66.04" size="1.778" layer="97">(1.0A out, 1.5MHz fixed)</text>
+<text x="99.06" y="114.3" size="1.778" layer="97">TODO: 
+ENABLE to MCU-GPIO out
+voltage down (1.05V) to MCU-GPIO out
++1V2 to MCU-ADC
+to be replaced by TPS62051DGSR</text>
+<text x="144.78" y="81.28" size="1.778" layer="97">Use 10uH, Würth WE-PD 744 777 10</text>
+</plain>
+<instances>
+<instance part="FRAME_26" gate="G$1" x="0" y="0"/>
+<instance part="GND00001" gate="1" x="157.48" y="58.42"/>
+<instance part="C0001" gate="G$1" x="63.5" y="73.66"/>
+<instance part="C0002" gate="G$1" x="76.2" y="73.66"/>
+<instance part="GND00002" gate="1" x="63.5" y="58.42"/>
+<instance part="C0003" gate="G$1" x="157.48" y="71.12"/>
+<instance part="L0001" gate="G$1" x="147.32" y="88.9" rot="R270"/>
+<instance part="U0001" gate="G$1" x="109.22" y="83.82"/>
+<instance part="TP_+1V1" gate="G$1" x="157.48" y="101.6" rot="R180"/>
+<instance part="+3V1" gate="G$1" x="63.5" y="121.92"/>
+</instances>
+<busses>
+</busses>
+<nets>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND00001" gate="1" pin="GND"/>
+<pinref part="C0003" gate="G$1" pin="2"/>
+<wire x1="157.48" y1="60.96" x2="157.48" y2="66.04" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND00002" gate="1" pin="GND"/>
+<pinref part="C0001" gate="G$1" pin="2"/>
+<wire x1="63.5" y1="60.96" x2="63.5" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="C0002" gate="G$1" pin="2"/>
+<wire x1="63.5" y1="63.5" x2="63.5" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="63.5" x2="76.2" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="63.5" x2="76.2" y2="68.58" width="0.1524" layer="91"/>
+<junction x="63.5" y="63.5"/>
+<wire x1="76.2" y1="63.5" x2="88.9" y2="63.5" width="0.1524" layer="91"/>
+<junction x="76.2" y="63.5"/>
+<pinref part="U0001" gate="G$1" pin="GND"/>
+<wire x1="91.44" y1="83.82" x2="88.9" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="83.82" x2="88.9" y2="63.5" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<wire x1="63.5" y1="119.38" x2="63.5" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="88.9" x2="76.2" y2="88.9" width="0.1524" layer="91"/>
+<label x="81.28" y="88.9" size="1.778" layer="95"/>
+<pinref part="C0001" gate="G$1" pin="1"/>
+<wire x1="76.2" y1="88.9" x2="91.44" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="88.9" x2="63.5" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="C0002" gate="G$1" pin="1"/>
+<wire x1="76.2" y1="88.9" x2="76.2" y2="78.74" width="0.1524" layer="91"/>
+<junction x="63.5" y="88.9"/>
+<junction x="76.2" y="88.9"/>
+<pinref part="U0001" gate="G$1" pin="VIN"/>
+<pinref part="U0001" gate="G$1" pin="EN"/>
+<wire x1="76.2" y1="78.74" x2="76.2" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="78.74" x2="91.44" y2="78.74" width="0.1524" layer="91"/>
+<junction x="76.2" y="78.74"/>
+<pinref part="+3V1" gate="G$1" pin="+3V3"/>
+</segment>
+</net>
+<net name="VDD12_SW" class="0">
+<segment>
+<wire x1="127" y1="88.9" x2="142.24" y2="88.9" width="0.1524" layer="91"/>
+<label x="127" y="88.9" size="1.778" layer="95"/>
+<pinref part="L0001" gate="G$1" pin="2"/>
+<pinref part="U0001" gate="G$1" pin="SW"/>
+</segment>
+</net>
+<net name="+1V2" class="0">
+<segment>
+<pinref part="C0003" gate="G$1" pin="1"/>
+<wire x1="157.48" y1="88.9" x2="157.48" y2="78.74" width="0.1524" layer="91"/>
+<junction x="157.48" y="88.9"/>
+<wire x1="157.48" y1="78.74" x2="157.48" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="78.74" x2="127" y2="78.74" width="0.1524" layer="91"/>
+<junction x="157.48" y="78.74"/>
+<wire x1="157.48" y1="88.9" x2="172.72" y2="88.9" width="0.1524" layer="91"/>
+<label x="172.72" y="88.9" size="1.778" layer="95" xref="yes"/>
+<pinref part="L0001" gate="G$1" pin="1"/>
+<wire x1="157.48" y1="88.9" x2="152.4" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="U0001" gate="G$1" pin="VOUT_FB"/>
+<pinref part="TP_+1V1" gate="G$1" pin="TP"/>
+<wire x1="157.48" y1="88.9" x2="157.48" y2="99.06" width="0.1524" layer="91"/>
+</segment>
+</net>
+</nets>
+</sheet>
+<sheet>
+<description>Switch: Power USB</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for USB &lt;--&gt; 5V</text>
 </plain>
@@ -34573,213 +34742,7 @@ I2C addr: 0x44</text>
 </nets>
 </sheet>
 <sheet>
-<description>5V -&gt; 3V3</description>
-<plain>
-<text x="139.7" y="104.14" size="1.778" layer="96">3mm x 3mm</text>
-<text x="104.14" y="111.76" size="2.54" layer="97" ratio="15">DC/DC buck converter</text>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5V --&gt; 3.3V</text>
-<text x="104.14" y="73.66" size="1.778" layer="97">(1.5A out, 1.5MHz fixed)</text>
-<text x="104.14" y="68.58" size="1.778" layer="97">14mA quiescent current</text>
-<text x="104.14" y="63.5" size="1.778" layer="97">(replaces PAM2305)</text>
-<text x="104.14" y="119.38" size="1.778" layer="97">TODO:
-ENABLE to MCU GPIO out
-+3V3 to MCU ADC
-to be replaced by TPS62056DGSR</text>
-</plain>
-<instances>
-<instance part="C1602" gate="G$1" x="213.36" y="76.2"/>
-<instance part="L1604" gate="G$1" x="147.32" y="96.52" rot="R270"/>
-<instance part="C1605" gate="G$1" x="160.02" y="76.2"/>
-<instance part="FRAME_16" gate="G$1" x="0" y="0"/>
-<instance part="GND1601" gate="1" x="43.18" y="60.96"/>
-<instance part="TP_+5V0" gate="G$1" x="73.66" y="111.76" rot="R180"/>
-<instance part="C1607" gate="G$1" x="73.66" y="76.2"/>
-<instance part="GND1602" gate="1" x="213.36" y="60.96"/>
-<instance part="U1601" gate="G$1" x="114.3" y="91.44"/>
-<instance part="TP_+3V3" gate="G$1" x="213.36" y="111.76" rot="R180"/>
-</instances>
-<busses>
-</busses>
-<nets>
-<net name="GND" class="0">
-<segment>
-<pinref part="GND1601" gate="1" pin="GND"/>
-<wire x1="43.18" y1="63.5" x2="43.18" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="66.04" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
-<pinref part="U1601" gate="G$1" pin="GND"/>
-<wire x1="93.98" y1="91.44" x2="96.52" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="66.04" x2="73.66" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="C1607" gate="G$1" pin="-"/>
-<wire x1="73.66" y1="66.04" x2="93.98" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="66.04" x2="73.66" y2="71.12" width="0.1524" layer="91"/>
-<junction x="73.66" y="66.04"/>
-</segment>
-<segment>
-<pinref part="GND1602" gate="1" pin="GND"/>
-<pinref part="C1605" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="66.04" x2="160.02" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="66.04" x2="213.36" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="213.36" y1="66.04" x2="213.36" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="C1602" gate="G$1" pin="2"/>
-<wire x1="213.36" y1="66.04" x2="213.36" y2="71.12" width="0.1524" layer="91"/>
-<junction x="213.36" y="66.04"/>
-</segment>
-</net>
-<net name="SW" class="0">
-<segment>
-<pinref part="L1604" gate="G$1" pin="2"/>
-<wire x1="132.08" y1="96.52" x2="142.24" y2="96.52" width="0.1524" layer="91"/>
-<label x="134.62" y="96.52" size="1.778" layer="95"/>
-<pinref part="U1601" gate="G$1" pin="SW"/>
-</segment>
-</net>
-<net name="+5V0" class="4">
-<segment>
-<label x="43.18" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
-<junction x="73.66" y="96.52"/>
-<wire x1="96.52" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
-<pinref part="TP_+5V0" gate="G$1" pin="TP"/>
-<wire x1="43.18" y1="96.52" x2="73.66" y2="96.52" width="0.1524" layer="91"/>
-<junction x="73.66" y="96.52"/>
-<wire x1="73.66" y1="96.52" x2="73.66" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="96.52" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="U1601" gate="G$1" pin="VIN"/>
-<pinref part="U1601" gate="G$1" pin="EN"/>
-<wire x1="96.52" y1="86.36" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="C1607" gate="G$1" pin="+"/>
-<wire x1="73.66" y1="86.36" x2="73.66" y2="78.74" width="0.1524" layer="91"/>
-<junction x="73.66" y="86.36"/>
-</segment>
-</net>
-<net name="+3V3" class="0">
-<segment>
-<pinref part="C1605" gate="G$1" pin="1"/>
-<wire x1="233.68" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="86.36" x2="160.02" y2="78.74" width="0.1524" layer="91"/>
-<junction x="160.02" y="86.36"/>
-<pinref part="L1604" gate="G$1" pin="1"/>
-<wire x1="152.4" y1="96.52" x2="160.02" y2="96.52" width="0.1524" layer="91"/>
-<label x="233.68" y="96.52" size="1.778" layer="95" xref="yes"/>
-<junction x="213.36" y="96.52"/>
-<wire x1="160.02" y1="96.52" x2="160.02" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="U1601" gate="G$1" pin="VOUT_FB"/>
-<wire x1="160.02" y1="86.36" x2="132.08" y2="86.36" width="0.1524" layer="91"/>
-<junction x="160.02" y="96.52"/>
-<pinref part="TP_+3V3" gate="G$1" pin="TP"/>
-<wire x1="213.36" y1="96.52" x2="213.36" y2="109.22" width="0.1524" layer="91"/>
-<pinref part="C1602" gate="G$1" pin="1"/>
-<wire x1="213.36" y1="96.52" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
-</segment>
-</net>
-</nets>
-</sheet>
-<sheet>
-<description>3V3 High Current</description>
-<plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for clock distribution unit</text>
-</plain>
-<instances>
-<instance part="FRAME_17" gate="G$1" x="0" y="0"/>
-<instance part="U1701" gate="G$1" x="114.3" y="88.9" smashed="yes">
-<attribute name="NAME" x="101.346" y="102.616" size="2.1844" layer="95" ratio="10"/>
-<attribute name="VALUE" x="105.664" y="72.898" size="2.0828" layer="96"/>
-</instance>
-<instance part="GND1701" gate="1" x="68.58" y="40.64"/>
-<instance part="C1701" gate="G$1" x="68.58" y="101.6"/>
-<instance part="C1703" gate="G$1" x="160.02" y="68.58"/>
-<instance part="TP_+3V3_HICUR" gate="G$1" x="160.02" y="111.76" rot="R180"/>
-<instance part="R1702" gate="G$1" x="76.2" y="60.96" rot="R90"/>
-</instances>
-<busses>
-</busses>
-<nets>
-<net name="GND" class="0">
-<segment>
-<pinref part="GND1701" gate="1" pin="GND"/>
-<wire x1="68.58" y1="43.18" x2="68.58" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="U1701" gate="G$1" pin="4"/>
-<wire x1="68.58" y1="45.72" x2="68.58" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="68.58" y1="81.28" x2="96.52" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="C1701" gate="G$1" pin="2"/>
-<wire x1="68.58" y1="81.28" x2="68.58" y2="96.52" width="0.1524" layer="91"/>
-<junction x="68.58" y="81.28"/>
-<wire x1="68.58" y1="45.72" x2="76.2" y2="45.72" width="0.1524" layer="91"/>
-<junction x="68.58" y="45.72"/>
-<pinref part="C1703" gate="G$1" pin="2"/>
-<wire x1="76.2" y1="45.72" x2="160.02" y2="45.72" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="45.72" x2="160.02" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="R1702" gate="G$1" pin="1"/>
-<wire x1="76.2" y1="45.72" x2="76.2" y2="55.88" width="0.1524" layer="91"/>
-<junction x="76.2" y="45.72"/>
-</segment>
-</net>
-<net name="+3V3" class="0">
-<segment>
-<pinref part="U1701" gate="G$1" pin="1"/>
-<wire x1="96.52" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="81.28" y1="96.52" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="81.28" y1="96.52" x2="81.28" y2="58.42" width="0.1524" layer="91"/>
-<junction x="81.28" y="96.52"/>
-<wire x1="81.28" y1="58.42" x2="147.32" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="147.32" y1="58.42" x2="147.32" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="U1701" gate="G$1" pin="5"/>
-<wire x1="147.32" y1="81.28" x2="132.08" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="U1701" gate="G$1" pin="8"/>
-<wire x1="132.08" y1="96.52" x2="139.7" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="96.52" x2="139.7" y2="116.84" width="0.1524" layer="91"/>
-<pinref part="C1701" gate="G$1" pin="1"/>
-<wire x1="139.7" y1="116.84" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="81.28" y1="116.84" x2="68.58" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="68.58" y1="116.84" x2="68.58" y2="104.14" width="0.1524" layer="91"/>
-<junction x="81.28" y="116.84"/>
-<wire x1="68.58" y1="116.84" x2="68.58" y2="134.62" width="0.1524" layer="91"/>
-<junction x="68.58" y="116.84"/>
-<label x="68.58" y="134.62" size="1.778" layer="95" rot="R90" xref="yes"/>
-</segment>
-</net>
-<net name="+3V3_HICUR" class="0">
-<segment>
-<pinref part="C1703" gate="G$1" pin="1"/>
-<wire x1="160.02" y1="86.36" x2="160.02" y2="71.12" width="0.1524" layer="91"/>
-<label x="175.26" y="86.36" size="1.778" layer="95" xref="yes"/>
-<wire x1="175.26" y1="86.36" x2="160.02" y2="86.36" width="0.1524" layer="91"/>
-<junction x="160.02" y="86.36"/>
-<pinref part="U1701" gate="G$1" pin="6"/>
-<wire x1="160.02" y1="86.36" x2="147.32" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="U1701" gate="G$1" pin="2"/>
-<wire x1="147.32" y1="86.36" x2="132.08" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="91.44" x2="88.9" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="91.44" x2="88.9" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="109.22" x2="147.32" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="147.32" y1="109.22" x2="147.32" y2="86.36" width="0.1524" layer="91"/>
-<junction x="147.32" y="86.36"/>
-<pinref part="TP_+3V3_HICUR" gate="G$1" pin="TP"/>
-<wire x1="160.02" y1="86.36" x2="160.02" y2="109.22" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="MCU_OUT_HICUR_EN" class="0">
-<segment>
-<wire x1="96.52" y1="86.36" x2="88.9" y2="86.36" width="0.1524" layer="91"/>
-<label x="55.88" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="U1701" gate="G$1" pin="3"/>
-<wire x1="88.9" y1="86.36" x2="76.2" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="76.2" y1="86.36" x2="55.88" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="86.36" x2="88.9" y2="66.04" width="0.1524" layer="91"/>
-<junction x="88.9" y="86.36"/>
-<wire x1="88.9" y1="66.04" x2="139.7" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="66.04" x2="139.7" y2="91.44" width="0.1524" layer="91"/>
-<pinref part="U1701" gate="G$1" pin="7"/>
-<wire x1="139.7" y1="91.44" x2="132.08" y2="91.44" width="0.1524" layer="91"/>
-<pinref part="R1702" gate="G$1" pin="2"/>
-<wire x1="76.2" y1="86.36" x2="76.2" y2="66.04" width="0.1524" layer="91"/>
-<junction x="76.2" y="86.36"/>
-</segment>
-</net>
-</nets>
-</sheet>
-<sheet>
-<description>3V3_20MHz</description>
+<description>Switch: 3V3 -&gt; 20MHz</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for TCXO unit</text>
 </plain>
@@ -34883,7 +34846,111 @@ to be replaced by TPS62056DGSR</text>
 </nets>
 </sheet>
 <sheet>
-<description>1.2V -&gt; MCU</description>
+<description>Switch: 3V3 -&gt; High Current</description>
+<plain>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for clock distribution unit</text>
+</plain>
+<instances>
+<instance part="FRAME_17" gate="G$1" x="0" y="0"/>
+<instance part="U1701" gate="G$1" x="114.3" y="88.9" smashed="yes">
+<attribute name="NAME" x="101.346" y="102.616" size="2.1844" layer="95" ratio="10"/>
+<attribute name="VALUE" x="105.664" y="72.898" size="2.0828" layer="96"/>
+</instance>
+<instance part="GND1701" gate="1" x="68.58" y="40.64"/>
+<instance part="C1701" gate="G$1" x="68.58" y="101.6"/>
+<instance part="C1703" gate="G$1" x="160.02" y="68.58"/>
+<instance part="TP_+3V3_HICUR" gate="G$1" x="160.02" y="111.76" rot="R180"/>
+<instance part="R1702" gate="G$1" x="76.2" y="60.96" rot="R90"/>
+</instances>
+<busses>
+</busses>
+<nets>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND1701" gate="1" pin="GND"/>
+<wire x1="68.58" y1="43.18" x2="68.58" y2="45.72" width="0.1524" layer="91"/>
+<pinref part="U1701" gate="G$1" pin="4"/>
+<wire x1="68.58" y1="45.72" x2="68.58" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="81.28" x2="96.52" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="C1701" gate="G$1" pin="2"/>
+<wire x1="68.58" y1="81.28" x2="68.58" y2="96.52" width="0.1524" layer="91"/>
+<junction x="68.58" y="81.28"/>
+<wire x1="68.58" y1="45.72" x2="76.2" y2="45.72" width="0.1524" layer="91"/>
+<junction x="68.58" y="45.72"/>
+<pinref part="C1703" gate="G$1" pin="2"/>
+<wire x1="76.2" y1="45.72" x2="160.02" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="45.72" x2="160.02" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="R1702" gate="G$1" pin="1"/>
+<wire x1="76.2" y1="45.72" x2="76.2" y2="55.88" width="0.1524" layer="91"/>
+<junction x="76.2" y="45.72"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<pinref part="U1701" gate="G$1" pin="1"/>
+<wire x1="96.52" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="96.52" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="96.52" x2="81.28" y2="58.42" width="0.1524" layer="91"/>
+<junction x="81.28" y="96.52"/>
+<wire x1="81.28" y1="58.42" x2="147.32" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="58.42" x2="147.32" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="U1701" gate="G$1" pin="5"/>
+<wire x1="147.32" y1="81.28" x2="132.08" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="U1701" gate="G$1" pin="8"/>
+<wire x1="132.08" y1="96.52" x2="139.7" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="96.52" x2="139.7" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="C1701" gate="G$1" pin="1"/>
+<wire x1="139.7" y1="116.84" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="116.84" x2="68.58" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="116.84" x2="68.58" y2="104.14" width="0.1524" layer="91"/>
+<junction x="81.28" y="116.84"/>
+<wire x1="68.58" y1="116.84" x2="68.58" y2="134.62" width="0.1524" layer="91"/>
+<junction x="68.58" y="116.84"/>
+<label x="68.58" y="134.62" size="1.778" layer="95" rot="R90" xref="yes"/>
+</segment>
+</net>
+<net name="+3V3_HICUR" class="0">
+<segment>
+<pinref part="C1703" gate="G$1" pin="1"/>
+<wire x1="160.02" y1="86.36" x2="160.02" y2="71.12" width="0.1524" layer="91"/>
+<label x="175.26" y="86.36" size="1.778" layer="95" xref="yes"/>
+<wire x1="175.26" y1="86.36" x2="160.02" y2="86.36" width="0.1524" layer="91"/>
+<junction x="160.02" y="86.36"/>
+<pinref part="U1701" gate="G$1" pin="6"/>
+<wire x1="160.02" y1="86.36" x2="147.32" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="U1701" gate="G$1" pin="2"/>
+<wire x1="147.32" y1="86.36" x2="132.08" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="91.44" x2="88.9" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="91.44" x2="88.9" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="109.22" x2="147.32" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="109.22" x2="147.32" y2="86.36" width="0.1524" layer="91"/>
+<junction x="147.32" y="86.36"/>
+<pinref part="TP_+3V3_HICUR" gate="G$1" pin="TP"/>
+<wire x1="160.02" y1="86.36" x2="160.02" y2="109.22" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MCU_OUT_HICUR_EN" class="0">
+<segment>
+<wire x1="96.52" y1="86.36" x2="88.9" y2="86.36" width="0.1524" layer="91"/>
+<label x="55.88" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="U1701" gate="G$1" pin="3"/>
+<wire x1="88.9" y1="86.36" x2="76.2" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="86.36" x2="55.88" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="86.36" x2="88.9" y2="66.04" width="0.1524" layer="91"/>
+<junction x="88.9" y="86.36"/>
+<wire x1="88.9" y1="66.04" x2="139.7" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="66.04" x2="139.7" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="U1701" gate="G$1" pin="7"/>
+<wire x1="139.7" y1="91.44" x2="132.08" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="R1702" gate="G$1" pin="2"/>
+<wire x1="76.2" y1="86.36" x2="76.2" y2="66.04" width="0.1524" layer="91"/>
+<junction x="76.2" y="86.36"/>
+</segment>
+</net>
+</nets>
+</sheet>
+<sheet>
+<description>Switch SMTP 1.2V -&gt; MCU</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for MCU SMTP ext. 1.2V</text>
 </plain>
@@ -36866,18 +36933,18 @@ fix layout of sockets</text>
 <approved hash="102,4,76.2,38.1,SW,VDD12_SW,,,,"/>
 <approved hash="102,6,71.12,58.42,VOUT,+3V0_20MHZ_VCTCXO,,,,"/>
 <approved hash="102,14,119.38,109.22,VOUT,SPV_VOUT,,,,"/>
-<approved hash="104,15,132.08,96.52,U1501,8,VDDUSB,,,"/>
+<approved hash="104,18,132.08,96.52,U1501,8,VDDUSB,,,"/>
 <approved hash="104,6,180.34,149.86,U0631,VCC_3V0,+3V0_20MHZ_VCTCXO,,,"/>
 <approved hash="104,6,35.56,58.42,U0601,VIN,+3V3,,,"/>
 <approved hash="104,6,185.42,60.96,U0641,V+,+3V3_20MHZ,,,"/>
 <approved hash="104,6,185.42,45.72,U0641,V-,GND,,,"/>
-<approved hash="104,18,132.08,96.52,U1801,8,+3V3,,,"/>
-<approved hash="104,17,132.08,96.52,U1701,8,+3V3,,,"/>
-<approved hash="104,20,180.34,99.06,X2001,J_VUSB,PA9,,,"/>
+<approved hash="104,19,132.08,96.52,U1801,8,+3V3,,,"/>
+<approved hash="104,20,132.08,96.52,U1701,8,+3V3,,,"/>
+<approved hash="104,22,180.34,99.06,X2001,J_VUSB,PA9,,,"/>
 <approved hash="104,10,60.96,129.54,U0901,VDD_IO,+3V3,,,"/>
-<approved hash="104,16,96.52,96.52,U1601,VIN,+5V0,,,"/>
+<approved hash="104,15,96.52,96.52,U1601,VIN,+5V0,,,"/>
 <approved hash="104,14,83.82,93.98,U1402,MPP_SET,VSOL,,,"/>
-<approved hash="104,19,132.08,96.52,U1901,8,+3V3,,,"/>
+<approved hash="104,21,132.08,96.52,U1901,8,+3V3,,,"/>
 <approved hash="104,4,40.64,38.1,U0431,VIN,+3V3,,,"/>
 <approved hash="104,6,66.04,142.24,U0611,VDD,+3V3_20MHZ,,,"/>
 <approved hash="104,12,119.38,127,U1201,VSS,GND,,,"/>
