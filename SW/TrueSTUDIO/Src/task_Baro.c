@@ -211,8 +211,8 @@ static void baroDistributor(void)
     char      strBuf[32];
 
     /* Format the string to be displayed */
-    const uint8_t strLen = sprintf(strBuf, "%04lu.%02luhPa ",
-        (s_baro_p_100       / 100), (s_baro_p_100       % 100));
+    const uint8_t strLen = sprintf(strBuf, "%04lu.%01luhPa ",
+        (s_baro_qnh_p_h_100 / 100), (s_baro_qnh_p_h_100 % 100) / 10);
 
     msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Baro, 1U + strLen, MsgLcd__CallFunc02_WriteString);
 
