@@ -230,8 +230,6 @@ void lcdTaskLoop(void)
   {
     osSemaphoreWait(c2Lcd_BSemHandle, osWaitForever);
     msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Actor_LCD, 1UL);                     // Special case of callbacks need to limit blocking time
-    osSemaphoreRelease(c2Lcd_BSemHandle);
-    osDelay(3UL);
   }
 
   /* Decode and execute the commands when a message exists

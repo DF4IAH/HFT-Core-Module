@@ -315,8 +315,6 @@ void si5338TaskLoop(void)
   {
     osSemaphoreWait(c2Si5338_BSemHandle, osWaitForever);
     msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_Si5338, 1UL);                    // Special case of callbacks need to limit blocking time
-    osSemaphoreRelease(c2Si5338_BSemHandle);
-    osDelay(3UL);
   }
 
   /* Decode and execute the commands when a message exists

@@ -254,8 +254,6 @@ void tcxo20MhzTaskLoop(void)
   {
     osSemaphoreWait(c2Tcxo_BSemHandle, osWaitForever);
     msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Osc_TCXO, 1UL);                      // Special case of callbacks need to limit blocking time
-    osSemaphoreRelease(c2Tcxo_BSemHandle);
-    osDelay(3UL);
   }
 
   /* Decode and execute the commands when a message exists

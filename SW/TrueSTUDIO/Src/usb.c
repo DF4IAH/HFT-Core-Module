@@ -28,12 +28,12 @@ extern osSemaphoreId        usbToHostBinarySemHandle;
 
 extern EventGroupHandle_t   usbToHostEventGroupHandle;
 
-uint8_t                     usbFromHostISRBuf[64]                  = { 0 };
-uint32_t                    usbFromHostISRBufLen                   = 0;
+uint8_t                     usbFromHostISRBuf[64]                  = { 0U };
+uint32_t                    usbFromHostISRBufLen                   = 0UL;
 
 
 
-const uint8_t usbToHost_MaxWaitQueueMs = 100;
+const uint8_t usbToHost_MaxWaitQueueMs = 100U;
 void usbToHost(const uint8_t* buf, uint32_t len)
 {
 	if (buf && len) {
@@ -44,10 +44,10 @@ void usbToHost(const uint8_t* buf, uint32_t len)
 	}
 }
 
-const uint16_t usbToHostWait_MaxWaitSemMs = 500;
+const uint16_t usbToHostWait_MaxWaitSemMs = 500U;
 void usbToHostWait(const uint8_t* buf, uint32_t len)
 {
-  EventBits_t eb = xEventGroupWaitBits(usbToHostEventGroupHandle, USB_TO_HOST_EG__BUF_EMPTY, 0, 0, usbToHostWait_MaxWaitSemMs);
+  EventBits_t eb = xEventGroupWaitBits(usbToHostEventGroupHandle, USB_TO_HOST_EG__BUF_EMPTY, 0UL, 0, usbToHostWait_MaxWaitSemMs);
   if (eb & USB_TO_HOST_EG__BUF_EMPTY) {
     usbToHost(buf, len);
   }
@@ -55,7 +55,7 @@ void usbToHostWait(const uint8_t* buf, uint32_t len)
 
 void usbLogLen(const char* str, int len)
 {
-  osSemaphoreWait(usbToHostBinarySemHandle, 0);
+  osSemaphoreWait(usbToHostBinarySemHandle, 0UL);
   usbToHostWait((uint8_t*)str, len);
   osSemaphoreRelease(usbToHostBinarySemHandle);
 }
@@ -77,7 +77,7 @@ void usbFromHostFromIRQ(const uint8_t* buf, uint32_t len)
 			lLen = lMaxLen;
 		}
 		memcpy((void*)usbFromHostISRBuf, (const void*)buf, lLen);
-		usbFromHostISRBuf[lLen] = 0;
+		usbFromHostISRBuf[lLen] = 0U;
 		__asm volatile( "ISB" );
 		usbFromHostISRBufLen = lLen;
 	}
@@ -87,7 +87,7 @@ void usbFromHostFromIRQ(const uint8_t* buf, uint32_t len)
 const char usbClrScrBuf[4] = { 0x0c, 0x0d, 0x0a, 0 };
 void usbUsbToHostTaskInit(void)
 {
-  uint8_t inChr = 0;
+  uint8_t inChr = 0U;
 
   /* Clear queue */
   while (xQueueReceive(usbToHostQueueHandle, &inChr, 0) == pdPASS) {
@@ -95,14 +95,14 @@ void usbUsbToHostTaskInit(void)
   xEventGroupSetBits(usbToHostEventGroupHandle, USB_TO_HOST_EG__BUF_EMPTY);
 
   /* Give time for USB CDC to come up */
-  osDelay(3500);
+  osDelay(3500UL);
 
   /* Init connection with dummy data */
-  for (uint32_t cnt = 30; cnt; cnt--) {
+  for (uint8_t cnt = 30U; cnt; cnt--) {
     CDC_Transmit_FS((uint8_t*) usbClrScrBuf, 3);
-    osDelay(10);
+    osDelay(10UL);
   }
-  osDelay(250);
+  osDelay(250UL);
 
   /* To be moved to the controller.c module */
   {
@@ -110,22 +110,22 @@ void usbUsbToHostTaskInit(void)
     const char usb_Greeting_T01[]   = "===============\r\n";
 
     CDC_Transmit_FS((uint8_t*) usb_Greeting_T01, strlen(usb_Greeting_T01));
-    osDelay(10);
+    osDelay(10UL);
     CDC_Transmit_FS((uint8_t*) "HFT-Core-Module\r\n", strlen("HFT-Core-Module\r\n"));
-    osDelay(10);
+    osDelay(10UL);
     CDC_Transmit_FS((uint8_t*) usb_Greeting_T01, strlen(usb_Greeting_T01));
-    osDelay(10);
+    osDelay(10UL);
     CDC_Transmit_FS((uint8_t*) usb_Greeting_CRLF, 2);
-    osDelay(10);
+    osDelay(10UL);
 
-    osDelay(1000);
+    osDelay(1000UL);
   }
 }
 
 void usbUsbToHostTaskLoop(void)
 {
-  static uint8_t buf[32] = { 0 };
-  static uint8_t bufCtr = 0;
+  static uint8_t buf[32]  = { 0U };
+  static uint8_t bufCtr   = 0U;
   uint8_t inChr;
   BaseType_t xStatus;
 
@@ -172,7 +172,7 @@ void usbUsbToHostTaskLoop(void)
         } else {
           /* USB EP busy - try again */
           /* Delay for next USB packet to come and go */
-          osDelay(1);
+          osDelay(2UL);
         }
       }
 
@@ -188,15 +188,15 @@ void usbUsbToHostTaskLoop(void)
 void usbUsbFromHostTaskInit(void)
 {
   /* Give time for USB CDC to come up */
-  osDelay(100);
+  osDelay(100UL);
 }
 
 void usbUsbFromHostTaskLoop(void)
 {
-  const uint8_t nulBuf[1] = { 0 };
-  const uint8_t lightOnMax = 2;
-  const uint8_t maxWaitMs = 25;
-  static uint8_t lightOnCtr = 0;
+  const uint8_t nulBuf[1]   = { 0U };
+  const uint8_t lightOnMax  = 2U;
+  const uint8_t maxWaitMs   = 25U;
+  static uint8_t lightOnCtr = 0U;
 
   if (usbFromHostISRBufLen) {
     lightOnCtr = lightOnMax;
@@ -210,11 +210,11 @@ void usbUsbFromHostTaskLoop(void)
 
     memset((char*) usbFromHostISRBufLen, 0, sizeof(usbFromHostISRBufLen));
     __asm volatile( "ISB" );
-    usbFromHostISRBufLen = 0;
+    usbFromHostISRBufLen = 0UL;
 
   } else {
     /* Delay for the next attempt */
-    osDelay(25);
+    osDelay(25UL);
   }
 
   /* Show state */

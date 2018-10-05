@@ -26,6 +26,7 @@
 extern osSemaphoreId        c2Ax5243_BSemHandle;
 extern osSemaphoreId        spi3_BSemHandle;
 extern osSemaphoreId        usbToHostBinarySemHandle;
+
 extern EventGroupHandle_t   extiEventGroupHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 extern EventGroupHandle_t   globalEventGroupHandle;
@@ -8498,8 +8499,6 @@ void ax5243TaskLoop(void)
   {
     osSemaphoreWait(c2Ax5243_BSemHandle, osWaitForever);
     msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_AX5243, 1UL);                  // Special case of callbacks need to limit blocking time
-    osSemaphoreRelease(c2Ax5243_BSemHandle);
-    osDelay(3UL);
   }
 
   /* Decode and execute the commands when a message exists

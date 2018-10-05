@@ -22,6 +22,8 @@
 #include "task_Baro.h"
 #include "task_Hygro.h"
 #include "task_Gyro.h"
+#include "task_Audio_ADC.h"
+#include "task_Audio_DAC.h"
 #include "task_AX5243.h"
 #include "task_SX1276.h"
 
@@ -31,6 +33,8 @@
 extern osMessageQId         controllerInQueueHandle;
 extern osMessageQId         controllerOutQueueHandle;
 extern osTimerId            controllerTimerHandle;
+extern osSemaphoreId        c2AudioAdc_BSemHandle;
+extern osSemaphoreId        c2AudioDac_BSemHandle;
 extern osSemaphoreId        c2Ax5243_BSemHandle;
 extern osSemaphoreId        c2Baro_BSemHandle;
 extern osSemaphoreId        c2Default_BSemHandle;
@@ -140,22 +144,20 @@ void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t wait
     semId = c2Gyro_BSemHandle;
     break;
 
+  case Destinations__Audio_ADC:
+    semId = c2AudioAdc_BSemHandle;
+    break;
+
+  case Destinations__Audio_DAC:
+    semId = c2AudioDac_BSemHandle;
+    break;
+
   case Destinations__Radio_AX5243:
     semId = c2Ax5243_BSemHandle;
     break;
 
   case Destinations__Radio_SX1276:
     semId = c2Sx1276_BSemHandle;
-    break;
-
-  case Destinations__Audio_ADC:
-    // TODO
-    //semId = ;
-    break;
-
-  case Destinations__Audio_DAC:
-    // TODO
-    //semId = ;
     break;
 
   default:
@@ -165,7 +167,7 @@ void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t wait
   /* Wakeup of module */
   if (semId) {
     /* Grant blocked module to request the queue */
-    osSemaphoreRelease(semId);
+    osSemaphoreRelease(semId);                                                                        // Give semaphore token to launch module
   }
 
   /* Big Ben for the public */
@@ -174,11 +176,6 @@ void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t wait
 
   /* Hand over ctrlQout */
   osSemaphoreRelease(cQout_BSemHandle);
-
-  if (semId) {
-    /* Request semaphore back */
-    osSemaphoreWait(semId, osWaitForever);
-  }
 }
 
 
@@ -451,20 +448,44 @@ static void controllerMsgProcessor(void)
           s_mod_rdy.sensor_Gyro   = 1U;
           break;
 
+        case Destinations__Audio_ADC:
+          {
+            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
+
+            s_mod_rdy.audio_ADC     = 1U;
+
+            /* Start cyclic measurements */
+            {
+              uint8_t msgLen    = 0U;
+              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_ADC, Destinations__Controller, 4U, MsgAudioAdc__CallFunc03_CyclicTimerStart);
+              msgAry[msgLen++]  = 1000UL;                                                               // Period in ms
+              controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+            }
+          }
+          break;
+
+        case Destinations__Audio_DAC:
+          {
+            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
+
+            s_mod_rdy.audio_DAC     = 1U;
+
+            /* Start cyclic measurements */
+            {
+              uint8_t msgLen    = 0U;
+              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_DAC, Destinations__Controller, 4U, MsgAudioDac__CallFunc03_CyclicTimerStart);
+              msgAry[msgLen++]  = 1000UL;                                                               // Period in ms
+              controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+            }
+          }
+          break;
+
         case Destinations__Radio_AX5243:
           s_mod_rdy.radio_AX5243  = 1U;
           break;
 
         case Destinations__Radio_SX1276:
           s_mod_rdy.radio_SX1276  = 1U;
-          break;
-
-        case Destinations__Audio_ADC:
-          s_mod_rdy.audio_ADC     = 1U;
-          break;
-
-        case Destinations__Audio_DAC:
-          s_mod_rdy.audio_DAC     = 1U;
           break;
 
         default:
@@ -496,15 +517,17 @@ static void controllerInit(void)
 
   /* Prepare all semaphores */
   {
-    osSemaphoreWait(c2Default_BSemHandle, osWaitForever);
-    osSemaphoreWait(c2Tcxo_BSemHandle,    osWaitForever);
-    osSemaphoreWait(c2Si5338_BSemHandle,  osWaitForever);
-    osSemaphoreWait(c2Lcd_BSemHandle,     osWaitForever);
-    osSemaphoreWait(c2Baro_BSemHandle,    osWaitForever);
-    osSemaphoreWait(c2Hygro_BSemHandle,   osWaitForever);
-    osSemaphoreWait(c2Gyro_BSemHandle,    osWaitForever);
-    osSemaphoreWait(c2Ax5243_BSemHandle,  osWaitForever);
-    osSemaphoreWait(c2Sx1276_BSemHandle,  osWaitForever);
+    osSemaphoreWait(c2Default_BSemHandle,   osWaitForever);
+    osSemaphoreWait(c2Tcxo_BSemHandle,      osWaitForever);
+    osSemaphoreWait(c2Si5338_BSemHandle,    osWaitForever);
+    osSemaphoreWait(c2Lcd_BSemHandle,       osWaitForever);
+    osSemaphoreWait(c2Baro_BSemHandle,      osWaitForever);
+    osSemaphoreWait(c2Hygro_BSemHandle,     osWaitForever);
+    osSemaphoreWait(c2Gyro_BSemHandle,      osWaitForever);
+    osSemaphoreWait(c2AudioAdc_BSemHandle,  osWaitForever);
+    osSemaphoreWait(c2AudioDac_BSemHandle,  osWaitForever);
+    osSemaphoreWait(c2Ax5243_BSemHandle,    osWaitForever);
+    osSemaphoreWait(c2Sx1276_BSemHandle,    osWaitForever);
   }
 
   /* Read FLASH data */
@@ -517,7 +540,7 @@ static void controllerInit(void)
     memset(&s_msg_in,   0, sizeof(s_msg_in));
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
 
-    s_controller_doCycle                                      = 1U;
+    s_controller_doCycle                                      = 0U;
 
     s_mod_start.main_default                                  = 1U;
     s_mod_start.osc_TCXO                                      = 0U;
@@ -526,10 +549,10 @@ static void controllerInit(void)
     s_mod_start.sensor_Baro                                   = 1U;
     s_mod_start.sensor_Hygro                                  = 1U;
     s_mod_start.sensor_Gyro                                   = 0U;
-    s_mod_start.radio_AX5243                                  = 0U;
-    s_mod_start.radio_SX1276                                  = 0U;
     s_mod_start.audio_ADC                                     = 0U;
     s_mod_start.audio_DAC                                     = 0U;
+    s_mod_start.radio_AX5243                                  = 0U;
+    s_mod_start.radio_SX1276                                  = 0U;
   }
 
   /* Signaling controller is up and running */
@@ -588,27 +611,11 @@ static void controllerInit(void)
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
-    /* radio_AX5243 */
-    if (s_mod_start.radio_AX5243) {
-      const uint32_t msgLen = controllerCalcMsgInit(msgAry,
-          Destinations__Radio_AX5243,
-          600UL);
-      controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
-    }
-
-    /* radio_SX1276 */
-    if (s_mod_start.radio_SX1276) {
-      const uint32_t msgLen = controllerCalcMsgInit(msgAry,
-          Destinations__Radio_SX1276,
-          650UL);
-      controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
-    }
-
     /* osc_Si5338 */
     if (s_mod_start.osc_Si5338) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Osc_Si5338,
-          800UL);
+          600UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -616,7 +623,7 @@ static void controllerInit(void)
     if (s_mod_start.audio_ADC) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Audio_ADC,
-          900UL);
+          750UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 
@@ -624,6 +631,22 @@ static void controllerInit(void)
     if (s_mod_start.audio_DAC) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Audio_DAC,
+          800UL);
+      controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+    }
+
+    /* radio_AX5243 */
+    if (s_mod_start.radio_AX5243) {
+      const uint32_t msgLen = controllerCalcMsgInit(msgAry,
+          Destinations__Radio_AX5243,
+          850UL);
+      controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+    }
+
+    /* radio_SX1276 */
+    if (s_mod_start.radio_SX1276) {
+      const uint32_t msgLen = controllerCalcMsgInit(msgAry,
+          Destinations__Radio_SX1276,
           950UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
@@ -631,7 +654,7 @@ static void controllerInit(void)
 
   /* Enable service cycle */
   if (s_controller_doCycle) {
-    controllerCyclicStart(1000);
+    controllerCyclicStart(1000UL);
   } else {
     controllerCyclicStop();
   }

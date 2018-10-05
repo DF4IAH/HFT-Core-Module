@@ -268,7 +268,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20181003U
+#define HFTCOREMODULE_VERSION                                 20181006U
 
 
 /* Bit-mask for the globalEventGroup */
@@ -336,8 +336,6 @@ typedef enum MainMsgMainCmds_ENUM {
   MsgMain__GetVar01_x                                         = 0x81U,
 
   MsgMain__CallFunc01_MCU_ADC                                 = 0xc1U,
-  MsgMain__CallFunc02_AUDIO_ADC,
-  MsgMain__CallFunc03_AUDIO_DAC,
 
 } MainMsgMainCmds_t;
 

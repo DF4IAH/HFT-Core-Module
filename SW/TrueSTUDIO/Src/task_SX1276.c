@@ -1320,8 +1320,6 @@ void sx1276TaskLoop(void)
   {
     osSemaphoreWait(c2Sx1276_BSemHandle, osWaitForever);
     msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Radio_SX1276, 1UL);                  // Special case of callbacks need to limit blocking time
-    osSemaphoreRelease(c2Sx1276_BSemHandle);
-    osDelay(3UL);
   }
 
   /* Decode and execute the commands when a message exists
