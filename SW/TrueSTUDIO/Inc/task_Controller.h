@@ -74,7 +74,7 @@ typedef enum ControllerMsgControllerCmds_ENUM {
   MsgController__GetVar05,
 
   MsgController__CallFunc01                                   = 0xc1U,
-  MsgController__CallFunc02,
+  MsgController__CallFunc02_CyclicTimerEvent,
   MsgController__CallFunc03,
   MsgController__CallFunc04,
   MsgController__CallFunc05,

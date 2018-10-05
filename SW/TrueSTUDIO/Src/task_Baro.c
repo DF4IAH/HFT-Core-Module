@@ -458,8 +458,6 @@ void baroTaskLoop(void)
   {
     osSemaphoreWait(c2Baro_BSemHandle, osWaitForever);
     msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Sensor_Baro, 1UL);                   // Special case of callbacks need to limit blocking time
-    osSemaphoreRelease(c2Baro_BSemHandle);
-    osDelay(3UL);
   }
 
   /* Decode and execute the commands when a message exists

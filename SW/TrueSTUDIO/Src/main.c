@@ -65,6 +65,8 @@
 #include "task_Controller.h"
 #include "task_TCXO_20MHz.h"
 #include "task_Si5338.h"
+#include "task_Audio_ADC.h"
+#include "task_Audio_DAC.h"
 #include "task_AX5243.h"
 #include "task_SX1276.h"
 #include "usb.h"
@@ -132,6 +134,8 @@ osThreadId ax5243TaskHandle;
 osThreadId sx1276TaskHandle;
 osThreadId controllerTaskHandle;
 osThreadId si5338TaskHandle;
+osThreadId audioAdcTaskHandle;
+osThreadId audioDacTaskHandle;
 osMessageQId usbToHostQueueHandle;
 osMessageQId usbFromHostQueueHandle;
 osMessageQId controllerInQueueHandle;
@@ -143,6 +147,8 @@ osTimerId defaultTimerHandle;
 osTimerId gyroTimerHandle;
 osTimerId controllerTimerHandle;
 osTimerId tcxoTimerHandle;
+osTimerId audioAdcTimerHandle;
+osTimerId audioDacTimerHandle;
 osSemaphoreId c2Ax5243_BSemHandle;
 osSemaphoreId c2Sx1276_BSemHandle;
 osSemaphoreId c2Si5338_BSemHandle;
@@ -160,6 +166,8 @@ osSemaphoreId spi1_BSemHandle;
 osSemaphoreId spi3_BSemHandle;
 osSemaphoreId cQin_BSemHandle;
 osSemaphoreId cQout_BSemHandle;
+osSemaphoreId c2AudioAdc_BSemHandle;
+osSemaphoreId c2AudioDac_BSemHandle;
 
 /* USER CODE BEGIN PV */
 extern uint32_t                       uwTick;
@@ -239,12 +247,16 @@ void StartAx5243Task(void const * argument);
 void StartSx1276Task(void const * argument);
 void StartControllerTask(void const * argument);
 void StartSi5338Task(void const * argument);
+void StartAudioAdcTask(void const * argument);
+void StartAudioDacTask(void const * argument);
 void mainBaroTimerCallback(void const * argument);
 void mainHygroTimerCallback(void const * argument);
 void mainDefaultTimerCallback(void const * argument);
 void mainGyroTimerCallback(void const * argument);
 void mainControllerTimerCallback(void const * argument);
 void mainTcxoTimerCallback(void const * argument);
+void mainAudioAdcTimerCallback(void const * argument);
+void mainAudioDacTimerCallback(void const * argument);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -736,6 +748,14 @@ int main(void)
   osSemaphoreDef(cQout_BSem);
   cQout_BSemHandle = osSemaphoreCreate(osSemaphore(cQout_BSem), 1);
 
+  /* definition and creation of c2AudioAdc_BSem */
+  osSemaphoreDef(c2AudioAdc_BSem);
+  c2AudioAdc_BSemHandle = osSemaphoreCreate(osSemaphore(c2AudioAdc_BSem), 1);
+
+  /* definition and creation of c2AudioDac_BSem */
+  osSemaphoreDef(c2AudioDac_BSem);
+  c2AudioDac_BSemHandle = osSemaphoreCreate(osSemaphore(c2AudioDac_BSem), 1);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   osSemaphoreDef(usbToHostBinarySem);
@@ -750,6 +770,9 @@ int main(void)
   vQueueAddToRegistry(cQin_BSemHandle,          "Resc cQin BSem");
   vQueueAddToRegistry(cQout_BSemHandle,         "Resc cQout BSem");
   vQueueAddToRegistry(usbToHostBinarySemHandle, "Resc usb-2-host BSem");
+
+  vQueueAddToRegistry(c2AudioAdc_BSemHandle,    "Wake c2AudioAdc BSem");
+  vQueueAddToRegistry(c2AudioDac_BSemHandle,    "Wake c2AudioDac BSem");
   vQueueAddToRegistry(c2Ax5243_BSemHandle,      "Wake c2Ax5243 BSem");
   vQueueAddToRegistry(c2Default_BSemHandle,     "Wake c2Default BSem");
   vQueueAddToRegistry(c2Baro_BSemHandle,        "Wake c2Baro BSem");
@@ -793,6 +816,14 @@ int main(void)
   /* definition and creation of tcxoTimer */
   osTimerDef(tcxoTimer, mainTcxoTimerCallback);
   tcxoTimerHandle = osTimerCreate(osTimer(tcxoTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of audioAdcTimer */
+  osTimerDef(audioAdcTimer, mainAudioAdcTimerCallback);
+  audioAdcTimerHandle = osTimerCreate(osTimer(audioAdcTimer), osTimerPeriodic, NULL);
+
+  /* definition and creation of audioDacTimer */
+  osTimerDef(audioDacTimer, mainAudioDacTimerCallback);
+  audioDacTimerHandle = osTimerCreate(osTimer(audioDacTimer), osTimerPeriodic, NULL);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -846,6 +877,14 @@ int main(void)
   /* definition and creation of si5338Task */
   osThreadDef(si5338Task, StartSi5338Task, osPriorityNormal, 0, 256);
   si5338TaskHandle = osThreadCreate(osThread(si5338Task), NULL);
+
+  /* definition and creation of audioAdcTask */
+  osThreadDef(audioAdcTask, StartAudioAdcTask, osPriorityNormal, 0, 256);
+  audioAdcTaskHandle = osThreadCreate(osThread(audioAdcTask), NULL);
+
+  /* definition and creation of audioDacTask */
+  osThreadDef(audioDacTask, StartAudioDacTask, osPriorityNormal, 0, 256);
+  audioDacTaskHandle = osThreadCreate(osThread(audioDacTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -2252,72 +2291,6 @@ static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  /* TEST_AUDIO_ADC */
-  case MsgMain__CallFunc02_AUDIO_ADC:
-    {
-      /* Disable RESET of AUDIO_ADC */
-      __HAL_RCC_GPIOD_CLK_ENABLE();
-      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_SET);
-      osDelay(5UL);
-
-      /* Init conversions */
-      {
-        const uint8_t txMsg_0x0d_Reset[2]     = { ((0x0dU << 1U) | 0x00U),                                // Write address 0x0D
-            0xc2U                                                                                         // Reset both ADCs
-        };
-        const uint8_t txMsg_0x07_Config[14]   = { ((0x07U << 1U) | 0x00U),                                // Write address 0x07
-            0x00U, 0x00U,                                                                                 // No phase delay between ADC1 and ADC2
-            0b10101101U,                                                                                  // Gain=32 and Boost=1x (0b10)
-            0b00010011U, 0b10100100U,                                                                     // DR:PP, 16bit, EN_OFFCAL=1
-            0b00011110U, 0b00000010U,                                                                     // AMCLK=MCLK, OSR=256,
-            0xfdU, 0x70U, 0x00U,                                                                          // Offset CH0
-            0x00U, 0x00U, 0x00U                                                                           // Offset CH1
-        };
-
-        spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x0d_Reset),   txMsg_0x0d_Reset);
-        spiProcessSpi3MsgTemplate(SPI3_ADC, sizeof(txMsg_0x07_Config),  txMsg_0x07_Config);
-      }
-
-      do {
-        const uint8_t txMsg_0x00_RdAdcs[7] = { ((0x00U << 1U) | 0x01U),                                   // Read address 0x00
-            0U
-        };
-        uint16_t adc_L, adc_R;
-        char dbgBuf[128];
-
-        spiProcessSpi3MsgTemplateLocked(SPI3_ADC, sizeof(txMsg_0x00_RdAdcs), txMsg_0x00_RdAdcs, 1U);
-        adc_L = ((uint16_t)spi3RxBuffer[1] << 8U) | spi3RxBuffer[2];
-        adc_R = ((uint16_t)spi3RxBuffer[3] << 8U) | spi3RxBuffer[4];
-        osSemaphoreRelease(spi3_BSemHandle);
-
-        int dbgLen = sprintf(dbgBuf, ". AUDIO_ADC: Left = 0x%04X, Right = 0x%04X\r\n", adc_L, adc_R);
-        usbLogLen(dbgBuf, dbgLen);
-
-        osDelay(500UL);
-      } while (1);
-    }
-    break;
-
-    /* TEST_AUDIO_DAC */
-    case MsgMain__CallFunc03_AUDIO_DAC:
-      {
-        PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
-        __HAL_RCC_GPIOC_CLK_ENABLE();
-        osDelay(5UL);
-
-        uint8_t value = 0U;
-        do {
-          const uint8_t txMsgL[3] = { 0x31U,             value,  0 };
-          const uint8_t txMsgR[3] = { 0x32U, ((uint8_t) ~value), 0 };
-
-          spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgL), txMsgL);
-          spiProcessSpi3MsgTemplate(SPI3_DAC, sizeof(txMsgR), txMsgR);
-
-          value += 0x10U;
-        } while (1);
-      }
-      break;
-
   default: { }
   }  // switch (cmd)
 }
@@ -2361,8 +2334,6 @@ void StartDefaultTask(void const * argument)
     {
       osSemaphoreWait(c2Default_BSemHandle, osWaitForever);
       msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Main_Default, 1UL);                // Special case of callbacks need to limit blocking time
-      osSemaphoreRelease(c2Default_BSemHandle);
-      osDelay(3UL);
     }
 
     /* Decode and execute the commands when a message exists
@@ -2489,9 +2460,9 @@ void StartAx5243Task(void const * argument)
 void StartSx1276Task(void const * argument)
 {
   /* USER CODE BEGIN StartSx1276Task */
-  /* Infinite loop */
   sx1276TaskInit();
 
+  /* Infinite loop */
   for(;;)
   {
     sx1276TaskLoop();
@@ -2503,9 +2474,9 @@ void StartSx1276Task(void const * argument)
 void StartControllerTask(void const * argument)
 {
   /* USER CODE BEGIN StartControllerTask */
-  /* Infinite loop */
   controllerTaskInit();
 
+  /* Infinite loop */
   for(;;)
   {
     controllerTaskLoop();
@@ -2517,14 +2488,42 @@ void StartControllerTask(void const * argument)
 void StartSi5338Task(void const * argument)
 {
   /* USER CODE BEGIN StartSi5338Task */
-  /* Infinite loop */
   si5338TaskInit();
 
+  /* Infinite loop */
   for(;;)
   {
     si5338TaskLoop();
   }
   /* USER CODE END StartSi5338Task */
+}
+
+/* StartAudioAdcTask function */
+void StartAudioAdcTask(void const * argument)
+{
+  /* USER CODE BEGIN StartAudioAdcTask */
+  audioAdcTaskInit();
+
+  /* Infinite loop */
+  for(;;)
+  {
+    audioAdcTaskLoop();
+  }
+  /* USER CODE END StartAudioAdcTask */
+}
+
+/* StartAudioDacTask function */
+void StartAudioDacTask(void const * argument)
+{
+  /* USER CODE BEGIN StartAudioDacTask */
+  audioDacTaskInit();
+
+  /* Infinite loop */
+  for(;;)
+  {
+    audioDacTaskLoop();
+  }
+  /* USER CODE END StartAudioDacTask */
 }
 
 /* mainBaroTimerCallback function */
@@ -2574,6 +2573,22 @@ void mainTcxoTimerCallback(void const * argument)
   /* USER CODE BEGIN mainTcxoTimerCallback */
   tcxoTimerCallback(argument);
   /* USER CODE END mainTcxoTimerCallback */
+}
+
+/* mainAudioAdcTimerCallback function */
+void mainAudioAdcTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainAudioAdcTimerCallback */
+  audioAdcTimerCallback(argument);
+  /* USER CODE END mainAudioAdcTimerCallback */
+}
+
+/* mainAudioDacTimerCallback function */
+void mainAudioDacTimerCallback(void const * argument)
+{
+  /* USER CODE BEGIN mainAudioDacTimerCallback */
+  audioDacTimerCallback(argument);
+  /* USER CODE END mainAudioDacTimerCallback */
 }
 
 /**
