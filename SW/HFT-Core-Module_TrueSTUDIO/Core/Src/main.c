@@ -65,6 +65,29 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "FreeRTOS.h"
+
+#include <stddef.h>
+#include <stdio.h>
+#include <math.h>
+
+#include "device_adc.h"
+#include "bus_i2c.h"
+#include "bus_spi.h"
+#include "task_Controller.h"
+#include "task_TCXO_20MHz.h"
+#include "task_Si5338.h"
+#include "task_Audio_ADC.h"
+#include "task_Audio_DAC.h"
+#include "task_AX5243.h"
+#include "task_SX1276.h"
+#include "usb.h"
+
+
+#define  PERIOD_VALUE       (uint32_t)(16000UL - 1)                                             /* Period Value = 1ms */
+#define  PULSE_RED_VALUE    (uint32_t)(PERIOD_VALUE * 75 / 100)                                 /* Capture Compare 1 Value  */
+#define  PULSE_GREEN_VALUE  (uint32_t)(PERIOD_VALUE * 25 / 100)                                 /* Capture Compare 2 Value  */
+#define  PULSE_BLUE_VALUE   (uint32_t)(PERIOD_VALUE * 50 / 100)                                 /* Capture Compare 3 Value  */
 
 /* USER CODE END Includes */
 
@@ -72,6 +95,42 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+extern uint32_t                       uwTick;
+
+extern uint8_t                        i2c4TxBuffer[I2C_TXBUFSIZE];
+extern uint8_t                        i2c4RxBuffer[I2C_RXBUFSIZE];
+
+extern uint8_t                        spi3TxBuffer[SPI3_BUFFERSIZE];
+extern uint8_t                        spi3RxBuffer[SPI3_BUFFERSIZE];
+
+/* Private variables ---------------------------------------------------------*/
+EventGroupHandle_t                    adcEventGroupHandle;
+EventGroupHandle_t                    extiEventGroupHandle;
+EventGroupHandle_t                    globalEventGroupHandle;
+EventGroupHandle_t                    spiEventGroupHandle;
+EventGroupHandle_t                    usbToHostEventGroupHandle;
+
+osSemaphoreId                         usbToHostBinarySemHandle;
+
+/* Timer handler declaration */
+TIM_HandleTypeDef                     TimHandle;
+
+/* Timer Output Compare Configuration Structure declaration */
+TIM_OC_InitTypeDef                    sConfig;
+
+ENABLE_MASK_t                         g_enableMsk;
+MON_MASK_t                            g_monMsk;
+
+static uint8_t                        s_adc_enable;
+static uint32_t                       s_mainStartTime;
+
+/* Counter Prescaler value */
+uint32_t                              uhPrescalerValue        = 0;
+
+volatile uint32_t                     g_rtc_ssr_last          = 0UL;
+
+static uint64_t                       s_timerLast_us          = 0ULL;
+static uint64_t                       s_timerStart_us         = 0ULL;
 
 /* USER CODE END PV */
 
@@ -85,6 +144,264 @@ void MX_FREERTOS_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+uint32_t crcCalc(const uint32_t* ptr, uint32_t len)
+{
+  return HAL_CRC_Calculate(&hcrc, (uint32_t*) ptr, len);
+}
+
+
+uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel)
+{
+  return 0xff & (in_u32 >> (sel << 3));
+}
+
+void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac)
+{
+  const uint8_t isNeg = val >= 0 ?  0U : 1U;
+
+  if (!outInt || !outFrac) {
+    return;
+  }
+
+  *outInt = (int32_t) val;
+  val -= *outInt;
+
+  if (isNeg) {
+    val = -val;
+  }
+  val *= pow(10, fracCnt);
+  *outFrac = (uint32_t) (val + 0.5f);
+}
+
+void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
+{
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __asm volatile( "NOP" );
+
+  switch (sw) {
+  case POWERSWITCH__USB_SW:
+    /* Port: PC2 */
+    HAL_GPIO_WritePin(MCU_OUT_VUSB_EN_GPIO_Port, MCU_OUT_VUSB_EN_Pin,
+        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    break;
+
+  case POWERSWITCH__3V3_HICUR:
+    /* Port: PC1 */
+    HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin,
+        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    break;
+
+  case POWERSWITCH__3V3_XO:
+    /* Port: PC3 */
+    HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin,
+        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    break;
+
+  case POWERSWITCH__1V2_DCDC:
+    /* V1.0: no hardware support */
+    return;
+
+  case POWERSWITCH__1V2_SW:
+    /* SMPS handling */
+    if (enable)
+    {
+      /* Port: PC0 */
+      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
+          GPIO_PIN_SET);
+
+      osDelay(10UL);
+
+      /* Scale1: 1.2V up to 80MHz */
+      /* Scale2: 1.0V up to 24MHz */
+      HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE2);
+
+    } else {
+      /* Scale1: 1.2V up to 80MHz */
+      /* Scale2: 1.0V up to 24MHz */
+      HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+      osDelay(100UL);
+
+      /* Port: PC0 */
+      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
+          GPIO_PIN_RESET);
+    }
+    break;
+
+  case POWERSWITCH__BAT_SW:
+    if (enable) {
+      HAL_PWREx_EnableBatteryCharging(PWR_BATTERY_CHARGING_RESISTOR_5);
+
+    } else {
+      HAL_PWREx_DisableBatteryCharging();
+    }
+    break;
+
+  case POWERSWITCH__BAT_HICUR:
+    if (enable) {
+      HAL_PWREx_EnableBatteryCharging(PWR_BATTERY_CHARGING_RESISTOR_1_5);
+
+    } else {
+      HAL_PWREx_EnableBatteryCharging(PWR_BATTERY_CHARGING_RESISTOR_5);
+    }
+    break;
+
+  default:
+    { }
+  }
+
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+}
+
+void PowerSwitchInit(void)
+{
+  /* Connect Vusb with +5V0 */
+  PowerSwitchDo(POWERSWITCH__USB_SW,    1U);
+
+  /* Disable high current system */
+  PowerSwitchDo(POWERSWITCH__3V3_HICUR, 0U);
+
+  /* Disable TCXO - enabled by i2cI2c4Si5338Init() on request */
+  PowerSwitchDo(POWERSWITCH__3V3_XO,    0U);
+
+  /* Enable SMPS */
+  {
+//  PowerSwitchDo(POWERSWITCH__1V2_DCDC,
+//      1U);
+//  for (uint16_t i = 10000; i; i--) ;
+    PowerSwitchDo(POWERSWITCH__1V2_SW,  1U);
+
+    /*
+     * SMPS DC/DC converter enabled but disconnected:
+     *  --> Quiescent   current: 3.0 mA
+     *  --> Application current: 3.0 mA + 13.5  mA = 16.5  mA
+     *  --> Power estimation   : 3.0 mA +  2.97 mA =  5.97 mA
+     *
+     * SMPS DC/DC converter enabled and connected:
+     *  --> Quiescent   current: 3.0 mA
+     *  --> Application current: 3.0 mA + 11.0  mA = 14.0  mA
+     *  --> Power estimation   : 3.0 mA +  1.33 mA =  4.33 mA
+     */
+  }
+
+  /* Vbat charger of MCU enabled with 1.5 kOhm */
+  PowerSwitchDo(POWERSWITCH__BAT_HICUR, 1U);
+}
+
+void LcdBacklightInit(void)
+{
+  /* PWM initial code */
+  TimHandle.Instance = TIM3;
+
+  TimHandle.Init.Prescaler         = uhPrescalerValue;
+  TimHandle.Init.Period            = PERIOD_VALUE;
+  TimHandle.Init.ClockDivision     = 0;
+  TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
+  TimHandle.Init.RepetitionCounter = 0;
+  if (HAL_TIM_PWM_Init(&TimHandle) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_Handler();
+  }
+
+  /* Common configuration for all channels */
+  sConfig.OCMode       = TIM_OCMODE_PWM1;
+  sConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
+  sConfig.OCFastMode   = TIM_OCFAST_DISABLE;
+  sConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
+  sConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+
+  sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
+
+  /* PWM: LCD-backlight Red */
+  sConfig.Pulse = PULSE_RED_VALUE;
+  if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1) != HAL_OK)
+  {
+    /* Configuration Error */
+    Error_Handler();
+  }
+
+  /* PWM: LCD-backlight Green */
+  sConfig.Pulse = PULSE_GREEN_VALUE;
+  if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_2) != HAL_OK)
+  {
+    /* Configuration Error */
+    Error_Handler();
+  }
+
+  /* PWM: LCD-backlight Blue */
+  sConfig.Pulse = PULSE_BLUE_VALUE;
+  if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_3) != HAL_OK)
+  {
+    /* Configuration Error */
+    Error_Handler();
+  }
+
+  /* Start channel 1 - Red */
+  if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) != HAL_OK)
+  {
+    /* PWM Generation Error */
+    Error_Handler();
+  }
+  /* Start channel 2 - Green */
+  if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_2) != HAL_OK)
+  {
+    /* PWM Generation Error */
+    Error_Handler();
+  }
+  /* Start channel 3 - Blue */
+  if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_3) != HAL_OK)
+  {
+    /* PWM generation Error */
+    Error_Handler();
+  }
+}
+
+void SystemResetbyARMcore(void)
+{
+  /* Set SW reset bit */
+  SCB->AIRCR = 0x05FA0000UL | SCB_AIRCR_SYSRESETREQ_Msk;
+}
+
+/* Used by the run-time stats */
+void configureTimerForRunTimeStats(void)
+{
+  getRunTimeCounterValue();
+
+  /* Interrupt disabled block */
+  {
+    __disable_irq();
+
+    s_timerStart_us = s_timerLast_us;
+
+    __enable_irq();
+  }
+}
+
+/* Used by the run-time stats */
+unsigned long getRunTimeCounterValue(void)
+{
+  uint64_t l_timerStart_us = 0ULL;
+  uint64_t l_timer_us = HAL_GetTick() & 0x003fffffUL;                                                   // avoid overflows
+
+  /* Add microseconds */
+  l_timer_us *= 1000ULL;
+  l_timer_us += TIM2->CNT % 1000UL;                                                                     // TIM2 counts microseconds
+
+  /* Interrupt disabled block */
+  {
+    __disable_irq();
+
+    s_timerLast_us  = l_timer_us;
+    l_timerStart_us = s_timerStart_us;
+
+    __enable_irq();
+  }
+
+  uint64_t l_timerDiff64 = (l_timer_us >= l_timerStart_us) ?  (l_timer_us - l_timerStart_us) : l_timer_us;
+  uint32_t l_timerDiff32 = (uint32_t) (l_timerDiff64 & 0xffffffffULL);
+  return l_timerDiff32;
+}
 
 /* USER CODE END 0 */
 
@@ -96,6 +413,36 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
+  /* Check if ARM core is already in reset state */
+  if (!(RCC->CSR & 0xff000000UL)) {
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __asm volatile( "NOP" );
+
+    /* Disable SMPS */
+    HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin, GPIO_PIN_RESET);
+    //POWERSWITCH__1V2_DCDC, RESET;
+
+    /* Turn off battery charger of Vbat */
+    HAL_PWREx_DisableBatteryCharging();
+
+    /* HICUR off */
+    HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin, GPIO_PIN_RESET);
+
+    /* 20MHz oscillator off */
+    HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin, GPIO_PIN_RESET);
+
+    /* VUSB off */
+    HAL_GPIO_WritePin(MCU_OUT_VUSB_EN_GPIO_Port, MCU_OUT_VUSB_EN_Pin, GPIO_PIN_RESET);
+
+    /* LCD reset */
+    HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, GPIO_PIN_RESET);
+
+    /* ARM software reset to be done */
+    SystemResetbyARMcore();
+  }
+  __HAL_RCC_CLEAR_RESET_FLAGS();
 
   /* USER CODE END 1 */
 
@@ -112,6 +459,13 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+
+  /* HSI16 trim */
+  __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
+
+  /* MSI trim */
+  //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
+  HAL_RCCEx_EnableMSIPLLMode();
 
   /* USER CODE END SysInit */
 
@@ -140,6 +494,59 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  #if 1
+/* Disable greedy CS of AUDIO_ADC when not powered up */
+  {
+    GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+
+    GPIO_InitStruct.Pin = MCU_OUT_AUDIO_ADC_SEL_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  //GPIO_InitStruct.Alternate = ;
+    HAL_GPIO_Init(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, &GPIO_InitStruct);
+  }
+  #endif
+
+
+//#define I2C_BUS4_SCAN
+  #ifdef I2C_BUS4_SCAN
+  i2cBusAddrScan(&hi2c4, i2c4MutexHandle);
+  #endif
+
+
+  #if 0
+  /* Disable clocks again to save power */
+  __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOF_CLK_DISABLE();
+  __HAL_RCC_GPIOG_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+
+  __HAL_RCC_CRC_CLK_DISABLE();
+
+  __HAL_RCC_I2C1_CLK_DISABLE();
+  __HAL_RCC_I2C2_CLK_DISABLE();
+  __HAL_RCC_I2C3_CLK_DISABLE();
+
+  __HAL_RCC_RNG_CLK_DISABLE();
+
+  __HAL_RCC_SAI1_CLK_DISABLE();
+  __HAL_RCC_SAI2_CLK_DISABLE();
+
+  __HAL_RCC_SPI1_CLK_DISABLE();
+  __HAL_RCC_SPI3_CLK_DISABLE();
+
+  __HAL_RCC_USART1_CLK_DISABLE();
+  __HAL_RCC_USART2_CLK_DISABLE();
+  __HAL_RCC_USART3_CLK_DISABLE();
+
+  __HAL_RCC_DFSDM1_CLK_DISABLE();
+  #endif
 
   /* USER CODE END 2 */
 
@@ -283,6 +690,159 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  BaseType_t taskWoken = 0L;
+
+  switch (GPIO_Pin) {
+  case GPIO_PIN_2:
+    /* Check for PG2 pin */
+    if (GPIOG->IDR & GPIO_IDR_ID2) {
+      xEventGroupSetBitsFromISR(extiEventGroupHandle, EXTI_SX__DIO0, &taskWoken);
+      //xEventGroupSetBitsFromISR(loraEventGroupHandle, /*Lora_EGW__EXTI_DIO0*/ 0x00001000UL, &taskWoken);
+    }
+    break;
+
+  case GPIO_PIN_3:
+    /* Check for PG3 pin */
+    if (GPIOG->IDR & GPIO_IDR_ID3) {
+      xEventGroupSetBitsFromISR(extiEventGroupHandle, EXTI_SX__DIO1, &taskWoken);
+    }
+    break;
+
+  default:
+    { }
+  }
+}
+
+#if 1
+void  vApplicationIdleHook(void)
+{
+  /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
+  to 1 in FreeRTOSConfig.h. It will be called on each iteration of the idle
+  task. It is essential that code added to this hook function never attempts
+  to block in any way (for example, call xQueueReceive() with a block time
+  specified, or call vTaskDelay()). If the application makes use of the
+  vTaskDelete() API function (as this demo application does) then it is also
+  important that vApplicationIdleHook() is permitted to return to its calling
+  function, because it is the responsibility of the idle task to clean up
+  memory allocated by the kernel to any task that has since been deleted. */
+  /* TODO:
+   * 1) Reduce 80 MHz  to  2 MHz
+   * 2)  go to LPRun  (SMPS 2 High (-->  MR range 1) --> MR range 2 --> LPR
+   * 3)  Go to LPSleep
+   *
+   * WAKEUP
+   * 1)  In LPRun go to 80 MHz (LPR --> MR range 2 (--> MR range 1) --> SMPS 2 High)
+   * 2)  Increase 2 MHz to 80 MHz
+   */
+
+  /* Enter sleep mode */
+  __asm volatile( "WFI" );
+
+  /* Increase clock frequency to 80 MHz */
+  // TODO: TBD
+}
+#endif
+
+#if 0
+void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
+{
+#if 0
+  HAL_SuspendTick();
+#endif
+  g_rtc_ssr_last = RTC->SSR;
+}
+
+void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
+{
+#if 0
+  volatile uint32_t l_rtc_ssr_now = RTC->SSR;
+  volatile uint32_t l_rtc_sub1024 = (l_rtc_ssr_now >= g_rtc_ssr_last) ?  (l_rtc_ssr_now - g_rtc_ssr_last) : (1024UL - (g_rtc_ssr_last - l_rtc_ssr_now));
+  volatile uint32_t l_millis = (l_rtc_sub1024 * 1000UL) / 1024UL;
+
+  if (l_millis <= *ulExpectedIdleTime) {
+    uwTick += l_millis;
+  }
+  HAL_ResumeTick();
+#endif
+}
+#endif
+
+static void mainDefaultInit(void)
+{
+  /* Activate USB communication */
+  HFTcore_USB_DEVICE_Init();
+
+  /* Power switch settings */
+  PowerSwitchInit();
+}
+
+
+static void mainMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const MainMsgMainCmds_t cmd     = (MainMsgMainCmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgMain__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_mainStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      mainDefaultInit();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgMain__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  /* ADC single conversion */
+  case MsgMain__CallFunc01_MCU_ADC:
+    {
+      int   dbgLen;
+      char  dbgBuf[128];
+
+      /* Do ADC conversion and logging of ADC data */
+      if (s_adc_enable) {
+        adcStartConv(ADC_ADC1_TEMP);
+
+        const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
+        BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
+        if ((regBits & regMask) == regMask) {
+          /* All channels of ADC1 are complete */
+          float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
+          float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
+          float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
+          float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
+          int32_t   l_adc_temp_i    = 0L;
+          uint32_t  l_adc_temp_f100 = 0UL;
+
+          mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
+
+          dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
+              (int16_t) (l_adc_v_vdda   + 0.5f),
+              (int16_t) (l_adc_v_solar  + 0.5f),
+              (int16_t) (l_adc_v_bat    + 0.5f),
+              l_adc_temp_i, l_adc_temp_f100);
+          usbLogLen(dbgBuf, dbgLen);
+        }
+      }
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+}
+
 /* USER CODE END 4 */
 
 /**
@@ -316,6 +876,12 @@ void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+  int  dbgLen;
+  char dbgBuf[128];
+
+  dbgLen = sprintf(dbgBuf, "***ERROR: ERROR-HANDLER  Wrong parameters value: file %s on line %d\r\n", file, line);
+  usbLogLen(dbgBuf, dbgLen);
+
   while(1)
   {
   }
@@ -335,6 +901,11 @@ void assert_failed(uint8_t* file, uint32_t line)
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  int  dbgLen;
+  char dbgBuf[128];
+
+  dbgLen = sprintf(dbgBuf, "***ERROR: ASSERT-FAILED  Wrong parameters value: file %s on line %ld\r\n", file, line);
+  usbLogLen(dbgBuf, dbgLen);
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

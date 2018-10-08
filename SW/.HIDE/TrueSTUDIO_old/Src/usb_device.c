@@ -111,7 +111,7 @@ void HFTcore_USB_DEVICE_Init(void)
 void MX_USB_DEVICE_Init(void)
 {
   /* USER CODE BEGIN USB_DEVICE_Init_PreTreatment */
-  
+  #ifdef MX_USB_IS_DISABLED
   /* USER CODE END USB_DEVICE_Init_PreTreatment */
   
   /* Init Device Library, add supported class and start the library. */
@@ -126,7 +126,7 @@ void MX_USB_DEVICE_Init(void)
   USBD_Start(&hUsbDeviceFS);
   }
   /* USER CODE BEGIN USB_DEVICE_Init_PostTreatment */
-  
+  #endif
   /* USER CODE END USB_DEVICE_Init_PostTreatment */
 }
 

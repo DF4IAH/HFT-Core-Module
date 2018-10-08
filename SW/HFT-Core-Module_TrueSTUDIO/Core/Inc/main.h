@@ -54,6 +54,7 @@
 /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
+#include <sys/_stdint.h>
 
 /* USER CODE END Includes */
 
@@ -252,6 +253,112 @@
  #define USE_FULL_ASSERT    1U 
 
 /* USER CODE BEGIN Private defines */
+#ifndef PI
+# define PI                                                   3.14159265358979f
+#endif
+
+#ifndef min
+# define min(a,b)                                             (a) < (b) ?  (a) : (b)
+#endif
+
+#ifndef max
+# define max(a,b)                                             (a) > (b) ?  (a) : (b)
+#endif
+
+
+#define HFTCOREMODULE_VERSION                                 20181008U
+
+
+/* Bit-mask for the globalEventGroup */
+typedef enum EG_GLOBAL {
+
+  EG_GLOBAL__Controller_CTRL_IS_RUNNING                       = (1UL <<  0UL ),
+  EG_GLOBAL__Controller_QUEUE_IN                              = (1UL <<  1UL ),
+  EG_GLOBAL__Controller_QUEUE_OUT                             = (1UL <<  2UL ),
+
+} EG_GLOBAL_t;
+
+
+
+typedef enum EXTI_ENUM {
+
+  EXTI_SX__DIO0                                               =  0b00000000000000000000000000000001UL,
+  EXTI_SX__DIO1                                               =  0b00000000000000000000000000000010UL,
+
+} EXTI_t;
+
+
+typedef enum POWERSWITCH_ENUM {
+
+  POWERSWITCH__USB_SW                                         = 1,
+  POWERSWITCH__3V3_HICUR,
+  POWERSWITCH__3V3_XO,
+  POWERSWITCH__1V2_DCDC,                                                                        // V1.0: not implemented
+  POWERSWITCH__1V2_SW,                                                                          // SMTP switch
+  POWERSWITCH__BAT_SW,
+  POWERSWITCH__BAT_HICUR,
+
+} POWERSWITCH_ENUM_t;
+
+
+typedef enum ENABLE_MASK {
+
+  ENABLE_MASK__I2C_HYGRO                                      = 0x0001UL,
+  ENABLE_MASK__I2C_BARO                                       = 0x0002UL,
+  ENABLE_MASK__I2C_GYRO                                       = 0x0004UL,
+  ENABLE_MASK__I2C_LCD                                        = 0x0008UL,
+  ENABLE_MASK__LORA_BARE                                      = 0x0010UL,
+  ENABLE_MASK__LORAWAN_DEVICE                                 = 0x0020UL,
+
+} ENABLE_MASK_t;
+
+
+typedef enum MON_MASK {
+
+  MON_MASK__I2C_HYGRO                                         = 0x0001UL,
+  MON_MASK__I2C_BARO                                          = 0x0002UL,
+  MON_MASK__I2C_GYRO                                          = 0x0004UL,
+  MON_MASK__LORA                                              = 0x0008UL,
+
+} MON_MASK_t;
+
+
+typedef enum MainMsgMainCmds_ENUM {
+
+  MsgMain__InitDo                                             = 0x01U,
+  MsgMain__InitDone,
+
+  MsgMain__SetVar01_IOs                                       = 0x41U,
+  MsgMain__SetVar02_Clocks,
+
+  MsgMain__GetVar01_x                                         = 0x81U,
+
+  MsgMain__CallFunc01_MCU_ADC                                 = 0xc1U,
+
+} MainMsgMainCmds_t;
+
+
+
+uint32_t crcCalc(const uint32_t* ptr, uint32_t len);
+
+uint8_t sel_u8_from_u32(uint32_t in_u32, uint8_t sel);
+void mainCalcFloat2IntFrac(float val, uint8_t fracCnt, int32_t* outInt, uint32_t* outFrac);
+void PowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
+void SystemResetbyARMcore(void);
+
+/*
+ * Power analysis:
+ *
+ * Startup main() with 23.0mA @ Vsol=3.3V
+ *
+ * 23.0mA --> 23.5mA:  __HAL_RCC_PLL_ENABLE()                                                                      File:stm32l4xx_hal_rcc.c  Line:831
+ * 23.5mA --> 24.5mA:  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_ClkInitStruct->SYSCLKSource);                        File:stm32l4xx_hal_rcc.c  Line:1049     PLL selected as system clock
+ * 24.5mA --> 25.0mA:  MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE), (RCC_MCOSource | RCC_MCODiv ));  File:stm32l4xx_hal_rcc.c  Line:1191     Drive 16 MHz @ MCO
+ *
+ * 26.0mA --> 26.5mA:  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:1152     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM
+ * 26.5mA --> 27.0mA:
+ * 27.0mA --> 28.0mA:  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);                                                     File:stm32l4xx_hal_msp.c  Line:694      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ */
 
 /* USER CODE END Private defines */
 
