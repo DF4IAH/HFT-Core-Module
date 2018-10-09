@@ -52,6 +52,14 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN Includes */     
+// Core, USB_DEVICE
+#include "main.h"
+#include "usb_device.h"
+
+// App
+#include "usb.h"
+#include "device_adc.h"
+#include "task_Controller.h"
 
 /* USER CODE END Includes */
 
@@ -104,6 +112,19 @@ osSemaphoreId c2AudioAdc_BSemHandle;
 osSemaphoreId c2AudioDac_BSemHandle;
 
 /* USER CODE BEGIN Variables */
+EventGroupHandle_t                    adcEventGroupHandle;
+EventGroupHandle_t                    extiEventGroupHandle;
+EventGroupHandle_t                    globalEventGroupHandle;
+EventGroupHandle_t                    spiEventGroupHandle;
+EventGroupHandle_t                    usbToHostEventGroupHandle;
+
+
+extern ENABLE_MASK_t                  g_enableMsk;
+extern MON_MASK_t                     g_monMsk;
+
+static uint8_t                        s_adc_enable;
+static uint32_t                       s_mainStartTime;
+
 
 /* USER CODE END Variables */
 
@@ -196,6 +217,85 @@ __weak void vApplicationMallocFailedHook(void)
    to query the size of free heap space that remains (although it does not
    provide information on how the remaining heap might be fragmented). */
 }
+
+
+/* Local functions */
+
+static void rtosDefaultInit(void)
+{
+  /* Activate USB communication */
+  HFTcore_USB_DEVICE_Init();
+
+  /* Power switch settings */
+  mainPowerSwitchInit();
+}
+
+static void rtosDefaultMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
+{
+  uint32_t                msgIdx  = 0UL;
+  const uint32_t          hdr     = msgAry[msgIdx++];
+  const MainMsgMainCmds_t cmd     = (MainMsgMainCmds_t) (0xffUL & hdr);
+
+  switch (cmd) {
+  case MsgMain__InitDo:
+    {
+      /* Start at defined point of time */
+      const uint32_t delayMs = msgAry[msgIdx++];
+      if (delayMs) {
+        uint32_t  previousWakeTime = s_mainStartTime;
+        osDelayUntil(&previousWakeTime, delayMs);
+      }
+
+      /* Init module */
+      rtosDefaultInit();
+
+      /* Return Init confirmation */
+      uint32_t cmdBack[1];
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgMain__InitDone);
+      controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
+    }
+    break;
+
+  /* ADC single conversion */
+  case MsgMain__CallFunc01_MCU_ADC:
+    {
+      int   dbgLen;
+      char  dbgBuf[128];
+
+      /* Do ADC conversion and logging of ADC data */
+      if (s_adc_enable) {
+        adcStartConv(ADC_ADC1_TEMP);
+
+        const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
+        BaseType_t regBits = xEventGroupWaitBits(adcEventGroupHandle, regMask, regMask, pdTRUE, 100 / portTICK_PERIOD_MS);
+        if ((regBits & regMask) == regMask) {
+          /* All channels of ADC1 are complete */
+          float     l_adc_v_vdda    = adcGetVal(ADC_ADC1_V_VDDA);
+          float     l_adc_v_solar   = adcGetVal(ADC_ADC1_INT8_V_SOLAR);
+          float     l_adc_v_bat     = adcGetVal(ADC_ADC1_V_BAT);
+          float     l_adc_temp      = adcGetVal(ADC_ADC1_TEMP);
+          int32_t   l_adc_temp_i    = 0L;
+          uint32_t  l_adc_temp_f100 = 0UL;
+
+          mainCalcFloat2IntFrac(l_adc_temp, 2, &l_adc_temp_i, &l_adc_temp_f100);
+
+          dbgLen = sprintf(dbgBuf, "ADC: Vdda   = %4d mV, Vsolar = %4d mV, Vbat = %4d mV, temp = %+3ld.%02luC\r\n",
+              (int16_t) (l_adc_v_vdda   + 0.5f),
+              (int16_t) (l_adc_v_solar  + 0.5f),
+              (int16_t) (l_adc_v_bat    + 0.5f),
+              l_adc_temp_i, l_adc_temp_f100);
+          usbLogLen(dbgBuf, dbgLen);
+        }
+      }
+    }
+    break;
+
+  default: { }
+  }  // switch (cmd)
+}
+
+
+
 /* USER CODE END 5 */
 
 /* Init FreeRTOS */
@@ -426,11 +526,45 @@ void StartDefaultTask(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
-  for(;;)
+  // Above function is voided. USB-DCD is activated when needed
+
+  /* defaultTaskInit() section */
   {
-    osDelay(1);
+    g_enableMsk     = 0UL;  // ENABLE_MASK__LORA_BARE;
+    g_monMsk        = 0UL;
+    s_adc_enable    = 0U;
+    s_mainStartTime = 0UL;
   }
+
+  /* Wait until controller is up */
+  xEventGroupWaitBits(globalEventGroupHandle,
+      EG_GLOBAL__Controller_CTRL_IS_RUNNING,
+      0UL,
+      0, portMAX_DELAY);
+
+  /* Store start time */
+  s_mainStartTime = osKernelSysTick();
+
+  /* Give other tasks time to do the same */
+  osDelay(10UL);
+
+  do {
+    uint32_t msgLen                       = 0UL;
+    uint32_t msgAry[CONTROLLER_MSG_Q_LEN];
+
+    /* Wait for door bell and hand-over controller out queue */
+    {
+      osSemaphoreWait(c2Default_BSemHandle, osWaitForever);
+      msgLen = controllerMsgPullFromOutQueue(msgAry, Destinations__Main_Default, 1UL);                // Special case of callbacks need to limit blocking time
+    }
+
+    /* Decode and execute the commands when a message exists
+     * (in case of callbacks the loop catches its wakeup semaphore
+     * before ctrlQout is released results to request on an empty queue) */
+    if (msgLen) {
+      rtosDefaultMsgProcess(msgLen, msgAry);
+    }
+  } while (1);
   /* USER CODE END StartDefaultTask */
 }
 
