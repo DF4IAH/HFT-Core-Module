@@ -495,57 +495,21 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  #if 1
-/* Disable greedy CS of AUDIO_ADC when not powered up */
-  {
-    GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+  #define GPIO_AUDIO_DAC_SEL_OFF
+  #ifdef GPIO_AUDIO_DAC_SEL_OFF
+  gpio_AudioAdc_TurnOffSel();
+  #endif
 
-    GPIO_InitStruct.Pin = MCU_OUT_AUDIO_ADC_SEL_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  //GPIO_InitStruct.Alternate = ;
-    HAL_GPIO_Init(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, &GPIO_InitStruct);
-  }
+  //#define GPIO_ABCDEFGH_CLK_DISABLE
+  #ifdef GPIO_ABCDEFGH_CLK_DISABLE
+  /* Disable clocks again to save power */
+  gpio_ABCDEFGH_ClkDisable();
   #endif
 
 
-//#define I2C_BUS4_SCAN
+  //#define I2C_BUS4_SCAN
   #ifdef I2C_BUS4_SCAN
   i2cBusAddrScan(&hi2c4, i2c4MutexHandle);
-  #endif
-
-
-  #if 0
-  /* Disable clocks again to save power */
-  __HAL_RCC_GPIOA_CLK_DISABLE();
-  __HAL_RCC_GPIOB_CLK_DISABLE();
-  __HAL_RCC_GPIOC_CLK_DISABLE();
-  __HAL_RCC_GPIOD_CLK_DISABLE();
-  __HAL_RCC_GPIOE_CLK_DISABLE();
-  __HAL_RCC_GPIOF_CLK_DISABLE();
-  __HAL_RCC_GPIOG_CLK_DISABLE();
-  __HAL_RCC_GPIOH_CLK_DISABLE();
-
-  __HAL_RCC_CRC_CLK_DISABLE();
-
-  __HAL_RCC_I2C1_CLK_DISABLE();
-  __HAL_RCC_I2C2_CLK_DISABLE();
-  __HAL_RCC_I2C3_CLK_DISABLE();
-
-  __HAL_RCC_RNG_CLK_DISABLE();
-
-  __HAL_RCC_SAI1_CLK_DISABLE();
-  __HAL_RCC_SAI2_CLK_DISABLE();
-
-  __HAL_RCC_SPI1_CLK_DISABLE();
-  __HAL_RCC_SPI3_CLK_DISABLE();
-
-  __HAL_RCC_USART1_CLK_DISABLE();
-  __HAL_RCC_USART2_CLK_DISABLE();
-  __HAL_RCC_USART3_CLK_DISABLE();
-
-  __HAL_RCC_DFSDM1_CLK_DISABLE();
   #endif
 
   /* USER CODE END 2 */

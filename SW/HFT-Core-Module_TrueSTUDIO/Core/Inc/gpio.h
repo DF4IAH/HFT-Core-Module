@@ -70,6 +70,9 @@ void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+void gpio_ABCDEFGH_ClkDisable(void);
+void gpio_AudioAdc_TurnOffSel(void);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
