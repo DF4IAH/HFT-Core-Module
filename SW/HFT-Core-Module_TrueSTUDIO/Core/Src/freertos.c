@@ -120,6 +120,7 @@ osSemaphoreId cQin_BSemHandle;
 osSemaphoreId cQout_BSemHandle;
 osSemaphoreId c2AudioAdc_BSemHandle;
 osSemaphoreId c2AudioDac_BSemHandle;
+osSemaphoreId usbToHost_BSemHandle;
 
 /* USER CODE BEGIN Variables */
 EventGroupHandle_t                    adcEventGroupHandle;
@@ -132,8 +133,8 @@ EventGroupHandle_t                    usbToHostEventGroupHandle;
 extern ENABLE_MASK_t                  g_enableMsk;
 extern MON_MASK_t                     g_monMsk;
 
-static uint8_t                        s_adc_enable;
-static uint32_t                       s_mainStartTime;
+static uint8_t                        s_rtos_DefaultTask_adc_enable;
+static uint32_t                       s_rtos_DefaultTaskStartTime;
 
 
 /* USER CODE END Variables */
@@ -153,14 +154,14 @@ void StartControllerTask(void const * argument);
 void StartSi5338Task(void const * argument);
 void StartAudioAdcTask(void const * argument);
 void StartAudioDacTask(void const * argument);
-void mainBaroTimerCallback(void const * argument);
-void mainHygroTimerCallback(void const * argument);
-void mainDefaultTimerCallback(void const * argument);
-void mainGyroTimerCallback(void const * argument);
-void mainControllerTimerCallback(void const * argument);
-void mainTcxoTimerCallback(void const * argument);
-void mainAudioAdcTimerCallback(void const * argument);
-void mainAudioDacTimerCallback(void const * argument);
+void rtosBaroTimerCallback(void const * argument);
+void rtosHygroTimerCallback(void const * argument);
+void rtosDefaultTimerCallback(void const * argument);
+void rtosGyroTimerCallback(void const * argument);
+void rtosControllerTimerCallback(void const * argument);
+void rtosTcxoTimerCallback(void const * argument);
+void rtosAudioAdcTimerCallback(void const * argument);
+void rtosAudioDacTimerCallback(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -242,17 +243,17 @@ static void rtosDefaultInit(void)
 
 static void rtosDefaultMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 {
-  uint32_t                msgIdx  = 0UL;
-  const uint32_t          hdr     = msgAry[msgIdx++];
-  const MainMsgMainCmds_t cmd     = (MainMsgMainCmds_t) (0xffUL & hdr);
+  uint32_t                    msgIdx  = 0UL;
+  const uint32_t              hdr     = msgAry[msgIdx++];
+  const RtosMsgDefaultCmds_t  cmd     = (RtosMsgDefaultCmds_t) (0xffUL & hdr);
 
   switch (cmd) {
-  case MsgMain__InitDo:
+  case MsgDefault__InitDo:
     {
       /* Start at defined point of time */
       const uint32_t delayMs = msgAry[msgIdx++];
       if (delayMs) {
-        uint32_t  previousWakeTime = s_mainStartTime;
+        uint32_t  previousWakeTime = s_rtos_DefaultTaskStartTime;
         osDelayUntil(&previousWakeTime, delayMs);
       }
 
@@ -261,19 +262,19 @@ static void rtosDefaultMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 
       /* Return Init confirmation */
       uint32_t cmdBack[1];
-      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgMain__InitDone);
+      cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Main_Default, 0U, MsgDefault__InitDone);
       controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
     }
     break;
 
   /* ADC single conversion */
-  case MsgMain__CallFunc01_MCU_ADC:
+  case MsgDefault__CallFunc01_MCU_ADC:
     {
       int   dbgLen;
       char  dbgBuf[128];
 
       /* Do ADC conversion and logging of ADC data */
-      if (s_adc_enable) {
+      if (s_rtos_DefaultTask_adc_enable) {
         adcStartConv(ADC_ADC1_TEMP);
 
         const uint32_t regMask = EG_ADC1__CONV_AVAIL_V_REFINT | EG_ADC1__CONV_AVAIL_V_SOLAR | EG_ADC1__CONV_AVAIL_V_BAT | EG_ADC1__CONV_AVAIL_TEMP;
@@ -396,41 +397,45 @@ void MX_FREERTOS_Init(void) {
   osSemaphoreDef(c2AudioDac_BSem);
   c2AudioDac_BSemHandle = osSemaphoreCreate(osSemaphore(c2AudioDac_BSem), 1);
 
+  /* definition and creation of usbToHost_BSem */
+  osSemaphoreDef(usbToHost_BSem);
+  usbToHost_BSemHandle = osSemaphoreCreate(osSemaphore(usbToHost_BSem), 1);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* Create the timer(s) */
   /* definition and creation of baroTimer */
-  osTimerDef(baroTimer, mainBaroTimerCallback);
+  osTimerDef(baroTimer, rtosBaroTimerCallback);
   baroTimerHandle = osTimerCreate(osTimer(baroTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of hygroTimer */
-  osTimerDef(hygroTimer, mainHygroTimerCallback);
+  osTimerDef(hygroTimer, rtosHygroTimerCallback);
   hygroTimerHandle = osTimerCreate(osTimer(hygroTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of defaultTimer */
-  osTimerDef(defaultTimer, mainDefaultTimerCallback);
+  osTimerDef(defaultTimer, rtosDefaultTimerCallback);
   defaultTimerHandle = osTimerCreate(osTimer(defaultTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of gyroTimer */
-  osTimerDef(gyroTimer, mainGyroTimerCallback);
+  osTimerDef(gyroTimer, rtosGyroTimerCallback);
   gyroTimerHandle = osTimerCreate(osTimer(gyroTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of controllerTimer */
-  osTimerDef(controllerTimer, mainControllerTimerCallback);
+  osTimerDef(controllerTimer, rtosControllerTimerCallback);
   controllerTimerHandle = osTimerCreate(osTimer(controllerTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of tcxoTimer */
-  osTimerDef(tcxoTimer, mainTcxoTimerCallback);
+  osTimerDef(tcxoTimer, rtosTcxoTimerCallback);
   tcxoTimerHandle = osTimerCreate(osTimer(tcxoTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of audioAdcTimer */
-  osTimerDef(audioAdcTimer, mainAudioAdcTimerCallback);
+  osTimerDef(audioAdcTimer, rtosAudioAdcTimerCallback);
   audioAdcTimerHandle = osTimerCreate(osTimer(audioAdcTimer), osTimerPeriodic, NULL);
 
   /* definition and creation of audioDacTimer */
-  osTimerDef(audioDacTimer, mainAudioDacTimerCallback);
+  osTimerDef(audioDacTimer, rtosAudioDacTimerCallback);
   audioDacTimerHandle = osTimerCreate(osTimer(audioDacTimer), osTimerPeriodic, NULL);
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -526,6 +531,37 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+
+  /* add event groups */
+  adcEventGroupHandle = xEventGroupCreate();
+  extiEventGroupHandle = xEventGroupCreate();
+  globalEventGroupHandle = xEventGroupCreate();
+  spiEventGroupHandle = xEventGroupCreate();
+  usbToHostEventGroupHandle = xEventGroupCreate();
+
+  /* add to registry */
+  vQueueAddToRegistry(i2c1_BSemHandle,          "Resc I2C1 BSem");
+  vQueueAddToRegistry(i2c2_BSemHandle,          "Resc I2C2 BSem");
+  vQueueAddToRegistry(i2c3_BSemHandle,          "Resc I2C3 BSem");
+  vQueueAddToRegistry(i2c4_BSemHandle,          "Resc I2C4 BSem");
+  vQueueAddToRegistry(spi1_BSemHandle,          "Resc SPI1 BSem");
+  vQueueAddToRegistry(spi3_BSemHandle,          "Resc SPI2 BSem");
+  vQueueAddToRegistry(cQin_BSemHandle,          "Resc cQin BSem");
+  vQueueAddToRegistry(cQout_BSemHandle,         "Resc cQout BSem");
+  vQueueAddToRegistry(usbToHost_BSemHandle,     "Resc usb-2-host BSem");
+
+  vQueueAddToRegistry(c2AudioAdc_BSemHandle,    "Wake c2AudioAdc BSem");
+  vQueueAddToRegistry(c2AudioDac_BSemHandle,    "Wake c2AudioDac BSem");
+  vQueueAddToRegistry(c2Ax5243_BSemHandle,      "Wake c2Ax5243 BSem");
+  vQueueAddToRegistry(c2Default_BSemHandle,     "Wake c2Default BSem");
+  vQueueAddToRegistry(c2Baro_BSemHandle,        "Wake c2Baro BSem");
+  vQueueAddToRegistry(c2Gyro_BSemHandle,        "Wake c2Gyro BSem");
+  vQueueAddToRegistry(c2Hygro_BSemHandle,       "Wake c2Hygro BSem");
+  vQueueAddToRegistry(c2Lcd_BSemHandle,         "Wake c2LCD BSem");
+  vQueueAddToRegistry(c2Si5338_BSemHandle,      "Wake c2Si5338 BSem");
+  vQueueAddToRegistry(c2Sx1276_BSemHandle,      "Wake c2Sx1276 BSem");
+  vQueueAddToRegistry(c2Tcxo_BSemHandle,        "Wake c2TCXO BSem");
+
   /* USER CODE END RTOS_QUEUES */
 }
 
@@ -542,8 +578,8 @@ void StartDefaultTask(void const * argument)
   {
     g_enableMsk     = 0UL;  // ENABLE_MASK__LORA_BARE;
     g_monMsk        = 0UL;
-    s_adc_enable    = 0U;
-    s_mainStartTime = 0UL;
+    s_rtos_DefaultTask_adc_enable    = 0U;
+    s_rtos_DefaultTaskStartTime = 0UL;
   }
 
   /* Wait until controller is up */
@@ -553,7 +589,7 @@ void StartDefaultTask(void const * argument)
       0, portMAX_DELAY);
 
   /* Store start time */
-  s_mainStartTime = osKernelSysTick();
+  s_rtos_DefaultTaskStartTime = osKernelSysTick();
 
   /* Give other tasks time to do the same */
   osDelay(10UL);
@@ -757,68 +793,69 @@ void StartAudioDacTask(void const * argument)
   /* USER CODE END StartAudioDacTask */
 }
 
-/* mainBaroTimerCallback function */
-void mainBaroTimerCallback(void const * argument)
+/* rtosBaroTimerCallback function */
+void rtosBaroTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainBaroTimerCallback */
-
-  /* USER CODE END mainBaroTimerCallback */
+  /* USER CODE BEGIN rtosBaroTimerCallback */
+  baroTimerCallback(argument);
+  /* USER CODE END rtosBaroTimerCallback */
 }
 
-/* mainHygroTimerCallback function */
-void mainHygroTimerCallback(void const * argument)
+/* rtosHygroTimerCallback function */
+void rtosHygroTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainHygroTimerCallback */
-
-  /* USER CODE END mainHygroTimerCallback */
+  /* USER CODE BEGIN rtosHygroTimerCallback */
+  hygroTimerCallback(argument);
+  /* USER CODE END rtosHygroTimerCallback */
 }
 
-/* mainDefaultTimerCallback function */
-void mainDefaultTimerCallback(void const * argument)
+/* rtosDefaultTimerCallback function */
+void rtosDefaultTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainDefaultTimerCallback */
-  
-  /* USER CODE END mainDefaultTimerCallback */
+  /* USER CODE BEGIN rtosDefaultTimerCallback */
+  // TODO: code here
+
+  /* USER CODE END rtosDefaultTimerCallback */
 }
 
-/* mainGyroTimerCallback function */
-void mainGyroTimerCallback(void const * argument)
+/* rtosGyroTimerCallback function */
+void rtosGyroTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainGyroTimerCallback */
-  
-  /* USER CODE END mainGyroTimerCallback */
+  /* USER CODE BEGIN rtosGyroTimerCallback */
+  gyroTimerCallback(argument);
+  /* USER CODE END rtosGyroTimerCallback */
 }
 
-/* mainControllerTimerCallback function */
-void mainControllerTimerCallback(void const * argument)
+/* rtosControllerTimerCallback function */
+void rtosControllerTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainControllerTimerCallback */
-  
-  /* USER CODE END mainControllerTimerCallback */
+  /* USER CODE BEGIN rtosControllerTimerCallback */
+  controllerTimerCallback(argument);
+  /* USER CODE END rtosControllerTimerCallback */
 }
 
-/* mainTcxoTimerCallback function */
-void mainTcxoTimerCallback(void const * argument)
+/* rtosTcxoTimerCallback function */
+void rtosTcxoTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainTcxoTimerCallback */
-  
-  /* USER CODE END mainTcxoTimerCallback */
+  /* USER CODE BEGIN rtosTcxoTimerCallback */
+  tcxoTimerCallback(argument);
+  /* USER CODE END rtosTcxoTimerCallback */
 }
 
-/* mainAudioAdcTimerCallback function */
-void mainAudioAdcTimerCallback(void const * argument)
+/* rtosAudioAdcTimerCallback function */
+void rtosAudioAdcTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainAudioAdcTimerCallback */
-  
-  /* USER CODE END mainAudioAdcTimerCallback */
+  /* USER CODE BEGIN rtosAudioAdcTimerCallback */
+  audioAdcTimerCallback(argument);
+  /* USER CODE END rtosAudioAdcTimerCallback */
 }
 
-/* mainAudioDacTimerCallback function */
-void mainAudioDacTimerCallback(void const * argument)
+/* rtosAudioDacTimerCallback function */
+void rtosAudioDacTimerCallback(void const * argument)
 {
-  /* USER CODE BEGIN mainAudioDacTimerCallback */
-  
-  /* USER CODE END mainAudioDacTimerCallback */
+  /* USER CODE BEGIN rtosAudioDacTimerCallback */
+  audioDacTimerCallback(argument);
+  /* USER CODE END rtosAudioDacTimerCallback */
 }
 
 /* USER CODE BEGIN Application */

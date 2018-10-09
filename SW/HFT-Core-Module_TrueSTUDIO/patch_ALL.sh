@@ -1,5 +1,5 @@
 #!/bin/sh
 
-patch -p1 < patch_CoreSrcSai.diff
+patch -R -p2 < patch-R_CoreSrcSai.diff
 
 

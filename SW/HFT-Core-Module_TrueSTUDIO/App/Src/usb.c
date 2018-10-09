@@ -24,7 +24,7 @@
 /* Variables -----------------------------------------------------------------*/
 extern osMessageQId         usbFromHostQueueHandle;
 extern osMessageQId         usbToHostQueueHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osSemaphoreId        usbToHost_BSemHandle;
 
 extern EventGroupHandle_t   usbToHostEventGroupHandle;
 
@@ -55,9 +55,9 @@ void usbToHostWait(const uint8_t* buf, uint32_t len)
 
 void usbLogLen(const char* str, int len)
 {
-  osSemaphoreWait(usbToHostBinarySemHandle, 0UL);
+  osSemaphoreWait(usbToHost_BSemHandle, 0UL);
   usbToHostWait((uint8_t*)str, len);
-  osSemaphoreRelease(usbToHostBinarySemHandle);
+  osSemaphoreRelease(usbToHost_BSemHandle);
 }
 
 inline

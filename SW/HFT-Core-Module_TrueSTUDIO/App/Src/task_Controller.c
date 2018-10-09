@@ -46,7 +46,7 @@ extern osSemaphoreId        c2Sx1276_BSemHandle;
 extern osSemaphoreId        c2Tcxo_BSemHandle;
 extern osSemaphoreId        cQin_BSemHandle;
 extern osSemaphoreId        cQout_BSemHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osSemaphoreId        usbToHost_BSemHandle;
 
 extern EventGroupHandle_t   globalEventGroupHandle;
 

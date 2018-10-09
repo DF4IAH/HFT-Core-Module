@@ -199,6 +199,39 @@ standard names. */
 
 /* USER CODE BEGIN Defines */   	      
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
+
+/* Bit-mask for the globalEventGroup */
+typedef enum EG_GLOBAL {
+
+  EG_GLOBAL__Controller_CTRL_IS_RUNNING                       = (1UL <<  0UL ),
+  EG_GLOBAL__Controller_QUEUE_IN                              = (1UL <<  1UL ),
+  EG_GLOBAL__Controller_QUEUE_OUT                             = (1UL <<  2UL ),
+
+} EG_GLOBAL_t;
+
+
+typedef enum EXTI_ENUM {
+
+  EXTI_SX__DIO0                                               =  0b00000000000000000000000000000001UL,
+  EXTI_SX__DIO1                                               =  0b00000000000000000000000000000010UL,
+
+} EXTI_t;
+
+
+typedef enum RtosMsgDefaultCmds_ENUM {
+
+  MsgDefault__InitDo                                          = 0x01U,
+  MsgDefault__InitDone,
+
+  MsgDefault__SetVar01_IOs                                    = 0x41U,
+  MsgDefault__SetVar02_Clocks,
+
+  MsgDefault__GetVar01_x                                      = 0x81U,
+
+  MsgDefault__CallFunc01_MCU_ADC                              = 0xc1U,
+
+} RtosMsgDefaultCmds_t;
+
 /* USER CODE END Defines */ 
 
 #endif /* FREERTOS_CONFIG_H */

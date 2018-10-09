@@ -18,7 +18,7 @@
 
 
 extern EventGroupHandle_t   extiEventGroupHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osSemaphoreId        usbToHost_BSemHandle;
 extern osSemaphoreId        spi1_BSemHandle;
 extern osSemaphoreId        spi3_BSemHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;

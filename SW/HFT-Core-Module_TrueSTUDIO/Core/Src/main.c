@@ -95,6 +95,12 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+extern EventGroupHandle_t             adcEventGroupHandle;
+extern EventGroupHandle_t             extiEventGroupHandle;
+extern EventGroupHandle_t             globalEventGroupHandle;
+extern EventGroupHandle_t             spiEventGroupHandle;
+extern EventGroupHandle_t             usbToHostEventGroupHandle;
+
 extern uint32_t                       uwTick;
 
 extern uint8_t                        i2c4TxBuffer[I2C_TXBUFSIZE];
@@ -104,25 +110,8 @@ extern uint8_t                        spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t                        spi3RxBuffer[SPI3_BUFFERSIZE];
 
 /* Private variables ---------------------------------------------------------*/
-EventGroupHandle_t                    adcEventGroupHandle;
-EventGroupHandle_t                    extiEventGroupHandle;
-EventGroupHandle_t                    globalEventGroupHandle;
-EventGroupHandle_t                    spiEventGroupHandle;
-EventGroupHandle_t                    usbToHostEventGroupHandle;
-
-osSemaphoreId                         usbToHostBinarySemHandle;
-
-/* Timer handler declaration */
-TIM_HandleTypeDef                     TimHandle;
-
-/* Timer Output Compare Configuration Structure declaration */
-TIM_OC_InitTypeDef                    sConfig;
-
 ENABLE_MASK_t                         g_enableMsk;
 MON_MASK_t                            g_monMsk;
-
-static uint8_t                        s_adc_enable;
-static uint32_t                       s_mainStartTime;
 
 /* Counter Prescaler value */
 uint32_t                              uhPrescalerValue        = 0;
@@ -290,6 +279,9 @@ void mainPowerSwitchInit(void)
 
 void LcdBacklightInit(void)
 {
+  TIM_HandleTypeDef   TimHandle;
+  TIM_OC_InitTypeDef  sConfig;
+
   /* PWM initial code */
   TimHandle.Instance = TIM3;
 

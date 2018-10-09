@@ -24,7 +24,7 @@
 
 extern osSemaphoreId        c2Sx1276_BSemHandle;
 extern osSemaphoreId        spi3_BSemHandle;
-extern osSemaphoreId        usbToHostBinarySemHandle;
+extern osSemaphoreId        usbToHost_BSemHandle;
 
 extern EventGroupHandle_t   extiEventGroupHandle;
 extern EventGroupHandle_t   globalEventGroupHandle;
@@ -818,9 +818,9 @@ static void spiSX127x_WaitUntil__RX_analyzer(LoRaWANctx_t* ctx, uint32_t now, ui
 
     /* Push debugging string to the USB DCD */
     if (debugLen) {
-      osSemaphoreWait(usbToHostBinarySemHandle, 0);
+      osSemaphoreWait(usbToHost_BSemHandle, 0);
       usbToHostWait((uint8_t*) debugBuf, debugLen);
-      osSemaphoreRelease(usbToHostBinarySemHandle);
+      osSemaphoreRelease(usbToHost_BSemHandle);
 
       debugLen = 0;
     }
@@ -1099,9 +1099,9 @@ void spiSX127x_WaitUntil_RxDone(LoRaWANctx_t* ctx, LoRaWAN_RX_Message_t* msg, ui
 #ifdef DEBUG_RX2
       /* Debugging */
       debugLen += sprintf((char*)debugBuf + debugLen, "\r\n");
-      osSemaphoreWait(usbToHostBinarySemHandle, 0);
+      osSemaphoreWait(usbToHost_BSemHandle, 0);
       usbToHostWait((uint8_t*) debugBuf, debugLen);
-      osSemaphoreRelease(usbToHostBinarySemHandle);
+      osSemaphoreRelease(usbToHost_BSemHandle);
 #endif
 
 #ifdef DEBUG_RX_TIMING
