@@ -215,7 +215,7 @@ static void si5338Init(void)
 
   /* Switch on TCXO and high-current circuits */
   {
-    PowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
+    mainPowerSwitchDo(POWERSWITCH__3V3_HICUR, 1U);
     osDelay(10);
   }
 

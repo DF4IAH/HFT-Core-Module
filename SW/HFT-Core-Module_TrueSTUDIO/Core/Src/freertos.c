@@ -60,6 +60,16 @@
 #include "usb.h"
 #include "device_adc.h"
 #include "task_Controller.h"
+#include "task_TCXO_20MHz.h"
+#include "task_Si5338.h"
+#include "task_LCD.h"
+#include "task_Baro.h"
+#include "task_Hygro.h"
+#include "task_Gyro.h"
+#include "task_Audio_ADC.h"
+#include "task_Audio_DAC.h"
+#include "task_AX5243.h"
+#include "task_SX1276.h"
 
 /* USER CODE END Includes */
 
@@ -572,10 +582,11 @@ void StartDefaultTask(void const * argument)
 void StartUsbToHostTask(void const * argument)
 {
   /* USER CODE BEGIN StartUsbToHostTask */
+  usbUsbToHostTaskInit();
+
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
+  for (;;) {
+    usbUsbToHostTaskLoop();
   }
   /* USER CODE END StartUsbToHostTask */
 }
@@ -584,10 +595,11 @@ void StartUsbToHostTask(void const * argument)
 void StartUsbFromHostTask(void const * argument)
 {
   /* USER CODE BEGIN StartUsbFromHostTask */
+  usbUsbFromHostTaskInit();
+
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
+  for (;;) {
+    usbUsbFromHostTaskLoop();
   }
   /* USER CODE END StartUsbFromHostTask */
 }
@@ -596,10 +608,12 @@ void StartUsbFromHostTask(void const * argument)
 void StartHygroTask(void const * argument)
 {
   /* USER CODE BEGIN StartHygroTask */
+  hygroTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    hygroTaskLoop();
   }
   /* USER CODE END StartHygroTask */
 }
@@ -608,10 +622,12 @@ void StartHygroTask(void const * argument)
 void StartBaroTask(void const * argument)
 {
   /* USER CODE BEGIN StartBaroTask */
+  baroTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    baroTaskLoop();
   }
   /* USER CODE END StartBaroTask */
 }
@@ -620,10 +636,12 @@ void StartBaroTask(void const * argument)
 void StartGyroTask(void const * argument)
 {
   /* USER CODE BEGIN StartGyroTask */
+  gyroTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    gyroTaskLoop();
   }
   /* USER CODE END StartGyroTask */
 }
@@ -632,10 +650,12 @@ void StartGyroTask(void const * argument)
 void StartLcdTask(void const * argument)
 {
   /* USER CODE BEGIN StartLcdTask */
+  lcdTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    lcdTaskLoop();
   }
   /* USER CODE END StartLcdTask */
 }
@@ -644,10 +664,11 @@ void StartLcdTask(void const * argument)
 void StartTcxo20MhzTask(void const * argument)
 {
   /* USER CODE BEGIN StartTcxo20MhzTask */
+  tcxo20MhzTaskInit();
+
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
+  for (;;) {
+    tcxo20MhzTaskLoop();
   }
   /* USER CODE END StartTcxo20MhzTask */
 }
@@ -656,10 +677,12 @@ void StartTcxo20MhzTask(void const * argument)
 void StartAx5243Task(void const * argument)
 {
   /* USER CODE BEGIN StartAx5243Task */
+  ax5243TaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    ax5243TaskLoop();
   }
   /* USER CODE END StartAx5243Task */
 }
@@ -668,10 +691,12 @@ void StartAx5243Task(void const * argument)
 void StartSx1276Task(void const * argument)
 {
   /* USER CODE BEGIN StartSx1276Task */
+  sx1276TaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    sx1276TaskLoop();
   }
   /* USER CODE END StartSx1276Task */
 }
@@ -680,10 +705,12 @@ void StartSx1276Task(void const * argument)
 void StartControllerTask(void const * argument)
 {
   /* USER CODE BEGIN StartControllerTask */
+  controllerTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    controllerTaskLoop();
   }
   /* USER CODE END StartControllerTask */
 }
@@ -692,10 +719,12 @@ void StartControllerTask(void const * argument)
 void StartSi5338Task(void const * argument)
 {
   /* USER CODE BEGIN StartSi5338Task */
+  si5338TaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    si5338TaskLoop();
   }
   /* USER CODE END StartSi5338Task */
 }
@@ -704,10 +733,12 @@ void StartSi5338Task(void const * argument)
 void StartAudioAdcTask(void const * argument)
 {
   /* USER CODE BEGIN StartAudioAdcTask */
+  audioAdcTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    audioAdcTaskLoop();
   }
   /* USER CODE END StartAudioAdcTask */
 }
@@ -716,10 +747,12 @@ void StartAudioAdcTask(void const * argument)
 void StartAudioDacTask(void const * argument)
 {
   /* USER CODE BEGIN StartAudioDacTask */
+  audioDacTaskInit();
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    audioDacTaskLoop();
   }
   /* USER CODE END StartAudioDacTask */
 }
@@ -728,7 +761,7 @@ void StartAudioDacTask(void const * argument)
 void mainBaroTimerCallback(void const * argument)
 {
   /* USER CODE BEGIN mainBaroTimerCallback */
-  
+
   /* USER CODE END mainBaroTimerCallback */
 }
 
@@ -736,7 +769,7 @@ void mainBaroTimerCallback(void const * argument)
 void mainHygroTimerCallback(void const * argument)
 {
   /* USER CODE BEGIN mainHygroTimerCallback */
-  
+
   /* USER CODE END mainHygroTimerCallback */
 }
 

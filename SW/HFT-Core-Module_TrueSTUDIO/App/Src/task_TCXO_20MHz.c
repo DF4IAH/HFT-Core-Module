@@ -122,7 +122,7 @@ static void tcxo20MhzInit(void)
 
   /* Switch on TCXO and high-current circuits */
   {
-    PowerSwitchDo(POWERSWITCH__3V3_XO, 1U);
+    mainPowerSwitchDo(POWERSWITCH__3V3_XO, 1U);
     osDelay(10);
   }
 
