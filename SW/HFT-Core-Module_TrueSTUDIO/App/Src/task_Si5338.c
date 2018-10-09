@@ -212,6 +212,8 @@ static void si5338Execute(void)
 
 static void si5338Init(void)
 {
+  /* I2C4 init */
+  i2cx_Init(&hi2c4, i2c4_BSemHandle);
 
   /* Switch on TCXO and high-current circuits */
   {

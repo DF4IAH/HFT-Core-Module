@@ -553,8 +553,8 @@ int main(void)
 
   /* Low energy set-up */
                                                                                                       // Here: 28.5mA @ 3.3V
-  MX_GPIO_Init();                                                                                     // Here: 27.5mA @ 3.3V
-  MX_DMA_Init();                                                                                      // Here: 27.5mA @ 3.3V
+  MX_GPIO_Init();                                                                                     // Here: 28.0mA @ 3.3V
+  MX_DMA_Init();                                                                                      // Here: 28.0mA @ 3.3V
   MX_RTC_Init();                                                                                      // Here: 28.0mA @ 3.3V
 
   #define GPIO_ABCDEFGH_CLK_DISABLE

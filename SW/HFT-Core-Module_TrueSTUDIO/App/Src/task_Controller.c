@@ -545,9 +545,9 @@ static void controllerInit(void)
     s_mod_start.rtos_Default                                  = 1U;
     s_mod_start.osc_TCXO                                      = 0U;
     s_mod_start.osc_Si5338                                    = 0U;
-    s_mod_start.actor_LCD                                     = 0U;
-    s_mod_start.sensor_Baro                                   = 0U;
-    s_mod_start.sensor_Hygro                                  = 0U;
+    s_mod_start.actor_LCD                                     = 1U;
+    s_mod_start.sensor_Baro                                   = 1U;
+    s_mod_start.sensor_Hygro                                  = 1U;
     s_mod_start.sensor_Gyro                                   = 0U;
     s_mod_start.audio_ADC                                     = 0U;
     s_mod_start.audio_DAC                                     = 0U;

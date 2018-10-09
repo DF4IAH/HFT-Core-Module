@@ -48,40 +48,44 @@ static void tcxo20MhzDacInit(void)
 
   usbLog("< Tcxo20MhzDacInit -\r\n");
 
-  {
-    const uint8_t i2cWriteLongAry[2] = {
-      0x00, 0x20                                                                                      // 0x0020: clear value Mid, nAUX disable, DAC enabled
-    };
+  do {
+    /* I2C4 init */
+    i2cx_Init(&hi2c4, i2c4_BSemHandle);
 
-    uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG, sizeof(i2cWriteLongAry), i2cWriteLongAry);
-    if (i2cErr == HAL_I2C_ERROR_AF) {
-      /* Chip not responding */
-      usbLog(". Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
-      goto tcxo20MhzDacInit_out;
+    {
+      const uint8_t i2cWriteLongAry[2] = {
+        0x00, 0x20                                                                                      // 0x0020: clear value Mid, nAUX disable, DAC enabled
+      };
+
+      uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_USER_CONFIG, sizeof(i2cWriteLongAry), i2cWriteLongAry);
+      if (i2cErr == HAL_I2C_ERROR_AF) {
+        /* Chip not responding */
+        usbLog(". Tcxo20MhzDacInit: ERROR DAC does not respond\r\n");
+        break;
+      }
     }
-  }
 
-  {
-    const uint8_t i2cWriteLongAry[2] = {
-      0x00, 0x00                                                                                      // DC
-    };
+    {
+      const uint8_t i2cWriteLongAry[2] = {
+        0x00, 0x00                                                                                      // DC
+      };
 
-    i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_SW_CLEAR, sizeof(i2cWriteLongAry), i2cWriteLongAry);
-  }
-
-  /* Read ID and status */
-  {
-    uint8_t regQry[1] = { I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, sizeof(regQry), regQry, 2);
-    if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_tcxo20MhzDacStatus = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
-
-      dbgLen = sprintf(dbgBuf, ". Tcxo20MhzDacInit: Status=0x%04X\r\n", s_tcxo20MhzDacStatus);
-      usbLogLen(dbgBuf, dbgLen);
+      i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, I2C_SLAVE_20MHZ_DAC_REG_WR_SW_CLEAR, sizeof(i2cWriteLongAry), i2cWriteLongAry);
     }
-  }
 
-tcxo20MhzDacInit_out:
+    /* Read ID and status */
+    {
+      uint8_t regQry[1] = { I2C_SLAVE_20MHZ_DAC_REG_RD_STATUS };
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_20MHZ_DAC_SINGLE_ADDR, sizeof(regQry), regQry, 2);
+      if (i2cErr == HAL_I2C_ERROR_NONE) {
+        s_tcxo20MhzDacStatus = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
+
+        dbgLen = sprintf(dbgBuf, ". Tcxo20MhzDacInit: Status=0x%04X\r\n", s_tcxo20MhzDacStatus);
+        usbLogLen(dbgBuf, dbgLen);
+      }
+    }
+  } while(0);
+
   usbLog("- Tcxo20MhzDacInit >\r\n\r\n");
 }
 
@@ -123,7 +127,7 @@ static void tcxo20MhzInit(void)
   /* Switch on TCXO and high-current circuits */
   {
     mainPowerSwitchDo(POWERSWITCH__3V3_XO, 1U);
-    osDelay(10);
+    osDelay(10UL);
   }
 
   /* TCXO is being powered */

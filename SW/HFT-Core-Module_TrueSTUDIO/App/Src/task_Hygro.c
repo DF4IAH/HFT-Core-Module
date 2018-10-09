@@ -257,12 +257,13 @@ static void hygroInit(void)
   int   dbgLen = 0;
   char  dbgBuf[128];
 
-  osSemaphoreWait(i2c4_BSemHandle, osWaitForever);
-
   usbLog("< HygroInit -\r\n");
 
   do {
-   /* SHT31-DIS hygro: stop any running jobs */
+    /* I2C4 init */
+    i2cx_Init(&hi2c4, i2c4_BSemHandle);
+
+    /* SHT31-DIS hygro: stop any running jobs */
     i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_BREAK_HI;
     i2c4TxBuffer[1] = I2C_SLAVE_HYGRO_REG_BREAK_LO;
     if (HAL_I2C_Master_Sequential_Transmit_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4TxBuffer, min(2U, I2C_TXBUFSIZE), I2C_FIRST_AND_LAST_FRAME) != HAL_OK) {
@@ -270,14 +271,14 @@ static void hygroInit(void)
       Error_Handler();
     }
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+      osDelay(1UL);
     }
     if (HAL_I2C_GetError(&hi2c4) == HAL_I2C_ERROR_AF) {
       /* Chip not responding */
       usbLog(". HygroInit: ERROR chip does not respond\r\n");
       break;
     }
-    osDelay(2);
+    osDelay(2UL);
 
     /* SHT31-DIS hygro: reset */
     i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_RESET_HI;
@@ -287,9 +288,9 @@ static void hygroInit(void)
       Error_Handler();
     }
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+      osDelay(1UL);
     }
-    osDelay(2);
+    osDelay(2UL);
 
     /* SHT31-DIS hygro: return current status */
     i2c4TxBuffer[0] = I2C_SLAVE_HYGRO_REG_STATUS_HI;
@@ -299,7 +300,7 @@ static void hygroInit(void)
       Error_Handler();
     }
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+      osDelay(1UL);
     }
     memset(i2c4RxBuffer, 0, sizeof(i2c4RxBuffer));
     if (HAL_I2C_Master_Sequential_Receive_IT(&hi2c4, (uint16_t) (I2C_SLAVE_HYGRO_ADDR << 1U), (uint8_t*) i2c4RxBuffer, min(2U, I2C_RXBUFSIZE), I2C_OTHER_FRAME) != HAL_OK) {
@@ -307,7 +308,7 @@ static void hygroInit(void)
       Error_Handler();
     }
     while (HAL_I2C_GetState(&hi2c4) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+      osDelay(1UL);
     }
     s_hygroState = ((uint16_t)i2c4RxBuffer[0] << 8U) | i2c4RxBuffer[1];
 
@@ -320,8 +321,6 @@ static void hygroInit(void)
   } while(0);
 
   usbLog("- HygroInit >\r\n\r\n");
-
-  osSemaphoreRelease(i2c4_BSemHandle);
 }
 
 

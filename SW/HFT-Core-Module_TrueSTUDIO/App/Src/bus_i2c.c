@@ -15,6 +15,7 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
+#include "i2c.h"
 #include "usb.h"
 
 #include "bus_i2c.h"
@@ -29,6 +30,8 @@ extern I2C_HandleTypeDef    hi2c1;
 extern I2C_HandleTypeDef    hi2c2;
 extern I2C_HandleTypeDef    hi2c3;
 extern I2C_HandleTypeDef    hi2c4;
+
+static uint8_t              s_i2cx_enable[4]                  = { 0U };
 
 volatile uint8_t            i2c4TxBuffer[I2C_TXBUFSIZE];
 volatile uint8_t            i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -48,13 +51,13 @@ void i2cBusAddrScan(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle) {
       Error_Handler();
     }
     while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-      osDelay(1);
+      osDelay(1UL);
     }
     if (HAL_I2C_GetError(dev) != HAL_I2C_ERROR_AF) {
       dbgLen = sprintf(dbgBuf, "GOOD:  Addr=0x%02X  got response\r\n", addr);
       usbLogLen(dbgBuf, dbgLen);
     }
-    osDelay(25);
+    osDelay(25UL);
   }
 
   osSemaphoreRelease(semaphoreHandle);
@@ -78,7 +81,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHan
         Error_Handler();
       }
       while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-        osDelay(1);
+        osDelay(1UL);
       }
       if (HAL_I2C_GetError(dev) == HAL_I2C_ERROR_AF) {
         /* Return mutex */
@@ -112,7 +115,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHan
         Error_Handler();
       }
       while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-        osDelay(1);
+        osDelay(1UL);
       }
       if (HAL_I2C_GetError(dev) == HAL_I2C_ERROR_AF) {
         /* Return mutex */
@@ -130,7 +133,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHan
         Error_Handler();
       }
       while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-        osDelay(1);
+        osDelay(1UL);
       }
       uint8_t val1 = i2c4RxBuffer[0];
       uint8_t val2 = val1;
@@ -150,7 +153,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHan
           Error_Handler();
         }
         while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-          osDelay(1);
+          osDelay(1UL);
         }
       }
 
@@ -197,7 +200,7 @@ uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHan
     Error_Handler();
   }
   while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-    osDelay(1);
+    osDelay(1UL);
   }
   uint32_t i2cErr = HAL_I2C_GetError(dev);
 
@@ -226,7 +229,7 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle, 
     Error_Handler();
   }
   while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-    osDelay(1);
+    osDelay(1UL);
   }
   uint32_t i2cErr = HAL_I2C_GetError(dev);
 
@@ -244,11 +247,90 @@ uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle, 
     Error_Handler();
   }
   while (HAL_I2C_GetState(dev) != HAL_I2C_STATE_READY) {
-    osDelay(1);
+    osDelay(1UL);
   }
 
   /* Return mutex */
   osSemaphoreRelease(semaphoreHandle);
 
   return HAL_I2C_ERROR_NONE;
+}
+
+
+static uint8_t i2cx_getDevIdx(I2C_HandleTypeDef* dev)
+{
+  if (&hi2c1 == dev) {
+    return 0U;
+
+  } else if (&hi2c2 == dev) {
+    return 1U;
+
+  } else if (&hi2c3 == dev) {
+    return 2U;
+
+  } else if (&hi2c4 == dev) {
+    return 3U;
+  }
+
+  Error_Handler();
+  return 0U;
+}
+
+
+void i2cx_Init(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle)
+{
+  const uint8_t devIdx = i2cx_getDevIdx(dev);
+
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
+
+  if (!s_i2cx_enable[devIdx]++) {
+    switch (devIdx) {
+    case 0:
+      __HAL_RCC_GPIOG_CLK_ENABLE();                                                                   // I2C1: SCL, SDA
+      MX_I2C1_Init();
+      /* Do not turn off clock of GPIOx SCL */
+      break;
+
+    case 1:
+      __HAL_RCC_GPIOF_CLK_ENABLE();                                                                   // I2C2: SCL, SDA
+      MX_I2C2_Init();
+      /* Do not turn off clock of GPIOx SCL */
+      break;
+
+    case 2:
+      __HAL_RCC_GPIOG_CLK_ENABLE();                                                                   // I2C3: SCL, SDA
+      MX_I2C3_Init();
+      /* Do not turn off clock of GPIOx SCL */
+      break;
+
+    case 3:
+      __HAL_RCC_GPIOD_CLK_ENABLE();                                                                   // I2C4: SDA
+      __HAL_RCC_GPIOF_CLK_ENABLE();                                                                   // I2C4: SCL
+      MX_I2C4_Init();
+      __HAL_RCC_GPIOD_CLK_DISABLE();                                                                  // I2C4: SDA
+      /* Do not turn off clock of GPIOx SCL */
+      break;
+
+    default: { }
+    }
+  }
+
+  osSemaphoreRelease(semaphoreHandle);
+}
+
+void i2cx_DeInit(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle)
+{
+  const uint8_t devIdx = i2cx_getDevIdx(dev);
+
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
+
+  if (--s_i2cx_enable[devIdx]) {
+    HAL_I2C_MspDeInit(dev);
+
+  } else if (s_i2cx_enable[devIdx] == 255U) {
+    /* Underflow */
+    s_i2cx_enable[devIdx] = 0U;
+  }
+
+  osSemaphoreRelease(semaphoreHandle);
 }
