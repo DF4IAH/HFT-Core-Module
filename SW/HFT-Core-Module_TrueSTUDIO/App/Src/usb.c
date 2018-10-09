@@ -11,6 +11,7 @@
 #include "task.h"
 #include "queue.h"
 #include "cmsis_os.h"
+#include "usb_device.h"
 #include <usbd_cdc_if.h>
 
 #include <stddef.h>
@@ -88,6 +89,9 @@ const char usbClrScrBuf[4] = { 0x0c, 0x0d, 0x0a, 0 };
 void usbUsbToHostTaskInit(void)
 {
   uint8_t inChr = 0U;
+
+  /* Activate USB communication */
+  HFTcore_USB_DEVICE_Init();
 
   /* Clear queue */
   while (xQueueReceive(usbToHostQueueHandle, &inChr, 0) == pdPASS) {
@@ -187,6 +191,9 @@ void usbUsbToHostTaskLoop(void)
 
 void usbUsbFromHostTaskInit(void)
 {
+  /* Activate USB communication */
+  HFTcore_USB_DEVICE_Init();
+
   /* Give time for USB CDC to come up */
   osDelay(100UL);
 }

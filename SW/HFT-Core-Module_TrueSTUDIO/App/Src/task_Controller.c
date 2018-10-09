@@ -339,7 +339,7 @@ static void controllerMsgProcessor(void)
       {
         switch (s_msg_in.msgSrc) {
         case Destinations__Main_Default:
-          s_mod_rdy.main_default  = 1U;
+          s_mod_rdy.rtos_Default  = 1U;
           break;
 
         case Destinations__Osc_TCXO:
@@ -542,12 +542,12 @@ static void controllerInit(void)
 
     s_controller_doCycle                                      = 0U;
 
-    s_mod_start.main_default                                  = 1U;
+    s_mod_start.rtos_Default                                  = 1U;
     s_mod_start.osc_TCXO                                      = 0U;
     s_mod_start.osc_Si5338                                    = 0U;
-    s_mod_start.actor_LCD                                     = 1U;
-    s_mod_start.sensor_Baro                                   = 1U;
-    s_mod_start.sensor_Hygro                                  = 1U;
+    s_mod_start.actor_LCD                                     = 0U;
+    s_mod_start.sensor_Baro                                   = 0U;
+    s_mod_start.sensor_Hygro                                  = 0U;
     s_mod_start.sensor_Gyro                                   = 0U;
     s_mod_start.audio_ADC                                     = 0U;
     s_mod_start.audio_DAC                                     = 0U;
@@ -564,7 +564,7 @@ static void controllerInit(void)
     uint32_t msgAry[2];
 
     /* main_default */
-    if (s_mod_start.main_default) {
+    if (s_mod_start.rtos_Default) {
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Main_Default,
           0UL);

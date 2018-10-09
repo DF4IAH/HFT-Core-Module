@@ -41,7 +41,7 @@ typedef enum ControllerMsgDestinations_ENUM {
 
 typedef struct ControllerMods {
 
-  uint8_t                           main_default;
+  uint8_t                           rtos_Default;
   uint8_t                           osc_TCXO;
   uint8_t                           osc_Si5338;
   uint8_t                           actor_LCD;

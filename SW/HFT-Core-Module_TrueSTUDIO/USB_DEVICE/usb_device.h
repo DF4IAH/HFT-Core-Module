@@ -63,6 +63,7 @@
 /* USER CODE BEGIN INCLUDE */
 
  void HFTcore_USB_DEVICE_Init(void);
+ void HFTcore_USB_DEVICE_DeInit(void);
 
 /* USER CODE END INCLUDE */
 

@@ -170,20 +170,43 @@ void mainPowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
   switch (sw) {
   case POWERSWITCH__USB_SW:
     /* Port: PC2 */
-    HAL_GPIO_WritePin(MCU_OUT_VUSB_EN_GPIO_Port, MCU_OUT_VUSB_EN_Pin,
-        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    HAL_GPIO_WritePin(MCU_OUT_VUSB_EN_GPIO_Port, MCU_OUT_VUSB_EN_Pin, (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
     break;
 
   case POWERSWITCH__3V3_HICUR:
     /* Port: PC1 */
-    HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin,
-        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    if (enable) {
+      /* Connect chip select with SPI bus signal */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_SET);
+
+      /* Power switch: 3V3_HICUR */
+      HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin, GPIO_PIN_SET);
+
+      /* Disable RESET */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_SET);
+
+    } else {
+      /* Enable RESET */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_nRESET_GPIO_Port, MCU_OUT_AUDIO_ADC_nRESET_Pin, GPIO_PIN_RESET);
+
+      /* Power switch: 3V3_HICUR */
+      HAL_GPIO_WritePin(MCU_OUT_HICUR_EN_GPIO_Port, MCU_OUT_HICUR_EN_Pin, GPIO_PIN_RESET);
+
+      /* No energy through select pins during power off */
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_ADC_SEL_GPIO_Port, MCU_OUT_AUDIO_ADC_SEL_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(MCU_OUT_AUDIO_DAC_SEL_GPIO_Port, MCU_OUT_AUDIO_DAC_SEL_Pin, GPIO_PIN_RESET);
+    }
     break;
 
   case POWERSWITCH__3V3_XO:
     /* Port: PC3 */
-    HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin,
-        (enable ?  GPIO_PIN_SET : GPIO_PIN_RESET));
+    if (enable) {
+      HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin, GPIO_PIN_SET);
+
+    } else {
+      HAL_GPIO_WritePin(MCU_OUT_20MHZ_EN_GPIO_Port, MCU_OUT_20MHZ_EN_Pin, GPIO_PIN_RESET);
+    }
     break;
 
   case POWERSWITCH__1V2_DCDC:
@@ -195,8 +218,7 @@ void mainPowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
     if (enable)
     {
       /* Port: PC0 */
-      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
-          GPIO_PIN_SET);
+      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin, GPIO_PIN_SET);
 
       osDelay(10UL);
 
@@ -212,8 +234,7 @@ void mainPowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable)
       osDelay(100UL);
 
       /* Port: PC0 */
-      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin,
-          GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(MCU_OUT_VDD12_EN_GPIO_Port, MCU_OUT_VDD12_EN_Pin, GPIO_PIN_RESET);
     }
     break;
 
@@ -406,6 +427,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+  // During RESET: 26.0mA @ 3.3V
+
   /* Check if ARM core is already in reset state */
   if (!(RCC->CSR & 0xff000000UL)) {
     __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -436,6 +459,8 @@ int main(void)
   }
   __HAL_RCC_CLEAR_RESET_FLAGS();
 
+  // Here: 25.5mA @ 3.3V
+
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -445,6 +470,8 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+  // Here: 26.0mA @ 3.3V
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -452,12 +479,17 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+  // Here: 28.5mA @ 3.3V
+
   /* HSI16 trim */
   __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(0x3f);                                                        // 0x40 centered
 
   /* MSI trim */
   //__HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST(0x00);                                                      // Signed
   HAL_RCCEx_EnableMSIPLLMode();
+
+  #if 0
+  // Here: 28.5mA @ 3.3V
 
   /* USER CODE END SysInit */
 
@@ -487,15 +519,50 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  #define GPIO_AUDIO_DAC_SEL_OFF
+  /* Copy of above for documentation */
+  //MX_GPIO_Init();                                                                                   // Here: 27.5mA @ 3.3V    -0.5mA
+  //MX_DMA_Init();                                                                                    // Here: 28.0mA @ 3.3V    +0.5mA
+  //MX_ADC1_Init();                                                                                   // Here: 28.0mA @ 3.3V
+  //MX_ADC3_Init();                                                                                   // Here: 28.0mA @ 3.3V
+  //MX_CRC_Init();                                                                                    // Here: 28.0mA @ 3.3V
+  //MX_DFSDM1_Init();                                                                                 // Here: 28.0mA @ 3.3V
+  //MX_I2C1_Init();                                                                                   // Here: 28.5mA @ 3.3V    +0.5mA
+  //MX_I2C2_Init();                                                                                   // Here: 29.0mA @ 3.3V    +0.5mA
+  //MX_I2C3_Init();                                                                                   // Here: 29.0mA @ 3.3V
+  //MX_I2C4_Init();                                                                                   // Here: 29.0mA @ 3.3V
+  //MX_RNG_Init();                                                                                    // Here: 29.5mA @ 3.3V    +0.5mA
+  //MX_RTC_Init();                                                                                    // Here: 29.5mA @ 3.3V
+  //MX_SAI1_Init();                                                                                   // Here: 30.0mA @ 3.3V    +0.5mA
+  //MX_SAI2_Init();                                                                                   // Here: 30.0mA @ 3.3V
+  //MX_SPI1_Init();                                                                                   // Here: 31.0mA @ 3.3V    +1.0mA
+  //MX_SPI3_Init();                                                                                   // Here: 31.0mA @ 3.3V
+  //MX_TIM16_Init();                                                                                  // Here: 31.0mA @ 3.3V
+  //MX_TIM17_Init();                                                                                  // Here: 31.0mA @ 3.3V
+  //MX_TIM3_Init();                                                                                   // Here: 31.0mA @ 3.3V
+  //MX_TIM5_Init();                                                                                   // Here: 31.0mA @ 3.3V
+  //MX_USART1_UART_Init();                                                                            // Here: 31.5mA @ 3.3V    +0.5mA
+  //MX_USART2_UART_Init();                                                                            // Here: 32.0mA @ 3.3V    +0.5mA
+  //MX_USART3_UART_Init();                                                                            // Here: 32.0mA @ 3.3V
+
+  //#define GPIO_AUDIO_DAC_SEL_OFF
   #ifdef GPIO_AUDIO_DAC_SEL_OFF
   gpio_AudioAdc_TurnOffSel();
   #endif
 
-  //#define GPIO_ABCDEFGH_CLK_DISABLE
+  #else
+
+  /* Low energy set-up */
+                                                                                                      // Here: 28.5mA @ 3.3V
+  MX_GPIO_Init();                                                                                     // Here: 27.5mA @ 3.3V
+  MX_DMA_Init();                                                                                      // Here: 27.5mA @ 3.3V
+  MX_RTC_Init();                                                                                      // Here: 28.0mA @ 3.3V
+
+  #define GPIO_ABCDEFGH_CLK_DISABLE
   #ifdef GPIO_ABCDEFGH_CLK_DISABLE
   /* Disable clocks again to save power */
-  gpio_ABCDEFGH_ClkDisable();
+  gpio_ABCDEFGH_ClkDisable();                                                                         // Here: 27.0mA @ 3.3V
+  #endif
+
   #endif
 
 

@@ -130,7 +130,7 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef* hsai)
     */
     GPIO_InitStruct.Pin = I2S1B_SD_OUT_Pin|I2S1B_SCK_OUT_Pin|I2S1B_FS_OUT_Pin|I2S1B_MCLK_OUT_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
     GPIO_InitStruct.Alternate = GPIO_AF13_SAI1;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
