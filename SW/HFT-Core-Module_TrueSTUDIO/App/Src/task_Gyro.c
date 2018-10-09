@@ -114,12 +114,13 @@ static void gyroInit(void)
 
   // TODO: refactor to use i2cSequenceWrite()
 
-  osSemaphoreWait(i2c4_BSemHandle, osWaitForever);
-
   usbLog("< GyroInit -\r\n");
 
-  do {
 #if 0
+  do {
+    /* I2C4 init */
+    i2cx_Init(&hi2c4, i2c4_BSemHandle);
+
     /* MPU-9250 6 axis: RESET */
     i2c4TxBuffer[0] = I2C_SLAVE_GYRO_REG_1_PWR_MGMT_1;
     i2c4TxBuffer[1] = I2C_SLAVE_GYRO_DTA_1_PWR_MGMT_1__HRESET | I2C_SLAVE_GYRO_DTA_1_PWR_MGMT_1__CLKSEL_VAL;
@@ -345,12 +346,10 @@ static void gyroInit(void)
       s_gyro_enable = 1U;
       usbLog(". GyroInit: state 15\r\n");
     }
-#endif
   } while(0);
+#endif
 
   usbLog("- GyroInit >\r\n\r\n");
-
-  osSemaphoreRelease(i2c4_BSemHandle);
 }
 
 static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)

@@ -234,9 +234,6 @@ __weak void vApplicationMallocFailedHook(void)
 
 static void rtosDefaultInit(void)
 {
-  /* Activate USB communication */
-  HFTcore_USB_DEVICE_Init();
-
   /* Power switch settings */
   mainPowerSwitchInit();
 }
@@ -576,10 +573,10 @@ void StartDefaultTask(void const * argument)
 
   /* defaultTaskInit() section */
   {
-    g_enableMsk     = 0UL;  // ENABLE_MASK__LORA_BARE;
-    g_monMsk        = 0UL;
-    s_rtos_DefaultTask_adc_enable    = 0U;
-    s_rtos_DefaultTaskStartTime = 0UL;
+    g_enableMsk                   = 0UL;                                                              // ENABLE_MASK__LORA_BARE;
+    g_monMsk                      = 0UL;
+    s_rtos_DefaultTask_adc_enable = 0U;
+    s_rtos_DefaultTaskStartTime   = 0UL;
   }
 
   /* Wait until controller is up */

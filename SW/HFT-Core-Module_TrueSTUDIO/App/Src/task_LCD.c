@@ -81,6 +81,9 @@ static void lcdInit(void)
   usbLog("< LcdInit -\r\n");
 
   do {
+    /* I2C4 init */
+    i2cx_Init(&hi2c4, i2c4_BSemHandle);
+
     /* Hardware reset */
     {
       HAL_GPIO_WritePin(MCU_OUT_LCD_nRST_GPIO_Port, MCU_OUT_LCD_nRST_Pin, (GPIO_PIN_RESET));

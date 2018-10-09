@@ -61,6 +61,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+static uint8_t              s_usb_enable                      = 0U;
 
 /* USER CODE END PV */
 
@@ -90,16 +91,32 @@ USBD_HandleTypeDef hUsbDeviceFS;
 /* Copy of MX_USB_DEVICE_Init() */
 void HFTcore_USB_DEVICE_Init(void)
 {
-  /* Init Device Library, add supported class and start the library. */
-  USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
-  USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC);
-  USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
-  /* Verify if the Battery Charging Detection mode (BCD) is used : */
-  /* If yes, the USB device is started in the HAL_PCDEx_BCD_Callback */
-  /* upon reception of PCD_BCD_DISCOVERY_COMPLETED message. */
-  /* If no, the USB device is started now. */
-  if (USBD_LL_BatteryCharging(&hUsbDeviceFS) != USBD_OK) {
-    USBD_Start(&hUsbDeviceFS);
+  if (!s_usb_enable) {
+    s_usb_enable = 1U;
+
+    /* Init Device Library, add supported class and start the library. */
+    USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
+    USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC);
+    USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
+    /* Verify if the Battery Charging Detection mode (BCD) is used : */
+    /* If yes, the USB device is started in the HAL_PCDEx_BCD_Callback */
+    /* upon reception of PCD_BCD_DISCOVERY_COMPLETED message. */
+    /* If no, the USB device is started now. */
+    if (USBD_LL_BatteryCharging(&hUsbDeviceFS) != USBD_OK) {
+      USBD_Start(&hUsbDeviceFS);
+    }
+  }
+}
+
+void HFTcore_USB_DEVICE_DeInit(void)
+{
+  if (s_usb_enable) {
+    if (USBD_LL_BatteryCharging(&hUsbDeviceFS) != USBD_OK) {
+      USBD_Stop(&hUsbDeviceFS);
+    }
+    USBD_DeInit(&hUsbDeviceFS);
+
+    s_usb_enable = 0U;
   }
 }
 

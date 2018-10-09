@@ -85,7 +85,7 @@ static void baroFetch(void)
     uint8_t dataAry[0] = { };
     i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_CONV_D1_4096, sizeof(dataAry), dataAry);
   }
-  osDelay(20);
+  osDelay(20UL);
 
   /* Get D1 data */
   {
@@ -101,7 +101,7 @@ static void baroFetch(void)
     uint8_t dataAry[0] = { };
     i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_CONV_D2_4096, sizeof(dataAry), dataAry);
   }
-  osDelay(20);
+  osDelay(20UL);
 
   /* Get D2 data */
   {
@@ -298,49 +298,54 @@ static void baroInit(void)
 
   usbLog("< BaroInit -\r\n");
 
-  /* MS560702BA03-50 Baro: RESET all internal data paths */
-  {
-    const uint8_t i2cWriteLongAry[0] = {
-    };
+  do {
+    /* I2C4 init */
+    i2cx_Init(&hi2c4, i2c4_BSemHandle);
 
-    uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_RESET, sizeof(i2cWriteLongAry), i2cWriteLongAry);
-    if (i2cErr == HAL_I2C_ERROR_AF) {
-      /* Chip not responding */
-      usbLog(". BaroInit: ERROR Baro does not respond\r\n");
-      return;
+    /* MS560702BA03-50 Baro: RESET all internal data paths */
+    {
+      const uint8_t i2cWriteLongAry[0] = {
+      };
+
+      uint32_t i2cErr = i2cSequenceWriteLong(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, I2C_SLAVE_BARO_REG_RESET, sizeof(i2cWriteLongAry), i2cWriteLongAry);
+      if (i2cErr == HAL_I2C_ERROR_AF) {
+        /* Chip not responding */
+        usbLog(". BaroInit: ERROR Baro does not respond\r\n");
+        break;
+      }
+      osDelay(2UL);
     }
-    osDelay(2);
-  }
 
-  /* MS560702BA03-50 Baro: get version information */
-  {
-    uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_VERSION };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
-    if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
+    /* MS560702BA03-50 Baro: get version information */
+    {
+      uint8_t regQry[1] = { I2C_SLAVE_BARO_REG_VERSION };
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
+      if (i2cErr == HAL_I2C_ERROR_NONE) {
+        s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
 
-      dbgLen = sprintf(dbgBuf, ". BaroInit: MS560702BA03-50 version: %d\r\n", s_baroVersion);
+        dbgLen = sprintf(dbgBuf, ". BaroInit: MS560702BA03-50 version: %d\r\n", s_baroVersion);
+        usbLogLen(dbgBuf, dbgLen);
+      }
+    }
+
+    /* MS560702BA03-50 Baro: get correction data from the PROM */
+    for (uint8_t adr = 1; adr < C_I2C_BARO_C_CNT; ++adr) {
+      uint8_t regQry[1] = { (I2C_SLAVE_BARO_REG_PROM | (adr << 1)) };
+      uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
+      if (i2cErr == HAL_I2C_ERROR_NONE) {
+        s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
+      }
+
+      s_baro_c[adr] = ((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1];
+
+      dbgLen = sprintf(dbgBuf, ". BaroInit: PROM adr=%d value=0x%04X\r\n", adr, s_baro_c[adr]);
       usbLogLen(dbgBuf, dbgLen);
     }
-  }
 
-  /* MS560702BA03-50 Baro: get correction data from the PROM */
-  for (uint8_t adr = 1; adr < C_I2C_BARO_C_CNT; ++adr) {
-    uint8_t regQry[1] = { (I2C_SLAVE_BARO_REG_PROM | (adr << 1)) };
-    uint32_t i2cErr = i2cSequenceRead(&hi2c4, i2c4_BSemHandle, I2C_SLAVE_BARO_ADDR, sizeof(regQry), regQry, 2);
-    if (i2cErr == HAL_I2C_ERROR_NONE) {
-      s_baroVersion = (((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1]) >> 4;
+    if (s_baroVersion) {
+      s_baro_enable = 1U;
     }
-
-    s_baro_c[adr] = ((uint16_t)i2c4RxBuffer[0] << 8) | i2c4RxBuffer[1];
-
-    dbgLen = sprintf(dbgBuf, ". BaroInit: PROM adr=%d value=0x%04X\r\n", adr, s_baro_c[adr]);
-    usbLogLen(dbgBuf, dbgLen);
-  }
-
-  if (s_baroVersion) {
-    s_baro_enable = 1U;
-  }
+  } while(0);
 
   usbLog("- BaroInit >\r\n\r\n");
 }

@@ -34,4 +34,7 @@ uint32_t i2cSequenceWriteMask(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHan
 uint32_t i2cSequenceWriteLong(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle, uint8_t addr, uint8_t i2cReg, uint16_t count, const uint8_t i2cWriteAryLong[]);
 uint32_t i2cSequenceRead(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle, uint8_t addr, uint8_t i2cRegLen, uint8_t i2cReg[], uint16_t readlen);
 
+void i2cx_Init();
+void i2cx_DeInit();
+
 #endif /* BUS_I2C_H_ */
