@@ -30767,17 +30767,6 @@ I2C addr: 0x38/0x39</text>
 <label x="27.94" y="71.12" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
-<net name="+3V3" class="0">
-<segment>
-<pinref part="U0601" gate="A" pin="VIN"/>
-<wire x1="20.32" y1="58.42" x2="35.56" y2="58.42" width="0.1524" layer="91"/>
-<junction x="20.32" y="58.42"/>
-<pinref part="C0601" gate="G$1" pin="1"/>
-<wire x1="20.32" y1="58.42" x2="20.32" y2="55.88" width="0.1524" layer="91"/>
-<wire x1="20.32" y1="71.12" x2="20.32" y2="58.42" width="0.1524" layer="91"/>
-<label x="20.32" y="71.12" size="1.778" layer="95" rot="R90" xref="yes"/>
-</segment>
-</net>
 <net name="AD_VCTCXO1" class="0">
 <segment>
 <pinref part="U0641" gate="G$1" pin="-IN"/>
@@ -30822,6 +30811,15 @@ I2C addr: 0x38/0x39</text>
 <pinref part="R0611" gate="G$1" pin="1"/>
 <wire x1="17.78" y1="127" x2="20.32" y2="127" width="0.1524" layer="91"/>
 <junction x="17.78" y="142.24"/>
+</segment>
+<segment>
+<pinref part="U0601" gate="A" pin="VIN"/>
+<wire x1="20.32" y1="58.42" x2="35.56" y2="58.42" width="0.1524" layer="91"/>
+<junction x="20.32" y="58.42"/>
+<pinref part="C0601" gate="G$1" pin="1"/>
+<wire x1="20.32" y1="58.42" x2="20.32" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="20.32" y1="71.12" x2="20.32" y2="58.42" width="0.1524" layer="91"/>
+<label x="20.32" y="71.12" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
 <net name="PF3" class="0">
