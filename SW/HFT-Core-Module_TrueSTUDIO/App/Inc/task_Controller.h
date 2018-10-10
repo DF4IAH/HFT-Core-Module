@@ -24,6 +24,9 @@ typedef enum ControllerMsgDestinations_ENUM {
   Destinations__Osc_TCXO,
   Destinations__Osc_Si5338,
 
+  Destinations__Network_USBtoHost,
+  Destinations__Network_USBfromHost,
+
   Destinations__Actor_LCD,
 
   Destinations__Sensor_Baro,
@@ -42,6 +45,8 @@ typedef enum ControllerMsgDestinations_ENUM {
 typedef struct ControllerMods {
 
   uint8_t                           rtos_Default;
+  uint8_t                           network_USBtoHost;
+  uint8_t                           network_USBfromHost;
   uint8_t                           osc_TCXO;
   uint8_t                           osc_Si5338;
   uint8_t                           actor_LCD;
@@ -61,23 +66,15 @@ typedef enum ControllerMsgControllerCmds_ENUM {
   MsgController__InitDo                                       = 0x01U,
   MsgController__InitDone,
 
-  MsgController__SetVar01                                     = 0x41U,
-  MsgController__SetVar02,
-  MsgController__SetVar03,
-  MsgController__SetVar04,
-  MsgController__SetVar05,
+  MsgController__DeInitDo                                     = 0x05U,
 
-  MsgController__GetVar01                                     = 0x81U,
-  MsgController__GetVar02,
-  MsgController__GetVar03,
-  MsgController__GetVar04,
-  MsgController__GetVar05,
+//MsgController__SetVar01                                     = 0x41U,
 
-  MsgController__CallFunc01                                   = 0xc1U,
-  MsgController__CallFunc02_CyclicTimerEvent,
-  MsgController__CallFunc03,
-  MsgController__CallFunc04,
-  MsgController__CallFunc05,
+//MsgController__GetVar01                                     = 0x81U,
+
+  MsgController__CallFunc01_CyclicTimerEvent                  = 0xc1U,
+  MsgController__CallFunc02_CyclicTimerStart,
+  MsgController__CallFunc03_CyclicTimerStop,
 
 } ControllerMsgControllerCmds_t;
 

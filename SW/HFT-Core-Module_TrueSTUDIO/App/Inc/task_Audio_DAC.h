@@ -24,16 +24,18 @@ typedef enum audioDacMsgAudioDacCmds_ENUM {
   MsgAudioDac__InitDo                                         = 0x01U,
   MsgAudioDac__InitDone,
 
+  MsgAudioDac__DeInitDo                                       = 0x05U,
+
   MsgAudioDac__SetVar01_L_and_R                               = 0x41U,
   MsgAudioDac__SetVar02_L,
   MsgAudioDac__SetVar03_R,
 
 //MsgAudioDac__GetVar01_y                                     = 0x81U,
 
-  MsgAudioDac__CallFunc01_DoExport                            = 0xc1U,
-  MsgAudioDac__CallFunc02_CyclicTimerEvent,
-  MsgAudioDac__CallFunc03_CyclicTimerStart,
-  MsgAudioDac__CallFunc04_CyclicTimerStop,
+  MsgAudioDac__CallFunc01_CyclicTimerEvent                    = 0xc1U,
+  MsgAudioDac__CallFunc02_CyclicTimerStart,
+  MsgAudioDac__CallFunc03_CyclicTimerStop,
+  MsgAudioDac__CallFunc04_DoExport,
 
 } audioDacMsgAudioDacCmds_t;
 

@@ -169,11 +169,13 @@ typedef enum sx1276MsgSx1276Cmds_ENUM {
   MsgSx1276__InitDo                                           = 0x01U,
   MsgSx1276__InitDone,
 
-  MsgSx1276__SetVar01_x                                       = 0x41U,
+  MsgSx1276__DeInitDo                                         = 0x05U,
 
-  MsgSx1276__GetVar01_y                                       = 0x81U,
+//MsgSx1276__SetVar01_x                                       = 0x41U,
 
-  MsgSx1276__CallFunc01_z                                     = 0xc1U,
+//MsgSx1276__GetVar01_y                                       = 0x81U,
+
+//MsgSx1276__CallFunc04_z                                     = 0xc4U,
 
 } sx1276MsgSx1276Cmds_t;
 

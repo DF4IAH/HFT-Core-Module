@@ -6,6 +6,7 @@
  */
 
 #include <device_adc.h>
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_it.h"
 
@@ -13,7 +14,6 @@
 #include "FreeRTOS.h"
 
 #include "bus_i2c.h"
-#include "usb.h"
 #include "task_Controller.h"
 
 #include "task_TCXO_20MHz.h"
@@ -115,6 +115,17 @@ static void tcxoCyclicStop(void)
 
 void tcxoTimerCallback(void const *argument)
 {
+  /* Context of RTOS Daemon Task */
+  uint32_t msgAry[1];
+
+  /* Write cyclic timer message to this destination */
+  uint8_t msgLen    = 0U;
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Osc_TCXO, Destinations__Osc_TCXO, 0U, MsgTcxo__CallFunc01_CyclicTimerEvent);
+  controllerMsgPushToOutQueue(msgLen, msgAry, 1UL);
+}
+
+static void tcxoCyclicTimerEvent(void)
+{
 
 }
 
@@ -188,23 +199,29 @@ static void tcxo20MHzMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgTcxo__CallFunc01_SetDAC:
+  case MsgTcxo__CallFunc01_CyclicTimerEvent:
     {
-      tcxo20MhzDacSet(tcxoCalcVoltage2DacValue(s_tcxoVoltage_uV));
+      tcxoCyclicTimerEvent();
     }
     break;
 
-  case MsgTcxo__CallFunc02_CyclicMeasurements:
+  case MsgTcxo__CallFunc02_CyclicTimerStart:
     {
       /* Start cyclic measurements with that period in ms */
       tcxoCyclicStart(msgAry[msgIdx++]);
     }
     break;
 
-  case MsgTcxo__CallFunc03_StopCycles:
+  case MsgTcxo__CallFunc03_CyclicTimerStop:
     {
       /* Stop cyclic measurements */
       tcxoCyclicStop();
+    }
+    break;
+
+  case MsgTcxo__CallFunc04_SetDAC:
+    {
+      tcxo20MhzDacSet(tcxoCalcVoltage2DacValue(s_tcxoVoltage_uV));
     }
     break;
 

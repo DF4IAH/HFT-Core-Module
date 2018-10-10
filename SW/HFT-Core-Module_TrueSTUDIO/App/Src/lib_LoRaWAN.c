@@ -14,7 +14,7 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
-
+#include <task_USB.h>
 #include "FreeRTOS.h"
 #include "stm32l496xx.h"
 #include "cmsis_os.h"
@@ -25,8 +25,6 @@
 #include "task_SX1276.h"
 #include "task_Controller.h"
 #include "bus_spi.h"
-#include "usb.h"
-
 #include "lib_LoRaWAN.h"
 
 
@@ -466,7 +464,7 @@ static void LoRaWAN_marshalling_PayloadUpCompress(LoRaWAN_RX_Message_t* msg)
         LoRaWAN_marshalling_PayloadCompress_TrackMeAppUp(&trackMeApp_DL, msg->msg_parted_FRMPayload_Buf, msg->msg_parted_FRMPayload_Len);
 
         /* Send message to the controller */
-        // TODO
+        // TODO: coding
       }
       break;
     }
@@ -487,7 +485,7 @@ static void LoRaWAN_marshalling_PayloadDownExpand(LoRaWAN_RX_Message_t* msg)
         LoRaWAN_marshalling_PayloadExpand_TrackMeAppDown(&trackMeApp_DL, msg->msg_parted_FRMPayload_Buf, msg->msg_parted_FRMPayload_Len);
 
         /* Send message to the controller */
-        // TODO
+        // TODO: coding
       }
       break;
     }

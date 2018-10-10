@@ -8,13 +8,12 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
-
+#include <task_USB.h>
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "stm32l496xx.h"
 //#include "stm32l4xx_hal_gpio.h"
 
-#include "usb.h"
 #include "bus_i2c.h"
 #include "task_Controller.h"
 
@@ -275,7 +274,7 @@ static void si5338MsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgSi5338__CallFunc01_Execute:
+  case MsgSi5338__CallFunc04_Execute:
     {
       si5338Execute();
     }

@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -15,7 +15,6 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "usb.h"
 #include "bus_i2c.h"
 #include "task_Controller.h"
 
@@ -214,7 +213,7 @@ static void baroDistributor(void)
     const uint8_t strLen = sprintf(strBuf, "%04lu.%01luhPa ",
         (s_baro_qnh_p_h_100 / 100), (s_baro_qnh_p_h_100 % 100) / 10);
 
-    msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Baro, 1U + strLen, MsgLcd__CallFunc02_WriteString);
+    msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Baro, 1U + strLen, MsgLcd__CallFunc05_WriteString);
 
     for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
       word |= (0xffU & strBuf[strIdx]) << (wordPos << 3U);
@@ -267,7 +266,7 @@ void baroTimerCallback(void const *argument)
 
   /* Write cyclic timer message to this destination */
   uint8_t msgLen    = 0U;
-  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Baro, Destinations__Sensor_Baro, 0U, MsgBaro__CallFunc02_CyclicTimerEvent);
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Baro, Destinations__Sensor_Baro, 0U, MsgBaro__CallFunc01_CyclicTimerEvent);
   controllerMsgPushToOutQueue(msgLen, msgAry, 1UL);
 }
 
@@ -377,7 +376,27 @@ static void baroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgBaro__CallFunc01_DoMeasure:
+  case MsgBaro__CallFunc01_CyclicTimerEvent:
+    {
+      baroCyclicTimerEvent();
+    }
+    break;
+
+  case MsgBaro__CallFunc02_CyclicTimerStart:
+    {
+      /* Start cyclic measurements with that period in ms */
+      baroCyclicTimerStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgBaro__CallFunc03_CyclicTimerStop:
+    {
+      /* Stop cyclic measurements */
+      baroCyclicTimerStop();
+    }
+    break;
+
+  case MsgBaro__CallFunc04_DoMeasure:
     {
       /* Get the values */
       baroDoMeasure();
@@ -386,33 +405,13 @@ static void baroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       {
         uint32_t cmdBack[4];
 
-        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Baro, sizeof(cmdBack) - 4U, MsgBaro__CallFunc01_DoMeasure);
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Baro, sizeof(cmdBack) - 4U, MsgBaro__CallFunc04_DoMeasure);
         cmdBack[1] = s_baro_temp_100;
         cmdBack[2] = s_baro_p_100;
         cmdBack[3] = s_baro_qnh_p_h_100;
 
         controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
       }
-    }
-    break;
-
-  case MsgBaro__CallFunc02_CyclicTimerEvent:
-    {
-      baroCyclicTimerEvent();
-    }
-    break;
-
-  case MsgBaro__CallFunc03_CyclicTimerStart:
-    {
-      /* Start cyclic measurements with that period in ms */
-      baroCyclicTimerStart(msgAry[msgIdx++]);
-    }
-    break;
-
-  case MsgBaro__CallFunc04_CyclicTimerStop:
-    {
-      /* Stop cyclic measurements */
-      baroCyclicTimerStop();
     }
     break;
 

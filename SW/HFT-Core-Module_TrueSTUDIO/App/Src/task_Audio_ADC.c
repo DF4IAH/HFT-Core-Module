@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -15,7 +15,6 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "usb.h"
 #include "bus_spi.h"
 #include "task_Controller.h"
 
@@ -115,7 +114,7 @@ void audioAdcTimerCallback(void const *argument)
 
   /* Write cyclic timer message to this destination */
   uint8_t msgLen    = 0U;
-  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_ADC, Destinations__Audio_ADC, 0U, MsgAudioAdc__CallFunc02_CyclicTimerEvent);
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_ADC, Destinations__Audio_ADC, 0U, MsgAudioAdc__CallFunc01_CyclicTimerEvent);
   controllerMsgPushToOutQueue(msgLen, msgAry, 1UL);
 }
 
@@ -195,7 +194,7 @@ static void audioAdcMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       {
         uint32_t cmdBack[3];
 
-        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Audio_ADC, sizeof(cmdBack) - 4U, MsgAudioAdc__CallFunc01_DoMeasure);
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Audio_ADC, sizeof(cmdBack) - 4U, MsgAudioAdc__CallFunc04_DoMeasure);
         cmdBack[1] = s_audioAdcValue_L;
         cmdBack[2] = s_audioAdcValue_R;
 
@@ -204,7 +203,27 @@ static void audioAdcMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgAudioAdc__CallFunc01_DoMeasure:
+  case MsgAudioAdc__CallFunc01_CyclicTimerEvent:
+    {
+      audioAdcCyclicTimerEvent();
+    }
+    break;
+
+  case MsgAudioAdc__CallFunc02_CyclicTimerStart:
+    {
+      /* Start cyclic measurements with that period in ms */
+      audioAdcCyclicTimerStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgAudioAdc__CallFunc03_CyclicTimerStop:
+    {
+      /* Stop cyclic measurements */
+      audioAdcCyclicTimerStop();
+    }
+    break;
+
+  case MsgAudioAdc__CallFunc04_DoMeasure:
     {
       /* Get the values */
       audioAdcDoMeasure();
@@ -213,32 +232,12 @@ static void audioAdcMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       {
         uint32_t cmdBack[3];
 
-        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Audio_ADC, sizeof(cmdBack) - 4U, MsgAudioAdc__CallFunc01_DoMeasure);
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Audio_ADC, sizeof(cmdBack) - 4U, MsgAudioAdc__CallFunc04_DoMeasure);
         cmdBack[1] = s_audioAdcValue_L;
         cmdBack[2] = s_audioAdcValue_R;
 
         controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
       }
-    }
-    break;
-
-  case MsgAudioAdc__CallFunc02_CyclicTimerEvent:
-    {
-      audioAdcCyclicTimerEvent();
-    }
-    break;
-
-  case MsgAudioAdc__CallFunc03_CyclicTimerStart:
-    {
-      /* Start cyclic measurements with that period in ms */
-      audioAdcCyclicTimerStart(msgAry[msgIdx++]);
-    }
-    break;
-
-  case MsgAudioAdc__CallFunc04_CyclicTimerStop:
-    {
-      /* Stop cyclic measurements */
-      audioAdcCyclicTimerStop();
     }
     break;
 

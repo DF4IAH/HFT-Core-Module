@@ -8,13 +8,12 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
-
+#include <task_USB.h>
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "stm32l496xx.h"
 
 //#include "stm32l4xx_hal_gpio.h"
-#include "usb.h"
 #include "bus_spi.h"
 #include "task_TCXO_20MHz.h"
 #include "task_Si5338.h"
@@ -46,7 +45,9 @@ extern osSemaphoreId        c2Sx1276_BSemHandle;
 extern osSemaphoreId        c2Tcxo_BSemHandle;
 extern osSemaphoreId        cQin_BSemHandle;
 extern osSemaphoreId        cQout_BSemHandle;
-extern osSemaphoreId        usbToHost_BSemHandle;
+extern osSemaphoreId        c2usbToHost_BSemHandle;
+extern osSemaphoreId        c2usbFromHost_BSemHandle;
+extern osSemaphoreId        usb_BSemHandle;
 
 extern EventGroupHandle_t   globalEventGroupHandle;
 
@@ -118,6 +119,14 @@ void controllerMsgPushToOutQueue(uint8_t msgLen, uint32_t* msgAry, uint32_t wait
   switch ((ControllerMsgDestinations_t) (msgAry[0] >> 24)) {
   case Destinations__Main_Default:
     semId = c2Default_BSemHandle;
+    break;
+
+  case Destinations__Network_USBtoHost:
+    semId = c2usbToHost_BSemHandle;
+    break;
+
+  case Destinations__Network_USBfromHost:
+    semId = c2usbFromHost_BSemHandle;
     break;
 
   case Destinations__Osc_TCXO:
@@ -302,7 +311,7 @@ void controllerTimerCallback(void const *argument)
 
   /* Write cyclic timer message to this destination */
   uint8_t msgLen    = 0U;
-  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Controller, Destinations__Controller, 0U, MsgController__CallFunc02_CyclicTimerEvent);
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Controller, Destinations__Controller, 0U, MsgController__CallFunc01_CyclicTimerEvent);
   controllerMsgPushToInQueue(msgLen, msgAry, 1UL);
 }
 
@@ -339,15 +348,23 @@ static void controllerMsgProcessor(void)
       {
         switch (s_msg_in.msgSrc) {
         case Destinations__Main_Default:
-          s_mod_rdy.rtos_Default  = 1U;
+          s_mod_rdy.rtos_Default = 1U;
+          break;
+
+        case Destinations__Network_USBtoHost:
+          s_mod_rdy.network_USBtoHost = 1U;
+          break;
+
+        case Destinations__Network_USBfromHost:
+          s_mod_rdy.network_USBfromHost = 1U;
           break;
 
         case Destinations__Osc_TCXO:
-          s_mod_rdy.osc_TCXO      = 1U;
+          s_mod_rdy.osc_TCXO = 1U;
           break;
 
         case Destinations__Osc_Si5338:
-          s_mod_rdy.osc_Si5338    = 1U;
+          s_mod_rdy.osc_Si5338 = 1U;
 
           /* Switch Si5338 to the desired mode */
           {
@@ -368,7 +385,7 @@ static void controllerMsgProcessor(void)
             /* Execute */
             {
               uint8_t msgLen = 0U;
-              msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Osc_Si5338, Destinations__Controller, 0U, MsgSi5338__CallFunc01_Execute);
+              msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Osc_Si5338, Destinations__Controller, 0U, MsgSi5338__CallFunc04_Execute);
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
           }
@@ -384,7 +401,7 @@ static void controllerMsgProcessor(void)
             uint8_t   msgLen                        = 0U;
             uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
 
-            msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Controller, 1U + strLen, MsgLcd__CallFunc02_WriteString);
+            msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Controller, 1U + strLen, MsgLcd__CallFunc05_WriteString);
             uint32_t word = 0x00U << 24U;                                                             // Display @ Row=0, Col=0
             uint8_t wordPos = 2;
 
@@ -421,7 +438,7 @@ static void controllerMsgProcessor(void)
             /* Start cyclic measurements */
             {
               uint8_t msgLen    = 0U;
-              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Baro, Destinations__Controller, 4U, MsgBaro__CallFunc03_CyclicTimerStart);
+              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Baro, Destinations__Controller, 4U, MsgBaro__CallFunc02_CyclicTimerStart);
               msgAry[msgLen++]  = 1000UL;                                                             // Period in ms
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
@@ -437,7 +454,7 @@ static void controllerMsgProcessor(void)
             /* Start cyclic measurements */
             {
               uint8_t msgLen    = 0U;
-              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Hygro, Destinations__Controller, 4U, MsgHygro__CallFunc03_CyclicTimerStart);
+              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Hygro, Destinations__Controller, 4U, MsgHygro__CallFunc02_CyclicTimerStart);
               msgAry[msgLen++]  = 1000UL;                                                             // Period in ms
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
@@ -457,7 +474,7 @@ static void controllerMsgProcessor(void)
             /* Start cyclic measurements */
             {
               uint8_t msgLen    = 0U;
-              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_ADC, Destinations__Controller, 4U, MsgAudioAdc__CallFunc03_CyclicTimerStart);
+              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_ADC, Destinations__Controller, 4U, MsgAudioAdc__CallFunc02_CyclicTimerStart);
               msgAry[msgLen++]  = 1000UL;                                                               // Period in ms
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
@@ -473,7 +490,7 @@ static void controllerMsgProcessor(void)
             /* Start cyclic measurements */
             {
               uint8_t msgLen    = 0U;
-              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_DAC, Destinations__Controller, 4U, MsgAudioDac__CallFunc03_CyclicTimerStart);
+              msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_DAC, Destinations__Controller, 4U, MsgAudioDac__CallFunc02_CyclicTimerStart);
               msgAry[msgLen++]  = 1000UL;                                                               // Period in ms
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
@@ -495,7 +512,7 @@ static void controllerMsgProcessor(void)
     break;
 
     /* Process own command */
-    case MsgController__CallFunc02_CyclicTimerEvent:
+    case MsgController__CallFunc01_CyclicTimerEvent:
     {
       controllerCyclicTimerEvent();
     }
@@ -517,17 +534,19 @@ static void controllerInit(void)
 
   /* Prepare all semaphores */
   {
-    osSemaphoreWait(c2Default_BSemHandle,   osWaitForever);
-    osSemaphoreWait(c2Tcxo_BSemHandle,      osWaitForever);
-    osSemaphoreWait(c2Si5338_BSemHandle,    osWaitForever);
-    osSemaphoreWait(c2Lcd_BSemHandle,       osWaitForever);
-    osSemaphoreWait(c2Baro_BSemHandle,      osWaitForever);
-    osSemaphoreWait(c2Hygro_BSemHandle,     osWaitForever);
-    osSemaphoreWait(c2Gyro_BSemHandle,      osWaitForever);
-    osSemaphoreWait(c2AudioAdc_BSemHandle,  osWaitForever);
-    osSemaphoreWait(c2AudioDac_BSemHandle,  osWaitForever);
-    osSemaphoreWait(c2Ax5243_BSemHandle,    osWaitForever);
-    osSemaphoreWait(c2Sx1276_BSemHandle,    osWaitForever);
+    osSemaphoreWait(c2Default_BSemHandle,     osWaitForever);
+    osSemaphoreWait(c2AudioAdc_BSemHandle,    osWaitForever);
+    osSemaphoreWait(c2AudioDac_BSemHandle,    osWaitForever);
+    osSemaphoreWait(c2Ax5243_BSemHandle,      osWaitForever);
+    osSemaphoreWait(c2Baro_BSemHandle,        osWaitForever);
+    osSemaphoreWait(c2Gyro_BSemHandle,        osWaitForever);
+    osSemaphoreWait(c2Hygro_BSemHandle,       osWaitForever);
+    osSemaphoreWait(c2Lcd_BSemHandle,         osWaitForever);
+    osSemaphoreWait(c2Si5338_BSemHandle,      osWaitForever);
+    osSemaphoreWait(c2Sx1276_BSemHandle,      osWaitForever);
+    osSemaphoreWait(c2Tcxo_BSemHandle,        osWaitForever);
+    osSemaphoreWait(c2usbToHost_BSemHandle,   osWaitForever);
+    osSemaphoreWait(c2usbFromHost_BSemHandle, osWaitForever);
   }
 
   /* Read FLASH data */
@@ -543,6 +562,8 @@ static void controllerInit(void)
     s_controller_doCycle                                      = 0U;
 
     s_mod_start.rtos_Default                                  = 1U;
+    s_mod_start.network_USBtoHost                             = 1U;
+    s_mod_start.network_USBfromHost                           = 1U;
     s_mod_start.osc_TCXO                                      = 0U;
     s_mod_start.osc_Si5338                                    = 0U;
     s_mod_start.actor_LCD                                     = 1U;
@@ -568,6 +589,22 @@ static void controllerInit(void)
       const uint32_t msgLen = controllerCalcMsgInit(msgAry,
           Destinations__Main_Default,
           0UL);
+      controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+    }
+
+    /* network_USBtoHost */
+    if (s_mod_start.network_USBtoHost) {
+      const uint32_t msgLen = controllerCalcMsgInit(msgAry,
+          Destinations__Network_USBtoHost,
+          50UL);
+      controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+    }
+
+    /* network_USBfromHost */
+    if (s_mod_start.network_USBfromHost) {
+      const uint32_t msgLen = controllerCalcMsgInit(msgAry,
+          Destinations__Network_USBfromHost,
+          75UL);
       controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
     }
 

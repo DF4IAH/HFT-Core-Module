@@ -44,14 +44,16 @@ typedef enum baroMsgBaroCmds_ENUM {
   MsgBaro__InitDo                                             = 0x01U,
   MsgBaro__InitDone,
 
-  MsgBaro__SetVar01_x                                         = 0x41U,
+  MsgBaro__DeInitDo                                           = 0x05U,
 
-  MsgBaro__GetVar01_y                                         = 0x81U,
+//MsgBaro__SetVar01_x                                         = 0x41U,
 
-  MsgBaro__CallFunc01_DoMeasure                               = 0xc1U,
-  MsgBaro__CallFunc02_CyclicTimerEvent,
-  MsgBaro__CallFunc03_CyclicTimerStart,
-  MsgBaro__CallFunc04_CyclicTimerStop,
+//MsgBaro__GetVar01_y                                         = 0x81U,
+
+  MsgBaro__CallFunc01_CyclicTimerEvent                        = 0xc1U,
+  MsgBaro__CallFunc02_CyclicTimerStart,
+  MsgBaro__CallFunc03_CyclicTimerStop,
+  MsgBaro__CallFunc04_DoMeasure,
 
 } baroMsgBaroCmds_t;
 

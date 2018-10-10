@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -15,7 +15,6 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "usb.h"
 #include "bus_i2c.h"
 #include "task_Controller.h"
 
@@ -96,7 +95,7 @@ void gyroTimerCallback(void const *argument)
 
   /* Write cyclic timer message to this destination */
   uint8_t msgLen    = 0U;
-  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Gyro, Destinations__Sensor_Gyro, 0U, MsgGyro__CallFunc02_CyclicTimerEvent);
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Gyro, Destinations__Sensor_Gyro, 0U, MsgGyro__CallFunc01_CyclicTimerEvent);
   controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
 }
 
@@ -378,7 +377,27 @@ static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgGyro__CallFunc01_DoMeasure:
+  case MsgGyro__CallFunc01_CyclicTimerEvent:
+    {
+      gyroCyclicTimerEvent();
+    }
+    break;
+
+  case MsgGyro__CallFunc02_CyclicTimerStart:
+    {
+      /* Start cyclic measurements with that period in ms */
+      gyroCyclicStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgGyro__CallFunc03_CyclicTimerStop:
+    {
+      /* Stop cyclic measurements */
+      gyroCyclicStop();
+    }
+    break;
+
+  case MsgGyro__CallFunc04_DoMeasure:
     {
       /* Get the values */
       gyroDoMeasure();
@@ -387,7 +406,7 @@ static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       {
         uint32_t cmdBack[4];
 
-        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Gyro, sizeof(cmdBack) - 4U, MsgGyro__CallFunc01_DoMeasure);
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Gyro, sizeof(cmdBack) - 4U, MsgGyro__CallFunc04_DoMeasure);
         cmdBack[1] = s_gyro2AsaX;
         cmdBack[2] = s_gyro2AsaY;
         cmdBack[3] = s_gyro2AsaZ;
@@ -396,27 +415,6 @@ static void gyroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       }
     }
     break;
-
-  case MsgGyro__CallFunc02_CyclicTimerEvent:
-    {
-      gyroCyclicTimerEvent();
-    }
-    break;
-
-  case MsgGyro__CallFunc03_CyclicTimerStart:
-    {
-      /* Start cyclic measurements with that period in ms */
-      gyroCyclicStart(msgAry[msgIdx++]);
-    }
-    break;
-
-  case MsgGyro__CallFunc04_CyclicTimerStop:
-    {
-      /* Stop cyclic measurements */
-      gyroCyclicStop();
-    }
-    break;
-
 
   default: { }
   }  // switch (cmd)

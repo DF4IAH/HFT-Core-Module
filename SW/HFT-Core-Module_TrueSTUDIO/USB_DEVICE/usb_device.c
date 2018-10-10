@@ -61,7 +61,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-static uint8_t              s_usb_enable                      = 0U;
+static uint8_t              s_usbdevice_UseCtr                = 0U;
 
 /* USER CODE END PV */
 
@@ -91,9 +91,7 @@ USBD_HandleTypeDef hUsbDeviceFS;
 /* Copy of MX_USB_DEVICE_Init() */
 void HFTcore_USB_DEVICE_Init(void)
 {
-  if (!s_usb_enable) {
-    s_usb_enable = 1U;
-
+  if (!s_usbdevice_UseCtr++) {
     /* Init Device Library, add supported class and start the library. */
     USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
     USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC);
@@ -110,13 +108,15 @@ void HFTcore_USB_DEVICE_Init(void)
 
 void HFTcore_USB_DEVICE_DeInit(void)
 {
-  if (s_usb_enable) {
+  if (!--s_usbdevice_UseCtr) {
     if (USBD_LL_BatteryCharging(&hUsbDeviceFS) != USBD_OK) {
       USBD_Stop(&hUsbDeviceFS);
     }
     USBD_DeInit(&hUsbDeviceFS);
 
-    s_usb_enable = 0U;
+  } else if (s_usbdevice_UseCtr == 255U) {
+    /* Underflow */
+    s_usbdevice_UseCtr = 0U;
   }
 }
 
