@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -16,8 +16,6 @@
 #include "FreeRTOS.h"
 
 #include "i2c.h"
-#include "usb.h"
-
 #include "bus_i2c.h"
 
 
@@ -31,7 +29,7 @@ extern I2C_HandleTypeDef    hi2c2;
 extern I2C_HandleTypeDef    hi2c3;
 extern I2C_HandleTypeDef    hi2c4;
 
-static uint8_t              s_i2cx_enable[4]                  = { 0U };
+static uint8_t              s_i2cx_UseCtr[4]                  = { 0U };
 
 volatile uint8_t            i2c4TxBuffer[I2C_TXBUFSIZE];
 volatile uint8_t            i2c4RxBuffer[I2C_RXBUFSIZE];
@@ -283,7 +281,7 @@ void i2cx_Init(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle)
 
   osSemaphoreWait(semaphoreHandle, osWaitForever);
 
-  if (!s_i2cx_enable[devIdx]++) {
+  if (!s_i2cx_UseCtr[devIdx]++) {
     switch (devIdx) {
     case 0:
       __HAL_RCC_GPIOG_CLK_ENABLE();                                                                   // I2C1: SCL, SDA
@@ -324,12 +322,12 @@ void i2cx_DeInit(I2C_HandleTypeDef* dev, osSemaphoreId semaphoreHandle)
 
   osSemaphoreWait(semaphoreHandle, osWaitForever);
 
-  if (--s_i2cx_enable[devIdx]) {
+  if (!--s_i2cx_UseCtr[devIdx]) {
     HAL_I2C_MspDeInit(dev);
 
-  } else if (s_i2cx_enable[devIdx] == 255U) {
+  } else if (s_i2cx_UseCtr[devIdx] == 255U) {
     /* Underflow */
-    s_i2cx_enable[devIdx] = 0U;
+    s_i2cx_UseCtr[devIdx] = 0U;
   }
 
   osSemaphoreRelease(semaphoreHandle);

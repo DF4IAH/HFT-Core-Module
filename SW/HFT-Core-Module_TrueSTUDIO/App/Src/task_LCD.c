@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -15,7 +15,6 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "usb.h"
 #include "bus_i2c.h"
 #include "task_Controller.h"
 
@@ -166,13 +165,13 @@ static void lcdMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgLcd__CallFunc01_ClearDisplay:
+  case MsgLcd__CallFunc04_ClearDisplay:
     {
       lcdClearDisplay();
     }
     break;
 
-  case MsgLcd__CallFunc02_WriteString:
+  case MsgLcd__CallFunc05_WriteString:
     {
       const uint8_t byteCnt = 0xffU & (hdr >> 8U);
       const uint8_t pos = 0xffU & (msgAry[msgIdx] >> 24U);

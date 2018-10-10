@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -15,7 +15,6 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "usb.h"
 #include "bus_i2c.h"
 #include "task_Controller.h"
 
@@ -188,7 +187,7 @@ static void hygroDistributor(void)
     const uint8_t strLen = sprintf(strBuf, " %02u.%01u%%",
         (s_hygro_RH_100 / 100), (s_hygro_RH_100 % 100) / 10);
 
-    msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Hygro, 1U + strLen, MsgLcd__CallFunc02_WriteString);
+    msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Sensor_Hygro, 1U + strLen, MsgLcd__CallFunc05_WriteString);
 
     for (uint8_t strIdx = 0U; strIdx < strLen; ++strIdx) {
       word |= (0xffU & strBuf[strIdx]) << (wordPos << 3U);
@@ -241,7 +240,7 @@ void hygroTimerCallback(void const *argument)
 
   /* Write cyclic timer message to this destination */
   uint8_t msgLen    = 0U;
-  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Hygro, Destinations__Sensor_Hygro, 0U, MsgHygro__CallFunc02_CyclicTimerEvent);
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Sensor_Hygro, Destinations__Sensor_Hygro, 0U, MsgHygro__CallFunc01_CyclicTimerEvent);
   controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
 }
 
@@ -350,7 +349,27 @@ static void hygroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgHygro__CallFunc01_DoMeasure:
+  case MsgHygro__CallFunc01_CyclicTimerEvent:
+    {
+      hygroCyclicTimerEvent();
+    }
+    break;
+
+  case MsgHygro__CallFunc02_CyclicTimerStart:
+    {
+      /* Start cyclic measurements with that period in ms */
+      hygroCyclicStart(msgAry[msgIdx++]);
+    }
+    break;
+
+  case MsgHygro__CallFunc03_CyclicTimerStop:
+    {
+      /* Stop cyclic measurements */
+      hygroCyclicStop();
+    }
+    break;
+
+  case MsgHygro__CallFunc04_DoMeasure:
     {
       /* Get the values */
       hygroDoMeasure();
@@ -359,33 +378,13 @@ static void hygroMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
       {
         uint32_t cmdBack[4];
 
-        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Hygro, sizeof(cmdBack) - 4U, MsgHygro__CallFunc01_DoMeasure);
+        cmdBack[0] = controllerCalcMsgHdr(Destinations__Controller, Destinations__Sensor_Hygro, sizeof(cmdBack) - 4U, MsgHygro__CallFunc04_DoMeasure);
         cmdBack[1] = s_hygro_T_100;
         cmdBack[2] = s_hygro_RH_100;
         cmdBack[3] = s_hygro_DP_100;
 
         controllerMsgPushToInQueue(sizeof(cmdBack) / sizeof(int32_t), cmdBack, osWaitForever);
       }
-    }
-    break;
-
-  case MsgHygro__CallFunc02_CyclicTimerEvent:
-    {
-      hygroCyclicTimerEvent();
-    }
-    break;
-
-  case MsgHygro__CallFunc03_CyclicTimerStart:
-    {
-      /* Start cyclic measurements with that period in ms */
-      hygroCyclicStart(msgAry[msgIdx++]);
-    }
-    break;
-
-  case MsgHygro__CallFunc04_CyclicTimerStop:
-    {
-      /* Stop cyclic measurements */
-      hygroCyclicStop();
     }
     break;
 

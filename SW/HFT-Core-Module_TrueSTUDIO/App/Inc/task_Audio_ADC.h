@@ -23,14 +23,16 @@ typedef enum audioAdcMsgAudioAdcCmds_ENUM {
   MsgAudioAdc__InitDo                                         = 0x01U,
   MsgAudioAdc__InitDone,
 
+  MsgAudioAdc__DeInitDo                                       = 0x05U,
+
 //MsgAudioAdc__SetVar01_x                                     = 0x41U,
 
   MsgAudioAdc__GetVar01_L_and_R                               = 0x81U,
 
-  MsgAudioAdc__CallFunc01_DoMeasure                           = 0xc1U,
-  MsgAudioAdc__CallFunc02_CyclicTimerEvent,
-  MsgAudioAdc__CallFunc03_CyclicTimerStart,
-  MsgAudioAdc__CallFunc04_CyclicTimerStop,
+  MsgAudioAdc__CallFunc01_CyclicTimerEvent                    = 0xc1U,
+  MsgAudioAdc__CallFunc02_CyclicTimerStart,
+  MsgAudioAdc__CallFunc03_CyclicTimerStop,
+  MsgAudioAdc__CallFunc04_DoMeasure,
 
 } audioAdcMsgAudioAdcCmds_t;
 

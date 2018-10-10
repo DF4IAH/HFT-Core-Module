@@ -89,14 +89,16 @@ typedef enum hygroMsgHygroCmds_ENUM {
   MsgHygro__InitDo                                            = 0x01U,
   MsgHygro__InitDone,
 
-  MsgHygro__SetVar01_x                                        = 0x41U,
+  MsgHygro__DeInitDo                                          = 0x05U,
 
-  MsgHygro__GetVar01_y                                        = 0x81U,
+//MsgHygro__SetVar01_x                                        = 0x41U,
 
-  MsgHygro__CallFunc01_DoMeasure                              = 0xc1U,
-  MsgHygro__CallFunc02_CyclicTimerEvent,
-  MsgHygro__CallFunc03_CyclicTimerStart,
-  MsgHygro__CallFunc04_CyclicTimerStop,
+//MsgHygro__GetVar01_y                                        = 0x81U,
+
+  MsgHygro__CallFunc01_CyclicTimerEvent                       = 0xc1U,
+  MsgHygro__CallFunc02_CyclicTimerStart,
+  MsgHygro__CallFunc03_CyclicTimerStop,
+  MsgHygro__CallFunc04_DoMeasure,
 
 } hygroMsgHygroCmds_t;
 

@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include <math.h>
-
+#include <task_USB.h>
 #include "stm32l4xx_hal.h"
 #include "stm32l4xx_hal_i2c.h"
 #include "stm32l4xx_it.h"
@@ -15,7 +15,6 @@
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 
-#include "usb.h"
 #include "bus_spi.h"
 #include "task_Controller.h"
 
@@ -114,7 +113,7 @@ void audioDacTimerCallback(void const *argument)
 
   /* Write cyclic timer message to this destination */
   uint8_t msgLen    = 0U;
-  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_DAC, Destinations__Audio_DAC, 0U, MsgAudioDac__CallFunc02_CyclicTimerEvent);
+  msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Audio_DAC, Destinations__Audio_DAC, 0U, MsgAudioDac__CallFunc01_CyclicTimerEvent);
   controllerMsgPushToOutQueue(msgLen, msgAry, 1UL);
 }
 
@@ -189,30 +188,30 @@ static void audioDacMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
-  case MsgAudioDac__CallFunc01_DoExport:
-    {
-      /* Get the values */
-      audioDacExport();
-    }
-    break;
-
-  case MsgAudioDac__CallFunc02_CyclicTimerEvent:
+  case MsgAudioDac__CallFunc01_CyclicTimerEvent:
     {
       audioDacCyclicTimerEvent();
     }
     break;
 
-  case MsgAudioDac__CallFunc03_CyclicTimerStart:
+  case MsgAudioDac__CallFunc02_CyclicTimerStart:
     {
       /* Start cyclic measurements with that period in ms */
       audioDacCyclicTimerStart(msgAry[msgIdx++]);
     }
     break;
 
-  case MsgAudioDac__CallFunc04_CyclicTimerStop:
+  case MsgAudioDac__CallFunc03_CyclicTimerStop:
     {
       /* Stop cyclic measurements */
       audioDacCyclicTimerStop();
+    }
+    break;
+
+  case MsgAudioDac__CallFunc04_DoExport:
+    {
+      /* Get the values */
+      audioDacExport();
     }
     break;
 

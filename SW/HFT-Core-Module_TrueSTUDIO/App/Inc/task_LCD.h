@@ -41,12 +41,14 @@ typedef enum LcdMsgLcdCmds_ENUM {
   MsgLcd__InitDo                                              = 0x01U,
   MsgLcd__InitDone,
 
-  MsgLcd__SetVar01_x                                          = 0x41U,
+  MsgLcd__DeInitDo                                            = 0x05U,
 
-  MsgLcd__GetVar01_y                                          = 0x81U,
+//MsgLcd__SetVar01_x                                          = 0x41U,
 
-  MsgLcd__CallFunc01_ClearDisplay                             = 0xc1U,
-  MsgLcd__CallFunc02_WriteString,
+//MsgLcd__GetVar01_y                                          = 0x81U,
+
+  MsgLcd__CallFunc04_ClearDisplay                             = 0xc4U,
+  MsgLcd__CallFunc05_WriteString,
 
 } LcdMsgLcdCmds_t;
 

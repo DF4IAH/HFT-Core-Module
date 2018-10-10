@@ -37,11 +37,13 @@ typedef enum Si5338MsgSi5338Cmds_ENUM {
   MsgSi5338__InitDo                                           = 0x01U,
   MsgSi5338__InitDone,
 
+  MsgSi5338__DeInitDo                                         = 0x05U,
+
   MsgSi5338__SetVar01_Variant                                 = 0x41U,
 
-  MsgSi5338__GetVar01_y                                       = 0x81U,
+//MsgSi5338__GetVar01_y                                       = 0x81U,
 
-  MsgSi5338__CallFunc01_Execute                               = 0xc1U,
+  MsgSi5338__CallFunc04_Execute                               = 0xc4U,
 
 } Si5338MsgSi5338Cmds_t;
 

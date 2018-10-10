@@ -57,9 +57,9 @@
 #include "usb_device.h"
 
 // App
-#include "usb.h"
 #include "device_adc.h"
 #include "task_Controller.h"
+#include "task_USB.h"
 #include "task_TCXO_20MHz.h"
 #include "task_Si5338.h"
 #include "task_LCD.h"
@@ -120,7 +120,9 @@ osSemaphoreId cQin_BSemHandle;
 osSemaphoreId cQout_BSemHandle;
 osSemaphoreId c2AudioAdc_BSemHandle;
 osSemaphoreId c2AudioDac_BSemHandle;
-osSemaphoreId usbToHost_BSemHandle;
+osSemaphoreId c2usbToHost_BSemHandle;
+osSemaphoreId c2usbFromHost_BSemHandle;
+osSemaphoreId usb_BSemHandle;
 
 /* USER CODE BEGIN Variables */
 EventGroupHandle_t                    adcEventGroupHandle;
@@ -394,9 +396,17 @@ void MX_FREERTOS_Init(void) {
   osSemaphoreDef(c2AudioDac_BSem);
   c2AudioDac_BSemHandle = osSemaphoreCreate(osSemaphore(c2AudioDac_BSem), 1);
 
-  /* definition and creation of usbToHost_BSem */
-  osSemaphoreDef(usbToHost_BSem);
-  usbToHost_BSemHandle = osSemaphoreCreate(osSemaphore(usbToHost_BSem), 1);
+  /* definition and creation of c2usbToHost_BSem */
+  osSemaphoreDef(c2usbToHost_BSem);
+  c2usbToHost_BSemHandle = osSemaphoreCreate(osSemaphore(c2usbToHost_BSem), 1);
+
+  /* definition and creation of c2usbFromHost_BSem */
+  osSemaphoreDef(c2usbFromHost_BSem);
+  c2usbFromHost_BSemHandle = osSemaphoreCreate(osSemaphore(c2usbFromHost_BSem), 1);
+
+  /* definition and creation of usb_BSem */
+  osSemaphoreDef(usb_BSem);
+  usb_BSemHandle = osSemaphoreCreate(osSemaphore(usb_BSem), 1);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -445,11 +455,11 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of usbToHostTask */
-  osThreadDef(usbToHostTask, StartUsbToHostTask, osPriorityHigh, 0, 128);
+  osThreadDef(usbToHostTask, StartUsbToHostTask, osPriorityNormal, 0, 128);
   usbToHostTaskHandle = osThreadCreate(osThread(usbToHostTask), NULL);
 
   /* definition and creation of usbFromHostTask */
-  osThreadDef(usbFromHostTask, StartUsbFromHostTask, osPriorityHigh, 0, 128);
+  osThreadDef(usbFromHostTask, StartUsbFromHostTask, osPriorityNormal, 0, 128);
   usbFromHostTaskHandle = osThreadCreate(osThread(usbFromHostTask), NULL);
 
   /* definition and creation of hygroTask */
@@ -545,7 +555,7 @@ void MX_FREERTOS_Init(void) {
   vQueueAddToRegistry(spi3_BSemHandle,          "Resc SPI2 BSem");
   vQueueAddToRegistry(cQin_BSemHandle,          "Resc cQin BSem");
   vQueueAddToRegistry(cQout_BSemHandle,         "Resc cQout BSem");
-  vQueueAddToRegistry(usbToHost_BSemHandle,     "Resc usb-2-host BSem");
+  vQueueAddToRegistry(usb_BSemHandle,           "Resc USB BSem");
 
   vQueueAddToRegistry(c2AudioAdc_BSemHandle,    "Wake c2AudioAdc BSem");
   vQueueAddToRegistry(c2AudioDac_BSemHandle,    "Wake c2AudioDac BSem");
@@ -558,6 +568,8 @@ void MX_FREERTOS_Init(void) {
   vQueueAddToRegistry(c2Si5338_BSemHandle,      "Wake c2Si5338 BSem");
   vQueueAddToRegistry(c2Sx1276_BSemHandle,      "Wake c2Sx1276 BSem");
   vQueueAddToRegistry(c2Tcxo_BSemHandle,        "Wake c2TCXO BSem");
+  vQueueAddToRegistry(c2usbFromHost_BSemHandle, "Wake c2usbFromHost BSem");
+  vQueueAddToRegistry(c2usbToHost_BSemHandle,   "Wake c2usbToHost BSem");
 
   /* USER CODE END RTOS_QUEUES */
 }

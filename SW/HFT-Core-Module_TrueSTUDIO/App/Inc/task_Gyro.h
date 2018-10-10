@@ -211,14 +211,16 @@ typedef enum gyroMsgGyroCmds_ENUM {
   MsgGyro__InitDo                                             = 0x01U,
   MsgGyro__InitDone,
 
-  MsgGyro__SetVar01_x                                         = 0x41U,
+  MsgGyro__DeInitDo                                           = 0x05U,
 
-  MsgGyro__GetVar01_y                                         = 0x81U,
+//MsgGyro__SetVar01_x                                         = 0x41U,
 
-  MsgGyro__CallFunc01_DoMeasure                               = 0xc1U,
-  MsgGyro__CallFunc02_CyclicTimerEvent,
-  MsgGyro__CallFunc03_CyclicTimerStart,
-  MsgGyro__CallFunc04_CyclicTimerStop,
+//MsgGyro__GetVar01_y                                         = 0x81U,
+
+  MsgGyro__CallFunc01_CyclicTimerEvent                        = 0xc1U,
+  MsgGyro__CallFunc02_CyclicTimerStart,
+  MsgGyro__CallFunc03_CyclicTimerStop,
+  MsgGyro__CallFunc04_DoMeasure
 
 } gyroMsgGyroCmds_t;
 
