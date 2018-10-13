@@ -253,6 +253,39 @@
  #define USE_FULL_ASSERT    1U 
 
 /* USER CODE BEGIN Private defines */
+#if !defined  (HSE_VALUE)
+  #define HSE_VALUE                                           (g_main_HSE_VALUE)                      // Value of the External oscillator in Hz
+#endif /* HSE_VALUE */
+
+#if !defined  (HSE_STARTUP_TIMEOUT)
+  #define HSE_STARTUP_TIMEOUT                                 (g_main_HSE_START_MS)                   // Time out for HSE start up, in ms
+#endif /* HSE_STARTUP_TIMEOUT */
+
+#if !defined  (MSI_VALUE)
+  #define MSI_VALUE                                           (g_main_MSI_VALUE)                      // Value of the Internal oscillator in Hz
+#endif /* MSI_VALUE */
+
+#if !defined  (HSI_VALUE)
+  #define HSI_VALUE                                           (g_main_HSI_VALUE)                      // Value of the Internal oscillator in Hz
+#endif /* HSI_VALUE */
+
+#if !defined  (HSI48_VALUE)
+  #define HSI48_VALUE                                         (g_main_HSI48_VALUE)                    // Value of the Internal High Speed oscillator for USB FS/SDMMC/RNG in Hz. The real value my vary depending on manufacturing process variations.
+#endif /* HSI48_VALUE */
+
+#if !defined  (LSI_VALUE)
+  #define LSI_VALUE                                           (g_main_LSI_VALUE)                      // LSI Typical Value in Hz
+#endif /* LSI_VALUE */
+
+#if !defined  (LSE_VALUE)
+  #define LSE_VALUE                                           (g_main_LSE_VALUE)                      // Value of the External oscillator in Hz
+#endif /* LSE_VALUE */
+
+#if !defined  (LSE_STARTUP_TIMEOUT)
+  #define LSE_STARTUP_TIMEOUT                                 (g_main_LSE_START_MS)                 // Time out for LSE start up, in ms
+#endif /* LSE_STARTUP_TIMEOUT */
+
+
 #ifndef PI
 # define PI                                                   3.14159265358979f
 #endif
@@ -266,7 +299,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20181010U
+#define HFTCOREMODULE_VERSION                                 20181013U
 
 
 typedef enum POWERSWITCH_ENUM {
@@ -274,8 +307,8 @@ typedef enum POWERSWITCH_ENUM {
   POWERSWITCH__USB_SW                                         = 1,
   POWERSWITCH__3V3_HICUR,
   POWERSWITCH__3V3_XO,
-  POWERSWITCH__1V2_DCDC,                                                                        // V1.0: not implemented
-  POWERSWITCH__1V2_SW,                                                                          // SMTP switch
+  POWERSWITCH__1V2_DCDC,                                                                              // V1.0: not implemented
+  POWERSWITCH__1V2_SW,                                                                                // SMTP switch
   POWERSWITCH__BAT_SW,
   POWERSWITCH__BAT_HICUR,
 
@@ -304,6 +337,15 @@ typedef enum MON_MASK {
 } MON_MASK_t;
 
 
+typedef enum SYSCLK_CONFIG_ENUM {
+
+  SYSCLK_CONFIG_04MHz_MSI                                     = 4000,
+  SYSCLK_CONFIG_24MHz_MSI                                     = 24000,
+  SYSCLK_CONFIG_80MHz_PLL                                     = 80000,
+
+} SYSCLK_CONFIG_t;
+
+
 
 uint32_t crcCalc(const uint32_t* ptr, uint32_t len);
 
@@ -313,6 +355,7 @@ void mainPowerSwitchDo(POWERSWITCH_ENUM_t sw, uint8_t enable);
 void SystemResetbyARMcore(void);
 
 void mainPowerSwitchInit(void);
+void HFT_SystemClock_Config(SYSCLK_CONFIG_t sel);
 
 /*
  * Power analysis:

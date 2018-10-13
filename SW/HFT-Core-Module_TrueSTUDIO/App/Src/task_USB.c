@@ -203,6 +203,7 @@ void usbStartUsbToHostTask(void const * argument)
   }
 }
 
+
 static void usbUsbToHostInit(void)
 {
   /* Activate USB communication */
@@ -217,6 +218,7 @@ static void usbUsbToHostDeInit(void)
   osThreadTerminate(s_usbUsbToHostTaskHandle);
   s_usbUsbToHostTaskHandle = 0;
 }
+
 
 static void usbUsbToHostMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 {
@@ -260,6 +262,7 @@ static void usbUsbToHostMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
   default: { }
   }  // switch (cmd)
 }
+
 
 void usbUsbToHostTaskInit(void)
 {
@@ -341,6 +344,7 @@ void usbStartUsbFromHostTask(void const * argument)
   }
 }
 
+
 static void usbUsbFromHostInit(void)
 {
   /* Activate USB communication */
@@ -355,6 +359,7 @@ static void usbUsbFromHostDeInit(void)
   osThreadTerminate(s_usbUsbFromHostTaskHandle);
   s_usbUsbFromHostTaskHandle = 0;
 }
+
 
 static void usbUsbFromHostMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
 {
@@ -398,6 +403,7 @@ static void usbUsbFromHostMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
   default: { }
   }  // switch (cmd)
 }
+
 
 void usbUsbFromHostTaskInit(void)
 {
