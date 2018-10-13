@@ -339,9 +339,12 @@ typedef enum MON_MASK {
 
 typedef enum SYSCLK_CONFIG_ENUM {
 
-  SYSCLK_CONFIG_04MHz_MSI                                     = 4000,
+  SYSCLK_CONFIG_01MHz_MSI_HSI                                 =  1000,
+  SYSCLK_CONFIG_04MHz_MSI                                     =  4000,
+  SYSCLK_CONFIG_08MHz_MSI                                     =  8000,
+  SYSCLK_CONFIG_16MHz_MSI                                     = 16000,
   SYSCLK_CONFIG_24MHz_MSI                                     = 24000,
-  SYSCLK_CONFIG_80MHz_PLL                                     = 80000,
+  SYSCLK_CONFIG_80MHz_HSI_PLL                                 = 80000,
 
 } SYSCLK_CONFIG_t;
 
@@ -356,6 +359,7 @@ void SystemResetbyARMcore(void);
 
 void mainPowerSwitchInit(void);
 void HFT_SystemClock_Config(SYSCLK_CONFIG_t sel);
+void HFT_RCC_MCO_Disable(void);
 
 /*
  * Power analysis:
