@@ -44,6 +44,17 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
+/* USER CODE BEGIN EXTERNALS */
+extern uint32_t                       g_main_HSE_VALUE;
+extern uint32_t                       g_main_HSE_START_MS;
+extern uint32_t                       g_main_MSI_VALUE;
+extern uint32_t                       g_main_HSI_VALUE;
+extern uint32_t                       g_main_HSI48_VALUE;
+extern uint32_t                       g_main_LSI_VALUE;
+extern uint32_t                       g_main_LSE_VALUE;
+extern uint32_t                       g_main_LSE_START_MS;
+/* USER CODE END EXTERNALS */
+
 /* ########################## Module Selection ############################## */
 /**
   * @brief This is the list of modules to be used in the HAL driver 

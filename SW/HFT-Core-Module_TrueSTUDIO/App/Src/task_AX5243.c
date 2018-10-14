@@ -33,6 +33,10 @@ extern EventGroupHandle_t   globalEventGroupHandle;
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
 
+extern SPI_HandleTypeDef    hspi3;
+extern DMA_HandleTypeDef    hdma_spi3_rx;
+extern DMA_HandleTypeDef    hdma_spi3_tx;
+
 extern uint8_t              spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
@@ -2203,6 +2207,14 @@ void spi_ax_initRegisters_FSK(void)
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
 
+  /* PINFUNCSYSCLK */
+  {
+    const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,
+        0x05U                                                                                         // WR address 0x21: PINFUNCSYSCLK - SYSCLK pin out with 8 MHz
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
   /* PINFUNCTCXO_EN */
   {
     const uint8_t txMsg[2] = { 0x26U | C_AX_REG_WR,
@@ -3135,6 +3147,14 @@ void spi_ax_initRegisters_PR1200(void)
   {
     const uint8_t txMsg[5] = { 0x14U | C_AX_REG_WR,                                                   // WR address 0x14: CRCINIT
         0xffU, 0xffU, 0xffU, 0xffU
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
+  /* PINFUNCSYSCLK */
+  {
+    const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,
+        0x05U                                                                                         // WR address 0x21: PINFUNCSYSCLK - SYSCLK pin out with 8 MHz
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -4806,8 +4826,8 @@ void spi_ax_initRegisters_POCSAG(void)
 
   /* PINFUNCSYSCLK */
   {
-    const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,                                                   // WR address 0x21: PINFUNCSYSCLK - Set to 'Z'
-        0x82U
+    const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,
+        0x05U                                                                                         // WR address 0x21: PINFUNCSYSCLK - SYSCLK pin out with 8 MHz
     };
     spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
   }
@@ -6582,6 +6602,14 @@ void spi_ax_initRegisters_AnlogFM(void)
 
 void spi_ax_initRegisters_AnlogFM_Tx(void)
 {
+  /* PINFUNCSYSCLK */
+  {
+    const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,
+        0x05U                                                                                         // WR address 0x21: PINFUNCSYSCLK - SYSCLK pin out with 8 MHz
+    };
+    spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+  }
+
   /* PINFUNCDATA */
   {
     const uint8_t txMsg[2] = { 0x23U | C_AX_REG_WR,                                                   // WR address 0x23: PINFUNCDATA - DATA Input/Output Modem Data: enables continuous TX operation, rather than powering up the PA only if there is committed FIFO data. This is similar to wire mode, except that no data is read from the pin in FM mode.
@@ -8206,6 +8234,9 @@ static void ax5243Init(void)
   usbLog(PM_SPI_INIT_AX5243_01);
   usbLog(PM_SPI_INIT_AX5243_02);
 
+  /* SPI3 init */
+  spix_Init(&hspi3, spi3_BSemHandle);
+
   if (HAL_OK == spiDetectAX5243()) {
     dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_AX5243_03, s_ax_version);
     usbLogLen(dbgBuf, min(dbgLen, sizeof(dbgBuf)));
@@ -8311,6 +8342,19 @@ static void ax5243Init(void)
     #endif
 
     s_ax5243_enable = 1U;
+
+    #if 0
+    /* Activate crystal */
+    spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_STANDBY);
+    #endif
+
+    /* PINFUNCSYSCLK */
+    {
+      const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,
+          0x05U                                                                                       // WR address 0x21: PINFUNCSYSCLK - SYSCLK pin out with 8 MHz
+      };
+      spiProcessSpi3MsgTemplate(SPI3_AX, sizeof(txMsg), txMsg);
+    }
 
   } else {
     usbLog(PM_SPI_INIT_AX5243_04);

@@ -796,6 +796,9 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     {
       if(RCC_OscInitStruct->PLL.PLLState == RCC_PLL_ON)
       {
+        uint8_t pllsai1on = 0U;
+        uint8_t pllsai2on = 0U;
+
         /* Check the parameters */
         assert_param(IS_RCC_PLLSOURCE(RCC_OscInitStruct->PLL.PLLSource));
         assert_param(IS_RCC_PLLM_VALUE(RCC_OscInitStruct->PLL.PLLM));
@@ -806,6 +809,14 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 
         /* Disable the main PLL. */
         __HAL_RCC_PLL_DISABLE();
+        if (READ_BIT(RCC->CR, RCC_CR_PLLSAI1ON)) {
+          CLEAR_BIT(RCC->CR, RCC_CR_PLLSAI1ON);
+          pllsai1on = 1U;
+        }
+        if (READ_BIT(RCC->CR, RCC_CR_PLLSAI2ON)) {
+          CLEAR_BIT(RCC->CR, RCC_CR_PLLSAI2ON);
+          pllsai2on = 1U;
+        }
 
         /* Get Start Tick*/
         tickstart = HAL_GetTick();
@@ -829,6 +840,12 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 
         /* Enable the main PLL. */
         __HAL_RCC_PLL_ENABLE();
+        if (pllsai1on) {
+          SET_BIT(RCC->CR, RCC_CR_PLLSAI1ON);
+        }
+        if (pllsai2on) {
+          SET_BIT(RCC->CR, RCC_CR_PLLSAI1ON);
+        }
 
         /* Enable PLL System Clock output. */
          __HAL_RCC_PLLCLKOUT_ENABLE(RCC_PLL_SYSCLK);

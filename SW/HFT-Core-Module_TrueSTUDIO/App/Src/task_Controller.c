@@ -389,6 +389,16 @@ static void controllerMsgProcessor(void)
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
           }
+
+        //#define USE_HSE_20MHZ
+          #ifdef USE_HSE_20MHZ
+          /* Activate MCU HSE clocking */
+          {
+            // TODO: use messaging instead
+            HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSE20_PLL);
+            HFT_RCC_MCO_Disable();
+          }
+          #endif
           break;
 
         case Destinations__Actor_LCD:

@@ -29,6 +29,10 @@ extern osSemaphoreId        spi3_BSemHandle;
 extern EventGroupHandle_t   spiEventGroupHandle;
 extern EventGroupHandle_t   globalEventGroupHandle;
 
+extern SPI_HandleTypeDef    hspi3;
+extern DMA_HandleTypeDef    hdma_spi3_rx;
+extern DMA_HandleTypeDef    hdma_spi3_tx;
+
 extern uint8_t              spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
@@ -129,9 +133,11 @@ static void audioAdcInit(void)
 {
   usbLog("< AudioAdcInit -\r\n");
 
+  /* SPI3 init */
+  spix_Init(&hspi3, spi3_BSemHandle);
+
   // TODO: coding
   /* Check if Si5338 is active first */
-
 
   #if 0
   /* Disable RESET of AUDIO_ADC */

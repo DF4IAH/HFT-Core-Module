@@ -7,13 +7,17 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include <bus_spi.h>
+#include "bus_spi.h"
+
 #include <string.h>
-#include <task_USB.h>
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "stm32l496xx.h"
 #include "stm32l4xx_hal_gpio.h"
+
+#include "spi.h"
+#include "task_USB.h"
+
 
 
 extern EventGroupHandle_t   extiEventGroupHandle;
@@ -25,6 +29,8 @@ extern EventGroupHandle_t   spiEventGroupHandle;
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
 
+
+static uint8_t              s_spix_UseCtr[2]                  = { 0 };
 
 /* Buffer used for transmission */
 #if 0
@@ -59,6 +65,11 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
   if (&hspi3 == hspi) {
     uint8_t spi3BusInUse = 0U;
 
+    /* Enable clocks of GPIOs */
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+
     if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(MCU_OUT_SX_SEL_GPIO_Port, MCU_OUT_SX_SEL_Pin)) {
       /* Deactivate the NSS/SEL pin */
       HAL_GPIO_WritePin(MCU_OUT_SX_SEL_GPIO_Port, MCU_OUT_SX_SEL_Pin, GPIO_PIN_SET);
@@ -90,6 +101,13 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
     } else {
       spi3BusInUse = 1U;
     }
+
+    #if 0
+    /* Disable clocks again */
+    __HAL_RCC_GPIOC_CLK_DISABLE();
+    __HAL_RCC_GPIOD_CLK_DISABLE();
+    __HAL_RCC_GPIOE_CLK_DISABLE();
+    #endif
 
     if (!spi3BusInUse) {
       xEventGroupSetBitsFromISR(spiEventGroupHandle, EG_SPI3__BUS_FREE, &taskWoken);
@@ -167,21 +185,33 @@ uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen, uint8_t waitC
   case SPI3_SX:
     GPIOx     = MCU_OUT_SX_SEL_GPIO_Port;
     GPIO_Pin  = MCU_OUT_SX_SEL_Pin;
+
+    /* Activate clock for this GPIO */
+    __HAL_RCC_GPIOE_CLK_ENABLE();
     break;
 
   case SPI3_AX:
     GPIOx     = MCU_OUT_AX_SEL_GPIO_Port;
     GPIO_Pin  = MCU_OUT_AX_SEL_Pin;
+
+    /* Activate clock for this GPIO */
+    __HAL_RCC_GPIOE_CLK_ENABLE();
     break;
 
   case SPI3_DAC:
     GPIOx     = MCU_OUT_AUDIO_DAC_SEL_GPIO_Port;
     GPIO_Pin  = MCU_OUT_AUDIO_DAC_SEL_Pin;
+
+    /* Activate clock for this GPIO */
+    __HAL_RCC_GPIOC_CLK_ENABLE();
     break;
 
   case SPI3_ADC:
     GPIOx     = MCU_OUT_AUDIO_ADC_SEL_GPIO_Port;
     GPIO_Pin  = MCU_OUT_AUDIO_ADC_SEL_Pin;
+
+    /* Activate clock for this GPIO */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
     break;
 
   default:
@@ -226,6 +256,13 @@ uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen, uint8_t waitC
     status = spiProcessSpiReturnWait();
   }
 
+  #if 0
+  /* Disable GPIO clocks again */
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  #endif
+
   return status;
 }
 
@@ -251,4 +288,63 @@ uint8_t spiProcessSpi3MsgTemplate(SPI3_CHIPS_t chip, uint16_t templateLen, const
   osSemaphoreRelease(spi3_BSemHandle);
 
   return ret;
+}
+
+
+static uint8_t spix_getDevIdx(SPI_HandleTypeDef* dev)
+{
+  if (&hspi1 == dev) {
+    return 0U;
+
+  } else if (&hspi3 == dev) {
+    return 1U;
+  }
+
+  Error_Handler();
+  return 0U;
+}
+
+
+void spix_Init(SPI_HandleTypeDef* dev, osSemaphoreId semaphoreHandle)
+{
+  const uint8_t devIdx = spix_getDevIdx(dev);
+
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
+
+  if (!s_spix_UseCtr[devIdx]++) {
+    switch (devIdx) {
+    case 0:
+    //__HAL_RCC_GPIOx_CLK_ENABLE();                                                                   // SPI1: MCU_SPI1_SCK
+      MX_SPI1_Init();
+      break;
+
+    case 1:
+      __HAL_RCC_GPIOC_CLK_ENABLE();                                                                   // SPI3: MCU_SPI3_SCK, MCU_SPI3_MISO, MCU_SPI3_MOSI, MCU_OUT_AUDIO_DAC_SEL
+      __HAL_RCC_GPIOD_CLK_ENABLE();                                                                   // SPI3: MCU_OUT_AUDIO_ADC_SEL
+      __HAL_RCC_GPIOE_CLK_ENABLE();                                                                   // SPI3: MCU_OUT_AX_SEL, MCU_OUT_SX_SEL
+      MX_SPI3_Init();
+      break;
+
+    default: { }
+    }
+  }
+
+  osSemaphoreRelease(semaphoreHandle);
+}
+
+void spix_DeInit(SPI_HandleTypeDef* dev, osSemaphoreId semaphoreHandle)
+{
+  const uint8_t devIdx = spix_getDevIdx(dev);
+
+  osSemaphoreWait(semaphoreHandle, osWaitForever);
+
+  if (!--s_spix_UseCtr[devIdx]) {
+    HAL_SPI_MspDeInit(dev);
+
+  } else if (s_spix_UseCtr[devIdx] == 255U) {
+    /* Underflow */
+    s_spix_UseCtr[devIdx] = 0U;
+  }
+
+  osSemaphoreRelease(semaphoreHandle);
 }
