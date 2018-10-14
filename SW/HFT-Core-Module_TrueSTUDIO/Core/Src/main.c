@@ -1165,7 +1165,7 @@ void HFT_SystemClock_Config(SYSCLK_CONFIG_t sel)
         _Error_Handler(__FILE__, __LINE__);
       }
 
-      HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
+      HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_MSI, RCC_MCODIV_2);
 
       /**Configure the main internal regulator output voltage
       */

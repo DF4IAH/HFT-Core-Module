@@ -34,7 +34,7 @@ extern osMessageQId         loraMacQueueHandle;
 //extern osMessageQId         loraOutQueueHandle;
 //extern osMutexId            trackMeApplUpDataMutexHandle;
 //extern osMutexId            trackMeApplDnDataMutexHandle;
-extern osMutexId            spi3MutexHandle;
+extern osSemaphoreId        spi3_BSemHandle;
 //extern EventGroupHandle_t   spiEventGroupHandle;
 //extern EventGroupHandle_t   loraEventGroupHandle;
 //extern EventGroupHandle_t   controllerEventGroupHandle;
@@ -704,7 +704,7 @@ static void LoRaWAN_QueueIn_Process(void)
           /* Prepare data to upload */
           {
             /* Wait for semaphore to access LoRaWAN LoraliveApp */
-            osSemaphoreWait(loraliveApplUpDataBinarySemHandle, 0);
+            osSemaphoreWait(loraliveApplUpDataBinarySemHandle, 0UL);
 
             /* Marshal data for upload */
             loRaWanTxMsg.msg_prep_FRMPayload_Len = LoRaWAN_marshalling_PayloadCompress_LoraliveAppUp(&(loRaWanTxMsg.msg_prep_FRMPayload_Buf), &loraliveApp_up);
@@ -1873,7 +1873,7 @@ static void LoRaWAN_TX_msg(LoRaWANctx_t* ctx, LoRaWAN_TX_Message_t* msg)
   /* Push the message to the FIFO */
   {
     /* Get the mutex for SPI3 communications */
-    if (osOK != osMutexWait(spi3MutexHandle, 1000U)) {
+    if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000UL)) {
       return;
     }
 
@@ -1881,7 +1881,7 @@ static void LoRaWAN_TX_msg(LoRaWANctx_t* ctx, LoRaWAN_TX_Message_t* msg)
     spi3TxBuffer[0] = SPI_WR_FLAG | 0x00;                                                             // WR address 0x00: FIFO
     memcpy((void*)spi3TxBuffer + 1, (const void*)msg->msg_encoded_Buf, msg->msg_encoded_Len);
     spiProcessSpi3MsgLocked(SPI3_SX, 1 + msg->msg_encoded_Len, 0U);
-    osMutexRelease(spi3MutexHandle);
+    osSemaphoreRelease(spi3_BSemHandle);
   }
 
   /* Transmission */
@@ -3472,14 +3472,14 @@ static void loRaWANLoRaWANTaskLoop__Fsm_Bare_SetTrxMode(void)
       /* Push the message to the FIFO */
       {
         /* FIFO data register */
-        if (osOK != osMutexWait(spi3MutexHandle, 1000)) {
+        if (osOK != osSemaphoreWait(spi3_BSemHandle, 1000UL)) {
           return;
         }
 
         spi3TxBuffer[0] = SPI_WR_FLAG | 0x00;
         memcpy((void*)spi3TxBuffer + 1, (const void*)loRaWanTxMsg.msg_encoded_Buf, loRaWanTxMsg.msg_encoded_Len);
         spiProcessSpi3MsgLocked(SPI3_SX, 1 + loRaWanTxMsg.msg_encoded_Len, 0U);
-        osMutexRelease(spi3MutexHandle);
+        osSemaphoreRelease(spi3_BSemHandle);
       }
 
       /* Transmission */

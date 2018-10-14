@@ -32,6 +32,10 @@ extern EventGroupHandle_t   spiEventGroupHandle;
 extern ENABLE_MASK_t        g_enableMsk;
 extern MON_MASK_t           g_monMsk;
 
+extern SPI_HandleTypeDef    hspi3;
+extern DMA_HandleTypeDef    hdma_spi3_rx;
+extern DMA_HandleTypeDef    hdma_spi3_tx;
+
 extern uint8_t              spi3TxBuffer[SPI3_BUFFERSIZE];
 extern uint8_t              spi3RxBuffer[SPI3_BUFFERSIZE];
 
@@ -1244,6 +1248,9 @@ static void sx1276Init(void)
 
   usbLog(PM_SPI_INIT_SX1276_01);
   usbLog(PM_SPI_INIT_SX1276_02);
+
+  /* SPI3 init */
+  spix_Init(&hspi3, spi3_BSemHandle);
 
   if (HAL_OK == spiDetectSX1276()) {
     dbgLen = snprintf(dbgBuf, sizeof(dbgBuf), PM_SPI_INIT_SX1276_03, s_sx_version);

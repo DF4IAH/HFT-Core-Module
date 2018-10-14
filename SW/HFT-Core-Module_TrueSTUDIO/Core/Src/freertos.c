@@ -552,7 +552,7 @@ void MX_FREERTOS_Init(void) {
   vQueueAddToRegistry(i2c3_BSemHandle,          "Resc I2C3 BSem");
   vQueueAddToRegistry(i2c4_BSemHandle,          "Resc I2C4 BSem");
   vQueueAddToRegistry(spi1_BSemHandle,          "Resc SPI1 BSem");
-  vQueueAddToRegistry(spi3_BSemHandle,          "Resc SPI2 BSem");
+  vQueueAddToRegistry(spi3_BSemHandle,          "Resc SPI3 BSem");
   vQueueAddToRegistry(cQin_BSemHandle,          "Resc cQin BSem");
   vQueueAddToRegistry(cQout_BSemHandle,         "Resc cQout BSem");
   vQueueAddToRegistry(usb_BSemHandle,           "Resc USB BSem");

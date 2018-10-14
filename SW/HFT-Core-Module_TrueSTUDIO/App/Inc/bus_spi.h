@@ -8,6 +8,8 @@
 #ifndef BUS_SPI_H_
 #define BUS_SPI_H_
 
+#include "FreeRTOS.h"
+#include "cmsis_os.h"
 #include "stm32l4xx_hal.h"
 #include "main.h"
 
@@ -54,5 +56,8 @@ uint8_t spiProcessSpiReturnWait(void);
 uint8_t spiProcessSpi3MsgLocked(SPI3_CHIPS_t chip, uint8_t msgLen, uint8_t waitComplete);
 uint8_t spiProcessSpi3MsgTemplateLocked(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf, uint8_t waitComplete);
 uint8_t spiProcessSpi3MsgTemplate(SPI3_CHIPS_t chip, uint16_t templateLen, const uint8_t* templateBuf);
+
+void spix_Init(SPI_HandleTypeDef* dev, osSemaphoreId semaphoreHandle);
+void spix_DeInit(SPI_HandleTypeDef* dev, osSemaphoreId semaphoreHandle);
 
 #endif /* BUS_SPI_H_ */
