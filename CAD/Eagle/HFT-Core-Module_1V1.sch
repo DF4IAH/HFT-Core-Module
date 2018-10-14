@@ -30889,11 +30889,10 @@ I2C addr: 0x38/0x39</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">PLL - clock distributor
 I2C addr: 0x70</text>
 <text x="118.364" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
-<text x="50.8" y="88.9" size="1.778" layer="97">16MHz</text>
+<text x="50.8" y="88.9" size="1.778" layer="97">8MHz</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
 <text x="50.8" y="111.76" size="1.778" layer="97">D.C.</text>
 <text x="50.8" y="104.14" size="1.778" layer="97">D.C.</text>
-<text x="50.8" y="96.52" size="1.778" layer="97">12MHz</text>
 <text x="101.6" y="23.622" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
 <text x="122.936" y="22.098" size="1.778" layer="97" rot="R90">MCU_HSE</text>
 <text x="110.744" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
@@ -30952,7 +30951,7 @@ I2C addr: 0x70</text>
 <pinref part="R0713" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="AX_16MHZ" class="0">
+<net name="AX_8MHZ" class="0">
 <segment>
 <wire x1="48.26" y1="88.9" x2="68.58" y2="88.9" width="0.1524" layer="91"/>
 <label x="48.26" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -32498,7 +32497,7 @@ Power on sequencing needed !</text>
 <label x="109.22" y="114.3" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="AX_16MHZ" class="0">
+<net name="AX_8MHZ" class="0">
 <segment>
 <wire x1="147.32" y1="114.3" x2="220.98" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="R1021" gate="G$1" pin="2"/>

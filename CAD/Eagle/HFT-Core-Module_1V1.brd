@@ -12067,7 +12067,7 @@ Diameter = 1mm, Clearance = 3R</description>
 <wire x1="68.8975" y1="29.5275" x2="68.8975" y2="29.425" width="0.2032" layer="16"/>
 <wire x1="68.8975" y1="29.425" x2="68.58" y2="29.1075" width="0.2032" layer="16" curve="-90"/>
 </signal>
-<signal name="AX_16MHZ">
+<signal name="AX_8MHZ">
 <contactref element="R1021" pad="2"/>
 <contactref element="R0714" pad="1"/>
 <via x="67.78625" y="27.305" extent="1-16" drill="0.3048" shape="octagon"/>
