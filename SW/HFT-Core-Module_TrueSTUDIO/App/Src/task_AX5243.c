@@ -8343,6 +8343,11 @@ static void ax5243Init(void)
 
     s_ax5243_enable = 1U;
 
+    #if 0
+    /* Activate crystal */
+    spi_ax_setPwrMode(AX_SET_REGISTERS_POWERMODE_STANDBY);
+    #endif
+
     /* PINFUNCSYSCLK */
     {
       const uint8_t txMsg[2] = { 0x21U | C_AX_REG_WR,
