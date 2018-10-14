@@ -1,10 +1,17 @@
---- SW/HFT-Core-Module_TrueSTUDIO/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c	2018-10-14 12:53:07.000000000 +0200
-+++ SW/HFT-Core-Module_TrueSTUDIO/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c	2018-10-14 13:00:04.000000000 +0200
-@@ -804,17 +804,8 @@
-         assert_param(IS_RCC_PLLQ_VALUE(RCC_OscInitStruct->PLL.PLLQ));
-         assert_param(IS_RCC_PLLR_VALUE(RCC_OscInitStruct->PLL.PLLR));
+--- SW/HFT-Core-Module_TrueSTUDIO/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c	2018-10-14 14:24:35.000000000 +0200
++++ SW/HFT-Core-Module_TrueSTUDIO/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c	2018-10-14 13:56:43.000000000 +0200
+@@ -796,9 +796,6 @@
+     {
+       if(RCC_OscInitStruct->PLL.PLLState == RCC_PLL_ON)
+       {
+-        uint8_t pllsai1on = 0U;
+-        uint8_t pllsai2on = 0U;
+-
+         /* Check the parameters */
+         assert_param(IS_RCC_PLLSOURCE(RCC_OscInitStruct->PLL.PLLSource));
+         assert_param(IS_RCC_PLLM_VALUE(RCC_OscInitStruct->PLL.PLLM));
+@@ -809,14 +806,6 @@
  
--        uint8_t pllsai1on = 0U, pllsai2on = 0U;
          /* Disable the main PLL. */
          __HAL_RCC_PLL_DISABLE();
 -        if (READ_BIT(RCC->CR, RCC_CR_PLLSAI1ON)) {
@@ -18,7 +25,7 @@
  
          /* Get Start Tick*/
          tickstart = HAL_GetTick();
-@@ -838,12 +829,6 @@
+@@ -840,12 +829,6 @@
  
          /* Enable the main PLL. */
          __HAL_RCC_PLL_ENABLE();

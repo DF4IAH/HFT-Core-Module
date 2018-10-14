@@ -49,6 +49,9 @@ static void tcxo20MhzDacInit(void)
   usbLog("< Tcxo20MhzDacInit -\r\n");
 
   do {
+    /* I2C4 init */
+    i2cx_Init(&hi2c4, i2c4_BSemHandle);
+
     {
       const uint8_t i2cWriteLongAry[2] = {
         0x00, 0x20                                                                                      // 0x0020: clear value Mid, nAUX disable, DAC enabled

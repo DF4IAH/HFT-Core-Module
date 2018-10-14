@@ -390,6 +390,7 @@ static void controllerMsgProcessor(void)
             }
           }
 
+        //#define USE_HSE_20MHZ
           #ifdef USE_HSE_20MHZ
           /* Activate MCU HSE clocking */
           {
@@ -574,7 +575,7 @@ static void controllerInit(void)
     s_mod_start.network_USBtoHost                             = 1U;
     s_mod_start.network_USBfromHost                           = 1U;
     s_mod_start.osc_TCXO                                      = 1U;
-    s_mod_start.osc_Si5338                                    = 1U;
+    s_mod_start.osc_Si5338                                    = 0U;
     s_mod_start.actor_LCD                                     = 1U;
     s_mod_start.sensor_Baro                                   = 1U;
     s_mod_start.sensor_Hygro                                  = 1U;

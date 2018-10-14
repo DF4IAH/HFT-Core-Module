@@ -796,6 +796,9 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     {
       if(RCC_OscInitStruct->PLL.PLLState == RCC_PLL_ON)
       {
+        uint8_t pllsai1on = 0U;
+        uint8_t pllsai2on = 0U;
+
         /* Check the parameters */
         assert_param(IS_RCC_PLLSOURCE(RCC_OscInitStruct->PLL.PLLSource));
         assert_param(IS_RCC_PLLM_VALUE(RCC_OscInitStruct->PLL.PLLM));
@@ -804,7 +807,6 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         assert_param(IS_RCC_PLLQ_VALUE(RCC_OscInitStruct->PLL.PLLQ));
         assert_param(IS_RCC_PLLR_VALUE(RCC_OscInitStruct->PLL.PLLR));
 
-        uint8_t pllsai1on = 0U, pllsai2on = 0U;
         /* Disable the main PLL. */
         __HAL_RCC_PLL_DISABLE();
         if (READ_BIT(RCC->CR, RCC_CR_PLLSAI1ON)) {
