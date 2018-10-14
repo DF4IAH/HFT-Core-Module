@@ -389,6 +389,15 @@ static void controllerMsgProcessor(void)
               controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
             }
           }
+
+          #ifdef USE_HSE_20MHZ
+          /* Activate MCU HSE clocking */
+          {
+            // TODO: use messaging instead
+            HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSE20_PLL);
+            HFT_RCC_MCO_Disable();
+          }
+          #endif
           break;
 
         case Destinations__Actor_LCD:
@@ -564,8 +573,8 @@ static void controllerInit(void)
     s_mod_start.rtos_Default                                  = 1U;
     s_mod_start.network_USBtoHost                             = 1U;
     s_mod_start.network_USBfromHost                           = 1U;
-    s_mod_start.osc_TCXO                                      = 0U;
-    s_mod_start.osc_Si5338                                    = 0U;
+    s_mod_start.osc_TCXO                                      = 1U;
+    s_mod_start.osc_Si5338                                    = 1U;
     s_mod_start.actor_LCD                                     = 1U;
     s_mod_start.sensor_Baro                                   = 1U;
     s_mod_start.sensor_Hygro                                  = 1U;

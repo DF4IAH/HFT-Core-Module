@@ -299,7 +299,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20181013U
+#define HFTCOREMODULE_VERSION                                 20181014UL
 
 
 typedef enum POWERSWITCH_ENUM {
@@ -345,6 +345,7 @@ typedef enum SYSCLK_CONFIG_ENUM {
   SYSCLK_CONFIG_16MHz_MSI                                     = 16000,
   SYSCLK_CONFIG_24MHz_MSI                                     = 24000,
   SYSCLK_CONFIG_80MHz_HSI_PLL                                 = 80000,
+  SYSCLK_CONFIG_80MHz_HSE20_PLL                               = 80001,
 
 } SYSCLK_CONFIG_t;
 
