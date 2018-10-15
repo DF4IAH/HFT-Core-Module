@@ -1,0 +1,20 @@
+--- SW/HFT-Core-Module_TrueSTUDIO/Core/Src/stm32l4xx_hal_timebase_TIM.c	2018-10-15 23:47:44.000000000 +0200
++++ SW/HFT-Core-Module_TrueSTUDIO/Core/Src/stm32l4xx_hal_timebase_TIM.c	2018-10-15 23:36:01.000000000 +0200
+@@ -61,8 +61,6 @@
+ /* Private define ------------------------------------------------------------*/
+ /* Private macro -------------------------------------------------------------*/
+ /* Private variables ---------------------------------------------------------*/
+-extern uint8_t g_main_PCLK1_Prescaler;
+-
+ TIM_HandleTypeDef        htim2; 
+ uint32_t                 uwIncrementState = 0;
+ /* Private function prototypes -----------------------------------------------*/
+@@ -97,7 +95,7 @@
+   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+   
+   /* Compute TIM2 clock */
+-  uwTimclock = g_main_PCLK1_Prescaler*HAL_RCC_GetPCLK1Freq();
++  uwTimclock = HAL_RCC_GetPCLK1Freq();
+    
+   /* Compute the prescaler value to have TIM2 counter clock equal to 1MHz */
+   uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000) - 1);
