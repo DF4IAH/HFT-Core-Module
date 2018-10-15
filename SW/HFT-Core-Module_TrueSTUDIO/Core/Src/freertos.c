@@ -266,6 +266,67 @@ static void rtosDefaultMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
     }
     break;
 
+  /* MCU GPIO/Alternate-Functions set-up */
+  case MsgDefault__SetVar01_IOs:
+    {
+      // TODO: implementation
+    }
+    break;
+
+  /* MCU clocking set-up */
+  case MsgDefault__SetVar02_Clocking:
+    {
+      const DefaultMcuClocking_t mcuClocking = (DefaultMcuClocking_t) (0xffUL & (msgAry[msgIdx++] >> 24U));
+
+      switch (mcuClocking) {
+      case DefaultMcuClocking_01MHz_MSI_HSI:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_01MHz_MSI_HSI);
+        }
+        break;
+
+      case DefaultMcuClocking_04MHz_MSI:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_04MHz_MSI);
+        }
+        break;
+
+      case DefaultMcuClocking_08MHz_MSI:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_08MHz_MSI);
+        }
+        break;
+
+      case DefaultMcuClocking_16MHz_MSI:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_16MHz_MSI);
+        }
+        break;
+
+      case DefaultMcuClocking_24MHz_MSI:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_24MHz_MSI);
+        }
+        break;
+
+      case DefaultMcuClocking_80MHz_HSI_PLL:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSI_PLL);
+        }
+        break;
+
+      case DefaultMcuClocking_80MHz_HSE20_PLL:
+        {
+          HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSE20_PLL);
+          HFT_RCC_MCO_Disable();
+        }
+        break;
+
+      default: { }
+      }
+    }
+    break;
+
   /* ADC single conversion */
   case MsgDefault__CallFunc01_MCU_ADC:
     {

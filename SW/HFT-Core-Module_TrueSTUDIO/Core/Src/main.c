@@ -501,7 +501,8 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
   #else
-  HFT_SystemClock_Config(SYSCLK_CONFIG_16MHz_MSI);
+  /* Use MCU start-up clocking set-up */
+  HFT_SystemClock_Config(g_main_SYSCLK_CONFIG);
   #endif
 
   // Here: 28.5mA @ 3.3V

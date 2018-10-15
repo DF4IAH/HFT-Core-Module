@@ -226,13 +226,26 @@ typedef enum RtosMsgDefaultCmds_ENUM {
   MsgDefault__InitDone,
 
   MsgDefault__SetVar01_IOs                                    = 0x41U,
-  MsgDefault__SetVar02_Clocks,
+  MsgDefault__SetVar02_Clocking,
 
-  MsgDefault__GetVar01_x                                      = 0x81U,
+//MsgDefault__GetVar01_x                                      = 0x81U,
 
   MsgDefault__CallFunc01_MCU_ADC                              = 0xc1U,
 
 } RtosMsgDefaultCmds_t;
+
+
+typedef enum DefaultMcuClocking_ENUM {
+
+  DefaultMcuClocking_01MHz_MSI_HSI                            =  1U,
+  DefaultMcuClocking_04MHz_MSI                                =  4U,
+  DefaultMcuClocking_08MHz_MSI                                =  8U,
+  DefaultMcuClocking_16MHz_MSI                                = 16U,
+  DefaultMcuClocking_24MHz_MSI                                = 24U,
+  DefaultMcuClocking_80MHz_HSI_PLL                            = 80U,
+  DefaultMcuClocking_80MHz_HSE20_PLL                          = 81U,
+
+} DefaultMcuClocking_t;
 
 /* USER CODE END Defines */ 
 
