@@ -13,7 +13,7 @@
    HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
    
    /* Compute TIM2 clock */
--  uwTimclock = g_main_PCLK1_Prescaler*HAL_RCC_GetPCLK1Freq();
+-  uwTimclock = g_main_PCLK1_Prescaler * HAL_RCC_GetPCLK1Freq();
 +  uwTimclock = HAL_RCC_GetPCLK1Freq();
     
    /* Compute the prescaler value to have TIM2 counter clock equal to 1MHz */

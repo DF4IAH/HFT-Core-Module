@@ -136,6 +136,7 @@ uint32_t                              g_main_i2c3_timing      = 0x00000000UL;
 uint32_t                              g_main_i2c4_timing      = 0x00000000UL;
 uint32_t                              g_main_adc1_clkpresclr  = ADC_CLOCK_ASYNC_DIV1;
 uint32_t                              g_main_adc3_clkpresclr  = ADC_CLOCK_ASYNC_DIV1;
+uint8_t                               g_main_PCLK1_Prescaler  = 1U;
 
 
 /* Counter Prescaler value */
@@ -1420,7 +1421,7 @@ void HFT_SystemClock_Config(SYSCLK_CONFIG_t sel)
 
       HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 
-      HFT_TIM2_AdjustClock(2U);
+    //HFT_TIM2_AdjustClock(2U);
     }
     break;
 
@@ -1538,7 +1539,7 @@ void HFT_SystemClock_Config(SYSCLK_CONFIG_t sel)
 
       HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 
-      HFT_TIM2_AdjustClock(2U);
+    //HFT_TIM2_AdjustClock(2U);
     }
     break;
   }
@@ -1573,6 +1574,8 @@ void HFT_TIM2_AdjustClock(uint8_t multiply)
 {
   uint32_t  uwTimclock;
   uint32_t  uwPrescalerValue;
+
+  g_main_PCLK1_Prescaler = multiply;
 
   /* Taken from: stm32l4_hal_timebase_TIM.c */
   {

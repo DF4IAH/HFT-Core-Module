@@ -61,6 +61,8 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+extern uint8_t g_main_PCLK1_Prescaler;
+
 TIM_HandleTypeDef        htim2; 
 uint32_t                 uwIncrementState = 0;
 /* Private function prototypes -----------------------------------------------*/
@@ -95,7 +97,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
   
   /* Compute TIM2 clock */
-  uwTimclock = HAL_RCC_GetPCLK1Freq();
+  uwTimclock = g_main_PCLK1_Prescaler * HAL_RCC_GetPCLK1Freq();
    
   /* Compute the prescaler value to have TIM2 counter clock equal to 1MHz */
   uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000) - 1);
