@@ -315,9 +315,9 @@ static void rtosDefaultMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
         }
         break;
 
-      case DefaultMcuClocking_80MHz_HSE20_PLL:
+      case DefaultMcuClocking_80MHz_HSE10_PLL:
         {
-          HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSE20_PLL);
+          HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSE10_PLL);
           HFT_RCC_MCO_Disable();
         }
         break;

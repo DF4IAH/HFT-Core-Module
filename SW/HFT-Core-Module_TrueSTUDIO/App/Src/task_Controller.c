@@ -373,11 +373,11 @@ static void controllerMsgProcessor(void)
         case Destinations__Osc_TCXO:
           s_mod_rdy.osc_TCXO = 1U;
 
-          /* Activate MCU HSE20 clocking */
+          /* Activate MCU HSE10 clocking */
           if (s_mod_rdy.osc_Si5338) {
             uint8_t  msgLen                       = 0U;
 
-            s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE20_PLL;
+            s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE10_PLL;
 
             msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Main_Default, Destinations__Controller, 1U, MsgDefault__SetVar02_Clocking);
             msgAry[msgLen++]  = (s_controller_McuClocking << 24U);
@@ -410,9 +410,9 @@ static void controllerMsgProcessor(void)
             }
           }
 
-          /* Activate MCU HSE20 clocking */
+          /* Activate MCU HSE10 clocking */
           if (s_mod_rdy.osc_TCXO) {
-            s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE20_PLL;
+            s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE10_PLL;
 
             uint8_t msgLen    = 0U;
             msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Main_Default, Destinations__Controller, 1U, MsgDefault__SetVar02_Clocking);
@@ -580,15 +580,15 @@ static void controllerInit(void)
     memset(&s_msg_in,   0, sizeof(s_msg_in));
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
 
-    s_controller_McuClocking                                  = DefaultMcuClocking_04MHz_MSI;
+    s_controller_McuClocking                                  = DefaultMcuClocking_24MHz_MSI;
 
     s_controller_doCycle                                      = 0U;
 
     s_mod_start.rtos_Default                                  = 1U;
     s_mod_start.network_USBtoHost                             = 1U;
     s_mod_start.network_USBfromHost                           = 1U;
-    s_mod_start.osc_TCXO                                      = 0U;
-    s_mod_start.osc_Si5338                                    = 0U;
+    s_mod_start.osc_TCXO                                      = 1U;
+    s_mod_start.osc_Si5338                                    = 1U;
     s_mod_start.actor_LCD                                     = 1U;
     s_mod_start.sensor_Baro                                   = 1U;
     s_mod_start.sensor_Hygro                                  = 1U;
