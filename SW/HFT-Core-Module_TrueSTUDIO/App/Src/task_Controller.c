@@ -580,7 +580,7 @@ static void controllerInit(void)
     memset(&s_msg_in,   0, sizeof(s_msg_in));
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
 
-    s_controller_McuClocking                                  = DefaultMcuClocking_80MHz_MSI16_PLL;
+    s_controller_McuClocking                                  = DefaultMcuClocking_04MHz_MSI;
 
     s_controller_doCycle                                      = 0U;
 
