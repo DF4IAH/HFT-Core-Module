@@ -59,6 +59,7 @@ static ControllerMsg2Proc_t s_msg_in                          = { 0 };
 static ControllerMods_t     s_mod_start                       = { 0 };
 static ControllerMods_t     s_mod_rdy                         = { 0 };
 static uint8_t              s_controller_doCycle;
+static DefaultMcuClocking_t s_controller_McuClocking          = DefaultMcuClocking_04MHz_MSI;
 
 
 uint32_t controllerCalcMsgHdr(ControllerMsgDestinations_t dst, ControllerMsgDestinations_t src, uint8_t lengthBytes, uint8_t cmd)
@@ -325,10 +326,11 @@ static void controllerCyclicTimerEvent(void)
 
 static void controllerMsgProcessor(void)
 {
+  uint32_t msgAry[CONTROLLER_MSG_Q_LEN] = { 0 };
+
   if (s_msg_in.msgDst > Destinations__Controller) {
     /* Forward message to the destination via the ctrlQout */
     const uint8_t cnt                     = s_msg_in.rawLen;
-    uint32_t msgAry[CONTROLLER_MSG_Q_LEN] = { 0 };
     uint8_t msgLen                        = 0U;
 
     /* Copy message header and option entries to the target */
@@ -349,6 +351,15 @@ static void controllerMsgProcessor(void)
         switch (s_msg_in.msgSrc) {
         case Destinations__Main_Default:
           s_mod_rdy.rtos_Default = 1U;
+
+          /* Send MCU clocking set-up request */
+          {
+            uint8_t msgLen    = 0U;
+
+            msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Main_Default, Destinations__Controller, 1U, MsgDefault__SetVar02_Clocking);
+            msgAry[msgLen++]  = (s_controller_McuClocking << 24U);
+            controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+          }
           break;
 
         case Destinations__Network_USBtoHost:
@@ -361,6 +372,17 @@ static void controllerMsgProcessor(void)
 
         case Destinations__Osc_TCXO:
           s_mod_rdy.osc_TCXO = 1U;
+
+          /* Activate MCU HSE10 clocking */
+          if (s_mod_rdy.osc_Si5338) {
+            uint8_t  msgLen                       = 0U;
+
+            s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE10_PLL;
+
+            msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Main_Default, Destinations__Controller, 1U, MsgDefault__SetVar02_Clocking);
+            msgAry[msgLen++]  = (s_controller_McuClocking << 24U);
+            controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
+          }
           break;
 
         case Destinations__Osc_Si5338:
@@ -368,8 +390,6 @@ static void controllerMsgProcessor(void)
 
           /* Switch Si5338 to the desired mode */
           {
-            uint32_t msgAry[CONTROLLER_MSG_Q_LEN] = { 0 };
-
             /* Set variant */
             {
               uint8_t msgLen    = 0U;
@@ -390,15 +410,15 @@ static void controllerMsgProcessor(void)
             }
           }
 
-        //#define USE_HSE_20MHZ
-          #ifdef USE_HSE_20MHZ
-          /* Activate MCU HSE clocking */
-          {
-            // TODO: use messaging instead
-            HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSE20_PLL);
-            HFT_RCC_MCO_Disable();
+          /* Activate MCU HSE10 clocking */
+          if (s_mod_rdy.osc_TCXO) {
+            s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE10_PLL;
+
+            uint8_t msgLen    = 0U;
+            msgAry[msgLen++]  = controllerCalcMsgHdr(Destinations__Main_Default, Destinations__Controller, 1U, MsgDefault__SetVar02_Clocking);
+            msgAry[msgLen++]  = (s_controller_McuClocking << 24U);
+            controllerMsgPushToOutQueue(msgLen, msgAry, osWaitForever);
           }
-          #endif
           break;
 
         case Destinations__Actor_LCD:
@@ -409,7 +429,6 @@ static void controllerMsgProcessor(void)
             const uint8_t strBuf[]                  = "*HFT-CoreModule*";
             const uint8_t strLen                    = strlen((const char*) strBuf);
             uint8_t   msgLen                        = 0U;
-            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
 
             msgAry[msgLen++] = controllerCalcMsgHdr(Destinations__Actor_LCD, Destinations__Controller, 1U + strLen, MsgLcd__CallFunc05_WriteString);
             uint32_t word = 0x00U << 24U;                                                             // Display @ Row=0, Col=0
@@ -441,8 +460,6 @@ static void controllerMsgProcessor(void)
 
         case Destinations__Sensor_Baro:
           {
-            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
-
             s_mod_rdy.sensor_Baro   = 1U;
 
             /* Start cyclic measurements */
@@ -457,8 +474,6 @@ static void controllerMsgProcessor(void)
 
         case Destinations__Sensor_Hygro:
           {
-            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
-
             s_mod_rdy.sensor_Hygro  = 1U;
 
             /* Start cyclic measurements */
@@ -477,8 +492,6 @@ static void controllerMsgProcessor(void)
 
         case Destinations__Audio_ADC:
           {
-            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
-
             s_mod_rdy.audio_ADC     = 1U;
 
             /* Start cyclic measurements */
@@ -493,8 +506,6 @@ static void controllerMsgProcessor(void)
 
         case Destinations__Audio_DAC:
           {
-            uint32_t  msgAry[CONTROLLER_MSG_Q_LEN]  = { 0 };
-
             s_mod_rdy.audio_DAC     = 1U;
 
             /* Start cyclic measurements */
@@ -568,6 +579,8 @@ static void controllerInit(void)
   {
     memset(&s_msg_in,   0, sizeof(s_msg_in));
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
+
+    s_controller_McuClocking                                  = DefaultMcuClocking_16MHz_MSI;
 
     s_controller_doCycle                                      = 0U;
 
