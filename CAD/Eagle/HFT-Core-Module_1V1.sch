@@ -29679,6 +29679,7 @@ Digikey: 497-17999-ND</text>
 <text x="231.14" y="111.76" size="1.778" layer="97">MCU_PWM_LED_R</text>
 <text x="231.14" y="106.68" size="1.778" layer="97">MCU_PWM_LED_G</text>
 <text x="231.14" y="101.6" size="1.778" layer="97">MCU_PWM_LED_B</text>
+<text x="33.02" y="142.24" size="2.54" layer="97">Add QUADSPI EEPROM</text>
 </plain>
 <instances>
 <instance part="FRAME_02" gate="G$1" x="0" y="0"/>
