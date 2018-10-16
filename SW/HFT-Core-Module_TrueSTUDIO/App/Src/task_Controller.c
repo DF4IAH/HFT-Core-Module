@@ -580,15 +580,15 @@ static void controllerInit(void)
     memset(&s_msg_in,   0, sizeof(s_msg_in));
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
 
-    s_controller_McuClocking                                  = DefaultMcuClocking_24MHz_MSI;
+    s_controller_McuClocking                                  = DefaultMcuClocking_16MHz_MSI;
 
     s_controller_doCycle                                      = 0U;
 
     s_mod_start.rtos_Default                                  = 1U;
     s_mod_start.network_USBtoHost                             = 1U;
     s_mod_start.network_USBfromHost                           = 1U;
-    s_mod_start.osc_TCXO                                      = 1U;
-    s_mod_start.osc_Si5338                                    = 1U;
+    s_mod_start.osc_TCXO                                      = 0U;
+    s_mod_start.osc_Si5338                                    = 0U;
     s_mod_start.actor_LCD                                     = 1U;
     s_mod_start.sensor_Baro                                   = 1U;
     s_mod_start.sensor_Hygro                                  = 1U;
