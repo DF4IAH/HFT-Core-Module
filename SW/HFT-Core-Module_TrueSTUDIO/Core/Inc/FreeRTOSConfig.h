@@ -242,7 +242,7 @@ typedef enum DefaultMcuClocking_ENUM {
   DefaultMcuClocking_08MHz_MSI                                =  8U,
   DefaultMcuClocking_16MHz_MSI                                = 16U,
   DefaultMcuClocking_24MHz_MSI                                = 24U,
-  DefaultMcuClocking_80MHz_HSI_PLL                            = 80U,
+  DefaultMcuClocking_80MHz_MSI16_PLL                          = 80U,
   DefaultMcuClocking_80MHz_HSE20_PLL                          = 81U,
 
 } DefaultMcuClocking_t;

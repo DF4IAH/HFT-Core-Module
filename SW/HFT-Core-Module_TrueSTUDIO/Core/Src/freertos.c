@@ -309,9 +309,9 @@ static void rtosDefaultMsgProcess(uint32_t msgLen, const uint32_t* msgAry)
         }
         break;
 
-      case DefaultMcuClocking_80MHz_HSI_PLL:
+      case DefaultMcuClocking_80MHz_MSI16_PLL:
         {
-          HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_HSI_PLL);
+          HFT_SystemClock_Config(SYSCLK_CONFIG_80MHz_MSI16_PLL);
         }
         break;
 

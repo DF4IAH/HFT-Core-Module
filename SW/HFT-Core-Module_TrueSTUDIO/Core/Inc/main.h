@@ -299,7 +299,7 @@
 #endif
 
 
-#define HFTCOREMODULE_VERSION                                 20181015UL
+#define HFTCOREMODULE_VERSION                                 20181016UL
 
 
 typedef enum POWERSWITCH_ENUM {
@@ -344,7 +344,7 @@ typedef enum SYSCLK_CONFIG_ENUM {
   SYSCLK_CONFIG_08MHz_MSI                                     =  8000,
   SYSCLK_CONFIG_16MHz_MSI                                     = 16000,
   SYSCLK_CONFIG_24MHz_MSI                                     = 24000,
-  SYSCLK_CONFIG_80MHz_HSI_PLL                                 = 80000,
+  SYSCLK_CONFIG_80MHz_MSI16_PLL                               = 80000,
   SYSCLK_CONFIG_80MHz_HSE20_PLL                               = 80001,
 
 } SYSCLK_CONFIG_t;
@@ -361,6 +361,7 @@ void SystemResetbyARMcore(void);
 void mainPowerSwitchInit(void);
 void HFT_SystemClock_Config(SYSCLK_CONFIG_t sel);
 void HFT_RCC_MCO_Disable(void);
+void HFT_TIM2_AdjustClock(uint8_t multiply);
 
 /*
  * Power analysis:

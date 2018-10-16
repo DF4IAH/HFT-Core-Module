@@ -373,7 +373,7 @@ static void controllerMsgProcessor(void)
         case Destinations__Osc_TCXO:
           s_mod_rdy.osc_TCXO = 1U;
 
-          /* Activate MCU HSE clocking */
+          /* Activate MCU HSE20 clocking */
           if (s_mod_rdy.osc_Si5338) {
             uint8_t  msgLen                       = 0U;
 
@@ -410,7 +410,7 @@ static void controllerMsgProcessor(void)
             }
           }
 
-          /* Activate MCU HSE clocking */
+          /* Activate MCU HSE20 clocking */
           if (s_mod_rdy.osc_TCXO) {
             s_controller_McuClocking = DefaultMcuClocking_80MHz_HSE20_PLL;
 
@@ -580,7 +580,7 @@ static void controllerInit(void)
     memset(&s_msg_in,   0, sizeof(s_msg_in));
     memset(&s_mod_rdy,  0, sizeof(s_mod_rdy));
 
-    s_controller_McuClocking                                  = DefaultMcuClocking_16MHz_MSI;
+    s_controller_McuClocking                                  = DefaultMcuClocking_80MHz_MSI16_PLL;
 
     s_controller_doCycle                                      = 0U;
 
