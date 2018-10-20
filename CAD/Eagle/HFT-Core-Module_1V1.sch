@@ -29367,6 +29367,21 @@ Crystal 32.768 kHz</text>
 <sheet>
 <description>QUADSPI Flash</description>
 <plain>
+<text x="50.8" y="127" size="1.778" layer="97">QUADSPI_CLK</text>
+<text x="50.8" y="81.28" size="1.778" layer="97">QUADSPI_BK2_IO0</text>
+<text x="50.8" y="73.66" size="1.778" layer="97">QUADSPI_BK2_IO1</text>
+<text x="50.8" y="66.04" size="1.778" layer="97">QUADSPI_BK2_IO2</text>
+<text x="50.8" y="58.42" size="1.778" layer="97">QUADSPI_BK2_IO3</text>
+<text x="50.8" y="119.38" size="1.778" layer="97">QUADSPI_BK1_NCS</text>
+<text x="50.8" y="111.76" size="1.778" layer="97">QUADSPI_BK1_IO0</text>
+<text x="50.8" y="104.14" size="1.778" layer="97">QUADSPI_BK1_IO1</text>
+<text x="50.8" y="96.52" size="1.778" layer="97">QUADSPI_BK1_IO2</text>
+<text x="50.8" y="88.9" size="1.778" layer="97">QUADSPI_BK1_IO3</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">MCU serial QUADSPI
+FLASH</text>
+<text x="165.1" y="7.62" size="2.54" layer="97" ratio="15">MCU serial QUADSPI
+
+dual FLASH memory</text>
 </plain>
 <instances>
 <instance part="FRAME_30" gate="G$1" x="0" y="0"/>
@@ -29374,6 +29389,66 @@ Crystal 32.768 kHz</text>
 <busses>
 </busses>
 <nets>
+<net name="PF10" class="0">
+<segment>
+<wire x1="48.26" y1="127" x2="66.04" y2="127" width="0.1524" layer="91"/>
+<label x="48.26" y="127" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PE11" class="0">
+<segment>
+<wire x1="48.26" y1="119.38" x2="66.04" y2="119.38" width="0.1524" layer="91"/>
+<label x="48.26" y="119.38" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PE12" class="0">
+<segment>
+<wire x1="48.26" y1="111.76" x2="66.04" y2="111.76" width="0.1524" layer="91"/>
+<label x="48.26" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PE13" class="0">
+<segment>
+<wire x1="48.26" y1="104.14" x2="66.04" y2="104.14" width="0.1524" layer="91"/>
+<label x="48.26" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PE14" class="0">
+<segment>
+<wire x1="48.26" y1="96.52" x2="66.04" y2="96.52" width="0.1524" layer="91"/>
+<label x="48.26" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PE15" class="0">
+<segment>
+<wire x1="48.26" y1="88.9" x2="66.04" y2="88.9" width="0.1524" layer="91"/>
+<label x="48.26" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PC1" class="0">
+<segment>
+<wire x1="48.26" y1="81.28" x2="66.04" y2="81.28" width="0.1524" layer="91"/>
+<label x="48.26" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PC2" class="0">
+<segment>
+<wire x1="48.26" y1="73.66" x2="66.04" y2="73.66" width="0.1524" layer="91"/>
+<label x="48.26" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PC3" class="0">
+<segment>
+<wire x1="48.26" y1="66.04" x2="66.04" y2="66.04" width="0.1524" layer="91"/>
+<label x="48.26" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PD7" class="0">
+<segment>
+<wire x1="48.26" y1="58.42" x2="66.04" y2="58.42" width="0.1524" layer="91"/>
+<label x="48.26" y="58.42" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -29785,7 +29860,7 @@ I2C addr: 0x70</text>
 <text x="118.364" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
 <text x="50.8" y="88.9" size="1.778" layer="97">8MHz</text>
 <text x="40.132" y="75.692" size="1.778" layer="97">20MHz</text>
-<text x="104.14" y="22.86" size="1.778" layer="97" rot="R90">MCU_EXTI7_INTR_SI5338</text>
+<text x="104.14" y="22.86" size="1.778" layer="97" rot="R90">MCU_EXTI2_INTR_SI5338</text>
 <text x="119.38" y="22.86" size="1.778" layer="97" rot="R90">MCU_HSE</text>
 <text x="110.744" y="38.1" size="1.778" layer="97" rot="R90">10MHz</text>
 <text x="50.8" y="96.52" size="1.778" layer="97">MCU_MCO</text>
@@ -29950,15 +30025,6 @@ I2C addr: 0x70</text>
 <label x="134.62" y="144.78" size="1.778" layer="95" rot="R90" xref="yes"/>
 <pinref part="U0701" gate="G$1" pin="SDA"/>
 <wire x1="127" y1="119.38" x2="134.62" y2="119.38" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="PD7" class="0">
-<segment>
-<wire x1="104.14" y1="60.96" x2="104.14" y2="20.32" width="0.1524" layer="91"/>
-<label x="104.14" y="20.32" size="1.778" layer="95" rot="R270" xref="yes"/>
-<wire x1="104.14" y1="60.96" x2="106.68" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="U0701" gate="G$1" pin="INTR"/>
-<wire x1="106.68" y1="60.96" x2="106.68" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SI5338_CLK3B" class="0">
@@ -30165,6 +30231,15 @@ I2C addr: 0x70</text>
 <pinref part="R0724" gate="G$1" pin="1"/>
 <wire x1="119.38" y1="45.72" x2="119.38" y2="20.32" width="0.1524" layer="91"/>
 <label x="119.38" y="20.32" size="1.778" layer="95" rot="R270" xref="yes"/>
+</segment>
+</net>
+<net name="PD2" class="0">
+<segment>
+<wire x1="104.14" y1="60.96" x2="104.14" y2="20.32" width="0.1524" layer="91"/>
+<label x="104.14" y="20.32" size="1.778" layer="95" rot="R270" xref="yes"/>
+<wire x1="104.14" y1="60.96" x2="106.68" y2="60.96" width="0.1524" layer="91"/>
+<pinref part="U0701" gate="G$1" pin="INTR"/>
+<wire x1="106.68" y1="60.96" x2="106.68" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -33290,7 +33365,7 @@ to be replaced by TPS62051DGSR</text>
 <label x="40.64" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="PC2" class="0">
+<net name="PF5" class="0">
 <segment>
 <wire x1="25.4" y1="86.36" x2="27.94" y2="86.36" width="0.1524" layer="91"/>
 <label x="25.4" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -33403,7 +33478,7 @@ to be replaced by TPS62051DGSR</text>
 <wire x1="76.2" y1="86.36" x2="38.1" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PC3" class="0">
+<net name="PA1" class="0">
 <segment>
 <wire x1="27.94" y1="86.36" x2="25.4" y2="86.36" width="0.1524" layer="91"/>
 <label x="25.4" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -33516,7 +33591,7 @@ to be replaced by TPS62051DGSR</text>
 <label x="40.64" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="PC1" class="0">
+<net name="PF4" class="0">
 <segment>
 <wire x1="27.94" y1="86.36" x2="25.4" y2="86.36" width="0.1524" layer="91"/>
 <label x="25.4" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>

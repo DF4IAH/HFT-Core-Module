@@ -7460,9 +7460,13 @@ CASE 751BD</description>
 </signal>
 <signal name="PF4">
 <contactref element="U0111" pad="14"/>
+<contactref element="R1711" pad="1"/>
+<wire x1="-19.9" y1="-279.4" x2="55.39" y2="64.48" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PF5">
 <contactref element="U0111" pad="15"/>
+<contactref element="R1511" pad="1"/>
+<wire x1="-19.9" y1="-274.32" x2="55.39" y2="63.98" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PF6">
 <contactref element="U0111" pad="18"/>
@@ -7672,8 +7676,6 @@ CASE 751BD</description>
 <wire x1="54.8008875" y1="58.024496875" x2="54.09236875" y2="58.598365625" width="0.2032" layer="1" curve="-46.739954"/>
 <wire x1="54.09236875" y1="58.598365625" x2="53.26475" y2="59.629271875" width="0.2032" layer="1"/>
 <wire x1="53.26475" y1="59.629271875" x2="53.078003125" y2="59.69" width="0.2032" layer="1" curve="36.02802"/>
-<contactref element="R1711" pad="1"/>
-<wire x1="-19.9" y1="-279.4" x2="54.8008875" y2="58.024496875" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PC2">
 <contactref element="U0111" pad="28"/>
@@ -7684,8 +7686,6 @@ CASE 751BD</description>
 <wire x1="54.76875" y1="57.4675" x2="53.956240625" y2="58.058415625" width="0.2032" layer="1"/>
 <wire x1="53.956240625" y1="58.058415625" x2="53.82169375" y2="58.114821875" width="0.2032" layer="1" curve="26.565041"/>
 <wire x1="53.82169375" y1="58.114821875" x2="53.419375" y2="58.181875" width="0.2032" layer="1"/>
-<contactref element="R1511" pad="1"/>
-<wire x1="-19.9" y1="-274.32" x2="54.76875" y2="57.4675" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PC3">
 <contactref element="U0111" pad="29"/>
@@ -7694,8 +7694,6 @@ CASE 751BD</description>
 <wire x1="52.50950625" y1="57.56049375" x2="52.7340125" y2="57.4675" width="0.2032" layer="16" curve="45"/>
 <wire x1="52.7340125" y1="57.4675" x2="53.81625" y2="57.388125" width="0.2032" layer="16"/>
 <wire x1="54.768840625" y1="56.99125" x2="55.39" y2="56.98" width="0.2032" layer="1"/>
-<contactref element="R1811" pad="1"/>
-<wire x1="-19.9" y1="-269.24" x2="54.768840625" y2="56.99125" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PC4">
 <contactref element="U0111" pad="44"/>
@@ -7728,6 +7726,8 @@ CASE 751BD</description>
 </signal>
 <signal name="PA1">
 <contactref element="U0111" pad="35"/>
+<contactref element="R1811" pad="1"/>
+<wire x1="-19.9" y1="-269.24" x2="55.39" y2="53.98" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PA2">
 <contactref element="U0111" pad="36"/>
@@ -8319,12 +8319,10 @@ CASE 751BD</description>
 </signal>
 <signal name="PD7">
 <contactref element="U0111" pad="123"/>
-<contactref element="U0701" pad="8"/>
 <wire x1="67.79" y1="72.88" x2="67.765" y2="74.6609875" width="0.2032" layer="1"/>
 <wire x1="67.765" y1="74.6609875" x2="67.67200625" y2="74.88549375" width="0.2032" layer="1" curve="45"/>
 <via x="67.706875" y="74.93" extent="1-16" drill="0.3048" shape="octagon"/>
 <via x="73.021825" y="80.48625" extent="1-16" drill="0.3048"/>
-<wire x1="70.53" y1="83.07" x2="70.8025" y2="83.02625" width="0.1524" layer="1"/>
 <wire x1="70.8025" y1="83.02625" x2="70.881875" y2="83.02625" width="0.1524" layer="1"/>
 <wire x1="70.881875" y1="83.02625" x2="71.27875" y2="82.39125" width="0.1524" layer="1" curve="-62.313871"/>
 <wire x1="71.68924375" y1="81.66325625" x2="71.379575" y2="81.952378125" width="0.1524" layer="1"/>
@@ -8403,6 +8401,8 @@ CASE 751BD</description>
 <wire x1="71.7277625" y1="76.6490125" x2="71.82075625" y2="76.87351875" width="0.2032" layer="2" curve="45"/>
 <wire x1="71.82075625" y1="76.87351875" x2="71.82075625" y2="77.90773125" width="0.2032" layer="2"/>
 <wire x1="71.82075625" y1="77.90773125" x2="71.7277625" y2="78.1322375" width="0.2032" layer="2" curve="45"/>
+<contactref element="U0701" pad="8"/>
+<wire x1="71.37174375" y1="82.48424375" x2="70.53" y2="83.07" width="0" layer="19" extent="1-2"/>
 </signal>
 <signal name="PD1">
 <contactref element="U0111" pad="115"/>
