@@ -7604,12 +7604,10 @@ CASE 751BD</description>
 </signal>
 <signal name="PF10">
 <contactref element="U0111" pad="22"/>
-<contactref element="R2324" pad="1"/>
 <wire x1="55.39" y1="60.48" x2="54.689375" y2="60.48375" width="0.2032" layer="1"/>
 <wire x1="54.689375" y1="60.48375" x2="53.79005625" y2="60.858465625" width="0.2032" layer="1"/>
 <wire x1="53.79005625" y1="60.858465625" x2="53.679296875" y2="60.882684375" width="0.2032" layer="1" curve="20.570045"/>
 <wire x1="53.679296875" y1="60.882684375" x2="52.357425" y2="60.93" width="0.2032" layer="1"/>
-<wire x1="52.357425" y1="60.93" x2="52.285" y2="60.96" width="0.2032" layer="1" curve="-45"/>
 </signal>
 <signal name="PE2">
 <contactref element="U0111" pad="1"/>
@@ -7926,8 +7924,6 @@ CASE 751BD</description>
 <wire x1="70.79" y1="51.58" x2="70.8025" y2="51.514465625" width="0.2032" layer="1" curve="45"/>
 <wire x1="70.8025" y1="51.514465625" x2="70.8025" y2="49.53" width="0.2032" layer="1"/>
 <wire x1="70.8025" y1="49.53" x2="70.96125" y2="49.450625" width="0.2032" layer="1" curve="90"/>
-<contactref element="R1091" pad="1"/>
-<wire x1="71.05424375" y1="48.54075625" x2="-19.9" y2="-157.48" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="PE12">
 <contactref element="U0111" pad="65"/>
@@ -7937,8 +7933,6 @@ CASE 751BD</description>
 <wire x1="71.50325625" y1="49.94049375" x2="71.59625" y2="49.7159875" width="0.2032" layer="1" curve="-45"/>
 <wire x1="71.59625" y1="49.7159875" x2="71.59625" y2="48.7652625" width="0.2032" layer="1"/>
 <wire x1="71.59625" y1="48.7652625" x2="71.68924375" y2="48.54075625" width="0.2032" layer="1" curve="45"/>
-<contactref element="R0893" pad="1"/>
-<wire x1="71.68924375" y1="48.54075625" x2="-19.9" y2="-162.56" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PE13">
 <contactref element="U0111" pad="66"/>
@@ -7950,12 +7944,6 @@ CASE 751BD</description>
 <wire x1="72.23125" y1="49.8747375" x2="72.23125" y2="49.450625" width="0.2032" layer="1"/>
 <wire x1="72.32424375" y1="48.54075625" x2="72.23125" y2="48.7652625" width="0.2032" layer="16" curve="-45"/>
 <wire x1="72.23125" y1="48.7652625" x2="72.23125" y2="49.450625" width="0.2032" layer="16"/>
-<contactref element="R2386" pad="1"/>
-<contactref element="R2389" pad="1"/>
-<contactref element="R2383" pad="1"/>
-<wire x1="-19.9" y1="-127" x2="-19.9" y2="-142.24" width="0" layer="19" extent="1-1"/>
-<wire x1="-19.9" y1="-111.76" x2="-19.9" y2="-127" width="0" layer="19" extent="1-1"/>
-<wire x1="72.32424375" y1="48.54075625" x2="-19.9" y2="-111.76" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="PE14">
 <contactref element="U0111" pad="67"/>
@@ -7964,12 +7952,6 @@ CASE 751BD</description>
 <wire x1="72.43299375" y1="50.36013125" x2="72.804965625" y2="49.851865625" width="0.2032" layer="1"/>
 <wire x1="72.804965625" y1="49.851865625" x2="72.86625" y2="49.66435625" width="0.2032" layer="1" curve="-36.198236"/>
 <wire x1="72.86625" y1="49.66435625" x2="72.86625" y2="48.73625" width="0.2032" layer="1"/>
-<contactref element="R2385" pad="1"/>
-<contactref element="R2388" pad="1"/>
-<contactref element="R2382" pad="1"/>
-<wire x1="-19.9" y1="-121.92" x2="-19.9" y2="-137.16" width="0" layer="19" extent="1-1"/>
-<wire x1="-19.9" y1="-106.68" x2="-19.9" y2="-121.92" width="0" layer="19" extent="1-1"/>
-<wire x1="72.86625" y1="48.73625" x2="-19.9" y2="-106.68" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PE15">
 <contactref element="U0111" pad="68"/>
@@ -7979,12 +7961,6 @@ CASE 751BD</description>
 <wire x1="72.93299375" y1="50.57450625" x2="73.18375" y2="50.32375" width="0.2032" layer="1"/>
 <wire x1="73.27674375" y1="48.85825625" x2="73.18375" y2="49.0827625" width="0.2032" layer="16" curve="-45"/>
 <wire x1="73.18375" y1="49.0827625" x2="73.18375" y2="50.32375" width="0.2032" layer="16"/>
-<contactref element="R2384" pad="1"/>
-<contactref element="R2387" pad="1"/>
-<contactref element="R2381" pad="1"/>
-<wire x1="-19.9" y1="-116.84" x2="-19.9" y2="-132.08" width="0" layer="19" extent="1-1"/>
-<wire x1="-19.9" y1="-101.6" x2="-19.9" y2="-116.84" width="0" layer="19" extent="1-1"/>
-<wire x1="73.27674375" y1="48.85825625" x2="-19.9" y2="-101.6" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="PF11">
 <contactref element="U0111" pad="49"/>
@@ -8055,9 +8031,13 @@ CASE 751BD</description>
 <contactref element="U0111" pad="54"/>
 <wire x1="65.79" y1="51.58" x2="65.84" y2="48.8065125" width="0.2032" layer="1"/>
 <wire x1="65.84" y1="48.8065125" x2="65.93299375" y2="48.58200625" width="0.2032" layer="1" curve="45"/>
+<contactref element="R1091" pad="1"/>
+<wire x1="65.93299375" y1="48.58200625" x2="-19.9" y2="-157.48" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PF15">
 <contactref element="U0111" pad="55"/>
+<contactref element="R0893" pad="1"/>
+<wire x1="66.29" y1="51.58" x2="-19.9" y2="-162.56" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PG0">
 <contactref element="U0111" pad="56"/>
@@ -8112,13 +8092,11 @@ CASE 751BD</description>
 </signal>
 <signal name="PE0">
 <contactref element="U0111" pad="140"/>
-<contactref element="R2314" pad="1"/>
 <wire x1="59.29" y1="72.88" x2="59.34" y2="74.4484875" width="0.2032" layer="1"/>
 <wire x1="59.34" y1="74.4484875" x2="59.43299375" y2="74.67299375" width="0.2032" layer="1" curve="-45"/>
 <wire x1="59.43299375" y1="74.67299375" x2="60.0075" y2="75.2475" width="0.2032" layer="1"/>
 <wire x1="60.0075" y1="75.2475" x2="60.0075" y2="75.5359875" width="0.2032" layer="1"/>
 <wire x1="60.0075" y1="75.5359875" x2="60.10049375" y2="75.76049375" width="0.2032" layer="1" curve="-45"/>
-<wire x1="60.10049375" y1="75.76049375" x2="60.325" y2="75.985" width="0.2032" layer="1"/>
 </signal>
 <signal name="PE1">
 <contactref element="U0111" pad="141"/>
@@ -8220,6 +8198,10 @@ CASE 751BD</description>
 <wire x1="77.390625" y1="61.515625" x2="79.4384875" y2="62.005" width="0.2032" layer="1"/>
 <wire x1="79.4384875" y1="62.005" x2="79.66299375" y2="62.09799375" width="0.2032" layer="1" curve="45"/>
 <wire x1="79.66299375" y1="62.09799375" x2="79.795" y2="62.23" width="0.2032" layer="1"/>
+<contactref element="R2314" pad="1"/>
+<contactref element="R2324" pad="1"/>
+<wire x1="60.325" y1="75.985" x2="76.69" y2="61.48" width="0" layer="19" extent="1-1"/>
+<wire x1="52.285" y1="60.96" x2="60.325" y2="75.985" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PG3">
 <contactref element="U0111" pad="88"/>
@@ -8453,6 +8435,12 @@ CASE 751BD</description>
 <wire x1="72.29700625" y1="87.72299375" x2="71.866375" y2="88.090559375" width="0.1524" layer="2"/>
 <wire x1="71.866375" y1="88.090559375" x2="71.755" y2="88.332053125" width="0.1524" layer="2" curve="-49.518057"/>
 <wire x1="71.755" y1="88.332053125" x2="71.755" y2="90.249375" width="0.1524" layer="2"/>
+<contactref element="R2383" pad="1"/>
+<contactref element="R2386" pad="1"/>
+<contactref element="R2389" pad="1"/>
+<wire x1="-19.9" y1="-127" x2="-19.9" y2="-142.24" width="0" layer="19" extent="1-1"/>
+<wire x1="-19.9" y1="-111.76" x2="-19.9" y2="-127" width="0" layer="19" extent="1-1"/>
+<wire x1="71.79" y1="72.88" x2="-19.9" y2="-111.76" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PD0">
 <contactref element="U0111" pad="114"/>
@@ -8903,6 +8891,12 @@ CASE 751BD</description>
 </signal>
 <signal name="PB15">
 <contactref element="U0111" pad="76"/>
+<contactref element="R2381" pad="1"/>
+<contactref element="R2384" pad="1"/>
+<contactref element="R2387" pad="1"/>
+<wire x1="-19.9" y1="-116.84" x2="-19.9" y2="-132.08" width="0" layer="19" extent="1-1"/>
+<wire x1="-19.9" y1="-101.6" x2="-19.9" y2="-116.84" width="0" layer="19" extent="1-1"/>
+<wire x1="76.69" y1="54.98" x2="-19.9" y2="-101.6" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PB14">
 <contactref element="U0111" pad="75"/>
@@ -12139,6 +12133,12 @@ CASE 751BD</description>
 <wire x1="77.88049375" y1="72.71700625" x2="77.72585625" y2="72.32424375" width="0.2032" layer="1"/>
 <wire x1="77.72585625" y1="72.32424375" x2="77.263225" y2="71.834375" width="0.2032" layer="1" curve="-45"/>
 <wire x1="77.263225" y1="71.834375" x2="71.2515125" y2="71.834375" width="0.2032" layer="1"/>
+<contactref element="R2388" pad="1"/>
+<contactref element="R2385" pad="1"/>
+<contactref element="R2382" pad="1"/>
+<wire x1="-19.9" y1="-121.92" x2="-19.9" y2="-137.16" width="0" layer="19" extent="1-1"/>
+<wire x1="-19.9" y1="-106.68" x2="-19.9" y2="-121.92" width="0" layer="19" extent="1-1"/>
+<wire x1="71.2515125" y1="71.834375" x2="-19.9" y2="-106.68" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="EVT_N">
 <contactref element="R2314" pad="2"/>
@@ -13217,47 +13217,47 @@ CASE 751BD</description>
 <contactref element="R2396" pad="2"/>
 <wire x1="41.91" y1="2.54" x2="-18.2" y2="-86.36" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_N_MOSI">
+<signal name="SPI2_N_MOSI">
 <contactref element="R2381" pad="2"/>
 <contactref element="X2312" pad="11"/>
 <wire x1="-18.2" y1="-101.6" x2="57.15" y2="88.9" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_N_MISO">
+<signal name="SPI2_N_MISO">
 <contactref element="R2382" pad="2"/>
 <contactref element="X2312" pad="12"/>
 <wire x1="-18.2" y1="-106.68" x2="57.15" y2="93.98" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_N_SCK">
+<signal name="SPI2_N_SCK">
 <contactref element="R2383" pad="2"/>
 <contactref element="X2312" pad="13"/>
 <wire x1="-18.2" y1="-111.76" x2="58.42" y2="88.9" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_W_MOSI">
+<signal name="SPI2_W_MOSI">
 <contactref element="R2384" pad="2"/>
 <contactref element="X2322" pad="11"/>
 <wire x1="7.62" y1="57.15" x2="-18.2" y2="-116.84" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_W_MISO">
+<signal name="SPI2_W_MISO">
 <contactref element="R2385" pad="2"/>
 <contactref element="X2322" pad="12"/>
 <wire x1="2.54" y1="57.15" x2="-18.2" y2="-121.92" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_W_SCK">
+<signal name="SPI2_W_SCK">
 <contactref element="R2386" pad="2"/>
 <contactref element="X2322" pad="13"/>
 <wire x1="7.62" y1="58.42" x2="-18.2" y2="-127" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_S_MOSI">
+<signal name="SPI2_S_MOSI">
 <contactref element="X2332" pad="11"/>
 <contactref element="R2387" pad="2"/>
 <wire x1="39.37" y1="7.62" x2="-18.2" y2="-132.08" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_S_MISO">
+<signal name="SPI2_S_MISO">
 <contactref element="X2332" pad="12"/>
 <contactref element="R2388" pad="2"/>
 <wire x1="39.37" y1="2.54" x2="-18.2" y2="-137.16" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="SPI1_S_SCK">
+<signal name="SPI2_S_SCK">
 <contactref element="X2332" pad="13"/>
 <contactref element="R2389" pad="2"/>
 <wire x1="38.1" y1="7.62" x2="-18.2" y2="-142.24" width="0" layer="19" extent="1-1"/>
