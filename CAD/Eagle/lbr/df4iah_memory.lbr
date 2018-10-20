@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -40,7 +40,7 @@
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="51" name="tDocu" color="6" fill="1" visible="yes" active="yes"/>
@@ -1908,7 +1908,7 @@ Source: www.fairchildsemi.com</description>
 <text x="-5.334" y="-2.921" size="1.27" layer="25" ratio="10" rot="R90">&gt;NAME</text>
 <text x="-3.556" y="-0.635" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 </package>
-<package name="SOIC8">
+<package name="SOIC8_150MIL">
 <description>&lt;b&gt;Plastic Small Outline - SOIC8&lt;/b&gt;
 &lt;p&gt;
 150 mils
@@ -4256,6 +4256,26 @@ CASE 751BD</description>
 <pin name="SDA" x="10.16" y="0" length="short" rot="R180"/>
 <pin name="A0" x="-10.16" y="-2.54" length="short" direction="in"/>
 <pin name="WP" x="-10.16" y="-5.08" length="short" direction="in"/>
+</symbol>
+<symbol name="IS25LP032D">
+<description>&lt;h3&gt;ISSI IS25LP032D&lt;/h3&gt;
+32Mb&lt;p/&gt;
+SERIAL FLASH MEMORY WITH 133MHZ MULTI I/O SPI &amp;&lt;p/&gt;
+QUAD I/O QPI DTR INTERFACE</description>
+<wire x1="-15.24" y1="10.16" x2="15.24" y2="10.16" width="0.254" layer="94"/>
+<wire x1="15.24" y1="10.16" x2="15.24" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="15.24" y1="-10.16" x2="-15.24" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="-15.24" y1="-10.16" x2="-15.24" y2="10.16" width="0.254" layer="94"/>
+<text x="-2.54" y="11.43" size="1.778" layer="95">&gt;NAME</text>
+<text x="-7.62" y="-12.7" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="VCC" x="17.78" y="7.62" length="short" direction="pwr" rot="R180"/>
+<pin name="VSS" x="-17.78" y="7.62" length="short" direction="pwr"/>
+<pin name="SI_IO0" x="-17.78" y="-2.54" length="short"/>
+<pin name="SO_IO1" x="-17.78" y="-7.62" length="short"/>
+<pin name="!HOLD!_!R!_IO3" x="17.78" y="-7.62" length="short" rot="R180"/>
+<pin name="!WP!_IO2" x="17.78" y="-2.54" length="short" rot="R180"/>
+<pin name="!CE" x="17.78" y="2.54" length="short" direction="in" rot="R180"/>
+<pin name="SCK" x="-17.78" y="2.54" length="short" direction="in" function="clk"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -7748,7 +7768,7 @@ Source: www.fairchildsemi.com</description>
 <gate name="G$1" symbol="CAT24C64" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="SOIC8">
+<device name="" package="SOIC8_150MIL">
 <connects>
 <connect gate="G$1" pin="A0" pad="1"/>
 <connect gate="G$1" pin="A1" pad="2"/>
@@ -7758,6 +7778,32 @@ Source: www.fairchildsemi.com</description>
 <connect gate="G$1" pin="VCC" pad="8"/>
 <connect gate="G$1" pin="VSS" pad="4"/>
 <connect gate="G$1" pin="WP" pad="7"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="IS25LP032D" prefix="U">
+<description>&lt;h3&gt;ISSI IS25LP032D&lt;/h3&gt;
+32Mb&lt;p/&gt;
+SERIAL FLASH MEMORY WITH 133MHZ MULTI I/O SPI &amp;&lt;p/&gt;
+QUAD I/O QPI DTR INTERFACE</description>
+<gates>
+<gate name="G$1" symbol="IS25LP032D" x="-7.62" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="SOIC8_150MIL">
+<connects>
+<connect gate="G$1" pin="!CE" pad="1"/>
+<connect gate="G$1" pin="!HOLD!_!R!_IO3" pad="7"/>
+<connect gate="G$1" pin="!WP!_IO2" pad="3"/>
+<connect gate="G$1" pin="SCK" pad="6"/>
+<connect gate="G$1" pin="SI_IO0" pad="5"/>
+<connect gate="G$1" pin="SO_IO1" pad="2"/>
+<connect gate="G$1" pin="VCC" pad="8"/>
+<connect gate="G$1" pin="VSS" pad="4"/>
 </connects>
 <technologies>
 <technology name=""/>
