@@ -696,7 +696,7 @@ DAC, 2ch, 16 Bit</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="WM8523" prefix="U" uservalue="yes">
+<deviceset name="WM8523" prefix="U">
 <description>&lt;h4&gt;WM8523&lt;/h4&gt;
 DAC, 2ch, 24 Bit, I2S, Control: I2C/SPI</description>
 <gates>
