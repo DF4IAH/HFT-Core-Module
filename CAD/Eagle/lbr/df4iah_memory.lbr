@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -1926,8 +1926,8 @@ CASE 751BD</description>
 <smd name="8" x="-1.905" y="2.63" dx="0.6" dy="1.4" layer="1"/>
 <smd name="6" x="0.635" y="2.63" dx="0.6" dy="1.4" layer="1"/>
 <smd name="5" x="1.905" y="2.63" dx="0.6" dy="1.4" layer="1"/>
-<text x="-2.667" y="-1.27" size="1.27" layer="25" rot="R90">&gt;NAME</text>
-<text x="3.937" y="-2.54" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
+<text x="-2.667" y="-1.27" size="0.6096" layer="25" font="vector" ratio="10" rot="R90">&gt;NAME</text>
+<text x="3.302" y="-1.905" size="0.6096" layer="27" font="vector" ratio="10" rot="R90">&gt;VALUE</text>
 <text x="-1.905" y="-1.27" size="0.3048" layer="48">SO8 Medium</text>
 <text x="-1.905" y="-0.635" size="0.3048" layer="48">Microchip</text>
 <rectangle x1="-2.1501" y1="-3.1" x2="-1.6599" y2="-2" layer="51"/>

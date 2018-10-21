@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="yes" active="yes"/>
@@ -304,10 +304,10 @@ with I2C</description>
 <wire x1="51.2" y1="20.7" x2="51.2" y2="0" width="0.127" layer="21"/>
 <wire x1="51.2" y1="0" x2="51.2" y2="-0.03" width="0.127" layer="21"/>
 <wire x1="0" y1="20.7" x2="0" y2="0" width="0.127" layer="21"/>
-<text x="51.9673" y="12.6257" size="1.27" layer="21" ratio="10">K</text>
-<text x="51.9673" y="6.3" size="1.27" layer="21" ratio="10">A</text>
-<text x="28.575" y="-1.27" size="1.27" layer="21" ratio="10">8</text>
-<text x="15.875" y="-1.27" size="1.27" layer="21" ratio="10">1</text>
+<text x="51.9673" y="15.1657" size="0.6096" layer="21" font="vector" ratio="10">C</text>
+<text x="51.9673" y="5.03" size="0.6096" layer="21" font="vector" ratio="10">A</text>
+<text x="28.575" y="0" size="0.6096" layer="21" font="vector" ratio="10">8</text>
+<text x="16.51" y="0" size="0.6096" layer="21" font="vector" ratio="10">1</text>
 <smd name="21" x="50.05" y="15.1" dx="3.2" dy="1.8" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
 <smd name="11" x="50.05" y="15.1" dx="3.2" dy="1.8" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
 <smd name="22" x="50.05" y="5.1" dx="3.2" dy="1.8" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
@@ -353,8 +353,8 @@ with I2C</description>
 <vertex x="49.5" y="5.9" curve="-90"/>
 <vertex x="50.05" y="6.4" curve="-90"/>
 </polygon>
-<text x="1" y="22" size="1.27" layer="21">&gt;NAME</text>
-<text x="25" y="22" size="1.27" layer="21">&gt;VALUE</text>
+<text x="0.365" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;NAME</text>
+<text x="8.49" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;VALUE</text>
 </package>
 </packages>
 <symbols>
