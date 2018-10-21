@@ -53,10 +53,14 @@
 
 /* USER CODE BEGIN Includes */     
 // Core, USB_DEVICE
+#include <stm32l496xx.h>
+#include <math.h>
+#include <arm_math.h>
 #include "main.h"
 #include "usb_device.h"
 
 // App
+#include "lib_math.h"
 #include "device_adc.h"
 #include "task_Controller.h"
 #include "task_USB.h"
@@ -663,6 +667,40 @@ void StartDefaultTask(void const * argument)
 
   /* Give other tasks time to do the same */
   osDelay(10UL);
+
+#if 0
+  {
+    const uint32_t  timeStart = osKernelSysTick();
+    const uint16_t  cnt       = 360U;
+    float           v_out[2]  = { 0.f };
+
+    for (uint16_t idx = 0U; idx <= cnt; idx++) {
+
+      #if 1
+      const float theta_deg = idx;
+      arm_sin_cos_f32(theta_deg, &v_out[0], &v_out[1]);
+      #else
+      const float theta_rad = idx * PI / 180.f;
+      v_out[0] = sinf(theta_rad);
+      v_out[1] = cosf(theta_rad);
+      #endif
+
+      //__asm volatile( "nop" );
+    }
+
+    const uint32_t timeStop = osKernelSysTick();
+    const uint32_t timeUsed = timeStop - timeStart;
+
+    __asm volatile( "nop" );
+
+    (void) v_out;
+    (void) timeUsed;
+    /* Stdlib:    1.556 clocks for each sin() / cos() pair
+     * arm_math:    489 clocks for each sin() / cos() pair
+     * IAR:         150 clocks for each sin() / cos() pair.
+     */
+  }
+#endif
 
   do {
     uint32_t msgLen                       = 0UL;
