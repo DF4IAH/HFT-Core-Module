@@ -5973,7 +5973,6 @@ TSSOP-20</description>
 <element name="R2192" library="rcl" package="R0603" value="47R" x="-50.8" y="-977.9"/>
 <element name="U2151" library="df4iah_dig-pot" package="TSSOP14" value="MCP4661-104E-MS" x="-48.26" y="-986.79"/>
 <element name="C2151" library="rcl" package="C0603" value="100nF" x="-50.8" y="-993.14"/>
-<element name="R2151" library="rcl" package="R0603" value="100kR" x="-50.8" y="-998.22"/>
 <element name="C2191" library="rcl" package="C0603" value="6.8pF" x="-50.8" y="-1003.3"/>
 </elements>
 <signals>
@@ -6323,7 +6322,7 @@ TSSOP-20</description>
 <contactref element="U2151" pad="13"/>
 <contactref element="U2151" pad="1"/>
 <contactref element="C2151" pad="2"/>
-<contactref element="U2151" pad="10"/>
+<contactref element="U2151" pad="7"/>
 <wire x1="-19.9" y1="-471.17" x2="-19.9" y2="-476.25" width="0" layer="19" extent="1-1"/>
 <wire x1="-18.2" y1="-425.45" x2="-19.9" y2="-471.17" width="0" layer="19" extent="1-1"/>
 <wire x1="-18.2" y1="-420.37" x2="-18.2" y2="-425.45" width="0" layer="19" extent="1-1"/>
@@ -6367,9 +6366,9 @@ TSSOP-20</description>
 <wire x1="-51.65" y1="-967.74" x2="-50.8" y2="-950.89" width="0" layer="19" extent="1-1"/>
 <wire x1="-49.535" y1="-984.19" x2="-51.65" y2="-967.74" width="0" layer="19" extent="1-1"/>
 <wire x1="-48.885" y1="-984.19" x2="-49.535" y2="-984.19" width="0" layer="19" extent="1-1"/>
-<wire x1="-47.585" y1="-984.19" x2="-48.885" y2="-984.19" width="0" layer="19" extent="1-1"/>
 <wire x1="-50.185" y1="-989.39" x2="-49.535" y2="-984.19" width="0" layer="19" extent="1-1"/>
 <wire x1="-48.235" y1="-989.39" x2="-50.185" y2="-989.39" width="0" layer="19" extent="1-1"/>
+<wire x1="-46.285" y1="-989.39" x2="-48.235" y2="-989.39" width="0" layer="19" extent="1-1"/>
 <wire x1="-49.95" y1="-993.14" x2="-50.185" y2="-989.39" width="0" layer="19" extent="1-1"/>
 <wire x1="-9.21" y1="-50.8" x2="2.96" y2="-331.47" width="0" layer="19" extent="1-1"/>
 <wire x1="-16.83" y1="-50.8" x2="-9.21" y2="-50.8" width="0" layer="19" extent="1-1"/>
@@ -6897,8 +6896,6 @@ TSSOP-20</description>
 </signal>
 <signal name="PA0">
 <contactref element="U0111" pad="34"/>
-<contactref element="U2151" pad="7"/>
-<wire x1="-46.285" y1="-989.39" x2="52.85" y2="53.21" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PA1">
 <contactref element="U0111" pad="35"/>
@@ -8103,7 +8100,6 @@ TSSOP-20</description>
 <contactref element="C2103" pad="1"/>
 <contactref element="L2191" pad="1"/>
 <contactref element="TP_+1V1" pad="TP"/>
-<contactref element="U2151" pad="5"/>
 <contactref element="U2151" pad="8"/>
 <contactref element="C2191" pad="2"/>
 <wire x1="56.235" y1="37.985" x2="59.335" y2="39.485" width="0" layer="19" extent="16-16"/>
@@ -8112,8 +8108,7 @@ TSSOP-20</description>
 <wire x1="-11.11" y1="-50.8" x2="-18.46" y2="-30.48" width="0" layer="19" extent="1-1"/>
 <wire x1="-19.05" y1="-57.15" x2="-11.11" y2="-50.8" width="0" layer="19" extent="1-1"/>
 <wire x1="-49.95" y1="-1003.3" x2="59.335" y2="39.485" width="0" layer="19" extent="1-16"/>
-<wire x1="-47.585" y1="-989.39" x2="-49.95" y2="-1003.3" width="0" layer="19" extent="1-1"/>
-<wire x1="-46.285" y1="-984.19" x2="-47.585" y2="-989.39" width="0" layer="19" extent="1-1"/>
+<wire x1="-46.285" y1="-984.19" x2="-49.95" y2="-1003.3" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="MCU_OUT_VDD12_EN">
 <contactref element="U2501" pad="3"/>
@@ -8947,11 +8942,9 @@ TSSOP-20</description>
 <signal name="VDD12_FB">
 <contactref element="U2101" pad="5"/>
 <contactref element="U2151" pad="9"/>
-<contactref element="R2151" pad="2"/>
 <contactref element="C2191" pad="1"/>
 <wire x1="-46.935" y1="-984.19" x2="-49.8" y2="-950.89" width="0" layer="19" extent="1-1"/>
-<wire x1="-49.95" y1="-998.22" x2="-46.935" y2="-984.19" width="0" layer="19" extent="1-1"/>
-<wire x1="-51.65" y1="-1003.3" x2="-49.95" y2="-998.22" width="0" layer="19" extent="1-1"/>
+<wire x1="-51.65" y1="-1003.3" x2="-46.935" y2="-984.19" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VDD12_LBI">
 <contactref element="R2111" pad="2"/>
@@ -8965,10 +8958,10 @@ TSSOP-20</description>
 <contactref element="R2192" pad="1"/>
 <wire x1="-51.65" y1="-977.9" x2="-51.3" y2="-950.89" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="MCP4661_P1W">
+<signal name="MCP4661_P0B_P1W">
+<contactref element="U2151" pad="10"/>
 <contactref element="U2151" pad="6"/>
-<contactref element="R2151" pad="1"/>
-<wire x1="-46.935" y1="-989.39" x2="-51.65" y2="-998.22" width="0" layer="19" extent="1-1"/>
+<wire x1="-47.585" y1="-984.19" x2="-46.935" y2="-989.39" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 <errors>

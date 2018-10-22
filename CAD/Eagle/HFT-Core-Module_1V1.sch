@@ -26618,9 +26618,8 @@ TSSOP-20</description>
 <part name="GND2151" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="+3V2" library="df4iah_supply" deviceset="+3V3" device=""/>
 <part name="C2151" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R2151" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
-<part name="GND2152" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2191" library="rcl" deviceset="C-EU" device="C0603" value="6.8pF"/>
+<part name="GND00001" library="df4iah_supply" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -31745,17 +31744,14 @@ SPI</text>
 voltage down (1.05V) to MCU-GPIO out +1V2 to MCU-ADC</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">PMIC 3.3V --&gt; 1.2V</text>
 <text x="25.4" y="124.46" size="1.778" layer="97">MCU_OUT_VDD12_EN</text>
-<text x="25.4" y="78.74" size="1.778" layer="97">MCU_OUT_VDD12_LOWVOLT</text>
-<text x="22.86" y="68.58" size="1.778" layer="97">VDD=1.20V: LOWVOLT=Z
-VDD=1.05V: LOWVOLT=HI
-LOWVOLT=LO forbidden !</text>
 <text x="200.66" y="109.22" size="1.778" layer="97">MCU_IN_VDD12_PG</text>
 <text x="118.872" y="100.584" size="1.778" layer="97">1.21V</text>
 <text x="139.446" y="121.158" size="1.778" layer="97">0.5V</text>
 <text x="200.66" y="104.14" size="1.778" layer="97">MCU_IN_VDD12_LBO</text>
 <text x="167.64" y="137.16" size="1.778" layer="96">4.5mm x 3.2mm (1812)</text>
-<text x="137.16" y="48.26" size="1.778" layer="97" rot="R90">value = 93d</text>
-<text x="137.16" y="25.4" size="1.778" layer="97" rot="R90">value = ??d</text>
+<text x="137.16" y="48.26" size="1.778" layer="97" rot="R90">value=256d,26d</text>
+<text x="137.16" y="25.4" size="1.778" layer="97" rot="R90">value=183d</text>
+<text x="81.28" y="132.08" size="1.778" layer="97">Low battery: &lt; 3.025V</text>
 </plain>
 <instances>
 <instance part="FRAME_21" gate="G$1" x="0" y="0"/>
@@ -31777,9 +31773,8 @@ LOWVOLT=LO forbidden !</text>
 <instance part="GND2151" gate="1" x="111.76" y="17.78"/>
 <instance part="+3V2" gate="G$1" x="93.98" y="73.66"/>
 <instance part="C2151" gate="G$1" x="93.98" y="45.72"/>
-<instance part="R2151" gate="G$1" x="157.48" y="35.56"/>
-<instance part="GND2152" gate="1" x="154.94" y="45.72"/>
 <instance part="C2191" gate="G$1" x="190.5" y="124.46" rot="R90"/>
+<instance part="GND00001" gate="1" x="170.18" y="35.56"/>
 </instances>
 <busses>
 </busses>
@@ -31837,10 +31832,10 @@ LOWVOLT=LO forbidden !</text>
 <wire x1="93.98" y1="22.86" x2="93.98" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="GND2152" gate="1" pin="GND"/>
-<wire x1="154.94" y1="48.26" x2="154.94" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="U2151" gate="G$1" pin="P0B"/>
-<wire x1="154.94" y1="50.8" x2="149.86" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="U2151" gate="G$1" pin="P1A"/>
+<wire x1="149.86" y1="40.64" x2="170.18" y2="40.64" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="40.64" x2="170.18" y2="38.1" width="0.1524" layer="91"/>
+<pinref part="GND00001" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -31899,13 +31894,9 @@ LOWVOLT=LO forbidden !</text>
 <wire x1="215.9" y1="129.54" x2="215.9" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="200.66" y1="129.54" x2="200.66" y2="124.46" width="0.1524" layer="91"/>
 <junction x="200.66" y="129.54"/>
-<pinref part="U2151" gate="G$1" pin="P1B"/>
 <wire x1="200.66" y1="124.46" x2="200.66" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="200.66" y1="60.96" x2="200.66" y2="30.48" width="0.1524" layer="91"/>
-<wire x1="200.66" y1="30.48" x2="149.86" y2="30.48" width="0.1524" layer="91"/>
 <pinref part="U2151" gate="G$1" pin="P0A"/>
 <wire x1="149.86" y1="60.96" x2="200.66" y2="60.96" width="0.1524" layer="91"/>
-<junction x="200.66" y="60.96"/>
 <pinref part="C2191" gate="G$1" pin="2"/>
 <wire x1="200.66" y1="124.46" x2="195.58" y2="124.46" width="0.1524" layer="91"/>
 <junction x="200.66" y="124.46"/>
@@ -31933,23 +31924,10 @@ LOWVOLT=LO forbidden !</text>
 <pinref part="U2101" gate="G$1" pin="FB"/>
 <wire x1="170.18" y1="124.46" x2="170.18" y2="55.88" width="0.1524" layer="91"/>
 <pinref part="U2151" gate="G$1" pin="P0W"/>
-<wire x1="170.18" y1="55.88" x2="170.18" y2="35.56" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="55.88" x2="149.86" y2="55.88" width="0.1524" layer="91"/>
-<junction x="170.18" y="55.88"/>
-<pinref part="R2151" gate="G$1" pin="2"/>
-<wire x1="170.18" y1="35.56" x2="162.56" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="C2191" gate="G$1" pin="1"/>
 <wire x1="170.18" y1="124.46" x2="187.96" y2="124.46" width="0.1524" layer="91"/>
 <junction x="170.18" y="124.46"/>
-</segment>
-</net>
-<net name="PA0" class="0">
-<segment>
-<label x="22.86" y="78.74" size="1.778" layer="95" rot="R180" xref="yes"/>
-<wire x1="22.86" y1="78.74" x2="165.1" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="78.74" x2="165.1" y2="40.64" width="0.1524" layer="91"/>
-<pinref part="U2151" gate="G$1" pin="P1A"/>
-<wire x1="165.1" y1="40.64" x2="149.86" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VDD12_PG" class="0">
@@ -32006,11 +31984,13 @@ LOWVOLT=LO forbidden !</text>
 <label x="38.1" y="30.48" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="MCP4661_P1W" class="0">
+<net name="MCP4661_P0B_P1W" class="0">
 <segment>
+<pinref part="U2151" gate="G$1" pin="P0B"/>
+<wire x1="154.94" y1="50.8" x2="149.86" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="50.8" x2="154.94" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="U2151" gate="G$1" pin="P1W"/>
-<pinref part="R2151" gate="G$1" pin="1"/>
-<wire x1="149.86" y1="35.56" x2="152.4" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="35.56" x2="149.86" y2="35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
