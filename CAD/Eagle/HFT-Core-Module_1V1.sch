@@ -26880,11 +26880,13 @@ TTTT
 <part name="C1802" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="Q1821" library="df4iah_crystal" deviceset="ABS07-32.768KHZ" device=""/>
 <part name="C1821" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
-<part name="C1831" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
+<part name="C1822" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
 <part name="R1803" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R1804" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R1801" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R1805" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1831" library="rcl" deviceset="R-EU_" device="R0603" value="2kR"/>
+<part name="R1832" library="rcl" deviceset="R-EU_" device="R0603" value="2kR"/>
 </parts>
 <sheets>
 <sheet>
@@ -31661,7 +31663,7 @@ SPI</text>
 <attribute name="NAME" x="199.644" y="127.381" size="1.778" layer="95"/>
 <attribute name="VALUE" x="199.644" y="119.761" size="1.778" layer="96"/>
 </instance>
-<instance part="C1831" gate="G$1" x="210.82" y="119.38" smashed="yes" rot="R90">
+<instance part="C1822" gate="G$1" x="210.82" y="119.38" smashed="yes" rot="R90">
 <attribute name="NAME" x="209.804" y="122.301" size="1.778" layer="95"/>
 <attribute name="VALUE" x="209.804" y="114.681" size="1.778" layer="96"/>
 </instance>
@@ -31669,6 +31671,8 @@ SPI</text>
 <instance part="R1804" gate="G$1" x="81.28" y="93.98"/>
 <instance part="R1801" gate="G$1" x="81.28" y="119.38"/>
 <instance part="R1805" gate="G$1" x="81.28" y="83.82"/>
+<instance part="R1831" gate="G$1" x="231.14" y="104.14"/>
+<instance part="R1832" gate="G$1" x="220.98" y="99.06"/>
 </instances>
 <busses>
 </busses>
@@ -31702,7 +31706,7 @@ SPI</text>
 <wire x1="220.98" y1="119.38" x2="220.98" y2="124.46" width="0.1524" layer="91"/>
 <wire x1="220.98" y1="124.46" x2="220.98" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="220.98" y1="139.7" x2="215.9" y2="139.7" width="0.1524" layer="91"/>
-<pinref part="C1831" gate="G$1" pin="2"/>
+<pinref part="C1822" gate="G$1" pin="2"/>
 <wire x1="220.98" y1="119.38" x2="215.9" y2="119.38" width="0.1524" layer="91"/>
 <junction x="220.98" y="119.38"/>
 <pinref part="C1821" gate="G$1" pin="2"/>
@@ -31731,6 +31735,16 @@ SPI</text>
 <wire x1="58.42" y1="99.06" x2="58.42" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="99.06" x2="111.76" y2="99.06" width="0.1524" layer="91"/>
 <junction x="58.42" y="99.06"/>
+</segment>
+<segment>
+<pinref part="R1831" gate="G$1" pin="2"/>
+<wire x1="236.22" y1="104.14" x2="241.3" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="R1832" gate="G$1" pin="2"/>
+<wire x1="226.06" y1="99.06" x2="241.3" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="241.3" y1="99.06" x2="241.3" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="241.3" y1="104.14" x2="241.3" y2="114.3" width="0.1524" layer="91"/>
+<junction x="241.3" y="104.14"/>
+<label x="241.3" y="114.3" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
 <net name="PF13" class="0">
@@ -31786,7 +31800,7 @@ SPI</text>
 <pinref part="U1801" gate="G$1" pin="CLKSEL1/XOUT32"/>
 <pinref part="Q1821" gate="G$1" pin="1"/>
 <wire x1="182.88" y1="119.38" x2="193.04" y2="119.38" width="0.1524" layer="91"/>
-<pinref part="C1831" gate="G$1" pin="1"/>
+<pinref part="C1822" gate="G$1" pin="1"/>
 <wire x1="193.04" y1="119.38" x2="208.28" y2="119.38" width="0.1524" layer="91"/>
 <junction x="193.04" y="119.38"/>
 </segment>
@@ -31864,6 +31878,22 @@ SPI</text>
 <pinref part="U1801" gate="G$1" pin="H_CSN"/>
 <wire x1="111.76" y1="83.82" x2="86.36" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="R1805" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="BNO085_ENV_SDA" class="0">
+<segment>
+<pinref part="U1801" gate="G$1" pin="ENV_SDA"/>
+<pinref part="R1831" gate="G$1" pin="1"/>
+<wire x1="182.88" y1="104.14" x2="226.06" y2="104.14" width="0.1524" layer="91"/>
+<label x="182.88" y="104.14" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="BNO085_ENV_SCL" class="0">
+<segment>
+<pinref part="U1801" gate="G$1" pin="ENV_SCL"/>
+<pinref part="R1832" gate="G$1" pin="1"/>
+<wire x1="182.88" y1="99.06" x2="215.9" y2="99.06" width="0.1524" layer="91"/>
+<label x="182.88" y="99.06" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
