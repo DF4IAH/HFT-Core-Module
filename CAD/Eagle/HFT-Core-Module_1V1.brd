@@ -6167,11 +6167,13 @@ TTTT
 <attribute name="VALUE" x="43.29" y="51.555" size="1.27" layer="28" rot="MR270"/>
 </element>
 <element name="C1821" library="rcl" package="C0603" value="22pF" x="-50.8" y="-1033.78"/>
-<element name="C1831" library="rcl" package="C0603" value="22pF" x="-50.8" y="-1038.86"/>
+<element name="C1822" library="rcl" package="C0603" value="22pF" x="-50.8" y="-1038.86"/>
 <element name="R1803" library="rcl" package="R0603" value="47R" x="-50.8" y="-1043.94"/>
 <element name="R1804" library="rcl" package="R0603" value="47R" x="-50.8" y="-1049.02"/>
 <element name="R1801" library="rcl" package="R0603" value="47R" x="-50.8" y="-1054.1"/>
 <element name="R1805" library="rcl" package="R0603" value="47R" x="-50.8" y="-1059.18"/>
+<element name="R1831" library="rcl" package="R0603" value="2kR" x="-50.8" y="-1064.26"/>
+<element name="R1832" library="rcl" package="R0603" value="2kR" x="-50.8" y="-1069.34"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -6528,7 +6530,7 @@ TTTT
 <contactref element="U1801" pad="10"/>
 <contactref element="C1803" pad="2"/>
 <contactref element="C1802" pad="2"/>
-<contactref element="C1831" pad="2"/>
+<contactref element="C1822" pad="2"/>
 <contactref element="C1821" pad="2"/>
 <wire x1="-19.9" y1="-471.17" x2="-19.9" y2="-476.25" width="0" layer="19" extent="1-1"/>
 <wire x1="-18.2" y1="-425.45" x2="-19.9" y2="-471.17" width="0" layer="19" extent="1-1"/>
@@ -7697,9 +7699,13 @@ TTTT
 <contactref element="U1801" pad="28"/>
 <contactref element="C1802" pad="1"/>
 <contactref element="U1801" pad="5"/>
+<contactref element="R1831" pad="2"/>
+<contactref element="R1832" pad="2"/>
 <wire x1="-49.95" y1="-972.82" x2="-42.33" y2="-924.56" width="0" layer="19" extent="1-1"/>
 <wire x1="-51.65" y1="-993.14" x2="-49.95" y2="-972.82" width="0" layer="19" extent="1-1"/>
 <wire x1="-51.65" y1="-1028.7" x2="-51.65" y2="-993.14" width="0" layer="19" extent="1-1"/>
+<wire x1="-49.95" y1="-1064.26" x2="-51.65" y2="-1028.7" width="0" layer="19" extent="1-1"/>
+<wire x1="-49.95" y1="-1069.34" x2="-49.95" y2="-1064.26" width="0" layer="19" extent="1-1"/>
 <wire x1="-21.17" y1="-792.48" x2="-42.33" y2="-924.56" width="0" layer="19" extent="1-1"/>
 <wire x1="-21.17" y1="-787.4" x2="-21.17" y2="-792.48" width="0" layer="19" extent="1-1"/>
 <wire x1="-19.9" y1="-594.36" x2="-21.17" y2="-787.4" width="0" layer="19" extent="1-1"/>
@@ -9238,7 +9244,7 @@ TTTT
 <signal name="BNO085_CLKSEL1_XOUT32">
 <contactref element="U1801" pad="26"/>
 <contactref element="Q1821" pad="1"/>
-<contactref element="C1831" pad="1"/>
+<contactref element="C1822" pad="1"/>
 <wire x1="40.64" y1="50.78" x2="42.43" y2="49.8225" width="0" layer="19" extent="1-16"/>
 <wire x1="-51.65" y1="-1038.86" x2="42.43" y2="49.8225" width="0" layer="19" extent="1-1"/>
 </signal>
@@ -9261,6 +9267,16 @@ TTTT
 <contactref element="U1801" pad="18"/>
 <contactref element="R1805" pad="2"/>
 <wire x1="-49.95" y1="-1059.18" x2="45.4425" y2="48.51" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="BNO085_ENV_SDA">
+<contactref element="U1801" pad="16"/>
+<contactref element="R1831" pad="1"/>
+<wire x1="45.4425" y1="47.51" x2="-51.65" y2="-1064.26" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="BNO085_ENV_SCL">
+<contactref element="U1801" pad="15"/>
+<contactref element="R1832" pad="1"/>
+<wire x1="45.43" y1="46.6975" x2="-51.65" y2="-1069.34" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 <errors>
