@@ -34872,19 +34872,18 @@ fix layout of sockets</text>
 <sheet>
 <description>I2C1 termination</description>
 <plain>
-<text x="154.94" y="83.82" size="1.778" layer="97">I2C address space:
-
-Addr    Device
+<text x="154.94" y="86.36" size="2.54" layer="97" ratio="15">Addr    Device
 
 0x0C    (9axis Mag)
-0x1A    Audio DAC
-0x38    TCXO DAC
-0x3D    LCD
-0x4A    Audio ADC
-0x50    EEPROM
+0x1A    Audio DAC settings
+0x28    PMIC 1.2V voltage regulation
+0x38    TCXO DAC pulling voltage
+0x3D    LCD access
+0x4A    Audio ADC settings
+0x50    EEPROM config data
 0x68    (9axis Gyro/Accel)
-0x70    Si5338 PLL
-0x76    Weather sensor</text>
+0x70    Si5338 PLL settings
+0x76    Weather sensor data</text>
 <text x="22.86" y="160.02" size="2.54" layer="97" ratio="15">I2C1 Termination</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">I2C1 Bus</text>
 <text x="154.94" y="160.02" size="2.54" layer="97" ratio="15">I2C1 Address space</text>
