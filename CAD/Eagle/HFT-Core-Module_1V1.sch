@@ -29437,9 +29437,9 @@ I2C addr: 0x4A</text>
 <instance part="U0901" gate="G$1" x="132.08" y="86.36"/>
 <instance part="GND0901" gate="1" x="132.08" y="45.72"/>
 <instance part="GND0903" gate="1" x="160.02" y="114.3"/>
-<instance part="C0904" gate="G$1" x="152.4" y="147.32" rot="R90"/>
-<instance part="C0905" gate="G$1" x="152.4" y="134.62" rot="R90"/>
-<instance part="C0906" gate="G$1" x="152.4" y="121.92" rot="R90"/>
+<instance part="C0904" gate="G$1" x="152.4" y="149.86" rot="R90"/>
+<instance part="C0905" gate="G$1" x="152.4" y="137.16" rot="R90"/>
+<instance part="C0906" gate="G$1" x="152.4" y="124.46" rot="R90"/>
 <instance part="R0912" gate="G$1" x="58.42" y="96.52"/>
 <instance part="R0922" gate="G$1" x="58.42" y="83.82"/>
 <instance part="C0912" gate="G$1" x="66.04" y="60.96" smashed="yes">
@@ -29533,18 +29533,18 @@ I2C addr: 0x4A</text>
 <pinref part="U0901" gate="G$1" pin="DGND"/>
 <wire x1="129.54" y1="119.38" x2="129.54" y2="114.3" width="0.1524" layer="91"/>
 <junction x="129.54" y="119.38"/>
-<wire x1="160.02" y1="119.38" x2="160.02" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="119.38" x2="160.02" y2="124.46" width="0.1524" layer="91"/>
 <junction x="160.02" y="119.38"/>
 <pinref part="C0904" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="121.92" x2="160.02" y2="134.62" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="134.62" x2="160.02" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="147.32" x2="157.48" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="124.46" x2="160.02" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="137.16" x2="160.02" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="149.86" x2="157.48" y2="149.86" width="0.1524" layer="91"/>
 <pinref part="C0905" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="134.62" x2="157.48" y2="134.62" width="0.1524" layer="91"/>
-<junction x="160.02" y="134.62"/>
+<wire x1="160.02" y1="137.16" x2="157.48" y2="137.16" width="0.1524" layer="91"/>
+<junction x="160.02" y="137.16"/>
 <pinref part="C0906" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="121.92" x2="157.48" y2="121.92" width="0.1524" layer="91"/>
-<junction x="160.02" y="121.92"/>
+<wire x1="160.02" y1="124.46" x2="157.48" y2="124.46" width="0.1524" layer="91"/>
+<junction x="160.02" y="124.46"/>
 </segment>
 <segment>
 <pinref part="GND0902" gate="1" pin="GND"/>
@@ -29561,26 +29561,26 @@ I2C addr: 0x4A</text>
 </net>
 <net name="+3V3_HICUR" class="0">
 <segment>
-<label x="45.72" y="147.32" size="1.778" layer="95" rot="R180" xref="yes"/>
-<wire x1="45.72" y1="147.32" x2="88.9" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="147.32" x2="104.14" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="104.14" y1="147.32" x2="119.38" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="119.38" y1="147.32" x2="127" y2="147.32" width="0.1524" layer="91"/>
+<label x="45.72" y="149.86" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="45.72" y1="149.86" x2="88.9" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="149.86" x2="104.14" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="149.86" x2="119.38" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="149.86" x2="127" y2="149.86" width="0.1524" layer="91"/>
 <pinref part="C0902" gate="G$1" pin="1"/>
-<wire x1="127" y1="147.32" x2="132.08" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="104.14" y1="147.32" x2="104.14" y2="139.7" width="0.1524" layer="91"/>
-<junction x="104.14" y="147.32"/>
-<wire x1="119.38" y1="147.32" x2="119.38" y2="139.7" width="0.1524" layer="91"/>
-<junction x="119.38" y="147.32"/>
+<wire x1="127" y1="149.86" x2="132.08" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="149.86" x2="104.14" y2="139.7" width="0.1524" layer="91"/>
+<junction x="104.14" y="149.86"/>
+<wire x1="119.38" y1="149.86" x2="119.38" y2="139.7" width="0.1524" layer="91"/>
+<junction x="119.38" y="149.86"/>
 <pinref part="L0901" gate="G$1" pin="2"/>
 <pinref part="C0901" gate="G$1" pin="1"/>
-<wire x1="88.9" y1="147.32" x2="88.9" y2="139.7" width="0.1524" layer="91"/>
-<junction x="88.9" y="147.32"/>
+<wire x1="88.9" y1="149.86" x2="88.9" y2="139.7" width="0.1524" layer="91"/>
+<junction x="88.9" y="149.86"/>
 <pinref part="U0901" gate="G$1" pin="IOVDD"/>
-<wire x1="132.08" y1="147.32" x2="132.08" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="149.86" x2="132.08" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="U0901" gate="G$1" pin="DVDD"/>
-<wire x1="127" y1="147.32" x2="127" y2="114.3" width="0.1524" layer="91"/>
-<junction x="127" y="147.32"/>
+<wire x1="127" y1="149.86" x2="127" y2="114.3" width="0.1524" layer="91"/>
+<junction x="127" y="149.86"/>
 </segment>
 </net>
 <net name="AUDIOADC_AVDD" class="0">
@@ -29625,21 +29625,21 @@ I2C addr: 0x4A</text>
 <net name="AUDIOADC_LDO" class="0">
 <segment>
 <pinref part="U0901" gate="G$1" pin="LDO"/>
-<wire x1="137.16" y1="114.3" x2="137.16" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="114.3" x2="137.16" y2="137.16" width="0.1524" layer="91"/>
 <pinref part="C0904" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="134.62" x2="137.16" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="147.32" x2="149.86" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="137.16" x2="137.16" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="149.86" x2="149.86" y2="149.86" width="0.1524" layer="91"/>
 <pinref part="C0905" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="134.62" x2="149.86" y2="134.62" width="0.1524" layer="91"/>
-<junction x="137.16" y="134.62"/>
+<wire x1="137.16" y1="137.16" x2="149.86" y2="137.16" width="0.1524" layer="91"/>
+<junction x="137.16" y="137.16"/>
 </segment>
 </net>
 <net name="AUDIOADC_VREF" class="0">
 <segment>
 <pinref part="U0901" gate="G$1" pin="VREF"/>
-<wire x1="144.78" y1="114.3" x2="144.78" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="114.3" x2="144.78" y2="124.46" width="0.1524" layer="91"/>
 <pinref part="C0906" gate="G$1" pin="1"/>
-<wire x1="144.78" y1="121.92" x2="149.86" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="124.46" x2="149.86" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="AUDIOADC_VINL1" class="0">
