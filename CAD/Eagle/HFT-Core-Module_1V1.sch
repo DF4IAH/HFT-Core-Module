@@ -30038,8 +30038,8 @@ I2C addr: 0x4A</text>
 </net>
 <net name="+3V3_HICUR" class="0">
 <segment>
-<label x="45.72" y="149.86" size="1.778" layer="95" rot="R180" xref="yes"/>
-<wire x1="45.72" y1="149.86" x2="88.9" y2="149.86" width="0.1524" layer="91"/>
+<label x="48.26" y="149.86" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="48.26" y1="149.86" x2="88.9" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="149.86" x2="104.14" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="149.86" x2="119.38" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="119.38" y1="149.86" x2="127" y2="149.86" width="0.1524" layer="91"/>
@@ -30389,8 +30389,8 @@ I2C addr: 0x1A</text>
 </net>
 <net name="+3V3_HICUR" class="0">
 <segment>
-<label x="50.8" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
-<wire x1="50.8" y1="132.08" x2="88.9" y2="132.08" width="0.1524" layer="91"/>
+<label x="48.26" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="48.26" y1="132.08" x2="88.9" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="132.08" x2="104.14" y2="132.08" width="0.1524" layer="91"/>
 <pinref part="L1001" gate="G$1" pin="2"/>
 <wire x1="88.9" y1="132.08" x2="88.9" y2="127" width="0.1524" layer="91"/>
@@ -31098,11 +31098,13 @@ I2C addr: 0x76</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
 <text x="193.04" y="162.56" size="2.54" layer="97" ratio="15">SIMcard holder</text>
+<text x="22.86" y="53.34" size="2.54" layer="97" ratio="15">Level-Shifter
+74LVC4245APW</text>
 </plain>
 <instances>
 <instance part="FRAME_16" gate="G$1" x="0" y="0"/>
-<instance part="X1551" gate="A" x="215.9" y="111.76" rot="R90"/>
-<instance part="X1551" gate="B" x="218.44" y="68.58" rot="R90"/>
+<instance part="X1551" gate="A" x="215.9" y="144.78" rot="R90"/>
+<instance part="X1551" gate="B" x="213.36" y="109.22" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -32234,9 +32236,9 @@ SPI</text>
 </net>
 <net name="+3V3" class="0">
 <segment>
-<wire x1="48.26" y1="144.78" x2="48.26" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="139.7" x2="48.26" y2="139.7" width="0.1524" layer="91"/>
 <pinref part="C1801" gate="G$1" pin="1"/>
-<label x="48.26" y="144.78" size="1.778" layer="95" rot="R90" xref="yes"/>
+<label x="35.56" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="U1801" gate="G$1" pin="VDD"/>
 <wire x1="48.26" y1="139.7" x2="48.26" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="48.26" y1="139.7" x2="58.42" y2="139.7" width="0.1524" layer="91"/>
@@ -32260,9 +32262,9 @@ SPI</text>
 <pinref part="R1832" gate="G$1" pin="2"/>
 <wire x1="226.06" y1="99.06" x2="241.3" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="241.3" y1="99.06" x2="241.3" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="241.3" y1="104.14" x2="241.3" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="241.3" y1="104.14" x2="241.3" y2="139.7" width="0.1524" layer="91"/>
 <junction x="241.3" y="104.14"/>
-<label x="241.3" y="114.3" size="1.778" layer="95" rot="R90" xref="yes"/>
+<label x="241.3" y="139.7" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
 <net name="PF13" class="0">
@@ -32766,10 +32768,14 @@ SPI</text>
 </nets>
 </sheet>
 <sheet>
-<description>PMIC 5.0V --&gt; 4.0V</description>
+<description>LiPo charger</description>
 <plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5.0V --&gt; 4.0V (GSM)</text>
-<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">PMIC 5.0V --&gt; 4.0V</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LiPo charger (nom. 4.2V)
+I2C addr: 0x6B</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">LiPo charger</text>
+<text x="167.64" y="162.56" size="2.54" layer="97" ratio="15">Output port expander</text>
+<text x="167.64" y="149.86" size="1.778" layer="97">HCF4094YM013TR </text>
+<text x="22.86" y="149.86" size="1.778" layer="97">BQ24193</text>
 </plain>
 <instances>
 <instance part="FRAME_20" gate="G$1" x="0" y="0"/>
@@ -33040,6 +33046,7 @@ SPI</text>
 <description>Switch: USB-Power -&gt; 5V</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for USB-Power &lt;--&gt; 5V</text>
+<text x="81.28" y="134.62" size="1.778" layer="97">TODO: will be removed when BQ24193 LiPo charger is in place</text>
 </plain>
 <instances>
 <instance part="FRAME_22" gate="G$1" x="0" y="0"/>
@@ -35913,18 +35920,17 @@ fix layout of sockets</text>
 <sheet>
 <description>I2C1 termination</description>
 <plain>
-<text x="154.94" y="86.36" size="2.54" layer="97" ratio="15">Addr    Device
+<text x="154.94" y="86.36" size="2.54" layer="97" ratio="15">Addr           Device
 
-0x0C    (9axis Mag)
-0x1A    Audio DAC settings
-0x28    PMIC 1.2V voltage regulation
-0x38    TCXO DAC pulling voltage
-0x3D    LCD access
-0x4A    Audio ADC settings
-0x50    EEPROM config data
-0x68    (9axis Gyro/Accel)
-0x70    Si5338 PLL settings
-0x76    Climate Sensor data</text>
+0x1A           Audio DAC settings
+0x28           PMIC 1.2V voltage regulation
+0x38/0x2A      TCXO DAC pulling voltage
+0x3D           LCD access
+0x4A           Audio ADC settings
+0x50           EEPROM config data
+0x6B           BQ24193 PMIC LiPo
+0x70           Si5338 PLL settings
+0x76           Climate Sensor data</text>
 <text x="22.86" y="160.02" size="2.54" layer="97" ratio="15">I2C1 Termination</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">I2C1 Bus</text>
 <text x="154.94" y="160.02" size="2.54" layer="97" ratio="15">I2C1 Address space</text>
