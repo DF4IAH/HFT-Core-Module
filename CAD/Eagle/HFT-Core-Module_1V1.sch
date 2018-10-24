@@ -31098,11 +31098,13 @@ I2C addr: 0x76</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
 <text x="193.04" y="162.56" size="2.54" layer="97" ratio="15">SIMcard holder</text>
+<text x="22.86" y="53.34" size="2.54" layer="97" ratio="15">Level-Shifter
+74LVC4245APW</text>
 </plain>
 <instances>
 <instance part="FRAME_16" gate="G$1" x="0" y="0"/>
-<instance part="X1551" gate="A" x="215.9" y="111.76" rot="R90"/>
-<instance part="X1551" gate="B" x="218.44" y="68.58" rot="R90"/>
+<instance part="X1551" gate="A" x="215.9" y="144.78" rot="R90"/>
+<instance part="X1551" gate="B" x="213.36" y="109.22" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -32766,10 +32768,13 @@ SPI</text>
 </nets>
 </sheet>
 <sheet>
-<description>PMIC 5.0V --&gt; 4.0V</description>
+<description>LiPo charger</description>
 <plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 5.0V --&gt; 4.0V (GSM)</text>
-<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">PMIC 5.0V --&gt; 4.0V</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LiPo charger (nom. 3.8V)</text>
+<text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">LiPo charger</text>
+<text x="167.64" y="162.56" size="2.54" layer="97" ratio="15">Output port expander</text>
+<text x="167.64" y="149.86" size="1.778" layer="97">HCF4094YM013TR 
+</text>
 </plain>
 <instances>
 <instance part="FRAME_20" gate="G$1" x="0" y="0"/>
