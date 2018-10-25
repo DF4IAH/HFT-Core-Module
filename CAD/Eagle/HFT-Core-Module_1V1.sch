@@ -32773,8 +32773,8 @@ SPI</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LiPo charger (nom. 4.2V)
 I2C addr: 0x6B</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">LiPo charger</text>
-<text x="167.64" y="162.56" size="2.54" layer="97" ratio="15">Output port expander</text>
-<text x="167.64" y="149.86" size="1.778" layer="97">HCF4094YM013TR </text>
+<text x="167.64" y="162.56" size="2.54" layer="97" ratio="15">I2C port expander</text>
+<text x="167.64" y="149.86" size="1.778" layer="97">NXP_PCAL9555A </text>
 <text x="22.86" y="149.86" size="1.778" layer="97">BQ24193</text>
 </plain>
 <instances>
