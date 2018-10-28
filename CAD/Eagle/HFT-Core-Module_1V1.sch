@@ -27889,6 +27889,339 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 </deviceset>
 </devicesets>
 </library>
+<library name="df4iah_gsm">
+<description>&lt;b&gt;DF4IAH Library - GSM: GSM communiaction devices up to GSM processors&lt;/b&gt;&lt;p&gt;</description>
+<packages>
+<package name="SIM868">
+<description>&lt;h3&gt;SIMCom SIM868&lt;/h3&gt;
+&lt;h4&gt;GSM/GPRS - GNSS Module&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Quad-band 850/900/1800/1900MHz&lt;/li&gt;
+&lt;li&gt;GPRS multi-slot class 12/10&lt;/li&gt;
+&lt;li&gt;GPRS mobile station class B&lt;/li&gt;
+&lt;li&gt;Support GPS/GLONASS/BD&lt;/li&gt;
+&lt;li&gt;Dimensions: 17.6*15.7*2.3mm&lt;/li&gt;
+&lt;li&gt;Weight: 1.5g&lt;/li&gt;
+&lt;li&gt;Control via AT commands (3GPP TS 27.007, 27.005 and SIMComenhanced AT Commands)&lt;/li&gt;
+&lt;li&gt;Supply voltage range 3.4 ~ 4.4V&lt;/li&gt;
+&lt;li&gt;Low power consumption&lt;/li&gt;
+&lt;li&gt;Operation temperature:-40℃~85℃&lt;/li&gt;
+&lt;li&gt;GNSS&lt;ul&gt;&lt;li&gt;33 tracking /99 acquisition&lt;/li&gt;&lt;li&gt;channelSensitivity -Tracking: -167 dBm&lt;/li&gt;&lt;li&gt;Reacquisition: -161 dBm&lt;/li&gt;&lt;li&gt;Cold starts : -149 dBm&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+<smd name="77" x="0" y="0" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="70" x="-2.9" y="0" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="74" x="2.9" y="0" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="76" x="0" y="3.4" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="75" x="2.9" y="3.4" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="69" x="-2.9" y="3.4" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="71" x="-2.9" y="-3.4" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="72" x="0" y="-3.4" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="73" x="2.9" y="-3.4" dx="2.6" dy="3.1" layer="1" roundness="5" thermals="no"/>
+<smd name="46" x="-5.45" y="0.7" dx="1.1" dy="0.9" layer="1"/>
+<smd name="45" x="-5.45" y="2.1" dx="1.1" dy="0.9" layer="1"/>
+<smd name="44" x="-5.45" y="3.5" dx="1.1" dy="0.9" layer="1"/>
+<smd name="43" x="-5.45" y="4.9" dx="1.1" dy="0.9" layer="1"/>
+<smd name="47" x="-5.45" y="-0.7" dx="1.1" dy="0.9" layer="1"/>
+<smd name="48" x="-5.45" y="-2.1" dx="1.1" dy="0.9" layer="1"/>
+<smd name="49" x="-5.45" y="-3.5" dx="1.1" dy="0.9" layer="1"/>
+<smd name="50" x="-5.45" y="-4.9" dx="1.1" dy="0.9" layer="1"/>
+<smd name="54" x="0" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="58" x="5.45" y="-4.9" dx="1.1" dy="0.9" layer="1" rot="R180"/>
+<smd name="59" x="5.45" y="-3.5" dx="1.1" dy="0.9" layer="1" rot="R180"/>
+<smd name="60" x="5.45" y="-2.1" dx="1.1" dy="0.9" layer="1" rot="R180"/>
+<smd name="62" x="5.45" y="0.7" dx="1.1" dy="0.9" layer="1" rot="R180"/>
+<smd name="61" x="5.45" y="-0.7" dx="1.1" dy="0.9" layer="1" rot="R180"/>
+<smd name="65" x="0" y="6.3" dx="1.1" dy="0.9" layer="1" rot="R270"/>
+<rectangle x1="4.65" y1="2.3" x2="6.8" y2="7.6" layer="39"/>
+<smd name="6" x="-7.85" y="0.55" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="5" x="-7.85" y="1.65" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="4" x="-7.85" y="2.75" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="3" x="-7.85" y="3.85" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="2" x="-7.85" y="4.95" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="1" x="-7.85" y="6.05" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="7" x="-7.85" y="-0.55" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="8" x="-7.85" y="-1.65" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="9" x="-7.85" y="-2.75" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="10" x="-7.85" y="-3.85" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="11" x="-7.85" y="-4.95" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="12" x="-7.85" y="-6.05" dx="1.6" dy="0.6" layer="1" roundness="99"/>
+<smd name="17" x="0" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="27" x="7.85" y="-0.55" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="26" x="7.85" y="-1.65" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="25" x="7.85" y="-2.75" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="24" x="7.85" y="-3.85" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="23" x="7.85" y="-4.95" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="22" x="7.85" y="-6.05" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="28" x="7.85" y="0.55" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="29" x="7.85" y="1.65" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="30" x="7.85" y="2.75" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="31" x="7.85" y="3.85" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="32" x="7.85" y="4.95" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="33" x="7.85" y="6.05" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R180"/>
+<smd name="38" x="0" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="64" x="1.4" y="6.3" dx="1.1" dy="0.9" layer="1" rot="R270"/>
+<smd name="63" x="2.8" y="6.3" dx="1.1" dy="0.9" layer="1" rot="R270"/>
+<smd name="66" x="-1.4" y="6.3" dx="1.1" dy="0.9" layer="1" rot="R270"/>
+<smd name="67" x="-2.8" y="6.3" dx="1.1" dy="0.9" layer="1" rot="R270"/>
+<smd name="68" x="-4.2" y="6.3" dx="1.1" dy="0.9" layer="1" rot="R270"/>
+<smd name="55" x="1.4" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="56" x="2.8" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="57" x="4.2" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="53" x="-1.4" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="52" x="-2.8" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="51" x="-4.2" y="-6.3" dx="1.1" dy="0.9" layer="1" rot="R90"/>
+<smd name="37" x="1.1" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="36" x="2.2" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="35" x="3.3" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="34" x="4.4" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="39" x="-1.1" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="40" x="-2.2" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="41" x="-3.3" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="42" x="-4.4" y="8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R270"/>
+<smd name="18" x="1.1" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="19" x="2.2" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="20" x="3.3" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="21" x="4.4" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="16" x="-1.1" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="15" x="-2.2" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="14" x="-3.3" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<smd name="13" x="-4.4" y="-8.8" dx="1.6" dy="0.6" layer="1" roundness="99" rot="R90"/>
+<wire x1="-7.85" y1="8.8" x2="7.85" y2="8.8" width="0.127" layer="51"/>
+<wire x1="-7.85" y1="-8.8" x2="7.85" y2="-8.8" width="0.127" layer="51"/>
+<wire x1="-7.85" y1="-8.8" x2="-7.85" y2="8.8" width="0.127" layer="51"/>
+<wire x1="7.85" y1="-8.8" x2="7.85" y2="8.8" width="0.127" layer="51"/>
+<circle x="-8.495" y="9.605" radius="0.2" width="0.4" layer="21"/>
+<wire x1="-7.85" y1="8.8" x2="-5.5" y2="8.8" width="0.127" layer="21"/>
+<wire x1="5.5" y1="8.8" x2="7.85" y2="8.8" width="0.127" layer="21"/>
+<wire x1="-7.85" y1="-8.8" x2="-5.5" y2="-8.8" width="0.127" layer="21"/>
+<wire x1="5.5" y1="-8.8" x2="7.85" y2="-8.8" width="0.127" layer="21"/>
+<wire x1="-7.85" y1="-8.8" x2="-7.85" y2="-7.2" width="0.127" layer="21"/>
+<wire x1="7.85" y1="-8.8" x2="7.85" y2="-7.2" width="0.127" layer="21"/>
+<wire x1="-7.85" y1="7.2" x2="-7.85" y2="8.8" width="0.127" layer="21"/>
+<wire x1="7.85" y1="7.2" x2="7.85" y2="8.8" width="0.127" layer="21"/>
+<text x="-7.7" y="9.9" size="0.6096" layer="25" font="vector">&gt;NAME</text>
+<text x="-6.6" y="-7.7" size="0.6096" layer="27" font="vector">&gt;VALUE</text>
+</package>
+</packages>
+<symbols>
+<symbol name="SIM868">
+<description>&lt;h3&gt;SIMCom SIM868&lt;/h3&gt;
+&lt;h4&gt;GSM/GPRS - GNSS Module&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Quad-band 850/900/1800/1900MHz&lt;/li&gt;
+&lt;li&gt;GPRS multi-slot class 12/10&lt;/li&gt;
+&lt;li&gt;GPRS mobile station class B&lt;/li&gt;
+&lt;li&gt;Support GPS/GLONASS/BD&lt;/li&gt;
+&lt;li&gt;Dimensions: 17.6*15.7*2.3mm&lt;/li&gt;
+&lt;li&gt;Weight: 1.5g&lt;/li&gt;
+&lt;li&gt;Control via AT commands (3GPP TS 27.007, 27.005 and SIMComenhanced AT Commands)&lt;/li&gt;
+&lt;li&gt;Supply voltage range 3.4 ~ 4.4V&lt;/li&gt;
+&lt;li&gt;Low power consumption&lt;/li&gt;
+&lt;li&gt;Operation temperature:-40℃~85℃&lt;/li&gt;
+&lt;li&gt;GNSS&lt;ul&gt;&lt;li&gt;33 tracking /99 acquisition&lt;/li&gt;&lt;li&gt;channelSensitivity -Tracking: -167 dBm&lt;/li&gt;&lt;li&gt;Reacquisition: -161 dBm&lt;/li&gt;&lt;li&gt;Cold starts : -149 dBm&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+<pin name="VSS@8" x="-63.5" y="-10.16" length="middle" direction="pas"/>
+<pin name="VSS@13" x="-63.5" y="-12.7" length="middle" direction="pas"/>
+<pin name="VSS@19" x="-63.5" y="-15.24" length="middle" direction="pas"/>
+<pin name="VSS@21" x="-63.5" y="-17.78" length="middle" direction="pas"/>
+<pin name="VSS@27" x="-63.5" y="-20.32" length="middle" direction="pas"/>
+<pin name="VSS@31" x="-63.5" y="-25.4" length="middle" direction="pas"/>
+<pin name="VSS@30" x="-63.5" y="-22.86" length="middle" direction="pas"/>
+<pin name="VSS@33" x="-63.5" y="-27.94" length="middle" direction="pas"/>
+<pin name="VSS@67" x="-63.5" y="-43.18" length="middle" direction="pas"/>
+<pin name="VSS@36" x="-63.5" y="-30.48" length="middle" direction="pas"/>
+<pin name="VSS@37" x="-63.5" y="-33.02" length="middle" direction="pas"/>
+<pin name="VSS@45" x="-63.5" y="-35.56" length="middle" direction="pas"/>
+<pin name="VSS@63" x="-63.5" y="-38.1" length="middle" direction="pas"/>
+<pin name="VSS@66" x="-63.5" y="-40.64" length="middle" direction="pas"/>
+<pin name="VSS@69" x="-63.5" y="-45.72" length="middle" direction="pas"/>
+<pin name="VSS@70" x="-63.5" y="-48.26" length="middle" direction="pas"/>
+<pin name="VSS@71" x="-63.5" y="-50.8" length="middle" direction="pas"/>
+<pin name="VSS@72" x="-63.5" y="-53.34" length="middle" direction="pas"/>
+<pin name="VSS@73" x="-63.5" y="-55.88" length="middle" direction="pas"/>
+<pin name="VSS@74" x="-63.5" y="-58.42" length="middle" direction="pas"/>
+<pin name="VSS@75" x="-63.5" y="-60.96" length="middle" direction="pas"/>
+<pin name="VSS@76" x="-63.5" y="-63.5" length="middle" direction="pas"/>
+<pin name="VSS@77" x="-63.5" y="-66.04" length="middle" direction="pas"/>
+<pin name="UART1_TXD" x="38.1" y="91.44" length="middle" direction="pas"/>
+<pin name="UART1_RXD" x="38.1" y="86.36" length="middle" direction="pas"/>
+<pin name="UART1_RTS" x="38.1" y="81.28" length="middle" direction="pas"/>
+<pin name="UART1_CTS" x="38.1" y="76.2" length="middle" direction="pas"/>
+<pin name="UART1_DCD" x="38.1" y="71.12" length="middle" direction="pas"/>
+<pin name="UART1_DTR" x="38.1" y="66.04" length="middle" direction="pas"/>
+<pin name="UART1_RI" x="38.1" y="60.96" length="middle" direction="pas"/>
+<pin name="MICP" x="-20.32" y="-5.08" length="middle" direction="pas"/>
+<pin name="MICN" x="-20.32" y="-10.16" length="middle" direction="pas"/>
+<pin name="SPK1P" x="-20.32" y="-15.24" length="middle" direction="pas"/>
+<pin name="SPK1N" x="-20.32" y="-20.32" length="middle" direction="pas"/>
+<pin name="SIM1_DET" x="38.1" y="50.8" length="middle" direction="pas"/>
+<pin name="SIM1_DATA" x="38.1" y="45.72" length="middle" direction="pas"/>
+<pin name="SIM1_CLK" x="38.1" y="40.64" length="middle" direction="pas"/>
+<pin name="SIM1_RST" x="38.1" y="35.56" length="middle" direction="pas"/>
+<pin name="SIM1_VDD" x="38.1" y="30.48" length="middle" direction="pas"/>
+<pin name="SIM2_DET" x="-20.32" y="60.96" length="middle" direction="pas"/>
+<pin name="SIM2_DATA" x="-20.32" y="55.88" length="middle" direction="pas"/>
+<pin name="SIM2_CLK" x="-20.32" y="50.8" length="middle" direction="pas"/>
+<pin name="SIM2_RST" x="-20.32" y="45.72" length="middle" direction="pas"/>
+<pin name="SIM2_VDD" x="-20.32" y="40.64" length="middle" direction="pas"/>
+<pin name="BT_ANT" x="-63.5" y="20.32" length="middle" direction="pas"/>
+<pin name="UART2_TXD" x="38.1" y="-20.32" length="middle" direction="pas"/>
+<pin name="UART2_RXD" x="38.1" y="-25.4" length="middle" direction="pas"/>
+<pin name="USB_VBUS" x="-20.32" y="-55.88" length="middle" direction="pas"/>
+<pin name="USB_DP" x="-20.32" y="-60.96" length="middle" direction="pas"/>
+<pin name="USB_DM" x="-20.32" y="-66.04" length="middle" direction="pas"/>
+<pin name="VRTC" x="-63.5" y="45.72" length="middle" direction="pas"/>
+<pin name="RF_SYNC" x="38.1" y="20.32" length="middle" direction="pas"/>
+<pin name="GSM_ANT" x="-63.5" y="10.16" length="middle" direction="pas"/>
+<pin name="GPS_VBAT" x="-63.5" y="55.88" length="middle" direction="pas"/>
+<pin name="VBAT" x="-63.5" y="60.96" length="middle" direction="pas"/>
+<pin name="ADC" x="38.1" y="-66.04" length="middle" direction="pas"/>
+<pin name="PWRKEY" x="38.1" y="15.24" length="middle" direction="pas"/>
+<pin name="VDD_EXT" x="-63.5" y="35.56" length="middle" direction="pas"/>
+<pin name="NETLIGHT" x="38.1" y="10.16" length="middle" direction="pas"/>
+<pin name="STATUS" x="38.1" y="5.08" length="middle" direction="pas"/>
+<pin name="SPK2P" x="-20.32" y="-25.4" length="middle" direction="pas"/>
+<pin name="SPK2N" x="-20.32" y="-30.48" length="middle" direction="pas"/>
+<pin name="MCCA3" x="-20.32" y="30.48" length="middle" direction="pas"/>
+<pin name="MCCA2" x="-20.32" y="25.4" length="middle" direction="pas"/>
+<pin name="MCCA1" x="-20.32" y="20.32" length="middle" direction="pas"/>
+<pin name="MCCA0" x="-20.32" y="15.24" length="middle" direction="pas"/>
+<pin name="MCCCK" x="-20.32" y="10.16" length="middle" direction="pas"/>
+<pin name="MCCM0" x="-20.32" y="5.08" length="middle" direction="pas"/>
+<pin name="GPIO1" x="38.1" y="-50.8" length="middle" direction="pas"/>
+<pin name="GPIO2" x="38.1" y="-55.88" length="middle" direction="pas"/>
+<pin name="GNSS_EN" x="38.1" y="-10.16" length="middle" direction="pas"/>
+<pin name="GNSS_1PPS" x="38.1" y="0" length="middle" direction="pas"/>
+<pin name="GPS_TXD" x="38.1" y="-35.56" length="middle" direction="pas"/>
+<pin name="GPS_RXD" x="38.1" y="-40.64" length="middle" direction="pas"/>
+<pin name="SDA" x="-20.32" y="-40.64" length="middle" direction="pas"/>
+<pin name="SCL" x="-20.32" y="-45.72" length="middle" direction="pas"/>
+<pin name="GPS_ANT" x="-63.5" y="0" length="middle" direction="pas"/>
+<wire x1="-58.42" y1="63.5" x2="-43.18" y2="63.5" width="0.254" layer="94"/>
+<wire x1="-43.18" y1="63.5" x2="-43.18" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="-43.18" y1="-68.58" x2="-58.42" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="-58.42" y1="-68.58" x2="-58.42" y2="63.5" width="0.254" layer="94"/>
+<wire x1="-15.24" y1="63.5" x2="0" y2="63.5" width="0.254" layer="94"/>
+<wire x1="0" y1="63.5" x2="0" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="0" y1="-68.58" x2="-15.24" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="-15.24" y1="-68.58" x2="-15.24" y2="63.5" width="0.254" layer="94"/>
+<wire x1="43.18" y1="93.98" x2="60.96" y2="93.98" width="0.254" layer="94"/>
+<wire x1="60.96" y1="93.98" x2="60.96" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="60.96" y1="-68.58" x2="43.18" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="43.18" y1="-68.58" x2="43.18" y2="93.98" width="0.254" layer="94"/>
+<text x="-55.88" y="66.04" size="1.778" layer="95" font="vector">&gt;NAME</text>
+<text x="-12.7" y="66.04" size="1.778" layer="96" font="vector">&gt;VALUE</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="SIM868" prefix="U">
+<description>&lt;h3&gt;SIMCom SIM868&lt;/h3&gt;
+&lt;h4&gt;GSM/GPRS - GNSS Module&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Quad-band 850/900/1800/1900MHz&lt;/li&gt;
+&lt;li&gt;GPRS multi-slot class 12/10&lt;/li&gt;
+&lt;li&gt;GPRS mobile station class B&lt;/li&gt;
+&lt;li&gt;Support GPS/GLONASS/BD&lt;/li&gt;
+&lt;li&gt;Dimensions: 17.6*15.7*2.3mm&lt;/li&gt;
+&lt;li&gt;Weight: 1.5g&lt;/li&gt;
+&lt;li&gt;Control via AT commands (3GPP TS 27.007, 27.005 and SIMComenhanced AT Commands)&lt;/li&gt;
+&lt;li&gt;Supply voltage range 3.4 ~ 4.4V&lt;/li&gt;
+&lt;li&gt;Low power consumption&lt;/li&gt;
+&lt;li&gt;Operation temperature:-40℃~85℃&lt;/li&gt;
+&lt;li&gt;GNSS&lt;ul&gt;&lt;li&gt;33 tracking /99 acquisition&lt;/li&gt;&lt;li&gt;channelSensitivity -Tracking: -167 dBm&lt;/li&gt;&lt;li&gt;Reacquisition: -161 dBm&lt;/li&gt;&lt;li&gt;Cold starts : -149 dBm&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+<gates>
+<gate name="G$1" symbol="SIM868" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SIM868">
+<connects>
+<connect gate="G$1" pin="ADC" pad="38"/>
+<connect gate="G$1" pin="BT_ANT" pad="20"/>
+<connect gate="G$1" pin="GNSS_1PPS" pad="60"/>
+<connect gate="G$1" pin="GNSS_EN" pad="59"/>
+<connect gate="G$1" pin="GPIO1" pad="57"/>
+<connect gate="G$1" pin="GPIO2" pad="58"/>
+<connect gate="G$1" pin="GPS_ANT" pad="68"/>
+<connect gate="G$1" pin="GPS_RXD" pad="62"/>
+<connect gate="G$1" pin="GPS_TXD" pad="61"/>
+<connect gate="G$1" pin="GPS_VBAT" pad="34"/>
+<connect gate="G$1" pin="GSM_ANT" pad="32"/>
+<connect gate="G$1" pin="MCCA0" pad="49"/>
+<connect gate="G$1" pin="MCCA1" pad="48"/>
+<connect gate="G$1" pin="MCCA2" pad="47"/>
+<connect gate="G$1" pin="MCCA3" pad="46"/>
+<connect gate="G$1" pin="MCCCK" pad="50"/>
+<connect gate="G$1" pin="MCCM0" pad="51"/>
+<connect gate="G$1" pin="MICN" pad="10"/>
+<connect gate="G$1" pin="MICP" pad="9"/>
+<connect gate="G$1" pin="NETLIGHT" pad="41"/>
+<connect gate="G$1" pin="PWRKEY" pad="39"/>
+<connect gate="G$1" pin="RF_SYNC" pad="29"/>
+<connect gate="G$1" pin="SCL" pad="65"/>
+<connect gate="G$1" pin="SDA" pad="64"/>
+<connect gate="G$1" pin="SIM1_CLK" pad="16"/>
+<connect gate="G$1" pin="SIM1_DATA" pad="15"/>
+<connect gate="G$1" pin="SIM1_DET" pad="14"/>
+<connect gate="G$1" pin="SIM1_RST" pad="17"/>
+<connect gate="G$1" pin="SIM1_VDD" pad="18"/>
+<connect gate="G$1" pin="SIM2_CLK" pad="54"/>
+<connect gate="G$1" pin="SIM2_DATA" pad="53"/>
+<connect gate="G$1" pin="SIM2_DET" pad="52"/>
+<connect gate="G$1" pin="SIM2_RST" pad="55"/>
+<connect gate="G$1" pin="SIM2_VDD" pad="56"/>
+<connect gate="G$1" pin="SPK1N" pad="12"/>
+<connect gate="G$1" pin="SPK1P" pad="11"/>
+<connect gate="G$1" pin="SPK2N" pad="43"/>
+<connect gate="G$1" pin="SPK2P" pad="44"/>
+<connect gate="G$1" pin="STATUS" pad="42"/>
+<connect gate="G$1" pin="UART1_CTS" pad="4"/>
+<connect gate="G$1" pin="UART1_DCD" pad="5"/>
+<connect gate="G$1" pin="UART1_DTR" pad="6"/>
+<connect gate="G$1" pin="UART1_RI" pad="7"/>
+<connect gate="G$1" pin="UART1_RTS" pad="3"/>
+<connect gate="G$1" pin="UART1_RXD" pad="2"/>
+<connect gate="G$1" pin="UART1_TXD" pad="1"/>
+<connect gate="G$1" pin="UART2_RXD" pad="23"/>
+<connect gate="G$1" pin="UART2_TXD" pad="22"/>
+<connect gate="G$1" pin="USB_DM" pad="26"/>
+<connect gate="G$1" pin="USB_DP" pad="25"/>
+<connect gate="G$1" pin="USB_VBUS" pad="24"/>
+<connect gate="G$1" pin="VBAT" pad="35"/>
+<connect gate="G$1" pin="VDD_EXT" pad="40"/>
+<connect gate="G$1" pin="VRTC" pad="28"/>
+<connect gate="G$1" pin="VSS@13" pad="13"/>
+<connect gate="G$1" pin="VSS@19" pad="19"/>
+<connect gate="G$1" pin="VSS@21" pad="21"/>
+<connect gate="G$1" pin="VSS@27" pad="27"/>
+<connect gate="G$1" pin="VSS@30" pad="30"/>
+<connect gate="G$1" pin="VSS@31" pad="31"/>
+<connect gate="G$1" pin="VSS@33" pad="33"/>
+<connect gate="G$1" pin="VSS@36" pad="36"/>
+<connect gate="G$1" pin="VSS@37" pad="37"/>
+<connect gate="G$1" pin="VSS@45" pad="45"/>
+<connect gate="G$1" pin="VSS@63" pad="63"/>
+<connect gate="G$1" pin="VSS@66" pad="66"/>
+<connect gate="G$1" pin="VSS@67" pad="67"/>
+<connect gate="G$1" pin="VSS@69" pad="69"/>
+<connect gate="G$1" pin="VSS@70" pad="70"/>
+<connect gate="G$1" pin="VSS@71" pad="71"/>
+<connect gate="G$1" pin="VSS@72" pad="72"/>
+<connect gate="G$1" pin="VSS@73" pad="73"/>
+<connect gate="G$1" pin="VSS@74" pad="74"/>
+<connect gate="G$1" pin="VSS@75" pad="75"/>
+<connect gate="G$1" pin="VSS@76" pad="76"/>
+<connect gate="G$1" pin="VSS@77" pad="77"/>
+<connect gate="G$1" pin="VSS@8" pad="8"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -28511,6 +28844,18 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R3325" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R3326" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R3327" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="U1501" library="df4iah_gsm" deviceset="SIM868" device=""/>
+<part name="GND1501" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C1551" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="GND1551" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="R1551" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="22R"/>
+<part name="R1552" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="22R"/>
+<part name="GND1552" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="R1553" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="22R"/>
+<part name="C1552" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22pF"/>
+<part name="C1553" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22pF"/>
+<part name="C1554" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22pF"/>
+<part name="GND1553" library="df4iah_supply" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -32355,22 +32700,619 @@ I2C addr: 0x76</text>
 </plain>
 <instances>
 <instance part="FRAME_16" gate="G$1" x="0" y="0"/>
-<instance part="X1551" gate="A" x="185.42" y="142.24" rot="R90"/>
-<instance part="X1551" gate="B" x="210.82" y="132.08" rot="R90"/>
+<instance part="X1551" gate="A" x="208.28" y="139.7" rot="R270"/>
+<instance part="X1551" gate="B" x="210.82" y="88.9" rot="R90"/>
+<instance part="U1501" gate="G$1" x="99.06" y="76.2"/>
+<instance part="GND1501" gate="1" x="25.4" y="7.62"/>
+<instance part="C1551" gate="G$1" x="187.96" y="124.46"/>
+<instance part="GND1551" gate="1" x="187.96" y="116.84"/>
+<instance part="R1551" gate="G$1" x="193.04" y="137.16" smashed="yes">
+<attribute name="NAME" x="181.61" y="136.1186" size="1.778" layer="95"/>
+<attribute name="VALUE" x="191.77" y="136.398" size="1.778" layer="96"/>
+</instance>
+<instance part="R1552" gate="G$1" x="193.04" y="139.7" smashed="yes">
+<attribute name="NAME" x="181.61" y="138.6586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="191.77" y="138.938" size="1.778" layer="96"/>
+</instance>
+<instance part="GND1552" gate="1" x="246.38" y="132.08"/>
+<instance part="R1553" gate="G$1" x="231.14" y="139.7" smashed="yes">
+<attribute name="NAME" x="219.71" y="138.6586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="229.87" y="138.938" size="1.778" layer="96"/>
+</instance>
+<instance part="C1552" gate="G$1" x="185.42" y="152.4" smashed="yes">
+<attribute name="NAME" x="185.039" y="153.924" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="187.579" y="153.924" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="C1553" gate="G$1" x="193.04" y="152.4" smashed="yes">
+<attribute name="NAME" x="192.659" y="153.924" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="195.199" y="153.924" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="C1554" gate="G$1" x="223.52" y="152.4" smashed="yes">
+<attribute name="NAME" x="223.139" y="153.924" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="225.679" y="153.924" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="GND1553" gate="1" x="246.38" y="157.48"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="LIPO_SYS" class="0">
 <segment>
-<wire x1="30.48" y1="152.4" x2="43.18" y2="152.4" width="0.1524" layer="91"/>
-<label x="30.48" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="27.94" y1="137.16" x2="33.02" y2="137.16" width="0.1524" layer="91"/>
+<label x="27.94" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="U1501" gate="G$1" pin="VBAT"/>
+<wire x1="33.02" y1="137.16" x2="35.56" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="137.16" x2="33.02" y2="132.08" width="0.1524" layer="91"/>
+<junction x="33.02" y="137.16"/>
+<pinref part="U1501" gate="G$1" pin="GPS_VBAT"/>
+<wire x1="33.02" y1="132.08" x2="35.56" y2="132.08" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MCU_VBAT" class="0">
 <segment>
-<wire x1="30.48" y1="144.78" x2="43.18" y2="144.78" width="0.1524" layer="91"/>
-<label x="30.48" y="144.78" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="17.78" y1="121.92" x2="20.32" y2="121.92" width="0.1524" layer="91"/>
+<label x="17.78" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_VDD_EXT" class="0">
+<segment>
+<pinref part="U1501" gate="G$1" pin="VDD_EXT"/>
+<wire x1="35.56" y1="111.76" x2="27.94" y2="111.76" width="0.1524" layer="91"/>
+<label x="27.94" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T4"/>
+<wire x1="203.2" y1="96.52" x2="187.96" y2="96.52" width="0.1524" layer="91"/>
+<label x="187.96" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_BT_ANT" class="0">
+<segment>
+<pinref part="U1501" gate="G$1" pin="BT_ANT"/>
+<wire x1="35.56" y1="96.52" x2="27.94" y2="96.52" width="0.1524" layer="91"/>
+<label x="27.94" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GSM_ANT" class="0">
+<segment>
+<pinref part="U1501" gate="G$1" pin="GSM_ANT"/>
+<wire x1="35.56" y1="86.36" x2="27.94" y2="86.36" width="0.1524" layer="91"/>
+<label x="27.94" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GPS_ANT" class="0">
+<segment>
+<pinref part="U1501" gate="G$1" pin="GPS_ANT"/>
+<wire x1="35.56" y1="76.2" x2="27.94" y2="76.2" width="0.1524" layer="91"/>
+<label x="27.94" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND1501" gate="1" pin="GND"/>
+<pinref part="U1501" gate="G$1" pin="VSS@77"/>
+<wire x1="25.4" y1="10.16" x2="33.02" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="10.16" x2="35.56" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="10.16" x2="33.02" y2="12.7" width="0.1524" layer="91"/>
+<junction x="33.02" y="10.16"/>
+<pinref part="U1501" gate="G$1" pin="VSS@8"/>
+<wire x1="33.02" y1="12.7" x2="33.02" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="15.24" x2="33.02" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="17.78" x2="33.02" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="20.32" x2="33.02" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="22.86" x2="33.02" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="25.4" x2="33.02" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="27.94" x2="33.02" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="30.48" x2="33.02" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="33.02" x2="33.02" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="35.56" x2="33.02" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="38.1" x2="33.02" y2="40.64" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="40.64" x2="33.02" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="43.18" x2="33.02" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="45.72" x2="33.02" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="48.26" x2="33.02" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="50.8" x2="33.02" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="53.34" x2="33.02" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="55.88" x2="33.02" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="58.42" x2="33.02" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="60.96" x2="33.02" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="63.5" x2="33.02" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="66.04" x2="35.56" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="U1501" gate="G$1" pin="VSS@13"/>
+<wire x1="33.02" y1="63.5" x2="35.56" y2="63.5" width="0.1524" layer="91"/>
+<junction x="33.02" y="63.5"/>
+<pinref part="U1501" gate="G$1" pin="VSS@19"/>
+<wire x1="33.02" y1="60.96" x2="35.56" y2="60.96" width="0.1524" layer="91"/>
+<junction x="33.02" y="60.96"/>
+<pinref part="U1501" gate="G$1" pin="VSS@21"/>
+<wire x1="33.02" y1="58.42" x2="35.56" y2="58.42" width="0.1524" layer="91"/>
+<junction x="33.02" y="58.42"/>
+<pinref part="U1501" gate="G$1" pin="VSS@27"/>
+<wire x1="33.02" y1="55.88" x2="35.56" y2="55.88" width="0.1524" layer="91"/>
+<junction x="33.02" y="55.88"/>
+<pinref part="U1501" gate="G$1" pin="VSS@30"/>
+<wire x1="33.02" y1="53.34" x2="35.56" y2="53.34" width="0.1524" layer="91"/>
+<junction x="33.02" y="53.34"/>
+<pinref part="U1501" gate="G$1" pin="VSS@31"/>
+<wire x1="33.02" y1="50.8" x2="35.56" y2="50.8" width="0.1524" layer="91"/>
+<junction x="33.02" y="50.8"/>
+<pinref part="U1501" gate="G$1" pin="VSS@33"/>
+<wire x1="33.02" y1="48.26" x2="35.56" y2="48.26" width="0.1524" layer="91"/>
+<junction x="33.02" y="48.26"/>
+<pinref part="U1501" gate="G$1" pin="VSS@36"/>
+<wire x1="33.02" y1="45.72" x2="35.56" y2="45.72" width="0.1524" layer="91"/>
+<junction x="33.02" y="45.72"/>
+<pinref part="U1501" gate="G$1" pin="VSS@37"/>
+<wire x1="33.02" y1="43.18" x2="35.56" y2="43.18" width="0.1524" layer="91"/>
+<junction x="33.02" y="43.18"/>
+<pinref part="U1501" gate="G$1" pin="VSS@45"/>
+<wire x1="33.02" y1="40.64" x2="35.56" y2="40.64" width="0.1524" layer="91"/>
+<junction x="33.02" y="40.64"/>
+<pinref part="U1501" gate="G$1" pin="VSS@63"/>
+<wire x1="33.02" y1="38.1" x2="35.56" y2="38.1" width="0.1524" layer="91"/>
+<junction x="33.02" y="38.1"/>
+<pinref part="U1501" gate="G$1" pin="VSS@66"/>
+<wire x1="33.02" y1="35.56" x2="35.56" y2="35.56" width="0.1524" layer="91"/>
+<junction x="33.02" y="35.56"/>
+<pinref part="U1501" gate="G$1" pin="VSS@67"/>
+<wire x1="33.02" y1="33.02" x2="35.56" y2="33.02" width="0.1524" layer="91"/>
+<junction x="33.02" y="33.02"/>
+<pinref part="U1501" gate="G$1" pin="VSS@69"/>
+<wire x1="33.02" y1="30.48" x2="35.56" y2="30.48" width="0.1524" layer="91"/>
+<junction x="33.02" y="30.48"/>
+<pinref part="U1501" gate="G$1" pin="VSS@70"/>
+<wire x1="33.02" y1="27.94" x2="35.56" y2="27.94" width="0.1524" layer="91"/>
+<junction x="33.02" y="27.94"/>
+<pinref part="U1501" gate="G$1" pin="VSS@71"/>
+<wire x1="33.02" y1="25.4" x2="35.56" y2="25.4" width="0.1524" layer="91"/>
+<junction x="33.02" y="25.4"/>
+<pinref part="U1501" gate="G$1" pin="VSS@72"/>
+<wire x1="33.02" y1="22.86" x2="35.56" y2="22.86" width="0.1524" layer="91"/>
+<junction x="33.02" y="22.86"/>
+<pinref part="U1501" gate="G$1" pin="VSS@73"/>
+<wire x1="33.02" y1="20.32" x2="35.56" y2="20.32" width="0.1524" layer="91"/>
+<junction x="33.02" y="20.32"/>
+<pinref part="U1501" gate="G$1" pin="VSS@74"/>
+<wire x1="33.02" y1="17.78" x2="35.56" y2="17.78" width="0.1524" layer="91"/>
+<junction x="33.02" y="17.78"/>
+<pinref part="U1501" gate="G$1" pin="VSS@75"/>
+<wire x1="33.02" y1="15.24" x2="35.56" y2="15.24" width="0.1524" layer="91"/>
+<junction x="33.02" y="15.24"/>
+<pinref part="U1501" gate="G$1" pin="VSS@76"/>
+<wire x1="33.02" y1="12.7" x2="35.56" y2="12.7" width="0.1524" layer="91"/>
+<junction x="33.02" y="12.7"/>
+</segment>
+<segment>
+<pinref part="C1551" gate="G$1" pin="2"/>
+<pinref part="GND1551" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="A" pin="S5"/>
+<wire x1="218.44" y1="134.62" x2="246.38" y2="134.62" width="0.1524" layer="91"/>
+<pinref part="GND1552" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C1552" gate="G$1" pin="1"/>
+<wire x1="185.42" y1="154.94" x2="185.42" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="160.02" x2="193.04" y2="160.02" width="0.1524" layer="91"/>
+<pinref part="C1554" gate="G$1" pin="1"/>
+<wire x1="193.04" y1="160.02" x2="223.52" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="160.02" x2="223.52" y2="154.94" width="0.1524" layer="91"/>
+<pinref part="C1553" gate="G$1" pin="1"/>
+<wire x1="193.04" y1="160.02" x2="193.04" y2="154.94" width="0.1524" layer="91"/>
+<junction x="193.04" y="160.02"/>
+<wire x1="223.52" y1="160.02" x2="246.38" y2="160.02" width="0.1524" layer="91"/>
+<junction x="223.52" y="160.02"/>
+<pinref part="GND1553" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T6"/>
+<wire x1="203.2" y1="91.44" x2="187.96" y2="91.44" width="0.1524" layer="91"/>
+<label x="187.96" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_TXD" class="0">
+<segment>
+<pinref part="U1501" gate="G$1" pin="UART1_TXD"/>
+<wire x1="137.16" y1="167.64" x2="132.08" y2="167.64" width="0.1524" layer="91"/>
+<label x="132.08" y="167.64" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_RXD" class="0">
+<segment>
+<wire x1="137.16" y1="162.56" x2="132.08" y2="162.56" width="0.1524" layer="91"/>
+<label x="132.08" y="162.56" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_RTS" class="0">
+<segment>
+<wire x1="137.16" y1="157.48" x2="132.08" y2="157.48" width="0.1524" layer="91"/>
+<label x="132.08" y="157.48" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_CTS" class="0">
+<segment>
+<wire x1="137.16" y1="152.4" x2="132.08" y2="152.4" width="0.1524" layer="91"/>
+<label x="132.08" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_DCD" class="0">
+<segment>
+<wire x1="137.16" y1="147.32" x2="132.08" y2="147.32" width="0.1524" layer="91"/>
+<label x="132.08" y="147.32" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_DTR" class="0">
+<segment>
+<wire x1="137.16" y1="142.24" x2="132.08" y2="142.24" width="0.1524" layer="91"/>
+<label x="132.08" y="142.24" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_RI" class="0">
+<segment>
+<wire x1="137.16" y1="137.16" x2="132.08" y2="137.16" width="0.1524" layer="91"/>
+<label x="132.08" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM1_DET" class="0">
+<segment>
+<wire x1="137.16" y1="127" x2="132.08" y2="127" width="0.1524" layer="91"/>
+<label x="132.08" y="127" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM1_DATA" class="0">
+<segment>
+<wire x1="137.16" y1="121.92" x2="132.08" y2="121.92" width="0.1524" layer="91"/>
+<label x="132.08" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R1553" gate="G$1" pin="2"/>
+<wire x1="236.22" y1="139.7" x2="238.76" y2="139.7" width="0.1524" layer="91"/>
+<label x="238.76" y="139.7" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM1_CLK" class="0">
+<segment>
+<wire x1="137.16" y1="116.84" x2="132.08" y2="116.84" width="0.1524" layer="91"/>
+<label x="132.08" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R1552" gate="G$1" pin="1"/>
+<wire x1="187.96" y1="139.7" x2="182.88" y2="139.7" width="0.1524" layer="91"/>
+<label x="182.88" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="187.96" y1="139.7" x2="187.96" y2="144.78" width="0.1524" layer="91"/>
+<junction x="187.96" y="139.7"/>
+<wire x1="187.96" y1="144.78" x2="193.04" y2="144.78" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="144.78" x2="193.04" y2="147.32" width="0.1524" layer="91"/>
+<pinref part="C1553" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="SIM_SIM1_RST" class="0">
+<segment>
+<wire x1="137.16" y1="111.76" x2="132.08" y2="111.76" width="0.1524" layer="91"/>
+<label x="132.08" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R1551" gate="G$1" pin="1"/>
+<wire x1="187.96" y1="137.16" x2="185.42" y2="137.16" width="0.1524" layer="91"/>
+<label x="182.88" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="185.42" y1="137.16" x2="182.88" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="137.16" x2="185.42" y2="147.32" width="0.1524" layer="91"/>
+<junction x="185.42" y="137.16"/>
+<pinref part="C1552" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="SIM_SIM1_VDD" class="0">
+<segment>
+<wire x1="137.16" y1="106.68" x2="132.08" y2="106.68" width="0.1524" layer="91"/>
+<label x="132.08" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="A" pin="S1"/>
+<wire x1="200.66" y1="134.62" x2="198.12" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="134.62" x2="198.12" y2="129.54" width="0.1524" layer="91"/>
+<label x="182.88" y="129.54" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="C1551" gate="G$1" pin="1"/>
+<wire x1="198.12" y1="129.54" x2="187.96" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="129.54" x2="182.88" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="129.54" x2="187.96" y2="127" width="0.1524" layer="91"/>
+<junction x="187.96" y="129.54"/>
+</segment>
+</net>
+<net name="SIM_RF_SYNC" class="0">
+<segment>
+<wire x1="137.16" y1="96.52" x2="132.08" y2="96.52" width="0.1524" layer="91"/>
+<label x="132.08" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_PWRKEY" class="0">
+<segment>
+<wire x1="137.16" y1="91.44" x2="132.08" y2="91.44" width="0.1524" layer="91"/>
+<label x="132.08" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_NETLIGHT" class="0">
+<segment>
+<wire x1="137.16" y1="86.36" x2="132.08" y2="86.36" width="0.1524" layer="91"/>
+<label x="132.08" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_STATUS" class="0">
+<segment>
+<wire x1="137.16" y1="81.28" x2="132.08" y2="81.28" width="0.1524" layer="91"/>
+<label x="132.08" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_1PPS" class="0">
+<segment>
+<wire x1="137.16" y1="76.2" x2="132.08" y2="76.2" width="0.1524" layer="91"/>
+<label x="132.08" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GNSS_EN" class="0">
+<segment>
+<wire x1="137.16" y1="66.04" x2="132.08" y2="66.04" width="0.1524" layer="91"/>
+<label x="132.08" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART2_TXD" class="0">
+<segment>
+<wire x1="137.16" y1="55.88" x2="132.08" y2="55.88" width="0.1524" layer="91"/>
+<label x="132.08" y="55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART2_RXD" class="0">
+<segment>
+<wire x1="137.16" y1="50.8" x2="132.08" y2="50.8" width="0.1524" layer="91"/>
+<label x="132.08" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GPS_TXD" class="0">
+<segment>
+<wire x1="137.16" y1="40.64" x2="132.08" y2="40.64" width="0.1524" layer="91"/>
+<label x="132.08" y="40.64" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GPS_RXD" class="0">
+<segment>
+<wire x1="137.16" y1="35.56" x2="132.08" y2="35.56" width="0.1524" layer="91"/>
+<label x="132.08" y="35.56" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GPIO1" class="0">
+<segment>
+<wire x1="137.16" y1="25.4" x2="132.08" y2="25.4" width="0.1524" layer="91"/>
+<label x="132.08" y="25.4" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_GPIO2" class="0">
+<segment>
+<wire x1="137.16" y1="20.32" x2="132.08" y2="20.32" width="0.1524" layer="91"/>
+<label x="132.08" y="20.32" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_ADC" class="0">
+<segment>
+<wire x1="137.16" y1="10.16" x2="132.08" y2="10.16" width="0.1524" layer="91"/>
+<label x="132.08" y="10.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM2_DET" class="0">
+<segment>
+<wire x1="78.74" y1="137.16" x2="76.2" y2="137.16" width="0.1524" layer="91"/>
+<label x="76.2" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM2_DATA" class="0">
+<segment>
+<wire x1="78.74" y1="132.08" x2="76.2" y2="132.08" width="0.1524" layer="91"/>
+<label x="76.2" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM2_CLK" class="0">
+<segment>
+<wire x1="78.74" y1="127" x2="76.2" y2="127" width="0.1524" layer="91"/>
+<label x="76.2" y="127" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM2_RST" class="0">
+<segment>
+<wire x1="78.74" y1="121.92" x2="76.2" y2="121.92" width="0.1524" layer="91"/>
+<label x="76.2" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SIM2_VDD" class="0">
+<segment>
+<wire x1="78.74" y1="116.84" x2="76.2" y2="116.84" width="0.1524" layer="91"/>
+<label x="76.2" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MCCA3" class="0">
+<segment>
+<wire x1="78.74" y1="106.68" x2="76.2" y2="106.68" width="0.1524" layer="91"/>
+<label x="76.2" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T2"/>
+<wire x1="203.2" y1="101.6" x2="187.96" y2="101.6" width="0.1524" layer="91"/>
+<label x="187.96" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MCCA2" class="0">
+<segment>
+<wire x1="78.74" y1="101.6" x2="76.2" y2="101.6" width="0.1524" layer="91"/>
+<label x="76.2" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T1"/>
+<wire x1="203.2" y1="104.14" x2="187.96" y2="104.14" width="0.1524" layer="91"/>
+<label x="187.96" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MCCA1" class="0">
+<segment>
+<wire x1="78.74" y1="96.52" x2="76.2" y2="96.52" width="0.1524" layer="91"/>
+<label x="76.2" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T8"/>
+<wire x1="203.2" y1="86.36" x2="187.96" y2="86.36" width="0.1524" layer="91"/>
+<label x="187.96" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MCCA0" class="0">
+<segment>
+<wire x1="78.74" y1="91.44" x2="76.2" y2="91.44" width="0.1524" layer="91"/>
+<label x="76.2" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T7"/>
+<wire x1="203.2" y1="88.9" x2="187.96" y2="88.9" width="0.1524" layer="91"/>
+<label x="187.96" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MCCCK" class="0">
+<segment>
+<wire x1="78.74" y1="86.36" x2="76.2" y2="86.36" width="0.1524" layer="91"/>
+<label x="76.2" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T5"/>
+<wire x1="203.2" y1="93.98" x2="187.96" y2="93.98" width="0.1524" layer="91"/>
+<label x="187.96" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MCCM0" class="0">
+<segment>
+<wire x1="78.74" y1="81.28" x2="76.2" y2="81.28" width="0.1524" layer="91"/>
+<label x="76.2" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X1551" gate="B" pin="T3"/>
+<wire x1="203.2" y1="99.06" x2="187.96" y2="99.06" width="0.1524" layer="91"/>
+<label x="187.96" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MICP" class="0">
+<segment>
+<wire x1="78.74" y1="71.12" x2="76.2" y2="71.12" width="0.1524" layer="91"/>
+<label x="76.2" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_MICN" class="0">
+<segment>
+<wire x1="78.74" y1="66.04" x2="76.2" y2="66.04" width="0.1524" layer="91"/>
+<label x="76.2" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SPK1P" class="0">
+<segment>
+<wire x1="78.74" y1="60.96" x2="76.2" y2="60.96" width="0.1524" layer="91"/>
+<label x="76.2" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SPK1N" class="0">
+<segment>
+<wire x1="78.74" y1="55.88" x2="76.2" y2="55.88" width="0.1524" layer="91"/>
+<label x="76.2" y="55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SPK2P" class="0">
+<segment>
+<wire x1="78.74" y1="50.8" x2="76.2" y2="50.8" width="0.1524" layer="91"/>
+<label x="76.2" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SPK2N" class="0">
+<segment>
+<wire x1="78.74" y1="45.72" x2="76.2" y2="45.72" width="0.1524" layer="91"/>
+<label x="76.2" y="45.72" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SDA" class="0">
+<segment>
+<wire x1="78.74" y1="35.56" x2="76.2" y2="35.56" width="0.1524" layer="91"/>
+<label x="76.2" y="35.56" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_SCL" class="0">
+<segment>
+<wire x1="78.74" y1="30.48" x2="76.2" y2="30.48" width="0.1524" layer="91"/>
+<label x="76.2" y="30.48" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_USB_VBUS" class="0">
+<segment>
+<wire x1="78.74" y1="20.32" x2="76.2" y2="20.32" width="0.1524" layer="91"/>
+<label x="76.2" y="20.32" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_USB_DP" class="0">
+<segment>
+<wire x1="78.74" y1="15.24" x2="76.2" y2="15.24" width="0.1524" layer="91"/>
+<label x="76.2" y="15.24" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_USB_DM" class="0">
+<segment>
+<wire x1="78.74" y1="10.16" x2="76.2" y2="10.16" width="0.1524" layer="91"/>
+<label x="76.2" y="10.16" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SC_4" class="0">
+<segment>
+<pinref part="X1551" gate="A" pin="S4"/>
+<wire x1="200.66" y1="142.24" x2="198.12" y2="142.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SC_3" class="0">
+<segment>
+<pinref part="X1551" gate="A" pin="S3"/>
+<wire x1="200.66" y1="139.7" x2="198.12" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="R1552" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="SC_2" class="0">
+<segment>
+<pinref part="X1551" gate="A" pin="S2"/>
+<pinref part="R1551" gate="G$1" pin="2"/>
+<wire x1="200.66" y1="137.16" x2="198.12" y2="137.16" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SC_6" class="0">
+<segment>
+<pinref part="X1551" gate="A" pin="S6"/>
+<wire x1="218.44" y1="137.16" x2="220.98" y2="137.16" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SC_7" class="0">
+<segment>
+<pinref part="X1551" gate="A" pin="S7"/>
+<pinref part="R1553" gate="G$1" pin="1"/>
+<wire x1="218.44" y1="139.7" x2="223.52" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="139.7" x2="226.06" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="139.7" x2="223.52" y2="147.32" width="0.1524" layer="91"/>
+<junction x="223.52" y="139.7"/>
+<pinref part="C1554" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="SC_8" class="0">
+<segment>
+<pinref part="X1551" gate="A" pin="S8"/>
+<wire x1="218.44" y1="142.24" x2="220.98" y2="142.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MC_SW" class="0">
+<segment>
+<pinref part="X1551" gate="B" pin="SW"/>
+<wire x1="203.2" y1="81.28" x2="187.96" y2="81.28" width="0.1524" layer="91"/>
+<label x="187.96" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_VRTC" class="0">
+<segment>
+<pinref part="U1501" gate="G$1" pin="VRTC"/>
+<wire x1="35.56" y1="121.92" x2="33.02" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
