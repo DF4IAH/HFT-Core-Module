@@ -14758,26 +14758,6 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <vertex x="-3.05" y="-2.475"/>
 </polygon>
 </package>
-<package name="L_13.5X12.5MM">
-<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
-13.5 mm x 12.5 mm</description>
-<wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
-<wire x1="-6.5" y1="-6.25" x2="6.5" y2="-6.25" width="0.1016" layer="51"/>
-<smd name="1" x="-5.5" y="0" dx="3.1" dy="5" layer="1"/>
-<smd name="2" x="5.5" y="0" dx="3.1" dy="5" layer="1"/>
-<text x="-3.175" y="6.985" size="1.27" layer="25">&gt;NAME</text>
-<text x="-3.175" y="-8.255" size="1.27" layer="27">&gt;VALUE</text>
-<rectangle x1="-6.1976" y1="-2.3" x2="-4.5" y2="2.3" layer="51"/>
-<wire x1="-6.5" y1="-6.25" x2="-6.5" y2="6.25" width="0.1016" layer="51"/>
-<wire x1="6.5" y1="-6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
-<rectangle x1="4.5" y1="-2.3" x2="6.1976" y2="2.3" layer="51"/>
-<wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.127" layer="21"/>
-<wire x1="-6.5" y1="-6.25" x2="6.5" y2="-6.25" width="0.127" layer="21"/>
-<wire x1="-6.5" y1="-6.25" x2="-6.5" y2="-3.175" width="0.127" layer="21"/>
-<wire x1="-6.5" y1="6.25" x2="-6.5" y2="3.175" width="0.127" layer="21"/>
-<wire x1="6.5" y1="6.25" x2="6.5" y2="3.175" width="0.127" layer="21"/>
-<wire x1="6.5" y1="-6.25" x2="6.5" y2="-3.175" width="0.127" layer="21"/>
-</package>
 <package name="L2012C">
 <description>&lt;b&gt;INDUCTOR&lt;/b&gt;</description>
 <wire x1="-1.973" y1="0.983" x2="1.973" y2="0.983" width="0.0508" layer="39"/>
@@ -17618,26 +17598,6 @@ Source: AVX .. aphvc.pdf</description>
 <rectangle x1="-0.15" y1="0.05" x2="0.15" y2="0.1" layer="51"/>
 <rectangle x1="-0.15" y1="-0.1" x2="0.15" y2="-0.05" layer="51"/>
 </package>
-<package name="L_6X6MM">
-<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
-6.0 mm x 6.0 mm</description>
-<wire x1="-3" y1="3" x2="3" y2="3" width="0.1016" layer="51"/>
-<wire x1="-3" y1="-3" x2="3" y2="-3" width="0.1016" layer="51"/>
-<smd name="1" x="-2.35" y="0" dx="2" dy="5.7" layer="1"/>
-<smd name="2" x="2.35" y="0" dx="2" dy="5.7" layer="1"/>
-<text x="-3.175" y="3.81" size="1.27" layer="25">&gt;NAME</text>
-<text x="-3.175" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
-<rectangle x1="-3.0226" y1="-2.3" x2="-1.325" y2="2.3" layer="51"/>
-<wire x1="-3" y1="-3" x2="-3" y2="3" width="0.1016" layer="51"/>
-<wire x1="3" y1="-3" x2="3" y2="3" width="0.1016" layer="51"/>
-<rectangle x1="1.325" y1="-2.3" x2="3.0226" y2="2.3" layer="51"/>
-<wire x1="-3" y1="3" x2="3" y2="3" width="0.127" layer="21"/>
-<wire x1="-3" y1="-3" x2="3" y2="-3" width="0.127" layer="21"/>
-<wire x1="-3" y1="-3" x2="-3" y2="-2.5" width="0.127" layer="21"/>
-<wire x1="-3" y1="3" x2="-3" y2="2.5" width="0.127" layer="21"/>
-<wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
-<wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
-</package>
 <package name="C115-080X160_POL">
 <description>&lt;b&gt;CAPACITOR pol.&lt;/b&gt;&lt;p&gt;
 grid 11.5 mm, outline 8.0 x 16.0 mm</description>
@@ -19262,7 +19222,7 @@ Würth Elektronik</description>
 <rectangle x1="0.2588" y1="-0.3048" x2="0.5588" y2="0.2951" layer="51"/>
 <rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
 </package>
-<package name="L_6MM5X6MM5">
+<package name="L_6.50MM_X_6.50MM">
 <description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
 6.5 mm x 6.5 mm</description>
 <wire x1="-3.035" y1="3.235" x2="3.035" y2="3.235" width="0.1016" layer="51"/>
@@ -19288,6 +19248,74 @@ Würth Elektronik</description>
 <wire x1="-3.035" y1="-3.235" x2="-3.235" y2="-3.035" width="0.1016" layer="51" curve="-90"/>
 <wire x1="3.035" y1="3.235" x2="3.235" y2="3.035" width="0.1016" layer="51" curve="-90"/>
 <wire x1="3.235" y1="-3.035" x2="3.035" y2="-3.235" width="0.1016" layer="51" curve="-90"/>
+</package>
+<package name="L_13.50MM_X_12.50MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+13.5 mm x 12.5 mm</description>
+<wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
+<wire x1="-6.5" y1="-6.25" x2="6.5" y2="-6.25" width="0.1016" layer="51"/>
+<smd name="1" x="-5.5" y="0" dx="3.1" dy="5" layer="1"/>
+<smd name="2" x="5.5" y="0" dx="3.1" dy="5" layer="1"/>
+<text x="-3.175" y="6.985" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.175" y="-8.255" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-6.1976" y1="-2.3" x2="-4.5" y2="2.3" layer="51"/>
+<wire x1="-6.5" y1="-6.25" x2="-6.5" y2="6.25" width="0.1016" layer="51"/>
+<wire x1="6.5" y1="-6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
+<rectangle x1="4.5" y1="-2.3" x2="6.1976" y2="2.3" layer="51"/>
+<wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.127" layer="21"/>
+<wire x1="-6.5" y1="-6.25" x2="6.5" y2="-6.25" width="0.127" layer="21"/>
+<wire x1="-6.5" y1="-6.25" x2="-6.5" y2="-3.175" width="0.127" layer="21"/>
+<wire x1="-6.5" y1="6.25" x2="-6.5" y2="3.175" width="0.127" layer="21"/>
+<wire x1="6.5" y1="6.25" x2="6.5" y2="3.175" width="0.127" layer="21"/>
+<wire x1="6.5" y1="-6.25" x2="6.5" y2="-3.175" width="0.127" layer="21"/>
+</package>
+<package name="L_6.00MM_X_6.00MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+6.00 mm x 6.00 mm</description>
+<wire x1="-3" y1="3" x2="3" y2="3" width="0.1016" layer="51"/>
+<wire x1="-3" y1="-3" x2="3" y2="-3" width="0.1016" layer="51"/>
+<smd name="1" x="-2.25" y="0" dx="1.7" dy="4.5" layer="1"/>
+<smd name="2" x="2.25" y="0" dx="1.7" dy="4.5" layer="1"/>
+<text x="-1.27" y="3.175" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-3.81" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
+<rectangle x1="-3.0226" y1="-2.3" x2="-1.325" y2="2.3" layer="51"/>
+<wire x1="-3" y1="-3" x2="-3" y2="3" width="0.1016" layer="51"/>
+<wire x1="3" y1="-3" x2="3" y2="3" width="0.1016" layer="51"/>
+<rectangle x1="1.325" y1="-2.3" x2="3.0226" y2="2.3" layer="51"/>
+<wire x1="-3" y1="3" x2="3" y2="3" width="0.127" layer="21"/>
+<wire x1="-3" y1="-3" x2="3" y2="-3" width="0.127" layer="21"/>
+<wire x1="-3" y1="-3" x2="-3" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-3" y1="3" x2="-3" y2="2.5" width="0.127" layer="21"/>
+<wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
+<wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
+<dimension x1="3.0226" y1="-2.25" x2="3.0226" y2="2.25" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-3" y1="-3" x2="3" y2="-3" x3="0" y3="-5.08" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="3" y1="-3" x2="3" y2="3" x3="6.35" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-1.4" y1="2.4" x2="1.4" y2="2.4" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
+</package>
+<package name="L_4.90MM_X_4.90MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+4.90 mm x 4.90 mm</description>
+<wire x1="-2.45" y1="2.45" x2="2.45" y2="2.45" width="0.1016" layer="51"/>
+<wire x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" width="0.1016" layer="51"/>
+<smd name="1" x="-1.7" y="0" dx="2" dy="4.4" layer="1"/>
+<smd name="2" x="1.7" y="0" dx="2" dy="4.4" layer="1"/>
+<text x="-1.27" y="3.175" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-3.81" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
+<rectangle x1="-2.45" y1="-2" x2="-0.95" y2="2" layer="51"/>
+<wire x1="-2.45" y1="-2.45" x2="-2.45" y2="2.45" width="0.1016" layer="51"/>
+<wire x1="2.45" y1="-2.45" x2="2.45" y2="2.45" width="0.1016" layer="51"/>
+<rectangle x1="0.95" y1="-2" x2="2.45" y2="2" layer="51"/>
+<wire x1="-2.45" y1="2.45" x2="2.45" y2="2.45" width="0.127" layer="21"/>
+<wire x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" width="0.127" layer="21"/>
+<wire x1="-2.45" y1="-2.45" x2="-2.45" y2="-2.2" width="0.127" layer="21"/>
+<wire x1="-2.45" y1="2.45" x2="-2.45" y2="2.2" width="0.127" layer="21"/>
+<wire x1="2.45" y1="2.45" x2="2.45" y2="2.2" width="0.127" layer="21"/>
+<wire x1="2.45" y1="-2.45" x2="2.45" y2="-2.2" width="0.127" layer="21"/>
+<dimension x1="3.0226" y1="-2.2" x2="3.0226" y2="2.2" x3="3.81" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" x3="0" y3="-5.08" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="2.45" y1="-2.45" x2="2.45" y2="2.45" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-0.95" y1="2" x2="0.95" y2="2" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
 </package>
 </packages>
 <symbols>
@@ -21605,7 +21633,7 @@ European symbol</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="13.5X12.5MM" package="L_13.5X12.5MM">
+<device name="13.50X12.50MM" package="L_13.50MM_X_12.50MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -21614,7 +21642,7 @@ European symbol</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="6.0X6.0MM" package="L_6X6MM">
+<device name="6.00X6.00MM" package="L_6.00MM_X_6.00MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -21659,7 +21687,16 @@ European symbol</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="6.5X6.5MM" package="L_6MM5X6MM5">
+<device name="6.50X6.50MM" package="L_6.50MM_X_6.50MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="4.90X4.90MM" package="L_4.90MM_X_4.90MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -27873,7 +27910,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C2102" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="GND2101" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2103" library="rcl" deviceset="C-EU" device="C0805" value="22uF"/>
-<part name="L2191" library="df4iah_rcl" deviceset="L-EU" device="L1812" value="10uH"/>
+<part name="L2191" library="df4iah_rcl" deviceset="L-EU" device="4.90X4.90MM" value="10uH"/>
 <part name="TP_+1V1" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="+3V1" library="df4iah_supply" deviceset="+3V3" device=""/>
 <part name="R2912" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
@@ -28001,7 +28038,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R2985" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="U1901" library="df4iah_powersupply" deviceset="BQ25570" device=""/>
 <part name="C1903" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="L1991" library="df4iah_rcl" deviceset="L-EU" device="L1812" value="10uH"/>
+<part name="L1991" library="df4iah_rcl" deviceset="L-EU" device="4.90X4.90MM" value="10uH"/>
 <part name="C1951" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_6V_SCMR18H105MRBB0"/>
 <part name="C1906" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
 <part name="C1905" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
@@ -28119,7 +28156,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C2001" library="rcl" deviceset="C-EU" device="C0603" value="10uF"/>
 <part name="C2002" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="GND2003" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="L2001" library="df4iah_rcl" deviceset="L-EU" device="6.5X6.5MM" value="2.2uH"/>
+<part name="L2001" library="df4iah_rcl" deviceset="L-EU" device="6.00X6.00MM" value="2.2uH"/>
 <part name="C2005" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="C2004" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="C2021" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
@@ -28175,7 +28212,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND3181" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0741" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="FRAME_33" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="L3211" library="df4iah_rcl" deviceset="L-EU" device="6.5X6.5MM" value="2.2uH"/>
+<part name="L3211" library="df4iah_rcl" deviceset="L-EU" device="6.00X6.00MM" value="2.2uH"/>
 <part name="U3201" library="df4iah_powersupply" deviceset="LM53603-Q1" device=""/>
 <part name="C3202" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="C3203" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
@@ -28240,6 +28277,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C1592" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
 <part name="R1591" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="X3211" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
+<part name="TP_LIPO_BAT" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
+<part name="TP_LIPO_SYS" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
+<part name="TP_LIPO_CUR" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 </parts>
 <sheets>
 <sheet>
@@ -34028,13 +34068,13 @@ SPI</text>
 <sheet>
 <description>Solar Power Harvesting</description>
 <plain>
-<text x="58.42" y="114.3" size="1.778" layer="96">3.8mm x 3.8mm</text>
+<text x="22.86" y="101.6" size="1.778" layer="96">WE 744031220 3.80 mm x 3.80 mm</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Solar power converter</text>
 <text x="5.08" y="127.254" size="1.778" layer="97">ADC1_IN5_VSOL</text>
 <text x="30.48" y="139.7" size="1.778" layer="97">MCU_VSOL_TIMCAP</text>
 <text x="7.62" y="71.12" size="1.778" layer="97">Solar connector</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">Solar power harvesting</text>
-<text x="162.56" y="114.3" size="1.778" layer="96">4.5mm x 3.2mm (1812)</text>
+<text x="175.26" y="99.06" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
 <text x="76.2" y="50.8" size="1.778" layer="96">place near VOC_SAMP</text>
 <text x="172.72" y="121.92" size="1.778" layer="97">V_should = 5.2V</text>
 </plain>
@@ -34393,6 +34433,7 @@ Max charge: 2.2A</text>
 <text x="25.4" y="106.68" size="1.778" layer="97">ADC1_IN8_LIPO_CUR_IN</text>
 <text x="101.6" y="127" size="1.778" layer="97" rot="R90">LIPO_VBUS</text>
 <text x="66.04" y="114.3" size="1.778" layer="97">Iq=0.45uA</text>
+<text x="182.88" y="86.36" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
 </plain>
 <instances>
 <instance part="FRAME_20" gate="G$1" x="0" y="0"/>
@@ -34460,6 +34501,9 @@ Max charge: 2.2A</text>
 </instance>
 <instance part="D2022" gate="G$1" x="91.44" y="134.62"/>
 <instance part="D2021" gate="G$1" x="91.44" y="144.78"/>
+<instance part="TP_LIPO_BAT" gate="G$1" x="220.98" y="101.6" rot="R180"/>
+<instance part="TP_LIPO_SYS" gate="G$1" x="228.6" y="101.6" rot="R180"/>
+<instance part="TP_LIPO_CUR" gate="G$1" x="38.1" y="132.08" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -34480,6 +34524,9 @@ Max charge: 2.2A</text>
 <pinref part="C2011" gate="G$1" pin="1"/>
 <wire x1="185.42" y1="63.5" x2="185.42" y2="60.96" width="0.1524" layer="91"/>
 <junction x="185.42" y="63.5"/>
+<pinref part="TP_LIPO_BAT" gate="G$1" pin="TP"/>
+<wire x1="220.98" y1="63.5" x2="220.98" y2="99.06" width="0.1524" layer="91"/>
+<junction x="220.98" y="63.5"/>
 </segment>
 </net>
 <net name="LIPO_TS12" class="0">
@@ -34513,7 +34560,8 @@ Max charge: 2.2A</text>
 <wire x1="160.02" y1="73.66" x2="193.04" y2="73.66" width="0.1524" layer="91"/>
 <junction x="160.02" y="73.66"/>
 <pinref part="C2005" gate="G$1" pin="1"/>
-<wire x1="193.04" y1="73.66" x2="231.14" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="73.66" x2="228.6" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="73.66" x2="231.14" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="160.02" y1="71.12" x2="162.56" y2="71.12" width="0.1524" layer="91"/>
 <junction x="160.02" y="71.12"/>
 <wire x1="160.02" y1="73.66" x2="160.02" y2="76.2" width="0.1524" layer="91"/>
@@ -34524,6 +34572,9 @@ Max charge: 2.2A</text>
 <junction x="193.04" y="73.66"/>
 <pinref part="L2001" gate="G$1" pin="1"/>
 <wire x1="193.04" y1="93.98" x2="190.5" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="TP_LIPO_SYS" gate="G$1" pin="TP"/>
+<wire x1="228.6" y1="73.66" x2="228.6" y2="99.06" width="0.1524" layer="91"/>
+<junction x="228.6" y="73.66"/>
 </segment>
 </net>
 <net name="LIPO_SW" class="0">
@@ -34745,8 +34796,13 @@ Max charge: 2.2A</text>
 <segment>
 <pinref part="R2041" gate="G$1" pin="1"/>
 <wire x1="53.34" y1="106.68" x2="25.4" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="106.68" x2="25.4" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="106.68" x2="25.4" y2="121.92" width="0.1524" layer="91"/>
 <label x="25.4" y="124.46" size="1.778" layer="95" rot="R90" xref="yes"/>
+<wire x1="25.4" y1="121.92" x2="25.4" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="121.92" x2="38.1" y2="121.92" width="0.1524" layer="91"/>
+<junction x="25.4" y="121.92"/>
+<wire x1="38.1" y1="121.92" x2="38.1" y2="129.54" width="0.1524" layer="91"/>
+<pinref part="TP_LIPO_CUR" gate="G$1" pin="TP"/>
 </segment>
 </net>
 <net name="PA5" class="0">
@@ -34799,11 +34855,11 @@ Max charge: 2.2A</text>
 <text x="118.872" y="100.584" size="1.778" layer="97">1.21V</text>
 <text x="139.446" y="121.158" size="1.778" layer="97">0.5V</text>
 <text x="200.66" y="104.14" size="1.778" layer="97">PMIC_VDD12_LBO</text>
-<text x="167.64" y="137.16" size="1.778" layer="96">4.5mm x 3.2mm (1812)</text>
 <text x="137.16" y="48.26" size="1.778" layer="97" rot="R90">value=256d,26d</text>
 <text x="137.16" y="25.4" size="1.778" layer="97" rot="R90">value=183d</text>
 <text x="81.28" y="132.08" size="1.778" layer="97">Low battery: &lt; 3.025V</text>
 <text x="99.06" y="71.12" size="1.778" layer="97">Iq=2.5uA</text>
+<text x="177.8" y="137.16" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
 </plain>
 <instances>
 <instance part="FRAME_21" gate="G$1" x="0" y="0"/>
@@ -35141,7 +35197,7 @@ Max charge: 2.2A</text>
 </nets>
 </sheet>
 <sheet>
-<description>Switch: 3.3V -&gt; 3.3V_XO</description>
+<description>Switch: 3.3V -&gt; 3.3V_XO _PA</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Electronic switch for TCXO unit</text>
 <text x="139.7" y="96.52" size="1.778" layer="97" rot="R90">MCU_OUT_SW_PWR</text>
@@ -38345,6 +38401,7 @@ I2C1 addr: 0x21</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
 <text x="81.28" y="127" size="1.778" layer="97">Iq=24uA</text>
+<text x="167.64" y="132.08" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
 </plain>
 <instances>
 <instance part="FRAME_33" gate="G$1" x="0" y="0"/>
