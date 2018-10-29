@@ -12405,7 +12405,7 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 <rectangle x1="0.254" y1="-1.27" x2="0.762" y2="1.27" layer="21"/>
 <wire x1="8.0772" y1="0.1016" x2="7.4168" y2="0.1016" width="0.1524" layer="21"/>
 </package>
-<package name="L_13.5X12.5MM">
+<package name="L_13.50MM_X_12.50MM">
 <description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
 13.5 mm x 12.5 mm</description>
 <wire x1="-6.5" y1="6.25" x2="6.5" y2="6.25" width="0.1016" layer="51"/>
@@ -12425,15 +12425,15 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 <wire x1="6.5" y1="6.25" x2="6.5" y2="3.175" width="0.127" layer="21"/>
 <wire x1="6.5" y1="-6.25" x2="6.5" y2="-3.175" width="0.127" layer="21"/>
 </package>
-<package name="L_6X6MM">
+<package name="L_6.00MM_X_6.00MM">
 <description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
-6.0 mm x 6.0 mm</description>
+6.00 mm x 6.00 mm</description>
 <wire x1="-3" y1="3" x2="3" y2="3" width="0.1016" layer="51"/>
 <wire x1="-3" y1="-3" x2="3" y2="-3" width="0.1016" layer="51"/>
-<smd name="1" x="-2.35" y="0" dx="2" dy="5.7" layer="1"/>
-<smd name="2" x="2.35" y="0" dx="2" dy="5.7" layer="1"/>
-<text x="-3.175" y="3.81" size="1.27" layer="25">&gt;NAME</text>
-<text x="-3.175" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
+<smd name="1" x="-2.25" y="0" dx="1.7" dy="4.5" layer="1"/>
+<smd name="2" x="2.25" y="0" dx="1.7" dy="4.5" layer="1"/>
+<text x="-1.27" y="3.175" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-3.81" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
 <rectangle x1="-3.0226" y1="-2.3" x2="-1.325" y2="2.3" layer="51"/>
 <wire x1="-3" y1="-3" x2="-3" y2="3" width="0.1016" layer="51"/>
 <wire x1="3" y1="-3" x2="3" y2="3" width="0.1016" layer="51"/>
@@ -12444,6 +12444,10 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 <wire x1="-3" y1="3" x2="-3" y2="2.5" width="0.127" layer="21"/>
 <wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
 <wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
+<dimension x1="3.0226" y1="-2.25" x2="3.0226" y2="2.25" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-3" y1="-3" x2="3" y2="-3" x3="0" y3="-5.08" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="3" y1="-3" x2="3" y2="3" x3="6.35" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-1.4" y1="2.4" x2="1.4" y2="2.4" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
 </package>
 <package name="C115-080X160">
 <description>&lt;b&gt;CAPACITOR&lt;/b&gt;&lt;p&gt;
@@ -12746,7 +12750,7 @@ Würth Elektronik</description>
 <rectangle x1="0.2588" y1="-0.3048" x2="0.5588" y2="0.2951" layer="51"/>
 <rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
 </package>
-<package name="L_6MM5X6MM5">
+<package name="L_6.50MM_X_6.50MM">
 <description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
 6.5 mm x 6.5 mm</description>
 <wire x1="-3.035" y1="3.235" x2="3.035" y2="3.235" width="0.1016" layer="51"/>
@@ -12772,6 +12776,30 @@ Würth Elektronik</description>
 <wire x1="-3.035" y1="-3.235" x2="-3.235" y2="-3.035" width="0.1016" layer="51" curve="-90"/>
 <wire x1="3.035" y1="3.235" x2="3.235" y2="3.035" width="0.1016" layer="51" curve="-90"/>
 <wire x1="3.235" y1="-3.035" x2="3.035" y2="-3.235" width="0.1016" layer="51" curve="-90"/>
+</package>
+<package name="L_4.90MM_X_4.90MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+4.90 mm x 4.90 mm</description>
+<wire x1="-2.45" y1="2.45" x2="2.45" y2="2.45" width="0.1016" layer="51"/>
+<wire x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" width="0.1016" layer="51"/>
+<smd name="1" x="-1.7" y="0" dx="2" dy="4.4" layer="1"/>
+<smd name="2" x="1.7" y="0" dx="2" dy="4.4" layer="1"/>
+<text x="-1.27" y="3.175" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-3.81" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
+<rectangle x1="-2.45" y1="-2" x2="-0.95" y2="2" layer="51"/>
+<wire x1="-2.45" y1="-2.45" x2="-2.45" y2="2.45" width="0.1016" layer="51"/>
+<wire x1="2.45" y1="-2.45" x2="2.45" y2="2.45" width="0.1016" layer="51"/>
+<rectangle x1="0.95" y1="-2" x2="2.45" y2="2" layer="51"/>
+<wire x1="-2.45" y1="2.45" x2="2.45" y2="2.45" width="0.127" layer="21"/>
+<wire x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" width="0.127" layer="21"/>
+<wire x1="-2.45" y1="-2.45" x2="-2.45" y2="-2.2" width="0.127" layer="21"/>
+<wire x1="-2.45" y1="2.45" x2="-2.45" y2="2.2" width="0.127" layer="21"/>
+<wire x1="2.45" y1="2.45" x2="2.45" y2="2.2" width="0.127" layer="21"/>
+<wire x1="2.45" y1="-2.45" x2="2.45" y2="-2.2" width="0.127" layer="21"/>
+<dimension x1="3.0226" y1="-2.2" x2="3.0226" y2="2.2" x3="3.81" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" x3="0" y3="-5.08" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="2.45" y1="-2.45" x2="2.45" y2="2.45" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-0.95" y1="2" x2="0.95" y2="2" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
 </package>
 </packages>
 <symbols>
@@ -15201,7 +15229,7 @@ European symbol</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="13.5X12.5MM" package="L_13.5X12.5MM">
+<device name="13.50X12.50MM" package="L_13.50MM_X_12.50MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -15210,7 +15238,7 @@ European symbol</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="6.0X6.0MM" package="L_6X6MM">
+<device name="6.00X6.00MM" package="L_6.00MM_X_6.00MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -15255,7 +15283,16 @@ European symbol</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="6.5X6.5MM" package="L_6MM5X6MM5">
+<device name="6.50X6.50MM" package="L_6.50MM_X_6.50MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="4.90X4.90MM" package="L_4.90MM_X_4.90MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
