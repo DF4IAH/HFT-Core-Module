@@ -467,26 +467,26 @@
 <pin name="UART1_DCD" x="38.1" y="71.12" length="middle" direction="pas"/>
 <pin name="UART1_DTR" x="38.1" y="66.04" length="middle" direction="pas"/>
 <pin name="UART1_RI" x="38.1" y="60.96" length="middle" direction="pas"/>
-<pin name="MICP" x="-20.32" y="-5.08" length="middle" direction="pas"/>
-<pin name="MICN" x="-20.32" y="-10.16" length="middle" direction="pas"/>
-<pin name="SPK1P" x="-20.32" y="-15.24" length="middle" direction="pas"/>
-<pin name="SPK1N" x="-20.32" y="-20.32" length="middle" direction="pas"/>
+<pin name="MICP" x="-15.24" y="-5.08" length="middle" direction="pas"/>
+<pin name="MICN" x="-15.24" y="-10.16" length="middle" direction="pas"/>
+<pin name="SPK1P" x="-15.24" y="-15.24" length="middle" direction="pas"/>
+<pin name="SPK1N" x="-15.24" y="-20.32" length="middle" direction="pas"/>
 <pin name="SIM1_DET" x="38.1" y="50.8" length="middle" direction="pas"/>
 <pin name="SIM1_DATA" x="38.1" y="45.72" length="middle" direction="pas"/>
 <pin name="SIM1_CLK" x="38.1" y="40.64" length="middle" direction="pas"/>
 <pin name="SIM1_RST" x="38.1" y="35.56" length="middle" direction="pas"/>
 <pin name="SIM1_VDD" x="38.1" y="30.48" length="middle" direction="pas"/>
-<pin name="SIM2_DET" x="-20.32" y="60.96" length="middle" direction="pas"/>
-<pin name="SIM2_DATA" x="-20.32" y="55.88" length="middle" direction="pas"/>
-<pin name="SIM2_CLK" x="-20.32" y="50.8" length="middle" direction="pas"/>
-<pin name="SIM2_RST" x="-20.32" y="45.72" length="middle" direction="pas"/>
-<pin name="SIM2_VDD" x="-20.32" y="40.64" length="middle" direction="pas"/>
+<pin name="SIM2_DET" x="-15.24" y="60.96" length="middle" direction="pas"/>
+<pin name="SIM2_DATA" x="-15.24" y="55.88" length="middle" direction="pas"/>
+<pin name="SIM2_CLK" x="-15.24" y="50.8" length="middle" direction="pas"/>
+<pin name="SIM2_RST" x="-15.24" y="45.72" length="middle" direction="pas"/>
+<pin name="SIM2_VDD" x="-15.24" y="40.64" length="middle" direction="pas"/>
 <pin name="BT_ANT" x="-63.5" y="20.32" length="middle" direction="pas"/>
 <pin name="UART2_TXD" x="38.1" y="-20.32" length="middle" direction="pas"/>
 <pin name="UART2_RXD" x="38.1" y="-25.4" length="middle" direction="pas"/>
-<pin name="USB_VBUS" x="-20.32" y="-55.88" length="middle" direction="pas"/>
-<pin name="USB_DP" x="-20.32" y="-60.96" length="middle" direction="pas"/>
-<pin name="USB_DM" x="-20.32" y="-66.04" length="middle" direction="pas"/>
+<pin name="USB_VBUS" x="-15.24" y="-55.88" length="middle" direction="pas"/>
+<pin name="USB_DP" x="-15.24" y="-60.96" length="middle" direction="pas"/>
+<pin name="USB_DM" x="-15.24" y="-66.04" length="middle" direction="pas"/>
 <pin name="VRTC" x="-63.5" y="45.72" length="middle" direction="pas"/>
 <pin name="RF_SYNC" x="38.1" y="20.32" length="middle" direction="pas"/>
 <pin name="GSM_ANT" x="-63.5" y="10.16" length="middle" direction="pas"/>
@@ -497,37 +497,37 @@
 <pin name="VDD_EXT" x="-63.5" y="35.56" length="middle" direction="pas"/>
 <pin name="NETLIGHT" x="38.1" y="10.16" length="middle" direction="pas"/>
 <pin name="STATUS" x="38.1" y="5.08" length="middle" direction="pas"/>
-<pin name="SPK2P" x="-20.32" y="-25.4" length="middle" direction="pas"/>
-<pin name="SPK2N" x="-20.32" y="-30.48" length="middle" direction="pas"/>
-<pin name="MCCA3" x="-20.32" y="30.48" length="middle" direction="pas"/>
-<pin name="MCCA2" x="-20.32" y="25.4" length="middle" direction="pas"/>
-<pin name="MCCA1" x="-20.32" y="20.32" length="middle" direction="pas"/>
-<pin name="MCCA0" x="-20.32" y="15.24" length="middle" direction="pas"/>
-<pin name="MCCCK" x="-20.32" y="10.16" length="middle" direction="pas"/>
-<pin name="MCCM0" x="-20.32" y="5.08" length="middle" direction="pas"/>
+<pin name="SPK2P" x="-15.24" y="-25.4" length="middle" direction="pas"/>
+<pin name="SPK2N" x="-15.24" y="-30.48" length="middle" direction="pas"/>
+<pin name="MCCA3" x="-15.24" y="30.48" length="middle" direction="pas"/>
+<pin name="MCCA2" x="-15.24" y="25.4" length="middle" direction="pas"/>
+<pin name="MCCA1" x="-15.24" y="20.32" length="middle" direction="pas"/>
+<pin name="MCCA0" x="-15.24" y="15.24" length="middle" direction="pas"/>
+<pin name="MCCCK" x="-15.24" y="10.16" length="middle" direction="pas"/>
+<pin name="MCCM0" x="-15.24" y="5.08" length="middle" direction="pas"/>
 <pin name="GPIO1" x="38.1" y="-50.8" length="middle" direction="pas"/>
 <pin name="GPIO2" x="38.1" y="-55.88" length="middle" direction="pas"/>
 <pin name="GNSS_EN" x="38.1" y="-10.16" length="middle" direction="pas"/>
 <pin name="GNSS_1PPS" x="38.1" y="0" length="middle" direction="pas"/>
 <pin name="GPS_TXD" x="38.1" y="-35.56" length="middle" direction="pas"/>
 <pin name="GPS_RXD" x="38.1" y="-40.64" length="middle" direction="pas"/>
-<pin name="SDA" x="-20.32" y="-40.64" length="middle" direction="pas"/>
-<pin name="SCL" x="-20.32" y="-45.72" length="middle" direction="pas"/>
+<pin name="SDA" x="-15.24" y="-40.64" length="middle" direction="pas"/>
+<pin name="SCL" x="-15.24" y="-45.72" length="middle" direction="pas"/>
 <pin name="GPS_ANT" x="-63.5" y="0" length="middle" direction="pas"/>
 <wire x1="-58.42" y1="63.5" x2="-43.18" y2="63.5" width="0.254" layer="94"/>
 <wire x1="-43.18" y1="63.5" x2="-43.18" y2="-68.58" width="0.254" layer="94"/>
 <wire x1="-43.18" y1="-68.58" x2="-58.42" y2="-68.58" width="0.254" layer="94"/>
 <wire x1="-58.42" y1="-68.58" x2="-58.42" y2="63.5" width="0.254" layer="94"/>
-<wire x1="-15.24" y1="63.5" x2="0" y2="63.5" width="0.254" layer="94"/>
-<wire x1="0" y1="63.5" x2="0" y2="-68.58" width="0.254" layer="94"/>
-<wire x1="0" y1="-68.58" x2="-15.24" y2="-68.58" width="0.254" layer="94"/>
-<wire x1="-15.24" y1="-68.58" x2="-15.24" y2="63.5" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="63.5" x2="5.08" y2="63.5" width="0.254" layer="94"/>
+<wire x1="5.08" y1="63.5" x2="5.08" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="5.08" y1="-68.58" x2="-10.16" y2="-68.58" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-68.58" x2="-10.16" y2="63.5" width="0.254" layer="94"/>
 <wire x1="43.18" y1="93.98" x2="60.96" y2="93.98" width="0.254" layer="94"/>
 <wire x1="60.96" y1="93.98" x2="60.96" y2="-68.58" width="0.254" layer="94"/>
 <wire x1="60.96" y1="-68.58" x2="43.18" y2="-68.58" width="0.254" layer="94"/>
 <wire x1="43.18" y1="-68.58" x2="43.18" y2="93.98" width="0.254" layer="94"/>
 <text x="-55.88" y="66.04" size="1.778" layer="95" font="vector">&gt;NAME</text>
-<text x="-12.7" y="66.04" size="1.778" layer="96" font="vector">&gt;VALUE</text>
+<text x="-7.62" y="66.04" size="1.778" layer="96" font="vector">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
