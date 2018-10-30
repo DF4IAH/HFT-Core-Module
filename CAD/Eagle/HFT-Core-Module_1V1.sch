@@ -38287,8 +38287,8 @@ I2C1 addr: 0x21</text>
 <instance part="U3311" gate="G$1" x="63.5" y="104.14"/>
 <instance part="U3321" gate="G$1" x="172.72" y="104.14"/>
 <instance part="GND3301" gate="1" x="30.48" y="48.26"/>
-<instance part="C3311" gate="G$1" x="99.06" y="139.7"/>
-<instance part="C3321" gate="G$1" x="208.28" y="139.7"/>
+<instance part="C3311" gate="G$1" x="93.98" y="139.7"/>
+<instance part="C3321" gate="G$1" x="203.2" y="139.7"/>
 <instance part="R3310" gate="G$1" x="101.6" y="124.46"/>
 <instance part="R3311" gate="G$1" x="101.6" y="116.84"/>
 <instance part="R3312" gate="G$1" x="101.6" y="109.22"/>
@@ -38324,9 +38324,8 @@ I2C1 addr: 0x21</text>
 <wire x1="38.1" y1="147.32" x2="35.56" y2="147.32" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="147.32" x2="35.56" y2="157.48" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="157.48" x2="93.98" y2="157.48" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="157.48" x2="99.06" y2="157.48" width="0.1524" layer="91"/>
 <junction x="93.98" y="157.48"/>
-<wire x1="99.06" y1="157.48" x2="144.78" y2="157.48" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="157.48" x2="144.78" y2="157.48" width="0.1524" layer="91"/>
 <wire x1="144.78" y1="157.48" x2="144.78" y2="147.32" width="0.1524" layer="91"/>
 <pinref part="U3321" gate="G$1" pin="VCC_A"/>
 <wire x1="144.78" y1="147.32" x2="147.32" y2="147.32" width="0.1524" layer="91"/>
@@ -38344,17 +38343,12 @@ I2C1 addr: 0x21</text>
 <junction x="35.56" y="147.32"/>
 <pinref part="U3311" gate="G$1" pin="DIR"/>
 <wire x1="35.56" y1="139.7" x2="38.1" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="144.78" y1="147.32" x2="144.78" y2="139.7" width="0.1524" layer="91"/>
-<junction x="144.78" y="147.32"/>
-<pinref part="U3321" gate="G$1" pin="DIR"/>
-<wire x1="144.78" y1="139.7" x2="147.32" y2="139.7" width="0.1524" layer="91"/>
 <pinref part="C3311" gate="G$1" pin="1"/>
-<wire x1="99.06" y1="157.48" x2="99.06" y2="142.24" width="0.1524" layer="91"/>
-<junction x="99.06" y="157.48"/>
-<wire x1="203.2" y1="157.48" x2="208.28" y2="157.48" width="0.1524" layer="91"/>
-<junction x="203.2" y="157.48"/>
 <pinref part="C3321" gate="G$1" pin="1"/>
-<wire x1="208.28" y1="157.48" x2="208.28" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="144.78" x2="93.98" y2="142.24" width="0.1524" layer="91"/>
+<junction x="93.98" y="144.78"/>
+<wire x1="203.2" y1="144.78" x2="203.2" y2="142.24" width="0.1524" layer="91"/>
+<junction x="203.2" y="144.78"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -38396,14 +38390,16 @@ I2C1 addr: 0x21</text>
 <pinref part="U3321" gate="G$1" pin="VSS@13"/>
 <wire x1="144.78" y1="63.5" x2="147.32" y2="63.5" width="0.1524" layer="91"/>
 <junction x="144.78" y="63.5"/>
-<wire x1="93.98" y1="132.08" x2="99.06" y2="132.08" width="0.1524" layer="91"/>
 <junction x="93.98" y="132.08"/>
 <pinref part="C3311" gate="G$1" pin="2"/>
-<wire x1="99.06" y1="132.08" x2="99.06" y2="134.62" width="0.1524" layer="91"/>
-<wire x1="203.2" y1="132.08" x2="208.28" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="132.08" x2="93.98" y2="134.62" width="0.1524" layer="91"/>
 <junction x="203.2" y="132.08"/>
 <pinref part="C3321" gate="G$1" pin="2"/>
-<wire x1="208.28" y1="132.08" x2="208.28" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="132.08" x2="203.2" y2="134.62" width="0.1524" layer="91"/>
+<pinref part="U3321" gate="G$1" pin="DIR"/>
+<wire x1="144.78" y1="139.7" x2="147.32" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="68.58" x2="144.78" y2="139.7" width="0.1524" layer="91"/>
+<junction x="144.78" y="68.58"/>
 </segment>
 </net>
 <net name="LS1_A7" class="0">
