@@ -19317,6 +19317,28 @@ Würth Elektronik</description>
 <dimension x1="2.45" y1="-2.45" x2="2.45" y2="2.45" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
 <dimension x1="-0.95" y1="2" x2="0.95" y2="2" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
 </package>
+<package name="L_3.00MM_X_3.00MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+3.00 mm x 3.00 mm&lt;br/&gt;
+Pads enlarged by 0.2 mm</description>
+<wire x1="-1.5" y1="1.5" x2="1.5" y2="1.5" width="0.1016" layer="51"/>
+<wire x1="-1.5" y1="-1.5" x2="1.5" y2="-1.5" width="0.1016" layer="51"/>
+<smd name="1" x="-1.3" y="0" dx="1.2" dy="2.7" layer="1" roundness="15"/>
+<smd name="2" x="1.3" y="0" dx="1.2" dy="2.7" layer="1" roundness="15"/>
+<text x="-1.27" y="1.905" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-2.54" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
+<rectangle x1="-1.5" y1="-1.5" x2="-0.7" y2="1.5" layer="51"/>
+<wire x1="-1.5" y1="-1.5" x2="-1.5" y2="1.5" width="0.1016" layer="51"/>
+<wire x1="1.5" y1="-1.5" x2="1.5" y2="1.5" width="0.1016" layer="51"/>
+<rectangle x1="0.7" y1="-1.5" x2="1.5" y2="1.5" layer="51"/>
+<wire x1="-1.5" y1="1.5" x2="1.5" y2="1.5" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="-1.5" x2="1.5" y2="-1.5" width="0.127" layer="21"/>
+<dimension x1="1.9" y1="-1.35" x2="1.9" y2="1.35" x3="3.81" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-1.7" y1="-1.5" x2="1.7" y2="-1.5" x3="0" y3="-3.175" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="1.9" y1="-1.5" x2="1.9" y2="1.5" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-0.7" y1="1.5" x2="0.7" y2="1.5" x3="0" y3="2.54" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-1.9" y1="-1.5" x2="1.9" y2="-1.5" x3="0" y3="-4.445" textsize="0.5" layer="47" width="0.05"/>
+</package>
 </packages>
 <symbols>
 <symbol name="CPOL">
@@ -21697,6 +21719,15 @@ European symbol</description>
 </technologies>
 </device>
 <device name="4.90X4.90MM" package="L_4.90MM_X_4.90MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="3.00X3.00MM" package="L_3.00MM_X_3.00MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -28085,21 +28116,21 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND1602" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND1603" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R1611" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="L1601" library="df4iah_rcl" deviceset="L-EU" device="L2012C" value="15uH"/>
+<part name="L1601" library="df4iah_rcl" deviceset="L-EU" device="3.00X3.00MM" value="15uH"/>
 <part name="C1603" library="rcl" deviceset="C-EU" device="C0603" value="470nF"/>
 <part name="C1602" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="L1663" library="df4iah_rcl" deviceset="L-EU" device="L0603"/>
-<part name="C1663" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1664" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="L1664" library="df4iah_rcl" deviceset="L-EU" device="L0603"/>
-<part name="C1667" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1604" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1605" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="L1661" library="df4iah_rcl" deviceset="L-EU" device="L0603"/>
-<part name="L1662" library="df4iah_rcl" deviceset="L-EU" device="L0603"/>
+<part name="L1663" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="2.5nH"/>
+<part name="C1663" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
+<part name="C1664" library="rcl" deviceset="C-EU" device="C0603" value="39pF"/>
+<part name="L1664" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="4.7nH"/>
+<part name="C1667" library="rcl" deviceset="C-EU" device="C0603" value="2.2pF"/>
+<part name="C1604" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
+<part name="C1605" library="rcl" deviceset="C-EU" device="C0603" value="47nF"/>
+<part name="L1661" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="0R"/>
+<part name="L1662" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="47nH"/>
 <part name="GND1604" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1665" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1666" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C1665" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C1666" library="rcl" deviceset="C-EU" device="C0603" value="5.6pF"/>
 <part name="GND1661" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U1671" library="df4iah_rf" deviceset="PE4259" device=""/>
 <part name="GND1652" library="df4iah_supply" deviceset="GND" device=""/>
@@ -28107,16 +28138,16 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND1653" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1672" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
 <part name="GND1654" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1681" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1682" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="L1682" library="df4iah_rcl" deviceset="L-EU" device="L0603"/>
-<part name="C1683" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C1681" library="rcl" deviceset="C-EU" device="C0603" value="39pF"/>
+<part name="C1682" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
+<part name="L1682" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="9.1nH"/>
+<part name="C1683" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
 <part name="GND1655" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1691" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1692" library="rcl" deviceset="C-EU" device="C0603"/>
-<part name="C1693" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C1691" library="rcl" deviceset="C-EU" device="C0603" value="1.8pF"/>
+<part name="C1692" library="rcl" deviceset="C-EU" device="C0603" value="2.4pF"/>
+<part name="C1693" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
 <part name="GND1691" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="L1691" library="df4iah_rcl" deviceset="L-EU" device="L0603"/>
+<part name="L1691" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="15nH"/>
 <part name="U1101" library="df4iah_lcd" deviceset="MIDAS_MCCOG21605B6W-FPTLWI" device=""/>
 <part name="X1551" library="df4iah_connector" deviceset="MICROSIM-8P_SDCARD-8P_MOLEX-104642-1610" device=""/>
 <part name="GND3021" library="df4iah_supply" deviceset="GND" device=""/>
@@ -32799,48 +32830,48 @@ SPI</text>
 <instance part="C1602" gate="G$1" x="43.18" y="116.84"/>
 <instance part="L1663" gate="G$1" x="165.1" y="104.14" smashed="yes" rot="R270">
 <attribute name="NAME" x="161.29" y="99.568" size="1.778" layer="95"/>
-<attribute name="VALUE" x="161.29" y="100.838" size="1.778" layer="96"/>
+<attribute name="VALUE" x="161.29" y="95.758" size="1.778" layer="96"/>
 </instance>
 <instance part="C1663" gate="G$1" x="162.56" y="109.22" smashed="yes" rot="R90">
 <attribute name="NAME" x="161.544" y="114.681" size="1.778" layer="95"/>
-<attribute name="VALUE" x="167.259" y="110.744" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="161.544" y="112.141" size="1.778" layer="96"/>
 </instance>
 <instance part="C1664" gate="G$1" x="175.26" y="106.68" smashed="yes" rot="R90">
 <attribute name="NAME" x="174.244" y="112.141" size="1.778" layer="95"/>
-<attribute name="VALUE" x="179.959" y="108.204" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="174.244" y="109.601" size="1.778" layer="96"/>
 </instance>
 <instance part="L1664" gate="G$1" x="187.96" y="106.68" smashed="yes" rot="R270">
 <attribute name="NAME" x="184.404" y="112.2426" size="1.778" layer="95"/>
-<attribute name="VALUE" x="184.15" y="103.378" size="1.778" layer="96"/>
+<attribute name="VALUE" x="184.15" y="109.728" size="1.778" layer="96"/>
 </instance>
 <instance part="C1667" gate="G$1" x="190.5" y="101.6" smashed="yes" rot="R270">
 <attribute name="NAME" x="186.944" y="96.901" size="1.778" layer="95"/>
-<attribute name="VALUE" x="185.801" y="100.076" size="1.778" layer="96" rot="R270"/>
+<attribute name="VALUE" x="186.944" y="94.361" size="1.778" layer="96"/>
 </instance>
 <instance part="C1604" gate="G$1" x="132.08" y="114.3" smashed="yes" rot="R90">
 <attribute name="NAME" x="125.984" y="119.761" size="1.778" layer="95"/>
-<attribute name="VALUE" x="136.779" y="115.824" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="125.984" y="117.221" size="1.778" layer="96"/>
 </instance>
 <instance part="C1605" gate="G$1" x="137.16" y="119.38" smashed="yes" rot="R90">
 <attribute name="NAME" x="136.144" y="124.841" size="1.778" layer="95"/>
-<attribute name="VALUE" x="141.859" y="120.904" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="136.144" y="122.301" size="1.778" layer="96"/>
 </instance>
 <instance part="L1661" gate="G$1" x="134.62" y="106.68" smashed="yes" rot="R270">
-<attribute name="NAME" x="128.27" y="103.0986" size="1.778" layer="95"/>
+<attribute name="NAME" x="130.81" y="108.1786" size="1.778" layer="95"/>
 <attribute name="VALUE" x="130.81" y="103.378" size="1.778" layer="96"/>
 </instance>
 <instance part="L1662" gate="G$1" x="147.32" y="111.76" smashed="yes" rot="R270">
 <attribute name="NAME" x="143.51" y="115.7986" size="1.778" layer="95"/>
-<attribute name="VALUE" x="143.51" y="108.458" size="1.778" layer="96"/>
+<attribute name="VALUE" x="143.51" y="113.538" size="1.778" layer="96"/>
 </instance>
 <instance part="GND1604" gate="1" x="157.48" y="119.38"/>
 <instance part="C1665" gate="G$1" x="152.4" y="104.14" smashed="yes" rot="R90">
-<attribute name="NAME" x="151.384" y="99.441" size="1.778" layer="95"/>
-<attribute name="VALUE" x="157.099" y="105.664" size="1.778" layer="96" rot="R90"/>
+<attribute name="NAME" x="151.384" y="107.061" size="1.778" layer="95"/>
+<attribute name="VALUE" x="151.384" y="99.441" size="1.778" layer="96"/>
 </instance>
 <instance part="C1666" gate="G$1" x="175.26" y="101.6" smashed="yes" rot="R90">
 <attribute name="NAME" x="174.244" y="96.901" size="1.778" layer="95"/>
-<attribute name="VALUE" x="179.959" y="103.124" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="174.244" y="94.361" size="1.778" layer="96"/>
 </instance>
 <instance part="GND1661" gate="1" x="142.24" y="101.6"/>
 <instance part="U1671" gate="G$1" x="215.9" y="93.98"/>
@@ -32857,32 +32888,32 @@ SPI</text>
 <instance part="GND1654" gate="1" x="236.22" y="50.8"/>
 <instance part="C1681" gate="G$1" x="238.76" y="93.98" smashed="yes" rot="R90">
 <attribute name="NAME" x="232.664" y="99.441" size="1.778" layer="95"/>
-<attribute name="VALUE" x="243.459" y="95.504" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="232.664" y="96.901" size="1.778" layer="96"/>
 </instance>
 <instance part="C1682" gate="G$1" x="243.84" y="86.36" smashed="yes" rot="R180">
 <attribute name="NAME" x="240.284" y="84.201" size="1.778" layer="95"/>
-<attribute name="VALUE" x="242.316" y="91.059" size="1.778" layer="96" rot="R180"/>
+<attribute name="VALUE" x="240.284" y="81.661" size="1.778" layer="96"/>
 </instance>
 <instance part="L1682" gate="G$1" x="243.84" y="101.6" smashed="yes">
 <attribute name="NAME" x="242.57" y="108.1786" size="1.778" layer="95"/>
-<attribute name="VALUE" x="247.142" y="97.79" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="242.57" y="105.918" size="1.778" layer="96"/>
 </instance>
 <instance part="C1683" gate="G$1" x="248.92" y="91.44" smashed="yes" rot="R180">
 <attribute name="NAME" x="247.904" y="96.901" size="1.778" layer="95"/>
-<attribute name="VALUE" x="247.396" y="96.139" size="1.778" layer="96" rot="R180"/>
+<attribute name="VALUE" x="247.904" y="94.361" size="1.778" layer="96"/>
 </instance>
 <instance part="GND1655" gate="1" x="248.92" y="76.2"/>
 <instance part="C1691" gate="G$1" x="152.4" y="83.82" smashed="yes" rot="R180">
 <attribute name="NAME" x="148.844" y="81.661" size="1.778" layer="95"/>
-<attribute name="VALUE" x="150.876" y="88.519" size="1.778" layer="96" rot="R180"/>
+<attribute name="VALUE" x="148.844" y="79.121" size="1.778" layer="96"/>
 </instance>
 <instance part="C1692" gate="G$1" x="162.56" y="91.44" smashed="yes" rot="R90">
 <attribute name="NAME" x="161.544" y="86.741" size="1.778" layer="95"/>
-<attribute name="VALUE" x="167.259" y="92.964" size="1.778" layer="96" rot="R90"/>
+<attribute name="VALUE" x="161.544" y="84.201" size="1.778" layer="96"/>
 </instance>
 <instance part="C1693" gate="G$1" x="172.72" y="83.82" smashed="yes" rot="R180">
 <attribute name="NAME" x="169.164" y="81.661" size="1.778" layer="95"/>
-<attribute name="VALUE" x="171.196" y="88.519" size="1.778" layer="96" rot="R180"/>
+<attribute name="VALUE" x="169.164" y="79.121" size="1.778" layer="96"/>
 </instance>
 <instance part="GND1691" gate="1" x="152.4" y="76.2"/>
 <instance part="L1691" gate="G$1" x="147.32" y="96.52" smashed="yes" rot="R270">
