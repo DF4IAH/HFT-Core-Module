@@ -28076,9 +28076,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="Q1821" library="df4iah_crystal" deviceset="ABS07-32.768KHZ" device=""/>
 <part name="C1821" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
 <part name="C1822" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
-<part name="R1804" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1803" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R1801" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1805" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1804" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 <part name="R1831" library="rcl" deviceset="R-EU_" device="R0603" value="2kR"/>
 <part name="R1832" library="rcl" deviceset="R-EU_" device="R0603" value="2kR"/>
 <part name="U1601" library="df4iah_rf" deviceset="SX1262" device=""/>
@@ -33816,9 +33816,9 @@ SPI</text>
 <attribute name="NAME" x="209.804" y="122.301" size="1.778" layer="95"/>
 <attribute name="VALUE" x="209.804" y="114.681" size="1.778" layer="96"/>
 </instance>
-<instance part="R1804" gate="G$1" x="81.28" y="93.98"/>
+<instance part="R1803" gate="G$1" x="81.28" y="93.98"/>
 <instance part="R1801" gate="G$1" x="81.28" y="119.38"/>
-<instance part="R1805" gate="G$1" x="81.28" y="83.82"/>
+<instance part="R1804" gate="G$1" x="81.28" y="83.82"/>
 <instance part="R1831" gate="G$1" x="220.98" y="104.14" smashed="yes">
 <attribute name="NAME" x="209.55" y="103.0986" size="1.778" layer="95"/>
 <attribute name="VALUE" x="219.71" y="103.378" size="1.778" layer="96"/>
@@ -33946,7 +33946,7 @@ SPI</text>
 </net>
 <net name="BNO085_PS0_WAKE" class="0">
 <segment>
-<pinref part="R1804" gate="G$1" pin="2"/>
+<pinref part="R1803" gate="G$1" pin="2"/>
 <pinref part="U1801" gate="G$1" pin="PS0/WAKE"/>
 <wire x1="86.36" y1="93.98" x2="111.76" y2="93.98" width="0.1524" layer="91"/>
 <label x="88.9" y="93.98" size="1.778" layer="95"/>
@@ -33954,7 +33954,7 @@ SPI</text>
 </net>
 <net name="PC5" class="0">
 <segment>
-<pinref part="R1804" gate="G$1" pin="1"/>
+<pinref part="R1803" gate="G$1" pin="1"/>
 <wire x1="76.2" y1="93.98" x2="73.66" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="93.98" x2="73.66" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="83.82" x2="35.56" y2="83.82" width="0.1524" layer="91"/>
@@ -33973,6 +33973,7 @@ SPI</text>
 <pinref part="R1801" gate="G$1" pin="2"/>
 <pinref part="U1801" gate="G$1" pin="H_SDA/MISO/TX"/>
 <wire x1="86.36" y1="119.38" x2="111.76" y2="119.38" width="0.1524" layer="91"/>
+<label x="88.9" y="119.38" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PC11" class="0">
@@ -33986,7 +33987,7 @@ SPI</text>
 <segment>
 <wire x1="76.2" y1="78.74" x2="35.56" y2="78.74" width="0.1524" layer="91"/>
 <label x="35.56" y="78.74" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R1805" gate="G$1" pin="1"/>
+<pinref part="R1804" gate="G$1" pin="1"/>
 <wire x1="76.2" y1="78.74" x2="76.2" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -33997,11 +33998,12 @@ SPI</text>
 <label x="35.56" y="114.3" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N$4" class="0">
+<net name="BNO085_H_CSN" class="0">
 <segment>
 <pinref part="U1801" gate="G$1" pin="H_CSN"/>
 <wire x1="111.76" y1="83.82" x2="86.36" y2="83.82" width="0.1524" layer="91"/>
-<pinref part="R1805" gate="G$1" pin="2"/>
+<pinref part="R1804" gate="G$1" pin="2"/>
+<label x="88.9" y="83.82" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BNO085_ENV_SDA" class="0">
