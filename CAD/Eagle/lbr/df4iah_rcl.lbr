@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -12444,10 +12444,10 @@ body 14 x 8 mm, rectangle, grid 13.5 mm</description>
 <wire x1="-3" y1="3" x2="-3" y2="2.5" width="0.127" layer="21"/>
 <wire x1="3" y1="3" x2="3" y2="2.5" width="0.127" layer="21"/>
 <wire x1="3" y1="-3" x2="3" y2="-2.5" width="0.127" layer="21"/>
-<dimension x1="3.0226" y1="-2.25" x2="3.0226" y2="2.25" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="-3" y1="-3" x2="3" y2="-3" x3="0" y3="-5.08" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="3" y1="-3" x2="3" y2="3" x3="6.35" y3="0" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="-1.4" y1="2.4" x2="1.4" y2="2.4" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="3.0226" y1="-2.25" x2="3.0226" y2="2.25" x3="5.08" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-3" y1="-3" x2="3" y2="-3" x3="0" y3="-5.08" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="3" y1="-3" x2="3" y2="3" x3="6.35" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-1.4" y1="2.4" x2="1.4" y2="2.4" x3="0" y3="4.445" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 </package>
 <package name="C115-080X160">
 <description>&lt;b&gt;CAPACITOR&lt;/b&gt;&lt;p&gt;
@@ -12520,10 +12520,10 @@ Würth Elektronik</description>
 <circle x="0" y="0" radius="1.3" width="0.2" layer="51"/>
 <smd name="1" x="0" y="1.725" dx="4.3" dy="0.85" layer="1" roundness="25" stop="no" thermals="no" cream="no"/>
 <smd name="2" x="0" y="-1.725" dx="4.3" dy="0.85" layer="1" roundness="25" rot="R180" stop="no" thermals="no" cream="no"/>
-<text x="-3.5" y="3.5" size="1.778" layer="25">&gt;NAME</text>
-<text x="-3.5" y="-5.3" size="1.778" layer="27">&gt;VALUE</text>
-<dimension x1="-1.9" y1="2.8" x2="1.9" y2="2.8" x3="0" y3="-7.89" textsize="1.27" layer="47"/>
-<dimension x1="-2.8" y1="1.9" x2="-2.8" y2="-1.9" x3="9" y3="0" textsize="1.27" layer="47"/>
+<text x="-1.595" y="2.865" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.595" y="-3.395" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
+<dimension x1="-1.9" y1="2.8" x2="1.9" y2="2.8" x3="0" y3="-4.08" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-2.8" y1="1.9" x2="-2.8" y2="-1.9" x3="3.92" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 <polygon width="0.025" layer="1">
 <vertex x="-1.25" y="0.39"/>
 <vertex x="-2.14" y="0.39"/>
@@ -12767,9 +12767,9 @@ Würth Elektronik</description>
 <wire x1="-3.235" y1="3.235" x2="-3.235" y2="2" width="0.127" layer="21"/>
 <wire x1="3.235" y1="3.235" x2="3.235" y2="2" width="0.127" layer="21"/>
 <wire x1="3.235" y1="-3.235" x2="3.235" y2="-2" width="0.127" layer="21"/>
-<dimension x1="-1.7145" y1="-2" x2="1.7145" y2="-2" x3="0" y3="-5.715" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="-4.1275" y1="-2" x2="4.1275" y2="-2" x3="0" y3="-6.929321875" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="4.4" y1="-1.7145" x2="4.4" y2="1.7145" x3="5.715" y3="0" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="-1.7145" y1="-2" x2="1.7145" y2="-2" x3="0" y3="-4.445" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-4.1275" y1="-2" x2="4.1275" y2="-2" x3="0" y3="-5.659321875" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="4.4" y1="-1.7145" x2="4.4" y2="1.7145" x3="5.715" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 <wire x1="-3.235" y1="-3.035" x2="-3.235" y2="3.035" width="0.1016" layer="51"/>
 <wire x1="3.235" y1="-3.035" x2="3.235" y2="3.035" width="0.1016" layer="51"/>
 <wire x1="-3.235" y1="3.035" x2="-3.035" y2="3.235" width="0.1016" layer="51" curve="-90"/>
@@ -12796,10 +12796,32 @@ Würth Elektronik</description>
 <wire x1="-2.45" y1="2.45" x2="-2.45" y2="2.2" width="0.127" layer="21"/>
 <wire x1="2.45" y1="2.45" x2="2.45" y2="2.2" width="0.127" layer="21"/>
 <wire x1="2.45" y1="-2.45" x2="2.45" y2="-2.2" width="0.127" layer="21"/>
-<dimension x1="3.0226" y1="-2.2" x2="3.0226" y2="2.2" x3="3.81" y3="0" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" x3="0" y3="-5.08" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="2.45" y1="-2.45" x2="2.45" y2="2.45" x3="5.08" y3="0" textsize="0.5" layer="47" width="0.05"/>
-<dimension x1="-0.95" y1="2" x2="0.95" y2="2" x3="0" y3="4.445" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="3.0226" y1="-2.2" x2="3.0226" y2="2.2" x3="3.81" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-2.45" y1="-2.45" x2="2.45" y2="-2.45" x3="0" y3="-3.81" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="2.45" y1="-2.45" x2="2.45" y2="2.45" x3="5.08" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-0.95" y1="2" x2="0.95" y2="2" x3="0" y3="3.175" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+</package>
+<package name="L_3.00MM_X_3.00MM">
+<description>&lt;h4&gt;INDUCTOR&lt;/h4&gt;
+3.00 mm x 3.00 mm&lt;br/&gt;
+Pads enlarged by 0.2 mm</description>
+<wire x1="-1.5" y1="1.5" x2="1.5" y2="1.5" width="0.1016" layer="51"/>
+<wire x1="-1.5" y1="-1.5" x2="1.5" y2="-1.5" width="0.1016" layer="51"/>
+<smd name="1" x="-1.3" y="0" dx="1.2" dy="2.7" layer="1" roundness="15"/>
+<smd name="2" x="1.3" y="0" dx="1.2" dy="2.7" layer="1" roundness="15"/>
+<text x="-1.27" y="1.905" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-2.54" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
+<rectangle x1="-1.5" y1="-1.5" x2="-0.7" y2="1.5" layer="51"/>
+<wire x1="-1.5" y1="-1.5" x2="-1.5" y2="1.5" width="0.1016" layer="51"/>
+<wire x1="1.5" y1="-1.5" x2="1.5" y2="1.5" width="0.1016" layer="51"/>
+<rectangle x1="0.7" y1="-1.5" x2="1.5" y2="1.5" layer="51"/>
+<wire x1="-1.5" y1="1.5" x2="1.5" y2="1.5" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="-1.5" x2="1.5" y2="-1.5" width="0.127" layer="21"/>
+<dimension x1="1.9" y1="-1.35" x2="1.9" y2="1.35" x3="3.81" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-1.7" y1="-1.5" x2="1.7" y2="-1.5" x3="0" y3="-3.175" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="1.9" y1="-1.5" x2="1.9" y2="1.5" x3="5.08" y3="0" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-0.7" y1="1.5" x2="0.7" y2="1.5" x3="0" y3="2.54" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="-1.9" y1="-1.5" x2="1.9" y2="-1.5" x3="0" y3="-4.445" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 </package>
 </packages>
 <symbols>
@@ -15293,6 +15315,15 @@ European symbol</description>
 </technologies>
 </device>
 <device name="4.90X4.90MM" package="L_4.90MM_X_4.90MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="3.00X3.00MM" package="L_3.00MM_X_3.00MM">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
