@@ -28116,7 +28116,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="U1901" library="df4iah_powersupply" deviceset="BQ25570" device=""/>
 <part name="C1903" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="L1951" library="df4iah_rcl" deviceset="L-EU" device="4.90X4.90MM" value="10uH"/>
-<part name="C1981" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_6V_SCMR18H105MRBB0"/>
+<part name="C1982" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_6V_SCMR18H105MRBB0"/>
 <part name="C1906" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
 <part name="C1905" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="R1922" library="rcl" deviceset="R-EU_" device="R0603" value="10.0MR"/>
@@ -28326,7 +28326,19 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="TP_LIPO_SYS" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_LIPO_CUR" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="U1981" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
-<part name="GND00001" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="GND1952" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C1501" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="GND1502" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="C1502" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="GND1503" library="df4iah_supply" deviceset="GND" device=""/>
+<part name="R3361" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3360" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3362" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3363" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3364" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3365" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3366" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3367" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
 </parts>
 <sheets>
 <sheet>
@@ -32202,6 +32214,16 @@ I2C addr: 0x76</text>
 </instance>
 <instance part="GND1553" gate="1" x="246.38" y="157.48"/>
 <instance part="D1501" gate="G$1" x="27.94" y="121.92"/>
+<instance part="C1501" gate="G$1" x="25.4" y="132.08" smashed="yes" rot="R90">
+<attribute name="NAME" x="16.764" y="132.461" size="1.778" layer="95"/>
+<attribute name="VALUE" x="29.464" y="129.921" size="1.778" layer="96"/>
+</instance>
+<instance part="GND1502" gate="1" x="7.62" y="129.54"/>
+<instance part="C1502" gate="G$1" x="25.4" y="116.84" smashed="yes" rot="R90">
+<attribute name="NAME" x="16.764" y="117.221" size="1.778" layer="95"/>
+<attribute name="VALUE" x="29.464" y="114.681" size="1.778" layer="96"/>
+</instance>
+<instance part="GND1503" gate="1" x="7.62" y="114.3"/>
 </instances>
 <busses>
 </busses>
@@ -32216,6 +32238,9 @@ I2C addr: 0x76</text>
 <junction x="33.02" y="137.16"/>
 <pinref part="U1501" gate="G$1" pin="GPS_VBAT"/>
 <wire x1="33.02" y1="132.08" x2="35.56" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="C1501" gate="G$1" pin="2"/>
+<wire x1="33.02" y1="132.08" x2="30.48" y2="132.08" width="0.1524" layer="91"/>
+<junction x="33.02" y="132.08"/>
 </segment>
 </net>
 <net name="MCU_VBAT" class="0">
@@ -32380,6 +32405,16 @@ I2C addr: 0x76</text>
 <pinref part="X1551" gate="B" pin="T6"/>
 <wire x1="203.2" y1="91.44" x2="187.96" y2="91.44" width="0.1524" layer="91"/>
 <label x="187.96" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="GND1502" gate="1" pin="GND"/>
+<pinref part="C1501" gate="G$1" pin="1"/>
+<wire x1="7.62" y1="132.08" x2="22.86" y2="132.08" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="C1502" gate="G$1" pin="1"/>
+<wire x1="22.86" y1="116.84" x2="7.62" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="GND1503" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="SIM_UART1_TXD" class="0">
@@ -32829,8 +32864,13 @@ I2C addr: 0x76</text>
 <net name="SIM_VRTC" class="0">
 <segment>
 <pinref part="U1501" gate="G$1" pin="VRTC"/>
-<wire x1="35.56" y1="121.92" x2="30.48" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="121.92" x2="33.02" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="D1501" gate="G$1" pin="C"/>
+<wire x1="33.02" y1="121.92" x2="30.48" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="121.92" x2="33.02" y2="116.84" width="0.1524" layer="91"/>
+<junction x="33.02" y="121.92"/>
+<pinref part="C1502" gate="G$1" pin="2"/>
+<wire x1="33.02" y1="116.84" x2="30.48" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -34149,7 +34189,7 @@ SPI</text>
 <attribute name="VALUE" x="80.264" y="99.441" size="1.778" layer="96"/>
 </instance>
 <instance part="L1951" gate="G$1" x="177.8" y="109.22" rot="R270"/>
-<instance part="C1981" gate="G$1" x="127" y="139.7" smashed="yes" rot="R270">
+<instance part="C1982" gate="G$1" x="127" y="139.7" smashed="yes" rot="R270">
 <attribute name="NAME" x="123.063" y="142.7226" size="1.778" layer="95"/>
 <attribute name="VALUE" x="97.663" y="145.2626" size="1.778" layer="96"/>
 </instance>
@@ -34179,7 +34219,7 @@ SPI</text>
 <attribute name="NAME" x="164.846" y="166.116" size="2.1844" layer="95" ratio="10"/>
 <attribute name="VALUE" x="169.164" y="136.398" size="2.0828" layer="96"/>
 </instance>
-<instance part="GND00001" gate="1" x="119.38" y="134.62"/>
+<instance part="GND1952" gate="1" x="119.38" y="134.62"/>
 </instances>
 <busses>
 </busses>
@@ -34257,9 +34297,9 @@ SPI</text>
 <junction x="177.8" y="53.34"/>
 </segment>
 <segment>
-<pinref part="GND00001" gate="1" pin="GND"/>
+<pinref part="GND1952" gate="1" pin="GND"/>
 <wire x1="119.38" y1="137.16" x2="119.38" y2="139.7" width="0.1524" layer="91"/>
-<pinref part="C1981" gate="G$1" pin="-"/>
+<pinref part="C1982" gate="G$1" pin="-"/>
 <wire x1="119.38" y1="139.7" x2="121.92" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -34391,7 +34431,7 @@ SPI</text>
 <junction x="134.62" y="139.7"/>
 <pinref part="U1981" gate="G$1" pin="8"/>
 <wire x1="198.12" y1="160.02" x2="195.58" y2="160.02" width="0.1524" layer="91"/>
-<pinref part="C1981" gate="G$1" pin="+"/>
+<pinref part="C1982" gate="G$1" pin="+"/>
 <wire x1="134.62" y1="139.7" x2="129.54" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -38372,6 +38412,15 @@ I2C1 addr: 0x21</text>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Level-Shifters</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SIM868 Level-Shifters</text>
+<text x="58.42" y="147.32" size="1.778" layer="97">A --&gt; B</text>
+<text x="167.64" y="147.32" size="1.778" layer="97">A &lt;-- B</text>
+<text x="5.08" y="129.54" size="1.778" layer="97">MCU_LPUART_TX_OUT</text>
+<text x="99.06" y="119.38" size="1.778" layer="97">MCU_LPUART_RX_IN</text>
+<text x="5.08" y="114.3" size="1.778" layer="97">MCU_LPUART_RTS_OUT</text>
+<text x="96.52" y="104.14" size="1.778" layer="97">MCU_LPUART_CTS_IN</text>
+<text x="5.08" y="99.06" size="1.778" layer="97">MCU_LPUART_DTR_OUT</text>
+<text x="99.06" y="88.9" size="1.778" layer="97">MCU_LPUART_RI_IN</text>
+<text x="96.52" y="81.28" size="1.778" layer="97">MCU_LPUART_DCD_IN</text>
 </plain>
 <instances>
 <instance part="FRAME_34" gate="G$1" x="0" y="0"/>
@@ -38396,6 +38445,14 @@ I2C1 addr: 0x21</text>
 <instance part="R3325" gate="G$1" x="210.82" y="86.36"/>
 <instance part="R3326" gate="G$1" x="210.82" y="78.74"/>
 <instance part="R3327" gate="G$1" x="210.82" y="71.12"/>
+<instance part="R3361" gate="G$1" x="30.48" y="119.38"/>
+<instance part="R3360" gate="G$1" x="30.48" y="127"/>
+<instance part="R3362" gate="G$1" x="30.48" y="111.76"/>
+<instance part="R3363" gate="G$1" x="30.48" y="104.14"/>
+<instance part="R3364" gate="G$1" x="30.48" y="96.52"/>
+<instance part="R3365" gate="G$1" x="30.48" y="88.9"/>
+<instance part="R3366" gate="G$1" x="30.48" y="81.28"/>
+<instance part="R3367" gate="G$1" x="30.48" y="73.66"/>
 </instances>
 <busses>
 </busses>
@@ -38493,60 +38550,60 @@ I2C1 addr: 0x21</text>
 <junction x="144.78" y="68.58"/>
 </segment>
 </net>
-<net name="LS1_A7" class="0">
+<net name="U3311_A7" class="0">
 <segment>
-<wire x1="38.1" y1="73.66" x2="30.48" y2="73.66" width="0.1524" layer="91"/>
-<label x="30.48" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="73.66" x2="35.56" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A7"/>
+<pinref part="R3367" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A0" class="0">
+<net name="MCU_LPUART_TX_OUT_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="A0"/>
-<wire x1="38.1" y1="127" x2="30.48" y2="127" width="0.1524" layer="91"/>
-<label x="30.48" y="127" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="127" x2="35.56" y2="127" width="0.1524" layer="91"/>
+<pinref part="R3360" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A1" class="0">
+<net name="SIM_UART1_TXD_R" class="0">
 <segment>
-<wire x1="38.1" y1="119.38" x2="30.48" y2="119.38" width="0.1524" layer="91"/>
-<label x="30.48" y="119.38" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="119.38" x2="35.56" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A1"/>
+<pinref part="R3361" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A2" class="0">
+<net name="MCU_LPUART_RTS_OUT_R" class="0">
 <segment>
-<wire x1="38.1" y1="111.76" x2="30.48" y2="111.76" width="0.1524" layer="91"/>
-<label x="30.48" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="111.76" x2="35.56" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A2"/>
+<pinref part="R3362" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A3" class="0">
+<net name="SIM_UART1_CTS_R" class="0">
 <segment>
-<wire x1="38.1" y1="104.14" x2="30.48" y2="104.14" width="0.1524" layer="91"/>
-<label x="30.48" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="104.14" x2="35.56" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A3"/>
+<pinref part="R3363" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A4" class="0">
+<net name="MCU_LPUART_DTR_OUT_R" class="0">
 <segment>
-<wire x1="38.1" y1="96.52" x2="30.48" y2="96.52" width="0.1524" layer="91"/>
-<label x="30.48" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="96.52" x2="35.56" y2="96.52" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A4"/>
+<pinref part="R3364" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A5" class="0">
+<net name="SIM_UART1_RI_R" class="0">
 <segment>
-<wire x1="38.1" y1="88.9" x2="30.48" y2="88.9" width="0.1524" layer="91"/>
-<label x="30.48" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="88.9" x2="35.56" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A5"/>
+<pinref part="R3365" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="LS1_A6" class="0">
+<net name="SIM_UART1_DCD_R" class="0">
 <segment>
-<wire x1="38.1" y1="81.28" x2="30.48" y2="81.28" width="0.1524" layer="91"/>
-<label x="30.48" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="38.1" y1="81.28" x2="35.56" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="U3311" gate="G$1" pin="A6"/>
+<pinref part="R3366" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="LS2_A0" class="0">
@@ -38605,56 +38662,56 @@ I2C1 addr: 0x21</text>
 <pinref part="U3321" gate="G$1" pin="A7"/>
 </segment>
 </net>
-<net name="LS1_B0" class="0">
+<net name="SIM_UART1_RXD_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B0"/>
 <pinref part="R3310" gate="G$1" pin="1"/>
 <wire x1="96.52" y1="124.46" x2="91.44" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B1" class="0">
+<net name="MCU_LPUART_RX_IN_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B1"/>
 <pinref part="R3311" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="116.84" x2="96.52" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B2" class="0">
+<net name="SIM_UART1_RTS_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B2"/>
 <pinref part="R3312" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="109.22" x2="96.52" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B3" class="0">
+<net name="MCU_LPUART_CTS_IN_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B3"/>
 <pinref part="R3313" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="101.6" x2="96.52" y2="101.6" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B4" class="0">
+<net name="SIM_UART1_DTR_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B4"/>
 <pinref part="R3314" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="93.98" x2="96.52" y2="93.98" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B5" class="0">
+<net name="MCU_LPUART_RI_IN_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B5"/>
 <pinref part="R3315" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="86.36" x2="96.52" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B6" class="0">
+<net name="MCU_LPUART_DCD_IN_R" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B6"/>
 <pinref part="R3316" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="78.74" x2="96.52" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B7" class="0">
+<net name="U3311_B7" class="0">
 <segment>
 <pinref part="U3311" gate="G$1" pin="B7"/>
 <pinref part="R3317" gate="G$1" pin="1"/>
@@ -38717,56 +38774,56 @@ I2C1 addr: 0x21</text>
 <wire x1="200.66" y1="71.12" x2="205.74" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LS1_B0_R" class="0">
+<net name="SIM_UART1_RXD" class="0">
 <segment>
 <pinref part="R3310" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="124.46" x2="109.22" y2="124.46" width="0.1524" layer="91"/>
 <label x="109.22" y="124.46" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B1_R" class="0">
+<net name="PG8" class="0">
 <segment>
 <pinref part="R3311" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="116.84" x2="109.22" y2="116.84" width="0.1524" layer="91"/>
 <label x="109.22" y="116.84" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B2_R" class="0">
+<net name="SIM_UART1_RTS" class="0">
 <segment>
 <pinref part="R3312" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="109.22" x2="109.22" y2="109.22" width="0.1524" layer="91"/>
 <label x="109.22" y="109.22" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B3_R" class="0">
+<net name="PA6" class="0">
 <segment>
 <pinref part="R3313" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="101.6" x2="109.22" y2="101.6" width="0.1524" layer="91"/>
 <label x="109.22" y="101.6" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B4_R" class="0">
+<net name="SIM_UART1_DTR" class="0">
 <segment>
 <pinref part="R3314" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="93.98" x2="109.22" y2="93.98" width="0.1524" layer="91"/>
 <label x="109.22" y="93.98" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B5_R" class="0">
+<net name="PG6" class="0">
 <segment>
 <pinref part="R3315" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="86.36" x2="109.22" y2="86.36" width="0.1524" layer="91"/>
 <label x="109.22" y="86.36" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B6_R" class="0">
+<net name="PC7" class="0">
 <segment>
 <pinref part="R3316" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="78.74" x2="109.22" y2="78.74" width="0.1524" layer="91"/>
 <label x="109.22" y="78.74" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="LS1_B7_R" class="0">
+<net name="U3311_B7_R" class="0">
 <segment>
 <pinref part="R3317" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="71.12" x2="109.22" y2="71.12" width="0.1524" layer="91"/>
@@ -38827,6 +38884,62 @@ I2C1 addr: 0x21</text>
 <pinref part="R3327" gate="G$1" pin="2"/>
 <wire x1="215.9" y1="71.12" x2="218.44" y2="71.12" width="0.1524" layer="91"/>
 <label x="218.44" y="71.12" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_TXD" class="0">
+<segment>
+<pinref part="R3361" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="119.38" x2="22.86" y2="119.38" width="0.1524" layer="91"/>
+<label x="22.86" y="119.38" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PA2" class="0">
+<segment>
+<pinref part="R3360" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="127" x2="22.86" y2="127" width="0.1524" layer="91"/>
+<label x="22.86" y="127" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PB1" class="0">
+<segment>
+<pinref part="R3362" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="111.76" x2="22.86" y2="111.76" width="0.1524" layer="91"/>
+<label x="22.86" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_CTS" class="0">
+<segment>
+<pinref part="R3363" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="104.14" x2="22.86" y2="104.14" width="0.1524" layer="91"/>
+<label x="22.86" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="PG7" class="0">
+<segment>
+<pinref part="R3364" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="96.52" x2="22.86" y2="96.52" width="0.1524" layer="91"/>
+<label x="22.86" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_RI" class="0">
+<segment>
+<pinref part="R3365" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="88.9" x2="22.86" y2="88.9" width="0.1524" layer="91"/>
+<label x="22.86" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SIM_UART1_DCD" class="0">
+<segment>
+<pinref part="R3366" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="81.28" x2="22.86" y2="81.28" width="0.1524" layer="91"/>
+<label x="22.86" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="U3311_A7_R" class="0">
+<segment>
+<pinref part="R3367" gate="G$1" pin="1"/>
+<wire x1="25.4" y1="73.66" x2="22.86" y2="73.66" width="0.1524" layer="91"/>
+<label x="22.86" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
