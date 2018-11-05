@@ -1243,7 +1243,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <pin name="A5" x="-25.4" y="-15.24" length="middle"/>
 <pin name="A6" x="-25.4" y="-22.86" length="middle"/>
 <pin name="A7" x="-25.4" y="-30.48" length="middle"/>
-<pin name="!OE" x="27.94" y="27.94" length="middle" rot="R180"/>
+<pin name="!OE" x="27.94" y="27.94" length="middle" direction="in" rot="R180"/>
 <pin name="B0" x="27.94" y="20.32" length="middle" rot="R180"/>
 <pin name="B1" x="27.94" y="12.7" length="middle" rot="R180"/>
 <pin name="B2" x="27.94" y="5.08" length="middle" rot="R180"/>
@@ -1275,9 +1275,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <pin name="VSS@11" x="-25.4" y="-35.56" length="middle" direction="pas"/>
 <pin name="VSS@12" x="-25.4" y="-38.1" length="middle" direction="pas"/>
 <pin name="VSS@13" x="-25.4" y="-40.64" length="middle" direction="pas"/>
-<pin name="VCC_B@23" x="27.94" y="40.64" length="middle" direction="pas" rot="R180"/>
-<pin name="VCC_B@24" x="27.94" y="43.18" length="middle" direction="pas" rot="R180"/>
-<pin name="VCC_A" x="-25.4" y="43.18" length="middle" direction="pas"/>
+<pin name="VCC_B@23" x="27.94" y="40.64" length="middle" direction="pwr" rot="R180"/>
+<pin name="VCC_B@24" x="27.94" y="43.18" length="middle" direction="pwr" rot="R180"/>
+<pin name="VCC_A" x="-25.4" y="43.18" length="middle" direction="pwr"/>
 <wire x1="-20.32" y1="45.72" x2="22.86" y2="45.72" width="0.254" layer="94"/>
 <wire x1="22.86" y1="45.72" x2="22.86" y2="27.94" width="0.254" layer="94"/>
 <wire x1="22.86" y1="27.94" x2="22.86" y2="20.32" width="0.254" layer="94"/>
