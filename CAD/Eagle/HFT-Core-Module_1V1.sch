@@ -27174,11 +27174,10 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <dimension x1="-2" y1="2" x2="-2" y2="-2" x3="-3" y3="0" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
 <dimension x1="2" y1="2" x2="-2" y2="2" x3="0" y3="4" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
 <wire x1="-2" y1="1.6" x2="-2" y2="2" width="0.2032" layer="21"/>
-<rectangle x1="-2.5" y1="-1.5" x2="-1.5" y2="1.5" layer="31"/>
-<rectangle x1="1.5" y1="-1.5" x2="2.5" y2="1.5" layer="31"/>
-<rectangle x1="1.5" y1="-1.5" x2="2.5" y2="1.5" layer="31"/>
-<rectangle x1="-0.5" y1="0.5" x2="0.5" y2="3.5" layer="31" rot="R90"/>
-<rectangle x1="-0.5" y1="-3.5" x2="0.5" y2="-0.5" layer="31" rot="R270"/>
+<rectangle x1="-2.5" y1="-1.5" x2="-1.5" y2="1.5" layer="29"/>
+<rectangle x1="1.5" y1="-1.5" x2="2.5" y2="1.5" layer="29"/>
+<rectangle x1="-0.5" y1="0.5" x2="0.5" y2="3.5" layer="29" rot="R90"/>
+<rectangle x1="-0.5" y1="-3.5" x2="0.5" y2="-0.5" layer="29" rot="R270"/>
 </package>
 <package name="QCS5P">
 <description>&lt;h3&gt;QCS5P package&lt;/h3&gt;
@@ -30556,17 +30555,17 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="FRAME_29" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_08" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_02" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
-<part name="C0401" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0402" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0403" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0404" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0405" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0406" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0407" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0408" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0409" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0401" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0402" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0403" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0404" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0405" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0406" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0407" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0408" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0409" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0401" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0412" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
+<part name="C0412" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
 <part name="GND0411" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="SJ0121" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="SJ0401" library="df4iah_jumper" deviceset="SJ" device=""/>
@@ -30576,14 +30575,14 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND0201" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X0222" library="df4iah_connector" deviceset="HEADER-1X2" device=""/>
 <part name="GND0221" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0221" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="C0213" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R0221" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="33kR"/>
+<part name="C0213" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0211" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_19" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="FRAME_20" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="GND0441" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0441" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="C0441" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R0441" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="C0441" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C0451" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_6V_SCMR18H105MRBB0"/>
 <part name="GND0451" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND1981" library="df4iah_supply" deviceset="GND" device=""/>
@@ -30593,22 +30592,22 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="FRAME_07" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="U0731" library="df4iah_osc" deviceset="CFPT-141" device="" technology="-20MHZ" value="CFPT-141-20MHZ"/>
 <part name="GND0731" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0731" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0731" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C0722" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
-<part name="R0721" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="R0721" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
 <part name="GND0721" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0731" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
+<part name="R0731" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="10kR"/>
 <part name="U0701" library="df4iah_powersupply" deviceset="LM4120IM5-3.0" device=""/>
 <part name="GND0701" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0701" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0701" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="U0742" library="df4iah_opamp" deviceset="LPV811" device=""/>
 <part name="GND0742" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0743" library="rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="C0743" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0732" library="rcl" deviceset="C-EU" device="C0603" value="100pF"/>
+<part name="R0743" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="33kR"/>
+<part name="C0743" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0732" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100pF"/>
 <part name="FRAME_03" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="Q0321" library="df4iah_crystal" deviceset="ABS07-32.768KHZ" device=""/>
-<part name="C0311" library="rcl" deviceset="C-EU" device="C0603" value="18pF"/>
+<part name="C0311" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="18pF"/>
 <part name="GND0311" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0331" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_11" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
@@ -30619,99 +30618,99 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="FRAME_23" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="U2301" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
 <part name="GND2301" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C2301" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2303" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2301" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2303" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="FRAME_24" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="U2401" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
 <part name="GND2401" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C2401" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2403" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2401" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2403" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="X2601" library="df4iah_connector" deviceset="USB_MICRO-B_MOLEX" device="" value="MOLEX 105017-0001"/>
 <part name="FRAME_17" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
-<part name="R1981" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
+<part name="R1981" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="U1701" library="df4iah_rf" deviceset="AX5243" device=""/>
 <part name="C1901" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10uF"/>
-<part name="C1902" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1902" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="SJ0421" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="SJ0422" library="df4iah_jumper" deviceset="SJ" device=""/>
-<part name="C0422" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C0421" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0422" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C0421" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0422" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0421" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="SJ0423" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="SJ0424" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="GND0712" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0712" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0712" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0711" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0711" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R0836" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R0835" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R0832" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0831" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0823" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0843" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0844" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="C0801" library="rcl" deviceset="C-EU" device="C0603" value="220nF"/>
-<part name="C0802" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0711" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R0836" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R0835" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R0832" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0831" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0823" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0843" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0844" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="C0801" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
+<part name="C0802" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0801" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0802" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0851" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="C0815" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="C0816" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R0738" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0739" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R0851" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="C0815" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="C0816" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="R0738" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0739" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="GND0732" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0803" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0803" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0803" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0804" library="rcl" deviceset="C-EU" device="C0603" value="220nF"/>
+<part name="C0804" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
 <part name="GND0804" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0805" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0805" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R2901" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2902" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2903" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2904" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2966" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2967" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2968" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2969" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C0805" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R2901" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2902" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2903" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2904" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2966" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2967" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2968" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2969" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="L1711" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="22nH"/>
-<part name="R1721" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1741" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1751" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1721" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1741" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1751" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="GND1701" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1731" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
-<part name="R1732" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="R1731" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
+<part name="R1732" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
 <part name="GND1702" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_AX_ADC1" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_AX_ADC2" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="Q1711" library="df4iah_crystal" deviceset="ABM03B-16.000MHZ" device="" value="ABM3B-16MHZ-10-R50-1-U"/>
 <part name="GND1711" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1703" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C1702" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C1701" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1703" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C1702" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C1701" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="L1712" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="100nH"/>
 <part name="L1713" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="100nH"/>
-<part name="C1713" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
-<part name="C1712" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
+<part name="C1713" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="N/A"/>
+<part name="C1712" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="N/A"/>
 <part name="GND0971" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1714" library="rcl" deviceset="C-EU" device="C0603" value="4.3pF"/>
-<part name="C1715" library="rcl" deviceset="C-EU" device="C0603" value="4.3pF"/>
+<part name="C1714" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.3pF"/>
+<part name="C1715" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.3pF"/>
 <part name="L1714" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="43nH"/>
 <part name="L1715" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="43nH"/>
 <part name="L1717" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="22nH"/>
-<part name="C1718" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
-<part name="C1717" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
+<part name="C1718" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.7pF"/>
+<part name="C1717" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.7pF"/>
 <part name="GND1781" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1716" library="rcl" deviceset="C-EU" device="C0603" value="N/A"/>
+<part name="C1716" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="N/A"/>
 <part name="L1716" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="22nH"/>
 <part name="L1721" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="22nH"/>
-<part name="C1721" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
-<part name="C1722" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
-<part name="C1723" library="rcl" deviceset="C-EU" device="C0603" value="4.7pF"/>
+<part name="C1721" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.7pF"/>
+<part name="C1722" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.7pF"/>
+<part name="C1723" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="4.7pF"/>
 <part name="GND01731" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND1101" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1101" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1101" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C1111" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 <part name="C1112" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 <part name="GND2601" library="df4iah_supply" deviceset="GND" device=""/>
@@ -30723,16 +30722,16 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="X2912" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045_SOCKET" device=""/>
 <part name="X2932" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045_SOCKET" device=""/>
 <part name="S0212" library="df4iah_switch" deviceset="KSR223G_SMD_1POL" device="" value="KSR223GLFG"/>
-<part name="R2602" library="rcl" deviceset="R-EU_" device="R0603" value="330kR"/>
-<part name="C2603" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="R2602" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="330kR"/>
+<part name="C2603" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1nF"/>
 <part name="FRAME_25" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="C2504" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2505" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2504" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2505" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND2502" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U2501" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
 <part name="GND2501" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C2501" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2503" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2501" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2503" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="U0711" library="df4iah_dac" deviceset="MAX5217" device=""/>
 <part name="PF2611" library="rcl" deviceset="R-EU_" device="M1206" value="1.1A/2.2A"/>
 <part name="U0801" library="df4iah_osc" deviceset="SI5338" device="" value="Si5338"/>
@@ -30746,177 +30745,177 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND2811" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2801" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2802" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0961" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="C0902" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R0961" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="C0902" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0902" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="L0901" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="10uH"/>
 <part name="C0901" library="rcl" deviceset="C-EU" device="C0603" value="10uF"/>
-<part name="C0903" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0903" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C0911" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10uF"/>
 <part name="C0921" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10uF"/>
 <part name="X2701" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143"/>
 <part name="X2711" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SAMTEC SMA-J-P-H-RA-TH1"/>
 <part name="TP_AX_TCXO_EN" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_AX_IRQ" library="testpad" deviceset="PTR1" device="TP06R"/>
-<part name="R1131" library="rcl" deviceset="R-EU_" device="R0603" value="220kR"/>
-<part name="R2909" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2974" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="C2502" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R2923" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2988" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2921" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2922" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2986" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2987" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1131" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
+<part name="R2909" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2974" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="C2502" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R2923" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2988" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2921" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2922" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2986" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2987" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="C0410" library="rcl" deviceset="C-EU" device="C0805" value="4.7uF"/>
 <part name="C0423" library="rcl" deviceset="C-EU" device="C0805" value="4.7uF"/>
 <part name="GND0423" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0413" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 <part name="C0442" library="rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 <part name="T1151" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
-<part name="R1153" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
-<part name="R1151" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
-<part name="R1152" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
+<part name="R1153" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="27R"/>
+<part name="R1151" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.5kR"/>
+<part name="R1152" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2.0kR"/>
 <part name="FRAME_14" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="C1401" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1401" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="FRAME_15" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="Q1611" library="df4iah_crystal" deviceset="ABM03B-32.000MHZ" device=""/>
 <part name="GND1611" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1601" library="rcl" deviceset="C-EU" device="C0603" value="10uF"/>
 <part name="GND1601" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1624" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1651" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1653" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1652" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1624" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1651" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1653" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1652" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="FRAME_16" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="TP_SX_DIO1" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_SX_DIO2" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_SX_DIO3" library="testpad" deviceset="PTR1" device="TP06R"/>
-<part name="R2910" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2975" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1911" library="rcl" deviceset="R-EU_" device="R0603" value="1kR"/>
-<part name="R1912" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="R2910" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2975" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1911" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R1912" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
 <part name="X1901" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
-<part name="R0231" library="rcl" deviceset="R-EU_" device="R0603" value="220kR"/>
-<part name="R0232" library="rcl" deviceset="R-EU_" device="R0603" value="220kR"/>
-<part name="C0332" library="rcl" deviceset="C-EU" device="C0603" value="8.2pF"/>
+<part name="R0231" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
+<part name="R0232" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
+<part name="C0332" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="8.2pF"/>
 <part name="GND0332" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_21" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="GND2102" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2101" library="rcl" deviceset="C-EU" device="C0805" value="10uF"/>
-<part name="C2102" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2102" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND2101" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2103" library="rcl" deviceset="C-EU" device="C0805" value="22uF"/>
 <part name="L2191" library="df4iah_rcl" deviceset="L-EU" device="4.90X4.90MM" value="10uH"/>
 <part name="TP_+1V1" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="+3V1" library="df4iah_supply" deviceset="+3V3" device=""/>
-<part name="R2912" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R2913" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R2977" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R2978" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R2914" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2915" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2916" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2979" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2980" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2981" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1622" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1623" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1791" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1621" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2911" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2976" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2917" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2918" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2919" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2920" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2905" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2906" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2907" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2908" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2970" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2971" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2972" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2973" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R2912" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2913" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2977" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2978" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2914" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2915" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2916" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2979" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2980" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2981" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1622" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1623" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1791" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1621" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2911" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2976" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2917" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2918" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2919" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2920" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2905" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2906" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2907" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2908" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2970" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2971" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2972" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2973" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="FRAME_10" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="C1011" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="GND1001" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="L1001" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="10uH"/>
 <part name="C1002" library="rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
-<part name="R1031" library="rcl" deviceset="R-EU_" device="R0603" value="560R"/>
-<part name="R1041" library="rcl" deviceset="R-EU_" device="R0603" value="560R"/>
-<part name="C1031" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="2.7nF"/>
+<part name="R1031" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="560R"/>
+<part name="R1041" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="560R"/>
+<part name="C1031" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="2.7nF"/>
 <part name="GND1003" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_18" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="GND1801" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1801" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R1802" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C1801" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R1802" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="U0901" library="df4iah_adc" deviceset="PCM1863" device=""/>
 <part name="GND0901" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0903" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C0904" library="rcl" deviceset="C-EU" device="C0603" value="10uF"/>
-<part name="C0905" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0905" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C0906" library="rcl" deviceset="C-EU" device="C0603" value="2.2uF"/>
-<part name="R0912" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
-<part name="R0922" library="rcl" deviceset="R-EU_" device="R0603" value="100R"/>
-<part name="C0912" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="C0922" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R0941" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0943" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0945" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0942" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0944" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0946" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0911" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
-<part name="R0921" library="rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
-<part name="R0931" library="rcl" deviceset="R-EU_" device="R0603" value="D.C."/>
-<part name="R0951" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0952" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0953" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3111" library="rcl" deviceset="R-EU_" device="R0603" value="1.0kR"/>
-<part name="R3112" library="rcl" deviceset="R-EU_" device="R0603" value="1.0kR"/>
+<part name="R0912" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100R"/>
+<part name="R0922" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100R"/>
+<part name="C0912" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="C0922" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="R0941" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0943" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0945" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0942" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0944" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0946" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0911" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="10kR"/>
+<part name="R0921" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="10kR"/>
+<part name="R0931" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="D.C."/>
+<part name="R0951" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0952" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0953" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3111" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.0kR"/>
+<part name="R3112" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.0kR"/>
 <part name="U1001" library="df4iah_dac" deviceset="WM8523" device=""/>
-<part name="R1021" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1022" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1023" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1024" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1021" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1022" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1023" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1024" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="GND1002" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1012" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="C1001" library="rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
 <part name="C1003" library="rcl" deviceset="C-EU" device="C0603" value="2.2uF"/>
-<part name="C1041" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="2.7nF"/>
+<part name="C1041" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="2.7nF"/>
 <part name="U0601" library="df4iah_memory" deviceset="CAT24C64" device=""/>
 <part name="GND0601" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0601" library="rcl" deviceset="C-EU" device="C0603" value="220nF"/>
+<part name="C0601" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
 <part name="FRAME_12" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="GND1201" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1201" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1201" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="T1211" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="T1221" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="T1231" library="transistor" deviceset="BC846" device="" value="MMBT2222"/>
 <part name="R1233" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
-<part name="R1231" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
-<part name="R1232" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
+<part name="R1231" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.5kR"/>
+<part name="R1232" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2.0kR"/>
 <part name="R1223" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
 <part name="R1213" library="rcl" deviceset="R-EU_" device="R0805" value="27R"/>
-<part name="R1221" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
-<part name="R1211" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kR"/>
-<part name="R1222" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
-<part name="R1212" library="rcl" deviceset="R-EU_" device="R0603" value="2.0kR"/>
+<part name="R1221" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.5kR"/>
+<part name="R1211" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.5kR"/>
+<part name="R1222" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2.0kR"/>
+<part name="R1212" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2.0kR"/>
 <part name="FRAME_13" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="X1301" library="df4iah_switch" deviceset="TTE_EN11-HSM" device=""/>
 <part name="GND1301" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1301" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
-<part name="C1303" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
-<part name="C1302" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
-<part name="R0691" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R0692" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
+<part name="C1301" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1nF"/>
+<part name="C1303" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1nF"/>
+<part name="C1302" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1nF"/>
+<part name="R0691" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R0692" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="FRAME_05" library="df4iah_frame" deviceset="A4L-LOC" device="" value="MPU"/>
 <part name="U0511" library="df4iah_memory" deviceset="IS25LP032D" device=""/>
 <part name="U0521" library="df4iah_memory" deviceset="IS25LP032D" device=""/>
 <part name="GND0501" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0511" library="rcl" deviceset="C-EU" device="C0603" value="220nF"/>
-<part name="C0521" library="rcl" deviceset="C-EU" device="C0603" value="220nF"/>
+<part name="C0511" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
+<part name="C0521" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
 <part name="L1901" library="df4iah_rcl" deviceset="L-EU" device="WE_TPC_3MM8" technology="WE-TPC" value="22uH"/>
 <part name="FRAME_36" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="H3621" library="holes" deviceset="MOUNT-PAD-ROUND" device="2.8"/>
@@ -30929,37 +30928,37 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="D1201" library="df4iah_led" deviceset="ASMT-YTB7-0AA02_RGB" device=""/>
 <part name="TP_IN_CLK1" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_IN_CLK2" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="R2982" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2983" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2984" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2985" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R2982" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2983" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2984" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R2985" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="U1901" library="df4iah_powersupply" deviceset="BQ25570" device=""/>
-<part name="C1903" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
+<part name="C1903" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
 <part name="L1951" library="df4iah_rcl" deviceset="L-EU" device="4.90X4.90MM" value="10uH"/>
 <part name="C1982" library="df4iah_rcl" deviceset="CPOL-EU" device="C115-080X160_POL" value="1F_6V_SCMR18H105MRBB0"/>
 <part name="C1906" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
-<part name="C1905" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R1922" library="rcl" deviceset="R-EU_" device="R0603" value="10.0MR"/>
-<part name="R1921" library="rcl" deviceset="R-EU_" device="R0603" value="1.82MR"/>
+<part name="C1905" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="R1922" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="10.0MR"/>
+<part name="R1921" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.82MR"/>
 <part name="GND1921" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1933" library="rcl" deviceset="R-EU_" device="R0603" value="1.82MR"/>
-<part name="R1932" library="rcl" deviceset="R-EU_" device="R0603" value="7.50MR"/>
-<part name="R1931" library="rcl" deviceset="R-EU_" device="R0603" value="3.65MR"/>
-<part name="R1942" library="rcl" deviceset="R-EU_" device="R0603" value="8.20MR"/>
-<part name="R1941" library="rcl" deviceset="R-EU_" device="R0603" value="4.75MR"/>
+<part name="R1933" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1.82MR"/>
+<part name="R1932" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="7.50MR"/>
+<part name="R1931" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="3.65MR"/>
+<part name="R1942" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="8.20MR"/>
+<part name="R1941" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="4.75MR"/>
 <part name="GND1951" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1951" library="rcl" deviceset="R-EU_" device="R0603" value="0R"/>
+<part name="R1951" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="C1952" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10uF"/>
-<part name="C1953" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10nF"/>
-<part name="R2101" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="C1953" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="R2101" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
 <part name="U2101" library="df4iah_powersupply" deviceset="TPS62051" device=""/>
-<part name="R2111" library="rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
-<part name="R2112" library="rcl" deviceset="R-EU_" device="R0603" value="150kR"/>
+<part name="R2111" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
+<part name="R2112" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="150kR"/>
 <part name="U2151" library="df4iah_dig-pot" deviceset="MCP4661-104E-MS" device=""/>
 <part name="GND2151" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="+3V2" library="df4iah_supply" deviceset="+3V3" device=""/>
-<part name="C2151" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2191" library="rcl" deviceset="C-EU" device="C0603" value="6.8pF"/>
+<part name="C2151" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2191" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="6.8pF"/>
 <part name="GND2152" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_BQ_VBAT" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_BQ_VOUT" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
@@ -30967,74 +30966,74 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND1401" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND1402" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U1801" library="df4iah_sensors" deviceset="BNO085" device=""/>
-<part name="C1803" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1803" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND1802" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1802" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1802" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="Q1821" library="df4iah_crystal" deviceset="ABS07-32.768KHZ" device=""/>
-<part name="C1821" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
-<part name="C1822" library="rcl" deviceset="C-EU" device="C0603" value="22pF"/>
-<part name="R1803" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1801" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1804" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1831" library="rcl" deviceset="R-EU_" device="R0603" value="2kR"/>
-<part name="R1832" library="rcl" deviceset="R-EU_" device="R0603" value="2kR"/>
+<part name="C1821" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="22pF"/>
+<part name="C1822" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="22pF"/>
+<part name="R1803" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1801" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1804" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1831" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2kR"/>
+<part name="R1832" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2kR"/>
 <part name="U1601" library="df4iah_rf" deviceset="SX1262" device=""/>
 <part name="GND1602" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND1603" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1611" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1611" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="L1601" library="df4iah_rcl" deviceset="L-EU" device="3.00X3.00MM" value="15uH"/>
 <part name="C1603" library="rcl" deviceset="C-EU" device="C0603" value="470nF"/>
-<part name="C1602" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1602" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="L1663" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="2.5nH"/>
-<part name="C1663" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
-<part name="C1664" library="rcl" deviceset="C-EU" device="C0603" value="39pF"/>
+<part name="C1663" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="3.3pF"/>
+<part name="C1664" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="39pF"/>
 <part name="L1664" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="4.7nH"/>
-<part name="C1667" library="rcl" deviceset="C-EU" device="C0603" value="2.2pF"/>
-<part name="C1604" library="rcl" deviceset="C-EU" device="C0603" value="47pF"/>
-<part name="C1605" library="rcl" deviceset="C-EU" device="C0603" value="47nF"/>
+<part name="C1667" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="2.2pF"/>
+<part name="C1604" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="47pF"/>
+<part name="C1605" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="47nF"/>
 <part name="L1661" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="0R"/>
 <part name="L1662" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="47nH"/>
 <part name="GND1604" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1665" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="C1666" library="rcl" deviceset="C-EU" device="C0603" value="5.6pF"/>
+<part name="C1665" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="C1666" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="5.6pF"/>
 <part name="GND1661" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U1671" library="df4iah_rf" deviceset="PE4259" device=""/>
 <part name="GND1652" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1671" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1671" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND1653" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1672" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="C1672" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1nF"/>
 <part name="GND1654" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1681" library="rcl" deviceset="C-EU" device="C0603" value="39pF"/>
-<part name="C1682" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
+<part name="C1681" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="39pF"/>
+<part name="C1682" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="3.3pF"/>
 <part name="L1682" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="9.1nH"/>
-<part name="C1683" library="rcl" deviceset="C-EU" device="C0603" value="3.3pF"/>
+<part name="C1683" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="3.3pF"/>
 <part name="GND1655" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1691" library="rcl" deviceset="C-EU" device="C0603" value="1.8pF"/>
-<part name="C1692" library="rcl" deviceset="C-EU" device="C0603" value="2.4pF"/>
-<part name="C1693" library="rcl" deviceset="C-EU" device="C0603" value="0pF"/>
+<part name="C1691" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1.8pF"/>
+<part name="C1692" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="2.4pF"/>
+<part name="C1693" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
 <part name="GND1691" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="L1691" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="15nH"/>
 <part name="U1101" library="df4iah_lcd" deviceset="MIDAS_MCCOG21605B6W-FPTLWI" device=""/>
 <part name="X1551" library="df4iah_connector" deviceset="MICROSIM-8P_SDCARD-8P_MOLEX-104642-1610" device=""/>
 <part name="GND3021" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C3021" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R3031" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C3021" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R3031" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="U2001" library="df4iah_powersupply" deviceset="BQ24193" device=""/>
 <part name="R2054" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R2001" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="240R"/>
+<part name="R2001" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="240R"/>
 <part name="GND2001" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2002" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U2041" library="df4iah_opamp" deviceset="LPV811" device=""/>
-<part name="R2041" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="33kR"/>
-<part name="C2041" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R2041" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="33kR"/>
+<part name="C2041" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND2041" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2051" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X2051" library="df4iah_connector" deviceset="JST_S3B-XH-A" device=""/>
-<part name="R2011" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="2.27kR"/>
-<part name="R2012" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="6.86kR"/>
+<part name="R2011" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="2.27kR"/>
+<part name="R2012" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="6.86kR"/>
 <part name="GND2011" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2011" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
-<part name="C2003" library="rcl" deviceset="C-EU" device="C0603" value="47nF"/>
+<part name="C2003" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="47nF"/>
 <part name="C2001" library="rcl" deviceset="C-EU" device="C0603" value="10uF"/>
 <part name="C2002" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="GND2003" library="df4iah_supply" deviceset="GND" device=""/>
@@ -31044,173 +31043,173 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C2021" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="D2022" library="df4iah_diode" deviceset="CRS08" device=""/>
 <part name="D2021" library="df4iah_diode" deviceset="CRS08" device=""/>
-<part name="C2402" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2302" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2402" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2302" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="U2201" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
 <part name="GND2201" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C2201" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="C2203" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2201" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="C2203" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="TP_VUSB_SW" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
-<part name="C2202" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C2202" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="U0851" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
-<part name="R1851" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1851" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="GND0851" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="U0741" library="df4iah_opamp" deviceset="OPA354" device=""/>
-<part name="R0741" library="rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R0742" library="rcl" deviceset="R-EU_" device="R0603" value="1MR"/>
-<part name="C0742" library="rcl" deviceset="C-EU" device="C0603" value="1nF"/>
+<part name="R0741" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0742" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
+<part name="C0742" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1nF"/>
 <part name="GND0741" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_+3V3_XO_PA" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="FRAME_30" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="R3131" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3131" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="U3021" library="df4iah_dataconvertion" deviceset="PCAL6416A" device="PW"/>
 <part name="U3121" library="df4iah_dataconvertion" deviceset="PCAL6416A" device="PW"/>
 <part name="GND3121" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C3121" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R3121" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
-<part name="R3021" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="100kR"/>
+<part name="C3121" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R3121" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
+<part name="R3021" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
 <part name="R3081" library="df4iah_rcl" deviceset="R-EU_ARRAY-8X" device="" value="1MR"/>
 <part name="R3091" library="df4iah_rcl" deviceset="R-EU_ARRAY-8X" device="" value="1MR"/>
 <part name="R3181" library="df4iah_rcl" deviceset="R-EU_ARRAY-8X" device="" value="1MR"/>
 <part name="R3191" library="df4iah_rcl" deviceset="R-EU_ARRAY-8X" device="" value="1MR"/>
 <part name="GND3081" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND3181" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C0741" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C0741" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="FRAME_32" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="L3211" library="df4iah_rcl" deviceset="L-EU" device="6.00X6.00MM" value="2.2uH"/>
 <part name="U3201" library="df4iah_powersupply" deviceset="LM53603-Q1" device=""/>
 <part name="C3202" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="C3203" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="C3201" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
-<part name="C3204" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10nF"/>
+<part name="C3204" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
 <part name="GND3201" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C3205" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="3.3uF"/>
 <part name="C3211" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="0.47uF"/>
-<part name="C3212" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="100nF"/>
-<part name="R3211" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="3R"/>
+<part name="C3212" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R3211" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="3R"/>
 <part name="C3221" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="22uF"/>
 <part name="C3222" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="22uF"/>
 <part name="C3223" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="22uF"/>
 <part name="FRAME_33" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="U3301" library="df4iah_dataconvertion" deviceset="74LVC4245A" device=""/>
 <part name="GND3301" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C3301" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R3320" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3321" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3322" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3323" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3324" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3325" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3326" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3327" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C3301" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R3320" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3321" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3322" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3323" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3324" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3325" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3326" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3327" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="U1501" library="df4iah_gsm" deviceset="SIM868" device=""/>
 <part name="GND1501" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1551" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="220nF"/>
+<part name="C1551" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
 <part name="GND1551" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1551" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R1552" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R1551" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R1552" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="GND1552" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1553" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="C1552" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22pF"/>
-<part name="C1553" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22pF"/>
-<part name="C1554" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22pF"/>
+<part name="R1553" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="C1552" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="22pF"/>
+<part name="C1553" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="22pF"/>
+<part name="C1554" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="22pF"/>
 <part name="GND1553" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="D1501" library="df4iah_diode" deviceset="D_SOD923" device="" value="CMAD6001"/>
 <part name="GND1571" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X1571" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
-<part name="C1571" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="C1572" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="R1571" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
+<part name="C1571" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="C1572" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="R1571" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="GND1581" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X1581" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
-<part name="C1581" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="C1582" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="R1581" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
+<part name="C1581" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="C1582" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="R1581" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="GND1591" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X1591" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
-<part name="C1591" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="C1592" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0pF"/>
-<part name="R1591" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
+<part name="C1591" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="C1592" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
+<part name="R1591" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="X3211" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
 <part name="TP_LIPO_BAT" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_LIPO_SYS" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_LIPO_CUR" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="U1981" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
 <part name="GND1952" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1501" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="47pF"/>
+<part name="C1501" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="47pF"/>
 <part name="GND1502" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1503" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="10nF"/>
+<part name="C1503" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
 <part name="GND1503" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R3311" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3310" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3312" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3313" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3314" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3315" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3316" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3317" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R3311" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3310" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3312" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3313" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3314" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3315" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3316" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3317" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="FRAME_34" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="U3401" library="df4iah_dataconvertion" deviceset="74LVC4245A" device=""/>
 <part name="GND3401" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C3401" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R3420" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3421" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3422" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3423" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3424" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3425" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3426" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3427" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3411" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3410" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3412" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3413" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3414" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3415" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3416" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R3417" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
+<part name="C3401" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R3420" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3421" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3422" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3423" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3424" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3425" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3426" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3427" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3411" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3410" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3412" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3413" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3414" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3415" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3416" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R3417" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
 <part name="GND1561" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1561" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="22R"/>
-<part name="R1562" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="22R"/>
+<part name="R1561" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="22R"/>
+<part name="R1562" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="22R"/>
 <part name="X1561" library="df4iah_connector" deviceset="HEADER-2X2" device=""/>
-<part name="C1589" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1.2pF"/>
-<part name="C1588" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1.5pF"/>
+<part name="C1589" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1.2pF"/>
+<part name="C1588" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1.5pF"/>
 <part name="L1584" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="1.2nH"/>
 <part name="L1588" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="4.7nH"/>
-<part name="C1583" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="0.5pF"/>
-<part name="C1585" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1.2pF"/>
+<part name="C1583" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0.5pF"/>
+<part name="C1585" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1.2pF"/>
 <part name="L1586" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="4.7nH"/>
-<part name="C1586" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="1.8pF"/>
+<part name="C1586" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="1.8pF"/>
 <part name="L1587" library="df4iah_rcl" deviceset="L-EU" device="L0603" value="2.7nH"/>
 <part name="RPOLY1593" library="rcl" deviceset="R-EU_" device="R1210" value="50mA/150mA"/>
 <part name="L1593" library="rcl" deviceset="L-EU" device="L3216C" value="WE-CBF_300R"/>
 <part name="U1591" library="df4iah_sc-switches" deviceset="TS5A23166" device=""/>
 <part name="GND1592" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1593" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="C1593" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND1593" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="C1502" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
-<part name="R1542" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
-<part name="R1541" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="NTC 10kR"/>
+<part name="C1502" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
+<part name="R1542" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="10kR"/>
+<part name="R1541" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="NTC 10kR"/>
 <part name="GND1541" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R1543" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="4.7kR"/>
-<part name="R1544" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="4.7kR"/>
-<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="10kR"/>
+<part name="R1543" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="4.7kR"/>
+<part name="R1544" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="4.7kR"/>
+<part name="R1501" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="10kR"/>
 <part name="D1502" library="df4iah_diode" deviceset="ZENER-DIODE" device="SOD123" value="MMSZ4690-E3-08 (5.6V)"/>
 <part name="C1504" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="10uF"/>
 <part name="C1561" library="df4iah_rcl" deviceset="C-EU" device="C0805" value="1uF"/>
 <part name="U1592" library="df4iah_rf" deviceset="TDK_B4310" device="" value="TDK B4310"/>
 <part name="FRAME_35" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="GND3501" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R3501" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3502" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3503" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="R3504" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
-<part name="C3501" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R3501" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3502" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3503" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R3504" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="C3501" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="U3511" library="df4iah_lcd" deviceset="ZIO_EINK_1IN54" device=""/>
-<part name="R1012" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R1011" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="R0811" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
-<part name="R0812" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="N/A"/>
+<part name="R1012" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R1011" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R0811" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
+<part name="R0812" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
 </parts>
 <sheets>
 <sheet>
@@ -36908,7 +36907,8 @@ SPI</text>
 <pinref part="L1715" gate="G$1" pin="2"/>
 <pinref part="C1718" gate="G$1" pin="1"/>
 <wire x1="167.64" y1="76.2" x2="190.5" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="167.64" y1="76.2" x2="170.18" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="76.2" x2="167.64" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="71.12" x2="170.18" y2="71.12" width="0.1524" layer="91"/>
 <pinref part="C1716" gate="G$1" pin="1"/>
 <pinref part="L1716" gate="G$1" pin="2"/>
 <wire x1="190.5" y1="76.2" x2="190.5" y2="71.12" width="0.1524" layer="91"/>
