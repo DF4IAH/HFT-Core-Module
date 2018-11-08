@@ -6,10 +6,10 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="Route2" color="1" fill="3" visible="yes" active="yes"/>
+<layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="yes"/>
 <layer number="5" name="Route5" color="4" fill="4" visible="no" active="yes"/>
@@ -22,11 +22,11 @@
 <layer number="12" name="Route12" color="1" fill="5" visible="no" active="yes"/>
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="yes"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Route15" color="4" fill="6" visible="yes" active="yes"/>
+<layer number="15" name="Route15" color="4" fill="6" visible="no" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="5" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
@@ -38,8 +38,8 @@
 <layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
-<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
-<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="yes" active="yes"/>
 <layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
@@ -322,18 +322,6 @@ with I2C</description>
 <text x="51.9673" y="5.03" size="0.6096" layer="21" font="vector" ratio="10">A</text>
 <text x="28.575" y="0" size="0.6096" layer="21" font="vector" ratio="10">8</text>
 <text x="16.51" y="0" size="0.6096" layer="21" font="vector" ratio="10">1</text>
-<smd name="21" x="50.05" y="15.1" dx="3.2" dy="1.8" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
-<smd name="11" x="50.05" y="15.1" dx="3.2" dy="1.8" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
-<smd name="22" x="50.05" y="5.1" dx="3.2" dy="1.8" layer="16" roundness="100" rot="R90" thermals="no" cream="no"/>
-<smd name="12" x="50.05" y="5.1" dx="3.2" dy="1.8" layer="1" roundness="100" rot="R90" thermals="no" cream="no"/>
-<polygon width="0.01" layer="46">
-<vertex x="50.6" y="15.9"/>
-<vertex x="50.6" y="14.3" curve="-90"/>
-<vertex x="50.05" y="13.8" curve="-90"/>
-<vertex x="49.5" y="14.3"/>
-<vertex x="49.5" y="15.9" curve="-90"/>
-<vertex x="50.05" y="16.4" curve="-90"/>
-</polygon>
 <wire x1="0" y1="0" x2="0" y2="-0.03" width="0.127" layer="21"/>
 <pad name="2" x="19.425" y="1" drill="0.5" diameter="0.7" shape="long" rot="R90"/>
 <pad name="3" x="20.695" y="1" drill="0.5" diameter="0.7" shape="long" rot="R90"/>
@@ -357,18 +345,18 @@ with I2C</description>
 <vertex x="42.6" y="7.2"/>
 <vertex x="2.6" y="7.2"/>
 </polygon>
-<rectangle x1="49.65" y1="4" x2="50.45" y2="6.2" layer="51"/>
-<rectangle x1="49.65" y1="14" x2="50.45" y2="16.2" layer="51"/>
-<polygon width="0.01" layer="46">
-<vertex x="50.6" y="5.9"/>
-<vertex x="50.6" y="4.3" curve="-90"/>
-<vertex x="50.05" y="3.8" curve="-90"/>
-<vertex x="49.5" y="4.3"/>
-<vertex x="49.5" y="5.9" curve="-90"/>
-<vertex x="50.05" y="6.4" curve="-90"/>
-</polygon>
 <text x="0.365" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;NAME</text>
 <text x="8.49" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;VALUE</text>
+<pad name="11" x="50.05" y="15.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="0.8" layer="46"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="1.8" layer="17"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="2.03" layer="29"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="2.03" layer="30"/>
+<pad name="12" x="50.05" y="5.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="0.8" layer="46"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="1.8" layer="17"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="29"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="30"/>
 </package>
 <package name="ZIO_EINK_1IN54">
 <description>&lt;h3&gt;ZIO E-Ink Display 1.54in. V1.0&lt;/h3&gt;
