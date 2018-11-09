@@ -32123,11 +32123,11 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <wire x1="160.02" y1="170.18" x2="160.02" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PA9" class="0">
+<net name="VDDUSB" class="0">
 <segment>
-<pinref part="U0111" gate="G$1" pin="PA9"/>
-<wire x1="165.1" y1="172.72" x2="162.56" y2="170.18" width="0.1524" layer="91"/>
-<wire x1="162.56" y1="170.18" x2="162.56" y2="160.02" width="0.1524" layer="91"/>
+<pinref part="U0111" gate="G$1" pin="VDDUSB"/>
+<wire x1="30.48" y1="91.44" x2="27.94" y2="91.44" width="0.1524" layer="91"/>
+<label x="27.94" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PA8" class="0">
@@ -32226,13 +32226,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <wire x1="121.92" y1="162.56" x2="121.92" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="+3V3" class="0">
-<segment>
-<pinref part="U0111" gate="G$1" pin="VDDUSB"/>
-<wire x1="30.48" y1="91.44" x2="27.94" y2="91.44" width="0.1524" layer="91"/>
-<label x="27.94" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="PH1" class="0">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PH1_OSC_OUT"/>
@@ -32258,6 +32251,13 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <segment>
 <pinref part="U0111" gate="G$1" pin="PB2"/>
 <wire x1="177.8" y1="35.56" x2="175.26" y2="38.1" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="PA9" class="0">
+<segment>
+<pinref part="U0111" gate="G$1" pin="PA9"/>
+<wire x1="165.1" y1="172.72" x2="162.56" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="170.18" x2="162.56" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
