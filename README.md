@@ -4,12 +4,12 @@
 ![Screenshot of V1.1](https://raw.githubusercontent.com/DF4IAH/HFT-Core-Module/master/Docs/09_Results/Pictures/HFT-Core-Module_1V1_PCB_PlacementDone.png)
 
 ## These are the included devices for the V1.1:
-* __CPU: ST Microdevices STM32L496ZGT6P__ (1,024kB Flash / 320kB RAM)
-* __Flash and EEPROM__ (more data to be kept outside of the MCU)
-* __GSM / GPS / BT: SIM868__ (SMS / GPRS / ...)
+* __CPU: ST Microelectronics STM32L496ZGT6P__ (80MHz ARM Cortex-M4 w/ 1MB FLASH / 320kB RAM)
+* __ext. Flash and EEPROM__ (8MB more data to be kept outside of the MCU / 8kB configuration data)
+* __GSM / GNSS / BT: SIM868__ (SMS / GPRS / GPS, Glonass ...)
 * __VHF/UHF FSK and LoRa: SX1262__ (VHF TX/RX)
 * __VHF/UHF All but Lora: AX5243__ (VHF TX/RX)
-* __Accel/Gyro/Mag: BNO085__ (3Axis-Acceleration, 3Axis-Gyro, 3Axis-Magneto)
+* __Accel/Gyro/Mag: BNO085__ (3Axis-Acceleration, 3Axis-Gyro, 3Axis-Magneto - motion tracking engine)
 * __Baro/Hygro/Temp/AirQuality: BME680__ (0.12Pa equiv. 1.7cm)
 * __VCTCXO: CFPT-141_20MHz__ (being synchronized to the GPS 1PPS signal by pulling the VC)
 * __Clock PLL__ (distributing any clocks that are needed)
