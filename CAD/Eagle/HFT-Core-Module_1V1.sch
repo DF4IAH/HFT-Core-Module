@@ -8232,56 +8232,56 @@ Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
 <pad name="JSHIELD" x="-2.5" y="4.15" drill="0.85" diameter="1.45" rot="R90" thermals="no"/>
 <pad name="JSHIELD@2" x="2.5" y="4.15" drill="0.85" diameter="1.45" rot="R90" thermals="no"/>
 <polygon width="0.005" layer="2" pour="cutout">
-<vertex x="-4.45" y="0.9"/>
-<vertex x="-4.45" y="2" curve="-180"/>
-<vertex x="-2.55" y="2"/>
-<vertex x="-2.55" y="0.9" curve="-180"/>
+<vertex x="-4.7" y="0.9"/>
+<vertex x="-4.7" y="2" curve="-180"/>
+<vertex x="-2.3" y="2"/>
+<vertex x="-2.3" y="0.9" curve="-180"/>
 </polygon>
 <polygon width="0.005" layer="2" pour="cutout">
-<vertex x="2.55" y="0.9"/>
-<vertex x="2.55" y="2" curve="-180"/>
-<vertex x="4.45" y="2"/>
-<vertex x="4.45" y="0.9" curve="-180"/>
+<vertex x="2.3" y="0.9"/>
+<vertex x="2.3" y="2" curve="-180"/>
+<vertex x="4.7" y="2"/>
+<vertex x="4.7" y="0.9" curve="-180"/>
 </polygon>
 <polygon width="0.005" layer="15" pour="cutout">
-<vertex x="-4.45" y="0.9"/>
-<vertex x="-4.45" y="2" curve="-180"/>
-<vertex x="-2.55" y="2"/>
-<vertex x="-2.55" y="0.9" curve="-180"/>
+<vertex x="-4.7" y="0.9"/>
+<vertex x="-4.7" y="2" curve="-180"/>
+<vertex x="-2.3" y="2"/>
+<vertex x="-2.3" y="0.9" curve="-180"/>
 </polygon>
 <polygon width="0.005" layer="15" pour="cutout">
-<vertex x="2.55" y="0.9"/>
-<vertex x="2.55" y="2" curve="-180"/>
-<vertex x="4.45" y="2"/>
-<vertex x="4.45" y="0.9" curve="-180"/>
+<vertex x="2.3" y="0.9"/>
+<vertex x="2.3" y="2" curve="-180"/>
+<vertex x="4.7" y="2"/>
+<vertex x="4.7" y="0.9" curve="-180"/>
 </polygon>
 <pad name="JSHIELD@3" x="-3.5" y="1.45" drill="1" diameter="1.8" shape="octagon"/>
 <pad name="JSHIELD@6" x="3.5" y="1.45" drill="1" diameter="1.8" shape="octagon"/>
 <pad name="JSHIELD@4" x="-1" y="1.45" drill="0.85" shape="square"/>
 <pad name="JSHIELD@5" x="1" y="1.45" drill="0.85" shape="square"/>
 <polygon width="0.005" layer="2" pour="cutout">
-<vertex x="-2.032" y="2.54"/>
-<vertex x="2.032" y="2.54"/>
-<vertex x="2.032" y="0.381"/>
-<vertex x="-2.032" y="0.381"/>
+<vertex x="-2.9" y="3.1"/>
+<vertex x="2.9" y="3.1"/>
+<vertex x="2.9" y="0"/>
+<vertex x="-2.9" y="0"/>
 </polygon>
 <polygon width="0.005" layer="15" pour="cutout">
-<vertex x="-2.032" y="2.54"/>
-<vertex x="2.032" y="2.54"/>
-<vertex x="2.032" y="0.381"/>
-<vertex x="-2.032" y="0.381"/>
+<vertex x="-2.9" y="3.1"/>
+<vertex x="2.9" y="3.1"/>
+<vertex x="2.9" y="0"/>
+<vertex x="-2.9" y="0"/>
 </polygon>
 <polygon width="0.005" layer="2" pour="cutout">
-<vertex x="-3.556" y="5.08"/>
-<vertex x="3.556" y="5.08"/>
-<vertex x="3.556" y="3.175"/>
-<vertex x="-3.556" y="3.175"/>
+<vertex x="-3.7" y="5.3"/>
+<vertex x="3.7" y="5.3"/>
+<vertex x="3.7" y="3"/>
+<vertex x="-3.7" y="3"/>
 </polygon>
 <polygon width="0.005" layer="15" pour="cutout">
-<vertex x="-3.556" y="5.08"/>
-<vertex x="3.556" y="5.08"/>
-<vertex x="3.556" y="3.175"/>
-<vertex x="-3.556" y="3.175"/>
+<vertex x="-3.7" y="5.3"/>
+<vertex x="3.7" y="5.3"/>
+<vertex x="3.7" y="3"/>
+<vertex x="-3.7" y="3"/>
 </polygon>
 </package>
 <package name="SJ1-353XNS_3MM5-STEREO-AUDIO-JACKS">
@@ -29443,12 +29443,6 @@ TTTT
 <wire x1="1.1" y1="19.6" x2="1.1" y2="1.1" width="0.127" layer="51"/>
 <wire x1="1.1" y1="1.1" x2="16.51" y2="1.1" width="0.127" layer="51"/>
 <wire x1="28.7" y1="1.1" x2="44.1" y2="1.1" width="0.127" layer="51"/>
-<polygon width="0.127" layer="51" pour="hatch">
-<vertex x="2.6" y="17.2"/>
-<vertex x="42.6" y="17.2"/>
-<vertex x="42.6" y="7.2"/>
-<vertex x="2.6" y="7.2"/>
-</polygon>
 <text x="0.365" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;NAME</text>
 <text x="8.49" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;VALUE</text>
 <pad name="11" x="50.05" y="15.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
@@ -29461,6 +29455,10 @@ TTTT
 <wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="1.8" layer="17"/>
 <wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="29"/>
 <wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="30"/>
+<rectangle x1="2.6" y1="7.2" x2="42.6" y2="17.2" layer="48"/>
+<text x="12.7" y="11.43" size="1.27" layer="51">LCD  16 x 2 chars</text>
+<text x="2.54" y="15.875" size="1.27" layer="51">Top Left</text>
+<text x="33.655" y="7.62" size="1.27" layer="51">Right Bot</text>
 </package>
 <package name="ZIO_EINK_1IN54">
 <description>&lt;h3&gt;ZIO E-Ink Display 1.54in. V1.0&lt;/h3&gt;
@@ -29481,9 +29479,11 @@ TTTT
 <wire x1="46.88" y1="6.3" x2="46.88" y2="-6.3" width="0.127" layer="51"/>
 <wire x1="46.88" y1="-6.3" x2="45.08" y2="-6.35" width="0.127" layer="51"/>
 <wire x1="46.88" y1="6.3" x2="45.08" y2="6.3" width="0.127" layer="51"/>
-<text x="5.08" y="13.97" size="1.27" layer="51">Top Left</text>
-<text x="27.94" y="-15.24" size="1.27" layer="51">Right Bot</text>
-<text x="15.24" y="0" size="1.27" layer="51">200 x 200 px</text>
+<text x="6.985" y="12.7" size="1.27" layer="51">Top Left</text>
+<text x="26.035" y="-13.97" size="1.27" layer="51">Right Bot</text>
+<text x="15.875" y="-1.905" size="1.27" layer="51">E-Ink Display
+
+200 x 200 px</text>
 <text x="5.08" y="16.51" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
 <text x="5.08" y="-17.78" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
 <wire x1="1.905" y1="11.43" x2="1.905" y2="8.89" width="0.1524" layer="21"/>
@@ -31133,17 +31133,17 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="X3371" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
 <part name="C3371" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
 <part name="C3372" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
-<part name="R3371" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R3371" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="GND3381" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X3381" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
 <part name="C3381" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
 <part name="C3382" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
-<part name="R3381" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R3381" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="GND3391" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X3391" library="df4iah_connector" deviceset="SMA_SMT_AMPHENOL-901-143" device="" value="SMA_SMT_AMPHENOL-901-143, SAMTEC SMA-J-P-H-RA-TH1"/>
 <part name="C3391" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
 <part name="C3392" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="0pF"/>
-<part name="R3391" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R3391" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="X2411" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
 <part name="TP_LIPO_BAT" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
 <part name="TP_LIPO_SYS" library="testpad" deviceset="PTR1" device="B1,27" value="PTR1B1,27"/>
@@ -31225,6 +31225,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R1611" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
 <part name="R1612" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="N/A"/>
 <part name="R2521" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2802" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="100R"/>
+<part name="R2801" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="100R"/>
+<part name="D2801" library="df4iah_diode" deviceset="CRS08" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -31273,12 +31276,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <label x="134.62" y="12.7" size="1.778" layer="95" rot="R90"/>
 </segment>
 </bus>
-<bus name="PB[0..2],PB10">
-<segment>
-<wire x1="172.72" y1="35.56" x2="238.76" y2="35.56" width="0.762" layer="92"/>
-<label x="241.3" y="35.56" size="1.778" layer="95"/>
-</segment>
-</bus>
 <bus name="PE[7..15]">
 <segment>
 <wire x1="238.76" y1="33.02" x2="208.28" y2="33.02" width="0.762" layer="92"/>
@@ -31297,10 +31294,14 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <label x="241.3" y="27.94" size="1.778" layer="95"/>
 </segment>
 </bus>
-<bus name="PB[3..9],PB[12..15]">
+<bus name="PB[0..15]">
 <segment>
 <wire x1="60.96" y1="170.18" x2="238.76" y2="170.18" width="0.762" layer="92"/>
 <label x="241.3" y="170.18" size="1.778" layer="95"/>
+</segment>
+<segment>
+<wire x1="172.72" y1="35.56" x2="238.76" y2="35.56" width="0.762" layer="92"/>
+<label x="241.3" y="35.56" size="1.778" layer="95"/>
 </segment>
 </bus>
 <bus name="PA[8..15]">
@@ -32478,6 +32479,7 @@ Crystal 32.768 kHz</text>
 <text x="165.1" y="38.1" size="2.54" layer="97" ratio="15">MCU VREF</text>
 <text x="35.56" y="38.1" size="2.54" layer="97" ratio="15">MCU VBAT</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU power distribution</text>
+<text x="180.34" y="116.84" size="1.778" layer="97">Package: 0603mil</text>
 </plain>
 <instances>
 <instance part="FRAME_04" gate="G$1" x="0" y="0"/>
@@ -32513,7 +32515,10 @@ Crystal 32.768 kHz</text>
 <instance part="GND0423" gate="1" x="12.7" y="88.9"/>
 <instance part="C0413" gate="G$1" x="215.9" y="101.6"/>
 <instance part="C0442" gate="G$1" x="210.82" y="55.88" rot="R90"/>
-<instance part="L0411" gate="G$1" x="185.42" y="111.76" rot="R90"/>
+<instance part="L0411" gate="G$1" x="185.42" y="111.76" smashed="yes" rot="R90">
+<attribute name="NAME" x="181.61" y="113.2586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="181.61" y="108.458" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -35545,6 +35550,7 @@ I2C addr: 0x4A</text>
 <text x="180.34" y="93.98" size="1.778" layer="97">MCU_I2S2A_SCK_IN</text>
 <text x="180.34" y="91.44" size="1.778" layer="97">MCU_I2S2A_FS_IN</text>
 <text x="35.56" y="152.4" size="1.778" layer="97">Iq=0.12mA</text>
+<text x="125.222" y="130.81" size="1.778" layer="97" rot="R90">Package: 0603mil</text>
 </plain>
 <instances>
 <instance part="FRAME_17" gate="G$1" x="0" y="0"/>
@@ -35921,6 +35927,7 @@ I2C addr: 0x1A</text>
 <text x="220.98" y="104.14" size="1.778" layer="97">Load: 10kR</text>
 <text x="220.98" y="83.82" size="1.778" layer="97">Load: 10kR</text>
 <text x="38.1" y="134.62" size="1.778" layer="97">Iq=1.9mA</text>
+<text x="94.742" y="118.11" size="1.778" layer="97" rot="R90">Package: 0603mil</text>
 </plain>
 <instances>
 <instance part="FRAME_18" gate="G$1" x="0" y="0"/>
@@ -36207,14 +36214,14 @@ I2C addr: 0x1A</text>
 <wire x1="93.98" y1="111.76" x2="93.98" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="AUDIO_DAC_A0" class="0">
 <segment>
 <pinref part="U1801" gate="G$1" pin="!CS!/!MUTE"/>
 <wire x1="81.28" y1="91.44" x2="76.2" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="R1811" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="N$2" class="0">
+<net name="AUDIO_DAC_A1" class="0">
 <segment>
 <pinref part="U1801" gate="G$1" pin="SDOUT/DEEMPH"/>
 <wire x1="81.28" y1="86.36" x2="76.2" y2="86.36" width="0.1524" layer="91"/>
@@ -36230,6 +36237,7 @@ I2C addr: 0x1A</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
 <text x="175.26" y="162.56" size="2.54" layer="97" ratio="15">SIMcard holder</text>
 <text x="205.74" y="55.88" size="1.778" layer="94" font="vector" ratio="10">SIM USB</text>
+<text x="219.71" y="136.398" size="1.778" layer="97">Vpp: N/A</text>
 </plain>
 <instances>
 <instance part="FRAME_19" gate="G$1" x="0" y="0"/>
@@ -36369,8 +36377,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T4"/>
-<wire x1="203.2" y1="96.52" x2="182.88" y2="96.52" width="0.1524" layer="91"/>
-<label x="182.88" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="96.52" x2="195.58" y2="96.52" width="0.1524" layer="91"/>
+<label x="195.58" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="R1942" gate="G$1" pin="2"/>
@@ -36524,8 +36532,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T6"/>
-<wire x1="203.2" y1="91.44" x2="182.88" y2="91.44" width="0.1524" layer="91"/>
-<label x="182.88" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="91.44" x2="195.58" y2="91.44" width="0.1524" layer="91"/>
+<label x="195.58" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="GND1902" gate="1" pin="GND"/>
@@ -36779,8 +36787,8 @@ I2C addr: 0x1A</text>
 <pinref part="U1901" gate="G$1" pin="ADC"/>
 </segment>
 <segment>
-<wire x1="182.88" y1="68.58" x2="231.14" y2="68.58" width="0.1524" layer="91"/>
-<label x="182.88" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="223.52" y1="68.58" x2="231.14" y2="68.58" width="0.1524" layer="91"/>
+<label x="223.52" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="R1942" gate="G$1" pin="1"/>
 <wire x1="231.14" y1="68.58" x2="231.14" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="231.14" y1="68.58" x2="231.14" y2="66.04" width="0.1524" layer="91"/>
@@ -36831,8 +36839,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T2"/>
-<wire x1="203.2" y1="101.6" x2="182.88" y2="101.6" width="0.1524" layer="91"/>
-<label x="182.88" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="101.6" x2="195.58" y2="101.6" width="0.1524" layer="91"/>
+<label x="195.58" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCA2" class="0">
@@ -36843,8 +36851,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T1"/>
-<wire x1="203.2" y1="104.14" x2="182.88" y2="104.14" width="0.1524" layer="91"/>
-<label x="182.88" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="104.14" x2="195.58" y2="104.14" width="0.1524" layer="91"/>
+<label x="195.58" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCA1" class="0">
@@ -36855,8 +36863,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T8"/>
-<wire x1="203.2" y1="86.36" x2="182.88" y2="86.36" width="0.1524" layer="91"/>
-<label x="182.88" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="86.36" x2="195.58" y2="86.36" width="0.1524" layer="91"/>
+<label x="195.58" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCA0" class="0">
@@ -36867,8 +36875,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T7"/>
-<wire x1="203.2" y1="88.9" x2="182.88" y2="88.9" width="0.1524" layer="91"/>
-<label x="182.88" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="88.9" x2="195.58" y2="88.9" width="0.1524" layer="91"/>
+<label x="195.58" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCCK" class="0">
@@ -36879,8 +36887,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T5"/>
-<wire x1="203.2" y1="93.98" x2="182.88" y2="93.98" width="0.1524" layer="91"/>
-<label x="182.88" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="93.98" x2="195.58" y2="93.98" width="0.1524" layer="91"/>
+<label x="195.58" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCM0" class="0">
@@ -36891,8 +36899,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T3"/>
-<wire x1="203.2" y1="99.06" x2="182.88" y2="99.06" width="0.1524" layer="91"/>
-<label x="182.88" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="99.06" x2="195.58" y2="99.06" width="0.1524" layer="91"/>
+<label x="195.58" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MICP" class="0">
@@ -37003,12 +37011,6 @@ I2C addr: 0x1A</text>
 <label x="182.88" y="48.26" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="SC_4" class="0">
-<segment>
-<pinref part="X1951" gate="A" pin="S4"/>
-<wire x1="200.66" y1="142.24" x2="198.12" y2="142.24" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="SC_3" class="0">
 <segment>
 <pinref part="X1951" gate="A" pin="S3"/>
@@ -37023,12 +37025,6 @@ I2C addr: 0x1A</text>
 <wire x1="200.66" y1="137.16" x2="198.12" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="SC_6" class="0">
-<segment>
-<pinref part="X1951" gate="A" pin="S6"/>
-<wire x1="218.44" y1="137.16" x2="220.98" y2="137.16" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="SC_7" class="0">
 <segment>
 <pinref part="X1951" gate="A" pin="S7"/>
@@ -37040,17 +37036,11 @@ I2C addr: 0x1A</text>
 <pinref part="C1954" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="SC_8" class="0">
-<segment>
-<pinref part="X1951" gate="A" pin="S8"/>
-<wire x1="218.44" y1="142.24" x2="220.98" y2="142.24" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="MC_SW" class="0">
 <segment>
 <pinref part="X1951" gate="B" pin="SW"/>
-<wire x1="203.2" y1="81.28" x2="182.88" y2="81.28" width="0.1524" layer="91"/>
-<label x="182.88" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="81.28" x2="195.58" y2="81.28" width="0.1524" layer="91"/>
+<label x="195.58" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_VRTC" class="0">
@@ -37725,12 +37715,11 @@ SPI</text>
 <text x="45.72" y="91.44" size="1.778" layer="97">SX_NRESET</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SX1262 UHF TRX (ch1)</text>
 <text x="45.72" y="96.52" size="1.778" layer="97">MCU_SX_BUSY_IN</text>
-<text x="45.72" y="137.16" size="1.778" layer="97">TODO:
-- Find L=15uH device</text>
 <text x="172.72" y="38.1" size="1.778" layer="97">MCU_EXTI12_SX_DIO2_TXRXSW</text>
 <text x="172.72" y="43.18" size="1.778" layer="97">MCU_EXTI1_SX_DIO3_TIMEOUT</text>
 <text x="172.72" y="33.02" size="1.778" layer="97">MCU_EXTI0_SX_DIO1_TXRXDONE</text>
 <text x="66.04" y="129.54" size="1.778" layer="97">Iq=1.2uA</text>
+<text x="50.038" y="100.838" size="1.778" layer="97">Package: 0805mil</text>
 </plain>
 <instances>
 <instance part="FRAME_22" gate="G$1" x="0" y="0"/>
@@ -37757,7 +37746,7 @@ SPI</text>
 <instance part="C2202" gate="G$1" x="43.18" y="116.84"/>
 <instance part="L2263" gate="G$1" x="165.1" y="104.14" smashed="yes" rot="R270">
 <attribute name="NAME" x="161.29" y="99.568" size="1.778" layer="95"/>
-<attribute name="VALUE" x="161.29" y="95.758" size="1.778" layer="96"/>
+<attribute name="VALUE" x="161.036" y="97.282" size="1.778" layer="96"/>
 </instance>
 <instance part="C2263" gate="G$1" x="162.56" y="109.22" smashed="yes" rot="R90">
 <attribute name="NAME" x="161.544" y="114.681" size="1.778" layer="95"/>
@@ -37793,8 +37782,8 @@ SPI</text>
 </instance>
 <instance part="GND2204" gate="1" x="157.48" y="119.38"/>
 <instance part="C2265" gate="G$1" x="152.4" y="104.14" smashed="yes" rot="R90">
-<attribute name="NAME" x="151.384" y="107.061" size="1.778" layer="95"/>
-<attribute name="VALUE" x="151.384" y="99.441" size="1.778" layer="96"/>
+<attribute name="NAME" x="147.32" y="107.315" size="1.778" layer="95"/>
+<attribute name="VALUE" x="147.32" y="104.521" size="1.778" layer="96"/>
 </instance>
 <instance part="C2266" gate="G$1" x="175.26" y="101.6" smashed="yes" rot="R90">
 <attribute name="NAME" x="174.244" y="96.901" size="1.778" layer="95"/>
@@ -37844,8 +37833,8 @@ SPI</text>
 </instance>
 <instance part="GND2291" gate="1" x="152.4" y="76.2"/>
 <instance part="L2291" gate="G$1" x="147.32" y="96.52" smashed="yes" rot="R270">
-<attribute name="NAME" x="143.51" y="91.948" size="1.778" layer="95"/>
-<attribute name="VALUE" x="143.51" y="93.218" size="1.778" layer="96"/>
+<attribute name="NAME" x="143.764" y="93.218" size="1.778" layer="95"/>
+<attribute name="VALUE" x="143.256" y="90.678" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -38325,11 +38314,15 @@ SPI</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">AX5243 UHF TRX (ch2)</text>
 <text x="43.18" y="71.12" size="1.778" layer="97">AX_GPIO1_TCXO_EN</text>
 <text x="53.34" y="129.54" size="1.778" layer="97">Iq=0.5uA</text>
+<text x="114.3" y="101.6" size="1.778" layer="97">N/A</text>
 </plain>
 <instances>
 <instance part="FRAME_23" gate="G$1" x="0" y="0"/>
 <instance part="U2301" gate="A" x="91.44" y="93.98"/>
-<instance part="L2311" gate="G$1" x="124.46" y="96.52" rot="R90"/>
+<instance part="L2311" gate="G$1" x="124.46" y="96.52" smashed="yes" rot="R90">
+<attribute name="NAME" x="121.158" y="100.8126" size="1.778" layer="95"/>
+<attribute name="VALUE" x="121.412" y="98.298" size="1.778" layer="96"/>
+</instance>
 <instance part="R2321" gate="G$1" x="149.86" y="111.76"/>
 <instance part="R2341" gate="G$1" x="45.72" y="91.44"/>
 <instance part="R2351" gate="G$1" x="45.72" y="76.2"/>
@@ -38350,31 +38343,82 @@ SPI</text>
 </instance>
 <instance part="C2302" gate="G$1" x="58.42" y="121.92" smashed="yes" rot="R90">
 <attribute name="NAME" x="49.784" y="122.301" size="1.778" layer="95"/>
-<attribute name="VALUE" x="62.484" y="119.761" size="1.778" layer="96"/>
+<attribute name="VALUE" x="61.468" y="122.047" size="1.778" layer="96"/>
 </instance>
 <instance part="C2301" gate="G$1" x="40.64" y="119.38" smashed="yes">
-<attribute name="NAME" x="32.004" y="119.761" size="1.778" layer="95"/>
-<attribute name="VALUE" x="32.004" y="114.681" size="1.778" layer="96"/>
+<attribute name="NAME" x="31.75" y="114.935" size="1.778" layer="95"/>
+<attribute name="VALUE" x="32.004" y="112.395" size="1.778" layer="96"/>
 </instance>
-<instance part="L2312" gate="G$1" x="124.46" y="86.36" rot="R90"/>
-<instance part="L2313" gate="G$1" x="124.46" y="73.66" rot="R90"/>
-<instance part="C2313" gate="G$1" x="124.46" y="68.58" rot="R90"/>
-<instance part="C2312" gate="G$1" x="124.46" y="81.28" rot="R90"/>
+<instance part="L2312" gate="G$1" x="124.46" y="86.36" smashed="yes" rot="R90">
+<attribute name="NAME" x="120.65" y="90.3986" size="1.778" layer="95"/>
+<attribute name="VALUE" x="120.65" y="88.138" size="1.778" layer="96"/>
+</instance>
+<instance part="L2313" gate="G$1" x="124.46" y="73.66" smashed="yes" rot="R90">
+<attribute name="NAME" x="121.158" y="77.1906" size="1.778" layer="95"/>
+<attribute name="VALUE" x="120.904" y="74.93" size="1.778" layer="96"/>
+</instance>
+<instance part="C2313" gate="G$1" x="124.46" y="68.58" smashed="yes" rot="R90">
+<attribute name="NAME" x="116.84" y="70.485" size="1.778" layer="95"/>
+<attribute name="VALUE" x="117.094" y="68.707" size="1.778" layer="96"/>
+</instance>
+<instance part="C2312" gate="G$1" x="124.46" y="81.28" smashed="yes" rot="R90">
+<attribute name="NAME" x="115.824" y="83.185" size="1.778" layer="95"/>
+<attribute name="VALUE" x="116.078" y="80.645" size="1.778" layer="96"/>
+</instance>
 <instance part="GND2371" gate="1" x="137.16" y="81.28"/>
-<instance part="C2314" gate="G$1" x="147.32" y="88.9" rot="R90"/>
-<instance part="C2315" gate="G$1" x="147.32" y="76.2" rot="R90"/>
-<instance part="L2314" gate="G$1" x="162.56" y="88.9" rot="R90"/>
-<instance part="L2315" gate="G$1" x="162.56" y="76.2" rot="R90"/>
-<instance part="L2317" gate="G$1" x="193.04" y="88.9" rot="R90"/>
-<instance part="C2318" gate="G$1" x="193.04" y="76.2" rot="R90"/>
-<instance part="C2317" gate="G$1" x="172.72" y="81.28" rot="R90"/>
+<instance part="C2314" gate="G$1" x="147.32" y="88.9" smashed="yes" rot="R90">
+<attribute name="NAME" x="138.938" y="92.329" size="1.778" layer="95"/>
+<attribute name="VALUE" x="138.938" y="89.789" size="1.778" layer="96"/>
+</instance>
+<instance part="C2315" gate="G$1" x="147.32" y="76.2" smashed="yes" rot="R90">
+<attribute name="NAME" x="138.684" y="73.787" size="1.778" layer="95"/>
+<attribute name="VALUE" x="138.43" y="71.247" size="1.778" layer="96"/>
+</instance>
+<instance part="L2314" gate="G$1" x="162.56" y="88.9" smashed="yes" rot="R90">
+<attribute name="NAME" x="159.004" y="92.6846" size="1.778" layer="95"/>
+<attribute name="VALUE" x="159.004" y="90.424" size="1.778" layer="96"/>
+</instance>
+<instance part="L2315" gate="G$1" x="162.56" y="76.2" smashed="yes" rot="R90">
+<attribute name="NAME" x="159.258" y="79.9846" size="1.778" layer="95"/>
+<attribute name="VALUE" x="159.258" y="77.47" size="1.778" layer="96"/>
+</instance>
+<instance part="L2317" gate="G$1" x="193.04" y="88.9" smashed="yes" rot="R90">
+<attribute name="NAME" x="189.738" y="92.6846" size="1.778" layer="95"/>
+<attribute name="VALUE" x="189.738" y="90.17" size="1.778" layer="96"/>
+</instance>
+<instance part="C2318" gate="G$1" x="193.04" y="76.2" smashed="yes" rot="R90">
+<attribute name="NAME" x="195.58" y="73.533" size="1.778" layer="95"/>
+<attribute name="VALUE" x="195.834" y="70.993" size="1.778" layer="96"/>
+</instance>
+<instance part="C2317" gate="G$1" x="172.72" y="81.28" smashed="yes" rot="R90">
+<attribute name="NAME" x="168.402" y="86.233" size="1.778" layer="95"/>
+<attribute name="VALUE" x="168.402" y="83.947" size="1.778" layer="96"/>
+</instance>
 <instance part="GND2381" gate="1" x="185.42" y="81.28"/>
-<instance part="C2316" gate="G$1" x="172.72" y="71.12" rot="R90"/>
-<instance part="L2316" gate="G$1" x="185.42" y="71.12" rot="R90"/>
-<instance part="L2321" gate="G$1" x="215.9" y="88.9" rot="R90"/>
-<instance part="C2321" gate="G$1" x="213.36" y="76.2" rot="R90"/>
-<instance part="C2322" gate="G$1" x="210.82" y="68.58"/>
-<instance part="C2323" gate="G$1" x="220.98" y="68.58"/>
+<instance part="C2316" gate="G$1" x="172.72" y="71.12" smashed="yes" rot="R90">
+<attribute name="NAME" x="164.592" y="72.771" size="1.778" layer="95"/>
+<attribute name="VALUE" x="164.338" y="70.231" size="1.778" layer="96"/>
+</instance>
+<instance part="L2316" gate="G$1" x="185.42" y="71.12" smashed="yes" rot="R90">
+<attribute name="NAME" x="181.356" y="74.9046" size="1.778" layer="95"/>
+<attribute name="VALUE" x="181.356" y="72.644" size="1.778" layer="96"/>
+</instance>
+<instance part="L2321" gate="G$1" x="215.9" y="88.9" smashed="yes" rot="R90">
+<attribute name="NAME" x="212.344" y="92.6846" size="1.778" layer="95"/>
+<attribute name="VALUE" x="212.598" y="90.17" size="1.778" layer="96"/>
+</instance>
+<instance part="C2321" gate="G$1" x="213.36" y="76.2" smashed="yes" rot="R90">
+<attribute name="NAME" x="216.916" y="80.137" size="1.778" layer="95"/>
+<attribute name="VALUE" x="216.916" y="77.343" size="1.778" layer="96"/>
+</instance>
+<instance part="C2322" gate="G$1" x="210.82" y="68.58" smashed="yes">
+<attribute name="NAME" x="202.184" y="63.881" size="1.778" layer="95"/>
+<attribute name="VALUE" x="201.93" y="61.341" size="1.778" layer="96"/>
+</instance>
+<instance part="C2323" gate="G$1" x="220.98" y="68.58" smashed="yes">
+<attribute name="NAME" x="222.504" y="63.881" size="1.778" layer="95"/>
+<attribute name="VALUE" x="222.504" y="61.341" size="1.778" layer="96"/>
+</instance>
 <instance part="GND02331" gate="1" x="215.9" y="55.88"/>
 <instance part="TP_AX_TCXO_EN" gate="G$1" x="66.04" y="50.8"/>
 <instance part="TP_AX_IRQ" gate="G$1" x="58.42" y="50.8"/>
@@ -38740,7 +38784,7 @@ SPI</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
 <text x="81.28" y="127" size="1.778" layer="97">Iq=24uA</text>
-<text x="167.64" y="132.08" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
+<text x="166.37" y="129.794" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
 </plain>
 <instances>
 <instance part="FRAME_24" gate="G$1" x="0" y="0"/>
@@ -38968,7 +39012,7 @@ Max charge: 2.2A</text>
 <text x="22.86" y="106.68" size="1.778" layer="97" rot="R90">MCU_ADC1_IN8_LIPO_CUR</text>
 <text x="101.6" y="127" size="1.778" layer="97" rot="R90">LIPO_VBUS</text>
 <text x="66.04" y="114.3" size="1.778" layer="97">Iq=0.45uA</text>
-<text x="182.88" y="86.36" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
+<text x="181.61" y="88.138" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
 </plain>
 <instances>
 <instance part="FRAME_25" gate="G$1" x="0" y="0"/>
@@ -39035,8 +39079,8 @@ Max charge: 2.2A</text>
 <attribute name="VALUE" x="92.964" y="122.301" size="1.778" layer="96"/>
 </instance>
 <instance part="D2521" gate="G$1" x="91.44" y="144.78"/>
-<instance part="TP_LIPO_BAT" gate="G$1" x="220.98" y="101.6" rot="R180"/>
-<instance part="TP_LIPO_SYS" gate="G$1" x="228.6" y="101.6" rot="R180"/>
+<instance part="TP_LIPO_BAT" gate="G$1" x="220.98" y="109.22" rot="R180"/>
+<instance part="TP_LIPO_SYS" gate="G$1" x="228.6" y="109.22" rot="R180"/>
 <instance part="TP_LIPO_CUR" gate="G$1" x="38.1" y="132.08" rot="R180"/>
 <instance part="R2521" gate="G$1" x="91.44" y="134.62"/>
 </instances>
@@ -39060,7 +39104,7 @@ Max charge: 2.2A</text>
 <wire x1="193.04" y1="63.5" x2="193.04" y2="60.96" width="0.1524" layer="91"/>
 <junction x="193.04" y="63.5"/>
 <pinref part="TP_LIPO_BAT" gate="G$1" pin="TP"/>
-<wire x1="220.98" y1="63.5" x2="220.98" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="220.98" y1="63.5" x2="220.98" y2="106.68" width="0.1524" layer="91"/>
 <junction x="220.98" y="63.5"/>
 </segment>
 </net>
@@ -39108,7 +39152,7 @@ Max charge: 2.2A</text>
 <pinref part="L2501" gate="G$1" pin="1"/>
 <wire x1="193.04" y1="93.98" x2="190.5" y2="93.98" width="0.1524" layer="91"/>
 <pinref part="TP_LIPO_SYS" gate="G$1" pin="TP"/>
-<wire x1="228.6" y1="73.66" x2="228.6" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="73.66" x2="228.6" y2="106.68" width="0.1524" layer="91"/>
 <junction x="228.6" y="73.66"/>
 </segment>
 </net>
@@ -39382,13 +39426,13 @@ Max charge: 2.2A</text>
 <sheet>
 <description>Solar Power Harvesting</description>
 <plain>
-<text x="25.4" y="101.6" size="1.778" layer="96">WE 744031220 3.80 mm x 3.80 mm</text>
+<text x="24.384" y="103.378" size="1.778" layer="96">WE 744031220 3.80 mm x 3.80 mm</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Solar power converter --&gt; 5.2V, 3.3V</text>
 <text x="7.62" y="127.254" size="1.778" layer="97">MCU_ADC1_IN5_VSOL</text>
 <text x="7.62" y="142.24" size="1.778" layer="97">MCU_TIMCAP_VSOL</text>
 <text x="7.62" y="71.12" size="1.778" layer="97">Solar connector</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">Solar power harvesting</text>
-<text x="172.72" y="101.6" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
+<text x="173.99" y="103.886" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
 <text x="76.2" y="50.8" size="1.778" layer="96">place near VOC_SAMP</text>
 <text x="99.06" y="127" size="1.778" layer="97">V_should = 5.2V</text>
 </plain>
@@ -39792,7 +39836,7 @@ Max charge: 2.2A</text>
 <text x="137.16" y="25.4" size="1.778" layer="97" rot="R90">value=183d</text>
 <text x="81.28" y="132.08" size="1.778" layer="97">Low battery: &lt; 3.025V</text>
 <text x="99.06" y="71.12" size="1.778" layer="97">Iq=2.5uA</text>
-<text x="177.8" y="137.16" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
+<text x="176.276" y="133.858" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
 </plain>
 <instances>
 <instance part="FRAME_27" gate="G$1" x="0" y="0"/>
@@ -40036,6 +40080,9 @@ Max charge: 2.2A</text>
 <instance part="C2803" gate="G$1" x="165.1" y="68.58"/>
 <instance part="TP_VUSB_SW" gate="G$1" x="165.1" y="127" rot="R180"/>
 <instance part="C2802" gate="G$1" x="152.4" y="68.58"/>
+<instance part="R2802" gate="G$1" x="114.3" y="116.84"/>
+<instance part="R2801" gate="G$1" x="114.3" y="127"/>
+<instance part="D2801" gate="G$1" x="93.98" y="116.84"/>
 </instances>
 <busses>
 </busses>
@@ -40082,7 +40129,8 @@ Max charge: 2.2A</text>
 <wire x1="147.32" y1="86.36" x2="132.08" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="96.52" y1="91.44" x2="88.9" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="91.44" x2="88.9" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="109.22" x2="147.32" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="109.22" x2="127" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="127" y1="109.22" x2="147.32" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="147.32" y1="109.22" x2="147.32" y2="86.36" width="0.1524" layer="91"/>
 <junction x="147.32" y="86.36"/>
 <pinref part="C2803" gate="G$1" pin="1"/>
@@ -40091,6 +40139,14 @@ Max charge: 2.2A</text>
 <label x="175.26" y="86.36" size="1.778" layer="95" xref="yes"/>
 <pinref part="TP_VUSB_SW" gate="G$1" pin="TP"/>
 <wire x1="165.1" y1="86.36" x2="165.1" y2="124.46" width="0.1524" layer="91"/>
+<pinref part="R2802" gate="G$1" pin="2"/>
+<wire x1="119.38" y1="116.84" x2="127" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="127" y1="116.84" x2="127" y2="109.22" width="0.1524" layer="91"/>
+<junction x="127" y="109.22"/>
+<wire x1="127" y1="116.84" x2="127" y2="127" width="0.1524" layer="91"/>
+<junction x="127" y="116.84"/>
+<pinref part="R2801" gate="G$1" pin="2"/>
+<wire x1="127" y1="127" x2="119.38" y2="127" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PEXPA_P0_0_R" class="0">
@@ -40124,6 +40180,21 @@ Max charge: 2.2A</text>
 <wire x1="68.58" y1="116.84" x2="68.58" y2="104.14" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="116.84" x2="68.58" y2="116.84" width="0.1524" layer="91"/>
 <junction x="68.58" y="116.84"/>
+<pinref part="D2801" gate="G$1" pin="A"/>
+<wire x1="81.28" y1="116.84" x2="91.44" y2="116.84" width="0.1524" layer="91"/>
+<junction x="81.28" y="116.84"/>
+</segment>
+</net>
+<net name="VDDUSB_DK" class="0">
+<segment>
+<pinref part="R2801" gate="G$1" pin="1"/>
+<wire x1="101.6" y1="127" x2="109.22" y2="127" width="0.1524" layer="91"/>
+<pinref part="R2802" gate="G$1" pin="1"/>
+<wire x1="101.6" y1="116.84" x2="109.22" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="116.84" x2="101.6" y2="127" width="0.1524" layer="91"/>
+<pinref part="D2801" gate="G$1" pin="C"/>
+<wire x1="101.6" y1="116.84" x2="96.52" y2="116.84" width="0.1524" layer="91"/>
+<junction x="101.6" y="116.84"/>
 </segment>
 </net>
 </nets>
@@ -42556,84 +42627,84 @@ fix layout of sockets</text>
 </sheet>
 </sheets>
 <errors>
-<approved hash="101,17,91.44,86.36,R0941,1,,,,"/>
-<approved hash="101,17,91.44,78.74,R0943,1,,,,"/>
-<approved hash="101,17,91.44,71.12,R0945,1,,,,"/>
-<approved hash="101,17,78.74,83.82,R0942,1,,,,"/>
-<approved hash="101,17,78.74,76.2,R0944,1,,,,"/>
-<approved hash="101,17,78.74,68.58,R0946,1,,,,"/>
-<approved hash="101,17,91.44,99.06,R0931,1,,,,"/>
+<approved hash="101,17,91.44,86.36,R1741,1,,,,"/>
+<approved hash="101,17,91.44,78.74,R1743,1,,,,"/>
+<approved hash="101,17,91.44,71.12,R1745,1,,,,"/>
+<approved hash="101,17,78.74,83.82,R1742,1,,,,"/>
+<approved hash="101,17,78.74,76.2,R1744,1,,,,"/>
+<approved hash="101,17,78.74,68.58,R1746,1,,,,"/>
+<approved hash="101,17,91.44,99.06,R1731,1,,,,"/>
 <approved hash="102,15,71.12,58.42,VOUT,+3V0_20MHZ_VCTCXO,,,,"/>
 <approved hash="102,22,127,111.76,VR_PA,SX_VR_PA,,,,"/>
 <approved hash="102,22,81.28,111.76,VREG,SX_VREG,,,,"/>
-<approved hash="102,26,134.62,119.38,VBAT,BQ_VBAT,,,,"/>
 <approved hash="102,25,157.48,73.66,SYS,LIPO_SYS,,,,"/>
 <approved hash="102,25,157.48,71.12,SYS,LIPO_SYS,,,,"/>
-<approved hash="104,15,180.34,149.86,U0731,VCC_3V0,+3V0_20MHZ_VCTCXO,,,"/>
-<approved hash="104,15,35.56,58.42,U0701,VIN,+3V3_XO,,,"/>
-<approved hash="104,15,185.42,60.96,U0742,V+,+3V3,,,"/>
-<approved hash="104,15,185.42,45.72,U0742,V-,GND,,,"/>
-<approved hash="104,29,132.08,96.52,U2301,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,30,132.08,96.52,U2401,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,32,180.34,99.06,X2601,J_VUSB,PA9,,,"/>
-<approved hash="104,23,68.58,127,U1701,VDD_IO,+3V3,,,"/>
-<approved hash="104,31,132.08,96.52,U2501,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,15,66.04,142.24,U0711,VDD,+3V3_XO,,,"/>
-<approved hash="104,16,101.6,63.5,U0801,VDD,+3V3_HICUR,,,"/>
-<approved hash="104,16,121.92,63.5,U0801,VDDO3,+3V3_HICUR,,,"/>
-<approved hash="104,16,142.24,88.9,U0801,VDDO2,+3V3_HICUR,,,"/>
-<approved hash="104,16,142.24,93.98,U0801,VDDO1,+3V3_HICUR,,,"/>
-<approved hash="104,16,121.92,119.38,U0801,VDDO0,+3V3_HICUR,,,"/>
-<approved hash="104,16,101.6,119.38,U0801,VDD,+3V3_HICUR,,,"/>
-<approved hash="104,16,86.36,71.12,U0801,PAD,GND,,,"/>
-<approved hash="104,17,127,114.3,U0901,DVDD,+3V3_HICUR,,,"/>
-<approved hash="104,17,132.08,114.3,U0901,IOVDD,+3V3_HICUR,,,"/>
-<approved hash="104,8,127,86.36,U0601,VCC,+3V3,,,"/>
-<approved hash="104,8,127,76.2,U0601,VSS,GND,,,"/>
-<approved hash="104,7,119.38,88.9,U0511,VCC,+3V3,,,"/>
-<approved hash="104,7,83.82,88.9,U0511,VSS,GND,,,"/>
-<approved hash="104,7,205.74,88.9,U0521,VCC,+3V3,,,"/>
-<approved hash="104,7,170.18,88.9,U0521,VSS,GND,,,"/>
-<approved hash="104,26,91.44,91.44,U1901,VIN_DC,VSOL,,,"/>
-<approved hash="104,26,157.48,104.14,U1901,VOUT,BQ_VOUT,,,"/>
-<approved hash="104,27,111.76,129.54,U2101,VIN,+3V3,,,"/>
-<approved hash="104,27,114.3,68.58,U2151,VDD,+3V3,,,"/>
+<approved hash="102,26,134.62,119.38,VBAT,BQ_VBAT,,,,"/>
+<approved hash="104,15,180.34,149.86,U1531,VCC_3V0,+3V0_20MHZ_VCTCXO,,,"/>
+<approved hash="104,15,35.56,58.42,U1501,VIN,+3V3_XO,,,"/>
+<approved hash="104,15,185.42,60.96,U1542,V+,+3V3,,,"/>
+<approved hash="104,15,185.42,45.72,U1542,V-,GND,,,"/>
+<approved hash="104,29,132.08,96.52,U2901,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,30,132.08,96.52,U3001,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,32,180.34,99.06,X3201,J_VUSB,PA9,,,"/>
+<approved hash="104,23,68.58,127,U2301,VDD_IO,+3V3,,,"/>
+<approved hash="104,31,132.08,96.52,U3101,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,15,66.04,142.24,U1511,VDD,+3V3_XO,,,"/>
+<approved hash="104,16,101.6,63.5,U1601,VDD,+3V3_HICUR,,,"/>
+<approved hash="104,16,121.92,63.5,U1601,VDDO3,+3V3_HICUR,,,"/>
+<approved hash="104,16,142.24,88.9,U1601,VDDO2,+3V3_HICUR,,,"/>
+<approved hash="104,16,142.24,93.98,U1601,VDDO1,+3V3_HICUR,,,"/>
+<approved hash="104,16,121.92,119.38,U1601,VDDO0,+3V3_HICUR,,,"/>
+<approved hash="104,16,101.6,119.38,U1601,VDD,+3V3_HICUR,,,"/>
+<approved hash="104,16,86.36,71.12,U1601,PAD,GND,,,"/>
+<approved hash="104,17,127,114.3,U1701,DVDD,+3V3_HICUR,,,"/>
+<approved hash="104,17,132.08,114.3,U1701,IOVDD,+3V3_HICUR,,,"/>
+<approved hash="104,8,127,86.36,U0801,VCC,+3V3,,,"/>
+<approved hash="104,8,127,76.2,U0801,VSS,GND,,,"/>
+<approved hash="104,7,119.38,88.9,U0711,VCC,+3V3,,,"/>
+<approved hash="104,7,83.82,88.9,U0711,VSS,GND,,,"/>
+<approved hash="104,7,205.74,88.9,U0721,VCC,+3V3,,,"/>
+<approved hash="104,7,170.18,88.9,U0721,VSS,GND,,,"/>
+<approved hash="104,26,91.44,91.44,U2601,VIN_DC,VSOL,,,"/>
+<approved hash="104,26,157.48,104.14,U2601,VOUT,BQ_VOUT,,,"/>
+<approved hash="104,27,111.76,129.54,U2701,VIN,+3V3,,,"/>
+<approved hash="104,27,114.3,68.58,U2751,VDD,+3V3,,,"/>
 <approved hash="104,14,111.76,99.06,U1401,VDD,+3V3,,,"/>
 <approved hash="104,14,111.76,88.9,U1401,VDDIO,+3V3,,,"/>
-<approved hash="104,13,111.76,139.7,U1801,VDD,+3V3,,,"/>
-<approved hash="104,13,111.76,134.62,U1801,VDDIO,+3V3,,,"/>
-<approved hash="104,22,81.28,127,U1601,VDD_IN,+3V3,,,"/>
-<approved hash="104,22,81.28,121.92,U1601,VBAT,+3V3,,,"/>
-<approved hash="104,22,81.28,116.84,U1601,VBAT_IO,+3V3,,,"/>
-<approved hash="104,10,116.84,96.52,U1101,VSS,GND,,,"/>
-<approved hash="104,10,114.3,96.52,U1101,VDD,+3V3,,,"/>
-<approved hash="104,19,218.44,137.16,X1551A,S6,SC_6,,,"/>
-<approved hash="104,19,200.66,134.62,X1551A,S1,SIM_SIM1_VDD,,,"/>
-<approved hash="104,19,203.2,96.52,X1551B,T4,SIM_VDD_EXT,,,"/>
-<approved hash="104,25,101.6,114.3,U2001,VBUS,+5V0,,,"/>
-<approved hash="104,25,101.6,111.76,U2001,VBUS,+5V0,,,"/>
-<approved hash="104,25,78.74,99.06,U2041,V+,+3V3,,,"/>
-<approved hash="104,25,78.74,114.3,U2041,V-,GND,,,"/>
-<approved hash="104,28,132.08,96.52,U2201,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,16,215.9,58.42,U0851,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,15,185.42,93.98,U0741,V+,+3V3_XO_PA,,,"/>
-<approved hash="104,15,185.42,78.74,U0741,V-,GND,,,"/>
-<approved hash="104,5,152.4,129.54,U3021,VDD_P,+3V3,,,"/>
-<approved hash="104,5,152.4,124.46,U3021,VDD_I2C,+3V3,,,"/>
-<approved hash="104,6,152.4,129.54,U3121,VDD_P,+3V3,,,"/>
-<approved hash="104,6,152.4,124.46,U3121,VDD_I2C,+3V3,,,"/>
-<approved hash="104,24,101.6,124.46,U3201,VIN,DC_12V_IN,,,"/>
-<approved hash="104,24,157.48,101.6,U3201,BIAS,LM53603_BIAS,,,"/>
-<approved hash="104,24,101.6,121.92,U3201,VIN,DC_12V_IN,,,"/>
-<approved hash="104,20,154.94,127,U3301,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,20,154.94,129.54,U3301,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,20,101.6,129.54,U3301,VCC_A,SIM_VDD_EXT,,,"/>
-<approved hash="104,26,195.58,160.02,U1981,8,BQ_VBAT,,,"/>
-<approved hash="104,21,154.94,127,U3401,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,21,154.94,129.54,U3401,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,21,101.6,129.54,U3401,VCC_A,SIM_VDD_EXT,,,"/>
-<approved hash="104,33,48.26,27.94,U1591,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,9,157.48,116.84,U3511,EINK_VDD,+3V3,,,"/>
+<approved hash="104,13,111.76,139.7,U1301,VDD,+3V3,,,"/>
+<approved hash="104,13,111.76,134.62,U1301,VDDIO,+3V3,,,"/>
+<approved hash="104,22,81.28,127,U2201,VDD_IN,+3V3,,,"/>
+<approved hash="104,22,81.28,121.92,U2201,VBAT,+3V3,,,"/>
+<approved hash="104,22,81.28,116.84,U2201,VBAT_IO,+3V3,,,"/>
+<approved hash="104,10,116.84,96.52,U1001,VSS,GND,,,"/>
+<approved hash="104,10,114.3,96.52,U1001,VDD,+3V3,,,"/>
+<approved hash="204,19,218.44,137.16,X1951A,S6,,,,"/>
+<approved hash="104,19,200.66,134.62,X1951A,S1,SIM_SIM1_VDD,,,"/>
+<approved hash="104,19,203.2,96.52,X1951B,T4,SIM_VDD_EXT,,,"/>
+<approved hash="104,25,101.6,114.3,U2501,VBUS,+5V0,,,"/>
+<approved hash="104,25,101.6,111.76,U2501,VBUS,+5V0,,,"/>
+<approved hash="104,25,78.74,99.06,U2541,V+,+3V3,,,"/>
+<approved hash="104,25,78.74,114.3,U2541,V-,GND,,,"/>
+<approved hash="104,28,132.08,96.52,U2801,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,16,215.9,58.42,U1651,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,15,185.42,93.98,U1541,V+,+3V3_XO_PA,,,"/>
+<approved hash="104,15,185.42,78.74,U1541,V-,GND,,,"/>
+<approved hash="104,5,152.4,129.54,U0521,VDD_P,+3V3,,,"/>
+<approved hash="104,5,152.4,124.46,U0521,VDD_I2C,+3V3,,,"/>
+<approved hash="104,6,152.4,129.54,U0621,VDD_P,+3V3,,,"/>
+<approved hash="104,6,152.4,124.46,U0621,VDD_I2C,+3V3,,,"/>
+<approved hash="104,24,101.6,124.46,U2401,VIN,DC_12V_IN,,,"/>
+<approved hash="104,24,157.48,101.6,U2401,BIAS,LM53603_BIAS,,,"/>
+<approved hash="104,24,101.6,121.92,U2401,VIN,DC_12V_IN,,,"/>
+<approved hash="104,20,154.94,127,U2001,VCC_B,SIM_VDD_EXT,,,"/>
+<approved hash="104,20,154.94,129.54,U2001,VCC_B,SIM_VDD_EXT,,,"/>
+<approved hash="104,20,101.6,129.54,U2001,VCC_A,SIM_VDD_EXT,,,"/>
+<approved hash="104,26,195.58,160.02,U2681,8,BQ_VBAT,,,"/>
+<approved hash="104,21,154.94,127,U2101,VCC_B,SIM_VDD_EXT,,,"/>
+<approved hash="104,21,154.94,129.54,U2101,VCC_B,SIM_VDD_EXT,,,"/>
+<approved hash="104,21,101.6,129.54,U2101,VCC_A,SIM_VDD_EXT,,,"/>
+<approved hash="104,33,48.26,27.94,U3391,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,9,157.48,116.84,U0911,EINK_VDD,+3V3,,,"/>
 <approved hash="106,4,35.56,127,+1V5_UNUSED,,,,,"/>
 <approved hash="106,4,45.72,127,+1V8_UNUSED,,,,,"/>
 <approved hash="106,4,55.88,127,+2V5_UNUSED,,,,,"/>
@@ -42667,9 +42738,6 @@ fix layout of sockets</text>
 <approved hash="106,1,91.44,38.1,PF5,,,,,"/>
 <approved hash="106,1,198.12,160.02,PG2,,,,,"/>
 <approved hash="106,1,114.3,38.1,PH1,,,,,"/>
-<approved hash="106,19,200.66,142.24,SC_4,,,,,"/>
-<approved hash="106,19,218.44,137.16,SC_6,,,,,"/>
-<approved hash="106,19,218.44,142.24,SC_8,,,,,"/>
 <approved hash="106,16,63.5,111.76,SI5338_IN_CLK1,,,,,"/>
 <approved hash="106,16,63.5,104.14,SI5338_IN_CLK2,,,,,"/>
 <approved hash="106,16,162.56,104.14,SI5338_OUT_CLK1_N,,,,,"/>
@@ -42699,7 +42767,7 @@ fix layout of sockets</text>
 <approved hash="113,4,54.3645,121.92,SJ0422,,,,,"/>
 <approved hash="113,4,44.2045,121.92,SJ0423,,,,,"/>
 <approved hash="113,4,34.0445,121.92,SJ0424,,,,,"/>
-<approved hash="113,19,210.82,48.7087,X1561,,,,,"/>
+<approved hash="113,19,210.82,48.7087,X1961,,,,,"/>
 </errors>
 </schematic>
 </drawing>
