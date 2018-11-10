@@ -21,4 +21,4 @@
 * __PMICs for 12V, USB, Solar-Cells, 3.3V, 1.2V__ (high efficiency on board)
 * __Electronic Switches: Subcircuits to be powered on/off by request__ (ultra-low-power to full-media)
 * __LiPo-Connector: 1-cell 3.7V__ (high power request by the SIM868 device to be satisfied)
-* __... and some more fun...__ (what is missing?  ;-)   )
+* __... and some more fun...__ (what is missing?  ;-)
