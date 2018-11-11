@@ -12926,7 +12926,7 @@ TTTT
 <via x="28.41625" y="62.865" extent="1-16" drill="0.3048"/>
 <wire x1="28.41625" y1="62.865" x2="28.2575" y2="63.07" width="0.3048" layer="1"/>
 </signal>
-<signal name="N$1">
+<signal name="BME680_LAYER02_CUTOUT">
 <polygon width="0.1524" layer="2" pour="cutout">
 <vertex x="8.89" y="8.89"/>
 <vertex x="19.05" y="8.89"/>
@@ -12934,7 +12934,7 @@ TTTT
 <vertex x="8.89" y="0"/>
 </polygon>
 </signal>
-<signal name="N$2">
+<signal name="BME680_LAYER15_CUTOUT">
 <polygon width="0.1524" layer="15" pour="cutout">
 <vertex x="8.89" y="8.89"/>
 <vertex x="19.05" y="8.89"/>
