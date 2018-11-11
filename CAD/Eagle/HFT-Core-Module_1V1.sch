@@ -31034,7 +31034,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C0521" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="R0531" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="U2501" library="df4iah_powersupply" deviceset="BQ24193" device=""/>
-<part name="R2554" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="R2554" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R2501" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="240R"/>
 <part name="GND2501" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND2502" library="df4iah_supply" deviceset="GND" device=""/>
@@ -38959,7 +38959,7 @@ SPI</text>
 <wire x1="101.6" y1="91.44" x2="99.06" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LM53603_SQ" class="0">
+<net name="LM53603_SW" class="0">
 <segment>
 <pinref part="U2401" gate="G$1" pin="SW@1"/>
 <wire x1="157.48" y1="124.46" x2="160.02" y2="124.46" width="0.1524" layer="91"/>
