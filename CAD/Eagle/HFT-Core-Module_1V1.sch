@@ -29445,20 +29445,22 @@ TTTT
 <wire x1="28.7" y1="1.1" x2="44.1" y2="1.1" width="0.127" layer="51"/>
 <text x="0.365" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;NAME</text>
 <text x="8.49" y="21.365" size="0.6096" layer="21" font="vector" ratio="10">&gt;VALUE</text>
-<pad name="11" x="50.05" y="15.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
-<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="0.8" layer="46"/>
-<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="1.8" layer="17"/>
-<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="2.03" layer="29"/>
-<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="2.03" layer="30"/>
-<pad name="12" x="50.05" y="5.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
-<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="0.8" layer="46"/>
-<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="1.8" layer="17"/>
-<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="29"/>
-<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="30"/>
 <rectangle x1="2.6" y1="7.2" x2="42.6" y2="17.2" layer="48"/>
 <text x="12.7" y="11.43" size="1.27" layer="51">LCD  16 x 2 chars</text>
 <text x="2.54" y="15.875" size="1.27" layer="51">Top Left</text>
 <text x="33.655" y="7.62" size="1.27" layer="51">Right Bot</text>
+<pad name="12" x="50.05" y="5.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="1" layer="46"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="1.8" layer="1"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="29"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="2.03" layer="30"/>
+<wire x1="50.05" y1="5.8" x2="50.05" y2="4.3" width="1.8" layer="16"/>
+<pad name="11" x="50.05" y="15.8" drill="1" diameter="1.8" stop="no" thermals="no"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="1" layer="46"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="1.8" layer="1"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="2.03" layer="29"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="2.03" layer="30"/>
+<wire x1="50.05" y1="15.8" x2="50.05" y2="14.3" width="1.8" layer="16"/>
 </package>
 <package name="ZIO_EINK_1IN54">
 <description>&lt;h3&gt;ZIO E-Ink Display 1.54in. V1.0&lt;/h3&gt;
@@ -40096,7 +40098,10 @@ Max charge: 2.2A</text>
 <instance part="R2802" gate="G$1" x="104.14" y="127" rot="R90"/>
 <instance part="R2801" gate="G$1" x="93.98" y="127" rot="R90"/>
 <instance part="D2801" gate="G$1" x="81.28" y="134.62"/>
-<instance part="D2802" gate="G$1" x="157.48" y="134.62" rot="R180"/>
+<instance part="D2802" gate="G$1" x="157.48" y="134.62" smashed="yes" rot="R180">
+<attribute name="NAME" x="152.654" y="136.525" size="1.778" layer="95"/>
+<attribute name="VALUE" x="152.654" y="131.191" size="1.778" layer="96"/>
+</instance>
 <instance part="R2803" gate="G$1" x="134.62" y="127" rot="R90"/>
 <instance part="R2804" gate="G$1" x="86.36" y="81.28" rot="R180"/>
 <instance part="R2811" gate="G$1" x="81.28" y="119.38"/>
@@ -42727,7 +42732,7 @@ fix layout of sockets</text>
 <approved hash="104,25,101.6,111.76,U2501,VBUS,+5V0,,,"/>
 <approved hash="104,25,78.74,99.06,U2541,V+,+3V3,,,"/>
 <approved hash="104,25,78.74,114.3,U2541,V-,GND,,,"/>
-<approved hash="104,28,132.08,96.52,U2801,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,28,132.08,96.52,U2801,8,VDDUSB_DK,,,"/>
 <approved hash="104,16,215.9,58.42,U1651,8,PEXPA_P1_7_R,,,"/>
 <approved hash="104,15,185.42,93.98,U1541,V+,+3V3_XO_PA,,,"/>
 <approved hash="104,15,185.42,78.74,U1541,V-,GND,,,"/>
@@ -42777,7 +42782,6 @@ fix layout of sockets</text>
 <approved hash="106,1,50.8,38.1,PE4,,,,,"/>
 <approved hash="106,1,53.34,38.1,PE5,,,,,"/>
 <approved hash="106,1,83.82,38.1,PF2,,,,,"/>
-<approved hash="106,1,91.44,38.1,PF5,,,,,"/>
 <approved hash="106,1,198.12,160.02,PG2,,,,,"/>
 <approved hash="106,1,114.3,38.1,PH1,,,,,"/>
 <approved hash="106,16,63.5,111.76,SI5338_IN_CLK1,,,,,"/>
