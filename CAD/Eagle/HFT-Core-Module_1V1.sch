@@ -9570,37 +9570,43 @@ Source: http://www.abracon.com/Resonators/ABS07.pdf</description>
 <text x="-2.025" y="1.425" size="1.27" layer="25">&gt;NAME</text>
 <text x="-2.025" y="-2.65" size="1.27" layer="27">&gt;VALUE</text>
 </package>
-<package name="ABM03B">
-<description>&lt;b&gt;Model 406 6.0x3.5mm Low Cost Surface Mount Crystal&lt;/b&gt;&lt;p&gt;
-Source: 008-0260-0_E.pdf</description>
-<wire x1="-2.075" y1="1.65" x2="-1.05" y2="1.65" width="0.2032" layer="51"/>
+<package name="ABM3B">
+<description>&lt;h3&gt;ABM3B Ceramic SMD Crystal&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Package: 5mm x 3.2mm x 1.1mm&lt;/li&gt;
+&lt;/ul&gt;</description>
+<wire x1="-2.2" y1="1.6" x2="-1.2" y2="1.6" width="0.2032" layer="51"/>
 <wire x1="-3.2" y1="2.1" x2="-2" y2="2.1" width="0.254" layer="21"/>
-<wire x1="1.05" y1="1.65" x2="2.075" y2="1.65" width="0.2032" layer="51"/>
-<wire x1="2.5" y1="1.225" x2="2.5" y2="0.3" width="0.2032" layer="51"/>
+<wire x1="1.2" y1="1.6" x2="2.2" y2="1.6" width="0.2032" layer="51"/>
+<wire x1="2.5" y1="1.3" x2="2.5" y2="0.65" width="0.2032" layer="51"/>
 <wire x1="3.2" y1="-1" x2="3.2" y2="-2.1" width="0.254" layer="21"/>
-<wire x1="2.5" y1="-0.3" x2="2.5" y2="-1.225" width="0.2032" layer="51"/>
-<wire x1="2.075" y1="-1.65" x2="1.05" y2="-1.65" width="0.2032" layer="51"/>
+<wire x1="2.5" y1="-0.65" x2="2.5" y2="-1.225" width="0.2032" layer="51"/>
+<wire x1="2.2" y1="-1.6" x2="1.2" y2="-1.6" width="0.2032" layer="51"/>
 <wire x1="-2" y1="-2.1" x2="-2.9" y2="-2.1" width="0.254" layer="21"/>
-<wire x1="-1.05" y1="-1.65" x2="-2.075" y2="-1.65" width="0.2032" layer="51"/>
-<wire x1="-2.5" y1="-1.225" x2="-2.5" y2="-0.3" width="0.2032" layer="51"/>
+<wire x1="-1.2" y1="-1.6" x2="-2.2" y2="-1.6" width="0.2032" layer="51"/>
+<wire x1="-2.5" y1="-1.225" x2="-2.5" y2="-0.65" width="0.2032" layer="51"/>
 <wire x1="-2.9" y1="-2.1" x2="-3.2" y2="-1.8" width="0.254" layer="21"/>
 <wire x1="-3.2" y1="-1.8" x2="-3.2" y2="-1" width="0.254" layer="21"/>
-<wire x1="-2.5" y1="0.3" x2="-2.5" y2="1.225" width="0.2032" layer="51"/>
-<wire x1="-2.5" y1="1.225" x2="-2.075" y2="1.65" width="0.2032" layer="51" curve="89.516721"/>
-<wire x1="2.075" y1="1.65" x2="2.5" y2="1.225" width="0.2032" layer="51" curve="89.516721"/>
-<wire x1="2.5" y1="-1.225" x2="2.075" y2="-1.65" width="0.2032" layer="51" curve="89.516721"/>
-<wire x1="-2.075" y1="-1.65" x2="-2.5" y2="-1.225" width="0.2032" layer="51" curve="89.516721"/>
+<wire x1="-2.5" y1="0.65" x2="-2.5" y2="1.3" width="0.2032" layer="51"/>
 <circle x="-3.4" y="-2.3" radius="0.2" width="0" layer="21"/>
 <smd name="1" x="-2" y="-1.2" dx="1.8" dy="1.2" layer="1" roundness="5" thermals="no"/>
 <smd name="2" x="2" y="-1.2" dx="1.8" dy="1.2" layer="1" roundness="5" thermals="no"/>
 <smd name="3" x="2" y="1.2" dx="1.8" dy="1.2" layer="1" roundness="5" thermals="no"/>
 <smd name="4" x="-2" y="1.2" dx="1.8" dy="1.2" layer="1" roundness="5" thermals="no"/>
-<text x="-2.54" y="2.54" size="1.27" layer="25">&gt;NAME</text>
-<text x="-2.54" y="-3.81" size="1.27" layer="27">&gt;VALUE</text>
+<text x="-1.27" y="2.54" size="0.6096" layer="25" font="vector" ratio="10">&gt;NAME</text>
+<text x="-1.27" y="-3.175" size="0.6096" layer="27" font="vector" ratio="10">&gt;VALUE</text>
 <wire x1="-3.2" y1="1" x2="-3.2" y2="2.1" width="0.254" layer="21"/>
 <wire x1="3.2" y1="1" x2="3.2" y2="2.1" width="0.254" layer="21"/>
 <wire x1="2" y1="2.1" x2="3.2" y2="2.1" width="0.254" layer="21"/>
 <wire x1="2" y1="-2.1" x2="3.2" y2="-2.1" width="0.254" layer="21"/>
+<dimension x1="-2.5" y1="1.27" x2="2.5" y2="1.27" x3="0" y3="-3.81" textsize="0.5" layer="47" width="0.05"/>
+<dimension x1="2.3" y1="1.6" x2="2.3" y2="-1.6" x3="4.445" y3="0" textsize="0.5" layer="47" dtype="horizontal" width="0.05"/>
+<wire x1="-2.5" y1="1.3" x2="-2.2" y2="1.6" width="0.2032" layer="51"/>
+<wire x1="2.54" y1="1.3" x2="2.21" y2="1.6" width="0.2032" layer="51"/>
+<wire x1="2.5" y1="-1.3" x2="2.2" y2="-1.6" width="0.2032" layer="51"/>
+<wire x1="-2.5" y1="-1.3" x2="-2.21" y2="-1.6" width="0.2032" layer="51"/>
+<dimension x1="-2" y1="1.2" x2="2" y2="1.2" x3="0" y3="3.175" textsize="0.5" layer="47" dtype="horizontal" width="0.05"/>
+<dimension x1="-2" y1="1.2" x2="-2" y2="-1.2" x3="-3.81" y3="0" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
 </package>
 </packages>
 <symbols>
@@ -9669,16 +9675,21 @@ Source: http://www.abracon.com/Resonators/ABS07.pdf</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="ABM03B-32.000MHZ" prefix="Q">
-<description>&lt;b&gt;ABRACON ABM03B&lt;/b&gt;&lt;p&gt;
-&lt;b&gt;32.000 MHz CERAMIC SMD CRYSTAL&lt;/b&gt;&lt;p&gt;
-
-Source: http://www.abracon.com/Resonators/abm3b.pdf</description>
+<deviceset name="ABM3B" prefix="Q">
+<description>&lt;h3&gt;ABM3B Ceramic SMD Crystal&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Package: 5mm x 3.2mm x 1.1mm&lt;/li&gt;
+&lt;li&gt;Variants:
+&lt;ul&gt;
+&lt;li&gt;16.0000 MHz&lt;/li&gt;
+&lt;li&gt;32.0000 MHz&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
 <gates>
 <gate name="G$1" symbol="Q_WITH_GND" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="ABM03B">
+<device name="-16.0000MHZ" package="ABM3B">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="3"/>
@@ -9688,18 +9699,7 @@ Source: http://www.abracon.com/Resonators/abm3b.pdf</description>
 <technology name=""/>
 </technologies>
 </device>
-</devices>
-</deviceset>
-<deviceset name="ABM03B-16.000MHZ" prefix="Q">
-<description>&lt;b&gt;ABRACON ABM03B&lt;/b&gt;&lt;p&gt;
-&lt;b&gt;16.000 MHz CERAMIC SMD CRYSTAL&lt;/b&gt;&lt;p&gt;
-
-Source: http://www.abracon.com/Resonators/abm3b.pdf</description>
-<gates>
-<gate name="G$1" symbol="Q_WITH_GND" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="ABM03B">
+<device name="-32.0000MHZ" package="ABM3B">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="3"/>
@@ -9722,21 +9722,22 @@ Source: http://www.abracon.com/Resonators/abm3b.pdf</description>
 <wire x1="-1.6" y1="-2.5" x2="1.6" y2="-2.5" width="0.2032" layer="51"/>
 <wire x1="1.6" y1="-2.5" x2="1.6" y2="2.5" width="0.2032" layer="51"/>
 <wire x1="1.6" y1="2.5" x2="-1.6" y2="2.5" width="0.2032" layer="51"/>
-<wire x1="1.7272" y1="2.7432" x2="1.0922" y2="2.7432" width="0.2032" layer="21"/>
-<wire x1="1.7272" y1="2.1082" x2="1.7272" y2="2.7432" width="0.2032" layer="21"/>
-<smd name="1" x="-1.15" y="1.9" dx="0.9" dy="1.4" layer="1"/>
-<smd name="2" x="-1.15" y="-1.9" dx="0.9" dy="1.4" layer="1"/>
-<smd name="3" x="1.15" y="-1.9" dx="0.9" dy="1.4" layer="1" rot="R180"/>
-<smd name="4" x="1.15" y="1.9" dx="0.9" dy="1.4" layer="1" rot="R180"/>
-<text x="-1.7212" y="2.887103125" size="1.27" layer="25">&gt;NAME</text>
-<text x="-1.74833125" y="-4.184525" size="1.27" layer="27">&gt;VALUE</text>
-<wire x1="1.7272" y1="-2.7432" x2="1.7272" y2="-2.1082" width="0.2032" layer="21"/>
-<wire x1="1.7272" y1="-2.7432" x2="1.0922" y2="-2.7432" width="0.2032" layer="21"/>
-<wire x1="-1.7272" y1="-2.7432" x2="-1.7272" y2="-2.1082" width="0.2032" layer="21"/>
-<wire x1="-1.7272" y1="2.1082" x2="-1.7272" y2="2.4932" width="0.2032" layer="21"/>
-<wire x1="-1.0922" y1="-2.7432" x2="-1.7272" y2="-2.7432" width="0.2032" layer="21"/>
-<wire x1="-1.0922" y1="2.7432" x2="-1.5" y2="2.75" width="0.2032" layer="21"/>
-<wire x1="-1.5" y1="2.75" x2="-1.7272" y2="2.4932" width="0.2032" layer="21"/>
+<wire x1="1.8542" y1="2.8702" x2="1.0922" y2="2.8702" width="0.2032" layer="21"/>
+<wire x1="1.8542" y1="2.1082" x2="1.8542" y2="2.8702" width="0.2032" layer="21"/>
+<smd name="1" x="-1.15" y="1.9" dx="0.9" dy="1.4" layer="1" roundness="5"/>
+<smd name="2" x="-1.15" y="-1.9" dx="0.9" dy="1.4" layer="1" roundness="5"/>
+<smd name="3" x="1.15" y="-1.9" dx="0.9" dy="1.4" layer="1" roundness="5" rot="R180"/>
+<smd name="4" x="1.15" y="1.9" dx="0.9" dy="1.4" layer="1" roundness="5" rot="R180"/>
+<text x="-1.7212" y="3.141103125" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.74833125" y="-4.438525" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="1.8542" y1="-2.8702" x2="1.8542" y2="-2.1082" width="0.2032" layer="21"/>
+<wire x1="1.8542" y1="-2.8702" x2="1.0922" y2="-2.8702" width="0.2032" layer="21"/>
+<wire x1="-1.8542" y1="-2.8702" x2="-1.8542" y2="-2.1082" width="0.2032" layer="21"/>
+<wire x1="-1.8542" y1="2.1082" x2="-1.8542" y2="2.6202" width="0.2032" layer="21"/>
+<wire x1="-1.0922" y1="-2.8702" x2="-1.8542" y2="-2.8702" width="0.2032" layer="21"/>
+<wire x1="-1.0922" y1="2.8702" x2="-1.627" y2="2.8702" width="0.2032" layer="21"/>
+<wire x1="-1.627" y1="2.8702" x2="-1.8542" y2="2.6202" width="0.2032" layer="21"/>
+<circle x="-2.54" y="3.175" radius="0.125" width="0.25" layer="21"/>
 </package>
 <package name="QFN24_P0MM5_CTRPAD">
 <description>&lt;h4&gt;QFN24 - pitch 0.5 mm&lt;/h4&gt;</description>
@@ -9770,8 +9771,8 @@ Source: http://www.abracon.com/Resonators/abm3b.pdf</description>
 <wire x1="-2" y1="2" x2="2" y2="2" width="0.3048" layer="21"/>
 <text x="-2" y="3" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-3" y="-4.5" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="27"/>
-<smd name="25" x="0" y="0" dx="2.5" dy="2.5" layer="1"/>
+<circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="21"/>
+<smd name="25" x="0" y="0" dx="2.4" dy="2.4" layer="1" roundness="5"/>
 </package>
 </packages>
 <symbols>
@@ -30554,6 +30555,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <class number="2" name="pwr_ttl" width="0.75" drill="0">
 <clearance class="2" value="0.5"/>
 </class>
+<class number="3" name="usb_pair" width="0.254" drill="0">
+<clearance class="3" value="0.1524"/>
+</class>
 <class number="4" name="pwrA5" width="0.4" drill="0">
 </class>
 <class number="7" name="+3V3" width="0" drill="0">
@@ -30701,7 +30705,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND2302" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="TP_AX_ADC1" library="testpad" deviceset="PTR1" device="TP06R"/>
 <part name="TP_AX_ADC2" library="testpad" deviceset="PTR1" device="TP06R"/>
-<part name="Q2311" library="df4iah_crystal" deviceset="ABM03B-16.000MHZ" device="" value="ABM3B-16MHZ-10-R50-1-U"/>
+<part name="Q2311" library="df4iah_crystal" deviceset="ABM3B" device="-16.0000MHZ" value="ABM3B-16.0000MHZ"/>
 <part name="GND2311" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2303" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C2302" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
@@ -30796,7 +30800,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="FRAME_14" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="C1401" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="FRAME_22" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="Q2211" library="df4iah_crystal" deviceset="ABM03B-32.000MHZ" device=""/>
+<part name="Q2211" library="df4iah_crystal" deviceset="ABM3B" device="-32.0000MHZ"/>
 <part name="GND2211" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2201" library="rcl" deviceset="C-EU" device="C0603" value="10uF"/>
 <part name="GND2201" library="df4iah_supply" deviceset="GND" device=""/>
@@ -32241,14 +32245,14 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <label x="114.3" y="35.56" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
-<net name="PA12" class="0">
+<net name="PA12PA11_P" class="3">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PA12"/>
 <wire x1="157.48" y1="172.72" x2="154.94" y2="170.18" width="0.1524" layer="91"/>
 <wire x1="154.94" y1="170.18" x2="154.94" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PA11" class="0">
+<net name="PA12PA11_N" class="3">
 <segment>
 <pinref part="U0111" gate="G$1" pin="PA11"/>
 <wire x1="160.02" y1="172.72" x2="157.48" y2="170.18" width="0.1524" layer="91"/>
@@ -37961,10 +37965,10 @@ SPI</text>
 <net name="SX_XTB" class="0">
 <segment>
 <pinref part="Q2211" gate="G$1" pin="2"/>
-<wire x1="137.16" y1="142.24" x2="142.24" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="142.24" y1="142.24" x2="142.24" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="142.24" x2="162.56" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="142.24" x2="162.56" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="U2201" gate="G$1" pin="XTB"/>
-<wire x1="142.24" y1="121.92" x2="127" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="121.92" x2="127" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PEXPA_P1_6_R" class="0">
@@ -38339,11 +38343,11 @@ SPI</text>
 <instance part="GND2302" gate="1" x="177.8" y="55.88"/>
 <instance part="TP_AX_ADC1" gate="G$1" x="142.24" y="63.5" rot="R90"/>
 <instance part="TP_AX_ADC2" gate="G$1" x="142.24" y="58.42" rot="R90"/>
-<instance part="Q2311" gate="G$1" x="124.46" y="121.92" smashed="yes">
-<attribute name="NAME" x="122.682" y="127.762" size="1.778" layer="95"/>
-<attribute name="VALUE" x="122.428" y="124.714" size="1.778" layer="96"/>
+<instance part="Q2311" gate="G$1" x="121.92" y="142.24" smashed="yes">
+<attribute name="NAME" x="120.142" y="145.542" size="1.778" layer="95"/>
+<attribute name="VALUE" x="122.428" y="137.414" size="1.778" layer="96"/>
 </instance>
-<instance part="GND2311" gate="1" x="134.62" y="116.84"/>
+<instance part="GND2311" gate="1" x="121.92" y="132.08"/>
 <instance part="C2303" gate="G$1" x="58.42" y="116.84" smashed="yes" rot="R90">
 <attribute name="NAME" x="49.784" y="114.681" size="1.778" layer="95"/>
 <attribute name="VALUE" x="62.484" y="114.681" size="1.778" layer="96"/>
@@ -38549,13 +38553,6 @@ SPI</text>
 <junction x="177.8" y="60.96"/>
 </segment>
 <segment>
-<pinref part="Q2311" gate="G$1" pin="3"/>
-<pinref part="GND2311" gate="1" pin="GND"/>
-<wire x1="124.46" y1="116.84" x2="129.54" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="116.84" x2="129.54" y2="119.38" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="119.38" x2="134.62" y2="119.38" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="C2313" gate="G$1" pin="2"/>
 <pinref part="L2313" gate="G$1" pin="2"/>
 <wire x1="129.54" y1="68.58" x2="129.54" y2="73.66" width="0.1524" layer="91"/>
@@ -38594,6 +38591,11 @@ SPI</text>
 <wire x1="215.9" y1="60.96" x2="215.9" y2="58.42" width="0.1524" layer="91"/>
 <junction x="215.9" y="60.96"/>
 </segment>
+<segment>
+<pinref part="GND2311" gate="1" pin="GND"/>
+<pinref part="Q2311" gate="G$1" pin="3"/>
+<wire x1="121.92" y1="134.62" x2="121.92" y2="137.16" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="PEXPB_P0_5_R" class="0">
 <segment>
@@ -38617,24 +38619,6 @@ SPI</text>
 <pinref part="TP_AX_ADC2" gate="G$1" pin="TP"/>
 <wire x1="129.54" y1="58.42" x2="139.7" y2="58.42" width="0.1524" layer="91"/>
 <junction x="129.54" y="60.96"/>
-</segment>
-</net>
-<net name="AX_CLK16N" class="0">
-<segment>
-<pinref part="U2301" gate="A" pin="CLK16N"/>
-<pinref part="Q2311" gate="G$1" pin="1"/>
-<wire x1="114.3" y1="121.92" x2="121.92" y2="121.92" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="AX_CLK16P" class="0">
-<segment>
-<pinref part="U2301" gate="A" pin="CLK16P"/>
-<wire x1="114.3" y1="127" x2="119.38" y2="127" width="0.1524" layer="91"/>
-<wire x1="119.38" y1="127" x2="119.38" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="119.38" y1="132.08" x2="160.02" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="132.08" x2="160.02" y2="121.92" width="0.1524" layer="91"/>
-<pinref part="Q2311" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="121.92" x2="127" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="AX_VDD1" class="0">
@@ -38781,6 +38765,23 @@ SPI</text>
 <pinref part="R2391" gate="G$1" pin="1"/>
 <wire x1="33.02" y1="101.6" x2="30.48" y2="101.6" width="0.1524" layer="91"/>
 <label x="30.48" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="AX_CLK16A" class="0">
+<segment>
+<pinref part="U2301" gate="A" pin="CLK16P"/>
+<wire x1="114.3" y1="127" x2="114.3" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="142.24" x2="119.38" y2="142.24" width="0.1524" layer="91"/>
+<pinref part="Q2311" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="AX_CLK16B" class="0">
+<segment>
+<pinref part="U2301" gate="A" pin="CLK16N"/>
+<wire x1="114.3" y1="121.92" x2="149.86" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="121.92" x2="149.86" y2="142.24" width="0.1524" layer="91"/>
+<pinref part="Q2311" gate="G$1" pin="2"/>
+<wire x1="149.86" y1="142.24" x2="124.46" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -40666,7 +40667,7 @@ USB host (OTG) interface</text>
 <junction x="172.72" y="58.42"/>
 </segment>
 </net>
-<net name="PA11" class="0">
+<net name="PA12PA11_N" class="3">
 <segment>
 <pinref part="X3201" gate="G$1" pin="J_D-"/>
 <wire x1="180.34" y1="96.52" x2="137.16" y2="96.52" width="0.1524" layer="91"/>
@@ -40675,7 +40676,7 @@ USB host (OTG) interface</text>
 <label x="43.18" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="PA12" class="0">
+<net name="PA12PA11_P" class="3">
 <segment>
 <pinref part="X3201" gate="G$1" pin="J_D+"/>
 <wire x1="180.34" y1="93.98" x2="137.16" y2="93.98" width="0.1524" layer="91"/>
