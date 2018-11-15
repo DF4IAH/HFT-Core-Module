@@ -31239,6 +31239,8 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R2803" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R2804" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R2811" library="df4iah_rcl" deviceset="R-EU_" device="R0603" value="47R"/>
+<part name="C1955" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="220nF"/>
+<part name="GND1954" library="df4iah_supply" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -36279,9 +36281,9 @@ I2C addr: 0x1A</text>
 <attribute name="NAME" x="192.659" y="153.924" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="195.199" y="153.924" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="C1954" gate="G$1" x="223.52" y="152.4" smashed="yes">
-<attribute name="NAME" x="223.139" y="153.924" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="225.679" y="153.924" size="1.778" layer="96" rot="R90"/>
+<instance part="C1954" gate="G$1" x="236.22" y="152.4" smashed="yes">
+<attribute name="NAME" x="235.839" y="153.924" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="238.379" y="153.924" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="GND1953" gate="1" x="246.38" y="157.48"/>
 <instance part="D1901" gate="G$1" x="27.94" y="121.92"/>
@@ -36344,6 +36346,8 @@ I2C addr: 0x1A</text>
 <attribute name="NAME" x="222.631" y="37.846" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="222.631" y="48.768" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="C1955" gate="G$1" x="193.04" y="71.12"/>
+<instance part="GND1954" gate="1" x="193.04" y="60.96"/>
 </instances>
 <busses>
 </busses>
@@ -36388,8 +36392,12 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T4"/>
-<wire x1="203.2" y1="96.52" x2="195.58" y2="96.52" width="0.1524" layer="91"/>
-<label x="195.58" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="96.52" x2="193.04" y2="96.52" width="0.1524" layer="91"/>
+<label x="190.5" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="C1955" gate="G$1" pin="1"/>
+<wire x1="193.04" y1="96.52" x2="190.5" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="96.52" x2="193.04" y2="73.66" width="0.1524" layer="91"/>
+<junction x="193.04" y="96.52"/>
 </segment>
 <segment>
 <pinref part="R1942" gate="G$1" pin="2"/>
@@ -36532,19 +36540,19 @@ I2C addr: 0x1A</text>
 <wire x1="185.42" y1="154.94" x2="185.42" y2="160.02" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="160.02" x2="193.04" y2="160.02" width="0.1524" layer="91"/>
 <pinref part="C1954" gate="G$1" pin="1"/>
-<wire x1="193.04" y1="160.02" x2="223.52" y2="160.02" width="0.1524" layer="91"/>
-<wire x1="223.52" y1="160.02" x2="223.52" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="160.02" x2="236.22" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="236.22" y1="160.02" x2="236.22" y2="154.94" width="0.1524" layer="91"/>
 <pinref part="C1953" gate="G$1" pin="1"/>
 <wire x1="193.04" y1="160.02" x2="193.04" y2="154.94" width="0.1524" layer="91"/>
 <junction x="193.04" y="160.02"/>
-<wire x1="223.52" y1="160.02" x2="246.38" y2="160.02" width="0.1524" layer="91"/>
-<junction x="223.52" y="160.02"/>
+<wire x1="236.22" y1="160.02" x2="246.38" y2="160.02" width="0.1524" layer="91"/>
+<junction x="236.22" y="160.02"/>
 <pinref part="GND1953" gate="1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T6"/>
-<wire x1="203.2" y1="91.44" x2="195.58" y2="91.44" width="0.1524" layer="91"/>
-<label x="195.58" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="91.44" x2="190.5" y2="91.44" width="0.1524" layer="91"/>
+<label x="190.5" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="GND1902" gate="1" pin="GND"/>
@@ -36591,6 +36599,11 @@ I2C addr: 0x1A</text>
 <pinref part="GND1951" gate="1" pin="GND"/>
 <pinref part="C1951" gate="G$1" pin="2"/>
 <wire x1="185.42" y1="116.84" x2="185.42" y2="119.38" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND1954" gate="1" pin="GND"/>
+<pinref part="C1955" gate="G$1" pin="2"/>
+<wire x1="193.04" y1="63.5" x2="193.04" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SIM_UART1_TXD" class="0">
@@ -36659,6 +36672,9 @@ I2C addr: 0x1A</text>
 <pinref part="R1953" gate="G$1" pin="2"/>
 <wire x1="236.22" y1="139.7" x2="238.76" y2="139.7" width="0.1524" layer="91"/>
 <label x="238.76" y="139.7" size="1.778" layer="95" xref="yes"/>
+<pinref part="C1954" gate="G$1" pin="2"/>
+<wire x1="236.22" y1="139.7" x2="236.22" y2="147.32" width="0.1524" layer="91"/>
+<junction x="236.22" y="139.7"/>
 </segment>
 </net>
 <net name="SIM_SIM1_CLK" class="0">
@@ -36850,8 +36866,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T2"/>
-<wire x1="203.2" y1="101.6" x2="195.58" y2="101.6" width="0.1524" layer="91"/>
-<label x="195.58" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="101.6" x2="190.5" y2="101.6" width="0.1524" layer="91"/>
+<label x="190.5" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCA2" class="0">
@@ -36862,8 +36878,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T1"/>
-<wire x1="203.2" y1="104.14" x2="195.58" y2="104.14" width="0.1524" layer="91"/>
-<label x="195.58" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="104.14" x2="190.5" y2="104.14" width="0.1524" layer="91"/>
+<label x="190.5" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCA1" class="0">
@@ -36874,8 +36890,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T8"/>
-<wire x1="203.2" y1="86.36" x2="195.58" y2="86.36" width="0.1524" layer="91"/>
-<label x="195.58" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="86.36" x2="190.5" y2="86.36" width="0.1524" layer="91"/>
+<label x="190.5" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCA0" class="0">
@@ -36886,8 +36902,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T7"/>
-<wire x1="203.2" y1="88.9" x2="195.58" y2="88.9" width="0.1524" layer="91"/>
-<label x="195.58" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="88.9" x2="190.5" y2="88.9" width="0.1524" layer="91"/>
+<label x="190.5" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCCK" class="0">
@@ -36898,8 +36914,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T5"/>
-<wire x1="203.2" y1="93.98" x2="195.58" y2="93.98" width="0.1524" layer="91"/>
-<label x="195.58" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="93.98" x2="190.5" y2="93.98" width="0.1524" layer="91"/>
+<label x="190.5" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MCCM0" class="0">
@@ -36910,8 +36926,8 @@ I2C addr: 0x1A</text>
 </segment>
 <segment>
 <pinref part="X1951" gate="B" pin="T3"/>
-<wire x1="203.2" y1="99.06" x2="195.58" y2="99.06" width="0.1524" layer="91"/>
-<label x="195.58" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="99.06" x2="190.5" y2="99.06" width="0.1524" layer="91"/>
+<label x="190.5" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_MICP" class="0">
@@ -37040,18 +37056,14 @@ I2C addr: 0x1A</text>
 <segment>
 <pinref part="X1951" gate="A" pin="S7"/>
 <pinref part="R1953" gate="G$1" pin="1"/>
-<wire x1="218.44" y1="139.7" x2="223.52" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="223.52" y1="139.7" x2="226.06" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="223.52" y1="139.7" x2="223.52" y2="147.32" width="0.1524" layer="91"/>
-<junction x="223.52" y="139.7"/>
-<pinref part="C1954" gate="G$1" pin="2"/>
+<wire x1="218.44" y1="139.7" x2="226.06" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MC_SW" class="0">
 <segment>
 <pinref part="X1951" gate="B" pin="SW"/>
-<wire x1="203.2" y1="81.28" x2="195.58" y2="81.28" width="0.1524" layer="91"/>
-<label x="195.58" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="203.2" y1="81.28" x2="190.5" y2="81.28" width="0.1524" layer="91"/>
+<label x="190.5" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_VRTC" class="0">
