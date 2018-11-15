@@ -30560,6 +30560,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 </class>
 <class number="4" name="pwrA5" width="0.4" drill="0">
 </class>
+<class number="5" name="single50R" width="0.8382" drill="0">
+<clearance class="5" value="0.1524"/>
+</class>
 <class number="7" name="+3V3" width="0" drill="0">
 <clearance class="7" value="0.5"/>
 </class>
@@ -31349,7 +31352,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 </bus>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND0121" gate="1" pin="GND"/>
 <wire x1="248.92" y1="55.88" x2="248.92" y2="58.42" width="0.1524" layer="91"/>
@@ -32362,7 +32365,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <junction x="137.16" y="63.5"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <wire x1="66.04" y1="63.5" x2="66.04" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="GND0201" gate="1" pin="GND"/>
@@ -32465,7 +32468,7 @@ Crystal 32.768 kHz</text>
 <junction x="83.82" y="83.82"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND0311" gate="1" pin="GND"/>
 <pinref part="C0311" gate="G$1" pin="2"/>
@@ -32559,7 +32562,7 @@ Crystal 32.768 kHz</text>
 <junction x="220.98" y="45.72"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND0401" gate="1" pin="GND"/>
 <wire x1="226.06" y1="127" x2="226.06" y2="129.54" width="0.1524" layer="91"/>
@@ -33117,7 +33120,7 @@ I2C1 addr: 0x20</text>
 <pinref part="U0521" gate="G$1" pin="!INT"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <wire x1="152.4" y1="83.82" x2="147.32" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="147.32" y1="83.82" x2="147.32" y2="93.98" width="0.1524" layer="91"/>
@@ -33320,7 +33323,7 @@ I2C1 addr: 0x21</text>
 <pinref part="C0621" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <wire x1="147.32" y1="76.2" x2="147.32" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="147.32" y1="93.98" x2="152.4" y2="93.98" width="0.1524" layer="91"/>
@@ -33713,7 +33716,7 @@ FLASH 4M x 8b, two banks</text>
 <junction x="208.28" y="58.42"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND0701" gate="1" pin="GND"/>
 <wire x1="35.56" y1="43.18" x2="35.56" y2="45.72" width="0.1524" layer="91"/>
@@ -33806,7 +33809,7 @@ I2C addr: 0x50</text>
 <label x="76.2" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="U0801" gate="G$1" pin="VSS"/>
 <wire x1="127" y1="76.2" x2="129.54" y2="76.2" width="0.1524" layer="91"/>
@@ -33929,7 +33932,7 @@ I2C addr: 0x50</text>
 <pinref part="R0904" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <wire x1="157.48" y1="111.76" x2="93.98" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="GND0901" gate="1" pin="GND"/>
@@ -34032,7 +34035,7 @@ I2C addr: 0x3D</text>
 <pinref part="U1001" gate="G$1" pin="SCL"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="C1001" gate="G$1" pin="2"/>
 <pinref part="GND1001" gate="1" pin="GND"/>
@@ -34178,7 +34181,7 @@ I2C addr: 0x3D</text>
 <junction x="137.16" y="134.62"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1101" gate="1" pin="GND"/>
 <pinref part="C1101" gate="G$1" pin="2"/>
@@ -34334,7 +34337,7 @@ I2C addr: 0x3D</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1201" gate="1" pin="GND"/>
 <wire x1="71.12" y1="60.96" x2="71.12" y2="63.5" width="0.1524" layer="91"/>
@@ -34447,7 +34450,7 @@ SPI</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1301" gate="1" pin="GND"/>
 <pinref part="C1301" gate="G$1" pin="2"/>
@@ -34672,7 +34675,7 @@ I2C addr: 0x76</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1402" gate="1" pin="GND"/>
 <wire x1="149.86" y1="73.66" x2="149.86" y2="99.06" width="0.1524" layer="91"/>
@@ -34802,7 +34805,7 @@ I2C addr: 0x38</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1531" gate="1" pin="GND"/>
 <pinref part="U1531" gate="&gt;NAME" pin="GND"/>
@@ -35361,7 +35364,7 @@ I2C addr: 0x70</text>
 <wire x1="142.24" y1="111.76" x2="142.24" y2="104.14" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1601" gate="1" pin="GND"/>
 <pinref part="C1601" gate="G$1" pin="2"/>
@@ -35640,7 +35643,7 @@ I2C addr: 0x4A</text>
 <pinref part="R1721" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1701" gate="1" pin="GND"/>
 <pinref part="U1701" gate="G$1" pin="MD0"/>
@@ -36011,7 +36014,7 @@ I2C addr: 0x1A</text>
 <junction x="203.2" y="81.28"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="U1801" gate="G$1" pin="CIFMODE"/>
 <wire x1="104.14" y1="55.88" x2="104.14" y2="53.34" width="0.1524" layer="91"/>
@@ -36414,28 +36417,28 @@ I2C addr: 0x1A</text>
 <junction x="238.76" y="33.02"/>
 </segment>
 </net>
-<net name="SIM_BT_ANT" class="0">
+<net name="SIM_BT_ANT" class="5">
 <segment>
 <pinref part="U1901" gate="G$1" pin="BT_ANT"/>
 <wire x1="35.56" y1="96.52" x2="33.02" y2="96.52" width="0.1524" layer="91"/>
 <label x="33.02" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="SIM_GSM_ANT" class="0">
+<net name="SIM_GSM_ANT" class="5">
 <segment>
 <pinref part="U1901" gate="G$1" pin="GSM_ANT"/>
 <wire x1="35.56" y1="86.36" x2="33.02" y2="86.36" width="0.1524" layer="91"/>
 <label x="33.02" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="SIM_GPS_ANT" class="0">
+<net name="SIM_GPS_ANT" class="5">
 <segment>
 <pinref part="U1901" gate="G$1" pin="GPS_ANT"/>
 <wire x1="35.56" y1="76.2" x2="33.02" y2="76.2" width="0.1524" layer="91"/>
 <label x="33.02" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND1901" gate="1" pin="GND"/>
 <pinref part="U1901" gate="G$1" pin="VSS@77"/>
@@ -37146,7 +37149,7 @@ I2C addr: 0x1A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="C2001" gate="G$1" pin="2"/>
 <pinref part="U2001" gate="G$1" pin="!OE"/>
@@ -37454,7 +37457,7 @@ I2C addr: 0x1A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="U2101" gate="G$1" pin="!OE"/>
 <wire x1="99.06" y1="35.56" x2="157.48" y2="35.56" width="0.1524" layer="91"/>
@@ -37863,7 +37866,7 @@ SPI</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND2211" gate="1" pin="GND"/>
 <pinref part="Q2211" gate="G$1" pin="3"/>
@@ -38537,7 +38540,7 @@ SPI</text>
 <label x="27.94" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND2301" gate="1" pin="GND"/>
 <pinref part="U2301" gate="A" pin="GND"/>
@@ -38895,7 +38898,7 @@ SPI</text>
 <junction x="25.4" y="124.46"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="U2401" gate="G$1" pin="EP"/>
 <wire x1="157.48" y1="73.66" x2="160.02" y2="73.66" width="0.1524" layer="91"/>
@@ -39289,7 +39292,7 @@ Max charge: 2.2A</text>
 <pinref part="C2501" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="R2501" gate="G$1" pin="1"/>
 <wire x1="86.36" y1="99.06" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
@@ -39512,7 +39515,7 @@ Max charge: 2.2A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND2601" gate="1" pin="GND"/>
 <wire x1="27.94" y1="78.74" x2="35.56" y2="78.74" width="0.1524" layer="91"/>
@@ -39886,7 +39889,7 @@ Max charge: 2.2A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND2702" gate="1" pin="GND"/>
 <pinref part="C2703" gate="G$1" pin="2"/>
@@ -40122,7 +40125,7 @@ Max charge: 2.2A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND2801" gate="1" pin="GND"/>
 <wire x1="73.66" y1="45.72" x2="73.66" y2="48.26" width="0.1524" layer="91"/>
@@ -40284,7 +40287,7 @@ Max charge: 2.2A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND2901" gate="1" pin="GND"/>
 <wire x1="68.58" y1="43.18" x2="68.58" y2="45.72" width="0.1524" layer="91"/>
@@ -40403,7 +40406,7 @@ Max charge: 2.2A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND3001" gate="1" pin="GND"/>
 <wire x1="68.58" y1="43.18" x2="68.58" y2="45.72" width="0.1524" layer="91"/>
@@ -40517,7 +40520,7 @@ Max charge: 2.2A</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="C3104" gate="G$1" pin="1"/>
 <wire x1="203.2" y1="99.06" x2="203.2" y2="104.14" width="0.1524" layer="91"/>
@@ -40663,7 +40666,7 @@ USB host (OTG) interface</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND3201" gate="1" pin="GND"/>
 <wire x1="172.72" y1="55.88" x2="172.72" y2="58.42" width="0.1524" layer="91"/>
@@ -40816,7 +40819,7 @@ USB host (OTG) interface</text>
 <pinref part="X3311" gate="A" pin="1"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND3311" gate="1" pin="GND"/>
 <pinref part="X3311" gate="A" pin="2"/>
@@ -40919,7 +40922,7 @@ USB host (OTG) interface</text>
 <pinref part="X3301" gate="A" pin="1"/>
 </segment>
 </net>
-<net name="SIM_GSM_ANT" class="0">
+<net name="SIM_GSM_ANT" class="5">
 <segment>
 <wire x1="48.26" y1="111.76" x2="119.38" y2="111.76" width="0.1524" layer="91"/>
 <label x="48.26" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -40930,7 +40933,7 @@ USB host (OTG) interface</text>
 <pinref part="R3371" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="GSM_ANT" class="0">
+<net name="GSM_ANT" class="5">
 <segment>
 <pinref part="R3371" gate="G$1" pin="2"/>
 <pinref part="X3371" gate="A" pin="1"/>
@@ -40941,7 +40944,7 @@ USB host (OTG) interface</text>
 <junction x="134.62" y="111.76"/>
 </segment>
 </net>
-<net name="BT_ANT" class="0">
+<net name="BT_ANT" class="5">
 <segment>
 <pinref part="R3381" gate="G$1" pin="2"/>
 <pinref part="X3381" gate="A" pin="1"/>
@@ -40952,7 +40955,7 @@ USB host (OTG) interface</text>
 <junction x="134.62" y="78.74"/>
 </segment>
 </net>
-<net name="GPS_ANT" class="0">
+<net name="GPS_ANT" class="5">
 <segment>
 <pinref part="R3391" gate="G$1" pin="2"/>
 <pinref part="X3391" gate="A" pin="1"/>
@@ -40963,7 +40966,7 @@ USB host (OTG) interface</text>
 <junction x="134.62" y="33.02"/>
 </segment>
 </net>
-<net name="SIM_BT_ANT" class="0">
+<net name="SIM_BT_ANT" class="5">
 <segment>
 <wire x1="45.72" y1="78.74" x2="53.34" y2="78.74" width="0.1524" layer="91"/>
 <label x="45.72" y="78.74" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -40974,7 +40977,7 @@ USB host (OTG) interface</text>
 <pinref part="L3384" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="SIM_BT_ANT_L_L" class="0">
+<net name="SIM_BT_ANT_L_L" class="5">
 <segment>
 <pinref part="C3381" gate="G$1" pin="1"/>
 <wire x1="119.38" y1="78.74" x2="121.92" y2="78.74" width="0.1524" layer="91"/>
@@ -40993,7 +40996,7 @@ USB host (OTG) interface</text>
 <junction x="109.22" y="78.74"/>
 </segment>
 </net>
-<net name="SIM_BT_ANT_L" class="0">
+<net name="SIM_BT_ANT_L" class="5">
 <segment>
 <pinref part="L3384" gate="G$1" pin="2"/>
 <pinref part="C3385" gate="G$1" pin="1"/>
@@ -41066,7 +41069,7 @@ USB host (OTG) interface</text>
 <label x="58.42" y="27.94" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="SIM_GPS_ANT" class="0">
+<net name="SIM_GPS_ANT" class="5">
 <segment>
 <label x="86.36" y="33.02" size="1.778" layer="95" rot="R180" xref="yes"/>
 <wire x1="86.36" y1="33.02" x2="88.9" y2="33.02" width="0.1524" layer="91"/>
@@ -41075,7 +41078,7 @@ USB host (OTG) interface</text>
 <wire x1="88.9" y1="30.48" x2="91.44" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="GPS_ANT_SAW" class="0">
+<net name="GPS_ANT_SAW" class="5">
 <segment>
 <pinref part="C3391" gate="G$1" pin="1"/>
 <wire x1="119.38" y1="33.02" x2="121.92" y2="33.02" width="0.1524" layer="91"/>
@@ -41162,7 +41165,7 @@ fix layout of sockets</text>
 <pinref part="X3411" gate="G$1" pin="RING"/>
 </segment>
 </net>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="X3411" gate="G$1" pin="GND"/>
 <wire x1="152.4" y1="78.74" x2="157.48" y2="78.74" width="0.1524" layer="91"/>
@@ -41409,7 +41412,7 @@ fix layout of sockets</text>
 </bus>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <wire x1="17.78" y1="111.76" x2="15.24" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="X3511" gate="G$1" pin="1"/>
@@ -42663,7 +42666,7 @@ fix layout of sockets</text>
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="5">
 <segment>
 <pinref part="GND3621" gate="1" pin="GND"/>
 <wire x1="81.28" y1="137.16" x2="81.28" y2="142.24" width="0.1524" layer="91"/>
