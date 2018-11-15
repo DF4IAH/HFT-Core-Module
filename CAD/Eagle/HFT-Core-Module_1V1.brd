@@ -32,8 +32,8 @@
 <layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
@@ -48,13 +48,13 @@
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
-<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
-<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
-<layer number="47" name="Measures" color="13" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="13" fill="1" visible="yes" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
@@ -160,7 +160,7 @@
 <wire x1="96.52" y1="0" x2="96.52" y2="96.52" width="0" layer="47"/>
 <wire x1="96.52" y1="96.52" x2="0" y2="96.52" width="0" layer="20"/>
 <wire x1="0" y1="96.52" x2="0" y2="0" width="0" layer="20"/>
-<dimension x1="0" y1="0" x2="0" y2="96.52" x3="-8.89" y3="48.26" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="0" y1="0" x2="0" y2="96.52" x3="-5.23875" y3="48.26" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 <text x="6.35" y="11.43" size="0.8128" layer="21" font="vector" ratio="20">HFT-Core-Module V1.1
 (C) 2018 by Fakultät N,
 Hochschule Mannheim,
@@ -182,7 +182,7 @@ Germany.</text>
 <vertex x="0.814703125" y="15.101428125" curve="193"/>
 </polygon>
 <dimension x1="5.08" y1="5.08" x2="4.445" y2="0" x3="-1.27" y3="2.54" textsize="0.6096" textratio="10" layer="47" dtype="vertical" width="0.0508"/>
-<dimension x1="2.54" y1="91.44" x2="2.54" y2="0" x3="-7.62" y3="45.72" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
+<dimension x1="2.54" y1="91.44" x2="2.54" y2="0" x3="-3.81" y3="45.72" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 <dimension x1="5.08" y1="93.98" x2="0" y2="93.98" x3="2.54" y3="97.79" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 <dimension x1="91.44" y1="91.44" x2="0" y2="91.44" x3="45.72" y3="100.33" textsize="0.6096" textratio="10" layer="47" width="0.0508"/>
 <text x="1.27" y="94.615" size="0.8128" layer="51">3x 2.8 mm</text>
@@ -8171,7 +8171,10 @@ TTTT
 <element name="R2803" library="df4iah_rcl" package="R0402" value="1MR" x="24.92375" y="69.37375" rot="MR270"/>
 <element name="R2804" library="df4iah_rcl" package="R0402" value="1MR" x="30.63875" y="72.7075" rot="MR0"/>
 <element name="R2811" library="df4iah_rcl" package="R0603" value="47R" x="48.5775" y="61.11875" rot="R180"/>
-<element name="C1955" library="df4iah_rcl" package="C0402" value="220nF" x="6.35" y="8.89"/>
+<element name="C1955" library="df4iah_rcl" package="C0402" value="220nF" x="6.35" y="8.89" smashed="yes">
+<attribute name="NAME" x="2.06375" y="8.5725" size="0.6096" layer="25" font="vector" ratio="10"/>
+<attribute name="VALUE" x="5.715" y="6.985" size="1.27" layer="27"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
