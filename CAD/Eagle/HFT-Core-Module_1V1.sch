@@ -31320,7 +31320,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <label x="241.3" y="35.56" size="1.778" layer="95"/>
 </segment>
 </bus>
-<bus name="PA[8..15]">
+<bus name="PA[8..15],PA12PA11_P,PA12PA11_N">
 <segment>
 <wire x1="147.32" y1="172.72" x2="238.76" y2="172.72" width="0.762" layer="92"/>
 <label x="241.3" y="172.72" size="1.778" layer="95"/>
@@ -37981,9 +37981,11 @@ SPI</text>
 <segment>
 <pinref part="Q2211" gate="G$1" pin="2"/>
 <wire x1="137.16" y1="142.24" x2="162.56" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="162.56" y1="142.24" x2="162.56" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="142.24" x2="162.56" y2="127" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="127" x2="129.54" y2="127" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="127" x2="129.54" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="U2201" gate="G$1" pin="XTB"/>
-<wire x1="162.56" y1="121.92" x2="127" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="121.92" x2="127" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PEXPA_P1_6_R" class="0">
