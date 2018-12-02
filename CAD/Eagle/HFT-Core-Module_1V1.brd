@@ -27,11 +27,11 @@
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
-<layer number="20" name="Dimension" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="5" fill="1" visible="no" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
@@ -52,11 +52,11 @@
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="13" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="14" fill="1" visible="no" active="yes"/>
 <layer number="52" name="bDocu" color="6" fill="1" visible="no" active="yes"/>
@@ -13819,7 +13819,8 @@ TTTT
 <wire x1="7.46125" y1="82.39125" x2="8.04" y2="82.55" width="0.3048" layer="16"/>
 <wire x1="8.04" y1="82.55" x2="7.9375" y2="82.6525" width="0.3048" layer="16"/>
 <wire x1="9.16" y1="80.66625" x2="6.4875" y2="80.66625" width="0.3048" layer="1"/>
-<wire x1="6.50875" y1="80.80375" x2="6.50875" y2="82.39125" width="0.3048" layer="1"/>
+<wire x1="6.50875" y1="80.80375" x2="6.50875" y2="81.28" width="0.3048" layer="1"/>
+<wire x1="6.50875" y1="81.28" x2="6.50875" y2="82.39125" width="0.3048" layer="1"/>
 <wire x1="6.50875" y1="82.39125" x2="7.46125" y2="82.39125" width="0.3048" layer="1"/>
 <wire x1="6.50875" y1="80.80375" x2="6.4875" y2="80.94125" width="0.3048" layer="1"/>
 <via x="10.00125" y="85.24875" extent="1-16" drill="0.3048"/>
@@ -13857,7 +13858,8 @@ TTTT
 <via x="1.11125" y="75.2475" extent="1-16" drill="0.3048"/>
 <wire x1="1.11125" y1="75.2475" x2="1.7" y2="74.34125" width="0.3048" layer="16"/>
 <wire x1="1.7" y1="74.34125" x2="1.905" y2="74.34125" width="0.3048" layer="16"/>
-<wire x1="6.50875" y1="80.80375" x2="6.4875" y2="80.66625" width="0" layer="19" extent="1-1"/>
+<wire x1="6.4875" y1="80.66625" x2="6.50875" y2="80.66625" width="0.1524" layer="1"/>
+<wire x1="6.50875" y1="80.66625" x2="6.50875" y2="81.28" width="0.1524" layer="1"/>
 </signal>
 <signal name="BQ_LBUCK">
 <contactref element="U2601" pad="16"/>
@@ -14359,7 +14361,7 @@ TTTT
 <contactref element="U2901" pad="3"/>
 <contactref element="R0581" pad="3"/>
 <contactref element="U0521" pad="5"/>
-<wire x1="30.63875" y1="75.2475" x2="31.115" y2="75.2475" width="0.1524" layer="16"/>
+<wire x1="30.6075" y1="75.2475" x2="31.115" y2="75.2475" width="0.1524" layer="16"/>
 <wire x1="31.115" y1="75.2475" x2="31.27375" y2="75.40625" width="0.1524" layer="16"/>
 <wire x1="31.27375" y1="75.40625" x2="31.27375" y2="76.5175" width="0.1524" layer="16"/>
 <wire x1="31.27375" y1="76.5175" x2="30.95625" y2="76.99375" width="0.127" layer="16"/>
@@ -14393,7 +14395,6 @@ TTTT
 <wire x1="35.40125" y1="54.9275" x2="32.22625" y2="54.9275" width="0.1524" layer="15"/>
 <wire x1="32.22625" y1="54.9275" x2="32.0675" y2="54.76875" width="0.1524" layer="15"/>
 <wire x1="32.0675" y1="54.76875" x2="32.0675" y2="53.49875" width="0.1524" layer="15"/>
-<wire x1="30.63875" y1="75.2475" x2="30.6075" y2="75.2475" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="PEXPA_P0_2_R">
 <contactref element="U2901" pad="7"/>
@@ -14571,15 +14572,25 @@ TTTT
 <contactref element="U1301" pad="4"/>
 <contactref element="R0591" pad="2"/>
 <contactref element="U0521" pad="13"/>
-<wire x1="37.215" y1="73.795" x2="37.1475" y2="74.74" width="0" layer="19" extent="1-16"/>
-<wire x1="45.9975" y1="42.295" x2="37.215" y2="73.795" width="0" layer="19" extent="1-1"/>
+<via x="38.25875" y="73.50125" extent="1-16" drill="0.3048"/>
+<wire x1="37.215" y1="73.795" x2="37.6475" y2="73.795" width="0.1524" layer="1"/>
+<wire x1="37.6475" y1="73.795" x2="38.25875" y2="73.50125" width="0.1524" layer="1"/>
+<wire x1="37.1475" y1="74.74" x2="37.1475" y2="74.295" width="0.1524" layer="16"/>
+<wire x1="37.1475" y1="74.295" x2="38.25875" y2="73.50125" width="0.1524" layer="16"/>
+<wire x1="45.9975" y1="42.295" x2="38.25875" y2="73.50125" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PEXPA_P1_1_R">
 <contactref element="U1301" pad="11"/>
 <contactref element="R0591" pad="3"/>
 <contactref element="U0521" pad="14"/>
-<wire x1="37.215" y1="74.545" x2="36.5125" y2="74.74" width="0" layer="19" extent="1-16"/>
-<wire x1="48.51" y1="40.9825" x2="37.215" y2="74.545" width="0" layer="19" extent="1-1"/>
+<via x="38.25875" y="74.45375" extent="1-16" drill="0.3048"/>
+<wire x1="37.215" y1="74.545" x2="38.1675" y2="74.545" width="0.1524" layer="1"/>
+<wire x1="38.1675" y1="74.545" x2="38.25875" y2="74.45375" width="0.1524" layer="1"/>
+<wire x1="36.5125" y1="74.74" x2="36.5125" y2="75.08875" width="0.1524" layer="16"/>
+<wire x1="36.5125" y1="75.08875" x2="36.67125" y2="75.2475" width="0.1524" layer="16"/>
+<wire x1="36.67125" y1="75.2475" x2="37.465" y2="75.2475" width="0.1524" layer="16"/>
+<wire x1="37.465" y1="75.2475" x2="38.25875" y2="74.45375" width="0.1524" layer="16"/>
+<wire x1="48.51" y1="40.9825" x2="38.25875" y2="74.45375" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PEXPA_P1_2_R">
 <contactref element="R0591" pad="4"/>
