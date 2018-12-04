@@ -122,7 +122,7 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=15
+Layer=16
 
 [Desktop]
 Screen="640 480"
