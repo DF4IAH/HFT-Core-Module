@@ -100,7 +100,7 @@ DimensionExtWidths=" 0.127 0.254 0.1 0.13 0.26 0"
 DimensionExtLengths=" 1.27 2.54 1 2 3 0"
 DimensionExtOffsets=" 1.27 2.54 1 2 3 0"
 SmdSizes=" 0.3048 0.1524 0.4064 0.2032 0.6096 0.3048 0.8128 0.4064 1.016 0.508 1.27 0.6604 1.4224 0.7112 1.6764 0.8128 1.778 0.9144 1.9304 0.9652 2.1844 1.0668 2.54 1.27 3.81 1.9304 5.08 2.54 6.4516 3.2512 1.27 0.635"
-WireBend=1
+WireBend=2
 WireBendSet=0
 WireCap=1
 MiterStyle=0
@@ -125,7 +125,7 @@ PadsSameType=0
 Layer=16
 
 [Desktop]
-Screen="640 480"
+Screen="2560 1440"
 Window="Win_1"
 Window="Win_2"
 Window="Win_3"
