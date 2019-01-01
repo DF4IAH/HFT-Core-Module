@@ -25877,6 +25877,8 @@ DAC, 2ch, 24 Bit, I2S, Control: I2C/SPI</description>
 <pin name="VDD12_1" x="-2.54" y="119.38" length="middle" rot="R270"/>
 <pin name="VDD12_2" x="0" y="119.38" length="middle" rot="R270"/>
 <pin name="VDD9" x="-20.32" y="119.38" length="middle" rot="R270"/>
+<text x="-2.54" y="7.62" size="1.778" layer="95">&gt;NAME</text>
+<text x="-2.54" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -28984,13 +28986,16 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <sheet>
 <description>MCU</description>
 <plain>
-<text x="132.08" y="93.98" size="1.778" layer="97">STM32L496ZGT6P</text>
+<text x="132.08" y="96.52" size="1.778" layer="97">STM32L496ZGT6P</text>
 <text x="132.08" y="106.68" size="2.54" layer="97" ratio="15">MCU</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">MCU</text>
 </plain>
 <instances>
 <instance part="FRAME_01" gate="G$1" x="0" y="0"/>
-<instance part="U0111" gate="G$1" x="149.86" y="99.06" rot="R90"/>
+<instance part="U0111" gate="G$1" x="149.86" y="99.06" smashed="yes" rot="R90">
+<attribute name="NAME" x="132.08" y="119.38" size="1.778" layer="95"/>
+<attribute name="VALUE" x="132.08" y="114.3" size="1.778" layer="96"/>
+</instance>
 <instance part="GND0121" gate="1" x="248.92" y="53.34"/>
 <instance part="SJ0121" gate="1" x="248.92" y="119.38" rot="R90"/>
 </instances>
