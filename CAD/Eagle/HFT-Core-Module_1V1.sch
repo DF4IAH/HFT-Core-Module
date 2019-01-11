@@ -28499,8 +28499,10 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C2711" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22uF"/>
 <part name="GND2701" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C2701" library="df4iah_rcl" deviceset="C-EU" device="C0603" value="22uF"/>
-<part name="R2701" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
-<part name="R2702" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
+<part name="R2711" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
+<part name="R2712" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
+<part name="R2701" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2731" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 </parts>
 <sheets>
 <sheet>
@@ -32553,6 +32555,8 @@ I2C addr: 0x70</text>
 <text x="50.8" y="152.4" size="1.778" layer="97">Iq=45mA</text>
 <text x="223.52" y="33.02" size="1.778" layer="97">HSE_XO_SW_EN</text>
 <text x="223.52" y="55.88" size="1.778" layer="97">HSE_PLL_SW_EN</text>
+<text x="144.78" y="104.14" size="1.778" layer="97">D.C.</text>
+<text x="144.78" y="99.06" size="1.778" layer="97">D.C.</text>
 </plain>
 <instances>
 <instance part="FRAME_16" gate="G$1" x="0" y="0"/>
@@ -35726,7 +35730,7 @@ SPI</text>
 <sheet>
 <description>12V Down-Converter</description>
 <plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">12V --&gt; 5V0 Down-Converter</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
 <text x="81.28" y="127" size="1.778" layer="97">Iq=24uA</text>
 <text x="166.37" y="129.794" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
@@ -36376,6 +36380,7 @@ Max charge: 2.2A</text>
 <text x="173.99" y="103.886" size="1.778" layer="96">MURATA JELF243A-0122 4.9mm x 4.9mm</text>
 <text x="76.2" y="50.8" size="1.778" layer="96">place near VOC_SAMP</text>
 <text x="99.06" y="127" size="1.778" layer="97">V_should = 5.2V</text>
+<text x="35.56" y="96.52" size="1.778" layer="97">BQ_!EN</text>
 </plain>
 <instances>
 <instance part="FRAME_26" gate="G$1" x="0" y="0"/>
@@ -36412,7 +36417,7 @@ Max charge: 2.2A</text>
 <instance part="R2631" gate="G$1" x="127" y="22.86" rot="R90"/>
 <instance part="R2642" gate="G$1" x="137.16" y="53.34" rot="R90"/>
 <instance part="R2641" gate="G$1" x="137.16" y="38.1" rot="R90"/>
-<instance part="GND2651" gate="1" x="231.14" y="48.26"/>
+<instance part="GND2651" gate="1" x="198.12" y="48.26"/>
 <instance part="R2651" gate="G$1" x="220.98" y="109.22"/>
 <instance part="C2652" gate="G$1" x="198.12" y="78.74" smashed="yes">
 <attribute name="NAME" x="195.199" y="75.184" size="1.778" layer="95" rot="R90"/>
@@ -36455,15 +36460,11 @@ Max charge: 2.2A</text>
 <junction x="35.56" y="53.34"/>
 <pinref part="X2601" gate="G$1" pin="2"/>
 <pinref part="C2603" gate="G$1" pin="1"/>
-<wire x1="78.74" y1="53.34" x2="78.74" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="53.34" x2="78.74" y2="96.52" width="0.1524" layer="91"/>
 <pinref part="U2601" gate="G$1" pin="VSS@1"/>
-<wire x1="78.74" y1="83.82" x2="78.74" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="96.52" x2="78.74" y2="104.14" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="96.52" x2="91.44" y2="96.52" width="0.1524" layer="91"/>
 <junction x="78.74" y="96.52"/>
-<pinref part="U2601" gate="G$1" pin="!EN"/>
-<wire x1="78.74" y1="83.82" x2="91.44" y2="83.82" width="0.1524" layer="91"/>
-<junction x="78.74" y="83.82"/>
 <wire x1="78.74" y1="53.34" x2="88.9" y2="53.34" width="0.1524" layer="91"/>
 <junction x="78.74" y="53.34"/>
 <pinref part="C2606" gate="G$1" pin="2"/>
@@ -36495,8 +36496,7 @@ Max charge: 2.2A</text>
 </segment>
 <segment>
 <pinref part="GND2651" gate="1" pin="GND"/>
-<wire x1="231.14" y1="50.8" x2="231.14" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="231.14" y1="53.34" x2="198.12" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="50.8" x2="198.12" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="53.34" x2="177.8" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="53.34" x2="160.02" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="160.02" y1="53.34" x2="160.02" y2="96.52" width="0.1524" layer="91"/>
@@ -36769,6 +36769,15 @@ Max charge: 2.2A</text>
 <label x="22.86" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
+<net name="BQ_!EN" class="0">
+<segment>
+<pinref part="U2601" gate="G$1" pin="!EN"/>
+<wire x1="91.44" y1="83.82" x2="68.58" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="83.82" x2="68.58" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="96.52" x2="22.86" y2="96.52" width="0.1524" layer="91"/>
+<label x="22.86" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -36779,6 +36788,9 @@ Max charge: 2.2A</text>
 <text x="157.48" y="96.52" size="1.778" layer="97">TPS_PG</text>
 <text x="157.48" y="91.44" size="1.778" layer="97">TPS_LBO</text>
 <text x="152.4" y="121.92" size="1.778" layer="97">MURATA  LQH43PN100M26L   4.5mm x 3.2mm (1812)</text>
+<text x="88.9" y="106.68" size="1.778" layer="97" rot="R90">N/A</text>
+<text x="190.5" y="109.22" size="1.778" layer="97" rot="R90">N/A</text>
+<text x="88.9" y="86.36" size="1.778" layer="97" rot="R90">N/A</text>
 </plain>
 <instances>
 <instance part="FRAME_27" gate="G$1" x="0" y="0"/>
@@ -36790,8 +36802,10 @@ Max charge: 2.2A</text>
 <instance part="C2711" gate="G$1" x="195.58" y="104.14"/>
 <instance part="GND2701" gate="1" x="101.6" y="76.2"/>
 <instance part="C2701" gate="G$1" x="66.04" y="104.14"/>
-<instance part="R2701" gate="G$1" x="81.28" y="88.9" rot="R90"/>
-<instance part="R2702" gate="G$1" x="81.28" y="109.22" rot="R90"/>
+<instance part="R2711" gate="G$1" x="81.28" y="88.9" rot="R90"/>
+<instance part="R2712" gate="G$1" x="81.28" y="109.22" rot="R90"/>
+<instance part="R2701" gate="G$1" x="55.88" y="116.84"/>
+<instance part="R2731" gate="G$1" x="208.28" y="116.84"/>
 </instances>
 <busses>
 </busses>
@@ -36803,37 +36817,13 @@ Max charge: 2.2A</text>
 <wire x1="149.86" y1="116.84" x2="154.94" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="+3V3" class="0">
-<segment>
-<pinref part="U2701" gate="G$1" pin="FB"/>
-<wire x1="149.86" y1="111.76" x2="172.72" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="111.76" x2="172.72" y2="116.84" width="0.1524" layer="91"/>
-<pinref part="L2711" gate="G$1" pin="1"/>
-<wire x1="172.72" y1="116.84" x2="165.1" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="116.84" x2="177.8" y2="116.84" width="0.1524" layer="91"/>
-<junction x="172.72" y="116.84"/>
-<pinref part="R2721" gate="G$1" pin="2"/>
-<wire x1="177.8" y1="116.84" x2="187.96" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="187.96" y1="116.84" x2="195.58" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="116.84" x2="203.2" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="177.8" y1="116.84" x2="177.8" y2="109.22" width="0.1524" layer="91"/>
-<junction x="177.8" y="116.84"/>
-<pinref part="R2722" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="116.84" x2="187.96" y2="109.22" width="0.1524" layer="91"/>
-<junction x="187.96" y="116.84"/>
-<pinref part="C2711" gate="G$1" pin="1"/>
-<wire x1="195.58" y1="116.84" x2="195.58" y2="106.68" width="0.1524" layer="91"/>
-<junction x="195.58" y="116.84"/>
-<label x="203.2" y="116.84" size="1.778" layer="95" xref="yes"/>
-</segment>
-</net>
 <net name="TPS_PG" class="0">
 <segment>
 <pinref part="U2701" gate="G$1" pin="PG"/>
 <wire x1="149.86" y1="96.52" x2="177.8" y2="96.52" width="0.1524" layer="91"/>
-<label x="203.2" y="96.52" size="1.778" layer="95" xref="yes"/>
+<label x="220.98" y="96.52" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2721" gate="G$1" pin="1"/>
-<wire x1="177.8" y1="96.52" x2="203.2" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="96.52" x2="220.98" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="96.52" x2="177.8" y2="99.06" width="0.1524" layer="91"/>
 <junction x="177.8" y="96.52"/>
 </segment>
@@ -36842,9 +36832,9 @@ Max charge: 2.2A</text>
 <segment>
 <pinref part="U2701" gate="G$1" pin="LBO"/>
 <wire x1="149.86" y1="91.44" x2="187.96" y2="91.44" width="0.1524" layer="91"/>
-<label x="203.2" y="91.44" size="1.778" layer="95" xref="yes"/>
+<label x="220.98" y="91.44" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2722" gate="G$1" pin="1"/>
-<wire x1="187.96" y1="91.44" x2="203.2" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="91.44" x2="220.98" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="187.96" y1="91.44" x2="187.96" y2="99.06" width="0.1524" layer="91"/>
 <junction x="187.96" y="91.44"/>
 </segment>
@@ -36872,7 +36862,7 @@ Max charge: 2.2A</text>
 <pinref part="C2701" gate="G$1" pin="2"/>
 <wire x1="81.28" y1="81.28" x2="66.04" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="81.28" x2="66.04" y2="99.06" width="0.1524" layer="91"/>
-<pinref part="R2701" gate="G$1" pin="1"/>
+<pinref part="R2711" gate="G$1" pin="1"/>
 <wire x1="81.28" y1="81.28" x2="81.28" y2="83.82" width="0.1524" layer="91"/>
 <junction x="81.28" y="81.28"/>
 </segment>
@@ -36882,27 +36872,12 @@ Max charge: 2.2A</text>
 <pinref part="U2701" gate="G$1" pin="LBI"/>
 <wire x1="109.22" y1="91.44" x2="91.44" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="91.44" x2="91.44" y2="99.06" width="0.1524" layer="91"/>
-<pinref part="R2702" gate="G$1" pin="1"/>
-<pinref part="R2701" gate="G$1" pin="2"/>
+<pinref part="R2712" gate="G$1" pin="1"/>
+<pinref part="R2711" gate="G$1" pin="2"/>
 <wire x1="81.28" y1="104.14" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="99.06" x2="81.28" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="99.06" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
 <junction x="81.28" y="99.06"/>
-</segment>
-</net>
-<net name="+5V0" class="4">
-<segment>
-<pinref part="U2701" gate="G$1" pin="VIN"/>
-<wire x1="109.22" y1="116.84" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
-<label x="43.18" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="C2701" gate="G$1" pin="1"/>
-<wire x1="81.28" y1="116.84" x2="66.04" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="66.04" y1="116.84" x2="43.18" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="66.04" y1="116.84" x2="66.04" y2="106.68" width="0.1524" layer="91"/>
-<junction x="66.04" y="116.84"/>
-<pinref part="R2702" gate="G$1" pin="2"/>
-<wire x1="81.28" y1="116.84" x2="81.28" y2="114.3" width="0.1524" layer="91"/>
-<junction x="81.28" y="116.84"/>
 </segment>
 </net>
 <net name="TPS_EN" class="0">
@@ -36912,6 +36887,59 @@ Max charge: 2.2A</text>
 <wire x1="101.6" y1="111.76" x2="101.6" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="129.54" x2="43.18" y2="129.54" width="0.1524" layer="91"/>
 <label x="43.18" y="129.54" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="+5V0" class="4">
+<segment>
+<label x="43.18" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2701" gate="G$1" pin="1"/>
+<wire x1="50.8" y1="116.84" x2="43.18" y2="116.84" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<wire x1="213.36" y1="116.84" x2="220.98" y2="116.84" width="0.1524" layer="91"/>
+<label x="220.98" y="116.84" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2731" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="TPS_VIN" class="4">
+<segment>
+<pinref part="U2701" gate="G$1" pin="VIN"/>
+<wire x1="109.22" y1="116.84" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="C2701" gate="G$1" pin="1"/>
+<wire x1="81.28" y1="116.84" x2="66.04" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="116.84" x2="66.04" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="R2712" gate="G$1" pin="2"/>
+<wire x1="81.28" y1="116.84" x2="81.28" y2="114.3" width="0.1524" layer="91"/>
+<junction x="81.28" y="116.84"/>
+<pinref part="R2701" gate="G$1" pin="2"/>
+<wire x1="66.04" y1="116.84" x2="60.96" y2="116.84" width="0.1524" layer="91"/>
+<junction x="66.04" y="116.84"/>
+</segment>
+</net>
+<net name="TPS_VOUT" class="0">
+<segment>
+<pinref part="U2701" gate="G$1" pin="FB"/>
+<wire x1="149.86" y1="111.76" x2="172.72" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="111.76" x2="172.72" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="L2711" gate="G$1" pin="1"/>
+<wire x1="172.72" y1="116.84" x2="165.1" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="116.84" x2="177.8" y2="116.84" width="0.1524" layer="91"/>
+<junction x="172.72" y="116.84"/>
+<pinref part="R2721" gate="G$1" pin="2"/>
+<wire x1="177.8" y1="116.84" x2="187.96" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="116.84" x2="195.58" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="116.84" x2="177.8" y2="109.22" width="0.1524" layer="91"/>
+<junction x="177.8" y="116.84"/>
+<pinref part="R2722" gate="G$1" pin="2"/>
+<wire x1="187.96" y1="116.84" x2="187.96" y2="109.22" width="0.1524" layer="91"/>
+<junction x="187.96" y="116.84"/>
+<pinref part="C2711" gate="G$1" pin="1"/>
+<wire x1="195.58" y1="116.84" x2="195.58" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="R2731" gate="G$1" pin="1"/>
+<wire x1="195.58" y1="116.84" x2="203.2" y2="116.84" width="0.1524" layer="91"/>
+<junction x="195.58" y="116.84"/>
 </segment>
 </net>
 </nets>
