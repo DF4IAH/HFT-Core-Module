@@ -28434,13 +28434,10 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C2601" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10uF"/>
 <part name="C2602" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="SJ0421" library="df4iah_jumper" deviceset="SJ" device=""/>
-<part name="SJ0422" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="C0422" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="C0421" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND0422" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0421" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="SJ0423" library="df4iah_jumper" deviceset="SJ" device=""/>
-<part name="SJ0424" library="df4iah_jumper" deviceset="SJ" device=""/>
 <part name="GND1512" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="C1512" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="GND1511" library="df4iah_supply" deviceset="GND" device=""/>
@@ -30299,13 +30296,10 @@ Crystal 32.768 kHz</text>
 <instance part="C0451" gate="G$1" x="66.04" y="43.18"/>
 <instance part="GND0451" gate="1" x="66.04" y="33.02"/>
 <instance part="SJ0421" gate="1" x="66.04" y="121.92" rot="R90"/>
-<instance part="SJ0422" gate="1" x="55.88" y="121.92" rot="R90"/>
 <instance part="C0422" gate="G$1" x="86.36" y="101.6"/>
 <instance part="C0421" gate="G$1" x="86.36" y="129.54"/>
 <instance part="GND0422" gate="1" x="86.36" y="88.9"/>
 <instance part="GND0421" gate="1" x="76.2" y="129.54"/>
-<instance part="SJ0423" gate="1" x="45.72" y="121.92" rot="R90"/>
-<instance part="SJ0424" gate="1" x="35.56" y="121.92" rot="R90"/>
 <instance part="TP_VBAT" gate="G$1" x="66.04" y="63.5" rot="R180"/>
 <instance part="C0410" gate="G$1" x="144.78" y="119.38" rot="R90"/>
 <instance part="C0423" gate="G$1" x="12.7" y="101.6"/>
@@ -30548,14 +30542,6 @@ Crystal 32.768 kHz</text>
 <wire x1="121.92" y1="160.02" x2="66.04" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="+2V5_UNUSED" class="0">
-<segment>
-<pinref part="SJ0422" gate="1" pin="2"/>
-<wire x1="55.88" y1="127" x2="55.88" y2="152.4" width="0.1524" layer="91"/>
-<wire x1="55.88" y1="152.4" x2="27.94" y2="152.4" width="0.1524" layer="91"/>
-<label x="27.94" y="152.4" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="MCU_VDDIO2" class="0">
 <segment>
 <wire x1="88.9" y1="111.76" x2="86.36" y2="111.76" width="0.1524" layer="91"/>
@@ -30564,9 +30550,6 @@ Crystal 32.768 kHz</text>
 <wire x1="66.04" y1="111.76" x2="66.04" y2="116.84" width="0.1524" layer="91"/>
 <label x="88.9" y="111.76" size="1.778" layer="95" xref="yes"/>
 <pinref part="SJ0421" gate="1" pin="1"/>
-<wire x1="66.04" y1="111.76" x2="55.88" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="SJ0422" gate="1" pin="1"/>
-<wire x1="55.88" y1="111.76" x2="55.88" y2="116.84" width="0.1524" layer="91"/>
 <junction x="66.04" y="111.76"/>
 <wire x1="76.2" y1="111.76" x2="76.2" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="119.38" x2="86.36" y2="119.38" width="0.1524" layer="91"/>
@@ -30579,34 +30562,9 @@ Crystal 32.768 kHz</text>
 <wire x1="86.36" y1="119.38" x2="86.36" y2="124.46" width="0.1524" layer="91"/>
 <junction x="86.36" y="119.38"/>
 <junction x="86.36" y="111.76"/>
-<pinref part="SJ0423" gate="1" pin="1"/>
-<wire x1="45.72" y1="116.84" x2="45.72" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="45.72" y1="111.76" x2="55.88" y2="111.76" width="0.1524" layer="91"/>
-<junction x="55.88" y="111.76"/>
-<wire x1="45.72" y1="111.76" x2="35.56" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="SJ0424" gate="1" pin="1"/>
-<wire x1="35.56" y1="111.76" x2="35.56" y2="116.84" width="0.1524" layer="91"/>
-<junction x="45.72" y="111.76"/>
-<wire x1="35.56" y1="111.76" x2="12.7" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="111.76" x2="66.04" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="C0423" gate="G$1" pin="1"/>
 <wire x1="12.7" y1="111.76" x2="12.7" y2="104.14" width="0.1524" layer="91"/>
-<junction x="35.56" y="111.76"/>
-</segment>
-</net>
-<net name="+1V8_UNUSED" class="0">
-<segment>
-<pinref part="SJ0423" gate="1" pin="2"/>
-<wire x1="45.72" y1="127" x2="45.72" y2="144.78" width="0.1524" layer="91"/>
-<wire x1="45.72" y1="144.78" x2="27.94" y2="144.78" width="0.1524" layer="91"/>
-<label x="27.94" y="144.78" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="+1V5_UNUSED" class="0">
-<segment>
-<pinref part="SJ0424" gate="1" pin="2"/>
-<wire x1="35.56" y1="127" x2="35.56" y2="137.16" width="0.1524" layer="91"/>
-<wire x1="35.56" y1="137.16" x2="27.94" y2="137.16" width="0.1524" layer="91"/>
-<label x="27.94" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
