@@ -125,7 +125,7 @@ Layer=16
 
 [Win_4]
 Type="Schematic Editor"
-Loc="-8 -8 1911 1009"
+Loc="0 0 1919 1017"
 State=1
 Number=2
 File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/HFT-Core-Module_1V1.sch"
@@ -169,7 +169,7 @@ AddLevel=2
 PadsSameType=0
 Layer=91
 Views=" 1: -5.74385 -4.10556 266.52 182.968 27: -5.74385 -4.10556 266.52 182.968"
-Sheet="29"
+Sheet="27"
 
 [Desktop]
 Screen="1920 1080"
