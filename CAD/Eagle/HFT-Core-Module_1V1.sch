@@ -28395,18 +28395,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C1903" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="10nF"/>
 <part name="GND1903" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R2011" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2010" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
 <part name="R2012" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2013" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2014" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2015" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2016" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2017" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
 <part name="FRAME_21" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="R2120" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2121" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2122" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
-<part name="R2123" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2111" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
 <part name="GND1961" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="R1961" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="22R"/>
 <part name="R1962" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="22R"/>
@@ -28503,6 +28494,20 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R2712" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
 <part name="R2701" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="R2731" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
+<part name="R2013" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2112" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2113" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2114" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2014" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2015" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2016" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2017" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2018" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1kR"/>
+<part name="R2121" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="5.6kR"/>
+<part name="R2122" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="5.6kR"/>
+<part name="R2123" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="5.6kR"/>
+<part name="R2124" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="5.6kR"/>
+<part name="GND2101" library="df4iah_supply" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -34442,139 +34447,137 @@ I2C addr: 0x1A</text>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Level-Shifter A removed (2.8V --&gt; 3.3V)</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SIM868 Level-Shifter A</text>
-<text x="10.16" y="109.22" size="1.778" layer="97">MCU_LPUART_TX_OUT</text>
-<text x="182.88" y="101.6" size="1.778" layer="97">MCU_LPUART_RX_IN</text>
-<text x="10.16" y="93.98" size="1.778" layer="97">MCU_LPUART_RTS_OUT</text>
-<text x="182.88" y="86.36" size="1.778" layer="97">MCU_LPUART_CTS_IN</text>
-<text x="10.16" y="78.74" size="1.778" layer="97">MCU_LPUART_DTR_OUT</text>
-<text x="182.88" y="71.12" size="1.778" layer="97">MCU_LPUART_RI_IN</text>
-<text x="182.88" y="63.5" size="1.778" layer="97">MCU_LPUART_DCD_IN</text>
-<text x="182.88" y="55.88" size="1.778" layer="97">MCU_TIMCAP_1PPS</text>
-<text x="83.82" y="119.38" size="1.778" layer="97">Direction  ---&gt;</text>
+<text x="187.96" y="111.76" size="1.778" layer="97">MCU_LPUART_RX_IN (Pull-Down)</text>
+<text x="187.96" y="104.14" size="1.778" layer="97">MCU_LPUART_CTS_IN (Pull-Down)</text>
+<text x="187.96" y="96.52" size="1.778" layer="97">MCU_LPUART_RI_IN (Pull-Down)</text>
+<text x="187.96" y="88.9" size="1.778" layer="97">MCU_LPUART_DCD_IN (Pull-Down)</text>
+<text x="187.96" y="81.28" size="1.778" layer="97">MCU_TIMCAP_1PPS (Pull-Down)</text>
+<text x="99.06" y="121.92" size="1.778" layer="97">Direction  ---&gt;</text>
+<text x="187.96" y="58.42" size="1.778" layer="97">MCU_RF_SYNC_IN (Pull-Down)</text>
 </plain>
 <instances>
 <instance part="FRAME_20" gate="G$1" x="0" y="0"/>
-<instance part="R2011" gate="G$1" x="91.44" y="101.6"/>
-<instance part="R2010" gate="G$1" x="91.44" y="109.22"/>
-<instance part="R2012" gate="G$1" x="91.44" y="93.98"/>
-<instance part="R2013" gate="G$1" x="91.44" y="86.36"/>
-<instance part="R2014" gate="G$1" x="91.44" y="78.74"/>
-<instance part="R2015" gate="G$1" x="91.44" y="71.12"/>
-<instance part="R2016" gate="G$1" x="91.44" y="63.5"/>
-<instance part="R2017" gate="G$1" x="91.44" y="55.88"/>
+<instance part="R2011" gate="G$1" x="91.44" y="111.76"/>
+<instance part="R2012" gate="G$1" x="91.44" y="104.14"/>
+<instance part="R2013" gate="G$1" x="91.44" y="96.52"/>
+<instance part="R2014" gate="G$1" x="91.44" y="88.9"/>
+<instance part="R2015" gate="G$1" x="91.44" y="81.28"/>
+<instance part="R2016" gate="G$1" x="91.44" y="73.66"/>
+<instance part="R2017" gate="G$1" x="91.44" y="66.04"/>
+<instance part="R2018" gate="G$1" x="91.44" y="58.42"/>
 </instances>
 <busses>
 </busses>
 <nets>
-<net name="SIM_UART1_RXD" class="0">
-<segment>
-<wire x1="96.52" y1="109.22" x2="142.24" y2="109.22" width="0.1524" layer="91"/>
-<label x="142.24" y="109.22" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2010" gate="G$1" pin="2"/>
-</segment>
-</net>
 <net name="PG8" class="0">
 <segment>
-<wire x1="96.52" y1="101.6" x2="142.24" y2="101.6" width="0.1524" layer="91"/>
-<label x="142.24" y="101.6" size="1.778" layer="95" xref="yes"/>
+<wire x1="96.52" y1="111.76" x2="144.78" y2="111.76" width="0.1524" layer="91"/>
+<label x="144.78" y="111.76" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2011" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="SIM_UART1_RTS" class="0">
-<segment>
-<wire x1="96.52" y1="93.98" x2="142.24" y2="93.98" width="0.1524" layer="91"/>
-<label x="142.24" y="93.98" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2012" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="PA6" class="0">
 <segment>
-<wire x1="96.52" y1="86.36" x2="142.24" y2="86.36" width="0.1524" layer="91"/>
-<label x="142.24" y="86.36" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2013" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="SIM_UART1_DTR" class="0">
-<segment>
-<wire x1="96.52" y1="78.74" x2="142.24" y2="78.74" width="0.1524" layer="91"/>
-<label x="142.24" y="78.74" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2014" gate="G$1" pin="2"/>
+<wire x1="96.52" y1="104.14" x2="144.78" y2="104.14" width="0.1524" layer="91"/>
+<label x="144.78" y="104.14" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2012" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="PG6" class="0">
 <segment>
-<wire x1="96.52" y1="71.12" x2="142.24" y2="71.12" width="0.1524" layer="91"/>
-<label x="142.24" y="71.12" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2015" gate="G$1" pin="2"/>
+<wire x1="96.52" y1="96.52" x2="144.78" y2="96.52" width="0.1524" layer="91"/>
+<label x="144.78" y="96.52" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2013" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="PC7" class="0">
 <segment>
-<wire x1="96.52" y1="63.5" x2="142.24" y2="63.5" width="0.1524" layer="91"/>
-<label x="142.24" y="63.5" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2016" gate="G$1" pin="2"/>
+<wire x1="96.52" y1="88.9" x2="144.78" y2="88.9" width="0.1524" layer="91"/>
+<label x="144.78" y="88.9" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2014" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="SIM_UART1_TXD" class="0">
 <segment>
 <pinref part="R2011" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="101.6" x2="81.28" y2="101.6" width="0.1524" layer="91"/>
-<label x="81.28" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="PA2" class="0">
-<segment>
-<pinref part="R2010" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="109.22" x2="81.28" y2="109.22" width="0.1524" layer="91"/>
-<label x="81.28" y="109.22" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="PB1" class="0">
-<segment>
-<pinref part="R2012" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="93.98" x2="81.28" y2="93.98" width="0.1524" layer="91"/>
-<label x="81.28" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="86.36" y1="111.76" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
+<label x="81.28" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_UART1_CTS" class="0">
 <segment>
-<pinref part="R2013" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="86.36" x2="81.28" y2="86.36" width="0.1524" layer="91"/>
-<label x="81.28" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="PG7" class="0">
-<segment>
-<pinref part="R2014" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="78.74" x2="81.28" y2="78.74" width="0.1524" layer="91"/>
-<label x="81.28" y="78.74" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2012" gate="G$1" pin="1"/>
+<wire x1="86.36" y1="104.14" x2="81.28" y2="104.14" width="0.1524" layer="91"/>
+<label x="81.28" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_UART1_RI" class="0">
 <segment>
-<pinref part="R2015" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="71.12" x2="81.28" y2="71.12" width="0.1524" layer="91"/>
-<label x="81.28" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="86.36" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
+<label x="81.28" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2013" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="SIM_UART1_DCD" class="0">
 <segment>
-<pinref part="R2016" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="63.5" x2="81.28" y2="63.5" width="0.1524" layer="91"/>
-<label x="81.28" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="86.36" y1="88.9" x2="81.28" y2="88.9" width="0.1524" layer="91"/>
+<label x="81.28" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2014" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="SIM_1PPS" class="0">
 <segment>
-<pinref part="R2017" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="55.88" x2="81.28" y2="55.88" width="0.1524" layer="91"/>
-<label x="81.28" y="55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="86.36" y1="81.28" x2="81.28" y2="81.28" width="0.1524" layer="91"/>
+<label x="81.28" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2015" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PF9" class="0">
 <segment>
-<wire x1="96.52" y1="55.88" x2="142.24" y2="55.88" width="0.1524" layer="91"/>
-<label x="142.24" y="55.88" size="1.778" layer="95" xref="yes"/>
+<wire x1="96.52" y1="81.28" x2="144.78" y2="81.28" width="0.1524" layer="91"/>
+<label x="144.78" y="81.28" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2015" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="SIM_STATUS" class="0">
+<segment>
+<wire x1="86.36" y1="73.66" x2="81.28" y2="73.66" width="0.1524" layer="91"/>
+<label x="81.28" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2016" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="SIM_NETLIGHT" class="0">
+<segment>
+<wire x1="86.36" y1="66.04" x2="81.28" y2="66.04" width="0.1524" layer="91"/>
+<label x="81.28" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2017" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="SIM_RF_SYNC" class="0">
+<segment>
+<wire x1="86.36" y1="58.42" x2="81.28" y2="58.42" width="0.1524" layer="91"/>
+<label x="81.28" y="58.42" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2018" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="PC0" class="0">
+<segment>
+<wire x1="96.52" y1="58.42" x2="144.78" y2="58.42" width="0.1524" layer="91"/>
+<label x="144.78" y="58.42" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2018" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="PEXPB_P1_1_R" class="0">
+<segment>
+<wire x1="96.52" y1="73.66" x2="144.78" y2="73.66" width="0.1524" layer="91"/>
+<label x="144.78" y="73.66" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2016" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="PEXPB_P1_2_R" class="0">
+<segment>
+<wire x1="96.52" y1="66.04" x2="144.78" y2="66.04" width="0.1524" layer="91"/>
+<label x="144.78" y="66.04" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2017" gate="G$1" pin="2"/>
 </segment>
 </net>
@@ -34583,75 +34586,117 @@ I2C addr: 0x1A</text>
 <sheet>
 <description>SIM868 Level-Shifter B</description>
 <plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Level-Shifter B simplified (3.3V --&gt; 2.8V)</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Level-Shifter B simplified (2.8V &lt;-- 3.3V)</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SIM868 Level-Shifter B</text>
-<text x="10.16" y="86.36" size="1.778" layer="97">MCU_RF_SYNC_IN</text>
-<text x="144.78" y="119.38" size="1.778" layer="97">&lt;---  Direction</text>
+<text x="96.52" y="121.92" size="1.778" layer="97">&lt;---  Direction</text>
+<text x="187.96" y="104.14" size="1.778" layer="97">MCU_LPUART_TX_OUT</text>
+<text x="187.96" y="96.52" size="1.778" layer="97">MCU_LPUART_RTS_OUT</text>
+<text x="187.96" y="88.9" size="1.778" layer="97">MCU_LPUART_DTR_OUT</text>
 </plain>
 <instances>
 <instance part="FRAME_21" gate="G$1" x="0" y="0"/>
-<instance part="R2120" gate="G$1" x="154.94" y="109.22"/>
-<instance part="R2121" gate="G$1" x="154.94" y="101.6"/>
-<instance part="R2122" gate="G$1" x="154.94" y="93.98"/>
-<instance part="R2123" gate="G$1" x="154.94" y="86.36"/>
+<instance part="R2111" gate="G$1" x="134.62" y="111.76"/>
+<instance part="R2112" gate="G$1" x="134.62" y="104.14"/>
+<instance part="R2113" gate="G$1" x="134.62" y="96.52"/>
+<instance part="R2114" gate="G$1" x="134.62" y="88.9"/>
+<instance part="R2121" gate="G$1" x="93.98" y="78.74" rot="R90"/>
+<instance part="R2122" gate="G$1" x="101.6" y="78.74" rot="R90"/>
+<instance part="R2123" gate="G$1" x="109.22" y="78.74" rot="R90"/>
+<instance part="R2124" gate="G$1" x="116.84" y="78.74" rot="R90"/>
+<instance part="GND2101" gate="1" x="93.98" y="68.58"/>
 </instances>
 <busses>
 </busses>
 <nets>
-<net name="SIM_STATUS" class="0">
-<segment>
-<pinref part="R2120" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="109.22" x2="165.1" y2="109.22" width="0.1524" layer="91"/>
-<label x="165.1" y="109.22" size="1.778" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="SIM_NETLIGHT" class="0">
-<segment>
-<pinref part="R2122" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="93.98" x2="165.1" y2="93.98" width="0.1524" layer="91"/>
-<label x="165.1" y="93.98" size="1.778" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="SIM_RF_SYNC" class="0">
-<segment>
-<pinref part="R2123" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="86.36" x2="165.1" y2="86.36" width="0.1524" layer="91"/>
-<label x="165.1" y="86.36" size="1.778" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="PC0" class="0">
-<segment>
-<wire x1="149.86" y1="86.36" x2="81.28" y2="86.36" width="0.1524" layer="91"/>
-<label x="81.28" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R2123" gate="G$1" pin="1"/>
-</segment>
-</net>
 <net name="PEXPB_P1_0_R" class="0">
 <segment>
-<pinref part="R2121" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="101.6" x2="165.1" y2="101.6" width="0.1524" layer="91"/>
-<label x="165.1" y="101.6" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2111" gate="G$1" pin="2"/>
+<wire x1="139.7" y1="111.76" x2="144.78" y2="111.76" width="0.1524" layer="91"/>
+<label x="144.78" y="111.76" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SIM_!PWRKEY" class="0">
 <segment>
-<wire x1="149.86" y1="101.6" x2="81.28" y2="101.6" width="0.1524" layer="91"/>
-<label x="81.28" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="129.54" y1="111.76" x2="93.98" y2="111.76" width="0.1524" layer="91"/>
+<label x="81.28" y="111.76" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2111" gate="G$1" pin="1"/>
+<pinref part="R2121" gate="G$1" pin="2"/>
+<wire x1="93.98" y1="111.76" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="111.76" x2="93.98" y2="83.82" width="0.1524" layer="91"/>
+<junction x="93.98" y="111.76"/>
+</segment>
+</net>
+<net name="SIM_UART1_RXD" class="0">
+<segment>
+<wire x1="129.54" y1="104.14" x2="101.6" y2="104.14" width="0.1524" layer="91"/>
+<label x="81.28" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2112" gate="G$1" pin="1"/>
+<pinref part="R2122" gate="G$1" pin="2"/>
+<wire x1="101.6" y1="104.14" x2="81.28" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="104.14" x2="101.6" y2="83.82" width="0.1524" layer="91"/>
+<junction x="101.6" y="104.14"/>
+</segment>
+</net>
+<net name="SIM_UART1_RTS" class="0">
+<segment>
+<wire x1="129.54" y1="96.52" x2="109.22" y2="96.52" width="0.1524" layer="91"/>
+<label x="81.28" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2113" gate="G$1" pin="1"/>
+<pinref part="R2123" gate="G$1" pin="2"/>
+<wire x1="109.22" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="96.52" x2="109.22" y2="83.82" width="0.1524" layer="91"/>
+<junction x="109.22" y="96.52"/>
+</segment>
+</net>
+<net name="SIM_UART1_DTR" class="0">
+<segment>
+<wire x1="129.54" y1="88.9" x2="116.84" y2="88.9" width="0.1524" layer="91"/>
+<label x="81.28" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2114" gate="G$1" pin="1"/>
+<pinref part="R2124" gate="G$1" pin="2"/>
+<wire x1="116.84" y1="88.9" x2="81.28" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="88.9" x2="116.84" y2="83.82" width="0.1524" layer="91"/>
+<junction x="116.84" y="88.9"/>
+</segment>
+</net>
+<net name="PA2" class="0">
+<segment>
+<wire x1="139.7" y1="104.14" x2="144.78" y2="104.14" width="0.1524" layer="91"/>
+<label x="144.78" y="104.14" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2112" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="PB1" class="0">
+<segment>
+<wire x1="139.7" y1="96.52" x2="144.78" y2="96.52" width="0.1524" layer="91"/>
+<label x="144.78" y="96.52" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2113" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="PG7" class="0">
+<segment>
+<wire x1="139.7" y1="88.9" x2="144.78" y2="88.9" width="0.1524" layer="91"/>
+<label x="144.78" y="88.9" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2114" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND2101" gate="1" pin="GND"/>
 <pinref part="R2121" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="PEXPB_P1_1_R" class="0">
-<segment>
-<wire x1="149.86" y1="109.22" x2="81.28" y2="109.22" width="0.1524" layer="91"/>
-<label x="81.28" y="109.22" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R2120" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="PEXPB_P1_2_R" class="0">
-<segment>
-<wire x1="149.86" y1="93.98" x2="81.28" y2="93.98" width="0.1524" layer="91"/>
-<label x="81.28" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="93.98" y1="71.12" x2="93.98" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="71.12" x2="101.6" y2="71.12" width="0.1524" layer="91"/>
+<junction x="93.98" y="71.12"/>
+<pinref part="R2124" gate="G$1" pin="1"/>
+<wire x1="101.6" y1="71.12" x2="109.22" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="71.12" x2="116.84" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="71.12" x2="116.84" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="R2123" gate="G$1" pin="1"/>
+<wire x1="109.22" y1="71.12" x2="109.22" y2="73.66" width="0.1524" layer="91"/>
+<junction x="109.22" y="71.12"/>
 <pinref part="R2122" gate="G$1" pin="1"/>
+<wire x1="101.6" y1="71.12" x2="101.6" y2="73.66" width="0.1524" layer="91"/>
+<junction x="101.6" y="71.12"/>
 </segment>
 </net>
 </nets>

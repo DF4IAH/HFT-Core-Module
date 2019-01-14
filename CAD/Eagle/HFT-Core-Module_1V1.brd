@@ -7766,49 +7766,13 @@ Covered vias can be set in Masks (Limit).
 <attribute name="NAME" x="26.67" y="37.465" size="0.6096" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="29.21" y="37.7825" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
-<element name="R2010" library="df4iah_rcl" package="R0402" value="1kR" x="49.53" y="52.3875" smashed="yes" rot="R180">
-<attribute name="NAME" x="48.26" y="51.1175" size="0.6096" layer="25" font="vector" ratio="10"/>
-<attribute name="VALUE" x="50.8" y="53.6575" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
-</element>
-<element name="R2012" library="df4iah_rcl" package="R0402" value="1kR" x="59.69" y="46.99" smashed="yes" rot="R270">
-<attribute name="NAME" x="58.7375" y="45.72" size="0.6096" layer="25" font="vector" ratio="10" rot="R90"/>
-<attribute name="VALUE" x="60.96" y="45.72" size="0.6096" layer="27" font="vector" ratio="10" rot="R90"/>
-</element>
-<element name="R2013" library="df4iah_rcl" package="R0402" value="1kR" x="33.655" y="32.86125" smashed="yes" rot="MR180">
+<element name="R2012" library="df4iah_rcl" package="R0402" value="1kR" x="33.655" y="32.86125" smashed="yes" rot="MR180">
 <attribute name="NAME" x="34.925" y="33.49625" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="32.385" y="34.13125" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="R2014" library="df4iah_rcl" package="R0402" value="1kR" x="80.645" y="61.595" smashed="yes" rot="MR180">
-<attribute name="NAME" x="84.7725" y="61.2775" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
-<attribute name="VALUE" x="79.375" y="62.865" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
-</element>
-<element name="R2015" library="df4iah_rcl" package="R0402" value="1kR" x="33.655" y="29.845" smashed="yes" rot="MR180">
-<attribute name="NAME" x="34.925" y="28.575" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
-<attribute name="VALUE" x="32.385" y="31.115" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
-</element>
-<element name="R2016" library="df4iah_rcl" package="R0402" value="1kR" x="27.94" y="32.54375" smashed="yes" rot="R180">
-<attribute name="NAME" x="26.67" y="33.49625" size="0.6096" layer="25" font="vector" ratio="10"/>
-<attribute name="VALUE" x="29.21" y="33.81375" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
-</element>
-<element name="R2017" library="df4iah_rcl" package="R0402" value="1kR" x="20.32" y="27.94" smashed="yes">
-<attribute name="NAME" x="19.05" y="28.8925" size="0.6096" layer="25" font="vector" ratio="10"/>
-<attribute name="VALUE" x="19.05" y="26.67" size="0.6096" layer="27" font="vector" ratio="10"/>
-</element>
-<element name="R2120" library="df4iah_rcl" package="R0402" value="1kR" x="29.21" y="40.64" smashed="yes" rot="MR0">
-<attribute name="NAME" x="33.3375" y="40.64" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
-<attribute name="VALUE" x="30.48" y="39.37" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
-</element>
-<element name="R2121" library="df4iah_rcl" package="R0402" value="1kR" x="37.1475" y="61.595" smashed="yes" rot="MR90">
+<element name="R2111" library="df4iah_rcl" package="R0402" value="1kR" x="37.1475" y="61.595" smashed="yes" rot="MR90">
 <attribute name="NAME" x="38.1" y="60.325" size="0.6096" layer="26" font="vector" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="35.8775" y="60.325" size="0.6096" layer="28" font="vector" ratio="10" rot="MR90"/>
-</element>
-<element name="R2122" library="df4iah_rcl" package="R0402" value="1kR" x="29.21" y="42.2275" smashed="yes" rot="MR0">
-<attribute name="NAME" x="33.3375" y="42.2275" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
-<attribute name="VALUE" x="30.48" y="40.9575" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
-</element>
-<element name="R2123" library="df4iah_rcl" package="R0402" value="1kR" x="19.685" y="32.0675" smashed="yes" rot="R180">
-<attribute name="NAME" x="18.7325" y="33.02" size="0.6096" layer="25" font="vector" ratio="10"/>
-<attribute name="VALUE" x="20.955" y="33.3375" size="0.6096" layer="27" font="vector" ratio="10" rot="R180"/>
 </element>
 <element name="R1961" library="df4iah_rcl" package="R0402" value="22R" x="12.065" y="29.21" smashed="yes" rot="MR0">
 <attribute name="NAME" x="13.0175" y="29.845" size="0.6096" layer="26" font="vector" ratio="10" rot="MR0"/>
@@ -8016,6 +7980,19 @@ Covered vias can be set in Masks (Limit).
 <element name="R2712" library="df4iah_rcl" package="R0402" value="220kR" x="5.08" y="-17.78"/>
 <element name="R2701" library="df4iah_rcl" package="R0402" value="0R" x="-6.35" y="-31.75"/>
 <element name="R2731" library="df4iah_rcl" package="R0402" value="0R" x="-6.35" y="-36.83"/>
+<element name="R2013" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-41.91"/>
+<element name="R2112" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-46.99"/>
+<element name="R2113" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-52.07"/>
+<element name="R2114" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-57.15"/>
+<element name="R2014" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-62.23"/>
+<element name="R2015" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-67.31"/>
+<element name="R2016" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-72.39"/>
+<element name="R2017" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-77.47"/>
+<element name="R2018" library="df4iah_rcl" package="R0402" value="1kR" x="-6.35" y="-82.55"/>
+<element name="R2121" library="df4iah_rcl" package="R0402" value="5.6kR" x="-6.35" y="-87.63"/>
+<element name="R2122" library="df4iah_rcl" package="R0402" value="5.6kR" x="-6.35" y="-92.71"/>
+<element name="R2123" library="df4iah_rcl" package="R0402" value="5.6kR" x="-6.35" y="-97.79"/>
+<element name="R2124" library="df4iah_rcl" package="R0402" value="5.6kR" x="-6.35" y="-102.87"/>
 </elements>
 <signals>
 <signal name="GND" airwireshidden="yes">
@@ -8548,6 +8525,10 @@ Covered vias can be set in Masks (Limit).
 <contactref element="U2701" pad="7"/>
 <contactref element="C2701" pad="2"/>
 <contactref element="R2711" pad="1"/>
+<contactref element="R2121" pad="1"/>
+<contactref element="R2124" pad="1"/>
+<contactref element="R2123" pad="1"/>
+<contactref element="R2122" pad="1"/>
 <wire x1="117.49" y1="86.36" x2="121.3" y2="86.36" width="0" layer="19" extent="1-1"/>
 <wire x1="113.68" y1="86.36" x2="117.49" y2="86.36" width="0" layer="19" extent="1-1"/>
 <wire x1="109.87" y1="86.36" x2="113.68" y2="86.36" width="0" layer="19" extent="1-1"/>
@@ -9024,6 +9005,10 @@ Covered vias can be set in Masks (Limit).
 <wire x1="-6.35" y1="-21.25" x2="-5.85" y2="-16.85" width="0" layer="19" extent="1-1"/>
 <wire x1="2.12" y1="-26.67" x2="0.62" y2="-17.78" width="0" layer="19" extent="1-1"/>
 <wire x1="5.93" y1="-26.67" x2="2.12" y2="-26.67" width="0" layer="19" extent="1-1"/>
+<wire x1="-7" y1="-87.63" x2="2.12" y2="-26.67" width="0" layer="19" extent="1-1"/>
+<wire x1="-7" y1="-92.71" x2="-7" y2="-87.63" width="0" layer="19" extent="1-1"/>
+<wire x1="-7" y1="-97.79" x2="-7" y2="-92.71" width="0" layer="19" extent="1-1"/>
+<wire x1="-7" y1="-102.87" x2="-7" y2="-97.79" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="MCU_VSSA">
 <contactref element="U0111" pad="30"/>
@@ -9185,8 +9170,8 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PF9">
 <contactref element="U0111" pad="21"/>
-<contactref element="R2017" pad="2"/>
-<wire x1="20.97" y1="27.94" x2="52.85" y2="59.71" width="0" layer="19" extent="1-1"/>
+<contactref element="R2015" pad="2"/>
+<wire x1="-5.7" y1="-67.31" x2="52.85" y2="59.71" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PF10">
 <contactref element="U0111" pad="22"/>
@@ -9220,8 +9205,8 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PC0">
 <contactref element="U0111" pad="26"/>
-<contactref element="R2123" pad="1"/>
-<wire x1="20.335" y1="32.0675" x2="52.85" y2="57.21" width="0" layer="19" extent="1-1"/>
+<contactref element="R2018" pad="2"/>
+<wire x1="-5.7" y1="-82.55" x2="52.85" y2="57.21" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PC1">
 <contactref element="U0111" pad="27"/>
@@ -9258,8 +9243,8 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PA2">
 <contactref element="U0111" pad="36"/>
-<contactref element="R2010" pad="1"/>
-<wire x1="50.18" y1="52.3875" x2="52.85" y2="52.21" width="0" layer="19" extent="1-1"/>
+<contactref element="R2112" pad="2"/>
+<wire x1="-5.7" y1="-46.99" x2="52.85" y2="52.21" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PA3">
 <contactref element="U0111" pad="37"/>
@@ -9278,7 +9263,7 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PA6">
 <contactref element="U0111" pad="42"/>
-<contactref element="R2013" pad="2"/>
+<contactref element="R2012" pad="2"/>
 <wire x1="34.305" y1="32.86125" x2="57.25" y2="50.31" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="PA7">
@@ -9293,8 +9278,8 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PB1">
 <contactref element="U0111" pad="47"/>
-<contactref element="R2012" pad="1"/>
-<wire x1="59.69" y1="47.64" x2="59.75" y2="50.31" width="0" layer="19" extent="1-1"/>
+<contactref element="R2113" pad="2"/>
+<wire x1="-5.7" y1="-52.07" x2="59.75" y2="50.31" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PB10">
 <contactref element="U0111" pad="69"/>
@@ -9448,13 +9433,13 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PG7">
 <contactref element="U0111" pad="92"/>
-<contactref element="R2014" pad="1"/>
-<wire x1="74.15" y1="61.71" x2="79.995" y2="61.595" width="0" layer="19" extent="1-16"/>
+<contactref element="R2114" pad="2"/>
+<wire x1="-5.7" y1="-57.15" x2="74.15" y2="61.71" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PG6">
 <contactref element="U0111" pad="91"/>
-<contactref element="R2015" pad="2"/>
-<wire x1="34.305" y1="29.845" x2="74.15" y2="61.21" width="0" layer="19" extent="1-16"/>
+<contactref element="R2013" pad="2"/>
+<wire x1="-5.7" y1="-41.91" x2="74.15" y2="61.21" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PG5">
 <contactref element="U0111" pad="90"/>
@@ -9660,8 +9645,8 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PC7">
 <contactref element="U0111" pad="97"/>
-<contactref element="R2016" pad="2"/>
-<wire x1="27.29" y1="32.54375" x2="74.15" y2="64.21" width="0" layer="19" extent="1-1"/>
+<contactref element="R2014" pad="2"/>
+<wire x1="-5.7" y1="-62.23" x2="74.15" y2="64.21" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PC6">
 <contactref element="U0111" pad="96"/>
@@ -11516,7 +11501,7 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="PEXPB_P1_0_R">
 <contactref element="U0621" pad="13"/>
-<contactref element="R2121" pad="2"/>
+<contactref element="R2111" pad="2"/>
 <contactref element="R0689" pad="1"/>
 <wire x1="37.1475" y1="62.245" x2="37.215" y2="63.635" width="0" layer="19" extent="1-16"/>
 <wire x1="108.57" y1="76.2" x2="37.1475" y2="62.245" width="0" layer="19" extent="1-16"/>
@@ -11524,16 +11509,16 @@ Covered vias can be set in Masks (Limit).
 <signal name="PEXPB_P1_1_R">
 <contactref element="U0621" pad="14"/>
 <contactref element="R0690" pad="1"/>
-<contactref element="R2120" pad="1"/>
+<contactref element="R2016" pad="2"/>
 <wire x1="37.215" y1="64.385" x2="112.38" y2="76.2" width="0" layer="19" extent="1-1"/>
-<wire x1="29.86" y1="40.64" x2="37.215" y2="64.385" width="0" layer="19" extent="1-16"/>
+<wire x1="-5.7" y1="-72.39" x2="37.215" y2="64.385" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PEXPB_P1_2_R">
 <contactref element="U0621" pad="15"/>
 <contactref element="R0691" pad="1"/>
-<contactref element="R2122" pad="1"/>
+<contactref element="R2017" pad="2"/>
 <wire x1="37.215" y1="65.035" x2="116.19" y2="76.2" width="0" layer="19" extent="1-1"/>
-<wire x1="29.86" y1="42.2275" x2="37.215" y2="65.035" width="0" layer="19" extent="1-16"/>
+<wire x1="-5.7" y1="-77.47" x2="37.215" y2="65.035" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PEXPB_P1_5_R">
 <contactref element="X1201" pad="A"/>
@@ -11669,33 +11654,39 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="SIM_UART1_RXD">
 <contactref element="U1901" pad="2"/>
-<contactref element="R2010" pad="2"/>
-<wire x1="30.71" y1="35.43" x2="48.88" y2="52.3875" width="0" layer="19" extent="1-16"/>
+<contactref element="R2112" pad="1"/>
+<contactref element="R2122" pad="2"/>
+<wire x1="-7" y1="-46.99" x2="-5.7" y2="-92.71" width="0" layer="19" extent="1-1"/>
+<wire x1="30.71" y1="35.43" x2="-7" y2="-46.99" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_UART1_RTS">
 <contactref element="U1901" pad="3"/>
-<contactref element="R2012" pad="2"/>
-<wire x1="30.71" y1="34.33" x2="59.69" y2="46.34" width="0" layer="19" extent="1-16"/>
+<contactref element="R2113" pad="1"/>
+<contactref element="R2123" pad="2"/>
+<wire x1="-7" y1="-52.07" x2="-5.7" y2="-97.79" width="0" layer="19" extent="1-1"/>
+<wire x1="30.71" y1="34.33" x2="-7" y2="-52.07" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_UART1_CTS">
 <contactref element="U1901" pad="4"/>
-<contactref element="R2013" pad="1"/>
+<contactref element="R2012" pad="1"/>
 <wire x1="33.005" y1="32.86125" x2="30.71" y2="33.23" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="SIM_UART1_DCD">
 <contactref element="U1901" pad="5"/>
-<contactref element="R2016" pad="1"/>
-<wire x1="28.59" y1="32.54375" x2="30.71" y2="32.13" width="0" layer="19" extent="1-16"/>
+<contactref element="R2014" pad="1"/>
+<wire x1="30.71" y1="32.13" x2="-7" y2="-62.23" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_UART1_DTR">
 <contactref element="U1901" pad="6"/>
-<contactref element="R2014" pad="2"/>
-<wire x1="30.71" y1="31.03" x2="81.295" y2="61.595" width="0" layer="19" extent="16-16"/>
+<contactref element="R2114" pad="1"/>
+<contactref element="R2124" pad="2"/>
+<wire x1="-7" y1="-57.15" x2="-5.7" y2="-102.87" width="0" layer="19" extent="1-1"/>
+<wire x1="30.71" y1="31.03" x2="-7" y2="-57.15" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_UART1_RI">
 <contactref element="U1901" pad="7"/>
-<contactref element="R2015" pad="1"/>
-<wire x1="33.005" y1="29.845" x2="30.71" y2="29.93" width="0" layer="19" extent="16-16"/>
+<contactref element="R2013" pad="1"/>
+<wire x1="-7" y1="-41.91" x2="30.71" y2="29.93" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_SIM1_DET">
 <contactref element="U1901" pad="14"/>
@@ -11730,28 +11721,30 @@ Covered vias can be set in Masks (Limit).
 </signal>
 <signal name="SIM_RF_SYNC">
 <contactref element="U1901" pad="29"/>
-<contactref element="R2123" pad="2"/>
-<wire x1="15.01" y1="32.13" x2="19.035" y2="32.0675" width="0" layer="19" extent="1-16"/>
+<contactref element="R2018" pad="1"/>
+<wire x1="15.01" y1="32.13" x2="-7" y2="-82.55" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_!PWRKEY">
 <contactref element="U1901" pad="39"/>
-<contactref element="R2121" pad="1"/>
+<contactref element="R2111" pad="1"/>
+<contactref element="R2121" pad="2"/>
 <wire x1="23.96" y1="39.28" x2="37.1475" y2="60.945" width="0" layer="19" extent="16-16"/>
+<wire x1="-5.7" y1="-87.63" x2="23.96" y2="39.28" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_NETLIGHT">
 <contactref element="U1901" pad="41"/>
-<contactref element="R2122" pad="2"/>
-<wire x1="26.16" y1="39.28" x2="28.56" y2="42.2275" width="0" layer="19" extent="16-16"/>
+<contactref element="R2017" pad="1"/>
+<wire x1="26.16" y1="39.28" x2="-7" y2="-77.47" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_STATUS">
 <contactref element="U1901" pad="42"/>
-<contactref element="R2120" pad="2"/>
-<wire x1="27.26" y1="39.28" x2="28.56" y2="40.64" width="0" layer="19" extent="16-16"/>
+<contactref element="R2016" pad="1"/>
+<wire x1="27.26" y1="39.28" x2="-7" y2="-72.39" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_1PPS">
 <contactref element="U1901" pad="60"/>
-<contactref element="R2017" pad="1"/>
-<wire x1="17.41" y1="28.38" x2="19.67" y2="27.94" width="0" layer="19" extent="1-16"/>
+<contactref element="R2015" pad="1"/>
+<wire x1="17.41" y1="28.38" x2="-7" y2="-67.31" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="SIM_GNSS_EN">
 <contactref element="U1901" pad="59"/>
