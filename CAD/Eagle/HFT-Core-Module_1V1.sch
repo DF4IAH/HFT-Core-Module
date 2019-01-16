@@ -28365,7 +28365,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R0685" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0686" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0688" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
-<part name="R0692" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0694" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0695" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0696" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
@@ -28401,6 +28400,9 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R0121" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
 <part name="R0591" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0687" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
+<part name="R0693" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
+<part name="R2713" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
+<part name="R0689" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 </parts>
 <sheets>
 <sheet>
@@ -29971,7 +29973,7 @@ I2C1 addr: 0x20</text>
 <text x="198.12" y="93.98" size="1.778" layer="97">HSE_PLL_SW_EN</text>
 <text x="198.12" y="83.82" size="1.778" layer="97">BNO085_BOOTN</text>
 <text x="198.12" y="78.74" size="1.778" layer="97">BNO085_NRST</text>
-<text x="198.12" y="73.66" size="1.778" layer="97">N/A</text>
+<text x="198.12" y="73.66" size="1.778" layer="97">GPS_SW_EN</text>
 <text x="198.12" y="68.58" size="1.778" layer="97">LIPO_PSEL</text>
 <text x="198.12" y="63.5" size="1.778" layer="97">LIPO_OTG_R</text>
 <text x="198.12" y="53.34" size="1.778" layer="97">SX_NRESET</text>
@@ -30455,9 +30457,9 @@ I2C1 addr: 0x21</text>
 <text x="149.86" y="134.62" size="1.778" layer="97">Iq=6.5uA</text>
 <text x="91.44" y="73.66" size="1.778" layer="97" rot="R90">I_MAX=16 x 3.3uA</text>
 <text x="116.84" y="50.8" size="1.778" layer="97">MCU_EXTI4_PEXPB</text>
-<text x="198.12" y="78.74" size="1.778" layer="97">SIM_STATUS</text>
-<text x="198.12" y="73.66" size="1.778" layer="97">SIM_NETLIGHT</text>
-<text x="198.12" y="93.98" size="1.778" layer="97">GPS_PWR_EN</text>
+<text x="198.12" y="73.66" size="1.778" layer="97">SIM_STATUS</text>
+<text x="198.12" y="68.58" size="1.778" layer="97">SIM_NETLIGHT</text>
+<text x="198.12" y="83.82" size="1.778" layer="97">D.C.</text>
 <text x="198.12" y="58.42" size="1.778" layer="97">ROTENC_I</text>
 <text x="198.12" y="53.34" size="1.778" layer="97">ROTENC_Q</text>
 <text x="198.12" y="48.26" size="1.778" layer="97">ROTENC_PB</text>
@@ -30467,21 +30469,26 @@ I2C1 addr: 0x21</text>
 <text x="198.12" y="119.38" size="1.778" layer="97">LIPO_STAT_R</text>
 <text x="198.12" y="114.3" size="1.778" layer="97">LIPO_!PG_R</text>
 <text x="198.12" y="109.22" size="1.778" layer="97">AUDIO_DAC_ZFLAG</text>
-<text x="198.12" y="83.82" size="1.778" layer="97">SIM_PWRKEY</text>
+<text x="198.12" y="78.74" size="1.778" layer="97">SIM_PWRKEY</text>
 <text x="178.816" y="128.778" size="1.778" layer="97">in</text>
-<text x="178.816" y="93.218" size="1.778" layer="97">out</text>
+<text x="178.816" y="62.738" size="1.778" layer="97">out</text>
 <text x="178.816" y="123.698" size="1.778" layer="97">in</text>
 <text x="178.816" y="118.618" size="1.778" layer="97">in</text>
 <text x="178.816" y="113.538" size="1.778" layer="97">in</text>
 <text x="178.816" y="108.458" size="1.778" layer="97">in</text>
 <text x="178.816" y="103.378" size="1.778" layer="97">in</text>
 <text x="178.816" y="83.058" size="1.778" layer="97">out</text>
-<text x="178.816" y="77.978" size="1.778" layer="97">in</text>
+<text x="178.816" y="67.818" size="1.778" layer="97">in</text>
 <text x="178.816" y="72.898" size="1.778" layer="97">in</text>
 <text x="178.816" y="57.658" size="1.778" layer="97">in</text>
 <text x="178.816" y="52.578" size="1.778" layer="97">in</text>
 <text x="178.816" y="47.498" size="1.778" layer="97">in</text>
-<text x="198.12" y="68.58" size="1.778" layer="97">EINK_RESET</text>
+<text x="198.12" y="63.5" size="1.778" layer="97">EINK_RESET</text>
+<text x="198.12" y="99.06" size="1.778" layer="97">TPS_PG</text>
+<text x="198.12" y="93.98" size="1.778" layer="97">TPS_LBO</text>
+<text x="178.816" y="98.298" size="1.778" layer="97">in</text>
+<text x="178.816" y="93.218" size="1.778" layer="97">in</text>
+<text x="178.816" y="77.978" size="1.778" layer="97">out</text>
 </plain>
 <instances>
 <instance part="FRAME_06" gate="G$1" x="0" y="0"/>
@@ -30525,10 +30532,6 @@ I2C1 addr: 0x21</text>
 <attribute name="NAME" x="62.23" y="113.2586" size="1.778" layer="95"/>
 <attribute name="VALUE" x="74.93" y="113.538" size="1.778" layer="96"/>
 </instance>
-<instance part="R0692" gate="G$1" x="76.2" y="93.98" smashed="yes">
-<attribute name="NAME" x="62.23" y="92.9386" size="1.778" layer="95"/>
-<attribute name="VALUE" x="74.93" y="93.218" size="1.778" layer="96"/>
-</instance>
 <instance part="R0694" gate="G$1" x="76.2" y="83.82" smashed="yes">
 <attribute name="NAME" x="62.23" y="82.7786" size="1.778" layer="95"/>
 <attribute name="VALUE" x="74.93" y="83.058" size="1.778" layer="96"/>
@@ -30544,6 +30547,14 @@ I2C1 addr: 0x21</text>
 <instance part="R0687" gate="G$1" x="76.2" y="119.38" smashed="yes">
 <attribute name="NAME" x="62.23" y="118.3386" size="1.778" layer="95"/>
 <attribute name="VALUE" x="74.93" y="118.618" size="1.778" layer="96"/>
+</instance>
+<instance part="R0693" gate="G$1" x="76.2" y="88.9" smashed="yes">
+<attribute name="NAME" x="62.23" y="87.8586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="74.93" y="88.138" size="1.778" layer="96"/>
+</instance>
+<instance part="R0689" gate="G$1" x="76.2" y="109.22" smashed="yes">
+<attribute name="NAME" x="62.23" y="108.1786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="74.93" y="108.458" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -30641,7 +30652,6 @@ I2C1 addr: 0x21</text>
 <junction x="86.36" y="104.14"/>
 <wire x1="86.36" y1="99.06" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
 <junction x="86.36" y="99.06"/>
-<pinref part="R0692" gate="G$1" pin="2"/>
 <wire x1="86.36" y1="93.98" x2="81.28" y2="93.98" width="0.1524" layer="91"/>
 <junction x="86.36" y="93.98"/>
 <wire x1="86.36" y1="88.9" x2="81.28" y2="88.9" width="0.1524" layer="91"/>
@@ -30659,6 +30669,8 @@ I2C1 addr: 0x21</text>
 <pinref part="R0682" gate="G$1" pin="2"/>
 <pinref part="R0683" gate="G$1" pin="2"/>
 <pinref part="R0687" gate="G$1" pin="2"/>
+<pinref part="R0693" gate="G$1" pin="2"/>
+<pinref part="R0689" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="PEXPB_P0_0_R" class="0">
@@ -30754,6 +30766,7 @@ I2C1 addr: 0x21</text>
 <segment>
 <wire x1="53.34" y1="109.22" x2="71.12" y2="109.22" width="0.1524" layer="91"/>
 <label x="53.34" y="109.22" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0689" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PEXPB_P1_1_R" class="0">
@@ -30823,7 +30836,6 @@ I2C1 addr: 0x21</text>
 <segment>
 <wire x1="53.34" y1="93.98" x2="71.12" y2="93.98" width="0.1524" layer="91"/>
 <label x="53.34" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R0692" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PEXPB_INTN" class="0">
@@ -30850,6 +30862,7 @@ I2C1 addr: 0x21</text>
 <segment>
 <wire x1="53.34" y1="88.9" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
 <label x="53.34" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0693" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PEXPB_P0_6_R" class="0">
@@ -31172,11 +31185,23 @@ I2C addr: 0x50</text>
 </plain>
 <instances>
 <instance part="FRAME_09" gate="G$1" x="0" y="0"/>
-<instance part="GND0901" gate="1" x="93.98" y="71.12"/>
-<instance part="R0901" gate="G$1" x="86.36" y="96.52"/>
-<instance part="R0902" gate="G$1" x="76.2" y="91.44"/>
-<instance part="R0903" gate="G$1" x="86.36" y="86.36"/>
-<instance part="R0904" gate="G$1" x="142.24" y="81.28"/>
+<instance part="GND0901" gate="1" x="96.52" y="71.12"/>
+<instance part="R0901" gate="G$1" x="88.9" y="96.52" smashed="yes">
+<attribute name="NAME" x="74.93" y="95.4786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="87.63" y="95.758" size="1.778" layer="96"/>
+</instance>
+<instance part="R0902" gate="G$1" x="88.9" y="91.44" smashed="yes">
+<attribute name="NAME" x="74.93" y="90.3986" size="1.778" layer="95"/>
+<attribute name="VALUE" x="87.63" y="90.678" size="1.778" layer="96"/>
+</instance>
+<instance part="R0903" gate="G$1" x="88.9" y="86.36" smashed="yes">
+<attribute name="NAME" x="74.93" y="85.3186" size="1.778" layer="95"/>
+<attribute name="VALUE" x="87.63" y="85.598" size="1.778" layer="96"/>
+</instance>
+<instance part="R0904" gate="G$1" x="142.24" y="81.28" smashed="yes">
+<attribute name="NAME" x="125.73" y="80.2386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="140.97" y="80.518" size="1.778" layer="96"/>
+</instance>
 <instance part="C0901" gate="G$1" x="86.36" y="111.76" rot="R90"/>
 <instance part="U0911" gate="G$1" x="162.56" y="96.52"/>
 </instances>
@@ -31211,23 +31236,16 @@ I2C addr: 0x50</text>
 </net>
 <net name="PG3" class="0">
 <segment>
-<wire x1="81.28" y1="96.52" x2="45.72" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="96.52" x2="45.72" y2="96.52" width="0.1524" layer="91"/>
 <label x="45.72" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="R0901" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PG5" class="0">
 <segment>
-<wire x1="71.12" y1="91.44" x2="45.72" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="91.44" x2="45.72" y2="91.44" width="0.1524" layer="91"/>
 <label x="45.72" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 <pinref part="R0902" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="PEXPB_P1_3_R" class="0">
-<segment>
-<wire x1="81.28" y1="86.36" x2="45.72" y2="86.36" width="0.1524" layer="91"/>
-<label x="45.72" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R0903" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PC8" class="0">
@@ -31239,15 +31257,15 @@ I2C addr: 0x50</text>
 </net>
 <net name="GND" class="0">
 <segment>
-<wire x1="157.48" y1="111.76" x2="93.98" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="111.76" x2="96.52" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="GND0901" gate="1" pin="GND"/>
-<wire x1="93.98" y1="73.66" x2="93.98" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="76.2" x2="93.98" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="76.2" x2="157.48" y2="76.2" width="0.1524" layer="91"/>
-<junction x="93.98" y="76.2"/>
+<wire x1="96.52" y1="73.66" x2="96.52" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="76.2" x2="96.52" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="76.2" x2="157.48" y2="76.2" width="0.1524" layer="91"/>
+<junction x="96.52" y="76.2"/>
 <pinref part="C0901" gate="G$1" pin="2"/>
-<wire x1="93.98" y1="111.76" x2="91.44" y2="111.76" width="0.1524" layer="91"/>
-<junction x="93.98" y="111.76"/>
+<wire x1="96.52" y1="111.76" x2="91.44" y2="111.76" width="0.1524" layer="91"/>
+<junction x="96.52" y="111.76"/>
 <pinref part="U0911" gate="G$1" pin="EINK_GND"/>
 <pinref part="U0911" gate="G$1" pin="EINK_BS"/>
 </segment>
@@ -31262,22 +31280,29 @@ I2C addr: 0x50</text>
 <net name="EINK_RESET_R" class="0">
 <segment>
 <pinref part="R0903" gate="G$1" pin="2"/>
-<wire x1="91.44" y1="86.36" x2="157.48" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="86.36" x2="157.48" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_RES"/>
 </segment>
 </net>
 <net name="EINK_D/C_R" class="0">
 <segment>
 <pinref part="R0902" gate="G$1" pin="2"/>
-<wire x1="81.28" y1="91.44" x2="157.48" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="91.44" x2="157.48" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_D/C"/>
 </segment>
 </net>
 <net name="EINK_CS_R" class="0">
 <segment>
 <pinref part="R0901" gate="G$1" pin="2"/>
-<wire x1="91.44" y1="96.52" x2="157.48" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="96.52" x2="157.48" y2="96.52" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_CS"/>
+</segment>
+</net>
+<net name="PEXPB_P1_4_R" class="0">
+<segment>
+<wire x1="83.82" y1="86.36" x2="45.72" y2="86.36" width="0.1524" layer="91"/>
+<label x="45.72" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0903" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>
@@ -34436,18 +34461,18 @@ I2C addr: 0x1A</text>
 <pinref part="R2018" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="PEXPB_P1_1_R" class="0">
-<segment>
-<wire x1="96.52" y1="73.66" x2="144.78" y2="73.66" width="0.1524" layer="91"/>
-<label x="144.78" y="73.66" size="1.778" layer="95" xref="yes"/>
-<pinref part="R2016" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="PEXPB_P1_2_R" class="0">
+<net name="PEXPB_P1_3_R" class="0">
 <segment>
 <wire x1="96.52" y1="66.04" x2="144.78" y2="66.04" width="0.1524" layer="91"/>
 <label x="144.78" y="66.04" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2017" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="PEXPB_P1_2_R" class="0">
+<segment>
+<wire x1="96.52" y1="73.66" x2="144.78" y2="73.66" width="0.1524" layer="91"/>
+<label x="144.78" y="73.66" size="1.778" layer="95" xref="yes"/>
+<pinref part="R2016" gate="G$1" pin="2"/>
 </segment>
 </net>
 </nets>
@@ -34468,22 +34493,15 @@ I2C addr: 0x1A</text>
 <instance part="R2112" gate="G$1" x="134.62" y="104.14"/>
 <instance part="R2113" gate="G$1" x="134.62" y="96.52"/>
 <instance part="R2114" gate="G$1" x="134.62" y="88.9"/>
-<instance part="R2121" gate="G$1" x="93.98" y="78.74" rot="R90"/>
-<instance part="R2122" gate="G$1" x="101.6" y="78.74" rot="R90"/>
-<instance part="R2123" gate="G$1" x="109.22" y="78.74" rot="R90"/>
-<instance part="R2124" gate="G$1" x="116.84" y="78.74" rot="R90"/>
-<instance part="GND2101" gate="1" x="93.98" y="68.58"/>
+<instance part="R2121" gate="G$1" x="93.98" y="55.88" rot="R90"/>
+<instance part="R2122" gate="G$1" x="101.6" y="55.88" rot="R90"/>
+<instance part="R2123" gate="G$1" x="109.22" y="55.88" rot="R90"/>
+<instance part="R2124" gate="G$1" x="116.84" y="55.88" rot="R90"/>
+<instance part="GND2101" gate="1" x="93.98" y="45.72"/>
 </instances>
 <busses>
 </busses>
 <nets>
-<net name="PEXPB_P1_0_R" class="0">
-<segment>
-<pinref part="R2111" gate="G$1" pin="2"/>
-<wire x1="139.7" y1="111.76" x2="144.78" y2="111.76" width="0.1524" layer="91"/>
-<label x="144.78" y="111.76" size="1.778" layer="95" xref="yes"/>
-</segment>
-</net>
 <net name="SIM_!PWRKEY" class="0">
 <segment>
 <wire x1="129.54" y1="111.76" x2="93.98" y2="111.76" width="0.1524" layer="91"/>
@@ -34491,7 +34509,7 @@ I2C addr: 0x1A</text>
 <pinref part="R2111" gate="G$1" pin="1"/>
 <pinref part="R2121" gate="G$1" pin="2"/>
 <wire x1="93.98" y1="111.76" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="111.76" x2="93.98" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="111.76" x2="93.98" y2="60.96" width="0.1524" layer="91"/>
 <junction x="93.98" y="111.76"/>
 </segment>
 </net>
@@ -34502,7 +34520,7 @@ I2C addr: 0x1A</text>
 <pinref part="R2112" gate="G$1" pin="1"/>
 <pinref part="R2122" gate="G$1" pin="2"/>
 <wire x1="101.6" y1="104.14" x2="81.28" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="101.6" y1="104.14" x2="101.6" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="104.14" x2="101.6" y2="60.96" width="0.1524" layer="91"/>
 <junction x="101.6" y="104.14"/>
 </segment>
 </net>
@@ -34513,7 +34531,7 @@ I2C addr: 0x1A</text>
 <pinref part="R2113" gate="G$1" pin="1"/>
 <pinref part="R2123" gate="G$1" pin="2"/>
 <wire x1="109.22" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
-<wire x1="109.22" y1="96.52" x2="109.22" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="96.52" x2="109.22" y2="60.96" width="0.1524" layer="91"/>
 <junction x="109.22" y="96.52"/>
 </segment>
 </net>
@@ -34524,7 +34542,7 @@ I2C addr: 0x1A</text>
 <pinref part="R2114" gate="G$1" pin="1"/>
 <pinref part="R2124" gate="G$1" pin="2"/>
 <wire x1="116.84" y1="88.9" x2="81.28" y2="88.9" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="88.9" x2="116.84" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="88.9" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
 <junction x="116.84" y="88.9"/>
 </segment>
 </net>
@@ -34553,19 +34571,26 @@ I2C addr: 0x1A</text>
 <segment>
 <pinref part="GND2101" gate="1" pin="GND"/>
 <pinref part="R2121" gate="G$1" pin="1"/>
-<wire x1="93.98" y1="71.12" x2="93.98" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="71.12" x2="101.6" y2="71.12" width="0.1524" layer="91"/>
-<junction x="93.98" y="71.12"/>
+<wire x1="93.98" y1="48.26" x2="93.98" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="48.26" x2="101.6" y2="48.26" width="0.1524" layer="91"/>
+<junction x="93.98" y="48.26"/>
 <pinref part="R2124" gate="G$1" pin="1"/>
-<wire x1="101.6" y1="71.12" x2="109.22" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="109.22" y1="71.12" x2="116.84" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="71.12" x2="116.84" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="48.26" x2="109.22" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="48.26" x2="116.84" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="48.26" x2="116.84" y2="50.8" width="0.1524" layer="91"/>
 <pinref part="R2123" gate="G$1" pin="1"/>
-<wire x1="109.22" y1="71.12" x2="109.22" y2="73.66" width="0.1524" layer="91"/>
-<junction x="109.22" y="71.12"/>
+<wire x1="109.22" y1="48.26" x2="109.22" y2="50.8" width="0.1524" layer="91"/>
+<junction x="109.22" y="48.26"/>
 <pinref part="R2122" gate="G$1" pin="1"/>
-<wire x1="101.6" y1="71.12" x2="101.6" y2="73.66" width="0.1524" layer="91"/>
-<junction x="101.6" y="71.12"/>
+<wire x1="101.6" y1="48.26" x2="101.6" y2="50.8" width="0.1524" layer="91"/>
+<junction x="101.6" y="48.26"/>
+</segment>
+</net>
+<net name="PEXPB_P1_1_R" class="0">
+<segment>
+<pinref part="R2111" gate="G$1" pin="2"/>
+<wire x1="139.7" y1="111.76" x2="144.78" y2="111.76" width="0.1524" layer="91"/>
+<label x="144.78" y="111.76" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -34592,15 +34617,33 @@ SPI</text>
 <instance part="C2201" gate="G$1" x="30.48" y="116.84"/>
 <instance part="GND2201" gate="1" x="30.48" y="101.6"/>
 <instance part="R2224" gate="G$1" x="71.12" y="66.04"/>
-<instance part="R2251" gate="G$1" x="154.94" y="43.18"/>
-<instance part="R2253" gate="G$1" x="154.94" y="33.02"/>
-<instance part="R2252" gate="G$1" x="165.1" y="38.1"/>
+<instance part="R2251" gate="G$1" x="162.56" y="43.18" smashed="yes">
+<attribute name="NAME" x="148.59" y="42.1386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="161.29" y="42.418" size="1.778" layer="96"/>
+</instance>
+<instance part="R2253" gate="G$1" x="162.56" y="33.02" smashed="yes">
+<attribute name="NAME" x="148.59" y="31.9786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="161.29" y="32.258" size="1.778" layer="96"/>
+</instance>
+<instance part="R2252" gate="G$1" x="162.56" y="38.1" smashed="yes">
+<attribute name="NAME" x="148.59" y="37.0586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="161.29" y="37.338" size="1.778" layer="96"/>
+</instance>
 <instance part="TP_SX_DIO1" gate="G$1" x="134.62" y="20.32"/>
 <instance part="TP_SX_DIO2" gate="G$1" x="139.7" y="20.32"/>
 <instance part="TP_SX_DIO3" gate="G$1" x="144.78" y="20.32"/>
-<instance part="R2222" gate="G$1" x="40.64" y="76.2"/>
-<instance part="R2223" gate="G$1" x="33.02" y="71.12"/>
-<instance part="R2221" gate="G$1" x="33.02" y="81.28"/>
+<instance part="R2222" gate="G$1" x="38.1" y="76.2" smashed="yes">
+<attribute name="NAME" x="24.13" y="75.1586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="36.83" y="75.438" size="1.778" layer="96"/>
+</instance>
+<instance part="R2223" gate="G$1" x="38.1" y="71.12" smashed="yes">
+<attribute name="NAME" x="24.13" y="70.0786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="36.83" y="70.358" size="1.778" layer="96"/>
+</instance>
+<instance part="R2221" gate="G$1" x="38.1" y="81.28" smashed="yes">
+<attribute name="NAME" x="24.13" y="80.2386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="36.83" y="80.518" size="1.778" layer="96"/>
+</instance>
 <instance part="U2201" gate="G$1" x="104.14" y="88.9"/>
 <instance part="GND2202" gate="1" x="78.74" y="43.18"/>
 <instance part="GND2203" gate="1" x="129.54" y="43.18"/>
@@ -34878,7 +34921,7 @@ SPI</text>
 <net name="MCU_SX_SEL_OUT" class="0">
 <segment>
 <pinref part="R2221" gate="G$1" pin="2"/>
-<wire x1="81.28" y1="81.28" x2="38.1" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="81.28" x2="43.18" y2="81.28" width="0.1524" layer="91"/>
 <label x="45.72" y="81.28" size="1.778" layer="95"/>
 <pinref part="U2201" gate="G$1" pin="NSS"/>
 </segment>
@@ -34898,7 +34941,7 @@ SPI</text>
 <wire x1="144.78" y1="43.18" x2="144.78" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="144.78" y1="81.28" x2="127" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="R2251" gate="G$1" pin="1"/>
-<wire x1="144.78" y1="43.18" x2="149.86" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="43.18" x2="157.48" y2="43.18" width="0.1524" layer="91"/>
 <junction x="144.78" y="43.18"/>
 </segment>
 </net>
@@ -34910,7 +34953,7 @@ SPI</text>
 <wire x1="139.7" y1="38.1" x2="139.7" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="76.2" x2="127" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="R2252" gate="G$1" pin="1"/>
-<wire x1="139.7" y1="38.1" x2="160.02" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="38.1" x2="157.48" y2="38.1" width="0.1524" layer="91"/>
 <junction x="139.7" y="38.1"/>
 </segment>
 </net>
@@ -34922,28 +34965,28 @@ SPI</text>
 <wire x1="134.62" y1="33.02" x2="134.62" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="71.12" x2="127" y2="71.12" width="0.1524" layer="91"/>
 <pinref part="R2253" gate="G$1" pin="1"/>
-<wire x1="134.62" y1="33.02" x2="149.86" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="33.02" x2="157.48" y2="33.02" width="0.1524" layer="91"/>
 <junction x="134.62" y="33.02"/>
 </segment>
 </net>
 <net name="PC10" class="0">
 <segment>
 <pinref part="R2222" gate="G$1" pin="1"/>
-<wire x1="35.56" y1="76.2" x2="22.86" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="76.2" x2="22.86" y2="76.2" width="0.1524" layer="91"/>
 <label x="22.86" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PC12" class="0">
 <segment>
 <pinref part="R2223" gate="G$1" pin="1"/>
-<wire x1="27.94" y1="71.12" x2="22.86" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="71.12" x2="22.86" y2="71.12" width="0.1524" layer="91"/>
 <label x="22.86" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI3_SCK" class="0">
 <segment>
 <pinref part="R2222" gate="G$1" pin="2"/>
-<wire x1="45.72" y1="76.2" x2="81.28" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="76.2" x2="81.28" y2="76.2" width="0.1524" layer="91"/>
 <label x="45.72" y="76.2" size="1.778" layer="95"/>
 <pinref part="U2201" gate="G$1" pin="SCLK"/>
 </segment>
@@ -34951,7 +34994,7 @@ SPI</text>
 <net name="MCU_SPI3_MOSI" class="0">
 <segment>
 <pinref part="R2223" gate="G$1" pin="2"/>
-<wire x1="38.1" y1="71.12" x2="81.28" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="71.12" x2="81.28" y2="71.12" width="0.1524" layer="91"/>
 <label x="45.72" y="71.12" size="1.778" layer="95"/>
 <pinref part="U2201" gate="G$1" pin="MOSI"/>
 </segment>
@@ -34959,7 +35002,7 @@ SPI</text>
 <net name="PF15" class="0">
 <segment>
 <pinref part="R2221" gate="G$1" pin="1"/>
-<wire x1="27.94" y1="81.28" x2="22.86" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="81.28" x2="22.86" y2="81.28" width="0.1524" layer="91"/>
 <label x="22.86" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
@@ -35141,20 +35184,20 @@ SPI</text>
 <net name="PG0" class="0">
 <segment>
 <pinref part="R2253" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="33.02" x2="236.22" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="33.02" x2="236.22" y2="33.02" width="0.1524" layer="91"/>
 <label x="236.22" y="33.02" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="PG1" class="0">
 <segment>
 <pinref part="R2251" gate="G$1" pin="2"/>
-<wire x1="160.02" y1="43.18" x2="236.22" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="43.18" x2="236.22" y2="43.18" width="0.1524" layer="91"/>
 <label x="236.22" y="43.18" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="PF12" class="0">
 <segment>
-<wire x1="170.18" y1="38.1" x2="228.6" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="38.1" x2="228.6" y2="38.1" width="0.1524" layer="91"/>
 <label x="236.22" y="38.1" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2252" gate="G$1" pin="2"/>
 <wire x1="228.6" y1="38.1" x2="236.22" y2="38.1" width="0.1524" layer="91"/>
@@ -35180,7 +35223,7 @@ SPI</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">AX5243 UHF TRX (ch2)</text>
 <text x="43.18" y="71.12" size="1.778" layer="97">AX_GPIO1_TCXO_EN</text>
 <text x="53.34" y="129.54" size="1.778" layer="97">Iq=0.5uA</text>
-<text x="114.3" y="101.6" size="1.778" layer="97">N/A</text>
+<text x="116.84" y="101.6" size="1.778" layer="97">D.C.</text>
 </plain>
 <instances>
 <instance part="FRAME_23" gate="G$1" x="0" y="0"/>
@@ -35648,6 +35691,7 @@ SPI</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">12V Down-Converter</text>
 <text x="81.28" y="127" size="1.778" layer="97">Iq=24uA</text>
 <text x="166.37" y="129.794" size="1.778" layer="97">Abracon ASPI-6045S-2R2N-T 6.00mm x 6.00mm</text>
+<text x="91.44" y="91.44" size="1.778" layer="97">D.C.</text>
 </plain>
 <instances>
 <instance part="FRAME_24" gate="G$1" x="0" y="0"/>
@@ -36683,7 +36727,7 @@ Max charge: 2.2A</text>
 <label x="22.86" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="BQ_!EN" class="0">
+<net name="PE4" class="0">
 <segment>
 <pinref part="U2601" gate="G$1" pin="!EN"/>
 <wire x1="91.44" y1="83.82" x2="68.58" y2="83.82" width="0.1524" layer="91"/>
@@ -36702,9 +36746,8 @@ Max charge: 2.2A</text>
 <text x="157.48" y="96.52" size="1.778" layer="97">TPS_PG</text>
 <text x="157.48" y="91.44" size="1.778" layer="97">TPS_LBO</text>
 <text x="152.4" y="121.92" size="1.778" layer="97">MURATA  LQH43PN100M26L   4.5mm x 3.2mm (1812)</text>
-<text x="88.9" y="106.68" size="1.778" layer="97" rot="R90">N/A</text>
 <text x="190.5" y="109.22" size="1.778" layer="97" rot="R90">N/A</text>
-<text x="88.9" y="86.36" size="1.778" layer="97" rot="R90">N/A</text>
+<text x="53.34" y="132.08" size="1.778" layer="97">TPS_EN</text>
 </plain>
 <instances>
 <instance part="FRAME_27" gate="G$1" x="0" y="0"/>
@@ -36720,6 +36763,7 @@ Max charge: 2.2A</text>
 <instance part="R2712" gate="G$1" x="81.28" y="109.22" rot="R90"/>
 <instance part="R2701" gate="G$1" x="55.88" y="116.84"/>
 <instance part="R2731" gate="G$1" x="208.28" y="116.84"/>
+<instance part="R2713" gate="G$1" x="81.28" y="124.46" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -36731,7 +36775,7 @@ Max charge: 2.2A</text>
 <wire x1="149.86" y1="116.84" x2="154.94" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="TPS_PG" class="0">
+<net name="PEXPB_P0_6_R" class="0">
 <segment>
 <pinref part="U2701" gate="G$1" pin="PG"/>
 <wire x1="149.86" y1="96.52" x2="177.8" y2="96.52" width="0.1524" layer="91"/>
@@ -36742,7 +36786,7 @@ Max charge: 2.2A</text>
 <junction x="177.8" y="96.52"/>
 </segment>
 </net>
-<net name="TPS_LBO" class="0">
+<net name="PEXPB_P0_7_R" class="0">
 <segment>
 <pinref part="U2701" gate="G$1" pin="LBO"/>
 <wire x1="149.86" y1="91.44" x2="187.96" y2="91.44" width="0.1524" layer="91"/>
@@ -36794,13 +36838,17 @@ Max charge: 2.2A</text>
 <junction x="81.28" y="99.06"/>
 </segment>
 </net>
-<net name="TPS_EN" class="0">
+<net name="PE5" class="0">
 <segment>
 <pinref part="U2701" gate="G$1" pin="EN"/>
 <wire x1="109.22" y1="111.76" x2="101.6" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="101.6" y1="111.76" x2="101.6" y2="129.54" width="0.1524" layer="91"/>
-<wire x1="101.6" y1="129.54" x2="43.18" y2="129.54" width="0.1524" layer="91"/>
-<label x="43.18" y="129.54" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="101.6" y1="111.76" x2="101.6" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="132.08" x2="81.28" y2="132.08" width="0.1524" layer="91"/>
+<label x="43.18" y="132.08" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R2713" gate="G$1" pin="2"/>
+<wire x1="81.28" y1="132.08" x2="43.18" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="132.08" x2="81.28" y2="129.54" width="0.1524" layer="91"/>
+<junction x="81.28" y="132.08"/>
 </segment>
 </net>
 <net name="+5V0" class="4">
@@ -36830,6 +36878,8 @@ Max charge: 2.2A</text>
 <pinref part="R2701" gate="G$1" pin="2"/>
 <wire x1="66.04" y1="116.84" x2="60.96" y2="116.84" width="0.1524" layer="91"/>
 <junction x="66.04" y="116.84"/>
+<pinref part="R2713" gate="G$1" pin="1"/>
+<wire x1="81.28" y1="116.84" x2="81.28" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="TPS_VOUT" class="0">
@@ -37762,7 +37812,7 @@ USB host (OTG) interface</text>
 <text x="114.3" y="162.56" size="2.54" layer="97" ratio="15">SMA channel 2</text>
 <text x="22.86" y="86.36" size="2.54" layer="97" ratio="15">Blue Tooth</text>
 <text x="25.4" y="40.64" size="2.54" layer="97" ratio="15">GNSS</text>
-<text x="7.62" y="30.48" size="1.778" layer="97" rot="R90">GPS_PWR_EN</text>
+<text x="7.62" y="30.48" size="1.778" layer="97" rot="R90">GPS_SW_EN</text>
 <text x="48.26" y="27.94" size="1.778" layer="97">SW_PWR</text>
 </plain>
 <instances>
@@ -38102,7 +38152,7 @@ USB host (OTG) interface</text>
 <wire x1="116.84" y1="33.02" x2="116.84" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PEXPB_P0_7_R" class="0">
+<net name="PEXPA_P1_2_R" class="0">
 <segment>
 <pinref part="U3491" gate="G$1" pin="3"/>
 <wire x1="12.7" y1="17.78" x2="7.62" y2="17.78" width="0.1524" layer="91"/>
@@ -39699,13 +39749,6 @@ fix layout of sockets</text>
 </sheet>
 </sheets>
 <errors>
-<approved hash="101,17,91.44,86.36,R1741,1,,,,"/>
-<approved hash="101,17,91.44,78.74,R1743,1,,,,"/>
-<approved hash="101,17,91.44,71.12,R1745,1,,,,"/>
-<approved hash="101,17,78.74,83.82,R1742,1,,,,"/>
-<approved hash="101,17,78.74,76.2,R1744,1,,,,"/>
-<approved hash="101,17,78.74,68.58,R1746,1,,,,"/>
-<approved hash="101,17,91.44,99.06,R1731,1,,,,"/>
 <approved hash="102,15,71.12,58.42,VOUT,+3V0_20MHZ_VCTCXO,,,,"/>
 <approved hash="102,22,127,111.76,VR_PA,SX_VR_PA,,,,"/>
 <approved hash="102,22,81.28,111.76,VREG,SX_VREG,,,,"/>
@@ -39716,11 +39759,11 @@ fix layout of sockets</text>
 <approved hash="104,15,35.56,58.42,U1501,VIN,+3V3_XO,,,"/>
 <approved hash="104,15,185.42,60.96,U1542,V+,+3V3,,,"/>
 <approved hash="104,15,185.42,45.72,U1542,V-,GND,,,"/>
-<approved hash="104,30,132.08,96.52,U2901,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,31,132.08,96.52,U3001,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,33,180.34,99.06,X3201,J_VUSB,PA9,,,"/>
+<approved hash="104,30,132.08,96.52,U3001,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,31,132.08,96.52,U3101,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,33,180.34,99.06,X3301,J_VUSB,PA9,,,"/>
 <approved hash="104,23,68.58,127,U2301,VDD_IO,+3V3,,,"/>
-<approved hash="104,32,132.08,96.52,U3101,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,32,132.08,96.52,U3201,8,PEXPA_P1_7_R,,,"/>
 <approved hash="104,15,66.04,142.24,U1511,VDD,+3V3_XO,,,"/>
 <approved hash="104,16,101.6,63.5,U1601,VDD,+3V3_HICUR,,,"/>
 <approved hash="104,16,121.92,63.5,U1601,VDDO3,+3V3_HICUR,,,"/>
@@ -39739,8 +39782,8 @@ fix layout of sockets</text>
 <approved hash="104,7,170.18,88.9,U0721,VSS,GND,,,"/>
 <approved hash="104,26,91.44,91.44,U2601,VIN_DC,VSOL,,,"/>
 <approved hash="104,26,157.48,104.14,U2601,VOUT,BQ_VOUT,,,"/>
-<approved hash="104,28,111.76,129.54,U2701,VIN,+3V3,,,"/>
-<approved hash="104,28,114.3,68.58,U2751,VDD,+3V3,,,"/>
+<approved hash="104,28,111.76,129.54,U2801,VIN,+3V3,,,"/>
+<approved hash="104,28,114.3,68.58,U2851,VDD,+3V3,,,"/>
 <approved hash="104,14,111.76,99.06,U1401,VDD,+3V3,,,"/>
 <approved hash="104,14,111.76,88.9,U1401,VDDIO,+3V3,,,"/>
 <approved hash="104,13,111.76,139.7,U1301,VDD,+3V3,,,"/>
@@ -39757,7 +39800,7 @@ fix layout of sockets</text>
 <approved hash="104,25,101.6,111.76,U2501,VBUS,+5V0,,,"/>
 <approved hash="104,25,78.74,99.06,U2541,V+,+3V3,,,"/>
 <approved hash="104,25,78.74,114.3,U2541,V-,GND,,,"/>
-<approved hash="104,29,132.08,96.52,U2801,8,VDDUSB_DK,,,"/>
+<approved hash="104,29,132.08,96.52,U2901,8,VDDUSB_DK,,,"/>
 <approved hash="104,16,215.9,58.42,U1651,8,PEXPA_P1_7_R,,,"/>
 <approved hash="104,15,185.42,93.98,U1541,V+,+3V3_XO_PA,,,"/>
 <approved hash="104,15,185.42,78.74,U1541,V-,GND,,,"/>
@@ -39768,23 +39811,11 @@ fix layout of sockets</text>
 <approved hash="104,24,101.6,124.46,U2401,VIN,DC_12V_IN,,,"/>
 <approved hash="104,24,157.48,101.6,U2401,BIAS,LM53603_BIAS,,,"/>
 <approved hash="104,24,101.6,121.92,U2401,VIN,DC_12V_IN,,,"/>
-<approved hash="104,20,154.94,127,U2001,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,20,154.94,129.54,U2001,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,20,101.6,129.54,U2001,VCC_A,SIM_VDD_EXT,,,"/>
 <approved hash="104,26,195.58,160.02,U2681,8,BQ_VBAT,,,"/>
-<approved hash="104,21,154.94,127,U2101,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,21,154.94,129.54,U2101,VCC_B,SIM_VDD_EXT,,,"/>
-<approved hash="104,21,101.6,129.54,U2101,VCC_A,SIM_VDD_EXT,,,"/>
-<approved hash="104,34,48.26,27.94,U3391,8,PEXPA_P1_7_R,,,"/>
+<approved hash="104,34,48.26,27.94,U3491,8,PEXPA_P1_7_R,,,"/>
 <approved hash="104,9,157.48,116.84,U0911,EINK_VDD,+3V3,,,"/>
-<approved hash="106,4,35.56,127,+1V5_UNUSED,,,,,"/>
-<approved hash="106,4,45.72,127,+1V8_UNUSED,,,,,"/>
-<approved hash="106,4,55.88,127,+2V5_UNUSED,,,,,"/>
+<approved hash="104,27,109.22,116.84,U2701,VIN,TPS_VIN,,,"/>
 <approved hash="106,24,101.6,91.44,LM53603_!RESET,,,,,"/>
-<approved hash="106,21,170.18,76.2,LS2_B4_R,,,,,"/>
-<approved hash="106,21,170.18,68.58,LS2_B5_R,,,,,"/>
-<approved hash="106,21,170.18,60.96,LS2_B6_R,,,,,"/>
-<approved hash="106,21,170.18,53.34,LS2_B7_R,,,,,"/>
 <approved hash="106,19,203.2,81.28,MC_SW,,,,,"/>
 <approved hash="106,1,149.86,38.1,PA4,,,,,"/>
 <approved hash="106,1,144.78,160.02,PA15,,,,,"/>
@@ -39804,15 +39835,13 @@ fix layout of sockets</text>
 <approved hash="106,1,53.34,160.02,PE0,,,,,"/>
 <approved hash="106,1,50.8,160.02,PE1,,,,,"/>
 <approved hash="106,1,45.72,38.1,PE2,,,,,"/>
-<approved hash="106,1,50.8,38.1,PE4,,,,,"/>
-<approved hash="106,1,53.34,38.1,PE5,,,,,"/>
 <approved hash="106,1,83.82,38.1,PF2,,,,,"/>
 <approved hash="106,1,198.12,160.02,PG2,,,,,"/>
 <approved hash="106,1,114.3,38.1,PH1,,,,,"/>
-<approved hash="106,16,63.5,111.76,SI5338_IN_CLK1,,,,,"/>
-<approved hash="106,16,63.5,104.14,SI5338_IN_CLK2,,,,,"/>
-<approved hash="106,16,162.56,104.14,SI5338_OUT_CLK1_N,,,,,"/>
-<approved hash="106,16,162.56,111.76,SI5338_OUT_CLK1_P,,,,,"/>
+<approved hash="209,16,86.36,104.14,SI5338_IN_CLK1_R,,,,,"/>
+<approved hash="209,16,83.82,116.84,SI5338_IN_CLK1_R,,,,,"/>
+<approved hash="209,16,86.36,99.06,SI5338_IN_CLK2_R,,,,,"/>
+<approved hash="209,16,78.74,116.84,SI5338_IN_CLK2_R,,,,,"/>
 <approved hash="106,19,137.16,20.32,SIM_GPIO2,,,,,"/>
 <approved hash="106,19,83.82,66.04,SIM_MICN,,,,,"/>
 <approved hash="106,19,83.82,71.12,SIM_MICP,,,,,"/>
@@ -39826,18 +39855,8 @@ fix layout of sockets</text>
 <approved hash="106,19,83.82,60.96,SIM_SPK1P,,,,,"/>
 <approved hash="106,19,83.82,45.72,SIM_SPK2N,,,,,"/>
 <approved hash="106,19,83.82,50.8,SIM_SPK2P,,,,,"/>
-<approved hash="106,21,86.36,78.74,U3311_B4_R,,,,,"/>
-<approved hash="106,21,86.36,71.12,U3311_B5_R,,,,,"/>
-<approved hash="106,21,86.36,63.5,U3311_B6_R,,,,,"/>
-<approved hash="106,21,86.36,55.88,U3311_B7_R,,,,,"/>
-<approved hash="113,1,247.404,119.38,SJ0121,,,,,"/>
-<approved hash="113,4,127,161.536,SJ0401,,,,,"/>
 <approved hash="113,2,78.74,62.6787,X0201,,,,,"/>
 <approved hash="113,2,139.251,141.915,X0222,,,,,"/>
-<approved hash="113,4,64.5245,121.92,SJ0421,,,,,"/>
-<approved hash="113,4,54.3645,121.92,SJ0422,,,,,"/>
-<approved hash="113,4,44.2045,121.92,SJ0423,,,,,"/>
-<approved hash="113,4,34.0445,121.92,SJ0424,,,,,"/>
 <approved hash="113,19,210.82,48.7087,X1961,,,,,"/>
 </errors>
 </schematic>
