@@ -27715,10 +27715,13 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <class number="3" name="usb_pair" width="0.254" drill="0">
 <clearance class="3" value="0.1524"/>
 </class>
-<class number="4" name="pwrA5" width="0.4" drill="0">
+<class number="4" name="pwrA5" width="0.3048" drill="0">
 </class>
-<class number="5" name="single50R" width="0.8382" drill="0">
-<clearance class="5" value="0.1524"/>
+<class number="5" name="single50R_1-2_15-16" width="0.3302" drill="0.3048">
+<clearance class="5" value="0.3302"/>
+</class>
+<class number="6" name="single50R_2-3-14_14-15-16" width="0.2794" drill="0.3048">
+<clearance class="6" value="0.2794"/>
 </class>
 <class number="7" name="+3V3" width="0" drill="0">
 <clearance class="7" value="0.5"/>
@@ -36748,7 +36751,6 @@ Max charge: 2.2A</text>
 <text x="157.48" y="96.52" size="1.778" layer="97">TPS_PG</text>
 <text x="157.48" y="91.44" size="1.778" layer="97">TPS_LBO</text>
 <text x="152.4" y="121.92" size="1.778" layer="97">MURATA  LQH43PN100M26L   4.5mm x 3.2mm (1812)</text>
-<text x="190.5" y="109.22" size="1.778" layer="97" rot="R90">N/A</text>
 <text x="53.34" y="132.08" size="1.778" layer="97">TPS_EN</text>
 </plain>
 <instances>
@@ -37278,7 +37280,7 @@ Max charge: 2.2A</text>
 <junction x="104.14" y="134.62"/>
 </segment>
 </net>
-<net name="VDDUSB_SOFT" class="4">
+<net name="VDDUSB_SOFT" class="0">
 <segment>
 <wire x1="104.14" y1="114.3" x2="93.98" y2="114.3" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="114.3" x2="93.98" y2="96.52" width="0.1524" layer="91"/>
