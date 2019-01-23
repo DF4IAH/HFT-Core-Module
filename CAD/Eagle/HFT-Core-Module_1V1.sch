@@ -27715,7 +27715,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <class number="3" name="usb_pair" width="0.254" drill="0">
 <clearance class="3" value="0.1524"/>
 </class>
-<class number="4" name="pwrA5" width="0.4" drill="0">
+<class number="4" name="pwrA5" width="0.3048" drill="0">
 </class>
 <class number="5" name="single50R_1-2_15-16" width="0.3302" drill="0.3048">
 <clearance class="5" value="0.3302"/>
