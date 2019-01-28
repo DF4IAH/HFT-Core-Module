@@ -27995,8 +27995,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R3679" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R3680" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R3681" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
-<part name="R2222" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
-<part name="R2223" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R2391" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R2221" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R3611" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
@@ -28329,10 +28327,10 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="U3492" library="df4iah_rf" deviceset="TDK_B4310" device="" value="TDK B4310"/>
 <part name="FRAME_09" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="GND0901" library="df4iah_supply" deviceset="GND" device=""/>
-<part name="R0901" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
-<part name="R0902" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R0903" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R0904" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0905" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0906" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="C0901" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100nF"/>
 <part name="U0911" library="df4iah_lcd" deviceset="ZIO_EINK_1IN54" device=""/>
 <part name="R1812" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="0R"/>
@@ -28408,6 +28406,8 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R0693" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R2713" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="100kR"/>
 <part name="R0689" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
+<part name="R0901" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="R0902" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 </parts>
 <sheets>
 <sheet>
@@ -31187,35 +31187,47 @@ I2C addr: 0x50</text>
 <text x="48.26" y="96.52" size="1.778" layer="97">MCU_EINK_CS_OUT</text>
 <text x="48.26" y="91.44" size="1.778" layer="97">MCU_EINK_DC_OUT</text>
 <text x="48.26" y="81.28" size="1.778" layer="97">MCU_EINK_BUSY_IN</text>
+<text x="106.68" y="106.68" size="1.778" layer="97">MCU_SPI3_MOSI</text>
+<text x="106.68" y="101.6" size="1.778" layer="97">MCU_SPI3_SCK</text>
+<text x="48.26" y="106.68" size="1.778" layer="97">MCU_SPI3_MOSI_OUT</text>
+<text x="48.26" y="101.6" size="1.778" layer="97">MCU_SPI3_SCK_OUT</text>
 </plain>
 <instances>
 <instance part="FRAME_09" gate="G$1" x="0" y="0"/>
 <instance part="GND0901" gate="1" x="96.52" y="71.12"/>
-<instance part="R0901" gate="G$1" x="88.9" y="96.52" smashed="yes">
+<instance part="R0903" gate="G$1" x="88.9" y="96.52" smashed="yes">
 <attribute name="NAME" x="74.93" y="95.4786" size="1.778" layer="95"/>
 <attribute name="VALUE" x="87.63" y="95.758" size="1.778" layer="96"/>
 </instance>
-<instance part="R0902" gate="G$1" x="88.9" y="91.44" smashed="yes">
+<instance part="R0904" gate="G$1" x="88.9" y="91.44" smashed="yes">
 <attribute name="NAME" x="74.93" y="90.3986" size="1.778" layer="95"/>
 <attribute name="VALUE" x="87.63" y="90.678" size="1.778" layer="96"/>
 </instance>
-<instance part="R0903" gate="G$1" x="88.9" y="86.36" smashed="yes">
+<instance part="R0905" gate="G$1" x="88.9" y="86.36" smashed="yes">
 <attribute name="NAME" x="74.93" y="85.3186" size="1.778" layer="95"/>
 <attribute name="VALUE" x="87.63" y="85.598" size="1.778" layer="96"/>
 </instance>
-<instance part="R0904" gate="G$1" x="142.24" y="81.28" smashed="yes">
-<attribute name="NAME" x="125.73" y="80.2386" size="1.778" layer="95"/>
-<attribute name="VALUE" x="140.97" y="80.518" size="1.778" layer="96"/>
+<instance part="R0906" gate="G$1" x="88.9" y="81.28" smashed="yes">
+<attribute name="NAME" x="74.93" y="80.2386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="87.63" y="80.518" size="1.778" layer="96"/>
 </instance>
 <instance part="C0901" gate="G$1" x="86.36" y="111.76" rot="R90"/>
-<instance part="U0911" gate="G$1" x="162.56" y="96.52"/>
+<instance part="U0911" gate="G$1" x="160.02" y="96.52"/>
+<instance part="R0901" gate="G$1" x="88.9" y="106.68" smashed="yes">
+<attribute name="NAME" x="74.93" y="105.6386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="87.63" y="105.918" size="1.778" layer="96"/>
+</instance>
+<instance part="R0902" gate="G$1" x="88.9" y="101.6" smashed="yes">
+<attribute name="NAME" x="74.93" y="100.5586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="87.63" y="100.838" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="+3V3" class="0">
 <segment>
-<wire x1="157.48" y1="116.84" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="116.84" x2="81.28" y2="116.84" width="0.1524" layer="91"/>
 <label x="45.72" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
 <wire x1="81.28" y1="116.84" x2="45.72" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="116.84" x2="81.28" y2="111.76" width="0.1524" layer="91"/>
@@ -31227,46 +31239,56 @@ I2C addr: 0x50</text>
 </net>
 <net name="MCU_SPI3_MOSI" class="0">
 <segment>
-<label x="45.72" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
-<wire x1="157.48" y1="106.68" x2="45.72" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="129.54" x2="106.68" y2="129.54" width="0.1524" layer="91"/>
+<label x="106.68" y="129.54" size="1.778" layer="95" xref="yes"/>
 <pinref part="U0911" gate="G$1" pin="EINK_MOSI"/>
+<wire x1="154.94" y1="106.68" x2="99.06" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="R0901" gate="G$1" pin="2"/>
+<wire x1="99.06" y1="106.68" x2="93.98" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="129.54" x2="99.06" y2="106.68" width="0.1524" layer="91"/>
+<junction x="99.06" y="106.68"/>
 </segment>
 </net>
 <net name="MCU_SPI3_SCK" class="0">
 <segment>
-<label x="45.72" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
-<wire x1="157.48" y1="101.6" x2="45.72" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="101.6" x2="101.6" y2="101.6" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_SCK"/>
+<pinref part="R0902" gate="G$1" pin="2"/>
+<wire x1="101.6" y1="101.6" x2="93.98" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="101.6" x2="101.6" y2="124.46" width="0.1524" layer="91"/>
+<junction x="101.6" y="101.6"/>
+<wire x1="101.6" y1="124.46" x2="106.68" y2="124.46" width="0.1524" layer="91"/>
+<label x="106.68" y="124.46" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="PG3" class="0">
 <segment>
 <wire x1="83.82" y1="96.52" x2="45.72" y2="96.52" width="0.1524" layer="91"/>
 <label x="45.72" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R0901" gate="G$1" pin="1"/>
+<pinref part="R0903" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PG5" class="0">
 <segment>
 <wire x1="83.82" y1="91.44" x2="45.72" y2="91.44" width="0.1524" layer="91"/>
 <label x="45.72" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R0902" gate="G$1" pin="1"/>
+<pinref part="R0904" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="PC8" class="0">
 <segment>
-<wire x1="45.72" y1="81.28" x2="137.16" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="81.28" x2="83.82" y2="81.28" width="0.1524" layer="91"/>
 <label x="45.72" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R0904" gate="G$1" pin="1"/>
+<pinref part="R0906" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
-<wire x1="157.48" y1="111.76" x2="96.52" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="111.76" x2="96.52" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="GND0901" gate="1" pin="GND"/>
 <wire x1="96.52" y1="73.66" x2="96.52" y2="76.2" width="0.1524" layer="91"/>
 <wire x1="96.52" y1="76.2" x2="96.52" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="76.2" x2="157.48" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="76.2" x2="154.94" y2="76.2" width="0.1524" layer="91"/>
 <junction x="96.52" y="76.2"/>
 <pinref part="C0901" gate="G$1" pin="2"/>
 <wire x1="96.52" y1="111.76" x2="91.44" y2="111.76" width="0.1524" layer="91"/>
@@ -31277,37 +31299,55 @@ I2C addr: 0x50</text>
 </net>
 <net name="EINK_BUSY_R" class="0">
 <segment>
-<pinref part="R0904" gate="G$1" pin="2"/>
-<wire x1="147.32" y1="81.28" x2="157.48" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="R0906" gate="G$1" pin="2"/>
+<wire x1="93.98" y1="81.28" x2="154.94" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_BUSY"/>
+<label x="106.68" y="81.28" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="EINK_RESET_R" class="0">
 <segment>
-<pinref part="R0903" gate="G$1" pin="2"/>
-<wire x1="93.98" y1="86.36" x2="157.48" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="R0905" gate="G$1" pin="2"/>
+<wire x1="93.98" y1="86.36" x2="154.94" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_RES"/>
+<label x="106.68" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="EINK_D/C_R" class="0">
 <segment>
-<pinref part="R0902" gate="G$1" pin="2"/>
-<wire x1="93.98" y1="91.44" x2="157.48" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="R0904" gate="G$1" pin="2"/>
+<wire x1="93.98" y1="91.44" x2="154.94" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_D/C"/>
+<label x="106.68" y="91.44" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="EINK_CS_R" class="0">
 <segment>
-<pinref part="R0901" gate="G$1" pin="2"/>
-<wire x1="93.98" y1="96.52" x2="157.48" y2="96.52" width="0.1524" layer="91"/>
+<pinref part="R0903" gate="G$1" pin="2"/>
+<wire x1="93.98" y1="96.52" x2="154.94" y2="96.52" width="0.1524" layer="91"/>
 <pinref part="U0911" gate="G$1" pin="EINK_CS"/>
+<label x="106.68" y="96.52" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PEXPB_P1_4_R" class="0">
 <segment>
 <wire x1="83.82" y1="86.36" x2="45.72" y2="86.36" width="0.1524" layer="91"/>
 <label x="45.72" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
-<pinref part="R0903" gate="G$1" pin="1"/>
+<pinref part="R0905" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="PC12" class="0">
+<segment>
+<wire x1="83.82" y1="106.68" x2="45.466" y2="106.934" width="0.1524" layer="91"/>
+<label x="45.466" y="106.934" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0901" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="PC10" class="0">
+<segment>
+<wire x1="83.82" y1="101.6" x2="45.72" y2="101.6" width="0.1524" layer="91"/>
+<label x="45.72" y="101.6" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="R0902" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>
@@ -34637,14 +34677,6 @@ SPI</text>
 <instance part="TP_SX_DIO1" gate="G$1" x="134.62" y="20.32"/>
 <instance part="TP_SX_DIO2" gate="G$1" x="139.7" y="20.32"/>
 <instance part="TP_SX_DIO3" gate="G$1" x="144.78" y="20.32"/>
-<instance part="R2222" gate="G$1" x="38.1" y="76.2" smashed="yes">
-<attribute name="NAME" x="24.13" y="75.1586" size="1.778" layer="95"/>
-<attribute name="VALUE" x="36.83" y="75.438" size="1.778" layer="96"/>
-</instance>
-<instance part="R2223" gate="G$1" x="38.1" y="71.12" smashed="yes">
-<attribute name="NAME" x="24.13" y="70.0786" size="1.778" layer="95"/>
-<attribute name="VALUE" x="36.83" y="70.358" size="1.778" layer="96"/>
-</instance>
 <instance part="R2221" gate="G$1" x="38.1" y="81.28" smashed="yes">
 <attribute name="NAME" x="24.13" y="80.2386" size="1.778" layer="95"/>
 <attribute name="VALUE" x="36.83" y="80.518" size="1.778" layer="96"/>
@@ -34974,34 +35006,20 @@ SPI</text>
 <junction x="134.62" y="33.02"/>
 </segment>
 </net>
-<net name="PC10" class="0">
-<segment>
-<pinref part="R2222" gate="G$1" pin="1"/>
-<wire x1="33.02" y1="76.2" x2="22.86" y2="76.2" width="0.1524" layer="91"/>
-<label x="22.86" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="PC12" class="0">
-<segment>
-<pinref part="R2223" gate="G$1" pin="1"/>
-<wire x1="33.02" y1="71.12" x2="22.86" y2="71.12" width="0.1524" layer="91"/>
-<label x="22.86" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="MCU_SPI3_SCK" class="0">
 <segment>
-<pinref part="R2222" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="76.2" x2="81.28" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="76.2" x2="81.28" y2="76.2" width="0.1524" layer="91"/>
 <label x="45.72" y="76.2" size="1.778" layer="95"/>
 <pinref part="U2201" gate="G$1" pin="SCLK"/>
+<label x="35.56" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_SPI3_MOSI" class="0">
 <segment>
-<pinref part="R2223" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="71.12" x2="81.28" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="71.12" x2="81.28" y2="71.12" width="0.1524" layer="91"/>
 <label x="45.72" y="71.12" size="1.778" layer="95"/>
 <pinref part="U2201" gate="G$1" pin="MOSI"/>
+<label x="35.56" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PF15" class="0">
@@ -35387,8 +35405,8 @@ SPI</text>
 <net name="MCU_SPI3_MOSI" class="0">
 <segment>
 <pinref part="U2301" gate="A" pin="MOSI"/>
-<wire x1="68.58" y1="86.36" x2="45.72" y2="86.36" width="0.1524" layer="91"/>
-<label x="45.72" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="68.58" y1="86.36" x2="35.56" y2="86.36" width="0.1524" layer="91"/>
+<label x="35.56" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_AX_MISO" class="0">
@@ -35402,8 +35420,8 @@ SPI</text>
 <net name="MCU_SPI3_SCK" class="0">
 <segment>
 <pinref part="U2301" gate="A" pin="CLK"/>
-<wire x1="68.58" y1="96.52" x2="43.18" y2="96.52" width="0.1524" layer="91"/>
-<label x="43.18" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="68.58" y1="96.52" x2="35.56" y2="96.52" width="0.1524" layer="91"/>
+<label x="35.56" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MCU_AX_SEL_OUT" class="0">
@@ -35417,15 +35435,15 @@ SPI</text>
 <net name="PC11" class="0">
 <segment>
 <pinref part="R2341" gate="G$1" pin="1"/>
-<wire x1="40.64" y1="91.44" x2="30.48" y2="91.44" width="0.1524" layer="91"/>
-<label x="30.48" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="40.64" y1="91.44" x2="35.56" y2="91.44" width="0.1524" layer="91"/>
+<label x="35.56" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PE7" class="0">
 <segment>
 <pinref part="R2351" gate="G$1" pin="1"/>
-<wire x1="40.64" y1="76.2" x2="27.94" y2="76.2" width="0.1524" layer="91"/>
-<label x="27.94" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="40.64" y1="76.2" x2="35.56" y2="76.2" width="0.1524" layer="91"/>
+<label x="35.56" y="76.2" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -35503,12 +35521,12 @@ SPI</text>
 <net name="PEXPB_P0_5_R" class="0">
 <segment>
 <pinref part="U2301" gate="A" pin="TCXO_EN"/>
-<wire x1="43.18" y1="71.12" x2="66.04" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="71.12" x2="66.04" y2="71.12" width="0.1524" layer="91"/>
 <pinref part="TP_AX_TCXO_EN" gate="G$1" pin="TP"/>
 <wire x1="66.04" y1="71.12" x2="68.58" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="71.12" x2="66.04" y2="53.34" width="0.1524" layer="91"/>
 <junction x="66.04" y="71.12"/>
-<label x="43.18" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
+<label x="35.56" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="AX_ADC2" class="0">
@@ -39817,7 +39835,7 @@ fix layout of sockets</text>
 <approved hash="104,24,101.6,121.92,U2401,VIN,DC_12V_IN,,,"/>
 <approved hash="104,26,195.58,160.02,U2681,8,BQ_VBAT,,,"/>
 <approved hash="104,34,48.26,27.94,U3491,8,PEXPA_P1_7_R,,,"/>
-<approved hash="104,9,157.48,116.84,U0911,EINK_VDD,+3V3,,,"/>
+<approved hash="104,9,154.94,116.84,U0911,EINK_VDD,+3V3,,,"/>
 <approved hash="104,27,109.22,116.84,U2701,VIN,TPS_VIN,,,"/>
 <approved hash="106,24,101.6,91.44,LM53603_!RESET,,,,,"/>
 <approved hash="106,19,203.2,81.28,MC_SW,,,,,"/>
