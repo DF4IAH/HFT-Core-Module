@@ -31353,7 +31353,7 @@ I2C addr: 0x50</text>
 </nets>
 </sheet>
 <sheet>
-<description>LCD / Encoder - I2C</description>
+<description>LCD - I2C</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LCD-Module
 I2C addr: 0x3D</text>
