@@ -7937,7 +7937,7 @@ Covered vias can be set in Masks (Limit).
 <element name="R0694" library="df4iah_rcl" package="R0402" value="1MR" x="82.8675" y="48.5775" rot="MR270"/>
 <element name="R0695" library="df4iah_rcl" package="R0402" value="1MR" x="82.8675" y="45.4025" rot="MR90"/>
 <element name="R0696" library="df4iah_rcl" package="R0402" value="1MR" x="90.805" y="46.99" rot="MR90"/>
-<element name="U2701" library="df4iah_powersupply" package="S-PDSO-G10" value="TPS62051" x="44.45" y="20.32" smashed="yes" rot="MR270">
+<element name="U2701" library="df4iah_powersupply" package="S-PDSO-G10" value="TPS62056" x="44.45" y="20.32" smashed="yes" rot="MR270">
 <attribute name="NAME" x="44.745" y="22.105" size="0.6096" layer="26" ratio="10" rot="MR0"/>
 <attribute name="VALUE" x="45.9275" y="17.9" size="0.6096" layer="28" font="vector" ratio="10" rot="MR0"/>
 </element>

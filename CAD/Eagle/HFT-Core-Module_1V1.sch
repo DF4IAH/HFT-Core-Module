@@ -28372,7 +28372,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R0695" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0696" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="FRAME_27" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="U2701" library="df4iah_powersupply" deviceset="TPS62051" device=""/>
+<part name="U2701" library="df4iah_powersupply" deviceset="TPS62051" device="" value="TPS62056"/>
 <part name="L2711" library="df4iah_rcl" deviceset="L-EU" device="4.50X3.20MM" value="10uH"/>
 <part name="R2721" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R2722" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
