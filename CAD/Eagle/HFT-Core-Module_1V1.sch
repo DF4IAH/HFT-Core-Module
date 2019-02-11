@@ -5495,39 +5495,6 @@ Source: www.bourns.com .. 6000_series.pdf</description>
 <text x="-12.7" y="-1.17" size="0.5" layer="51">Bot</text>
 <text x="-12.7" y="-4.43" size="0.5" layer="51">Top</text>
 </package>
-<package name="2X05_SHROUDED_1MM27">
-<description>&lt;b&gt;Header 2X5 shrouded 1.27mm 0.05"&lt;/b&gt;&lt;hr/&gt;
-Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
-<wire x1="-3.175" y1="-2.2225" x2="-3.175" y2="2.2225" width="0.08128125" layer="21"/>
-<wire x1="-3.175" y1="2.2225" x2="3.175" y2="2.2225" width="0.254" layer="21"/>
-<wire x1="3.175" y1="2.2225" x2="3.175" y2="-2.2225" width="0.08128125" layer="21"/>
-<pad name="1" x="-2.54" y="-1.27" drill="0.508" diameter="0.8128" shape="square"/>
-<pad name="2" x="-2.54" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="3" x="-1.27" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="4" x="-1.27" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="5" x="0" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="6" x="0" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="7" x="1.27" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="8" x="1.27" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="9" x="2.54" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="10" x="2.54" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<text x="-3.81" y="3.175" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.81" y="-4.445" size="1.27" layer="27">&gt;VALUE</text>
-<rectangle x1="-2.794" y1="-1.524" x2="-2.286" y2="-1.016" layer="51"/>
-<rectangle x1="-2.794" y1="1.016" x2="-2.286" y2="1.524" layer="51"/>
-<rectangle x1="-1.524" y1="1.016" x2="-1.016" y2="1.524" layer="51"/>
-<rectangle x1="-1.524" y1="-1.524" x2="-1.016" y2="-1.016" layer="51"/>
-<rectangle x1="-0.254" y1="1.016" x2="0.254" y2="1.524" layer="51"/>
-<rectangle x1="-0.254" y1="-1.524" x2="0.254" y2="-1.016" layer="51"/>
-<rectangle x1="1.016" y1="1.016" x2="1.524" y2="1.524" layer="51"/>
-<rectangle x1="1.016" y1="-1.524" x2="1.524" y2="-1.016" layer="51"/>
-<rectangle x1="2.286" y1="1.016" x2="2.794" y2="1.524" layer="51"/>
-<rectangle x1="2.286" y1="-1.524" x2="2.794" y2="-1.016" layer="51"/>
-<text x="-3.81" y="-1.5875" size="0.6096" layer="21">1</text>
-<wire x1="-1.42875" y1="-2.2225" x2="1.42875" y2="-2.2225" width="0.08128125" layer="21"/>
-<wire x1="-3.175" y1="-2.2225" x2="-1.42875" y2="-2.2225" width="0.254" layer="21"/>
-<wire x1="3.175" y1="-2.2225" x2="1.42875" y2="-2.2225" width="0.254" layer="21"/>
-</package>
 <package name="1X02/90">
 <description>&lt;b&gt;Header 1X2 2.54mm, 90°&lt;/b&gt;</description>
 <wire x1="-1.27" y1="1.905" x2="1.27" y2="1.905" width="0.1524" layer="21"/>
@@ -5944,67 +5911,6 @@ Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
 <rectangle x1="0.762" y1="-3.048" x2="1.524" y2="-2.032" layer="21" rot="R90"/>
 <text x="-3.81" y="3.81" size="1.27" layer="21">1</text>
 </package>
-<package name="2X05_1MM27">
-<description>&lt;b&gt;Header 2X5 1.27mm 0.05"&lt;/b&gt;</description>
-<wire x1="-3.175" y1="-1.905" x2="-2.8575" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="-2.2225" y1="-2.2225" x2="-1.905" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="-1.905" y1="-1.905" x2="-1.5875" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="-0.9525" y1="-2.2225" x2="-0.635" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="-0.635" y1="-1.905" x2="-0.3175" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="0.3175" y1="-2.2225" x2="0.635" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="-1.905" x2="0.9525" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="1.5875" y1="-2.2225" x2="1.905" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="-3.175" y1="-1.905" x2="-3.175" y2="1.905" width="0.1524" layer="21"/>
-<wire x1="-3.175" y1="1.905" x2="-2.8575" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="-2.8575" y1="2.2225" x2="-2.2225" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="-2.2225" y1="2.2225" x2="-1.905" y2="1.905" width="0.1524" layer="21"/>
-<wire x1="-1.905" y1="1.905" x2="-1.5875" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="-1.5875" y1="2.2225" x2="-0.9525" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="-0.9525" y1="2.2225" x2="-0.635" y2="1.905" width="0.1524" layer="21"/>
-<wire x1="-0.635" y1="1.905" x2="-0.3175" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="-0.3175" y1="2.2225" x2="0.3175" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="0.3175" y1="2.2225" x2="0.635" y2="1.905" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="1.905" x2="0.9525" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="0.9525" y1="2.2225" x2="1.5875" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="1.5875" y1="2.2225" x2="1.905" y2="1.905" width="0.1524" layer="21"/>
-<wire x1="-1.905" y1="1.905" x2="-1.905" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="-0.635" y1="1.905" x2="-0.635" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="1.905" x2="0.635" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="1.905" y1="1.905" x2="1.905" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="0.9525" y1="-2.2225" x2="1.5875" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="-0.3175" y1="-2.2225" x2="0.3175" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="-1.5875" y1="-2.2225" x2="-0.9525" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="-2.8575" y1="-2.2225" x2="-2.2225" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="1.905" y1="-1.905" x2="2.2225" y2="-2.2225" width="0.1524" layer="21"/>
-<wire x1="2.8575" y1="-2.2225" x2="3.175" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="1.905" y1="1.905" x2="2.2225" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="2.2225" y1="2.2225" x2="2.8575" y2="2.2225" width="0.1524" layer="21"/>
-<wire x1="2.8575" y1="2.2225" x2="3.175" y2="1.905" width="0.1524" layer="21"/>
-<wire x1="3.175" y1="1.905" x2="3.175" y2="-1.905" width="0.1524" layer="21"/>
-<wire x1="2.2225" y1="-2.2225" x2="2.8575" y2="-2.2225" width="0.1524" layer="21"/>
-<pad name="1" x="-2.54" y="-1.27" drill="0.508" diameter="0.8128" shape="square"/>
-<pad name="2" x="-2.54" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="3" x="-1.27" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="4" x="-1.27" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="5" x="0" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="6" x="0" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="7" x="1.27" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="8" x="1.27" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="9" x="2.54" y="-1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="10" x="2.54" y="1.27" drill="0.508" diameter="0.8128" shape="octagon"/>
-<text x="-3.81" y="3.175" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.81" y="-4.445" size="1.27" layer="27">&gt;VALUE</text>
-<rectangle x1="-2.794" y1="-1.524" x2="-2.286" y2="-1.016" layer="51"/>
-<rectangle x1="-2.794" y1="1.016" x2="-2.286" y2="1.524" layer="51"/>
-<rectangle x1="-1.524" y1="1.016" x2="-1.016" y2="1.524" layer="51"/>
-<rectangle x1="-1.524" y1="-1.524" x2="-1.016" y2="-1.016" layer="51"/>
-<rectangle x1="-0.254" y1="1.016" x2="0.254" y2="1.524" layer="51"/>
-<rectangle x1="-0.254" y1="-1.524" x2="0.254" y2="-1.016" layer="51"/>
-<rectangle x1="1.016" y1="1.016" x2="1.524" y2="1.524" layer="51"/>
-<rectangle x1="1.016" y1="-1.524" x2="1.524" y2="-1.016" layer="51"/>
-<rectangle x1="2.286" y1="1.016" x2="2.794" y2="1.524" layer="51"/>
-<rectangle x1="2.286" y1="-1.524" x2="2.794" y2="-1.016" layer="51"/>
-</package>
 <package name="MICROSIM-8P_SDCARD-8P_MOLEX-104642-1610">
 <smd name="G8" x="6.875" y="-7.04" dx="1.35" dy="2.6" layer="1"/>
 <text x="-1.27" y="9.779" size="0.6096" layer="25" font="vector" ratio="20">&gt;NAME</text>
@@ -6224,6 +6130,44 @@ Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
 <text x="-2.54" y="-3.81" size="0.762" layer="21">1</text>
 <text x="-2.54" y="3.048" size="0.762" layer="21">2</text>
 </package>
+<package name="2X05_1MM27_SHROUDED_CORTEX_JTAG_SWD">
+<description>&lt;b&gt;Header 2X5 shrouded 1.27mm 0.05"&lt;/b&gt;&lt;hr/&gt;
+Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
+<wire x1="-3.175" y1="-2.11" x2="-3.175" y2="2.11" width="0.08128125" layer="21"/>
+<wire x1="3.175" y1="2.11" x2="3.175" y2="-2.11" width="0.08128125" layer="21"/>
+<pad name="1" x="-2.54" y="-0.635" drill="0.508" diameter="0.8128" shape="square"/>
+<pad name="2" x="-2.54" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="3" x="-1.27" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="4" x="-1.27" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="5" x="0" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="6" x="0" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="7" x="1.27" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="8" x="1.27" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="9" x="2.54" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="10" x="2.54" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<text x="-2.54" y="2.54" size="0.8128" layer="25" font="vector" ratio="15">&gt;NAME</text>
+<text x="-2.54" y="-3.81" size="0.8128" layer="27" font="vector" ratio="15">&gt;VALUE</text>
+<rectangle x1="-2.794" y1="-0.889" x2="-2.286" y2="-0.381" layer="51"/>
+<rectangle x1="-2.794" y1="0.381" x2="-2.286" y2="0.889" layer="51"/>
+<rectangle x1="-1.524" y1="0.381" x2="-1.016" y2="0.889" layer="51"/>
+<rectangle x1="-1.524" y1="-0.889" x2="-1.016" y2="-0.381" layer="51"/>
+<rectangle x1="-0.254" y1="0.381" x2="0.254" y2="0.889" layer="51"/>
+<rectangle x1="-0.254" y1="-0.889" x2="0.254" y2="-0.381" layer="51"/>
+<rectangle x1="1.016" y1="0.381" x2="1.524" y2="0.889" layer="51"/>
+<rectangle x1="1.016" y1="-0.889" x2="1.524" y2="-0.381" layer="51"/>
+<rectangle x1="2.286" y1="0.381" x2="2.794" y2="0.889" layer="51"/>
+<rectangle x1="2.286" y1="-0.889" x2="2.794" y2="-0.381" layer="51"/>
+<text x="-3.81" y="-1.5875" size="0.6096" layer="21">1</text>
+<wire x1="-1.42875" y1="-2.11" x2="1.42875" y2="-2.11" width="0.08128125" layer="21"/>
+<dimension x1="1.27" y1="0.635" x2="2.54" y2="0.635" x3="1.905" y3="3.81" textsize="0.5" textratio="10" layer="47" width="0.05"/>
+<dimension x1="2.54" y1="-0.635" x2="2.54" y2="0.635" x3="4.445" y3="0" textsize="0.5" textratio="10" layer="47" width="0.05"/>
+<dimension x1="3.175" y1="-2.54" x2="3.175" y2="2.54" x3="6.35" y3="0" textsize="0.5" textratio="10" layer="47" width="0.05"/>
+<dimension x1="-3.175" y1="2.39" x2="3.175" y2="2.39" x3="0" y3="5.08" textsize="0.5" textratio="10" layer="47" width="0.05"/>
+<rectangle x1="-3.175" y1="1.68" x2="3.175" y2="2.54" layer="21"/>
+<rectangle x1="1.08" y1="-2.54" x2="3.175" y2="-1.68" layer="21"/>
+<rectangle x1="-3.175" y1="-2.54" x2="-1.08" y2="-1.68" layer="21"/>
+<dimension x1="-1.08" y1="-2.54" x2="1.08" y2="-2.54" x3="0" y3="-2.54" textsize="0.5" textratio="10" layer="47" width="0.05"/>
+</package>
 </packages>
 <symbols>
 <symbol name="SOCKET_2X20_SINGLE-SIDE">
@@ -6355,34 +6299,6 @@ Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
 <wire x1="48.26" y1="2.54" x2="50.8" y2="0" width="0.127" layer="94"/>
 <text x="-54.356" y="-3.048" size="1.27" layer="94">Bottom</text>
 <text x="-54.356" y="4.572" size="1.27" layer="94">Top</text>
-</symbol>
-<symbol name="HEADER-2X5">
-<description>&lt;b&gt;Header 2X5 2.54mm&lt;/b&gt;</description>
-<wire x1="-6.35" y1="-7.62" x2="6.35" y2="-7.62" width="0.4064" layer="94"/>
-<wire x1="6.35" y1="-7.62" x2="6.35" y2="7.62" width="0.4064" layer="94"/>
-<wire x1="6.35" y1="7.62" x2="-6.35" y2="7.62" width="0.4064" layer="94"/>
-<wire x1="-6.35" y1="7.62" x2="-6.35" y2="-7.62" width="0.4064" layer="94"/>
-<wire x1="-1.905" y1="5.08" x2="-1.27" y2="5.08" width="1.016" layer="94"/>
-<wire x1="-1.905" y1="2.54" x2="-1.27" y2="2.54" width="1.016" layer="94"/>
-<wire x1="-1.905" y1="0" x2="-1.27" y2="0" width="1.016" layer="94"/>
-<wire x1="-1.905" y1="-2.54" x2="-1.27" y2="-2.54" width="1.016" layer="94"/>
-<wire x1="-1.905" y1="-5.08" x2="-1.27" y2="-5.08" width="1.016" layer="94"/>
-<wire x1="1.27" y1="5.08" x2="1.905" y2="5.08" width="1.016" layer="94"/>
-<wire x1="1.27" y1="2.54" x2="1.905" y2="2.54" width="1.016" layer="94"/>
-<wire x1="1.27" y1="0" x2="1.905" y2="0" width="1.016" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="1.905" y2="-2.54" width="1.016" layer="94"/>
-<wire x1="1.27" y1="-5.08" x2="1.905" y2="-5.08" width="1.016" layer="94"/>
-<text x="-6.35" y="8.89" size="1.778" layer="95" ratio="10">&gt;NAME</text>
-<pin name="10" x="5.08" y="-5.08" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="7" x="-5.08" y="-2.54" visible="pad" length="short" direction="pas"/>
-<pin name="6" x="5.08" y="0" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="1" x="-5.08" y="5.08" visible="pad" length="short" direction="pas"/>
-<pin name="8" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="3" x="-5.08" y="2.54" visible="pad" length="short" direction="pas"/>
-<pin name="2" x="5.08" y="5.08" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="5" x="-5.08" y="0" visible="pad" length="short" direction="pas"/>
-<pin name="4" x="5.08" y="2.54" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="9" x="-5.08" y="-5.08" visible="pad" length="short" direction="pas"/>
 </symbol>
 <symbol name="HEADER-1X2">
 <description>&lt;b&gt;Header 2X3 2.54mm&lt;/b&gt;</description>
@@ -6607,6 +6523,34 @@ with dual switch</description>
 <pin name="2" x="5.08" y="0" visible="pad" length="short" direction="pas" rot="R180"/>
 <pin name="4" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
 </symbol>
+<symbol name="HEADER-2X5">
+<description>&lt;b&gt;Header 2X5 2.54mm&lt;/b&gt;</description>
+<wire x1="-6.35" y1="-7.62" x2="6.35" y2="-7.62" width="0.4064" layer="94"/>
+<wire x1="6.35" y1="-7.62" x2="6.35" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="6.35" y1="7.62" x2="-6.35" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="-6.35" y1="7.62" x2="-6.35" y2="-7.62" width="0.4064" layer="94"/>
+<wire x1="-1.905" y1="5.08" x2="-1.27" y2="5.08" width="1.016" layer="94"/>
+<wire x1="-1.905" y1="2.54" x2="-1.27" y2="2.54" width="1.016" layer="94"/>
+<wire x1="-1.905" y1="0" x2="-1.27" y2="0" width="1.016" layer="94"/>
+<wire x1="-1.905" y1="-2.54" x2="-1.27" y2="-2.54" width="1.016" layer="94"/>
+<wire x1="-1.905" y1="-5.08" x2="-1.27" y2="-5.08" width="1.016" layer="94"/>
+<wire x1="1.27" y1="5.08" x2="1.905" y2="5.08" width="1.016" layer="94"/>
+<wire x1="1.27" y1="2.54" x2="1.905" y2="2.54" width="1.016" layer="94"/>
+<wire x1="1.27" y1="0" x2="1.905" y2="0" width="1.016" layer="94"/>
+<wire x1="1.27" y1="-2.54" x2="1.905" y2="-2.54" width="1.016" layer="94"/>
+<wire x1="1.27" y1="-5.08" x2="1.905" y2="-5.08" width="1.016" layer="94"/>
+<text x="-6.35" y="8.89" size="1.778" layer="95" ratio="10">&gt;NAME</text>
+<pin name="10" x="5.08" y="-5.08" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="7" x="-5.08" y="-2.54" visible="pad" length="short" direction="pas"/>
+<pin name="6" x="5.08" y="0" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="1" x="-5.08" y="5.08" visible="pad" length="short" direction="pas"/>
+<pin name="8" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="3" x="-5.08" y="2.54" visible="pad" length="short" direction="pas"/>
+<pin name="2" x="5.08" y="5.08" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="5" x="-5.08" y="0" visible="pad" length="short" direction="pas"/>
+<pin name="4" x="5.08" y="2.54" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="9" x="-5.08" y="-5.08" visible="pad" length="short" direction="pas"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="2X20/90_1MM27_HARWIN_M50-3202045_SOCKET" prefix="X">
@@ -6652,48 +6596,6 @@ with dual switch</description>
 <connect gate="G$1" pin="39" pad="39"/>
 <connect gate="G$1" pin="4" pad="4"/>
 <connect gate="G$1" pin="40" pad="40"/>
-<connect gate="G$1" pin="5" pad="5"/>
-<connect gate="G$1" pin="6" pad="6"/>
-<connect gate="G$1" pin="7" pad="7"/>
-<connect gate="G$1" pin="8" pad="8"/>
-<connect gate="G$1" pin="9" pad="9"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="HEADER-2X5_1MM27" prefix="X" uservalue="yes">
-<description>&lt;b&gt;Header 2X5 1.27mm 0.05"&lt;/b&gt;</description>
-<gates>
-<gate name="G$1" symbol="HEADER-2X5" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="2X05_1MM27">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="10" pad="10"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="3" pad="3"/>
-<connect gate="G$1" pin="4" pad="4"/>
-<connect gate="G$1" pin="5" pad="5"/>
-<connect gate="G$1" pin="6" pad="6"/>
-<connect gate="G$1" pin="7" pad="7"/>
-<connect gate="G$1" pin="8" pad="8"/>
-<connect gate="G$1" pin="9" pad="9"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="CORTEX_10PIN_JTAG-SWD" package="2X05_SHROUDED_1MM27">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="10" pad="10"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="3" pad="3"/>
-<connect gate="G$1" pin="4" pad="4"/>
 <connect gate="G$1" pin="5" pad="5"/>
 <connect gate="G$1" pin="6" pad="6"/>
 <connect gate="G$1" pin="7" pad="7"/>
@@ -6910,6 +6812,35 @@ with dual switch</description>
 <connect gate="G$1" pin="2" pad="2"/>
 <connect gate="G$1" pin="3" pad="3"/>
 <connect gate="G$1" pin="4" pad="4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="2X05_1MM27_SHROUDED_CORTEX_JTAG_SWD" prefix="X" uservalue="yes">
+<description>&lt;h3&gt;Header 2X5 1.27mm 0.05" shrouded - CORTEX JTAG-SWD&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;SAMTEC FTSH-105-01-F-D-K&lt;/li&gt;
+&lt;li&gt;HARWIN M50-3500542&lt;/li&gt;
+&lt;/ul&gt;</description>
+<gates>
+<gate name="G$1" symbol="HEADER-2X5" x="0" y="0"/>
+</gates>
+<devices>
+<device name="&quot;" package="2X05_1MM27_SHROUDED_CORTEX_JTAG_SWD">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="10" pad="10"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+<connect gate="G$1" pin="4" pad="4"/>
+<connect gate="G$1" pin="5" pad="5"/>
+<connect gate="G$1" pin="6" pad="6"/>
+<connect gate="G$1" pin="7" pad="7"/>
+<connect gate="G$1" pin="8" pad="8"/>
+<connect gate="G$1" pin="9" pad="9"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -27753,7 +27684,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="GND0411" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X3611" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045_SOCKET" device=""/>
 <part name="X3631" library="df4iah_connector" deviceset="2X20/90_1MM27_HARWIN_M50-3202045_SOCKET" device=""/>
-<part name="X0201" library="df4iah_connector" deviceset="HEADER-2X5_1MM27" device="CORTEX_10PIN_JTAG-SWD"/>
 <part name="GND0201" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="X0222" library="df4iah_connector" deviceset="HEADER-1X2" device=""/>
 <part name="GND0221" library="df4iah_supply" deviceset="GND" device=""/>
@@ -27789,7 +27719,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="C1532" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="100pF"/>
 <part name="FRAME_03" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
 <part name="Q0321" library="df4iah_crystal" deviceset="ABS07-32.768KHZ" device=""/>
-<part name="C0311" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="18pF"/>
+<part name="C0311" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="22pF"/>
 <part name="GND0311" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="GND0331" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_10" library="df4iah_frame" deviceset="A4L-LOC" device="" value="I2C connector"/>
@@ -27974,7 +27904,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="X2601" library="df4iah_connector" deviceset="WIRE-TO-BOARD_5MM08_1X02" device=""/>
 <part name="R0231" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
 <part name="R0232" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="220kR"/>
-<part name="C0332" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="8.2pF"/>
+<part name="C0332" library="df4iah_rcl" deviceset="C-EU" device="C0402" value="18pF"/>
 <part name="GND0332" library="df4iah_supply" deviceset="GND" device=""/>
 <part name="FRAME_28" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
 <part name="GND2802" library="df4iah_supply" deviceset="GND" device=""/>
@@ -28372,7 +28302,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R0695" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0696" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="FRAME_27" library="df4iah_frame" deviceset="A4L-LOC" device="" value="Holes"/>
-<part name="U2701" library="df4iah_powersupply" deviceset="TPS62051" device=""/>
+<part name="U2701" library="df4iah_powersupply" deviceset="TPS62051" device="" value="TPS62056"/>
 <part name="L2711" library="df4iah_rcl" deviceset="L-EU" device="4.50X3.20MM" value="10uH"/>
 <part name="R2721" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R2722" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
@@ -28408,6 +28338,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <part name="R0689" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="1MR"/>
 <part name="R0901" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
 <part name="R0902" library="df4iah_rcl" deviceset="R-EU_" device="R0402" value="47R"/>
+<part name="X0201" library="df4iah_connector" deviceset="2X05_1MM27_SHROUDED_CORTEX_JTAG_SWD" device="&quot;"/>
 </parts>
 <sheets>
 <sheet>
@@ -29467,7 +29398,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 </plain>
 <instances>
 <instance part="FRAME_02" gate="G$1" x="0" y="0"/>
-<instance part="X0201" gate="G$1" x="78.74" y="60.96"/>
 <instance part="GND0201" gate="1" x="66.04" y="40.64"/>
 <instance part="X0222" gate="A" x="139.7" y="142.24" rot="MR270"/>
 <instance part="GND0221" gate="1" x="154.94" y="129.54"/>
@@ -29477,6 +29407,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <instance part="S0212" gate="G$1" x="142.24" y="104.14"/>
 <instance part="R0231" gate="G$1" x="137.16" y="73.66" rot="R90"/>
 <instance part="R0232" gate="G$1" x="137.16" y="55.88" rot="R90"/>
+<instance part="X0201" gate="G$1" x="78.74" y="60.96"/>
 </instances>
 <busses>
 </busses>
@@ -29514,43 +29445,43 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <segment>
 <label x="175.26" y="66.04" size="1.778" layer="95" xref="yes"/>
 <wire x1="175.26" y1="66.04" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="X0201" gate="G$1" pin="2"/>
 <pinref part="R0231" gate="G$1" pin="1"/>
 <wire x1="137.16" y1="66.04" x2="83.82" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="66.04" x2="137.16" y2="68.58" width="0.1524" layer="91"/>
 <junction x="137.16" y="66.04"/>
+<pinref part="X0201" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="PA14" class="0">
 <segment>
 <wire x1="83.82" y1="63.5" x2="137.16" y2="63.5" width="0.1524" layer="91"/>
 <label x="175.26" y="63.5" size="1.778" layer="95" xref="yes"/>
-<pinref part="X0201" gate="G$1" pin="4"/>
 <pinref part="R0232" gate="G$1" pin="2"/>
 <wire x1="137.16" y1="63.5" x2="175.26" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="63.5" x2="137.16" y2="60.96" width="0.1524" layer="91"/>
 <junction x="137.16" y="63.5"/>
+<pinref part="X0201" gate="G$1" pin="4"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
 <wire x1="66.04" y1="63.5" x2="66.04" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="GND0201" gate="1" pin="GND"/>
-<pinref part="X0201" gate="G$1" pin="3"/>
 <wire x1="66.04" y1="60.96" x2="66.04" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="55.88" x2="66.04" y2="45.72" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="45.72" x2="66.04" y2="43.18" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="63.5" x2="73.66" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="X0201" gate="G$1" pin="5"/>
 <wire x1="66.04" y1="60.96" x2="73.66" y2="60.96" width="0.1524" layer="91"/>
 <junction x="66.04" y="60.96"/>
-<pinref part="X0201" gate="G$1" pin="9"/>
 <wire x1="66.04" y1="55.88" x2="73.66" y2="55.88" width="0.1524" layer="91"/>
 <junction x="66.04" y="55.88"/>
 <wire x1="66.04" y1="45.72" x2="137.16" y2="45.72" width="0.1524" layer="91"/>
 <junction x="66.04" y="45.72"/>
 <pinref part="R0232" gate="G$1" pin="1"/>
 <wire x1="137.16" y1="45.72" x2="137.16" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="X0201" gate="G$1" pin="3"/>
+<pinref part="X0201" gate="G$1" pin="5"/>
+<pinref part="X0201" gate="G$1" pin="9"/>
 </segment>
 <segment>
 <pinref part="C0213" gate="G$1" pin="2"/>
@@ -29574,7 +29505,6 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <wire x1="53.34" y1="149.86" x2="66.04" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="149.86" x2="66.04" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="81.28" x2="66.04" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="X0201" gate="G$1" pin="1"/>
 <wire x1="66.04" y1="66.04" x2="73.66" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="R0231" gate="G$1" pin="2"/>
 <wire x1="66.04" y1="81.28" x2="137.16" y2="81.28" width="0.1524" layer="91"/>
@@ -29584,6 +29514,7 @@ with interrupt output, reset, and configuration registers&lt;/h4&gt;</descriptio
 <junction x="66.04" y="149.86"/>
 <pinref part="X0222" gate="A" pin="1"/>
 <wire x1="139.7" y1="149.86" x2="139.7" y2="144.78" width="0.1524" layer="91"/>
+<pinref part="X0201" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>
@@ -36933,7 +36864,8 @@ Max charge: 2.2A</text>
 <sheet>
 <description>PMIC 3.3V -&gt; 1.2V</description>
 <plain>
-<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 3.3V --&gt; 1.2V</text>
+<text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 3.3V --&gt; 1.2V
+I2C1 addr: 0x28</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">PMIC 3.3V --&gt; 1.2V</text>
 <text x="38.1" y="124.46" size="1.778" layer="97">PMIC_VDD12_EN</text>
 <text x="200.66" y="109.22" size="1.778" layer="97">PMIC_VDD12_PG</text>

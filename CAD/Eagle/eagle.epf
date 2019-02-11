@@ -22,7 +22,8 @@ UsedLibrary="lbr/df4iah_holes.lbr"
 UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_lcd.lbr"
 UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_crystal.lbr"
 UsedLibrary="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_rcl.lbr"
-UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_powersupply.lbr"
+UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_connector.lbr"
+UsedLibrary="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_powersupply.lbr"
 
 [Win_1]
 Type="Control Panel"
@@ -35,19 +36,19 @@ Type="Library Editor"
 Loc="0 0 1919 1017"
 State=2
 Number=3
-File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_powersupply.lbr"
-View="-2.9154 -5.45645 5.9454 3.97925"
+File="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_powersupply.lbr"
+View="-22.9819 -17.4002 22.9819 19.2036"
 WireWidths=" 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0 0.254 0.127"
 PadDiameters=" 0.254 0.3048 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0 0.6096 0.4064"
 PadDrills=" 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8 0.3"
 ViaDiameters=" 0.254 0.3048 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0 0.6096 0.4064"
 ViaDrills=" 0.7 0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6 0.3"
 HoleDrills=" 0.7 0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6 0.3"
-TextSizes=" 0.3048 0.4064 0.6096 0.8128 1.016 1.4224 1.6764 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.778 0.5 1.27"
+TextSizes=" 0.3048 0.4064 0.6096 0.8128 1.016 1.4224 1.6764 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.778 1.27 0.5"
 PolygonSpacings=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.27"
 PolygonIsolates=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 MiterRadiuss=" 0.254 0.3175 0.635 1.27 2.54 1 2 2.5 5 7.5 10 0"
-DimensionWidths=" 0 0.127 0.254 0.1 0.26 0.13"
+DimensionWidths=" 0 0.127 0.254 0.1 0.26 0.13 0.05"
 DimensionExtWidths=" 0.127 0.254 0.1 0.13 0.26 0"
 DimensionExtLengths=" 1.27 2.54 1 2 3 0"
 DimensionExtOffsets=" 1.27 2.54 1 2 3 0"
@@ -74,16 +75,16 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=21
-Package="VQFN-24"
+Layer=94
+Device="LM2611"
 
 [Win_3]
 Type="Board Editor"
 Loc="0 0 599 399"
 State=1
 Number=1
-File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/HFT-Core-Module_1V1.brd"
-View="-11.9107 -6.70189 105.38 104.759"
+File="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/DL0WH_BiTuner_Ctrl_1V2.brd"
+View="-13.4716 -137.108 120.852 81.4184"
 WireWidths=" 0 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.6096 0.01 0.4064 0.3302 0.127 0.15 0.254 0.3048 0.1524"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -121,15 +122,15 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=15
+Layer=16
 
 [Win_4]
 Type="Schematic Editor"
 Loc="0 0 1919 1017"
 State=1
 Number=2
-File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/HFT-Core-Module_1V1.sch"
-View="-5.74385 -4.10556 266.52 182.968"
+File="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/DL0WH_BiTuner_Ctrl_1V2.sch"
+View="-5.8452 -4.10556 271.689 182.968"
 WireWidths=" 0 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0.1524"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -167,9 +168,9 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=97
-Views=" 1: -5.74385 -4.10556 266.52 182.968 9: -5.74385 -4.10556 266.52 182.968 27: -5.74385 -4.10556 266.52 182.968"
-Sheet="1"
+Layer=91
+Views=" 1: -5.8452 -4.10556 271.689 182.968 9: -5.8452 -4.10556 271.689 182.968"
+Sheet="9"
 
 [Desktop]
 Screen="1920 1080"
