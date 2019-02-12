@@ -7522,11 +7522,11 @@ modified by DF4IAH.</description>
 <dimension x1="2" y1="-2" x2="2" y2="2" x3="5" y3="0" textsize="0.5" textratio="10" layer="47" width="0.05"/>
 <dimension x1="1.4" y1="-1.9125" x2="1.4" y2="1.9125" x3="3.5" y3="0" textsize="0.5" textratio="10" layer="47" width="0.05" precision="3"/>
 <dimension x1="1.375" y1="-2" x2="-1.375" y2="-2" x3="0" y3="-4.5" textsize="0.5" textratio="10" layer="47" width="0.05"/>
-<pad name="P$1" x="0" y="0" drill="0.3" diameter="0.4064"/>
-<pad name="P$2" x="0" y="-0.8" drill="0.3" diameter="0.4064"/>
-<pad name="P$3" x="0" y="0.8" drill="0.3" diameter="0.4064"/>
-<pad name="P$4" x="0.8" y="0" drill="0.3" diameter="0.4064"/>
-<pad name="P$5" x="-0.8" y="0" drill="0.3" diameter="0.4064"/>
+<pad name="P$1" x="0" y="0" drill="0.2" diameter="0.3"/>
+<pad name="P$2" x="0" y="-1" drill="0.2" diameter="0.3"/>
+<pad name="P$3" x="0" y="1" drill="0.2" diameter="0.3"/>
+<pad name="P$4" x="1" y="0" drill="0.2" diameter="0.3"/>
+<pad name="P$5" x="-1" y="0" drill="0.2" diameter="0.3"/>
 <smd name="26" x="0" y="0" dx="2.45" dy="2.45" layer="16" roundness="5"/>
 </package>
 <package name="HTSSOP16">
@@ -7581,21 +7581,21 @@ modified by DF4IAH.</description>
 <smd name="15" x="-1.625" y="2.9" dx="0.45" dy="1.5" layer="1" rot="R180"/>
 <smd name="16" x="-2.275" y="2.9" dx="0.45" dy="1.5" layer="1" rot="R180"/>
 <smd name="PAD1" x="0" y="0" dx="5" dy="3.4" layer="1" roundness="5" stop="no" thermals="no"/>
-<smd name="PAD2" x="0" y="0" dx="5" dy="3.4" layer="16" roundness="5" rot="R180" thermals="no" cream="no"/>
-<rectangle x1="-2.4" y1="-1.6" x2="2.4" y2="1.6" layer="29"/>
+<smd name="PAD2" x="0" y="0" dx="5" dy="3.4" layer="16" roundness="5" rot="R180" stop="no" thermals="no"/>
+<rectangle x1="-1.7" y1="-1.24" x2="1.7" y2="1.24" layer="29"/>
 <rectangle x1="-1.7" y1="-1.24" x2="1.7" y2="1.24" layer="30"/>
-<pad name="PAD" x="0.65" y="0" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD3" x="-0.65" y="0" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD4" x="-1.95" y="0" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD5" x="1.95" y="0" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD6" x="1.95" y="1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD7" x="1.95" y="-1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD8" x="0.65" y="1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD9" x="0.65" y="-1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD10" x="-0.65" y="1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD11" x="-0.65" y="-1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD12" x="-1.95" y="1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
-<pad name="PAD13" x="-1.95" y="-1.1" drill="0.3" diameter="0.4064" stop="no" thermals="no"/>
+<pad name="PAD" x="0.65" y="0" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD3" x="-0.65" y="0" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD4" x="-1.95" y="0" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD5" x="1.95" y="0" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD6" x="1.95" y="1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD7" x="1.95" y="-1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD8" x="0.65" y="1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD9" x="0.65" y="-1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD10" x="-0.65" y="1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD11" x="-0.65" y="-1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD12" x="-1.95" y="1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
+<pad name="PAD13" x="-1.95" y="-1.1" drill="0.3048" diameter="0.6096" stop="no" thermals="no"/>
 </package>
 </packages>
 <symbols>
