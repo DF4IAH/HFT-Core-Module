@@ -2100,16 +2100,16 @@ MELF 0.25 W</description>
 Compatible with Cortex 10-pin 0.05" JTAG/SWD Connector</description>
 <wire x1="-3.175" y1="-2.11" x2="-3.175" y2="2.11" width="0.08128125" layer="21"/>
 <wire x1="3.175" y1="2.11" x2="3.175" y2="-2.11" width="0.08128125" layer="21"/>
-<pad name="1" x="-2.54" y="-0.635" drill="0.508" diameter="0.8128" shape="square"/>
-<pad name="2" x="-2.54" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="3" x="-1.27" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="4" x="-1.27" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="5" x="0" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="6" x="0" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="7" x="1.27" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="8" x="1.27" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="9" x="2.54" y="-0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
-<pad name="10" x="2.54" y="0.635" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="1" x="-2.54" y="-0.635" drill="0.5" diameter="0.9144" shape="square"/>
+<pad name="2" x="-2.54" y="0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="3" x="-1.27" y="-0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="4" x="-1.27" y="0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="5" x="0" y="-0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="6" x="0" y="0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="7" x="1.27" y="-0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="8" x="1.27" y="0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="9" x="2.54" y="-0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
+<pad name="10" x="2.54" y="0.635" drill="0.5" diameter="0.9144" shape="octagon"/>
 <text x="-2.54" y="2.54" size="0.8128" layer="25" font="vector" ratio="15">&gt;NAME</text>
 <text x="-2.54" y="-3.81" size="0.8128" layer="27" font="vector" ratio="15">&gt;VALUE</text>
 <rectangle x1="-2.794" y1="-0.889" x2="-2.286" y2="-0.381" layer="51"/>
@@ -9503,13 +9503,16 @@ Covered vias can be set in Masks (Limit).
 <wire x1="80.645" y1="94.615" x2="80.9625" y2="94.9325" width="0.1524" layer="16"/>
 <wire x1="83.185" y1="93.98" x2="83.185" y2="94.9325" width="0.1524" layer="16"/>
 <wire x1="84.455" y1="93.98" x2="84.455" y2="94.9325" width="0.1524" layer="16"/>
+<wire x1="78.74" y1="90.82" x2="78.74" y2="93.6625" width="0.1524" layer="16"/>
+<wire x1="78.74" y1="93.6625" x2="79.0575" y2="93.98" width="0.1524" layer="16"/>
+<wire x1="79.0575" y1="93.98" x2="80.645" y2="93.98" width="0.1524" layer="16"/>
 <wire x1="93.7025" y1="86.965" x2="93.7025" y2="86.965" width="0" layer="19" extent="1-16"/>
 <wire x1="94.7025" y1="82.815" x2="93.7025" y2="86.965" width="0" layer="19" extent="1-1"/>
 <wire x1="94.7025" y1="82.815" x2="94.7025" y2="82.815" width="0" layer="19" extent="1-16"/>
 <wire x1="89.8525" y1="89.8525" x2="93.7025" y2="86.965" width="0" layer="19" extent="1-16"/>
+<wire x1="78.74" y1="88.28" x2="78.74" y2="90.82" width="0" layer="19" extent="1-16"/>
 <wire x1="84.8025" y1="86.965" x2="85.74" y2="89.8525" width="0" layer="19" extent="1-16"/>
 <wire x1="84.8025" y1="86.965" x2="84.8025" y2="86.965" width="0" layer="19" extent="1-16"/>
-<wire x1="78.74" y1="88.28" x2="78.74" y2="90.82" width="0" layer="19" extent="1-16"/>
 <wire x1="80.9775" y1="83.82" x2="80.63" y2="87.63" width="0" layer="19" extent="16-16"/>
 <wire x1="84.8025" y1="78.365" x2="84.8025" y2="78.365" width="0" layer="19" extent="1-16"/>
 <wire x1="77.53" y1="78.705" x2="80.3275" y2="78.755" width="0" layer="19" extent="1-16"/>
@@ -9709,9 +9712,6 @@ Covered vias can be set in Masks (Limit).
 <wire x1="10.395" y1="1.0225" x2="11.995" y2="1.0225" width="0" layer="19" extent="1-1"/>
 <wire x1="5.7" y1="6.19125" x2="7" y2="3.65125" width="0" layer="19" extent="1-1"/>
 <wire x1="90.805" y1="47.64" x2="82.8675" y2="47.9275" width="0" layer="19" extent="16-16"/>
-<wire x1="78.74" y1="90.82" x2="78.74" y2="93.6625" width="0.1524" layer="16"/>
-<wire x1="78.74" y1="93.6625" x2="79.0575" y2="93.98" width="0.1524" layer="16"/>
-<wire x1="79.0575" y1="93.98" x2="80.645" y2="93.98" width="0.1524" layer="16"/>
 </signal>
 <signal name="MCU_VSSA">
 <contactref element="U0111" pad="30"/>
@@ -10657,9 +10657,9 @@ Covered vias can be set in Masks (Limit).
 <contactref element="U0111" pad="109"/>
 <contactref element="R0232" pad="2"/>
 <contactref element="X0201" pad="4"/>
-<wire x1="72.25" y1="71.61" x2="84.44" y2="89.8525" width="0" layer="19" extent="1-16"/>
 <wire x1="84.44" y1="89.8525" x2="84.455" y2="89.8525" width="0.1524" layer="16"/>
 <wire x1="84.455" y1="89.8525" x2="84.455" y2="92.71" width="0.1524" layer="16"/>
+<wire x1="72.25" y1="71.61" x2="84.44" y2="89.8525" width="0" layer="19" extent="1-16"/>
 </signal>
 <signal name="PA13">
 <contactref element="U0111" pad="105"/>
