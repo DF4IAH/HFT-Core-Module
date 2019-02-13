@@ -22,8 +22,8 @@ UsedLibrary="lbr/df4iah_holes.lbr"
 UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_lcd.lbr"
 UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_crystal.lbr"
 UsedLibrary="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_rcl.lbr"
-UsedLibrary="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_powersupply.lbr"
 UsedLibrary="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_connector.lbr"
+UsedLibrary="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_powersupply.lbr"
 
 [Win_1]
 Type="Control Panel"
@@ -36,14 +36,14 @@ Type="Library Editor"
 Loc="0 0 1919 1017"
 State=2
 Number=3
-File="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/lbr/df4iah_connector.lbr"
-View="-4.54686 -4.52279 7.35386 6.12645"
-WireWidths=" 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0 0.254 0.6096 0.127"
-PadDiameters=" 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0 0.6096 0.4064 0.8636 0.9144"
-PadDrills=" 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8 0.3 0.5"
-ViaDiameters=" 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0 0.6096 0.4064 0.8636 0.9144"
-ViaDrills=" 0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6 0.3 0.5"
-HoleDrills=" 0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6 0.3 0.5"
+File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/lbr/df4iah_osc.lbr"
+View="-4.16879 -5.20202 4.60852 4.88736"
+WireWidths=" 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0 0.254 0.6096 0.127 0.008 0.2032"
+PadDiameters=" 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.6096 0.4064 0.8636 0.9144 0"
+PadDrills=" 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8 0.3 0.5 0.3048"
+ViaDiameters=" 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.6096 0.4064 0.8636 0.9144 0"
+ViaDrills=" 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6 0.3 0.5 0.3048"
+HoleDrills=" 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6 0.3 0.5 0.3048"
 TextSizes=" 0.3048 0.4064 0.8128 1.016 1.4224 1.6764 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.778 0.5 0.6096 1.27"
 PolygonSpacings=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.27"
 PolygonIsolates=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
@@ -75,16 +75,16 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=21
-Package="2X05_1MM27_SHROUDED_CORTEX_JTAG_SWD"
+Layer=51
+Package="QFN24_P0MM5_CTRPAD"
 
 [Win_3]
 Type="Schematic Editor"
 Loc="0 0 1919 1017"
 State=1
 Number=2
-File="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/DL0WH_BiTuner_Ctrl_1V2.sch"
-View="-5.8452 -4.10556 271.689 182.968"
+File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/HFT-Core-Module_1V1.sch"
+View="-6.29465 -4.10556 294.611 182.968"
 WireWidths=" 0 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0.1524"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -123,17 +123,16 @@ ArcDirection=0
 AddLevel=2
 PadsSameType=0
 Layer=91
-Views=" 1: -5.8452 -4.10556 271.689 182.968 9: -5.8452 -4.10556 271.689 182.968"
-Sheet="2"
+Sheet="1"
 
 [Win_4]
 Type="Board Editor"
 Loc="0 0 599 399"
 State=1
 Number=1
-File="C:/Users/habel/git/DL0WH_BiTuner/CAD/Eagle/DL0WH_BiTuner_Ctrl_1V2.brd"
-View="-7.98903 -3.29356 99.0404 75.5166"
-WireWidths=" 0 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.6096 0.01 0.4064 0.3302 0.15 0.3048 0.254 0.127 0.1524"
+File="C:/Users/habel/git/HFT-Core-Module__HW_1V1/CAD/Eagle/HFT-Core-Module_1V1.brd"
+View="-2.92187 -2.92538 100.718 100.151"
+WireWidths=" 0 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.6096 0.01 0.4064 0.3302 0.15 0.127 0.254 0.3048 0.1524"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
 ViaDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
@@ -170,7 +169,7 @@ SwapLevel=0
 ArcDirection=0
 AddLevel=2
 PadsSameType=0
-Layer=16
+Layer=15
 
 [Desktop]
 Screen="1920 1080"
