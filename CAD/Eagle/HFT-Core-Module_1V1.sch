@@ -7525,10 +7525,10 @@ modified by DF4IAH.</description>
 <dimension x1="1.4" y1="-1.9125" x2="1.4" y2="1.9125" x3="3.5" y3="0" textsize="0.5" textratio="10" layer="47" width="0.05" precision="3"/>
 <dimension x1="1.375" y1="-2" x2="-1.375" y2="-2" x3="0" y3="-4.5" textsize="0.5" textratio="10" layer="47" width="0.05"/>
 <pad name="P$1" x="0" y="0" drill="0.2" diameter="0.3"/>
-<pad name="P$2" x="0" y="-1" drill="0.2" diameter="0.3"/>
-<pad name="P$3" x="0" y="1" drill="0.2" diameter="0.3"/>
-<pad name="P$4" x="1" y="0" drill="0.2" diameter="0.3"/>
-<pad name="P$5" x="-1" y="0" drill="0.2" diameter="0.3"/>
+<pad name="P$2" x="0" y="-0.9" drill="0.2" diameter="0.3"/>
+<pad name="P$3" x="0" y="0.9" drill="0.2" diameter="0.3"/>
+<pad name="P$4" x="0.9" y="0" drill="0.2" diameter="0.3"/>
+<pad name="P$5" x="-0.9" y="0" drill="0.2" diameter="0.3"/>
 <smd name="26" x="0" y="0" dx="2.45" dy="2.45" layer="16" roundness="5"/>
 </package>
 <package name="HTSSOP16">
@@ -29892,7 +29892,7 @@ Crystal 32.768 kHz</text>
 </nets>
 </sheet>
 <sheet>
-<description>I2C1 Port Expander-A</description>
+<description>I2C1 - Port Expander-A</description>
 <plain>
 <text x="124.46" y="162.56" size="2.54" layer="97" ratio="15">I2C1 Port Expander-A
 I2C1 addr: 0x20</text>
@@ -30373,7 +30373,7 @@ I2C1 addr: 0x20</text>
 </nets>
 </sheet>
 <sheet>
-<description>I2C1 Port Expander-B</description>
+<description>I2C1 - Port Expander-B</description>
 <plain>
 <text x="7.62" y="7.62" size="2.54" layer="97" ratio="15">Addr        Device
 
@@ -30825,7 +30825,7 @@ I2C1 addr: 0x21</text>
 </nets>
 </sheet>
 <sheet>
-<description>MCU FLASH - SPI Quad-IO</description>
+<description>SPIQ - MCU FLASH</description>
 <plain>
 <text x="76.2" y="99.06" size="1.778" layer="97" rot="R90">QUADSPI_CLK</text>
 <text x="152.4" y="99.06" size="1.778" layer="97" rot="R90">QUADSPI_BK2_IO0</text>
@@ -30998,7 +30998,7 @@ FLASH 4M x 8b, two banks</text>
 </nets>
 </sheet>
 <sheet>
-<description>MCU EEPROM 8k x 8Bit - I2C</description>
+<description>I2C1 - MCU EEPROM 8k x 8Bit</description>
 <plain>
 <text x="165.1" y="7.62" size="2.54" layer="97" ratio="15">MCU serial EEPROM
 
@@ -31112,12 +31112,12 @@ I2C addr: 0x50</text>
 </nets>
 </sheet>
 <sheet>
-<description>E-Ink-Display</description>
+<description>SPI3 - E-Ink-Display</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">E-Ink Display</text>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">E-Ink Display</text>
 <text x="48.26" y="86.36" size="1.778" layer="97">EINK_RESET</text>
-<text x="48.26" y="96.52" size="1.778" layer="97">MCU_EINK_CS_OUT</text>
+<text x="48.26" y="96.52" size="1.778" layer="97">MCU_EINK_SEL_OUT</text>
 <text x="48.26" y="91.44" size="1.778" layer="97">MCU_EINK_DC_OUT</text>
 <text x="48.26" y="81.28" size="1.778" layer="97">MCU_EINK_BUSY_IN</text>
 <text x="106.68" y="106.68" size="1.778" layer="97">MCU_SPI3_MOSI</text>
@@ -31286,7 +31286,7 @@ I2C addr: 0x50</text>
 </nets>
 </sheet>
 <sheet>
-<description>LCD - I2C</description>
+<description>I2C1 - LCD</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LCD-Module
 I2C addr: 0x3D</text>
@@ -31440,7 +31440,7 @@ I2C addr: 0x3D</text>
 </nets>
 </sheet>
 <sheet>
-<description>RGB-LED - PWM</description>
+<description>PWM - RGB-LED</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">RGB-LED PWM driven</text>
 <text x="71.12" y="119.38" size="1.778" layer="97" rot="R90">MCU_PWM_LED_R</text>
@@ -31706,7 +31706,7 @@ I2C addr: 0x3D</text>
 </nets>
 </sheet>
 <sheet>
-<description>Position tracking - SPI</description>
+<description>SPI3 - Position tracking</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">9-axis sensor: BNO-085
 SPI</text>
@@ -31966,7 +31966,7 @@ SPI</text>
 </nets>
 </sheet>
 <sheet>
-<description>Climate sensor - I2C</description>
+<description>I2C1 - Climate sensor</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Climate sensor: BME680
 I2C addr: 0x76</text>
@@ -32044,7 +32044,7 @@ I2C addr: 0x76</text>
 </nets>
 </sheet>
 <sheet>
-<description>VCTCXO - I2C</description>
+<description>I2C1 - VCTCXO</description>
 <plain>
 <text x="104.14" y="154.94" size="1.778" layer="97">f_LP = 10 Hz</text>
 <text x="185.42" y="119.38" size="1.778" layer="97">Use ECS VC-TXO-23SM-200-B
@@ -32413,7 +32413,7 @@ I2C addr: 0x38</text>
 </nets>
 </sheet>
 <sheet>
-<description>PLL Si5338 - I2C</description>
+<description>I2C1 - PLL Si5338</description>
 <plain>
 <text x="167.64" y="76.2" size="1.778" layer="97">Impedance 100 Ohms</text>
 <text x="116.84" y="137.16" size="1.778" layer="97" rot="R90">Impedance 100 Ohms</text>
@@ -32804,7 +32804,7 @@ I2C addr: 0x70</text>
 </nets>
 </sheet>
 <sheet>
-<description>I2S audio ADC - I2C</description>
+<description>I2C1 - I2S audio ADC</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">I2S audio stereo A/D-Converter
 I2C addr: 0x4A</text>
@@ -33133,7 +33133,7 @@ I2C addr: 0x4A</text>
 </nets>
 </sheet>
 <sheet>
-<description>I2S audio DAC - I2C</description>
+<description>I2C1 - I2S audio DAC</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">I2S audio stereo D/A-Converter
 I2C addr: 0x1A</text>
@@ -33452,7 +33452,7 @@ I2C addr: 0x1A</text>
 </nets>
 </sheet>
 <sheet>
-<description>SIM868 GSM/GPRS/GNSS</description>
+<description>UART1 - SIM868 GSM/GPRS/GNSS</description>
 <plain>
 <text x="165.1" y="15.24" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">SIM868 GSM/GPRS/GNSS</text>
@@ -34574,7 +34574,7 @@ I2C addr: 0x1A</text>
 </nets>
 </sheet>
 <sheet>
-<description>VHF/UHF SX1262 - ch 1 - SPI</description>
+<description>SPI3 - VHF/UHF SX1262 - ch 1</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">VHF / UHF  SX1262 - channel 1
 SPI</text>
@@ -35171,7 +35171,7 @@ SPI</text>
 </nets>
 </sheet>
 <sheet>
-<description>VHF/UHF AX5243 - ch 2 - SPI</description>
+<description>SPI3 - VHF/UHF AX5243 - ch 2</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">VHF / UHF  AX5243 - channel 2
 SPI</text>
@@ -35858,7 +35858,7 @@ SPI</text>
 </nets>
 </sheet>
 <sheet>
-<description>LiPo charger</description>
+<description>I2C1 - LiPo charger</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">LiPo charger (nom. 3.7V / max. 4.2V)
 I2C addr: 0x6B</text>
@@ -36283,7 +36283,7 @@ Max charge: 2.2A</text>
 </nets>
 </sheet>
 <sheet>
-<description>Solar Power Harvesting</description>
+<description>ADC1/TIMCAP - Solar Power Harvesting</description>
 <plain>
 <text x="24.384" y="103.378" size="1.778" layer="96">WE 744031220 3.80 mm x 3.80 mm</text>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Solar power converter --&gt; 5.2V, 3.3V</text>
@@ -36864,7 +36864,7 @@ Max charge: 2.2A</text>
 </nets>
 </sheet>
 <sheet>
-<description>PMIC 3.3V -&gt; 1.2V</description>
+<description>I2C1 - PMIC 3.3V -&gt; 1.2V</description>
 <plain>
 <text x="22.86" y="162.56" size="2.54" layer="97" ratio="15">Power converter 3.3V --&gt; 1.2V
 I2C1 addr: 0x28</text>
@@ -39811,9 +39811,9 @@ fix layout of sockets</text>
 <approved hash="106,19,83.82,60.96,SIM_SPK1P,,,,,"/>
 <approved hash="106,19,83.82,45.72,SIM_SPK2N,,,,,"/>
 <approved hash="106,19,83.82,50.8,SIM_SPK2P,,,,,"/>
-<approved hash="113,2,78.74,62.6787,X0201,,,,,"/>
 <approved hash="113,2,139.251,141.915,X0222,,,,,"/>
 <approved hash="113,19,210.82,48.7087,X1961,,,,,"/>
+<approved hash="113,2,78.74,62.6787,X0201,,,,,"/>
 </errors>
 </schematic>
 </drawing>

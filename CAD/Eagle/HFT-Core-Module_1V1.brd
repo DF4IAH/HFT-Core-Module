@@ -2496,10 +2496,10 @@ modified by DF4IAH.</description>
 <dimension x1="1.4" y1="-1.9125" x2="1.4" y2="1.9125" x3="3.5" y3="0" textsize="0.5" textratio="10" layer="47" width="0.05" precision="3"/>
 <dimension x1="1.375" y1="-2" x2="-1.375" y2="-2" x3="0" y3="-4.5" textsize="0.5" textratio="10" layer="47" width="0.05"/>
 <pad name="P$1" x="0" y="0" drill="0.2" diameter="0.3"/>
-<pad name="P$2" x="0" y="-1" drill="0.2" diameter="0.3"/>
-<pad name="P$3" x="0" y="1" drill="0.2" diameter="0.3"/>
-<pad name="P$4" x="1" y="0" drill="0.2" diameter="0.3"/>
-<pad name="P$5" x="-1" y="0" drill="0.2" diameter="0.3"/>
+<pad name="P$2" x="0" y="-0.9" drill="0.2" diameter="0.3"/>
+<pad name="P$3" x="0" y="0.9" drill="0.2" diameter="0.3"/>
+<pad name="P$4" x="0.9" y="0" drill="0.2" diameter="0.3"/>
+<pad name="P$5" x="-0.9" y="0" drill="0.2" diameter="0.3"/>
 <smd name="26" x="0" y="0" dx="2.45" dy="2.45" layer="16" roundness="5"/>
 </package>
 <package name="HTSSOP16">
@@ -9582,12 +9582,12 @@ Covered vias can be set in Masks (Limit).
 <wire x1="10.78" y1="72.39" x2="13.335" y2="74.12125" width="0" layer="19" extent="16-16"/>
 <wire x1="7.9225" y1="72.39" x2="10.4625" y2="72.39" width="0" layer="19" extent="1-1"/>
 <wire x1="8.1875" y1="68.83" x2="7.62" y2="70.8175" width="0" layer="19" extent="1-1"/>
-<wire x1="10.43" y1="68.58" x2="9.5175" y2="68.83" width="0" layer="19" extent="1-1"/>
-<wire x1="11.43" y1="68.58" x2="10.43" y2="68.58" width="0" layer="19" extent="16-16"/>
-<wire x1="11.43" y1="69.58" x2="11.43" y2="68.58" width="0" layer="19" extent="16-16"/>
-<wire x1="12.43" y1="68.58" x2="11.43" y2="68.58" width="0" layer="19" extent="16-16"/>
-<wire x1="11.43" y1="67.58" x2="11.43" y2="68.58" width="0" layer="19" extent="16-16"/>
-<wire x1="12.3825" y1="66.9925" x2="11.43" y2="67.58" width="0" layer="19" extent="16-16"/>
+<wire x1="10.53" y1="68.58" x2="9.5175" y2="68.83" width="0" layer="19" extent="1-1"/>
+<wire x1="11.43" y1="68.58" x2="10.53" y2="68.58" width="0" layer="19" extent="16-16"/>
+<wire x1="11.43" y1="69.48" x2="11.43" y2="68.58" width="0" layer="19" extent="16-16"/>
+<wire x1="12.33" y1="68.58" x2="11.43" y2="68.58" width="0" layer="19" extent="16-16"/>
+<wire x1="11.43" y1="67.68" x2="11.43" y2="68.58" width="0" layer="19" extent="16-16"/>
+<wire x1="12.3825" y1="66.9925" x2="11.43" y2="67.68" width="0" layer="19" extent="16-16"/>
 <wire x1="12.065" y1="63.00875" x2="12.3825" y2="65.7225" width="0" layer="19" extent="1-16"/>
 <wire x1="10.4775" y1="76.5175" x2="13.335" y2="74.12125" width="0" layer="19" extent="16-16"/>
 <wire x1="44.1475" y1="64.77" x2="46.0225" y2="68.2625" width="0" layer="19" extent="1-1"/>
@@ -10672,7 +10672,20 @@ Covered vias can be set in Masks (Limit).
 <signal name="PA10">
 <contactref element="U0111" pad="102"/>
 <contactref element="X3301" pad="ID"/>
-<wire x1="83.2" y1="5.1112" x2="74.15" y2="66.71" width="0" layer="19" extent="1-1"/>
+<wire x1="83.2" y1="5.1112" x2="83.185" y2="5.1112" width="0.254" layer="1"/>
+<wire x1="83.185" y1="5.1112" x2="83.185" y2="6.35" width="0.254" layer="1"/>
+<via x="83.185" y="6.35" extent="1-16" drill="0.3"/>
+<wire x1="83.185" y1="6.35" x2="83.185" y2="6.6675" width="0.254" layer="15"/>
+<wire x1="83.185" y1="6.6675" x2="86.0425" y2="9.525" width="0.254" layer="15"/>
+<wire x1="86.0425" y1="9.525" x2="86.0425" y2="36.5125" width="0.254" layer="15"/>
+<wire x1="86.0425" y1="36.5125" x2="90.17" y2="40.64" width="0.254" layer="15"/>
+<wire x1="90.17" y1="40.64" x2="90.17" y2="64.77" width="0.254" layer="15"/>
+<via x="90.17" y="64.77" extent="1-16" drill="0.3"/>
+<wire x1="90.17" y1="64.77" x2="81.28" y2="64.77" width="0.254" layer="1"/>
+<wire x1="81.28" y1="64.77" x2="79.6925" y2="66.3575" width="0.254" layer="1"/>
+<wire x1="74.15" y1="66.71" x2="76.4825" y2="66.71" width="0.254" layer="1"/>
+<wire x1="76.4825" y1="66.71" x2="76.835" y2="66.3575" width="0.254" layer="1"/>
+<wire x1="76.835" y1="66.3575" x2="79.6925" y2="66.3575" width="0.254" layer="1"/>
 </signal>
 <signal name="PA8">
 <contactref element="U0111" pad="100"/>
@@ -18943,11 +18956,6 @@ Covered vias can be set in Masks (Limit).
 <approved hash="5,16,6ac7369136f9683f"/>
 <approved hash="3,1,e2d90a230a24e2de"/>
 <approved hash="3,1,c60702fd02ebc611"/>
-<approved hash="1,20,1d2221de20dd1c21"/>
-<approved hash="1,20,dd22e1dee0dcdc20"/>
-<approved hash="1,20,1d2221de20dc1c20"/>
-<approved hash="1,20,1f0e23f2233d1fc1"/>
-<approved hash="1,20,1c66209a209d1c61"/>
 <approved hash="3,1,d940f7b0f680d870"/>
 <approved hash="3,1,488a8da93d5dff19"/>
 <approved hash="3,16,6cf53b0b3b676c99"/>
@@ -18987,6 +18995,11 @@ Covered vias can be set in Masks (Limit).
 <approved hash="3,1,ab402be8005f977c"/>
 <approved hash="3,1,22e70a1d0a2b22d1"/>
 <approved hash="3,1,06d90223022506df"/>
+<approved hash="1,20,1d2221de20dd1c21"/>
+<approved hash="1,20,dd22e1dee0dcdc20"/>
+<approved hash="1,20,1d2221de20dc1c20"/>
+<approved hash="1,20,1f0e23f2233d1fc1"/>
+<approved hash="1,20,1c66209a209d1c61"/>
 <approved hash="3,1,3d498ffe8ac2c979"/>
 <approved hash="3,1,73fd338d338b73fb"/>
 <approved hash="3,16,1470198e181f15e1"/>
