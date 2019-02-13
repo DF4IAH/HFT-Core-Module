@@ -7063,14 +7063,22 @@ Source: http://www.abracon.com/Resonators/ABS07.pdf</description>
 <smd name="22" x="-0.25" y="1.95" dx="0.8" dy="0.25" layer="1" roundness="50" rot="R270"/>
 <smd name="23" x="-0.75" y="1.95" dx="0.8" dy="0.25" layer="1" roundness="50" rot="R270"/>
 <smd name="24" x="-1.25" y="1.95" dx="0.8" dy="0.25" layer="1" roundness="50" rot="R270"/>
-<wire x1="-2" y1="2" x2="-2" y2="-2" width="0.3048" layer="21"/>
-<wire x1="2" y1="2" x2="2" y2="-2" width="0.3048" layer="21"/>
-<wire x1="-2" y1="-2" x2="2" y2="-2" width="0.3048" layer="21"/>
-<wire x1="-2" y1="2" x2="2" y2="2" width="0.3048" layer="21"/>
+<wire x1="-2" y1="2" x2="-2" y2="-2" width="0.2032" layer="51"/>
+<wire x1="2" y1="2" x2="2" y2="-2" width="0.2032" layer="51"/>
+<wire x1="-2" y1="2" x2="2" y2="2" width="0.2032" layer="51"/>
 <text x="-2" y="3" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-3" y="-4.5" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <circle x="-2.5" y="2.5" radius="0.125" width="0.25" layer="21"/>
 <smd name="25" x="0" y="0" dx="2.4" dy="2.4" layer="1" roundness="5"/>
+<wire x1="-2" y1="-1.6" x2="-2" y2="-2" width="0.2032" layer="21"/>
+<wire x1="-2" y1="2" x2="-2" y2="1.6" width="0.2032" layer="21"/>
+<wire x1="2" y1="2" x2="2" y2="1.6" width="0.2032" layer="21"/>
+<wire x1="2" y1="-1.6" x2="2" y2="-2" width="0.2032" layer="21"/>
+<wire x1="-2" y1="2" x2="-1.6" y2="2" width="0.2032" layer="21"/>
+<wire x1="1.6" y1="2" x2="2" y2="2" width="0.2032" layer="21"/>
+<wire x1="-2" y1="-2" x2="2" y2="-2" width="0.2032" layer="51"/>
+<wire x1="-2" y1="-2" x2="-1.6" y2="-2" width="0.2032" layer="21"/>
+<wire x1="1.6" y1="-2" x2="2" y2="-2" width="0.2032" layer="21"/>
 </package>
 </packages>
 <symbols>
