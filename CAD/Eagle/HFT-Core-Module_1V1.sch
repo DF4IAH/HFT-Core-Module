@@ -19298,6 +19298,46 @@ Overlapp: 1&amp;3 / 2&amp;4</description>
 <rectangle x1="0.3302" y1="-0.4699" x2="0.8303" y2="0.4801" layer="51"/>
 <rectangle x1="-0.1999" y1="-0.3" x2="0.1999" y2="0.3" layer="35"/>
 </package>
+<package name="L2016">
+<description>&lt;b&gt;INDUCTOR - L2016&lt;/b&gt;</description>
+<wire x1="-1.75" y1="1.2" x2="1.75" y2="1.2" width="0.0508" layer="39"/>
+<wire x1="1.75" y1="-1.2" x2="-1.75" y2="-1.2" width="0.0508" layer="39"/>
+<wire x1="-1.75" y1="-1.2" x2="-1.75" y2="1.2" width="0.0508" layer="39"/>
+<wire x1="-0.95" y1="0.8" x2="0.95" y2="0.8" width="0.1016" layer="51"/>
+<wire x1="-0.95" y1="-0.8" x2="0.95" y2="-0.8" width="0.1016" layer="51"/>
+<wire x1="1.75" y1="1.2" x2="1.75" y2="-1.2" width="0.0508" layer="39"/>
+<smd name="1" x="-0.8" y="0" dx="0.7" dy="1.6" layer="1"/>
+<smd name="2" x="0.8" y="0" dx="0.7" dy="1.6" layer="1"/>
+<text x="-1.905" y="1.27" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.905" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-1" y1="-0.8" x2="-0.5" y2="0.8" layer="51"/>
+<rectangle x1="0.5" y1="-0.8" x2="1" y2="0.8" layer="51"/>
+<rectangle x1="-0.3" y1="-0.4001" x2="0.3" y2="0.4001" layer="35"/>
+<dimension x1="-1.143" y1="-0.8" x2="-1.143" y2="0.8" x3="2.54" y3="0" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+<dimension x1="-1" y1="-0.8" x2="1" y2="-0.8" x3="0" y3="-3.81" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+<dimension x1="-0.45" y1="-0.8" x2="0.45" y2="-0.8" x3="0" y3="-2.54" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+<dimension x1="-1.15" y1="-0.8" x2="1.15" y2="-0.8" x3="0" y3="-5.08" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+</package>
+<package name="L2520">
+<description>&lt;b&gt;INDUCTOR - L2520&lt;/b&gt;</description>
+<wire x1="-2" y1="1.4" x2="2" y2="1.4" width="0.0508" layer="39"/>
+<wire x1="2" y1="-1.4" x2="-2" y2="-1.4" width="0.0508" layer="39"/>
+<wire x1="-2" y1="-1.4" x2="-2" y2="1.4" width="0.0508" layer="39"/>
+<wire x1="-1.2" y1="1" x2="1.2" y2="1" width="0.1016" layer="51"/>
+<wire x1="-1.2" y1="-1" x2="1.2" y2="-1" width="0.1016" layer="51"/>
+<wire x1="2" y1="1.4" x2="2" y2="-1.4" width="0.0508" layer="39"/>
+<smd name="1" x="-1" y="0" dx="0.8" dy="2" layer="1"/>
+<smd name="2" x="1" y="0" dx="0.8" dy="2" layer="1"/>
+<text x="-1.905" y="1.27" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.905" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-1.25" y1="-1" x2="-0.65" y2="1" layer="51"/>
+<rectangle x1="0.65" y1="-1" x2="1.25" y2="1" layer="51"/>
+<rectangle x1="-0.3" y1="-0.4001" x2="0.3" y2="0.4001" layer="35"/>
+<dimension x1="1.25" y1="-1" x2="1.25" y2="1" x3="2.54" y3="0" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+<dimension x1="-1.4" y1="-1" x2="1.4" y2="-1" x3="0" y3="-5.08" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+<dimension x1="-0.6" y1="-1" x2="0.6" y2="-1" x3="0" y3="-2.54" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+<dimension x1="-1.25" y1="-1" x2="1.25" y2="-1" x3="0" y3="-3.81" textsize="0.5" layer="47" dtype="vertical" width="0.05"/>
+</package>
 </packages>
 <symbols>
 <symbol name="CPOL">
@@ -21618,6 +21658,24 @@ Overlapp: 1&amp;3 / 2&amp;4</description>
 <connects>
 <connect gate="G$1" pin="1" pad="1 3"/>
 <connect gate="G$1" pin="2" pad="2 4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="L2016" package="L2016">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="L2520" package="L2520">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
