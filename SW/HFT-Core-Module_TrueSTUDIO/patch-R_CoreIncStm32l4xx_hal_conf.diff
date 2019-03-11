@@ -1,0 +1,20 @@
+--- SW/HFT-Core-Module_TrueSTUDIO/Core/Inc/stm32l4xx_hal_conf.h	2018-10-13 20:22:06.000000000 +0200
++++ SW/HFT-Core-Module_TrueSTUDIO/Core/Inc/stm32l4xx_hal_conf.h	2018-10-13 20:13:01.000000000 +0200
+@@ -44,17 +44,6 @@
+ /* Exported types ------------------------------------------------------------*/
+ /* Exported constants --------------------------------------------------------*/
+ 
+-/* USER CODE BEGIN EXTERNALS */
+-extern uint32_t                       g_main_HSE_VALUE;
+-extern uint32_t                       g_main_HSE_START_MS;
+-extern uint32_t                       g_main_MSI_VALUE;
+-extern uint32_t                       g_main_HSI_VALUE;
+-extern uint32_t                       g_main_HSI48_VALUE;
+-extern uint32_t                       g_main_LSI_VALUE;
+-extern uint32_t                       g_main_LSE_VALUE;
+-extern uint32_t                       g_main_LSE_START_MS;
+-/* USER CODE END EXTERNALS */
+-
+ /* ########################## Module Selection ############################## */
+ /**
+   * @brief This is the list of modules to be used in the HAL driver 
