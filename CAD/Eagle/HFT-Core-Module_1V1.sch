@@ -30353,7 +30353,7 @@ I2C1 addr: 0x21</text>
 <text x="116.84" y="50.8" size="1.778" layer="97">MCU_EXTI4_PEXPB</text>
 <text x="198.12" y="73.66" size="1.778" layer="97">SIM_STATUS</text>
 <text x="198.12" y="68.58" size="1.778" layer="97">SIM_NETLIGHT</text>
-<text x="198.12" y="83.82" size="1.778" layer="97">D.C.</text>
+<text x="198.12" y="83.82" size="1.778" layer="97">+5V0_BQ_EN</text>
 <text x="198.12" y="58.42" size="1.778" layer="97">ROTENC_I</text>
 <text x="198.12" y="53.34" size="1.778" layer="97">ROTENC_Q</text>
 <text x="198.12" y="48.26" size="1.778" layer="97">ROTENC_PB</text>
@@ -36248,6 +36248,7 @@ Max charge: 2.2A</text>
 <text x="76.2" y="50.8" size="1.778" layer="96">place near VOC_SAMP</text>
 <text x="99.06" y="127" size="1.778" layer="97">V_should = 5.2V</text>
 <text x="35.56" y="96.52" size="1.778" layer="97">BQ_!EN</text>
+<text x="208.28" y="160.02" size="1.778" layer="97">+5V0_BQ_EN</text>
 </plain>
 <instances>
 <instance part="FRAME_26" gate="G$1" x="0" y="0"/>
@@ -36295,7 +36296,7 @@ Max charge: 2.2A</text>
 <attribute name="VALUE" x="182.499" y="75.184" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="TP_BQ_VBAT" gate="G$1" x="134.62" y="152.4" rot="R180"/>
-<instance part="TP_BQ_VOUT" gate="G$1" x="208.28" y="152.4" rot="R180"/>
+<instance part="TP_BQ_VOUT" gate="G$1" x="208.28" y="139.7" rot="R180"/>
 <instance part="U2681" gate="G$1" x="177.8" y="152.4" smashed="yes">
 <attribute name="NAME" x="164.846" y="166.116" size="2.1844" layer="95" ratio="10"/>
 <attribute name="VALUE" x="169.164" y="136.398" size="2.0828" layer="96"/>
@@ -36467,13 +36468,17 @@ Max charge: 2.2A</text>
 <wire x1="144.78" y1="154.94" x2="144.78" y2="170.18" width="0.1524" layer="91"/>
 <junction x="144.78" y="154.94"/>
 <wire x1="144.78" y1="170.18" x2="203.2" y2="170.18" width="0.1524" layer="91"/>
-<wire x1="203.2" y1="170.18" x2="203.2" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="170.18" x2="203.2" y2="160.02" width="0.1524" layer="91"/>
 <pinref part="U2681" gate="G$1" pin="6"/>
+<wire x1="203.2" y1="160.02" x2="203.2" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="203.2" y1="149.86" x2="195.58" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="121.92" x2="88.9" y2="149.86" width="0.1524" layer="91"/>
 <junction x="88.9" y="121.92"/>
 <pinref part="D2681" gate="G$1" pin="C"/>
 <junction x="144.78" y="121.92"/>
+<pinref part="U2681" gate="G$1" pin="8"/>
+<wire x1="203.2" y1="160.02" x2="195.58" y2="160.02" width="0.1524" layer="91"/>
+<junction x="203.2" y="160.02"/>
 </segment>
 </net>
 <net name="BQ_LBUCK" class="0">
@@ -36483,30 +36488,19 @@ Max charge: 2.2A</text>
 <wire x1="157.48" y1="109.22" x2="172.72" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="BQ_VBAT" class="0">
+<net name="PEXPB_P1_0_R" class="0">
 <segment>
-<pinref part="U2601" gate="G$1" pin="VBAT"/>
-<wire x1="134.62" y1="139.7" x2="134.62" y2="119.38" width="0.1524" layer="91"/>
-<label x="134.62" y="124.46" size="1.778" layer="95" rot="R90"/>
-<wire x1="134.62" y1="139.7" x2="139.7" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="139.7" x2="139.7" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="149.86" x2="139.7" y2="172.72" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="172.72" x2="198.12" y2="172.72" width="0.1524" layer="91"/>
-<wire x1="198.12" y1="172.72" x2="198.12" y2="160.02" width="0.1524" layer="91"/>
-<pinref part="TP_BQ_VBAT" gate="G$1" pin="TP"/>
-<wire x1="134.62" y1="139.7" x2="134.62" y2="149.86" width="0.1524" layer="91"/>
-<junction x="134.62" y="139.7"/>
-<pinref part="U2681" gate="G$1" pin="8"/>
-<wire x1="198.12" y1="160.02" x2="195.58" y2="160.02" width="0.1524" layer="91"/>
-<pinref part="C2682" gate="G$1" pin="+"/>
-<wire x1="134.62" y1="139.7" x2="129.54" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="172.72" x2="208.28" y2="172.72" width="0.1524" layer="91"/>
 <pinref part="U2681" gate="G$1" pin="3"/>
 <wire x1="139.7" y1="149.86" x2="160.02" y2="149.86" width="0.1524" layer="91"/>
-<junction x="139.7" y="149.86"/>
-<wire x1="198.12" y1="160.02" x2="198.12" y2="154.94" width="0.1524" layer="91"/>
-<junction x="198.12" y="160.02"/>
 <pinref part="U2681" gate="G$1" pin="7"/>
-<wire x1="198.12" y1="154.94" x2="195.58" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="172.72" x2="208.28" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="160.02" x2="226.06" y2="160.02" width="0.1524" layer="91"/>
+<label x="226.06" y="160.02" size="1.778" layer="95" xref="yes"/>
+<wire x1="195.58" y1="154.94" x2="208.28" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="154.94" x2="208.28" y2="160.02" width="0.1524" layer="91"/>
+<junction x="208.28" y="160.02"/>
 </segment>
 </net>
 <net name="BQ_VRDIFF" class="0">
@@ -36592,7 +36586,7 @@ Max charge: 2.2A</text>
 <wire x1="177.8" y1="104.14" x2="198.12" y2="104.14" width="0.1524" layer="91"/>
 <junction x="198.12" y="104.14"/>
 <pinref part="TP_BQ_VOUT" gate="G$1" pin="TP"/>
-<wire x1="208.28" y1="109.22" x2="208.28" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="109.22" x2="208.28" y2="137.16" width="0.1524" layer="91"/>
 <junction x="208.28" y="109.22"/>
 </segment>
 </net>
@@ -36642,6 +36636,18 @@ Max charge: 2.2A</text>
 <wire x1="68.58" y1="83.82" x2="68.58" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="96.52" x2="22.86" y2="96.52" width="0.1524" layer="91"/>
 <label x="22.86" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="VBAT" class="0">
+<segment>
+<pinref part="U2601" gate="G$1" pin="VBAT"/>
+<pinref part="C2682" gate="G$1" pin="+"/>
+<pinref part="TP_BQ_VBAT" gate="G$1" pin="TP"/>
+<wire x1="134.62" y1="139.7" x2="134.62" y2="149.86" width="0.1524" layer="91"/>
+<junction x="134.62" y="139.7"/>
+<wire x1="134.62" y1="139.7" x2="129.54" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="139.7" x2="134.62" y2="119.38" width="0.1524" layer="91"/>
+<label x="134.62" y="124.46" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 </nets>
@@ -39480,7 +39486,6 @@ fix layout of sockets</text>
 <approved hash="102,22,81.28,111.76,VREG,SX_VREG,,,,"/>
 <approved hash="102,25,157.48,73.66,SYS,LIPO_SYS,,,,"/>
 <approved hash="102,25,157.48,71.12,SYS,LIPO_SYS,,,,"/>
-<approved hash="102,26,134.62,119.38,VBAT,BQ_VBAT,,,,"/>
 <approved hash="104,15,180.34,149.86,U1531,VCC_3V0,+3V0_20MHZ_VCTCXO,,,"/>
 <approved hash="104,15,35.56,58.42,U1501,VIN,+3V3_XO,,,"/>
 <approved hash="104,15,185.42,60.96,U1542,V+,+3V3,,,"/>
@@ -39535,7 +39540,7 @@ fix layout of sockets</text>
 <approved hash="104,24,101.6,124.46,U2401,VIN,DC_12V_IN,,,"/>
 <approved hash="104,24,157.48,101.6,U2401,BIAS,LM53603_BIAS,,,"/>
 <approved hash="104,24,101.6,121.92,U2401,VIN,DC_12V_IN,,,"/>
-<approved hash="104,26,195.58,160.02,U2681,8,BQ_VBAT,,,"/>
+<approved hash="104,26,195.58,160.02,U2681,8,BQ_VSTOR,,,"/>
 <approved hash="104,34,48.26,27.94,U3491,8,PEXPA_P1_7_R,,,"/>
 <approved hash="104,9,154.94,116.84,U0911,EINK_VDD,+3V3,,,"/>
 <approved hash="104,28,116.84,116.84,U2801,VIN,+3V3,,,"/>
