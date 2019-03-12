@@ -30,14 +30,14 @@
 <layer number="20" name="Dimension" color="5" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
 <layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
@@ -51,12 +51,12 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
 <layer number="47" name="Measures" color="13" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="14" fill="1" visible="no" active="yes"/>
 <layer number="52" name="bDocu" color="6" fill="1" visible="no" active="yes"/>
@@ -261,6 +261,12 @@ socket &lt;--&gt; edge: 50.0 mil</text>
 <text x="19.3675" y="94.615" size="1.6764" layer="21" font="vector" ratio="10">-</text>
 <text x="3.81" y="94.615" size="1.27" layer="21" font="vector" ratio="10">12V</text>
 <text x="4.92125" y="8.09625" size="1.778" layer="21" font="vector" ratio="10">SIM-Card</text>
+<text x="0.9525" y="1.42875" size="0.6096" layer="1" ratio="15">TOP</text>
+<text x="2.54" y="1.42875" size="0.6096" layer="16" ratio="15" rot="MR0">BOT</text>
+<text x="1.27" y="1.42875" size="0.6096" layer="2" ratio="15">L2</text>
+<text x="1.27" y="1.42875" size="0.6096" layer="3" ratio="15">L3</text>
+<text x="1.27" y="1.42875" size="0.6096" layer="14" ratio="15">L4</text>
+<text x="1.27" y="1.42875" size="0.6096" layer="15" ratio="15">L5</text>
 </plain>
 <libraries>
 <library name="rcl">
@@ -1912,6 +1918,166 @@ MELF 0.25 W</description>
 <vertex x="-2.286" y="-5.715" curve="-90"/>
 </polygon>
 <polygon width="0.01" layer="15" pour="cutout">
+<vertex x="6.35" y="-5.969"/>
+<vertex x="4.445" y="-5.969" curve="-90"/>
+<vertex x="4.064" y="-5.715"/>
+<vertex x="4.064" y="-4.318" curve="-90"/>
+<vertex x="4.318" y="-4.064"/>
+<vertex x="6.35" y="-4.064" curve="-90"/>
+<vertex x="6.604" y="-4.318"/>
+<vertex x="6.604" y="-5.715" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="-5.461" y="-1.905"/>
+<vertex x="-5.461" y="0" curve="-90"/>
+<vertex x="-5.207" y="0.381"/>
+<vertex x="-3.81" y="0.381" curve="-90"/>
+<vertex x="-3.556" y="0.127"/>
+<vertex x="-3.556" y="-1.905" curve="-90"/>
+<vertex x="-3.81" y="-2.159"/>
+<vertex x="-5.207" y="-2.159" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="-3.048" y="0.127"/>
+<vertex x="-3.048" y="2.032" curve="-90"/>
+<vertex x="-2.794" y="2.413"/>
+<vertex x="-1.397" y="2.413" curve="-90"/>
+<vertex x="-1.143" y="2.159"/>
+<vertex x="-1.143" y="0.127" curve="-90"/>
+<vertex x="-1.397" y="-0.127"/>
+<vertex x="-2.794" y="-0.127" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="0.635" y="-1.905"/>
+<vertex x="0.635" y="0" curve="-90"/>
+<vertex x="0.889" y="0.381"/>
+<vertex x="2.286" y="0.381" curve="-90"/>
+<vertex x="2.54" y="0.127"/>
+<vertex x="2.54" y="-1.905" curve="-90"/>
+<vertex x="2.286" y="-2.159"/>
+<vertex x="0.889" y="-2.159" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="2.413" y="0.127"/>
+<vertex x="2.413" y="2.032" curve="-90"/>
+<vertex x="2.667" y="2.413"/>
+<vertex x="4.064" y="2.413" curve="-90"/>
+<vertex x="4.318" y="2.159"/>
+<vertex x="4.318" y="0.127" curve="-90"/>
+<vertex x="4.064" y="-0.127"/>
+<vertex x="2.667" y="-0.127" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="6.096" y="-1.905"/>
+<vertex x="6.096" y="0" curve="-90"/>
+<vertex x="6.35" y="0.381"/>
+<vertex x="7.747" y="0.381" curve="-90"/>
+<vertex x="8.001" y="0.127"/>
+<vertex x="8.001" y="-1.905" curve="-90"/>
+<vertex x="7.747" y="-2.159"/>
+<vertex x="6.35" y="-2.159" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="6.35" y="2.667"/>
+<vertex x="4.445" y="2.667" curve="-90"/>
+<vertex x="4.064" y="2.921"/>
+<vertex x="4.064" y="4.318" curve="-90"/>
+<vertex x="4.318" y="4.572"/>
+<vertex x="6.35" y="4.572" curve="-90"/>
+<vertex x="6.604" y="4.318"/>
+<vertex x="6.604" y="2.921" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="-2.54" y="-5.969"/>
+<vertex x="-4.445" y="-5.969" curve="-90"/>
+<vertex x="-4.826" y="-5.715"/>
+<vertex x="-4.826" y="-4.318" curve="-90"/>
+<vertex x="-4.572" y="-4.064"/>
+<vertex x="-2.54" y="-4.064" curve="-90"/>
+<vertex x="-2.286" y="-4.318"/>
+<vertex x="-2.286" y="-5.715" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="14" pour="cutout">
+<vertex x="6.35" y="-5.969"/>
+<vertex x="4.445" y="-5.969" curve="-90"/>
+<vertex x="4.064" y="-5.715"/>
+<vertex x="4.064" y="-4.318" curve="-90"/>
+<vertex x="4.318" y="-4.064"/>
+<vertex x="6.35" y="-4.064" curve="-90"/>
+<vertex x="6.604" y="-4.318"/>
+<vertex x="6.604" y="-5.715" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="-5.461" y="-1.905"/>
+<vertex x="-5.461" y="0" curve="-90"/>
+<vertex x="-5.207" y="0.381"/>
+<vertex x="-3.81" y="0.381" curve="-90"/>
+<vertex x="-3.556" y="0.127"/>
+<vertex x="-3.556" y="-1.905" curve="-90"/>
+<vertex x="-3.81" y="-2.159"/>
+<vertex x="-5.207" y="-2.159" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="-3.048" y="0.127"/>
+<vertex x="-3.048" y="2.032" curve="-90"/>
+<vertex x="-2.794" y="2.413"/>
+<vertex x="-1.397" y="2.413" curve="-90"/>
+<vertex x="-1.143" y="2.159"/>
+<vertex x="-1.143" y="0.127" curve="-90"/>
+<vertex x="-1.397" y="-0.127"/>
+<vertex x="-2.794" y="-0.127" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="0.635" y="-1.905"/>
+<vertex x="0.635" y="0" curve="-90"/>
+<vertex x="0.889" y="0.381"/>
+<vertex x="2.286" y="0.381" curve="-90"/>
+<vertex x="2.54" y="0.127"/>
+<vertex x="2.54" y="-1.905" curve="-90"/>
+<vertex x="2.286" y="-2.159"/>
+<vertex x="0.889" y="-2.159" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="2.413" y="0.127"/>
+<vertex x="2.413" y="2.032" curve="-90"/>
+<vertex x="2.667" y="2.413"/>
+<vertex x="4.064" y="2.413" curve="-90"/>
+<vertex x="4.318" y="2.159"/>
+<vertex x="4.318" y="0.127" curve="-90"/>
+<vertex x="4.064" y="-0.127"/>
+<vertex x="2.667" y="-0.127" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="6.096" y="-1.905"/>
+<vertex x="6.096" y="0" curve="-90"/>
+<vertex x="6.35" y="0.381"/>
+<vertex x="7.747" y="0.381" curve="-90"/>
+<vertex x="8.001" y="0.127"/>
+<vertex x="8.001" y="-1.905" curve="-90"/>
+<vertex x="7.747" y="-2.159"/>
+<vertex x="6.35" y="-2.159" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="6.35" y="2.667"/>
+<vertex x="4.445" y="2.667" curve="-90"/>
+<vertex x="4.064" y="2.921"/>
+<vertex x="4.064" y="4.318" curve="-90"/>
+<vertex x="4.318" y="4.572"/>
+<vertex x="6.35" y="4.572" curve="-90"/>
+<vertex x="6.604" y="4.318"/>
+<vertex x="6.604" y="2.921" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
+<vertex x="-2.54" y="-5.969"/>
+<vertex x="-4.445" y="-5.969" curve="-90"/>
+<vertex x="-4.826" y="-5.715"/>
+<vertex x="-4.826" y="-4.318" curve="-90"/>
+<vertex x="-4.572" y="-4.064"/>
+<vertex x="-2.54" y="-4.064" curve="-90"/>
+<vertex x="-2.286" y="-4.318"/>
+<vertex x="-2.286" y="-5.715" curve="-90"/>
+</polygon>
+<polygon width="0.01" layer="3" pour="cutout">
 <vertex x="6.35" y="-5.969"/>
 <vertex x="4.445" y="-5.969" curve="-90"/>
 <vertex x="4.064" y="-5.715"/>
@@ -11946,7 +12112,9 @@ Covered vias can be set in Masks (Limit).
 <wire x1="26.035" y1="73.9775" x2="23.97125" y2="73.9775" width="0.1524" layer="16"/>
 <wire x1="23.97125" y1="73.9775" x2="22.5425" y2="75.40625" width="0.1524" layer="16"/>
 <wire x1="22.5425" y1="75.40625" x2="22.5425" y2="77.94625" width="0.1524" layer="16"/>
-<wire x1="11.43" y1="74.5975" x2="16.5354" y2="62.5602" width="0" layer="19" extent="16-16"/>
+<via x="16.1925" y="62.5475" extent="1-16" drill="0.3"/>
+<wire x1="16.5354" y1="62.5602" x2="16.1925" y2="62.5602" width="0.1524" layer="16"/>
+<wire x1="16.1925" y1="62.5602" x2="16.1925" y2="62.5475" width="0.1524" layer="16"/>
 </signal>
 <signal name="XO_LP">
 <contactref element="R1521" pad="2"/>
